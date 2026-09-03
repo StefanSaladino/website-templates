@@ -4,13 +4,14 @@ A standalone gallery of landing-page concepts. The gallery uses Boomer Automatio
 
 ## Current milestone
 
-Five templates are live:
+Six templates are live:
 
 1. **Quiet SaaS / Arc** — `templates/quiet-saas/`
 2. **Dark Tech / KERN** — `templates/dark-tech/`
 3. **Architecture / Morrow** — `templates/architecture/`
 4. **Fitness Launch / YARD** — `templates/fitness-launch/`
 5. **Contractor / LINE + LEVEL** — `templates/contractor/`
+6. **Restaurant / SERA** — `templates/restaurant/`
 
 Open `index.html` with Live Server and click any live template preview.
 
@@ -27,6 +28,7 @@ Motion is part of the collection only when it serves the concept:
 - Morrow: full-screen photography, image parallax and scroll-triggered reveals.
 - YARD: kinetic headline entrance, full-bleed photo parallax and diagonal hero geometry.
 - LINE + LEVEL: restrained section reveals and light hero-photo parallax; conversion clarity remains the focus.
+- SERA: full-screen dining-room photography, slow parallax, shallow curved hero sweep and restrained reveals.
 
 Every template respects `prefers-reduced-motion`.
 
@@ -46,6 +48,7 @@ Every template respects `prefers-reduced-motion`.
 - `templates/architecture/` — Template 03
 - `templates/fitness-launch/` — Template 04
 - `templates/contractor/` — Template 05
+- `templates/restaurant/` — Template 06
 - `PROJECT-ROADMAP.md` — project status
 
 ## Photography
@@ -59,3 +62,7 @@ Every completed template must replace its placeholder artwork with a gallery pre
 
 ### Template 05 refinement
 LINE + LEVEL now uses a restrained muted-olive accent instead of cobalt blue, and its mobile service strip uses aligned number/title columns.
+
+
+### Template 06 — SERA
+SERA introduces the first hospitality template: a full-screen restaurant hero, menu rows, atmospheric photography and a compact reservation flow. The fictional data and pricing are intentionally plausible demo content rather than decorative telemetry.

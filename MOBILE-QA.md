@@ -1,4 +1,4 @@
-# Mobile Retrofit — Gallery + Templates 01–03
+# Mobile QA — Gallery + Live Templates
 
 ## Locked baseline
 
@@ -76,3 +76,16 @@ Every new template is checked at 320px, 375–430px, tablet, laptop and wide des
 - Process rows preserve numbering and context without horizontal scrolling.
 - Lead form collapses to one column.
 - Parallax is disabled under reduced-motion preferences.
+
+
+## Template 06 — SERA / Restaurant
+
+- Sticky mobile header remains visible over the long hospitality page.
+- Menu opens beneath the header, locks background scrolling and closes on navigation, Escape or desktop resize.
+- Full-screen hero gets its own phone crop so the dining room remains legible behind the headline.
+- Hero actions stack vertically and the reservation CTA remains the clear primary action.
+- Menu rows preserve dish, description and price without horizontal scrolling.
+- Room section moves from desktop split composition to image-first vertical reading order.
+- Reservation form collapses to one column.
+- Visit details reflow for 320px without clipped addresses or metadata.
+- Parallax and reveal transitions respect `prefers-reduced-motion`.

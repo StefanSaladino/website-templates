@@ -11,7 +11,7 @@
 - [x] Step 4B — Mobile-first retrofit: gallery + Templates 01–03
 - [x] Step 5 — Template 04: Fitness Launch
 - [x] Step 6 — Template 05: Contractor
-- [ ] Step 7 — Template 06: Restaurant
+- [x] Step 7 — Template 06: Restaurant
 - [ ] Step 8 — Template 07: App Launch
 - [ ] Step 9 — Template 08: Creative Agency
 - [ ] Step 10 — Template 09: Real Estate
@@ -33,6 +33,7 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Dark Tech: restrained reveals and release-document scroll depth.
 - Architecture: full-screen photographic hero, image parallax and scroll reveals.
 - Contractor: restrained reveals and light hero-photo parallax, with conversion clarity prioritized over decorative motion.
+- Restaurant: full-screen dining-room hero, slow image parallax, a shallow curved hero sweep and restrained section reveals.
 - Later templates will deliberately explore video heroes, stronger image masks, sticky storytelling and more expressive scroll effects where they fit.
 
 ## Template 01 — Quiet SaaS
@@ -100,8 +101,24 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Audience: Toronto + GTA homeowners planning kitchens, main floors, basements or structural renovation work
 - Primary CTA: Book a site visit
 - Length: medium / long
-- Visual concept: crisp cobalt, true white and black with real construction photography and scope-first typography
+- Visual concept: muted olive-grey, true white and black with real construction photography and scope-first typography
 - Hero composition: conversion copy beside an active-renovation image, followed by service scope rather than trust-card clutter
 - Distinctive element: blueprint-like scope sheet and process rows that explain how a renovation is run before asking for the lead
 - Mobile baseline: sticky header, scroll-locking menu, full-width primary CTA, vertical scope sheet and no horizontal overflow
+- Gallery preview synced to the finished page
+
+
+## Template 06 — Restaurant
+
+`templates/restaurant/`
+
+- Fictional brand: SERA / Supper Club
+- Industry: restaurant / hospitality
+- Audience: Toronto diners looking for a small, atmosphere-led dinner experience
+- Primary CTA: Reserve a table
+- Length: medium
+- Visual concept: warm supper-club editorial using near-cream paper, dark brown-black and muted tomato
+- Hero composition: full-viewport restaurant photography with integrated navigation and oversized serif copy
+- Distinctive element: slow image parallax, a shallow curved hero sweep, menu rows and a reservation-first flow rather than hospitality card grids
+- Mobile baseline: sticky header, scroll-locking menu, independent hero crop, vertical reservation form and no horizontal overflow
 - Gallery preview synced to the finished page

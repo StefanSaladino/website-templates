@@ -492,3 +492,17 @@ main { padding: 0 clamp(20px, 4vw, 64px); }
 .yard-thumb-copy b { display:block; font-family:Impact,"Arial Narrow",sans-serif; font-size:clamp(26px,3.8vw,52px); line-height:.86; letter-spacing:-.025em; }
 .yard-thumb-copy em { color:#dcff38; font-style:normal; }
 .yard-thumb-cut { position:absolute; z-index:2; right:-1px; bottom:-1px; width:34%; height:24%; background:#fcfcfb; clip-path:polygon(100% 0,100% 100%,0 100%); }
+
+/* Template 06 — SERA restaurant */
+.thumb--sera { position: relative; overflow: hidden; background: #181411; color: #fff; }
+.thumb--sera > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; filter: saturate(.78) contrast(1.04); }
+.sera-thumb-shade { position: absolute; inset: 0; background: linear-gradient(180deg,rgba(12,8,5,.14),rgba(12,8,5,.72)); }
+.sera-thumb-top { position: absolute; z-index: 2; top: 9%; left: 7%; right: 7%; display: flex; justify-content: space-between; align-items: baseline; }
+.sera-thumb-top b { font-size: 10px; letter-spacing: -.04em; }
+.sera-thumb-top small { font-size: 5px; letter-spacing: .12em; }
+.sera-thumb-copy { position: absolute; z-index: 2; left: 7%; bottom: 13%; }
+.sera-thumb-copy > small { display: block; margin-bottom: 5%; font-size: 5px; letter-spacing: .14em; }
+.sera-thumb-copy > b { display: block; font: 400 clamp(20px,3vw,42px)/.9 Georgia,serif; letter-spacing: -.055em; }
+.sera-thumb-copy > b em { font-weight: 400; }
+.sera-thumb-copy > i { display: inline-block; margin-top: 8%; padding: 6px 10px; background: #f6f1e8; color: #181411; font: 700 5px/1 Arial,sans-serif; font-style: normal; }
+.sera-thumb-sweep { position: absolute; z-index: 3; left: -4%; right: -4%; bottom: -9%; height: 17%; background: #f6f1e8; border-radius: 50% 50% 0 0 / 80% 80% 0 0; }

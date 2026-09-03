@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SERA is a fictional Toronto supper club landing-page concept from the Boomer Automation template library." />
+  <title>SERA — Supper Club</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="wordmark" href="#top" aria-label="SERA home">SERA<span>/</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#menu">Tonight</a>
+      <a href="#room">The room</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <a class="reserve-link" href="#reserve">Reserve a table</a>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+      <a href="#menu">Tonight</a>
+      <a href="#room">The room</a>
+      <a href="#visit">Visit</a>
+      <a class="mobile-reserve" href="#reserve">Reserve a table</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" data-parallax="0.16">
+        <img src="https://images.unsplash.com/photo-1774989423979-6a7bf5add3f0?auto=format&amp;fit=crop&amp;fm=jpg&amp;ixlib=rb-4.1.0&amp;q=72&amp;w=2600" alt="Warmly lit dining room with dark wood tables and amber lighting" />
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Toronto · Dinner from 5:30</p>
+        <h1 id="hero-title" class="reveal reveal-delay">Dinner moves<br><em>at a different speed</em><br>here</h1>
+        <div class="hero-actions reveal reveal-delay-2">
+          <a class="button button-light" href="#reserve">Reserve a table</a>
+          <a class="text-link" href="#menu">See tonight's menu <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <p class="hero-note reveal">Open kitchen · 38 seats · Queen West</p>
+      <div class="hero-sweep" aria-hidden="true"></div>
+    </section>
+
+    <section class="opening section-shell reveal" aria-labelledby="opening-title">
+      <p class="section-number">01 / THE IDEA</p>
+      <div class="opening-grid">
+        <h2 id="opening-title">Fire, acid, smoke, salt<br><em>Nothing else needs to be loud</em></h2>
+        <p>SERA is a small supper club built around food that changes with the week. The room is dark, the kitchen is open, and the menu is short enough that the whole table can try nearly everything.</p>
+      </div>
+    </section>
+
+    <section class="menu-section" id="menu" aria-labelledby="menu-title">
+      <div class="section-shell menu-head reveal">
+        <p class="section-number">02 / TONIGHT</p>
+        <div>
+          <h2 id="menu-title">A short menu<br>on purpose</h2>
+          <p>Example menu · changes with the market</p>
+        </div>
+      </div>
+      <div class="menu-list section-shell reveal">
+        <article><span>01</span><div><h3>Warm bread, smoked butter</h3><p>malt · cultured cream · sea salt</p></div><b>9</b></article>
+        <article><span>02</span><div><h3>Yellowtail, burnt citrus</h3><p>green chile · cucumber · coriander</p></div><b>22</b></article>
+        <article><span>03</span><div><h3>Coal-roasted cabbage</h3><p>hazelnut · anchovy · brown butter</p></div><b>18</b></article>
+        <article><span>04</span><div><h3>Duck, plum, black pepper</h3><p>chicory · jus · fermented honey</p></div><b>36</b></article>
+        <article><span>05</span><div><h3>Olive oil cake</h3><p>crème fraîche · late-summer berries</p></div><b>14</b></article>
+      </div>
+    </section>
+
+    <section class="room" id="room" aria-labelledby="room-title">
+      <div class="room-image" data-parallax="0.09">
+        <img src="https://images.unsplash.com/photo-1760662435569-84a4fb1fa407?auto=format&amp;fit=crop&amp;fm=jpg&amp;ixlib=rb-4.1.0&amp;q=72&amp;w=2200" alt="Dimly lit restaurant table with a small lamp and wine glass" loading="lazy" />
+      </div>
+      <div class="room-copy reveal">
+        <p class="section-number">03 / THE ROOM</p>
+        <h2 id="room-title">Close enough<br>to hear the kitchen</h2>
+        <p>Thirty-eight seats, low light, no private dining room. The bar faces the pass, the tables stay close, and the playlist gets louder after nine.</p>
+        <dl>
+          <div><dt>Seats</dt><dd>38</dd></div>
+          <div><dt>Bar</dt><dd>10</dd></div>
+          <div><dt>Kitchen</dt><dd>Open</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="image-break" aria-label="SERA dining room">
+      <div data-parallax="0.08"><img src="https://images.unsplash.com/photo-1773100699991-b7e6bf89a6a1?auto=format&amp;fit=crop&amp;fm=jpg&amp;ixlib=rb-4.1.0&amp;q=72&amp;w=2400" alt="Restaurant dining room with arched window and set tables" loading="lazy" /></div>
+      <p>Stay for one plate<br>or stay for the night</p>
+    </section>
+
+    <section class="reserve" id="reserve" aria-labelledby="reserve-title">
+      <div class="reserve-copy reveal">
+        <p class="section-number">04 / RESERVATIONS</p>
+        <h2 id="reserve-title">Save a seat</h2>
+        <p>Reservations open 21 days ahead. Walk-ins are held at the bar every night.</p>
+      </div>
+      <form class="reserve-form reveal" action="#" method="get" onsubmit="return false;">
+        <div class="field-row">
+          <label>Date<input type="date" name="date" /></label>
+          <label>Guests<select name="guests"><option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5 guests</option><option>6 guests</option></select></label>
+        </div>
+        <label>Email<input type="email" name="email" placeholder="you@example.com" /></label>
+        <button class="button button-dark" type="submit">Find a table</button>
+        <p class="form-note">Demo form for template preview.</p>
+      </form>
+    </section>
+
+    <section class="visit section-shell" id="visit" aria-labelledby="visit-title">
+      <div class="visit-head reveal">
+        <p class="section-number">05 / VISIT</p>
+        <h2 id="visit-title">Queen West<br>after dark</h2>
+      </div>
+      <div class="visit-details reveal">
+        <div><span>Address</span><p>1187 Queen Street West<br>Toronto, Ontario</p></div>
+        <div><span>Hours</span><p>Tue–Thu 5:30–11<br>Fri–Sat 5:30–late</p></div>
+        <div><span>Contact</span><p>hello@sera.example<br>416 555 0187</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="footer-mark" href="#top">SERA/</a>
+    <p>Fictional hospitality concept for the Boomer Automation template library.</p>
+    <div class="credits">
+      <span>Photography: <a href="https://unsplash.com/photos/elegant-restaurant-dining-area-with-warm-lighting-Ph7Y42lXzyw" target="_blank" rel="noopener">Leonardo Ziaja</a>, <a href="https://unsplash.com/photos/a-dimly-lit-table-with-a-lamp-and-drink-oAfV-hFL620" target="_blank" rel="noopener">Dmitry Spravko</a></span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
