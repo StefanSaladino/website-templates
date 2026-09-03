@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="KERN is a fictional release-planning product for engineering teams." />
+  <title>KERN — Release planning for engineering teams</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="KERN home">KERN<span>/</span></a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#product">Product</a>
+      <a href="#method">Method</a>
+      <a href="#releases">Releases</a>
+    </nav>
+    <a class="header-action" href="#start">Start a release plan</a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Release planning for engineering teams</p>
+        <h1 id="hero-title">See the change.<br><em>Then ship it.</em></h1>
+        <p class="hero-lede">KERN keeps scope, dependencies, owners and approvals in one release document so the plan survives the path to production.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#start">Start a release plan</a>
+          <a class="text-action" href="#product">View the product ↓</a>
+        </div>
+      </div>
+
+      <div class="plan-wrap" id="product" aria-label="Illustrative KERN release plan">
+        <span class="release-number" aria-hidden="true">24.9</span>
+        <div class="plan-note">Example release plan</div>
+        <article class="release-plan">
+          <header class="plan-header">
+            <div>
+              <span class="plan-label">RELEASE / 24.9</span>
+              <h2>Authentication refresh</h2>
+            </div>
+            <span class="plan-state">In review</span>
+          </header>
+
+          <section class="plan-section">
+            <h3>Change scope</h3>
+            <div class="plan-row">
+              <span>01</span>
+              <div><strong>Rotate token handling</strong><p>API · auth-service</p></div>
+              <b>Ready</b>
+            </div>
+            <div class="plan-row">
+              <span>02</span>
+              <div><strong>Validate callback behavior</strong><p>Web · sign-in route</p></div>
+              <b>Review</b>
+            </div>
+            <div class="plan-row">
+              <span>03</span>
+              <div><strong>Update session expiry copy</strong><p>Docs · sign-in guide</p></div>
+              <b>Queued</b>
+            </div>
+          </section>
+
+          <section class="plan-section dependency-section">
+            <h3>Dependencies</h3>
+            <div class="dependency-row"><span>Web client</span><p>Deploy after API token rotation · Owner: Jules</p></div>
+            <div class="dependency-row"><span>Documentation</span><p>Publish after production verification · Owner: Nia</p></div>
+          </section>
+
+          <section class="plan-section checklist-section">
+            <h3>Ship checklist</h3>
+            <label><input type="checkbox" checked disabled /> Scope reviewed</label>
+            <label><input type="checkbox" checked disabled /> Security review complete</label>
+            <label><input type="checkbox" disabled /> Release note approved</label>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    <section class="statement" aria-label="KERN product statement">
+      <p>Release context usually scatters before the code ships.</p>
+      <strong>KERN keeps the decision, the dependency and the owner beside the change.</strong>
+    </section>
+
+    <section class="method" id="method" aria-labelledby="method-title">
+      <div class="section-intro">
+        <p class="eyebrow">The method</p>
+        <h2 id="method-title">From change set to ship note.</h2>
+      </div>
+      <div class="method-rows">
+        <article>
+          <span>01</span>
+          <h3>Write the release intent</h3>
+          <p>Start with what is changing and why. Scope stays readable before tickets, pull requests and chat threads multiply.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Attach what must move with it</h3>
+          <p>Dependencies and owners sit beside the change so reviewers know what needs coordination before approval.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Close from the same document</h3>
+          <p>Use the approved plan for the release note and final checklist instead of rebuilding context at deploy time.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="release-index" id="releases" aria-labelledby="release-index-title">
+      <div class="release-index-head">
+        <p class="eyebrow">Release index</p>
+        <h2 id="release-index-title">A readable record of what shipped.</h2>
+      </div>
+      <div class="release-table" role="table" aria-label="Example KERN release index">
+        <div class="release-table-row release-table-head" role="row">
+          <span role="columnheader">Release</span><span role="columnheader">Change</span><span role="columnheader">State</span><span role="columnheader">Date</span>
+        </div>
+        <div class="release-table-row" role="row">
+          <span role="cell">24.9</span><strong role="cell">Authentication refresh</strong><span role="cell">In review</span><time role="cell" datetime="2026-09-12">Sep 12</time>
+        </div>
+        <div class="release-table-row" role="row">
+          <span role="cell">24.8</span><strong role="cell">Billing retry policy</strong><span role="cell">Shipped</span><time role="cell" datetime="2026-09-05">Sep 05</time>
+        </div>
+        <div class="release-table-row" role="row">
+          <span role="cell">24.7</span><strong role="cell">Webhook cleanup</strong><span role="cell">Shipped</span><time role="cell" datetime="2026-08-28">Aug 28</time>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="start" aria-labelledby="start-title">
+      <p class="eyebrow">For the next release</p>
+      <h2 id="start-title">Write the plan<br>before the deploy.</h2>
+      <a class="primary-action light" href="#product">Start a release plan</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>KERN / TEMPLATE 02</span>
+    <a href="../../">Back to Boomer Automation template library ↑</a>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
