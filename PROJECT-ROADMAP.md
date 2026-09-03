@@ -12,7 +12,7 @@
 - [x] Step 5 — Template 04: Fitness Launch
 - [x] Step 6 — Template 05: Contractor
 - [x] Step 7 — Template 06: Restaurant
-- [ ] Step 8 — Template 07: App Launch
+- [x] Step 8 — Template 07: App Launch
 - [ ] Step 9 — Template 08: Creative Agency
 - [ ] Step 10 — Template 09: Real Estate
 - [ ] Step 11 — Template 10: Waitlist
@@ -34,6 +34,7 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Architecture: full-screen photographic hero, image parallax and scroll reveals.
 - Contractor: restrained reveals and light hero-photo parallax, with conversion clarity prioritized over decorative motion.
 - Restaurant: full-screen dining-room hero, slow image parallax, a shallow curved hero sweep and restrained section reveals.
+- App Launch: phone/device parallax, restrained reveals and a full-width wave transition from the hero into the day-view section.
 - Later templates will deliberately explore video heroes, stronger image masks, sticky storytelling and more expressive scroll effects where they fit.
 
 ## Template 01 — Quiet SaaS
@@ -121,4 +122,20 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Hero composition: full-viewport restaurant photography with integrated navigation and oversized serif copy
 - Distinctive element: slow image parallax, a shallow curved hero sweep, menu rows and a reservation-first flow rather than hospitality card grids
 - Mobile baseline: sticky header, scroll-locking menu, independent hero crop, vertical reservation form and no horizontal overflow
+- Gallery preview synced to the finished page
+
+
+## Template 07 — App Launch
+
+`templates/app-launch/`
+
+- Fictional brand: TIDE
+- Industry: consumer productivity / daily planning app
+- Audience: people who want appointments, errands and short lists in one simple day view
+- Primary CTA: Get Tide
+- Length: short / medium
+- Visual concept: near-white consumer app launch using solid coral, butter-yellow and mint rather than gradients
+- Hero composition: oversized editorial copy beside a CSS-built phone interface surrounded by simple geometric colour fields
+- Distinctive element: full-width wave hero transition, device parallax and a timeline-first product demonstration rather than a SaaS dashboard
+- Mobile baseline: sticky header, scroll-locking menu, full-width CTA, phone-specific type/device sizing and vertical content order
 - Gallery preview synced to the finished page

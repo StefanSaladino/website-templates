@@ -4,7 +4,7 @@ A standalone gallery of landing-page concepts. The gallery uses Boomer Automatio
 
 ## Current milestone
 
-Six templates are live:
+Seven templates are live:
 
 1. **Quiet SaaS / Arc** — `templates/quiet-saas/`
 2. **Dark Tech / KERN** — `templates/dark-tech/`
@@ -12,6 +12,7 @@ Six templates are live:
 4. **Fitness Launch / YARD** — `templates/fitness-launch/`
 5. **Contractor / LINE + LEVEL** — `templates/contractor/`
 6. **Restaurant / SERA** — `templates/restaurant/`
+7. **App Launch / TIDE** — `templates/app-launch/`
 
 Open `index.html` with Live Server and click any live template preview.
 
@@ -29,6 +30,7 @@ Motion is part of the collection only when it serves the concept:
 - YARD: kinetic headline entrance, full-bleed photo parallax and diagonal hero geometry.
 - LINE + LEVEL: restrained section reveals and light hero-photo parallax; conversion clarity remains the focus.
 - SERA: full-screen dining-room photography, slow parallax, shallow curved hero sweep and restrained reveals.
+- TIDE: device parallax, section reveals and a full-width wave transition beneath the hero.
 
 Every template respects `prefers-reduced-motion`.
 
@@ -49,6 +51,7 @@ Every template respects `prefers-reduced-motion`.
 - `templates/fitness-launch/` — Template 04
 - `templates/contractor/` — Template 05
 - `templates/restaurant/` — Template 06
+- `templates/app-launch/` — Template 07
 - `PROJECT-ROADMAP.md` — project status
 
 ## Photography
@@ -66,3 +69,7 @@ LINE + LEVEL now uses a restrained muted-olive accent instead of cobalt blue, an
 
 ### Template 06 — SERA
 SERA introduces the first hospitality template: a full-screen restaurant hero, menu rows, atmospheric photography and a compact reservation flow. The fictional data and pricing are intentionally plausible demo content rather than decorative telemetry.
+
+
+### Template 07 — TIDE
+TIDE is a bright consumer-app launch page built without stock photography: a CSS-rendered phone, solid colour blocks, a hero wave, meaningful sample day data and a short download-focused conversion path.

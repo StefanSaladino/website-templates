@@ -89,3 +89,17 @@ Every new template is checked at 320px, 375–430px, tablet, laptop and wide des
 - Reservation form collapses to one column.
 - Visit details reflow for 320px without clipped addresses or metadata.
 - Parallax and reveal transitions respect `prefers-reduced-motion`.
+
+
+## Template 07 — TIDE / App Launch
+
+- Sticky mobile header remains visible throughout the page.
+- Mobile menu opens below the sticky header, locks background scroll and closes on navigation, Escape or desktop resize.
+- Hero changes to copy-first vertical order with a full-width primary CTA before the device.
+- Phone mockup and surrounding colour fields get independent narrow-screen sizing rather than scaling the desktop composition as one unit.
+- Hero wave is shallower on phones to protect viewport space.
+- Day-view timeline uses a narrower time column and preserves readable event hierarchy.
+- Lists section intentionally reorders copy before the second device on mobile.
+- Detail rows collapse to vertical editorial rows with no horizontal overflow.
+- Final download headline and brand mark are separately scaled for 320–430px.
+- Device parallax and reveal transitions are removed under `prefers-reduced-motion`.
