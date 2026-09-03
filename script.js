@@ -1,3 +1,8 @@
+const featuredStyles = document.createElement('link');
+featuredStyles.rel = 'stylesheet';
+featuredStyles.href = 'featured.css';
+document.head.append(featuredStyles);
+
 const filters = [...document.querySelectorAll('.filter')];
 const cards = [...document.querySelectorAll('.template-card')];
 

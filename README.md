@@ -115,3 +115,7 @@ Recommended Pages settings:
 `.nojekyll` is included so GitHub Pages serves the repository as plain static files without Jekyll processing.
 
 The demo forms are front-end examples only; GitHub Pages does not provide a form-processing backend. Remote Unsplash/Pexels media requires network access in the visitor's browser.
+
+## Gallery featured picks
+
+The homepage now separates discovery into two non-duplicated layers: **3 Featured Templates** (OFFCUT / Creative Agency, CURRENT / Real Estate, and SERA / Restaurant) followed by the remaining **7 templates** in the filterable library. Featured picks are deliberately excluded from the library grid so visitors never see the same template twice on the homepage.
