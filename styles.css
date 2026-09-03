@@ -169,11 +169,6 @@ main { padding: 0 clamp(20px, 4vw, 64px); }
 .offcut-thumb-copy b em { color:#f0df4f; font-family:Georgia,serif; font-weight:400; }
 .offcut-thumb-copy i { display:inline-block; margin-top:6%; padding:6px 8px; background:#ff5d45; color:#111; font-size:4.5px; font-style:normal; font-weight:900; }
 .offcut-thumb-film { position:absolute; z-index:2; right:7%; bottom:8%; font-size:4px; font-weight:800; letter-spacing:.1em; }
-.thumb--estate { display:grid; grid-template-columns:1.05fr .95fr; background:#eeeae4; color:#272722; }
-.thumb--estate > i { background:linear-gradient(155deg,#958d82,#c9c0b4 45%,#62615b); }
-.thumb--estate > div { padding:12%; display:flex; flex-direction:column; justify-content:center; }
-.thumb--estate span { font-size:6px; letter-spacing:.15em; }
-.thumb--estate b { margin-top:14%; font:400 clamp(19px,2.4vw,34px)/.95 Georgia,serif; }
 .thumb--waitlist { padding:10%; display:flex; flex-direction:column; align-items:center; text-align:center; background:#f6f2e9; color:#1f2230; }
 .thumb--waitlist > span { font-size:6px; letter-spacing:.18em; }
 .thumb--waitlist b { margin-top:9%; font:400 clamp(28px,3.8vw,54px)/.88 Georgia,serif; }
@@ -539,3 +534,11 @@ main { padding: 0 clamp(20px, 4vw, 64px); }
 .tide-thumb-phone i { display:block; height:10px; margin-top:5px; border-top:1px solid #d4d1c7; }
 .tide-thumb-wave { position:absolute; z-index:2; left:0; right:0; bottom:-1px; width:100%; height:27%; }
 .tide-thumb-wave path { fill:#ccebdc; }
+
+/* Template 09 — CURRENT real-estate thumbnail */
+.thumb--estate{position:relative;display:grid;grid-template-columns:47% 53%;overflow:hidden;background:#0a2c28;color:#fbfdf9}
+.estate-thumb-panel{position:relative;z-index:2;background:#0a2c28;padding:7% 7% 19%}
+.estate-thumb-photo{position:relative;overflow:hidden;background:linear-gradient(135deg,#355c57,#86b8c0)}.estate-thumb-photo.image-failed::after{content:"WATERFRONT";position:absolute;right:8%;bottom:26%;font-size:8px;font-weight:850;letter-spacing:.2em;opacity:.7;transform:rotate(-90deg);transform-origin:right bottom}.estate-thumb-photo img{width:100%;height:100%;object-fit:cover;object-position:57% center;filter:saturate(.78) contrast(1.04)}
+.estate-thumb-top{display:flex;justify-content:space-between;align-items:baseline}.estate-thumb-top b{font-size:7px;letter-spacing:-.06em}.estate-thumb-top small{font-size:3.5px;font-weight:800;letter-spacing:.12em}
+.estate-thumb-copy{position:absolute;left:7%;right:7%;bottom:25%}.estate-thumb-copy small{display:block;margin-bottom:7%;font-size:3.5px;font-weight:850;letter-spacing:.13em}.estate-thumb-copy b{display:block;font-size:clamp(18px,2.55vw,35px);line-height:.8;letter-spacing:-.07em}.estate-thumb-copy b em{font-family:Georgia,serif;font-weight:400}.estate-thumb-copy i{display:inline-block;margin-top:8%;padding:5px 7px;background:#fbfdf9;color:#081714;font-size:4px;font-style:normal;font-weight:850}
+.estate-thumb-ripple{position:absolute;z-index:4;left:-9%;right:-9%;bottom:-1px;height:28%;overflow:hidden}.estate-thumb-ripple span{position:absolute;left:-8%;width:116%;height:90%;border-radius:50%;transform:translateY(58%)}.estate-thumb-ripple span:nth-child(1){bottom:20%;background:#5f97a3;opacity:.82;transform:translateY(58%) rotate(1.5deg)}.estate-thumb-ripple span:nth-child(2){bottom:9%;background:#a8ced1;opacity:.96;transform:translateY(60%) rotate(-1deg)}.estate-thumb-ripple span:nth-child(3){bottom:-3%;background:#edf3ef;transform:translateY(60%)}

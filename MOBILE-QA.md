@@ -121,3 +121,29 @@ Every new template is checked at 320px, 375–430px, tablet, laptop and wide des
 
 
 - OFFCUT North End artwork: oversized NE mark is explicitly layered behind all text and reduced/repositioned on mobile so it cannot obscure NORTH END / 3 NIGHTS or LOUD ENOUGH.
+
+
+## Template 09 — CURRENT / Real Estate
+
+- 320px: hero title remains clear of featured-listing metadata and ripple band; CTA is full width.
+- 375–430px: sticky header uses icon-only hamburger; mobile menu locks background scrolling.
+- Property metadata collapses from four columns to two, then remains readable at 320px.
+- Listing index hides redundant town/water columns on mobile and preserves property + asking price.
+- Paired property imagery stacks vertically with independent mobile image heights.
+- Inquiry form becomes a single column with a full-width submit control.
+- Ripple animation and parallax stop under `prefers-reduced-motion: reduce`.
+- No intentional horizontal scrolling.
+
+- Template 09 image reliability patch: replaced a retired Unsplash image used twice and moved CURRENT image embeds from `/download` routes to direct `images.unsplash.com` CDN URLs.
+
+
+## Template 09 redesign QA
+
+- CURRENT hero text and photography occupy separate layout columns on desktop and separate stacked blocks on mobile.
+- The hero ripple field remains pronounced at mobile widths rather than collapsing to a thin divider.
+- All three property sections stack image first, copy second below 980px.
+- No property text is absolutely positioned over photography.
+- Mobile header remains sticky with an icon-only hamburger and background scroll lock.
+- Contact fields collapse to a single column on mobile.
+- Reduced-motion disables ripple animation, representation water animation and parallax.
+- Remote photography frames have a styled fallback state instead of showing broken-image chrome.

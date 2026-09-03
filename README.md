@@ -80,3 +80,13 @@ TIDE is a bright consumer-app launch page built without stock photography: a CSS
 
 ### Template 08 — OFFCUT
 OFFCUT introduces the first true video-hero template: a fashion/culture creative office with a full-screen studio film, pause/play control, reduced-motion poster fallback, editorial portfolio rows and a single brief-starting CTA.
+
+
+### 09 — Real Estate
+
+`templates/real-estate/` — CURRENT / Lakehouse Realty. Full-bleed waterfront hero, animated multi-layer ripple transition, property collection/index, representation section and mobile-first inquiry form.
+
+- Template 09 image reliability patch: replaced a retired Unsplash image used twice and moved CURRENT image embeds from `/download` routes to direct `images.unsplash.com` CDN URLs.
+
+
+CURRENT was fully redesigned after the first pass: the hero now separates copy and photography, the ripple field is substantially deeper/more animated, and all listing photography uses independent frames with no text overlap.

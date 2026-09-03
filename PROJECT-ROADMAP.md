@@ -14,7 +14,7 @@
 - [x] Step 7 — Template 06: Restaurant
 - [x] Step 8 — Template 07: App Launch
 - [x] Step 9 — Template 08: Creative Agency
-- [ ] Step 10 — Template 09: Real Estate
+- [x] Step 10 — Template 09: Real Estate
 - [ ] Step 11 — Template 10: Waitlist
 - [ ] Step 12 — Final gallery thumbnail audit
 - [ ] Step 13 — Full responsive/accessibility/performance QA
@@ -36,7 +36,8 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Restaurant: full-screen dining-room hero, slow image parallax, a shallow curved hero sweep and restrained section reveals.
 - App Launch: phone/device parallax, restrained reveals and a full-width wave transition from the hero into the day-view section.
 - Creative Agency: full-screen background film, user-controlled playback, editorial reveals and portfolio-art hover restraint.
-- Later templates will deliberately explore stronger image masks, sticky storytelling and more expressive scroll effects where they fit.
+- Real Estate: cinematic property parallax, restrained reveals and a three-layer animated ripple boundary beneath the hero.
+- Waitlist will deliberately reduce motion again and use restraint as the primary design idea.
 
 ## Template 01 — Quiet SaaS
 
@@ -156,3 +157,21 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Distinctive element: first true video hero in the collection, with visible pause/play control and poster fallback rather than decorative autoplay-only motion
 - Mobile baseline: sticky dark header, scroll-locking menu, independent video crop, full-width CTA and stacked editorial project sequencing
 - Gallery preview synced to the finished page
+
+## Template 09 — Real Estate
+
+`templates/real-estate/`
+
+- Fictional brand: CURRENT / Lakehouse Realty
+- Industry: residential real estate / waterfront property
+- Audience: buyers and sellers of architecturally interesting Georgian Bay waterfront homes
+- Primary CTA: View current homes / Start a brief
+- Length: medium
+- Visual concept: editorial lakehouse brokerage built from solid lake-green text panels, controlled photography frames and a pronounced animated waterline
+- Hero composition: split-screen solid editorial panel + independent lakehouse photograph; no hero text is placed over photography
+- Distinctive element: a large three-layer animated ripple field, plus two fine wave lines, creating a visible moving water boundary rather than a shallow decorative curve
+- Property system: three full-width listing rows with fixed image/text separation; no floating copy, no image/text overlap and consistent visual rhythm
+- Mobile baseline: sticky translucent header, icon-only hamburger, scroll-locking menu, hero text and photo stacked independently, pronounced mobile ripple band, property rows stacked image-first and no horizontal overflow
+- Motion: restrained frame parallax, scroll reveals and multiple wave layers moving at different speeds; all disabled under reduced-motion
+- Image reliability: photography uses direct `images.unsplash.com` CDN embeds with styled frame fallbacks if an image request fails
+- Gallery preview synced to the redesigned split hero and deeper wave treatment
