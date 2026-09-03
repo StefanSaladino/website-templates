@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="OFFCUT is a fictional creative office for fashion, culture and hospitality brands." />
+  <title>OFFCUT — Creative Office</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="wordmark" href="#top" aria-label="OFFCUT home">OFFCUT<span>/</span></a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#approach">Approach</a>
+      <a href="#studio">Studio</a>
+    </nav>
+    <a class="brief-link desktop-brief" href="#brief">Start a brief ↗</a>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <i></i><i></i>
+    </button>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+      <a href="#work">Work</a>
+      <a href="#approach">Approach</a>
+      <a href="#studio">Studio</a>
+      <a class="mobile-brief" href="#brief">Start a brief ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <video
+        class="hero-film"
+        id="hero-film"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg?auto=compress&amp;dpr=1&amp;w=1800"
+        aria-hidden="true"
+      >
+        <source src="https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-shade"></div>
+      <div class="hero-grid">
+        <p class="hero-kicker">Creative office / Toronto + elsewhere</p>
+        <h1 id="hero-title"><span>Make the</span><span>brand worth</span><em>keeping</em></h1>
+        <div class="hero-bottom">
+          <p>Identity, campaign and art direction for fashion, culture and hospitality brands with something real to say.</p>
+          <a class="primary-action" href="#brief">Start a brief ↗</a>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <a href="#work">Selected work ↓</a>
+        <button class="film-toggle" type="button" aria-pressed="false" data-film-toggle><span>Pause film</span><i></i></button>
+      </div>
+    </section>
+
+    <section class="statement reveal" id="studio">
+      <p class="eyebrow">What we do</p>
+      <p class="statement-copy">We build brands that hold up <em>off-screen</em> — on a menu, across a room, stitched into fabric, printed too large, or remembered without the logo.</p>
+      <div class="statement-meta">
+        <span>Identity</span><span>Campaign</span><span>Art direction</span><span>Digital</span>
+      </div>
+    </section>
+
+    <section class="work" id="work" aria-labelledby="work-title">
+      <div class="section-head reveal">
+        <p class="eyebrow">Selected work / 2025–26</p>
+        <h2 id="work-title">Three recent<br>ways in</h2>
+      </div>
+
+      <article class="project project--mora reveal">
+        <div class="project-art mora-art" aria-hidden="true">
+          <span class="mora-small">MORA / AFTER 5</span>
+          <strong>M</strong>
+          <em>stay<br>for one<br>more</em>
+          <i></i>
+        </div>
+        <div class="project-copy">
+          <p class="project-index">01 / Hospitality</p>
+          <h3>Mora</h3>
+          <p>An all-day bar that needed to feel less like a concept and more like a place people already knew.</p>
+          <dl><div><dt>Scope</dt><dd>Identity, menus, launch campaign</dd></div><div><dt>City</dt><dd>Toronto</dd></div></dl>
+        </div>
+      </article>
+
+      <article class="project project--fold reveal">
+        <div class="project-copy">
+          <p class="project-index">02 / Fashion</p>
+          <h3>FOLD</h3>
+          <p>A small clothing label with a clear point of view: fewer pieces, stronger cuts, almost no explanation.</p>
+          <dl><div><dt>Scope</dt><dd>Identity, campaign, ecommerce direction</dd></div><div><dt>Season</dt><dd>AW26</dd></div></dl>
+        </div>
+        <div class="project-art fold-art" aria-hidden="true">
+          <b>FOLD</b><span>01</span><span>02</span><span>03</span><i>AW / 26</i>
+        </div>
+      </article>
+
+      <article class="project project--north reveal">
+        <div class="project-art north-art" aria-hidden="true">
+          <small>NORTH END / 3 NIGHTS</small><b>NE</b><span>LOUD<br>ENOUGH</span><i></i><i></i>
+        </div>
+        <div class="project-copy">
+          <p class="project-index">03 / Culture</p>
+          <h3>North End</h3>
+          <p>A neighbourhood music weekend that needed one visual system to survive posters, stages, wristbands and bad weather.</p>
+          <dl><div><dt>Scope</dt><dd>Campaign system, environmental, social</dd></div><div><dt>Format</dt><dd>3-day festival</dd></div></dl>
+        </div>
+      </article>
+    </section>
+
+    <section class="approach" id="approach" aria-labelledby="approach-title">
+      <div class="approach-title reveal">
+        <p class="eyebrow">How we work</p>
+        <h2 id="approach-title">Small room.<br>Clear decisions.</h2>
+      </div>
+      <div class="approach-rows">
+        <div class="approach-row reveal"><span>01</span><h3>Find the useful tension</h3><p>What should the brand hold onto, and what should it stop pretending to be?</p></div>
+        <div class="approach-row reveal"><span>02</span><h3>Make one system</h3><p>Identity, campaign and digital direction are built together so the brand does not fragment at launch.</p></div>
+        <div class="approach-row reveal"><span>03</span><h3>Put it in the world</h3><p>We pressure-test the work in the places people actually meet it — not only in presentation decks.</p></div>
+      </div>
+    </section>
+
+    <section class="brief" id="brief" aria-labelledby="brief-title">
+      <p class="eyebrow reveal">New work / Q4</p>
+      <div class="brief-grid reveal">
+        <h2 id="brief-title">Have a thing<br>worth making?</h2>
+        <div>
+          <p>Tell us what is changing, what has to launch, and what cannot feel generic.</p>
+          <a class="brief-cta" href="mailto:studio@example.com">Start a brief ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="wordmark" href="#top">OFFCUT<span>/</span></a>
+    <p>Fictional creative office template.</p>
+    <p>Hero film: cottonbro studio via Pexels.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

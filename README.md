@@ -4,7 +4,7 @@ A standalone gallery of landing-page concepts. The gallery uses Boomer Automatio
 
 ## Current milestone
 
-Seven templates are live:
+Eight templates are live:
 
 1. **Quiet SaaS / Arc** — `templates/quiet-saas/`
 2. **Dark Tech / KERN** — `templates/dark-tech/`
@@ -13,6 +13,7 @@ Seven templates are live:
 5. **Contractor / LINE + LEVEL** — `templates/contractor/`
 6. **Restaurant / SERA** — `templates/restaurant/`
 7. **App Launch / TIDE** — `templates/app-launch/`
+8. **Creative Agency / OFFCUT** — `templates/creative-agency/`
 
 Open `index.html` with Live Server and click any live template preview.
 
@@ -31,6 +32,7 @@ Motion is part of the collection only when it serves the concept:
 - LINE + LEVEL: restrained section reveals and light hero-photo parallax; conversion clarity remains the focus.
 - SERA: full-screen dining-room photography, slow parallax, shallow curved hero sweep and restrained reveals.
 - TIDE: device parallax, section reveals and a full-width wave transition beneath the hero.
+- OFFCUT: full-screen background film with explicit playback control, poster fallback and restrained portfolio reveals.
 
 Every template respects `prefers-reduced-motion`.
 
@@ -52,11 +54,12 @@ Every template respects `prefers-reduced-motion`.
 - `templates/contractor/` — Template 05
 - `templates/restaurant/` — Template 06
 - `templates/app-launch/` — Template 07
+- `templates/creative-agency/` — Template 08
 - `PROJECT-ROADMAP.md` — project status
 
 ## Photography
 
-Several templates use remote Unsplash images so photographic landing pages can use high-quality imagery without bloating each ZIP handoff. An internet connection is required for those photographs to load in local preview. Credits are included inside the relevant fictional template footer.
+Several templates use remote Unsplash or Pexels media so photographic/video landing pages can use high-quality assets without bloating each ZIP handoff. An internet connection is required for those remote assets to load in local preview. Credits are included inside the relevant fictional template footer.
 
 ## Thumbnail policy
 
@@ -73,3 +76,7 @@ SERA introduces the first hospitality template: a full-screen restaurant hero, m
 
 ### Template 07 — TIDE
 TIDE is a bright consumer-app launch page built without stock photography: a CSS-rendered phone, solid colour blocks, a hero wave, meaningful sample day data and a short download-focused conversion path.
+
+
+### Template 08 — OFFCUT
+OFFCUT introduces the first true video-hero template: a fashion/culture creative office with a full-screen studio film, pause/play control, reduced-motion poster fallback, editorial portfolio rows and a single brief-starting CTA.

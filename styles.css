@@ -157,11 +157,18 @@ main { padding: 0 clamp(20px, 4vw, 64px); }
 .thumb--app b { display:block; margin-top:10%; font-size:clamp(25px,3.1vw,45px); line-height:.9; letter-spacing:-.06em; }
 .phone { position:absolute; z-index:2; right:12%; bottom:-12%; width:24%; height:68%; border-radius:18px 18px 0 0; background:#152333; box-shadow:0 0 0 5px rgba(255,255,255,.45); }
 .wave { position:absolute; left:-10%; right:-10%; bottom:-22%; height:45%; border-radius:50% 50% 0 0; background:#88d8ef; transform:rotate(-4deg); }
-.thumb--agency { padding:8%; background:#f7e81b; color:#111; }
-.thumb--agency > span { font-size:6px; font-weight:800; letter-spacing:.16em; }
-.thumb--agency b { display:block; margin-top:6%; font-size:clamp(32px,4.2vw,60px); line-height:.72; letter-spacing:-.08em; transform:rotate(-3deg); }
-.thumb--agency b em { color:#fff; -webkit-text-stroke:1px #111; }
-.thumb--agency > i { position:absolute; right:7%; bottom:8%; display:grid; place-items:center; width:58px; aspect-ratio:1; border:2px solid #111; border-radius:50%; font-size:7px; font-style:normal; font-weight:900; transform:rotate(12deg); }
+.thumb--offcut { position:relative; overflow:hidden; padding:0; background:#17120f; color:#fff; }
+.thumb--offcut > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 42%; filter:saturate(.85) contrast(1.05); }
+.offcut-thumb-shade { position:absolute; inset:0; background:rgba(17,12,9,.38); }
+.offcut-thumb-top { position:absolute; z-index:2; top:8%; left:7%; right:7%; display:flex; align-items:baseline; justify-content:space-between; }
+.offcut-thumb-top b { font-size:9px; letter-spacing:-.06em; }
+.offcut-thumb-top small { font-size:4.5px; font-weight:800; letter-spacing:.13em; }
+.offcut-thumb-copy { position:absolute; z-index:2; left:7%; right:7%; bottom:9%; }
+.offcut-thumb-copy small { display:block; margin-bottom:5%; font-size:4.5px; font-weight:800; letter-spacing:.12em; }
+.offcut-thumb-copy b { display:block; font-size:clamp(22px,3.25vw,46px); line-height:.76; letter-spacing:-.075em; }
+.offcut-thumb-copy b em { color:#f0df4f; font-family:Georgia,serif; font-weight:400; }
+.offcut-thumb-copy i { display:inline-block; margin-top:6%; padding:6px 8px; background:#ff5d45; color:#111; font-size:4.5px; font-style:normal; font-weight:900; }
+.offcut-thumb-film { position:absolute; z-index:2; right:7%; bottom:8%; font-size:4px; font-weight:800; letter-spacing:.1em; }
 .thumb--estate { display:grid; grid-template-columns:1.05fr .95fr; background:#eeeae4; color:#272722; }
 .thumb--estate > i { background:linear-gradient(155deg,#958d82,#c9c0b4 45%,#62615b); }
 .thumb--estate > div { padding:12%; display:flex; flex-direction:column; justify-content:center; }

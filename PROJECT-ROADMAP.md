@@ -13,7 +13,7 @@
 - [x] Step 6 — Template 05: Contractor
 - [x] Step 7 — Template 06: Restaurant
 - [x] Step 8 — Template 07: App Launch
-- [ ] Step 9 — Template 08: Creative Agency
+- [x] Step 9 — Template 08: Creative Agency
 - [ ] Step 10 — Template 09: Real Estate
 - [ ] Step 11 — Template 10: Waitlist
 - [ ] Step 12 — Final gallery thumbnail audit
@@ -35,7 +35,8 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Contractor: restrained reveals and light hero-photo parallax, with conversion clarity prioritized over decorative motion.
 - Restaurant: full-screen dining-room hero, slow image parallax, a shallow curved hero sweep and restrained section reveals.
 - App Launch: phone/device parallax, restrained reveals and a full-width wave transition from the hero into the day-view section.
-- Later templates will deliberately explore video heroes, stronger image masks, sticky storytelling and more expressive scroll effects where they fit.
+- Creative Agency: full-screen background film, user-controlled playback, editorial reveals and portfolio-art hover restraint.
+- Later templates will deliberately explore stronger image masks, sticky storytelling and more expressive scroll effects where they fit.
 
 ## Template 01 — Quiet SaaS
 
@@ -138,4 +139,20 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Hero composition: oversized editorial copy beside a CSS-built phone interface surrounded by simple geometric colour fields
 - Distinctive element: full-width wave hero transition, device parallax and a timeline-first product demonstration rather than a SaaS dashboard
 - Mobile baseline: sticky header, scroll-locking menu, full-width CTA, phone-specific type/device sizing and vertical content order
+- Gallery preview synced to the finished page
+
+
+## Template 08 — Creative Agency
+
+`templates/creative-agency/`
+
+- Fictional brand: OFFCUT / Creative Office
+- Industry: brand identity / campaigns / art direction
+- Audience: fashion, culture and hospitality brands
+- Primary CTA: Start a brief
+- Length: medium
+- Visual concept: film-led editorial studio using black, warm paper, tomato red, yellow and cobalt project art
+- Hero composition: full-viewport background video with oversized staggered typography and integrated navigation
+- Distinctive element: first true video hero in the collection, with visible pause/play control and poster fallback rather than decorative autoplay-only motion
+- Mobile baseline: sticky dark header, scroll-locking menu, independent video crop, full-width CTA and stacked editorial project sequencing
 - Gallery preview synced to the finished page

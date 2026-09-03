@@ -103,3 +103,21 @@ Every new template is checked at 320px, 375–430px, tablet, laptop and wide des
 - Detail rows collapse to vertical editorial rows with no horizontal overflow.
 - Final download headline and brand mark are separately scaled for 320–430px.
 - Device parallax and reveal transitions are removed under `prefers-reduced-motion`.
+
+
+## Template 08 — OFFCUT / Creative Agency
+
+- Sticky dark mobile header remains visible after the full-screen film hero.
+- Menu opens directly below the header, locks background scrolling and closes on navigation, Escape or desktop resize.
+- Background film keeps a mobile-specific crop; primary copy stays readable over the moving image.
+- Primary brief CTA becomes full width on phones.
+- Hero film includes a visible pause/play control and falls back to a still poster under `prefers-reduced-motion`.
+- Portfolio projects recompose from alternating desktop splits into image-first vertical sequences.
+- Large project typography and artwork scale independently for 320–430px rather than shrinking the desktop layout.
+- Approach rows collapse to a two-column label/content hierarchy with body copy below the heading.
+- No horizontal overflow is required at 320px.
+- OFFCUT MORA project art: decorative M is reduced/repositioned on mobile so it does not obscure “stay / for one / more”.
+- OFFCUT hero: added dedicated mobile clearance below the italic “keeping” line so the display word cannot collide with the supporting paragraph at 320–430 px.
+
+
+- OFFCUT North End artwork: oversized NE mark is explicitly layered behind all text and reduced/repositioned on mobile so it cannot obscure NORTH END / 3 NIGHTS or LOUD ENOUGH.
