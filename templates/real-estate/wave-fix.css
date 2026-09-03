@@ -48,6 +48,16 @@
 }
 
 @media (max-width: 980px) {
+  /* On small viewports the property strip becomes part of the dark-green hero composition. */
+  .photo-tag {
+    background: var(--deep) !important;
+    color: var(--white) !important;
+  }
+
+  .photo-tag small {
+    color: rgba(251, 253, 249, .76) !important;
+  }
+
   /* On mobile the wave is a real third row of the hero rather than an absolutely positioned overlay. */
   .hero {
     padding-bottom: 0 !important;
