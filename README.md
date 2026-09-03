@@ -12,6 +12,10 @@ Three templates are live:
 
 Open `index.html` with Live Server and click any live template preview.
 
+## Mobile-first retrofit
+
+The main gallery, Arc, KERN and Morrow have all received a dedicated mobile pass. Mobile navigation/header behavior is persistent while scrolling, 320px layouts are treated as their own compositions, touch targets are enlarged, hero typography and media are rebalanced, and sticky headers no longer cover anchored content. Arc also locks background scrolling while its mobile menu is open.
+
 ## Motion pass
 
 Motion is now part of the collection when it serves the concept:

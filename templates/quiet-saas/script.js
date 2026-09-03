@@ -6,6 +6,7 @@ if (menuButton && mobileNav) {
     menuButton.setAttribute('aria-expanded', String(open));
     menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     mobileNav.hidden = !open;
+    document.body.classList.toggle('menu-open', open);
   };
 
   menuButton.addEventListener('click', () => {
@@ -18,6 +19,10 @@ if (menuButton && mobileNav) {
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') setMenu(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 760) setMenu(false);
   });
 }
 

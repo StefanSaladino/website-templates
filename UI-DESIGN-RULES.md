@@ -214,3 +214,18 @@ Before marking a template complete, verify:
 12. Would this look plausible if a real company shipped it?
 
 If several answers are no, the template is not finished.
+
+# Mobile Baseline — Locked for This Library
+
+Every template and the main gallery are designed mobile-first, not merely made to fit after desktop is complete.
+
+- Mobile navigation/header remains accessible while scrolling. Use a sticky or fixed mobile header appropriate to the concept.
+- The mobile header must preserve the template's identity; do not force one shared header component across unrelated designs.
+- Primary mobile actions must remain touch-sized and readable at 320px.
+- Mobile hero composition, image crop, typography, whitespace and reading order may differ from desktop.
+- Desktop navigation may collapse, simplify or disappear when a clearer mobile pattern replaces it.
+- Mobile layouts must not preserve desktop columns at the expense of readability.
+- No horizontal page overflow is allowed at 320px and above.
+- Background scroll must be locked while a full mobile navigation surface is open.
+- Sticky/fixed UI must not cover anchored section headings or primary content.
+- Every template is reviewed at 320px, 375–430px, tablet, laptop and wide desktop before completion.

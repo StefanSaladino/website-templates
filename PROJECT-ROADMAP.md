@@ -8,6 +8,7 @@
 - [x] Step 2 — Template 01: Quiet SaaS
 - [x] Step 3 — Template 02: Dark Tech
 - [x] Step 4 — Template 03: Architecture
+- [x] Step 4B — Mobile-first retrofit: gallery + Templates 01–03
 - [ ] Step 5 — Template 04: Fitness Launch
 - [ ] Step 6 — Template 05: Contractor
 - [ ] Step 7 — Template 06: Restaurant
@@ -21,6 +22,10 @@
 ## Locked design contract
 
 `UI-DESIGN-RULES.md` applies to every current and future template. Fiction is allowed where it supports the design; generic AI layout habits and meaningless visual sophistication are not.
+
+## Mobile baseline
+
+The gallery and every live template now treat mobile as a first-class layout. Mobile headers remain accessible while scrolling, touch targets are sized for phones, desktop columns are re-composed rather than merely squeezed, and anchored sections account for sticky-header height. The baseline is locked in `UI-DESIGN-RULES.md`.
 
 ## Motion direction
 

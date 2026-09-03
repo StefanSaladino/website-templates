@@ -404,3 +404,58 @@ button, input { font: inherit; }
     transition: none !important;
   }
 }
+
+/* Mobile-first retrofit — KERN */
+@media (max-width: 660px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 80;
+    min-height: 60px;
+    padding: 0 14px;
+    background: rgba(12,13,14,.985);
+    backdrop-filter: blur(16px);
+  }
+  .wordmark { font-size: 17px; }
+  .header-action {
+    min-height: 40px;
+    max-width: 156px;
+    padding: 0 11px;
+    text-align: center;
+    line-height: 1.15;
+  }
+  .hero,.statement,.method{width:min(100% - 28px,1500px)}
+  .hero{padding:48px 0 68px;gap:42px}
+  .hero h1{font-size:clamp(46px,14.5vw,68px);line-height:.86}
+  .hero-lede{margin-top:24px;font-size:15px;line-height:1.5}
+  .hero-actions{margin-top:28px}
+  .primary-action{min-height:48px;padding-inline:16px}
+  .text-action{min-height:44px;display:inline-flex;align-items:center}
+  .plan-wrap{margin-top:10px}
+  .release-number{top:-4%;font-size:clamp(76px,27vw,112px)}
+  .release-plan{border-radius:0}
+  .plan-header{gap:12px;align-items:flex-start}
+  .plan-header h2{font-size:22px}
+  .plan-state{font-size:9px}
+  .statement{padding-top:72px;padding-bottom:72px}
+  .statement strong{font-size:clamp(32px,10vw,48px)}
+  .method{padding-top:76px;padding-bottom:78px}
+  .method-rows{margin-top:38px}
+  .method-rows article{padding:24px 0}
+  .release-index{padding:76px 14px}
+  .release-index-head h2{font-size:clamp(34px,11vw,50px)}
+  .release-table{margin-top:36px}
+  .release-table-row{padding:16px 0}
+  .final-cta{padding-top:72px;padding-bottom:72px}
+  .final-cta h2{font-size:clamp(42px,13vw,62px)}
+}
+@media (max-width: 360px) {
+  .header-action{max-width:132px;font-size:9px}
+  .hero h1{font-size:44px}
+  .plan-header{display:block}
+  .plan-state{display:inline-flex;margin-top:12px}
+}
+@media(max-width:660px){
+  html{scroll-padding-top:70px}
+  #product,#method,#releases,#start{scroll-margin-top:70px}
+}

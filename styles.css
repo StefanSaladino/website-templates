@@ -408,3 +408,65 @@ main { padding: 0 clamp(20px, 4vw, 64px); }
   line-height: .78;
   letter-spacing: -.07em;
 }
+
+/* Mobile-first retrofit — gallery */
+@media (max-width: 680px) {
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-height: 60px;
+    gap: 12px;
+    background: rgba(252,252,251,.97);
+    box-shadow: 0 1px 0 rgba(17,18,15,.04);
+    backdrop-filter: blur(18px);
+  }
+  .brand { min-width: 0; gap: 9px; }
+  .brand-mark { width: 28px; height: 28px; flex-basis: 28px; border-radius: 7px; }
+  .brand-copy { min-width: 0; }
+  .brand-copy strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .top-cta {
+    min-height: 42px;
+    padding: 0 13px;
+    white-space: nowrap;
+  }
+  .intro { padding-top: 42px; }
+  .intro h1 { max-width: 580px; font-size: clamp(40px, 13vw, 64px); line-height: .96; }
+  .lede { margin-top: 24px; font-size: 15px; }
+  .intro-stats { width: 100%; }
+  .intro-stats div { min-width: 0; padding-right: 8px; }
+  .intro-stats strong { font-size: clamp(24px, 9vw, 34px); }
+  .intro-stats span { font-size: 8px; line-height: 1.25; }
+  .featured-main .featured-art { aspect-ratio: 4 / 3; }
+  .featured-small .featured-art { min-height: 230px; }
+  .featured-caption { padding-top: 12px; }
+  .featured-caption > div { width: 100%; }
+  .featured-caption h2 { font-size: 20px; }
+  .featured-caption p { padding-left: 40px; }
+  .library { padding-top: 76px; }
+  .library-head h2 { font-size: clamp(34px, 11vw, 48px); }
+  .library-head > p { font-size: 12px; }
+  .filter-row {
+    position: relative;
+    margin-right: -16px;
+    padding-right: 16px;
+    scroll-snap-type: x proximity;
+  }
+  .filter { min-height: 44px; scroll-snap-align: start; }
+  .template-grid { gap: 44px; }
+  .thumb { border-radius: 14px; }
+  .card-copy h3 { font-size: 19px; }
+  .card-copy p { font-size: 11px; line-height: 1.45; }
+  .about-strip { margin-bottom: 54px; }
+}
+
+@media (max-width: 390px) {
+  .brand-copy small { display: none; }
+  .top-cta { min-height: 40px; padding-inline: 11px; font-size: 11px; }
+  .intro h1 { font-size: clamp(38px, 12.5vw, 52px); }
+  .featured-small .featured-art { min-height: 215px; }
+}
+@media (max-width: 680px) {
+  html { scroll-padding-top: 72px; }
+  #library, #about { scroll-margin-top: 72px; }
+}

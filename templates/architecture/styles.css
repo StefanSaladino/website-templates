@@ -429,3 +429,57 @@ dd { margin: 0; }
   .hero-image,
   [data-image-parallax] img { transform: none !important; }
 }
+
+/* Mobile-first retrofit — Morrow */
+@media (max-width: 900px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 80;
+    height: 62px;
+    padding-inline: 16px;
+    background: rgba(20,20,17,.88);
+    border-bottom: 1px solid rgba(255,255,255,.18);
+    backdrop-filter: blur(16px);
+  }
+  .brand{font-size:14px}
+  .header-cta{min-height:40px;display:inline-flex;align-items:center;padding-bottom:0;border-bottom:0;border:1px solid rgba(255,255,255,.42);padding-inline:11px}
+  .hero{margin-top:-62px;padding-top:62px;min-height:100svh}
+  .hero-index{top:88px}
+  .hero-copy{padding:0 18px 122px}
+  .hero-copy>p{font-size:14px;line-height:1.45}
+  .hero h1{font-size:clamp(56px,17vw,88px);line-height:.86}
+  .hero-link{min-height:44px;display:inline-flex;align-items:center}
+  .hero-project{left:18px;right:18px;bottom:22px}
+  .manifesto{padding:74px 18px}
+  .manifesto h2{font-size:clamp(40px,12.5vw,60px);line-height:.98}
+  .manifesto-copy>p{margin-top:26px;font-size:15px;line-height:1.6}
+  .project-media{min-height:56svh}
+  .project-copy{min-height:auto;padding:40px 18px 58px;gap:32px}
+  .project-copy>div:nth-child(2){margin-top:28px}
+  .project-copy dl{margin-top:6px}
+  .project-description{font-size:15px;line-height:1.62}
+  .project-copy>a{min-height:44px;display:inline-flex;align-items:center}
+  .practice{padding:74px 18px}
+  .practice>header{grid-template-columns:44px 1fr;margin-bottom:34px}
+  .practice-list article{padding:26px 0;grid-template-columns:34px 1fr}
+  .practice-list article>p{font-size:14px}
+  .contact{min-height:620px;padding:62px 18px 30px}
+  .contact h2{font-size:clamp(52px,16vw,76px);line-height:.88}
+  .contact-cta{min-height:48px;display:inline-flex;align-items:center}
+  .footer{padding:26px 18px;gap:18px}
+}
+@media (max-width: 390px) {
+  .header-cta{font-size:9px;padding-inline:9px}
+  .hero-index{font-size:8px}
+  .hero h1{font-size:clamp(52px,16vw,68px)}
+  .hero-project{grid-template-columns:44px 1fr}
+  .manifesto h2{font-size:clamp(38px,12vw,52px)}
+  .project-copy h2{font-size:clamp(38px,11.5vw,50px)}
+  .practice h2{font-size:clamp(40px,12vw,54px)}
+  .contact h2{font-size:clamp(48px,15vw,64px)}
+}
+@media(max-width:900px){
+  html{scroll-padding-top:72px}
+  #work,#practice,#contact{scroll-margin-top:72px}
+}
