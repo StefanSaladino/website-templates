@@ -15,7 +15,7 @@
 - [x] Step 8 — Template 07: App Launch
 - [x] Step 9 — Template 08: Creative Agency
 - [x] Step 10 — Template 09: Real Estate
-- [ ] Step 11 — Template 10: Waitlist
+- [x] Step 11 — Template 10: Waitlist
 - [ ] Step 12 — Final gallery thumbnail audit
 - [ ] Step 13 — Full responsive/accessibility/performance QA
 
@@ -37,7 +37,7 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - App Launch: phone/device parallax, restrained reveals and a full-width wave transition from the hero into the day-view section.
 - Creative Agency: full-screen background film, user-controlled playback, editorial reveals and portfolio-art hover restraint.
 - Real Estate: cinematic property parallax, restrained reveals and a three-layer animated ripple boundary beneath the hero.
-- Waitlist will deliberately reduce motion again and use restraint as the primary design idea.
+- Waitlist deliberately reduces motion again; STILL uses a static typographic composition with interaction feedback only.
 
 ## Template 01 — Quiet SaaS
 
@@ -175,3 +175,23 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Motion: restrained frame parallax, scroll reveals and multiple wave layers moving at different speeds; all disabled under reduced-motion
 - Image reliability: photography uses direct `images.unsplash.com` CDN embeds with styled frame fallbacks if an image request fails
 - Gallery preview synced to the redesigned split hero and deeper wave treatment
+
+
+## Template 10 — Waitlist
+
+`templates/waitlist/`
+
+- Fictional brand: STILL / Private Beta
+- Industry: consumer personal finance
+- Audience: people who want a calm weekly spending check-in rather than a finance dashboard
+- Primary CTA: Join private beta
+- Length: one-screen / very short
+- Visual concept: warm-grey typographic poster with black structural rail and a single signal-orange accent
+- Hero composition: oversized editorial headline, one supporting paragraph, one email field and a narrow beta-edition rail
+- Distinctive element: deliberate absence of photography, cards and decorative animation; restraint is the design idea
+- Mobile baseline: sticky compact header without unnecessary navigation, edition rail becomes a horizontal band, signup button becomes full-width and principles recompose to two columns
+- Motion: none beyond hover/focus feedback; reduced-motion remains supported
+- Gallery preview synced to the finished STILL composition
+
+
+Template 10 refinement: STILL now uses a softer modern-minimal composition with floating rounded surfaces, open whitespace, and restrained corner radii while preserving its one-action waitlist concept.

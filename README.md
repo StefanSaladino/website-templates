@@ -4,7 +4,7 @@ A standalone gallery of landing-page concepts. The gallery uses Boomer Automatio
 
 ## Current milestone
 
-Eight templates are live:
+Ten templates are live:
 
 1. **Quiet SaaS / Arc** — `templates/quiet-saas/`
 2. **Dark Tech / KERN** — `templates/dark-tech/`
@@ -14,6 +14,8 @@ Eight templates are live:
 6. **Restaurant / SERA** — `templates/restaurant/`
 7. **App Launch / TIDE** — `templates/app-launch/`
 8. **Creative Agency / OFFCUT** — `templates/creative-agency/`
+9. **Real Estate / CURRENT** — `templates/real-estate/`
+10. **Waitlist / STILL** — `templates/waitlist/`
 
 Open `index.html` with Live Server and click any live template preview.
 
@@ -33,6 +35,8 @@ Motion is part of the collection only when it serves the concept:
 - SERA: full-screen dining-room photography, slow parallax, shallow curved hero sweep and restrained reveals.
 - TIDE: device parallax, section reveals and a full-width wave transition beneath the hero.
 - OFFCUT: full-screen background film with explicit playback control, poster fallback and restrained portfolio reveals.
+- CURRENT: pronounced multi-layer water ripples, restrained image parallax and section reveals.
+- STILL: deliberately static; only form focus/hover states provide feedback.
 
 Every template respects `prefers-reduced-motion`.
 
@@ -55,6 +59,8 @@ Every template respects `prefers-reduced-motion`.
 - `templates/restaurant/` — Template 06
 - `templates/app-launch/` — Template 07
 - `templates/creative-agency/` — Template 08
+- `templates/real-estate/` — Template 09
+- `templates/waitlist/` — Template 10
 - `PROJECT-ROADMAP.md` — project status
 
 ## Photography
@@ -90,3 +96,22 @@ OFFCUT introduces the first true video-hero template: a fashion/culture creative
 
 
 CURRENT was fully redesigned after the first pass: the hero now separates copy and photography, the ripple field is substantially deeper/more animated, and all listing photography uses independent frames with no text overlap.
+
+
+### Template 10 — STILL
+
+`templates/waitlist/` — STILL / Private Beta. One-screen personal-finance waitlist with a typographic poster composition, a single email action, no photography and no decorative motion. The right-side principles rail becomes a compact two-column band on phones.
+
+## GitHub Pages deployment
+
+This project is designed to publish directly from the repository root on GitHub Pages. All internal navigation, stylesheets and scripts use repository-relative paths so the site works when served from a project URL such as `https://<username>.github.io/website-templates/`.
+
+Recommended Pages settings:
+
+- Source: **Deploy from a branch**
+- Branch: **main**
+- Folder: **/(root)**
+
+`.nojekyll` is included so GitHub Pages serves the repository as plain static files without Jekyll processing.
+
+The demo forms are front-end examples only; GitHub Pages does not provide a form-processing backend. Remote Unsplash/Pexels media requires network access in the visitor's browser.

@@ -147,3 +147,20 @@ Every new template is checked at 320px, 375–430px, tablet, laptop and wide des
 - Contact fields collapse to a single column on mobile.
 - Reduced-motion disables ripple animation, representation water animation and parallax.
 - Remote photography frames have a styled fallback state instead of showing broken-image chrome.
+
+
+## Template 10 — STILL / Waitlist
+
+- Sticky compact header keeps only the brand and beta status; no burger is added because there is no navigation to hide.
+- Desktop edition rail becomes a short horizontal metadata band on phones.
+- Oversized headline is independently sized for 320–430px and keeps clear line spacing.
+- Signup field and CTA stack vertically below 700px; the CTA is full width and touch safe.
+- Principles rail becomes a two-column mobile band instead of compressing four items across the viewport.
+- No photography or decorative animation means there are no crop, parallax or autoplay costs on mobile.
+- No horizontal overflow is intentional at 320px.
+
+### Template 10 modern-minimal revision
+- Floating rounded sticky header replaces hard full-width divider header.
+- Mobile beta metadata is a compact rounded strip rather than a hard-edged rail.
+- Signup surface and controls use restrained corner radii with no nested card wall.
+- Principles surface rounds to 24px on mobile and remains a single grouped region.

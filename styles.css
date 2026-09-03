@@ -542,3 +542,85 @@ main { padding: 0 clamp(20px, 4vw, 64px); }
 .estate-thumb-top{display:flex;justify-content:space-between;align-items:baseline}.estate-thumb-top b{font-size:7px;letter-spacing:-.06em}.estate-thumb-top small{font-size:3.5px;font-weight:800;letter-spacing:.12em}
 .estate-thumb-copy{position:absolute;left:7%;right:7%;bottom:25%}.estate-thumb-copy small{display:block;margin-bottom:7%;font-size:3.5px;font-weight:850;letter-spacing:.13em}.estate-thumb-copy b{display:block;font-size:clamp(18px,2.55vw,35px);line-height:.8;letter-spacing:-.07em}.estate-thumb-copy b em{font-family:Georgia,serif;font-weight:400}.estate-thumb-copy i{display:inline-block;margin-top:8%;padding:5px 7px;background:#fbfdf9;color:#081714;font-size:4px;font-style:normal;font-weight:850}
 .estate-thumb-ripple{position:absolute;z-index:4;left:-9%;right:-9%;bottom:-1px;height:28%;overflow:hidden}.estate-thumb-ripple span{position:absolute;left:-8%;width:116%;height:90%;border-radius:50%;transform:translateY(58%)}.estate-thumb-ripple span:nth-child(1){bottom:20%;background:#5f97a3;opacity:.82;transform:translateY(58%) rotate(1.5deg)}.estate-thumb-ripple span:nth-child(2){bottom:9%;background:#a8ced1;opacity:.96;transform:translateY(60%) rotate(-1deg)}.estate-thumb-ripple span:nth-child(3){bottom:-3%;background:#edf3ef;transform:translateY(60%)}
+
+/* Template 10 — STILL waitlist preview */
+.thumb--still {
+  position: relative;
+  padding: 7%;
+  display: block;
+  overflow: hidden;
+  background: #f7f7f4;
+  color: #151515;
+}
+.still-thumb-head {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 6%;
+  min-height: 18%;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(21,21,21,.08);
+  border-radius: 999px;
+  background: rgba(255,255,255,.86);
+}
+.still-thumb-head > b { font-size: 7px; letter-spacing: -.05em; }
+.still-thumb-head > b span { color: #ff5a36; }
+.still-thumb-head small {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #66655f;
+  font-size: 3.5px;
+  font-weight: 850;
+  letter-spacing: .11em;
+}
+.still-thumb-head small i { width: 4px; height: 4px; border-radius: 50%; background: #ff5a36; }
+.still-thumb-main {
+  position: absolute;
+  left: 8%;
+  top: 31%;
+  width: 62%;
+  min-width: 0;
+}
+.still-thumb-main > small { color: #6b6a65; font-size: 3.7px; font-weight: 850; letter-spacing: .1em; }
+.still-thumb-main > strong {
+  display: block;
+  margin-top: 7%;
+  font-size: clamp(24px, 3.05vw, 42px);
+  font-weight: 730;
+  line-height: .86;
+  letter-spacing: -.07em;
+}
+.still-thumb-main > strong em { font-family: Georgia, serif; font-weight: 400; }
+.still-thumb-form {
+  margin-top: 10%;
+  min-height: 30px;
+  padding: 3px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px;
+  border: 1px solid rgba(21,21,21,.11);
+  border-radius: 10px;
+  background: #fff;
+}
+.still-thumb-form span { padding: 6px 7px; color: #888780; font-size: 4px; }
+.still-thumb-form b { padding: 6px 8px; border-radius: 7px; background: #151515; color: #fff; font-size: 4px; }
+.still-thumb-rail {
+  position: absolute;
+  right: 6%;
+  bottom: 7%;
+  width: 24%;
+  min-height: 42%;
+  padding: 9% 7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 18px;
+  background: #151515;
+  color: #fff;
+}
+.still-thumb-rail > span { color: #ff5a36; font-size: clamp(20px, 2.7vw, 38px); font-weight: 300; letter-spacing: -.08em; }
+.still-thumb-rail p { margin: 0; color: #aaa9a3; font-size: 3.4px; font-weight: 800; line-height: 1.65; letter-spacing: .08em; }
