@@ -1,0 +1,104 @@
+/* CURRENT wave transition hardening.
+   This layer intentionally overrides the original experimental wave rules.
+   It removes contour-line artifacts and prevents Safari from exposing seams. */
+
+/* The thin white contour elements were visually noisy and could flicker during compositing. */
+.wave-line {
+  display: none !important;
+}
+
+/* Keep every SVG oversized and anchored below the clipping edge so no coloured seam can appear. */
+.wave-field {
+  isolation: isolate;
+}
+
+.wave {
+  bottom: -4px !important;
+  height: calc(100% + 8px) !important;
+  transform-origin: 50% 100% !important;
+  backface-visibility: hidden;
+}
+
+/* Horizontal drift only. Vertical transforms were exposing the bottom of layers in Safari. */
+.wave-back {
+  animation: currentWaveBack 10s ease-in-out infinite alternate !important;
+}
+
+.wave-mid {
+  animation: currentWaveMid 7.5s ease-in-out infinite alternate-reverse !important;
+}
+
+.wave-front {
+  animation: currentWaveFront 6s ease-in-out infinite alternate !important;
+}
+
+@keyframes currentWaveBack {
+  from { transform: translate3d(-5%, 0, 0); }
+  to { transform: translate3d(7%, 0, 0); }
+}
+
+@keyframes currentWaveMid {
+  from { transform: translate3d(6%, 0, 0); }
+  to { transform: translate3d(-6%, 0, 0); }
+}
+
+@keyframes currentWaveFront {
+  from { transform: translate3d(-4%, 0, 0); }
+  to { transform: translate3d(4%, 0, 0); }
+}
+
+@media (max-width: 980px) {
+  /* On mobile the wave is a real third row of the hero rather than an absolutely positioned overlay. */
+  .hero {
+    padding-bottom: 0 !important;
+  }
+
+  .wave-field {
+    position: relative !important;
+    inset: auto !important;
+    order: 3;
+    flex: 0 0 112px;
+    width: 100%;
+    height: 112px !important;
+    margin-top: -1px;
+    background: var(--deep);
+    overflow: hidden;
+  }
+
+  .wave {
+    left: -30% !important;
+    width: 160% !important;
+    bottom: -5px !important;
+    height: calc(100% + 10px) !important;
+  }
+
+  /* Bring the next section close to the water transition instead of leaving a large dead zone. */
+  .statement {
+    padding-top: 64px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .wave-field {
+    flex-basis: 104px;
+    height: 104px !important;
+  }
+
+  .statement {
+    padding-top: 56px !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .wave-field {
+    flex-basis: 96px;
+    height: 96px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave {
+    animation: none !important;
+    transform: none !important;
+  }
+}
