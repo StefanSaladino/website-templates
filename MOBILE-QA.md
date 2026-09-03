@@ -61,3 +61,18 @@ Every new template is checked at 320px, 375–430px, tablet, laptop and wide des
 - Schedule rows collapse from three columns into a readable two-row pattern instead of horizontal scrolling.
 - Method rows preserve order and large touch-safe spacing.
 - Parallax and kinetic headline motion are disabled by `prefers-reduced-motion`.
+
+
+## Template 05 — LINE + LEVEL / Contractor
+
+- Sticky header remains visible across the full phone experience.
+- Burger menu is attached to the header and locks background scrolling while open.
+- Hero changes from desktop split-screen to copy-first vertical composition, followed by the renovation image.
+- Site-visit CTA becomes full width.
+- Project-focus facts collapse to one column rather than shrinking.
+- Service strip becomes a touch-safe two-column grid and then one column at very narrow widths.
+- Example scope rows recompose from three columns into readable stacked rows.
+- Project case study switches from side-by-side photography/copy to a vertical sequence.
+- Process rows preserve numbering and context without horizontal scrolling.
+- Lead form collapses to one column.
+- Parallax is disabled under reduced-motion preferences.

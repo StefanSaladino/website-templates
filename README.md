@@ -4,31 +4,35 @@ A standalone gallery of landing-page concepts. The gallery uses Boomer Automatio
 
 ## Current milestone
 
-Three templates are live:
+Five templates are live:
 
 1. **Quiet SaaS / Arc** — `templates/quiet-saas/`
 2. **Dark Tech / KERN** — `templates/dark-tech/`
 3. **Architecture / Morrow** — `templates/architecture/`
+4. **Fitness Launch / YARD** — `templates/fitness-launch/`
+5. **Contractor / LINE + LEVEL** — `templates/contractor/`
 
 Open `index.html` with Live Server and click any live template preview.
 
-## Mobile-first retrofit
+## Mobile-first baseline
 
-The main gallery, Arc, KERN and Morrow have all received a dedicated mobile pass. Mobile navigation/header behavior is persistent while scrolling, 320px layouts are treated as their own compositions, touch targets are enlarged, hero typography and media are rebalanced, and sticky headers no longer cover anchored content. Arc also locks background scrolling while its mobile menu is open.
+The main gallery and every live template receive a dedicated mobile composition. Mobile headers remain accessible while scrolling, 320px layouts are treated as their own compositions, touch targets are enlarged, hero typography/media are independently tuned, and sticky headers do not cover anchored content.
 
-## Motion pass
+## Motion direction
 
-Motion is now part of the collection when it serves the concept:
+Motion is part of the collection only when it serves the concept:
 
-- Arc: subtle section fade-ins, product depth/parallax and a soft wave line beneath the hero.
+- Arc: section fade-ins, product depth/parallax and a soft wave line beneath the hero.
 - KERN: restrained editorial reveals and slight release-document scroll depth.
-- Morrow: full-screen photography, hero-image parallax, secondary image parallax and scroll-triggered reveals.
+- Morrow: full-screen photography, image parallax and scroll-triggered reveals.
+- YARD: kinetic headline entrance, full-bleed photo parallax and diagonal hero geometry.
+- LINE + LEVEL: restrained section reveals and light hero-photo parallax; conversion clarity remains the focus.
 
 Every template respects `prefers-reduced-motion`.
 
 ## Design contract
 
-`UI-DESIGN-RULES.md` is the locked project-wide design contract. Fictional brands, product UI, prices, testimonials and sample data are allowed when they support the concept. The contract is aimed at preventing repetitive AI-generated layouts and meaningless visual sophistication—not preventing fiction.
+`UI-DESIGN-RULES.md` is the locked project-wide design contract. Fictional brands, product UI, prices, testimonials and sample data are allowed when they support the concept. The contract prevents repetitive AI-generated layouts and meaningless visual sophistication—not useful fiction.
 
 ## Structure
 
@@ -36,20 +40,22 @@ Every template respects `prefers-reduced-motion`.
 - `styles.css` — gallery styles
 - `script.js` — gallery filtering
 - `UI-DESIGN-RULES.md` — locked rules for every template
+- `MOBILE-QA.md` — mobile baseline and per-template notes
 - `templates/quiet-saas/` — Template 01
 - `templates/dark-tech/` — Template 02
 - `templates/architecture/` — Template 03
+- `templates/fitness-launch/` — Template 04
+- `templates/contractor/` — Template 05
 - `PROJECT-ROADMAP.md` — project status
 
 ## Photography
 
-Template 03 uses remote Unsplash images so the full-screen hero can use real architectural photography without bundling large image files into each handoff. An internet connection is required for those photographs to load in the local preview. Photo credits are included in the template footer.
+Several templates use remote Unsplash images so photographic landing pages can use high-quality imagery without bloating each ZIP handoff. An internet connection is required for those photographs to load in local preview. Credits are included inside the relevant fictional template footer.
 
 ## Thumbnail policy
 
-Every completed template must replace its placeholder art with a gallery preview that matches the finished page.
+Every completed template must replace its placeholder artwork with a gallery preview that accurately matches the finished page.
 
 
-## Template 04 — Fitness Launch
-
-YARD lives at `templates/fitness-launch/`. It introduces the collection's first high-energy training campaign: full-bleed black-and-white photography, hi-vis yellow, hero parallax, diagonal section geometry, scroll reveals, a sticky mobile header, and a simple first-session conversion path.
+### Template 05 refinement
+LINE + LEVEL now uses a restrained muted-olive accent instead of cobalt blue, and its mobile service strip uses aligned number/title columns.

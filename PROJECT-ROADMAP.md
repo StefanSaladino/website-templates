@@ -10,7 +10,7 @@
 - [x] Step 4 — Template 03: Architecture
 - [x] Step 4B — Mobile-first retrofit: gallery + Templates 01–03
 - [x] Step 5 — Template 04: Fitness Launch
-- [ ] Step 6 — Template 05: Contractor
+- [x] Step 6 — Template 05: Contractor
 - [ ] Step 7 — Template 06: Restaurant
 - [ ] Step 8 — Template 07: App Launch
 - [ ] Step 9 — Template 08: Creative Agency
@@ -32,7 +32,8 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Quiet SaaS: fade-ins, subtle product parallax, soft hero wave.
 - Dark Tech: restrained reveals and release-document scroll depth.
 - Architecture: full-screen photographic hero, image parallax and scroll reveals.
-- Later templates will deliberately explore video heroes, stronger image masks, diagonal transitions, sticky storytelling and more expressive scroll effects where they fit.
+- Contractor: restrained reveals and light hero-photo parallax, with conversion clarity prioritized over decorative motion.
+- Later templates will deliberately explore video heroes, stronger image masks, sticky storytelling and more expressive scroll effects where they fit.
 
 ## Template 01 — Quiet SaaS
 
@@ -87,4 +88,20 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Hero composition: full-viewport background photography with integrated navigation, kinetic headline and diagonal section cut
 - Distinctive element: aggressive campaign typography, full-bleed image parallax and schedule rows rather than fitness-card grids
 - Mobile baseline: sticky header, mobile menu with scroll lock, full-width CTA and independent hero crop
+- Gallery preview synced to the finished page
+
+
+## Template 05 — Contractor
+
+`templates/contractor/`
+
+- Fictional brand: LINE + LEVEL / Renovation Co.
+- Industry: residential renovation / general contracting
+- Audience: Toronto + GTA homeowners planning kitchens, main floors, basements or structural renovation work
+- Primary CTA: Book a site visit
+- Length: medium / long
+- Visual concept: crisp cobalt, true white and black with real construction photography and scope-first typography
+- Hero composition: conversion copy beside an active-renovation image, followed by service scope rather than trust-card clutter
+- Distinctive element: blueprint-like scope sheet and process rows that explain how a renovation is run before asking for the lead
+- Mobile baseline: sticky header, scroll-locking menu, full-width primary CTA, vertical scope sheet and no horizontal overflow
 - Gallery preview synced to the finished page
