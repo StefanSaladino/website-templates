@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="YARD is a fictional strength club landing-page template built around coached training, simple programming, and a full-bleed photographic hero." />
+  <title>YARD — Strength Club</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="YARD home"><span>YARD</span><small>Strength Club</small></a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#training">Training</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#method">Method</a>
+    </nav>
+    <a class="header-cta" href="#trial">Book a first session</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span></button>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+      <a href="#training">Training</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#method">Method</a>
+      <a class="mobile-cta" href="#trial">Book a first session</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" data-parallax="0.12" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&amp;fit=crop&amp;fm=jpg&amp;ixlib=rb-4.1.0&amp;q=78&amp;w=2200" alt="" />
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Toronto · Strength / Conditioning</p>
+        <h1 id="hero-title" class="hero-title"><span>Train</span><span>for the</span><span class="accent">work</span></h1>
+        <div class="hero-bottom reveal">
+          <p>Small-group strength training for people who want structure, coaching, and a reason to keep showing up.</p>
+          <a class="primary-button" href="#trial">Book a first session <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+      <div class="hero-index" aria-hidden="true"><span>06:00</span><span>19:30</span></div>
+      <div class="hero-cut" aria-hidden="true"></div>
+    </section>
+
+    <section class="statement section-pad" id="training">
+      <div class="statement-number reveal">01</div>
+      <div class="statement-copy reveal">
+        <p class="kicker">THE ROOM</p>
+        <h2>No mirrors<br>No wandering<br>No wasted sets</h2>
+      </div>
+      <p class="statement-note reveal">Every session has a plan. Every lift has a reason. Coaches stay on the floor, groups stay small, and the room is built for training rather than content creation.</p>
+    </section>
+
+    <section class="image-band" aria-label="Strength training at YARD">
+      <figure class="image-frame reveal">
+        <div class="image-parallax" data-parallax="0.08">
+          <img src="https://images.unsplash.com/photo-1782849206257-c1bf78721837?auto=format&amp;fit=crop&amp;fm=jpg&amp;ixlib=rb-4.1.0&amp;q=76&amp;w=1800" alt="Athlete carrying kettlebells during strength training" />
+        </div>
+        <figcaption><span>Loaded carries</span><span>Strength / Capacity</span></figcaption>
+      </figure>
+      <div class="image-copy reveal">
+        <p class="kicker">COACHED, NOT CROWDED</p>
+        <h2>Six people<br>One coach<br>A plan that moves</h2>
+        <p>Sessions combine barbell work, carries, intervals and basic athletic movement. The programming changes; the standards do not.</p>
+      </div>
+    </section>
+
+    <section class="schedule section-pad" id="schedule" aria-labelledby="schedule-title">
+      <div class="section-heading reveal">
+        <p class="kicker">THIS WEEK</p>
+        <h2 id="schedule-title">Pick a time<br>We’ll handle the plan</h2>
+      </div>
+      <div class="schedule-list reveal">
+        <div class="schedule-row"><span>Mon / Wed / Fri</span><strong>Strength</strong><em>06:00 · 07:15 · 17:30 · 18:45</em></div>
+        <div class="schedule-row"><span>Tue / Thu</span><strong>Engine</strong><em>06:15 · 17:45 · 19:00</em></div>
+        <div class="schedule-row"><span>Saturday</span><strong>Open Yard</strong><em>08:00 · 09:15</em></div>
+      </div>
+    </section>
+
+    <section class="method" id="method">
+      <div class="method-title reveal">
+        <p class="kicker">THE METHOD</p>
+        <h2>Simple enough<br>to repeat</h2>
+      </div>
+      <ol class="method-list">
+        <li class="reveal"><span>01</span><div><strong>Learn the movement.</strong><p>Start with positions you can own. Load comes later.</p></div></li>
+        <li class="reveal"><span>02</span><div><strong>Add work slowly.</strong><p>Progress is written into the week, not improvised between sets.</p></div></li>
+        <li class="reveal"><span>03</span><div><strong>Keep the room honest.</strong><p>Coaches adjust the session to the person without turning it into a different program.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="trial section-pad" id="trial">
+      <div class="trial-copy reveal">
+        <p class="kicker">FIRST SESSION</p>
+        <h2>Come train once<br><span class="trial-line-nowrap">Decide after</span></h2>
+        <p>Your first visit includes a short movement check, a coached session, and a clear recommendation for where to start.</p>
+      </div>
+      <form class="trial-form reveal" action="#" method="get">
+        <label for="trial-email">Email</label>
+        <div class="form-row">
+          <input id="trial-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+          <button type="submit">Book a first session</button>
+        </div>
+        <small>Demo form · no submission is sent.</small>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="footer-brand" href="#top">YARD / Strength Club</a>
+    <p>Toronto, Ontario · Fictional template concept</p>
+    <p>Photography: <a href="https://unsplash.com/@johnarano" target="_blank" rel="noreferrer">John Arano</a> + <a href="https://unsplash.com/@visualsbyroyalz" target="_blank" rel="noreferrer">Anastase Maragos</a> / Unsplash</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

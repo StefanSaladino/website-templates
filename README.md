@@ -48,3 +48,8 @@ Template 03 uses remote Unsplash images so the full-screen hero can use real arc
 ## Thumbnail policy
 
 Every completed template must replace its placeholder art with a gallery preview that matches the finished page.
+
+
+## Template 04 — Fitness Launch
+
+YARD lives at `templates/fitness-launch/`. It introduces the collection's first high-energy training campaign: full-bleed black-and-white photography, hi-vis yellow, hero parallax, diagonal section geometry, scroll reveals, a sticky mobile header, and a simple first-session conversion path.

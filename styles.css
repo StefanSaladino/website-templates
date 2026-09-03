@@ -470,3 +470,17 @@ main { padding: 0 clamp(20px, 4vw, 64px); }
   html { scroll-padding-top: 72px; }
   #library, #about { scroll-margin-top: 72px; }
 }
+
+
+/* Template 04 — YARD finished thumbnail */
+.thumb--yard { position:relative; overflow:hidden; background:#0b0b0a; color:#fff; }
+.thumb--yard > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:58% 44%; filter:grayscale(1) contrast(1.12) brightness(.72); }
+.yard-thumb-shade { position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.2) 75%); }
+.yard-thumb-top { position:absolute; z-index:2; top:9%; left:8%; right:8%; display:flex; align-items:baseline; gap:8px; }
+.yard-thumb-top b { font-family:Impact,"Arial Narrow",sans-serif; font-size:15px; letter-spacing:.02em; }
+.yard-thumb-top small { font-size:5px; letter-spacing:.12em; }
+.yard-thumb-copy { position:absolute; z-index:2; left:8%; bottom:11%; }
+.yard-thumb-copy small { display:block; margin-bottom:7px; font-size:5px; font-weight:800; letter-spacing:.12em; color:#dcff38; }
+.yard-thumb-copy b { display:block; font-family:Impact,"Arial Narrow",sans-serif; font-size:clamp(26px,3.8vw,52px); line-height:.86; letter-spacing:-.025em; }
+.yard-thumb-copy em { color:#dcff38; font-style:normal; }
+.yard-thumb-cut { position:absolute; z-index:2; right:-1px; bottom:-1px; width:34%; height:24%; background:#fcfcfb; clip-path:polygon(100% 0,100% 100%,0 100%); }

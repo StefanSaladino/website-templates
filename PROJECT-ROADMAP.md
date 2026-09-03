@@ -9,7 +9,7 @@
 - [x] Step 3 — Template 02: Dark Tech
 - [x] Step 4 — Template 03: Architecture
 - [x] Step 4B — Mobile-first retrofit: gallery + Templates 01–03
-- [ ] Step 5 — Template 04: Fitness Launch
+- [x] Step 5 — Template 04: Fitness Launch
 - [ ] Step 6 — Template 05: Contractor
 - [ ] Step 7 — Template 06: Restaurant
 - [ ] Step 8 — Template 07: App Launch
@@ -73,3 +73,18 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Distinctive element: real full-screen photography with slow parallax and magazine-like section rhythm rather than the expected beige-luxury card layout
 - Gallery preview synced to the finished page
 
+
+## Template 04 — Fitness Launch
+
+`templates/fitness-launch/`
+
+- Fictional brand: YARD / Strength Club
+- Industry: small-group strength and conditioning
+- Audience: adults who want coached, structured training without a crowded commercial-gym experience
+- Primary CTA: Book a first session
+- Length: medium
+- Visual concept: industrial black-and-white campaign page with hi-vis yellow and oversized condensed typography
+- Hero composition: full-viewport background photography with integrated navigation, kinetic headline and diagonal section cut
+- Distinctive element: aggressive campaign typography, full-bleed image parallax and schedule rows rather than fitness-card grids
+- Mobile baseline: sticky header, mobile menu with scroll lock, full-width CTA and independent hero crop
+- Gallery preview synced to the finished page

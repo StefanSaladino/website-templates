@@ -51,3 +51,13 @@ All current and future templates are designed mobile-first. A desktop compositio
 ## QA requirements going forward
 
 Every new template is checked at 320px, 375–430px, tablet, laptop and wide desktop. No horizontal page overflow, inaccessible navigation or desktop-only composition is accepted as complete.
+
+## Template 04 — YARD / Fitness Launch
+
+- Sticky mobile header begins at 900px and below.
+- Burger menu is attached to the sticky header and locks page scroll while open.
+- Hero image uses a phone-specific crop and the oversized headline scales independently from desktop.
+- Primary trial CTA becomes full-width on mobile.
+- Schedule rows collapse from three columns into a readable two-row pattern instead of horizontal scrolling.
+- Method rows preserve order and large touch-safe spacing.
+- Parallax and kinetic headline motion are disabled by `prefers-reduced-motion`.
