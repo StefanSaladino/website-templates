@@ -1,0 +1,355 @@
+/* Exact gallery preview sync for Template 05 and Template 10.
+   These use dedicated markup so no legacy thumbnail layers or pseudo-elements can collide. */
+
+/* Template 05 — LINE + LEVEL */
+.thumb--contractor-sync {
+  position: relative;
+  display: grid;
+  grid-template-columns: 52% 48%;
+  background: #fbfcfe;
+  color: #111316;
+}
+.contractor-sync-copy {
+  min-width: 0;
+  padding: 7% 7% 6%;
+  display: flex;
+  flex-direction: column;
+}
+.contractor-sync-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+.contractor-sync-brand > span:last-child {
+  display: grid;
+  gap: 1px;
+}
+.contractor-sync-brand b {
+  font-size: 6.5px;
+  letter-spacing: -.02em;
+}
+.contractor-sync-brand small {
+  color: #626872;
+  font-size: 3.2px;
+  letter-spacing: .14em;
+}
+.contractor-sync-mark {
+  position: relative;
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #111316;
+}
+.contractor-sync-mark i {
+  position: absolute;
+  background: #68705f;
+}
+.contractor-sync-mark i:first-child {
+  width: 1px;
+  top: 2px;
+  bottom: 2px;
+  left: 5px;
+  transform: rotate(-18deg);
+}
+.contractor-sync-mark i:last-child {
+  height: 1px;
+  left: 2px;
+  right: 2px;
+  top: 7px;
+  transform: rotate(18deg);
+}
+.contractor-sync-copy > p {
+  margin: 15% 0 0;
+  color: #68705f;
+  font-size: 3.5px;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+.contractor-sync-copy > strong {
+  display: block;
+  margin-top: 7%;
+  font-size: clamp(15px, 2vw, 29px);
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+.contractor-sync-copy > strong em {
+  color: #68705f;
+  font-style: normal;
+}
+.contractor-sync-cta {
+  align-self: flex-start;
+  margin-top: 10%;
+  padding: 6px 8px;
+  background: #68705f;
+  color: #fff;
+  font-size: 4px;
+  font-style: normal;
+  font-weight: 800;
+}
+.contractor-sync-fact {
+  margin-top: auto;
+  padding-top: 7%;
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  gap: 5px;
+  border-top: 1px solid #d7dbe2;
+}
+.contractor-sync-fact small {
+  color: #737984;
+  font-size: 3.2px;
+  letter-spacing: .12em;
+}
+.contractor-sync-fact b {
+  font-size: 3.6px;
+  line-height: 1.35;
+}
+.contractor-sync-media {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #d3d6dc;
+}
+.contractor-sync-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 47%;
+  filter: saturate(.82) contrast(1.02);
+}
+.contractor-sync-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 52%, rgba(6,10,17,.32));
+}
+.contractor-sync-media > div {
+  position: absolute;
+  z-index: 2;
+  left: 7%;
+  right: 7%;
+  bottom: 7%;
+  display: grid;
+  gap: 2px;
+  color: #fff;
+}
+.contractor-sync-media small {
+  font-size: 3px;
+  letter-spacing: .14em;
+}
+.contractor-sync-media b {
+  font-size: 4.2px;
+}
+.thumb--contractor-sync .live-badge {
+  top: 5%;
+  right: 4%;
+}
+
+/* Template 10 — STILL */
+.thumb--still-sync {
+  position: relative;
+  padding: 5%;
+  display: grid;
+  grid-template-rows: 17% 1fr;
+  gap: 5%;
+  background: #f7f7f4;
+  color: #151515;
+}
+.still-sync-head {
+  min-width: 0;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid rgba(21,21,21,.08);
+  border-radius: 999px;
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 6px 18px rgba(21,21,21,.045);
+}
+.still-sync-head b {
+  font-size: 6px;
+  letter-spacing: -.05em;
+}
+.still-sync-head b span {
+  color: #ff5a36;
+}
+.still-sync-head small {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #66655f;
+  font-size: 3px;
+  font-weight: 850;
+  letter-spacing: .11em;
+  white-space: nowrap;
+}
+.still-sync-head small i {
+  width: 4px;
+  height: 4px;
+  flex: 0 0 4px;
+  border-radius: 50%;
+  background: #ff5a36;
+}
+.still-sync-layout {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 20% minmax(0,1fr) 23%;
+  gap: 4%;
+}
+.still-sync-edition,
+.still-sync-principles {
+  min-width: 0;
+  border-radius: 14px;
+}
+.still-sync-edition {
+  padding: 15% 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #deddd7;
+  background: rgba(255,255,255,.56);
+}
+.still-sync-edition strong {
+  font-size: clamp(16px, 2.1vw, 28px);
+  font-weight: 300;
+  line-height: .9;
+  letter-spacing: -.08em;
+}
+.still-sync-edition small {
+  color: #73726c;
+  font-size: 2.6px;
+  font-weight: 800;
+  line-height: 1.7;
+  letter-spacing: .08em;
+}
+.still-sync-main {
+  min-width: 0;
+  padding: 6% 0;
+  display: flex;
+  flex-direction: column;
+}
+.still-sync-main > small {
+  color: #73726c;
+  font-size: 3px;
+  font-weight: 850;
+  letter-spacing: .11em;
+}
+.still-sync-main > strong {
+  display: block;
+  margin-top: 9%;
+  font-size: clamp(16px, 2.2vw, 31px);
+  line-height: .84;
+  letter-spacing: -.07em;
+}
+.still-sync-main > strong em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+.still-sync-join {
+  margin-top: auto;
+  padding: 5%;
+  border: 1px solid rgba(21,21,21,.07);
+  border-radius: 12px;
+  background: rgba(255,255,255,.74);
+  box-shadow: 0 8px 24px rgba(21,21,21,.04);
+}
+.still-sync-meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.still-sync-meta span {
+  display: grid;
+  gap: 1px;
+  color: #73726c;
+  font-size: 2.3px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.still-sync-meta b {
+  color: #151515;
+  font-size: 2.7px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.still-sync-field {
+  min-height: 24px;
+  padding: 2px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 2px;
+  align-items: center;
+  border: 1px solid rgba(21,21,21,.11);
+  border-radius: 8px;
+  background: #fff;
+}
+.still-sync-field span {
+  min-width: 0;
+  padding: 5px 6px;
+  overflow: hidden;
+  color: #9a9992;
+  font-size: 3px;
+  white-space: nowrap;
+}
+.still-sync-field b {
+  padding: 5px 6px;
+  border-radius: 6px;
+  background: #151515;
+  color: #fff;
+  font-size: 2.8px;
+  white-space: nowrap;
+}
+.still-sync-principles {
+  align-self: end;
+  padding: 9% 10%;
+  display: grid;
+  align-content: end;
+  background: #151515;
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(21,21,21,.1);
+}
+.still-sync-principles p {
+  margin: 0;
+  padding: 7% 0;
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: 3px;
+  border-top: 1px solid rgba(255,255,255,.09);
+  font-size: 2.7px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.still-sync-principles p:first-child {
+  border-top: 0;
+}
+.still-sync-principles p span {
+  color: #8f8e88;
+  font-size: 2.3px;
+}
+.thumb--still-sync .live-badge {
+  top: auto;
+  right: 6%;
+  bottom: 6%;
+  transform: scale(.84);
+  transform-origin: right bottom;
+}
+
+/* Keep the clean compositions stable on narrow gallery cards. */
+@media (max-width: 680px) {
+  .contractor-sync-copy > strong {
+    font-size: clamp(18px, 6vw, 27px);
+  }
+  .contractor-sync-copy > p {
+    margin-top: 12%;
+  }
+  .still-sync-main > strong {
+    font-size: clamp(18px, 6vw, 26px);
+  }
+  .still-sync-edition strong {
+    font-size: clamp(18px, 5.6vw, 25px);
+  }
+  .still-sync-principles p {
+    font-size: 3px;
+  }
+}
