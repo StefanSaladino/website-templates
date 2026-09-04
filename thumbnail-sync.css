@@ -1,5 +1,5 @@
 /* Exact gallery preview sync for Template 05 and Template 10.
-   These use dedicated markup so no legacy thumbnail layers or pseudo-elements can collide. */
+   Dedicated markup keeps these previews isolated from legacy thumbnail rules. */
 
 /* Template 05 — LINE + LEVEL */
 .thumb--contractor-sync {
@@ -21,19 +21,9 @@
   gap: 7px;
   min-width: 0;
 }
-.contractor-sync-brand > span:last-child {
-  display: grid;
-  gap: 1px;
-}
-.contractor-sync-brand b {
-  font-size: 6.5px;
-  letter-spacing: -.02em;
-}
-.contractor-sync-brand small {
-  color: #626872;
-  font-size: 3.2px;
-  letter-spacing: .14em;
-}
+.contractor-sync-brand > span:last-child { display: grid; gap: 1px; }
+.contractor-sync-brand b { font-size: 6.5px; letter-spacing: -.02em; }
+.contractor-sync-brand small { color: #626872; font-size: 3.2px; letter-spacing: .14em; }
 .contractor-sync-mark {
   position: relative;
   flex: 0 0 15px;
@@ -41,10 +31,7 @@
   height: 15px;
   border: 1px solid #111316;
 }
-.contractor-sync-mark i {
-  position: absolute;
-  background: #68705f;
-}
+.contractor-sync-mark i { position: absolute; background: #68705f; }
 .contractor-sync-mark i:first-child {
   width: 1px;
   top: 2px;
@@ -73,10 +60,7 @@
   line-height: .9;
   letter-spacing: -.06em;
 }
-.contractor-sync-copy > strong em {
-  color: #68705f;
-  font-style: normal;
-}
+.contractor-sync-copy > strong em { color: #68705f; font-style: normal; }
 .contractor-sync-cta {
   align-self: flex-start;
   margin-top: 10%;
@@ -95,15 +79,8 @@
   gap: 5px;
   border-top: 1px solid #d7dbe2;
 }
-.contractor-sync-fact small {
-  color: #737984;
-  font-size: 3.2px;
-  letter-spacing: .12em;
-}
-.contractor-sync-fact b {
-  font-size: 3.6px;
-  line-height: 1.35;
-}
+.contractor-sync-fact small { color: #737984; font-size: 3.2px; letter-spacing: .12em; }
+.contractor-sync-fact b { font-size: 3.6px; line-height: 1.35; }
 .contractor-sync-media {
   position: relative;
   min-width: 0;
@@ -133,31 +110,26 @@
   gap: 2px;
   color: #fff;
 }
-.contractor-sync-media small {
-  font-size: 3px;
-  letter-spacing: .14em;
-}
-.contractor-sync-media b {
-  font-size: 4.2px;
-}
-.thumb--contractor-sync .live-badge {
-  top: 5%;
-  right: 4%;
-}
+.contractor-sync-media small { font-size: 3px; letter-spacing: .14em; }
+.contractor-sync-media b { font-size: 4.2px; }
+.thumb--contractor-sync .live-badge { top: 5%; right: 4%; }
 
-/* Template 10 — STILL */
+/* Template 10 — STILL
+   Ratios mirror the live desktop page: narrow edition rail, dominant hero column,
+   smaller bottom-aligned principles panel and a floating rounded header. */
 .thumb--still-sync {
   position: relative;
-  padding: 5%;
+  padding: 4.2%;
   display: grid;
-  grid-template-rows: 17% 1fr;
-  gap: 5%;
+  grid-template-rows: 14.5% minmax(0, 1fr);
+  gap: 4.25%;
   background: #f7f7f4;
   color: #151515;
+  border-color: rgba(21,21,21,.055);
 }
 .still-sync-head {
   min-width: 0;
-  padding: 0 5%;
+  padding: 0 4.5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -167,13 +139,8 @@
   background: rgba(255,255,255,.86);
   box-shadow: 0 6px 18px rgba(21,21,21,.045);
 }
-.still-sync-head b {
-  font-size: 6px;
-  letter-spacing: -.05em;
-}
-.still-sync-head b span {
-  color: #ff5a36;
-}
+.still-sync-head b { font-size: 6px; letter-spacing: -.05em; }
+.still-sync-head b span { color: #ff5a36; }
 .still-sync-head small {
   display: inline-flex;
   align-items: center;
@@ -194,90 +161,96 @@
 .still-sync-layout {
   min-height: 0;
   display: grid;
-  grid-template-columns: 20% minmax(0,1fr) 23%;
-  gap: 4%;
+  grid-template-columns: 13% minmax(0, 1fr) 19%;
+  gap: 2.7%;
+  align-items: stretch;
 }
 .still-sync-edition,
 .still-sync-principles {
   min-width: 0;
-  border-radius: 14px;
+  border-radius: 13px;
 }
 .still-sync-edition {
-  padding: 15% 12%;
+  align-self: start;
+  height: 60%;
+  padding: 18% 15%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid #deddd7;
-  background: rgba(255,255,255,.56);
+  background: rgba(255,255,255,.54);
 }
 .still-sync-edition strong {
-  font-size: clamp(16px, 2.1vw, 28px);
+  font-size: clamp(14px, 1.75vw, 24px);
   font-weight: 300;
   line-height: .9;
   letter-spacing: -.08em;
 }
 .still-sync-edition small {
   color: #73726c;
-  font-size: 2.6px;
+  font-size: 2.35px;
   font-weight: 800;
-  line-height: 1.7;
-  letter-spacing: .08em;
+  line-height: 1.65;
+  letter-spacing: .07em;
 }
 .still-sync-main {
   min-width: 0;
-  padding: 6% 0;
+  padding: 3.5% 2% 1%;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 .still-sync-main > small {
   color: #73726c;
-  font-size: 3px;
+  font-size: 2.9px;
   font-weight: 850;
   letter-spacing: .11em;
 }
 .still-sync-main > strong {
   display: block;
-  margin-top: 9%;
-  font-size: clamp(16px, 2.2vw, 31px);
+  margin-top: 7%;
+  max-width: 94%;
+  font-size: clamp(18px, 2.55vw, 35px);
   line-height: .84;
-  letter-spacing: -.07em;
+  letter-spacing: -.074em;
 }
 .still-sync-main > strong em {
   font-family: Georgia, serif;
   font-weight: 400;
 }
 .still-sync-join {
+  width: 88%;
   margin-top: auto;
-  padding: 5%;
+  padding: 4.2%;
   border: 1px solid rgba(21,21,21,.07);
-  border-radius: 12px;
-  background: rgba(255,255,255,.74);
+  border-radius: 13px;
+  background: rgba(255,255,255,.72);
   box-shadow: 0 8px 24px rgba(21,21,21,.04);
 }
 .still-sync-meta {
   display: flex;
-  gap: 10px;
-  margin-bottom: 5px;
+  gap: 14px;
+  margin-bottom: 6px;
 }
 .still-sync-meta span {
   display: grid;
   gap: 1px;
   color: #73726c;
-  font-size: 2.3px;
+  font-size: 2.15px;
   text-transform: uppercase;
   letter-spacing: .08em;
 }
 .still-sync-meta b {
   color: #151515;
-  font-size: 2.7px;
+  font-size: 2.55px;
   text-transform: none;
   letter-spacing: 0;
 }
 .still-sync-field {
-  min-height: 24px;
+  min-height: 23px;
   padding: 2px;
   display: grid;
-  grid-template-columns: minmax(0,1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 2px;
   align-items: center;
   border: 1px solid rgba(21,21,21,.11);
@@ -289,7 +262,7 @@
   padding: 5px 6px;
   overflow: hidden;
   color: #9a9992;
-  font-size: 3px;
+  font-size: 2.8px;
   white-space: nowrap;
 }
 .still-sync-field b {
@@ -297,12 +270,13 @@
   border-radius: 6px;
   background: #151515;
   color: #fff;
-  font-size: 2.8px;
+  font-size: 2.6px;
   white-space: nowrap;
 }
 .still-sync-principles {
   align-self: end;
-  padding: 9% 10%;
+  height: 56%;
+  padding: 10% 11%;
   display: grid;
   align-content: end;
   background: #151515;
@@ -311,55 +285,63 @@
 }
 .still-sync-principles p {
   margin: 0;
-  padding: 7% 0;
+  padding: 8% 0;
   display: grid;
-  grid-template-columns: 12px 1fr;
+  grid-template-columns: 10px minmax(0,1fr);
   gap: 3px;
   border-top: 1px solid rgba(255,255,255,.09);
-  font-size: 2.7px;
+  font-size: 2.55px;
   font-weight: 700;
   line-height: 1.2;
 }
-.still-sync-principles p:first-child {
-  border-top: 0;
-}
-.still-sync-principles p span {
-  color: #8f8e88;
-  font-size: 2.3px;
-}
+.still-sync-principles p:first-child { border-top: 0; }
+.still-sync-principles p span { color: #8f8e88; font-size: 2.2px; }
+
+/* Gallery metadata stays outside the STILL composition instead of sitting on a panel. */
 .thumb--still-sync .live-badge {
   position: absolute !important;
-  top: 5% !important;
-  right: 4% !important;
+  top: 21% !important;
+  right: 2.4% !important;
   bottom: auto !important;
   left: auto !important;
   width: auto !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
-  padding: 6px 8px !important;
+  padding: 5px 7px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   transform: none !important;
   line-height: 1 !important;
+  z-index: 5 !important;
 }
 
-/* Keep the clean compositions stable on narrow gallery cards. */
 @media (max-width: 680px) {
-  .contractor-sync-copy > strong {
-    font-size: clamp(18px, 6vw, 27px);
+  .contractor-sync-copy > strong { font-size: clamp(18px, 6vw, 27px); }
+  .contractor-sync-copy > p { margin-top: 12%; }
+
+  .thumb--still-sync {
+    padding: 4%;
+    grid-template-rows: 15% minmax(0, 1fr);
+    gap: 4%;
   }
-  .contractor-sync-copy > p {
-    margin-top: 12%;
+  .still-sync-layout {
+    grid-template-columns: 13.5% minmax(0, 1fr) 19.5%;
+    gap: 2.5%;
   }
   .still-sync-main > strong {
-    font-size: clamp(18px, 6vw, 26px);
+    font-size: clamp(20px, 6.5vw, 28px);
   }
   .still-sync-edition strong {
-    font-size: clamp(18px, 5.6vw, 25px);
+    font-size: clamp(15px, 4.9vw, 21px);
   }
-  .still-sync-principles p {
-    font-size: 3px;
+  .still-sync-join { width: 92%; }
+  .still-sync-principles p { font-size: 2.8px; }
+  .thumb--still-sync .live-badge {
+    top: 21% !important;
+    right: 2% !important;
+    padding: 5px 7px !important;
+    font-size: 6px !important;
   }
 }
