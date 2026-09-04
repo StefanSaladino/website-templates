@@ -1,0 +1,40 @@
+/* Template 11 — FIELD NOTES / RANGE/FOUND editorial commerce thumbnail */
+.thumb--fieldnotes {
+  position: relative;
+  display: grid;
+  grid-template-columns: 8% 55% 37%;
+  background: #f8f6f0;
+  color: #1b2119;
+}
+.fieldnotes-thumb-rail {
+  padding: 12% 14%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(27,33,25,.2);
+  background: #f1eee6;
+}
+.fieldnotes-thumb-rail strong {
+  font: 300 clamp(15px,2vw,27px)/.85 Georgia,serif;
+  letter-spacing: -.08em;
+}
+.fieldnotes-thumb-rail small {
+  color: #6c7169;
+  font-size: 2.4px;
+  font-weight: 800;
+  line-height: 1.55;
+  letter-spacing: .08em;
+}
+.fieldnotes-thumb-photo { position: relative; min-width: 0; overflow: hidden; }
+.fieldnotes-thumb-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 52% center; filter: saturate(.82) contrast(1.02); }
+.fieldnotes-thumb-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 60%,rgba(12,16,11,.36)); }
+.fieldnotes-thumb-copy { min-width: 0; padding: 11% 10% 8%; display: flex; flex-direction: column; }
+.fieldnotes-thumb-copy > small { color: #56614a; font-size: 2.8px; font-weight: 850; letter-spacing: .11em; }
+.fieldnotes-thumb-copy > b { display:block; margin-top: 18%; font-size: clamp(14px,1.8vw,26px); line-height: .85; letter-spacing: -.07em; }
+.fieldnotes-thumb-copy > b em { font-family: Georgia,serif; font-weight: 400; }
+.fieldnotes-thumb-copy > i { width:max-content; margin-top: 14%; padding: 5px 6px; background:#1b2119; color:#fff; font-size:2.8px; font-style:normal; font-weight:850; }
+.fieldnotes-thumb-copy > span { margin-top:auto; padding-top:9%; border-top:1px solid rgba(27,33,25,.2); color:#72776f; font-size:2.4px; font-weight:800; }
+.thumb--fieldnotes .live-badge { top: 5% !important; right: 4% !important; }
+@media (max-width: 680px) {
+  .fieldnotes-thumb-copy > b { font-size: clamp(18px,6vw,27px); }
+}
