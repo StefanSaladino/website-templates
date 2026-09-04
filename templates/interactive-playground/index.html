@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="WOBBLEWORKS is a maximal interactive playground full of colour, draggable objects, elastic type and deliberately unnecessary interactions." />
+  <title>WOBBLEWORKS — Please Touch Everything</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top">WOBBLE<span>WORKS</span></a>
+    <nav class="desktop-nav" aria-label="Primary navigation"><a href="#play">Play</a><a href="#shelf">Objects</a><a href="#wall">Drag wall</a></nav>
+    <button class="randomize magnetic" type="button" data-randomize>Randomize colour</button>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><i></i><i></i></button>
+  </header>
+  <nav class="mobile-menu" id="mobile-menu" hidden aria-label="Mobile navigation">
+    <a href="#play" style="--i:0"><span>01</span>PLAY WITH IT</a>
+    <a href="#shelf" style="--i:1"><span>02</span>USELESS OBJECTS</a>
+    <a href="#wall" style="--i:2"><span>03</span>DRAG WALL</a>
+    <a href="../../" style="--i:3"><span>04</span>ESCAPE</a>
+  </nav>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">DEPARTMENT OF UNNECESSARY OBJECTS · EST. WHENEVER</p>
+        <h1 id="hero-title"><span data-bounce>PLEASE</span><span data-bounce>TOUCH</span><span class="outline" data-bounce>EVERYTHING</span></h1>
+        <p class="hero-lede">A website with too many buttons, questionable physics and absolutely no interest in behaving normally.</p>
+        <div class="hero-actions"><a class="big-button magnetic" href="#play">Start poking ↘</a><button class="weirder magnetic" type="button" data-randomize>Make it weirder</button></div>
+      </div>
+      <button class="hero-blob" type="button" data-poke aria-label="Poke the big shape"><span>POKE<br>ME</span></button>
+      <div class="sticker sticker-a draggable" data-drag tabindex="0">DO NOT<br>ALIGN</div>
+      <div class="sticker sticker-b draggable" data-drag tabindex="0">100%<br>TOO MUCH</div>
+      <div class="sticker sticker-c draggable" data-drag tabindex="0">WHY?</div>
+      <p class="hero-note">Move things. Click things. Regret nothing.</p>
+    </section>
+
+    <div class="ticker" aria-hidden="true"><div><span>WIGGLE IT</span><b>✹</b><span>CLICK THE WRONG THING</span><b>✹</b><span>DRAG THE STICKERS</span><b>✹</b><span>MAKE IT LOUDER</span><b>✹</b><span>WIGGLE IT</span><b>✹</b><span>CLICK THE WRONG THING</span><b>✹</b></div></div>
+
+    <section class="play section-shell" id="play" aria-labelledby="play-title">
+      <header class="section-head reveal"><p>INTERACTION LAB / 01</p><h2 id="play-title">Three ways to<br><em>make it worse.</em></h2></header>
+      <div class="play-grid">
+        <article class="lab-card blob-lab reveal">
+          <div class="lab-top"><span>01</span><strong>POKE LAB</strong></div>
+          <button class="lab-blob" type="button" data-lab-blob aria-label="Morph the blob"><span>poke</span></button>
+          <div class="lab-bottom"><p>Every click picks a new shape that a respectable designer would have rejected.</p><button type="button" data-lab-poke>Poke again +</button></div>
+        </article>
+        <article class="lab-card type-lab reveal">
+          <div class="lab-top"><span>02</span><strong>TYPE SQUISHER</strong></div>
+          <div class="squish-stage"><b data-squish-word>SQUISH</b></div>
+          <label>Amount of poor judgment<input type="range" min="0" max="100" value="62" data-squish /><span data-squish-value>62%</span></label>
+        </article>
+        <article class="lab-card poster-lab reveal">
+          <div class="lab-top"><span>03</span><strong>POSTER MACHINE</strong></div>
+          <button class="poster" type="button" data-poster><small>WOBBLEWORKS PRESENTS</small><b data-poster-word>GOOD<br>IDEA?</b><i>CLICK TO DISAGREE</i></button>
+          <div class="poster-dots"><button type="button" data-poster-palette="0" aria-label="Poster palette one"></button><button type="button" data-poster-palette="1" aria-label="Poster palette two"></button><button type="button" data-poster-palette="2" aria-label="Poster palette three"></button></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shelf" id="shelf" aria-labelledby="shelf-title">
+      <div class="shelf-head reveal"><p>CATALOGUE OF BAD DECISIONS / 02</p><h2 id="shelf-title">Objects nobody<br>asked for.</h2><span>Click an object to trigger its own bad idea. Click again to undo it.</span></div>
+      <div class="object-grid">
+        <button class="object-card object-one reveal" type="button" data-object><span>01</span><div class="object-art"><i></i><i></i><b></b></div><h3>The Bent Cup</h3><p>Holds almost one beverage.</p><em>Activate nonsense +</em></button>
+        <button class="object-card object-two reveal" type="button" data-object><span>02</span><div class="object-art"><i></i><b></b></div><h3>Emergency Triangle</h3><p>For situations requiring a triangle immediately.</p><em>Activate nonsense +</em></button>
+        <button class="object-card object-three reveal" type="button" data-object><span>03</span><div class="object-art"><i></i><i></i><i></i></div><h3>Soft Brick</h3><p>Architecturally disappointing. Emotionally supportive.</p><em>Activate nonsense +</em></button>
+        <button class="object-card object-four reveal" type="button" data-object><span>04</span><div class="object-art"><b>?</b></div><h3>Mystery Button</h3><p>Does something. Nobody wrote it down.</p><em>Activate nonsense +</em></button>
+      </div>
+    </section>
+
+    <section class="runaway" aria-labelledby="runaway-title">
+      <div class="runaway-copy reveal"><p>MICRO CHALLENGE / 03</p><h2 id="runaway-title">Can you click<br>the button?</h2><span>Desktop users: probably not. Touch users: we are less cruel.</span></div>
+      <div class="runaway-zone" data-runaway-zone><button type="button" class="runaway-button" data-runaway>CLICK ME</button><p data-runaway-note>It can smell confidence.</p></div>
+    </section>
+
+    <section class="drag-wall section-shell" id="wall" aria-labelledby="wall-title">
+      <header class="section-head reveal"><p>DRAG WALL / 04</p><h2 id="wall-title">Make your own<br><em>bad layout.</em></h2></header>
+      <div class="wall" data-wall>
+        <div class="wall-grid" aria-hidden="true"></div>
+        <div class="wall-piece piece-a draggable" data-drag tabindex="0">BIG<br>YIKES</div>
+        <div class="wall-piece piece-b draggable" data-drag tabindex="0">MOVE<br>ME →</div>
+        <div class="wall-piece piece-c draggable" data-drag tabindex="0"><span>✹</span></div>
+        <div class="wall-piece piece-d draggable" data-drag tabindex="0">THIS IS<br>FINE-ISH</div>
+        <p>Everything in this box is draggable.</p>
+      </div>
+    </section>
+
+    <section class="finale">
+      <p>CONGRATULATIONS. YOU HAVE ACHIEVED NOTHING.</p>
+      <h2><span>DO IT</span><span>AGAIN.</span></h2>
+      <button class="final-button magnetic" type="button" data-randomize>Shuffle the whole mood</button>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="brand" href="#top">WOBBLE<span>WORKS</span></a><p>Interactive playground · Fictional nonsense · Template 15</p><div><a href="../../">← Back to templates</a><a href="#top">Do it again ↑</a></div></footer>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

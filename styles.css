@@ -565,6 +565,46 @@ main { padding: 0 var(--page-pad); }
 .northline-thumb-mark small { font-size: 2.8px; letter-spacing: .1em; }
 .thumb--northline > .live-badge { top: 8px; right: 8px; }
 
+
+/* Thumbnail 14 — MORA Storefront */
+.thumb--mora-store { background: #eee8dc; color: #1d211d; }
+.mora-store-top { position: absolute; z-index: 2; left: 7%; right: 7%; top: 7%; display: flex; align-items: baseline; justify-content: space-between; }
+.mora-store-top b { font: 500 8px/1 Georgia, serif; letter-spacing: .08em; }
+.mora-store-top span { color: #74796f; font-size: 3px; font-weight: 800; letter-spacing: .12em; }
+.mora-store-copy { position: absolute; z-index: 2; left: 7%; top: 28%; width: 48%; }
+.mora-store-copy small { color: #71766d; font-size: 3.2px; font-weight: 850; letter-spacing: .11em; }
+.mora-store-copy > b { display: block; margin-top: 8%; font: 500 clamp(18px, 2.35vw, 33px)/.86 Georgia, serif; letter-spacing: -.055em; }
+.mora-store-copy > b em { font-weight: 400; }
+.mora-store-copy > i { display: inline-block; margin-top: 11%; padding: 6px 8px; background: #1d211d; color: #fff; font-size: 4px; font-style: normal; font-weight: 850; }
+.mora-store-stage { position: absolute; right: 0; top: 0; width: 43%; height: 100%; display: grid; place-items: center; overflow: hidden; background: #b8c1ae; }
+.mora-store-stage::before { content: ""; position: absolute; width: 72%; aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,.24); filter: blur(2px); }
+.mora-store-bottle { position: relative; z-index: 2; width: 33%; min-width: 64px; aspect-ratio: .56 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 5px 5px 10px 10px; background: #f5f1e9; box-shadow: 0 14px 28px rgba(29,33,29,.18); text-align: center; }
+.mora-store-bottle::before { content: ""; width: 38%; height: 8px; margin-top: -22px; margin-bottom: 14px; border-top: 4px solid #343730; border-left: 4px solid #343730; }
+.mora-store-bottle b { font: 500 7px Georgia, serif; letter-spacing: .08em; }
+.mora-store-bottle small { margin-top: 7px; font-size: 2.8px; letter-spacing: .12em; }
+.mora-store-stage > i,
+.mora-store-stage > em { position: absolute; border: 1px solid rgba(29,33,29,.28); border-radius: 50%; }
+.mora-store-stage > i { width: 76%; aspect-ratio: 1; }
+.mora-store-stage > em { width: 96%; aspect-ratio: 1; }
+.thumb--mora-store > .live-badge { top: 8px; right: 8px; }
+
+
+/* Thumbnail 15 — WOBBLEWORKS Interactive Playground */
+.thumb--wobbleworks { background: #fff4c7; color: #141414; }
+.wobble-thumb-pattern { position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0 16px, rgba(20,20,20,.07) 16px 18px); }
+.wobble-thumb-top { position: absolute; z-index: 3; left: 7%; right: 7%; top: 7%; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.wobble-thumb-top b { font: 900 6px "Arial Black", Arial, sans-serif; letter-spacing: -.05em; }
+.wobble-thumb-top span { font-size: 2.8px; font-weight: 900; letter-spacing: .11em; }
+.wobble-thumb-copy { position: absolute; z-index: 3; left: 7%; bottom: 10%; width: 58%; }
+.wobble-thumb-copy small { font-size: 3px; font-weight: 900; letter-spacing: .12em; }
+.wobble-thumb-copy > b { display: block; margin-top: 6%; font: 900 clamp(22px, 3.4vw, 46px)/.72 "Arial Black", Impact, Arial, sans-serif; letter-spacing: -.08em; }
+.wobble-thumb-copy > b em { color: #ff3ea5; font-style: normal; text-shadow: 3px 3px 0 #d9ff27; }
+.wobble-thumb-blob { position: absolute; z-index: 2; right: -7%; top: 23%; width: 42%; aspect-ratio: 1; display: grid; place-items: center; border: 3px solid #141414; border-radius: 61% 39% 46% 54% / 42% 61% 39% 58%; background: linear-gradient(135deg,#244cff,#67f7c2 48%,#ff3ea5); box-shadow: 7px 7px 0 #141414; transform: rotate(8deg); }
+.wobble-thumb-blob::after { content: ""; position: absolute; inset: 12%; border: 2px dashed #141414; border-radius: inherit; }
+.wobble-thumb-blob span { position: relative; z-index: 2; font: 900 8px "Arial Black",Arial,sans-serif; transform: rotate(-8deg); }
+.wobble-thumb-sticker { position: absolute; z-index: 4; right: 31%; top: 21%; padding: 6px 7px; border: 2px solid #141414; background: #d9ff27; box-shadow: 3px 3px 0 #141414; font-size: 3.2px; font-style: normal; font-weight: 900; line-height: 1.05; text-align: center; transform: rotate(-9deg); }
+.thumb--wobbleworks > .live-badge { top: 8px; right: 8px; }
+
 /* Featured thumbnail scaling — no alternate component system */
 .featured-pick--main .offcut-thumb-copy { bottom: 12%; }
 .featured-pick--main .offcut-thumb-copy > b { font-size: clamp(30px, 3.75vw, 58px); line-height: .9; }
@@ -699,6 +739,8 @@ main { padding: 0 var(--page-pad); }
   .afterdark-thumb-title { font-size: clamp(34px, 11vw, 50px); }
   .northline-thumb-copy { padding: 16% 7% 8%; }
   .northline-thumb-copy b { font-size: clamp(20px, 6.3vw, 28px); }
+  .mora-store-copy > b { font-size: clamp(20px, 6.2vw, 28px); }
+  .wobble-thumb-copy > b { font-size: clamp(24px, 8vw, 38px); }
 
   .about-strip { margin-bottom: 54px; flex-direction: column; gap: 10px; }
   .footer { padding-left: 16px; padding-right: 16px; grid-template-columns: 1fr auto; }

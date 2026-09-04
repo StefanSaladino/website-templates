@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="MORA is a fictional premium home and bath storefront template built for polished direct-to-consumer ecommerce." />
+  <title>MORA — Everyday objects, done well</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="announcement">Free shipping in Canada on orders over $85 <span>·</span> Fall edit now live</div>
+  <header class="site-header" data-header>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span></button>
+    <a class="brand" href="#top" aria-label="MORA home">MORA<span>°</span></a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#shop">Shop</a><a href="#story">Our materials</a><a href="#journal">Journal</a>
+    </nav>
+    <div class="header-actions"><button type="button" class="cart-action" data-cart-open>Bag <span data-cart-count>0</span></button></div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+    <a href="#shop"><span>01</span>Shop all</a>
+    <a href="#story"><span>02</span>Materials</a>
+    <a href="#journal"><span>03</span>Journal</a>
+    <a href="#newsletter"><span>04</span>Stay in touch</a>
+  </nav>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy reveal is-visible">
+        <p class="eyebrow">HOME / BATH / DAILY USE</p>
+        <h1 id="hero-title">Everyday objects,<br><em>done well.</em></h1>
+        <p class="hero-lede">Quiet essentials for the sink, shower and shelf. Refillable where it makes sense. Repairable where it matters.</p>
+        <div class="hero-actions"><a class="button button-dark" href="#shop">Shop the fall edit</a><a class="text-link" href="#story">Why MORA ↘</a></div>
+        <div class="hero-proof"><span>Small-batch production</span><span>Refill formats</span><span>Plastic-light shipping</span></div>
+      </div>
+      <div class="hero-media reveal is-visible">
+        <img src="https://images.unsplash.com/photo-1739980213756-753aea153bb8?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=2200" alt="Minimal neutral skincare and bath products arranged on a marble tray" />
+        <div class="hero-product"><small>THE DAILY SET</small><strong>Four pieces · $112</strong><button type="button" data-quick-add="Daily Set" data-price="112">Quick add +</button></div>
+      </div>
+    </section>
+
+    <section class="collection section-shell" id="shop" aria-labelledby="shop-title">
+      <header class="section-head reveal"><div><p class="eyebrow">THE FALL EDIT / 01</p><h2 id="shop-title">Keep what earns<br>the counter space.</h2></div><p>Six useful things, designed to live together without looking like a matching set.</p></header>
+      <div class="product-grid">
+        <article class="product-card reveal" data-product="Counter Wash" data-price="28">
+          <div class="product-media product-media--sage"><div class="product-bottle bottle-pump"><span>MORA</span><small>COUNTER<br>WASH</small></div><button type="button" class="quick" data-quick-add="Counter Wash" data-price="28">Quick add +</button></div>
+          <div class="product-info"><div><h3>Counter Wash</h3><p>Cedar leaf · bergamot</p></div><strong>$28</strong></div><div class="swatches" aria-label="Counter Wash finish"><button aria-label="Sage" class="active"></button><button aria-label="Stone"></button></div>
+        </article>
+        <article class="product-card reveal" data-product="Hand Balm" data-price="34">
+          <div class="product-media product-media--clay"><div class="product-jar"><span>MORA</span><small>HAND BALM</small></div><button type="button" class="quick" data-quick-add="Hand Balm" data-price="34">Quick add +</button></div>
+          <div class="product-info"><div><h3>Hand Balm</h3><p>Oat · calendula · shea</p></div><strong>$34</strong></div><div class="swatches" aria-label="Hand Balm finish"><button aria-label="Clay" class="active"></button><button aria-label="Bone"></button></div>
+        </article>
+        <article class="product-card product-card--photo reveal">
+          <div class="product-media"><img src="https://images.unsplash.com/photo-1714399417136-d328f3ea14c7?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=1500" alt="Minimal bathroom sink with soap bottle" loading="lazy" /><span class="image-label">MORA AT HOME / 04</span></div>
+          <div class="product-info"><div><h3>Sink Set</h3><p>Wash · balm · tray</p></div><strong>$76</strong></div><button type="button" class="under-add" data-quick-add="Sink Set" data-price="76">Add set +</button>
+        </article>
+        <article class="product-card reveal" data-product="Bath Oil" data-price="42">
+          <div class="product-media product-media--sand"><div class="product-bottle bottle-drop"><span>MORA</span><small>BATH OIL</small></div><button type="button" class="quick" data-quick-add="Bath Oil" data-price="42">Quick add +</button></div>
+          <div class="product-info"><div><h3>Bath Oil</h3><p>Hinoki · oat · jojoba</p></div><strong>$42</strong></div><div class="swatches" aria-label="Bath Oil finish"><button aria-label="Sand" class="active"></button><button aria-label="Smoke"></button></div>
+        </article>
+        <article class="product-card reveal" data-product="Stone Tray" data-price="48">
+          <div class="product-media product-media--bone"><div class="product-tray"><span></span><i></i><b></b></div><button type="button" class="quick" data-quick-add="Stone Tray" data-price="48">Quick add +</button></div>
+          <div class="product-info"><div><h3>Stone Tray</h3><p>Cast mineral · sealed matte</p></div><strong>$48</strong></div><div class="swatches" aria-label="Stone Tray finish"><button aria-label="Bone" class="active"></button><button aria-label="Charcoal"></button></div>
+        </article>
+        <article class="product-card reveal" data-product="Waffle Towel" data-price="32">
+          <div class="product-media product-media--charcoal"><div class="product-towel"><span>MORA</span></div><button type="button" class="quick" data-quick-add="Waffle Towel" data-price="32">Quick add +</button></div>
+          <div class="product-info"><div><h3>Waffle Towel</h3><p>Organic cotton · 520 gsm</p></div><strong>$32</strong></div><div class="swatches" aria-label="Waffle Towel colour"><button aria-label="Charcoal" class="active"></button><button aria-label="Oat"></button><button aria-label="Sage"></button></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="story" id="story" aria-labelledby="story-title">
+      <div class="story-image reveal"><img src="https://images.unsplash.com/photo-1778373620793-a369943bf9b3?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=1800" alt="Warm minimal skincare products arranged on a shelf" loading="lazy" /></div>
+      <div class="story-copy reveal"><p class="eyebrow">WHY MORA</p><h2 id="story-title">Good materials.<br>Fewer decisions.</h2><p>We make the everyday category smaller on purpose. Each format is chosen for how it feels in the hand, how it ages, and whether the packaging has a sensible second life.</p><dl><div><dt>01</dt><dd><strong>Refill first</strong><span>Keep the pump. Replace what is inside.</span></dd></div><div><dt>02</dt><dd><strong>Useful finishes</strong><span>Surfaces chosen to wear in, not wear out.</span></dd></div><div><dt>03</dt><dd><strong>Small catalogue</strong><span>New only when it adds something real.</span></dd></div></dl></div>
+    </section>
+
+    <section class="routine section-shell" id="journal">
+      <div class="routine-head reveal"><p class="eyebrow">MORA JOURNAL / ROUTINE 03</p><h2>Five quiet minutes<br>before the day starts.</h2></div>
+      <div class="routine-grid reveal"><div><span>07:12</span><strong>Warm water.</strong></div><div><span>07:14</span><strong>One pump.</strong></div><div><span>07:16</span><strong>Towel dry.</strong></div><div><span>07:17</span><strong>Leave the room.</strong></div></div>
+    </section>
+
+    <section class="quote-band" aria-label="Customer review"><blockquote>“The rare bathroom brand that made me want fewer things, not more.”</blockquote><p>— ELENA M. · TORONTO</p></section>
+
+    <section class="newsletter" id="newsletter"><div><p class="eyebrow">NOTES FROM MORA</p><h2>New objects.<br>Only when ready.</h2></div><form data-newsletter><label for="mora-email">Email address</label><div><input id="mora-email" type="email" placeholder="you@example.com" required /><button type="submit">Join the list ↗</button></div><p data-newsletter-note>No weekly clutter. Product notes and restocks only.</p></form></section>
+  </main>
+
+  <footer class="site-footer"><a class="footer-brand" href="#top">MORA°</a><div><a href="#shop">Shop</a><a href="#story">Materials</a><a href="#journal">Journal</a></div><p>Fictional storefront concept · Template 14</p><a href="../../">← Back to templates</a></footer>
+
+  <aside class="cart-drawer" data-cart aria-label="Shopping bag" aria-hidden="true"><div class="cart-head"><strong>Your bag</strong><button type="button" data-cart-close aria-label="Close bag">×</button></div><div class="cart-items" data-cart-items><p class="cart-empty">Your bag is empty.</p></div><div class="cart-foot"><p><span>Subtotal</span><strong data-cart-total>$0</strong></p><button type="button">Checkout</button><small>Demo storefront · checkout is not connected.</small></div></aside><div class="cart-backdrop" data-cart-backdrop></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
