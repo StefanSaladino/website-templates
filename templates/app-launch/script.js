@@ -60,3 +60,4 @@ if (reducedMotion) {
   }, { passive: true });
   updateParallax();
 }
+

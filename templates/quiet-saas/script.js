@@ -61,3 +61,4 @@ if (!reduceMotion) {
     window.requestAnimationFrame(updateProductDepth);
   }, { passive: true });
 }
+

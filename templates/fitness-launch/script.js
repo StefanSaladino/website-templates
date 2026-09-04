@@ -61,3 +61,4 @@ const form = document.querySelector('.trial-form');
 if (form) {
   form.addEventListener('submit', (event) => event.preventDefault());
 }
+

@@ -52,3 +52,4 @@ if (parallax && !prefersReduced) {
   }, { passive: true });
   update();
 }
+

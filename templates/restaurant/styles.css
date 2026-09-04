@@ -137,6 +137,13 @@ button,input,select { font: inherit; }
   .reserve { padding: 78px 20px 86px; gap: 46px; }
   .reserve h2 { font-size: clamp(58px,16vw,82px); }
   .field-row { grid-template-columns: 1fr; gap: 0; }
+
+  /* Reservation controls are intentionally touch-sized on mobile. */
+  .reserve-form, .field-row, .field-row > label, .reserve-form > label { min-width: 0; width: 100%; }
+  .reserve-form input, .reserve-form select { display: block; width: 100%; max-width: 100%; min-width: 0; height: 58px; min-height: 58px; padding: 0 14px; font-size: 16px; line-height: 1.2; }
+  .reserve-form input[type="date"] { inline-size: 100%; max-inline-size: 100%; min-inline-size: 0; -webkit-appearance: none; appearance: none; }
+  .reserve-form input[type="date"]::-webkit-date-and-time-value { min-width: 0; text-align: left; }
+  .reserve-form .button { min-height: 58px; }
   .visit { padding: 82px 0 94px; gap: 44px; }
   .visit h2 { font-size: clamp(50px,14vw,70px); }
   .visit-details > div { grid-template-columns: 86px 1fr; }
@@ -144,6 +151,7 @@ button,input,select { font: inherit; }
   .credits { justify-items: start; }
 }
 @media (max-width: 360px) {
+  .reserve-form input, .reserve-form select { padding-inline: 12px; }
   .hero h1 { font-size: 48px; }
   .menu-list h3 { font-size: 21px; }
   .menu-list p { font-size: 12px; }

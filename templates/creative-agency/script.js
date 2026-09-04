@@ -53,3 +53,4 @@ if ('IntersectionObserver' in window && !reduceMotion.matches) {
 } else {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 }
+

@@ -66,3 +66,4 @@ if (!reduceMotion) {
   window.addEventListener('resize', requestTick);
   requestTick();
 }
+
