@@ -40,31 +40,3 @@ if ('IntersectionObserver' in window && !reduceMotion) {
 } else {
   reveals.forEach((item) => item.classList.add('is-visible'));
 }
-
-const allowParallax = !reduceMotion && window.matchMedia('(min-width: 981px)').matches;
-if (allowParallax) {
-  const items = [...document.querySelectorAll('[data-parallax]')];
-  let ticking = false;
-
-  const update = () => {
-    const viewport = window.innerHeight;
-    items.forEach((item) => {
-      const rect = item.getBoundingClientRect();
-      const speed = Number(item.dataset.parallax || 0.02);
-      const centreDelta = (rect.top + rect.height / 2) - viewport / 2;
-      const shift = Math.max(-24, Math.min(24, -centreDelta * speed));
-      item.style.transform = `translate3d(0, ${shift}px, 0)`;
-    });
-    ticking = false;
-  };
-
-  const requestUpdate = () => {
-    if (ticking) return;
-    requestAnimationFrame(update);
-    ticking = true;
-  };
-
-  window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate);
-  requestUpdate();
-}
