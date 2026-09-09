@@ -1,104 +1,248 @@
 .thumb--dotcrumb {
+  position: relative;
   display: grid;
-  grid-template-columns: 58% 42%;
-  background: #fff8e8;
-  color: #241c1a;
+  grid-template-columns: 55% 45%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 13% 64%, rgba(242,206,212,.34) 0 2px, transparent 2.4px),
+    radial-gradient(circle at 82% 82%, rgba(174,183,161,.28) 0 2px, transparent 2.4px),
+    linear-gradient(180deg, #fffaf2 0%, #fff6ef 100%);
+  background-size: 30px 30px, 38px 38px, auto;
+  color: #553d43;
+}
+
+.thumb--dotcrumb::before {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18%;
+  background:
+    radial-gradient(circle at 12px 100%, #f2ced4 0 11px, transparent 11.5px) 0 100% / 48px 22px repeat-x,
+    radial-gradient(circle at 36px 100%, #fff4eb 0 11px, transparent 11.5px) 0 100% / 48px 22px repeat-x,
+    repeating-linear-gradient(90deg, #f2ced4 0 24px, #fff4eb 24px 48px);
+  filter: drop-shadow(0 4px 5px rgba(111,55,68,.08));
+}
+
+.thumb--dotcrumb::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, #f2ced4 0 18px, #fffaf2 18px 36px);
+  border-top: 1px solid rgba(111,55,68,.12);
 }
 
 .dotcrumb-thumb-copy {
   position: relative;
   z-index: 2;
-  padding: 8% 7% 7%;
+  min-width: 0;
+  padding: 24% 7% 8%;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid rgba(36,28,26,.25);
 }
 
 .dotcrumb-thumb-brand {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  min-height: 18px;
+  display: inline-flex;
+  align-items: baseline;
+  width: max-content;
+  line-height: 1;
 }
 
-.dotcrumb-thumb-brand i {
-  width: 7px;
-  height: 7px;
-  display: block;
-  border-radius: 50%;
-  background: #c92e43;
-  box-shadow: 4px 0 0 #f6c94c, 2px 4px 0 #9ccfe0;
+.dotcrumb-thumb-brand i { display: none; }
+
+.dotcrumb-thumb-brand::before {
+  content: "Dot";
+  color: #a95868;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: clamp(10px, 1.5vw, 18px);
+  font-weight: 400;
+  transform: rotate(-3deg);
 }
 
 .dotcrumb-thumb-brand b {
-  font-size: 5px;
-  letter-spacing: -.04em;
+  display: inline-flex;
+  align-items: baseline;
+  font-size: 0;
+}
+
+.dotcrumb-thumb-brand b::before {
+  content: "+";
+  margin: 0 3px;
+  color: #c98693;
+  font: 700 clamp(5px, .7vw, 8px) Georgia, serif;
+}
+
+.dotcrumb-thumb-brand b::after {
+  content: "Crumb";
+  color: #553d43;
+  font: 700 clamp(8px, 1vw, 13px) Georgia, "Times New Roman", serif;
+  letter-spacing: -.05em;
 }
 
 .dotcrumb-thumb-copy > small {
-  margin-top: 15%;
-  font-size: 3.5px;
-  font-weight: 850;
-  letter-spacing: .1em;
+  width: fit-content;
+  margin-top: 10%;
+  padding: 4px 8px;
+  position: relative;
+  background: #dfe7d6;
+  color: #6f3744;
+  font-size: 0;
+}
+
+.dotcrumb-thumb-copy > small::before {
+  content: "BAKED FOR LITTLE REASONS";
+  font: 700 3px/1 Georgia, serif;
+  letter-spacing: .05em;
 }
 
 .dotcrumb-thumb-copy > strong {
   margin-top: 7%;
-  font-size: clamp(18px, 2.35vw, 32px);
-  line-height: .79;
-  letter-spacing: -.075em;
+  display: block;
+  font-size: 0;
+  line-height: 1;
 }
 
-.dotcrumb-thumb-copy > strong em {
-  color: #c92e43;
-  font-family: Georgia, serif;
-  font-weight: 400;
+.dotcrumb-thumb-copy > strong em { display: none; }
+
+.dotcrumb-thumb-copy > strong::before {
+  content: "Something sweet,";
+  display: block;
+  color: #553d43;
+  font: 400 clamp(13px, 1.8vw, 24px)/.88 Georgia, "Times New Roman", serif;
+  letter-spacing: -.06em;
+}
+
+.dotcrumb-thumb-copy > strong::after {
+  content: "made especially\A for your table.";
+  display: block;
+  margin-top: 1px;
+  white-space: pre;
+  color: #a95868;
+  font: 400 clamp(14px, 1.9vw, 25px)/.76 "Brush Script MT", "Segoe Script", cursive;
+  letter-spacing: -.04em;
+  transform: rotate(-1deg);
+  transform-origin: left center;
 }
 
 .dotcrumb-thumb-copy > span {
   width: fit-content;
   margin-top: auto;
-  padding: 5px 7px;
-  border: 1px solid #241c1a;
-  background: #c92e43;
-  color: #fff;
-  box-shadow: 2px 2px 0 #241c1a;
-  font-size: 4px;
+  min-height: 20px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #6f3744;
+  border-radius: 999px;
+  background: #6f3744;
+  color: #fff9f1;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.15), 0 3px 7px rgba(111,55,68,.12);
+  font-size: 0;
+}
+
+.dotcrumb-thumb-copy > span::before {
+  content: "Ask about your date";
+  font-size: 3.5px;
   font-weight: 850;
 }
 
 .dotcrumb-thumb-photo {
+  position: relative;
+  z-index: 2;
   min-width: 0;
-  overflow: hidden;
-  background: #ef9ea9;
+  align-self: stretch;
+  margin: 24% 8% 9% 0;
+  padding: 7px 7px 0;
+  overflow: visible;
+  border: 1px solid rgba(111,55,68,.22);
+  border-radius: 48% 48% 9px 9px / 22% 22% 9px 9px;
+  background: #fffdf9;
+  box-shadow: 0 8px 18px rgba(111,55,68,.11), inset 0 0 0 3px rgba(242,206,212,.25);
+}
+
+.dotcrumb-thumb-photo::before {
+  content: "freshly made";
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: -11px;
+  transform: translateX(-50%);
+  min-width: 55%;
+  padding: 3px 6px;
+  border: 1px solid rgba(111,55,68,.20);
+  border-radius: 999px;
+  background: #f1dfaa;
+  color: #6f3744;
+  text-align: center;
+  white-space: nowrap;
+  font: 400 clamp(5px, .7vw, 8px)/1 "Brush Script MT", "Segoe Script", cursive;
 }
 
 .dotcrumb-thumb-photo img {
   width: 100%;
   height: 100%;
+  min-height: 0;
   object-fit: cover;
   object-position: center 46%;
+  border: 4px solid #f8efe2;
+  border-radius: 46% 46% 5px 5px / 22% 22% 5px 5px;
+  filter: saturate(.78) contrast(.95) brightness(1.04);
 }
 
 .dotcrumb-thumb-ticket {
   position: absolute;
-  z-index: 3;
-  left: 48%;
-  bottom: 8%;
-  min-width: 36%;
-  padding: 6px 7px;
+  z-index: 6;
+  right: 4.5%;
+  bottom: 6%;
+  width: 34%;
+  padding: 7px 8px;
   display: grid;
   gap: 2px;
-  border: 1px solid #241c1a;
-  background: #f6c94c;
-  box-shadow: 3px 3px 0 #241c1a;
+  border: 1px solid rgba(111,55,68,.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)),
+    repeating-linear-gradient(0deg, transparent 0 10px, rgba(201,134,147,.17) 10px 11px);
+  color: #553d43;
+  box-shadow: 0 5px 12px rgba(111,55,68,.10);
+  transform: rotate(-1deg);
 }
 
-.dotcrumb-thumb-ticket small {
+.dotcrumb-thumb-ticket::before {
+  content: "✿";
+  position: absolute;
+  top: -8px;
+  right: 9px;
+  color: #a95868;
+  font-size: 10px;
+}
+
+.dotcrumb-thumb-ticket small,
+.dotcrumb-thumb-ticket b {
+  font-size: 0;
+}
+
+.dotcrumb-thumb-ticket small::before {
+  content: "A LITTLE NOTE";
+  color: #a95868;
   font-size: 3px;
   font-weight: 850;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
 }
 
-.dotcrumb-thumb-ticket b {
-  font-size: 5px;
+.dotcrumb-thumb-ticket b::before {
+  content: "10–14 days ahead";
+  font: 700 4.4px/1.2 Georgia, serif;
+}
+
+@media (max-width: 720px) {
+  .dotcrumb-thumb-copy { padding-top: 23%; }
+  .dotcrumb-thumb-ticket { width: 37%; right: 3.5%; }
 }
