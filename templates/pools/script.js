@@ -2,10 +2,32 @@ const toggle = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
 const hero = document.querySelector('[data-water-hero]');
 const heroImage = hero?.querySelector('.hero-image img');
+const header = document.querySelector('[data-header]');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const refinementStyles = document.createElement('style');
 refinementStyles.textContent = `
+  .site-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    background: transparent;
+    border-bottom-color: transparent;
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+    transition:
+      background-color .28s ease,
+      border-color .28s ease,
+      backdrop-filter .28s ease;
+  }
+
+  .site-header.header-scrolled {
+    background: rgba(7,60,70,.93);
+    border-bottom-color: rgba(246,251,248,.22);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
   .hero {
     min-height: clamp(900px, 115svh, 1180px);
   }
@@ -246,6 +268,10 @@ refinementStyles.textContent = `
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .site-header {
+      transition: none;
+    }
+
     .infinity-edge__horizon::after {
       animation: none;
     }
@@ -272,12 +298,21 @@ if (poolShell && poolWater && depthLine) {
   );
 }
 
+function syncHeaderState() {
+  if (!header) return;
+  const shouldBeOpaque =
+    window.scrollY > 2 || document.body.classList.contains('menu-open');
+
+  header.classList.toggle('header-scrolled', shouldBeOpaque);
+}
+
 function closeMenu() {
   if (!toggle || !mobileMenu) return;
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-label', 'Open navigation');
   mobileMenu.hidden = true;
   document.body.classList.remove('menu-open');
+  syncHeaderState();
 }
 
 toggle?.addEventListener('click', () => {
@@ -286,6 +321,7 @@ toggle?.addEventListener('click', () => {
   toggle.setAttribute('aria-label', open ? 'Open navigation' : 'Close navigation');
   mobileMenu.hidden = open;
   document.body.classList.toggle('menu-open', !open);
+  syncHeaderState();
 });
 
 mobileMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
@@ -295,6 +331,9 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('resize', () => {
   if (window.innerWidth > 980) closeMenu();
 });
+
+window.addEventListener('scroll', syncHeaderState, { passive: true });
+syncHeaderState();
 
 if (hero && !reduceMotion && window.matchMedia('(pointer:fine)').matches) {
   hero.addEventListener('pointermove', (event) => {
