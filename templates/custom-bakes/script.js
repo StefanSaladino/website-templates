@@ -5,8 +5,13 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
 function syncMobileMenuPosition() {
   if (!header || !mobileMenu || window.innerWidth > 980) return;
+
   const headerBottom = Math.max(0, Math.round(header.getBoundingClientRect().bottom));
-  mobileMenu.style.top = `${headerBottom}px`;
+
+  // The mobile menu is a child of the sticky header. Anchor it to the
+  // header itself so the announcement bar is not counted twice at page top.
+  mobileMenu.style.position = 'absolute';
+  mobileMenu.style.top = '100%';
   mobileMenu.style.height = `calc(100dvh - ${headerBottom}px)`;
 }
 
@@ -15,6 +20,7 @@ function closeMenu() {
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-label', 'Open navigation');
   mobileMenu.hidden = true;
+  mobileMenu.style.removeProperty('position');
   mobileMenu.style.removeProperty('top');
   mobileMenu.style.removeProperty('height');
   document.body.classList.remove('menu-open');
