@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Morrow House is a fictional lakeside retreat concept in Muskoka, Ontario." />
+  <title>Morrow House — Muskoka</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="Morrow House home"><strong>MORROW</strong><span>HOUSE</span></a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#stay">Stay</a><a href="#lake">The lake</a><a href="#guide">Around here</a>
+    </nav>
+    <a class="header-cta" href="#availability">Check availability</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation"><span></span><span></span></button>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+      <a href="#stay">Stay</a><a href="#lake">The lake</a><a href="#guide">Around here</a>
+      <a class="mobile-cta" href="#availability">Check availability</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title" data-hero>
+      <div class="hero-media" aria-hidden="true"><img src="https://images.unsplash.com/photo-1783716149654-5f3e7012ef45?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=84&amp;w=2200" alt="" /></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy"><p class="eyebrow">LAKE ROSSEAU · MUSKOKA, ONTARIO</p><h1 id="hero-title">Come north.<br /><em>Stay awhile.</em></h1><p class="hero-lede">A small lakeside house for slow mornings, long swims and dinner when the light finally leaves the dock.</p></div>
+      <div class="hero-foot"><span>45.1237° N</span><a href="#house">Meet the house ↓</a><span>79.6423° W</span></div>
+    </section>
+
+    <section class="availability" id="availability" aria-label="Availability search">
+      <form class="availability-form" action="#" method="get" onsubmit="return false;">
+        <label><span>ARRIVE</span><input type="date" name="arrival" aria-label="Arrival date" /></label>
+        <label><span>LEAVE</span><input type="date" name="departure" aria-label="Departure date" /></label>
+        <label><span>GUESTS</span><select name="guests" aria-label="Guests"><option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5 guests</option><option>6 guests</option></select></label>
+        <button type="submit">Check availability <span aria-hidden="true">↗</span></button>
+      </form>
+      <p>Fictional booking interface for template preview.</p>
+    </section>
+
+    <section class="house" id="house" aria-labelledby="house-title">
+      <div class="house-intro section-shell reveal"><p class="section-label">01 / THE HOUSE</p><div><h2 id="house-title">Not much between<br />you and the lake.</h2><p>Morrow House sits close to the shoreline, tucked into pine and granite. The rooms are simple, warm and deliberately quiet. Most of the attention is pointed outside.</p></div></div>
+      <div class="house-spread reveal"><div class="house-spread__image"><img src="https://images.unsplash.com/photo-1702936425973-8ca360714a97?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=1800" alt="Small lakeside cabin surrounded by forest" loading="lazy" /></div><div class="house-spread__copy"><span>THE ORIGINAL HOUSE</span><strong>Six rooms.<br />One long dock.<br />No lobby music.</strong><p>Every room has water nearby. Some face the lake directly; others look into the pines and catch the late-day sun.</p></div><div class="house-spread__folio" aria-hidden="true">07</div></div>
+    </section>
+
+    <section class="stay" id="stay" aria-labelledby="stay-title">
+      <div class="stay-head section-shell reveal"><p class="section-label">02 / STAY</p><h2 id="stay-title">Three ways<br />to wake up here.</h2></div>
+      <div class="room-strip" role="list">
+        <article class="room room--one reveal" role="listitem"><div class="room-media"><img src="https://images.unsplash.com/photo-1727270921836-3d51d25d9e33?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=1800" alt="Warm bedroom with exposed beams and a fireplace" loading="lazy" /></div><div class="room-copy"><span>ROOM 01</span><h3>The Hearth Room</h3><p>King bed · wood fire · deep tub · two people</p><a href="#availability">Check dates ↗</a></div></article>
+        <article class="room room--two reveal" role="listitem"><div class="room-media"><img src="https://images.unsplash.com/photo-1773423389979-b28b469967f8?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=1800" alt="Wood-panelled bedroom with warm lighting and fireplace" loading="lazy" /></div><div class="room-copy"><span>ROOM 04</span><h3>The Pine Room</h3><p>Queen bed · reading nook · forest view · two people</p><a href="#availability">Check dates ↗</a></div></article>
+        <article class="room room--three reveal" role="listitem"><div class="room-media room-media--winter"><img src="https://images.unsplash.com/photo-1583509208810-f57bef92d0a0?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=1800" alt="White lakeside house in Muskoka during winter" loading="lazy" /></div><div class="room-copy"><span>SUITE 06</span><h3>The Lake Suite</h3><p>King bed · sitting room · lake view · private deck</p><a href="#availability">Check dates ↗</a></div></article>
+      </div>
+    </section>
+
+    <section class="lake-day" id="lake" aria-labelledby="lake-title"><div class="lake-day__image"><img src="https://images.unsplash.com/photo-1783716149654-5f3e7012ef45?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=84&amp;w=2200" alt="Calm lake at sunset with a dock" loading="lazy" /></div><div class="lake-day__copy reveal"><p class="section-label">03 / A DAY HERE</p><h2 id="lake-title">The lake<br />keeps the time.</h2></div><ol class="day-line reveal"><li><span>07:12</span><div><b>Coffee on the east dock</b><p>The lake is usually flat before breakfast.</p></div></li><li><span>11:40</span><div><b>Swim before lunch</b><p>Towels live by the back door. The water does the rest.</p></div></li><li><span>16:05</span><div><b>Take the canoe out</b><p>No route. Just enough time to get back before dinner.</p></div></li><li><span>20:47</span><div><b>Stay for the last light</b><p>Dinner can wait ten more minutes.</p></div></li></ol></section>
+
+    <section class="table" aria-labelledby="table-title"><div class="table-head section-shell reveal"><p class="section-label">04 / AT THE TABLE</p><h2 id="table-title">Dinner follows<br />the weather.</h2></div><div class="menu-spread section-shell reveal"><div class="menu-note"><span>TONIGHT / SAMPLE MENU</span><p>No twelve-page dining concept. A short menu, things grown nearby, and enough time to finish the bottle.</p></div><div class="menu-list"><div><span>START</span><p>Warm bread · cultured butter · lake salt</p></div><div><span>THEN</span><p>Charred tomatoes · herbs · soft cheese</p></div><div><span>MAIN</span><p>Lake trout · potatoes · dill · lemon</p></div><div><span>LATE</span><p>Ontario peaches · cream · brown sugar</p></div></div></div></section>
+
+    <section class="guide" id="guide" aria-labelledby="guide-title"><div class="guide-copy reveal"><p class="section-label">05 / AROUND HERE</p><h2 id="guide-title">Leave the house<br />once in a while.</h2><p>The point is not to fill every hour. These are simply a few good reasons to get in the car, take the boat or follow the trail.</p></div><div class="guide-map reveal" role="img" aria-label="Illustrated local guide map showing the house, dock, trail, village and lookout"><svg viewBox="0 0 860 620" aria-hidden="true"><path class="shore" d="M20 318 C118 256 172 281 247 231 C336 172 397 219 471 176 C557 126 631 148 714 104 C761 79 804 74 842 79 L842 0 H20 Z"></path><path class="water" d="M19 318 C117 255 173 281 248 231 C337 172 397 219 471 176 C558 126 632 149 714 104 C760 80 804 74 842 79 L842 620 H20 Z"></path><path class="road" d="M95 53 C179 95 198 137 282 161 C384 191 464 250 528 315 C599 387 650 431 777 481"></path><path class="trail" d="M173 87 C145 161 130 209 121 278 C114 337 97 383 63 427"></path><circle cx="375" cy="243" r="8"></circle><circle cx="586" cy="370" r="8"></circle><circle cx="161" cy="183" r="8"></circle><circle cx="703" cy="450" r="8"></circle></svg><span class="map-label map-label--house">MORROW HOUSE<small>YOU ARE HERE</small></span><span class="map-label map-label--trail">PINE LOOP<small>4.2 KM</small></span><span class="map-label map-label--town">THE VILLAGE<small>COFFEE + SUPPLIES</small></span><span class="map-label map-label--lookout">GRANITE POINT<small>SUNSET</small></span></div></section>
+
+    <section class="seasons" aria-labelledby="seasons-title"><div class="season season--summer"><div class="season-bg"><img src="https://images.unsplash.com/photo-1783716149654-5f3e7012ef45?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=1600" alt="" loading="lazy" /></div><div><span>JUNE — SEPTEMBER</span><h3>Dock season.</h3><p>Warm water, late sunsets, bare feet almost everywhere.</p></div></div><div class="season season--winter"><div class="season-bg"><img src="https://images.unsplash.com/photo-1583509208810-f57bef92d0a0?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=82&amp;w=1600" alt="" loading="lazy" /></div><div><span>DECEMBER — MARCH</span><h3>Fire season.</h3><p>Snow on the lake, early dark, long dinners and nowhere urgent to be.</p></div></div><div class="seasons-title" id="seasons-title"><span>06 / TWO MUSKOKAS</span><strong>Choose your quiet.</strong></div></section>
+
+    <section class="booking" aria-labelledby="booking-title"><div class="booking-copy reveal"><p class="section-label">07 / COME NORTH</p><h2 id="booking-title">Your room is<br />somewhere up here.</h2><p>This is a fictional hospitality concept. The booking flow is intentionally simple: choose dates, choose a room, go to the lake.</p></div><a class="booking-cta reveal" href="#availability"><span>CHECK</span><strong>Availability</strong><i aria-hidden="true">↗</i></a></section>
+  </main>
+
+  <footer class="site-footer"><div><a class="footer-brand" href="#top">MORROW HOUSE</a><p>Fictional Muskoka retreat concept for the website template library.</p></div><div class="credits"><span>Photography via Unsplash.</span><a href="../../index.html">Back to templates ↖</a></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
