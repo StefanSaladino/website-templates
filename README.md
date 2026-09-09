@@ -4,7 +4,7 @@ A standalone gallery of landing-page concepts. The gallery uses Boomer Automatio
 
 ## Current milestone
 
-Ten templates are live:
+Sixteen templates are live:
 
 1. **Quiet SaaS / Arc** — `templates/quiet-saas/`
 2. **Dark Tech / KERN** — `templates/dark-tech/`
@@ -16,6 +16,12 @@ Ten templates are live:
 8. **Creative Agency / OFFCUT** — `templates/creative-agency/`
 9. **Real Estate / CURRENT** — `templates/real-estate/`
 10. **Waitlist / STILL** — `templates/waitlist/`
+11. **Editorial Commerce / RANGE/FOUND** — `templates/editorial-commerce/`
+12. **Event Launch / AFTER DARK** — `templates/event-launch/`
+13. **Professional Services / NORTHLINE LAW** — `templates/law-firm/`
+14. **Storefront / MORA** — `templates/storefront/`
+15. **Interactive Playground / WOBBLEWORKS** — `templates/interactive-playground/`
+16. **Custom Bakes / DOT + CRUMB** — `templates/custom-bakes/`
 
 Open `index.html` with Live Server and click any live template preview.
 
@@ -37,6 +43,7 @@ Motion is part of the collection only when it serves the concept:
 - OFFCUT: full-screen background film with explicit playback control, poster fallback and restrained portfolio reveals.
 - CURRENT: pronounced multi-layer water ripples, restrained image parallax and section reveals.
 - STILL: deliberately static; only form focus/hover states provide feedback.
+- DOT + CRUMB: restrained section reveals and very light desktop-only photography drift; the hand-drawn icing line is static and reduced-motion removes all movement.
 
 Every template respects `prefers-reduced-motion`.
 
@@ -48,6 +55,7 @@ Every template respects `prefers-reduced-motion`.
 
 - `index.html` — main template gallery
 - `styles.css` — gallery styles
+- `custom-bakes-gallery.css` — Template 16 gallery preview styles
 - `script.js` — gallery filtering
 - `UI-DESIGN-RULES.md` — locked rules for every template
 - `MOBILE-QA.md` — mobile baseline and per-template notes
@@ -61,6 +69,12 @@ Every template respects `prefers-reduced-motion`.
 - `templates/creative-agency/` — Template 08
 - `templates/real-estate/` — Template 09
 - `templates/waitlist/` — Template 10
+- `templates/editorial-commerce/` — Template 11
+- `templates/event-launch/` — Template 12
+- `templates/law-firm/` — Template 13
+- `templates/storefront/` — Template 14
+- `templates/interactive-playground/` — Template 15
+- `templates/custom-bakes/` — Template 16
 - `PROJECT-ROADMAP.md` — project status
 
 ## Photography
@@ -71,36 +85,38 @@ Several templates use remote Unsplash or Pexels media so photographic/video land
 
 Every completed template must replace its placeholder artwork with a gallery preview that accurately matches the finished page.
 
-
 ### Template 05 refinement
+
 LINE + LEVEL now uses a restrained muted-olive accent instead of cobalt blue, and its mobile service strip uses aligned number/title columns.
 
-
 ### Template 06 — SERA
+
 SERA introduces the first hospitality template: a full-screen restaurant hero, menu rows, atmospheric photography and a compact reservation flow. The fictional data and pricing are intentionally plausible demo content rather than decorative telemetry.
 
-
 ### Template 07 — TIDE
+
 TIDE is a bright consumer-app launch page built without stock photography: a CSS-rendered phone, solid colour blocks, a hero wave, meaningful sample day data and a short download-focused conversion path.
 
-
 ### Template 08 — OFFCUT
+
 OFFCUT introduces the first true video-hero template: a fashion/culture creative office with a full-screen studio film, pause/play control, reduced-motion poster fallback, editorial portfolio rows and a single brief-starting CTA.
 
-
-### 09 — Real Estate
+### Template 09 — Real Estate
 
 `templates/real-estate/` — CURRENT / Lakehouse Realty. Full-bleed waterfront hero, animated multi-layer ripple transition, property collection/index, representation section and mobile-first inquiry form.
 
 - Template 09 image reliability patch: replaced a retired Unsplash image used twice and moved CURRENT image embeds from `/download` routes to direct `images.unsplash.com` CDN URLs.
-
-
-CURRENT was fully redesigned after the first pass: the hero now separates copy and photography, the ripple field is substantially deeper/more animated, and all listing photography uses independent frames with no text overlap.
-
+- CURRENT was fully redesigned after the first pass: the hero now separates copy and photography, the ripple field is substantially deeper/more animated, and all listing photography uses independent frames with no text overlap.
 
 ### Template 10 — STILL
 
 `templates/waitlist/` — STILL / Private Beta. One-screen personal-finance waitlist with a typographic poster composition, a single email action, no photography and no decorative motion. The right-side principles rail becomes a compact two-column band on phones.
+
+### Template 16 — DOT + CRUMB
+
+`templates/custom-bakes/` — DOT + CRUMB / Custom Bakes. A bright custom cake and decorated-cookie studio built around an asymmetrical poster hero, a real order/availability ticket, editorial product rows, purposeful close-up baking photography and a single **Check your date** conversion path.
+
+The template deliberately avoids the visual language of SERA and the collection's ecommerce templates: there is no full-bleed restaurant hero, no generic product-card grid and no simulated storefront. Mobile reorders the hero into copy → cake photography → order ticket, keeps the primary action full width on narrow phones and converts the service/order structures into readable vertical rows.
 
 ## GitHub Pages deployment
 
@@ -118,4 +134,4 @@ The demo forms are front-end examples only; GitHub Pages does not provide a form
 
 ## Gallery featured picks
 
-The homepage now separates discovery into two non-duplicated layers: **3 Featured Templates** (OFFCUT / Creative Agency, CURRENT / Real Estate, and SERA / Restaurant) followed by the remaining **7 templates** in the filterable library. Featured picks are deliberately excluded from the library grid so visitors never see the same template twice on the homepage.
+The homepage separates discovery into two non-duplicated layers: **3 Featured Templates** (OFFCUT / Creative Agency, CURRENT / Real Estate, and SERA / Restaurant) followed by the remaining **13 templates** in the filterable library. Featured picks are deliberately excluded from the library grid so visitors never see the same template twice on the homepage.
