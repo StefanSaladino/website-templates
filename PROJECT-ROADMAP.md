@@ -16,8 +16,14 @@
 - [x] Step 9 — Template 08: Creative Agency
 - [x] Step 10 — Template 09: Real Estate
 - [x] Step 11 — Template 10: Waitlist
-- [ ] Step 12 — Final gallery thumbnail audit
-- [ ] Step 13 — Full responsive/accessibility/performance QA
+- [x] Step 12 — Template 11: Editorial Commerce
+- [x] Step 13 — Template 12: Event Launch
+- [x] Step 14 — Template 13: Professional Services
+- [x] Step 15 — Template 14: Storefront
+- [x] Step 16 — Template 15: Interactive Playground
+- [x] Step 17 — Template 16: Custom Bakes
+- [ ] Step 18 — Final gallery thumbnail audit
+- [ ] Step 19 — Full responsive/accessibility/performance QA
 
 ## Locked design contract
 
@@ -25,19 +31,21 @@
 
 ## Mobile baseline
 
-The gallery and every live template now treat mobile as a first-class layout. Mobile headers remain accessible while scrolling, touch targets are sized for phones, desktop columns are re-composed rather than merely squeezed, and anchored sections account for sticky-header height. The baseline is locked in `UI-DESIGN-RULES.md`.
+The gallery and every live template treat mobile as a first-class layout. Mobile headers remain accessible while scrolling, touch targets are sized for phones, desktop columns are re-composed rather than merely squeezed, and anchored sections account for sticky-header height. The baseline is locked in `UI-DESIGN-RULES.md`.
 
 ## Motion direction
 
 - Quiet SaaS: fade-ins, subtle product parallax, soft hero wave.
 - Dark Tech: restrained reveals and release-document scroll depth.
 - Architecture: full-screen photographic hero, image parallax and scroll reveals.
+- Fitness Launch: kinetic headline entrance, full-bleed photo parallax and diagonal geometry.
 - Contractor: restrained reveals and light hero-photo parallax, with conversion clarity prioritized over decorative motion.
-- Restaurant: full-screen dining-room hero, slow image parallax, a shallow curved hero sweep and restrained section reveals.
-- App Launch: phone/device parallax, restrained reveals and a full-width wave transition from the hero into the day-view section.
+- Restaurant: full-screen dining-room hero, slow image parallax, shallow curved hero sweep and restrained section reveals.
+- App Launch: phone/device parallax, restrained reveals and a full-width wave transition.
 - Creative Agency: full-screen background film, user-controlled playback, editorial reveals and portfolio-art hover restraint.
-- Real Estate: cinematic property parallax, restrained reveals and a three-layer animated ripple boundary beneath the hero.
-- Waitlist deliberately reduces motion again; STILL uses a static typographic composition with interaction feedback only.
+- Real Estate: cinematic property parallax, restrained reveals and a multi-layer animated ripple boundary.
+- Waitlist: deliberately static beyond interaction feedback.
+- Custom Bakes: restrained reveals and very light desktop-only photography drift; the icing line remains static and all motion is removed under reduced-motion preferences.
 
 ## Template 01 — Quiet SaaS
 
@@ -64,6 +72,7 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Hero composition: oversized headline paired with a structured release document
 - Distinctive element: release number typography and a product interface that reads like an engineering document rather than a KPI dashboard
 - Gallery preview synced to the finished page
+
 ## Template 03 — Architecture
 
 `templates/architecture/`
@@ -77,7 +86,6 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Hero composition: full-viewport background photograph with integrated navigation and project metadata
 - Distinctive element: real full-screen photography with slow parallax and magazine-like section rhythm rather than the expected beige-luxury card layout
 - Gallery preview synced to the finished page
-
 
 ## Template 04 — Fitness Launch
 
@@ -94,7 +102,6 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Mobile baseline: sticky header, mobile menu with scroll lock, full-width CTA and independent hero crop
 - Gallery preview synced to the finished page
 
-
 ## Template 05 — Contractor
 
 `templates/contractor/`
@@ -110,7 +117,6 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Mobile baseline: sticky header, scroll-locking menu, full-width primary CTA, vertical scope sheet and no horizontal overflow
 - Gallery preview synced to the finished page
 
-
 ## Template 06 — Restaurant
 
 `templates/restaurant/`
@@ -122,10 +128,9 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Length: medium
 - Visual concept: warm supper-club editorial using near-cream paper, dark brown-black and muted tomato
 - Hero composition: full-viewport restaurant photography with integrated navigation and oversized serif copy
-- Distinctive element: slow image parallax, a shallow curved hero sweep, menu rows and a reservation-first flow rather than hospitality card grids
+- Distinctive element: slow image parallax, shallow curved hero sweep, menu rows and a reservation-first flow rather than hospitality card grids
 - Mobile baseline: sticky header, scroll-locking menu, independent hero crop, vertical reservation form and no horizontal overflow
 - Gallery preview synced to the finished page
-
 
 ## Template 07 — App Launch
 
@@ -141,7 +146,6 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Distinctive element: full-width wave hero transition, device parallax and a timeline-first product demonstration rather than a SaaS dashboard
 - Mobile baseline: sticky header, scroll-locking menu, full-width CTA, phone-specific type/device sizing and vertical content order
 - Gallery preview synced to the finished page
-
 
 ## Template 08 — Creative Agency
 
@@ -170,12 +174,9 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Visual concept: editorial lakehouse brokerage built from solid lake-green text panels, controlled photography frames and a pronounced animated waterline
 - Hero composition: split-screen solid editorial panel + independent lakehouse photograph; no hero text is placed over photography
 - Distinctive element: a large three-layer animated ripple field, plus two fine wave lines, creating a visible moving water boundary rather than a shallow decorative curve
-- Property system: three full-width listing rows with fixed image/text separation; no floating copy, no image/text overlap and consistent visual rhythm
 - Mobile baseline: sticky translucent header, icon-only hamburger, scroll-locking menu, hero text and photo stacked independently, pronounced mobile ripple band, property rows stacked image-first and no horizontal overflow
 - Motion: restrained frame parallax, scroll reveals and multiple wave layers moving at different speeds; all disabled under reduced-motion
-- Image reliability: photography uses direct `images.unsplash.com` CDN embeds with styled frame fallbacks if an image request fails
 - Gallery preview synced to the redesigned split hero and deeper wave treatment
-
 
 ## Template 10 — Waitlist
 
@@ -191,7 +192,38 @@ The gallery and every live template now treat mobile as a first-class layout. Mo
 - Distinctive element: deliberate absence of photography, cards and decorative animation; restraint is the design idea
 - Mobile baseline: sticky compact header without unnecessary navigation, edition rail becomes a horizontal band, signup button becomes full-width and principles recompose to two columns
 - Motion: none beyond hover/focus feedback; reduced-motion remains supported
-- Gallery preview synced to the finished STILL composition
-
 
 Template 10 refinement: STILL now uses a softer modern-minimal composition with floating rounded surfaces, open whitespace, and restrained corner radii while preserving its one-action waitlist concept.
+
+## Templates 11–15 — Live collection expansion
+
+The live gallery also includes:
+
+- `templates/editorial-commerce/` — RANGE/FOUND / Editorial Commerce
+- `templates/event-launch/` — AFTER DARK / Event Launch
+- `templates/law-firm/` — NORTHLINE LAW / Professional Services
+- `templates/storefront/` — MORA / Storefront
+- `templates/interactive-playground/` — WOBBLEWORKS / Interactive Playground
+
+These templates are already live and represented by finished gallery previews. Their inclusion is reflected in the current 16-template gallery count.
+
+## Template 16 — Custom Bakes
+
+`templates/custom-bakes/`
+
+- Template number: 16
+- Working name: Custom Bakes
+- Fictional brand: DOT + CRUMB
+- Industry: custom cakes / decorated cookies / celebration baking
+- Audience: local customers ordering for birthdays, showers, small weddings, thank-yous and gifts
+- Primary CTA: Check your date
+- Length: medium
+- Visual concept: bright tactile bakery order-board using vanilla paper, cherry red, butter yellow and powder blue
+- Hero composition: oversized poster typography beside a close-up cake photograph, followed by a real ordering-note ledger rather than a generic secondary card
+- Primary typography direction: heavy compressed-feeling sans-serif headline treatment paired with editorial Georgia serif accents
+- Palette: vanilla, cherry red, butter yellow, powder blue, warm black
+- Distinctive element: order-ticket / availability-ledger language carried through the hero and conversion flow, plus a static hand-drawn icing line
+- What makes it different: unlike SERA it does not use a dark full-bleed hospitality hero; unlike the commerce templates it does not present a product-card storefront. The page behaves like a local made-to-order studio with service rows, a real lead-time/pickup model and a date-first inquiry flow.
+- Mobile baseline: sticky header, scroll-locking menu, hero order becomes copy → cake image → order ticket, CTA becomes full-width on narrow phones, service rows recompose without horizontal overflow, form becomes one column
+- Motion: restrained reveals and very light desktop-only image drift; all removed under `prefers-reduced-motion`
+- Gallery preview: synced to the actual hero palette, split composition, cake photography and order-ticket motif
