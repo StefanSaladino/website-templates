@@ -37,8 +37,8 @@ if(hero&&heroImage&&!reducedMotion){
     frame=null;
     const rect=hero.getBoundingClientRect();
     const progress=Math.max(0,Math.min(1,-rect.top/Math.max(rect.height,1)));
-    const travel=window.innerWidth<=620?44:window.innerWidth<=980?72:110;
-    heroImage.style.transform=`translate3d(0, ${progress*travel}px, 0) scale(1.025)`;
+    const travel=window.innerWidth<=620?44:window.innerWidth<=980?72:180;
+    heroImage.style.transform=`translate3d(0, ${progress*travel}px, 0) scale(${window.innerWidth>980?1.06:1.025})`;
   };
   const requestParallax=()=>{
     if(frame!==null)return;
