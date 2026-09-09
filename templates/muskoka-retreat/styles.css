@@ -15,3 +15,16 @@
 @media(max-width:620px){.hero-foot span{display:none}.hero-foot{justify-content:center}.availability-form{grid-template-columns:1fr}.availability-form label{min-height:76px;border-right:0;border-bottom:1px solid var(--line)}.availability-form label:first-child{border-left:0}.house h2,.stay h2,.table h2,.guide h2,.booking h2{font-size:48px}.house-spread{width:100%}.house-spread__image{min-height:55svh}.room-strip{grid-template-columns:1fr}.room--two,.room--three{margin-top:34px;width:100%;grid-column:auto}.room-media,.room--two .room-media,.room--three .room-media{height:72svh;max-height:620px}.lake-day{min-height:900px}.lake-day h2{font-size:58px}.day-line li{grid-template-columns:58px 1fr}.menu-list>div{grid-template-columns:65px 1fr}.menu-list p{font-size:17px}.guide-map{min-height:520px}.map-label{font-size:6.5px;padding:6px 7px}.season{min-height:540px}.seasons-title{width:150px;height:150px}.seasons-title strong{font-size:18px}.booking{padding-left:18px;padding-right:18px}.booking-cta{min-height:220px}}
 @media(max-width:350px){.hero h1{font-size:58px}.house h2,.stay h2,.table h2,.guide h2,.booking h2{font-size:43px}.day-line li{grid-template-columns:50px 1fr;gap:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.site-header{transition:none}}
+
+/* Desktop refinements */
+@media (min-width:981px){
+  .house-spread{width:min(1420px,92vw);grid-template-columns:minmax(0,1.16fr) minmax(420px,.84fr);min-height:620px}
+  .house-spread__image{min-height:620px}
+  .house-spread__copy{justify-content:center;padding:clamp(54px,5vw,78px)}
+  .house-spread__copy strong{max-width:460px;font-size:clamp(38px,3.35vw,54px);line-height:.96}
+  .house-spread__copy p{max-width:430px;font-size:14px;line-height:1.68}
+  .hero-media{inset:-14% 0}
+  .hero-media img{height:128%;transform-origin:center center}
+  a,button,input[type="date"],select{cursor:pointer}
+  input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer}
+}
