@@ -33,8 +33,8 @@ refinementStyles.textContent = `
   }
 
   .hero-image img {
-    height: 118%;
-    margin-top: -9%;
+    height: 132%;
+    margin-top: -16%;
     will-change: transform;
   }
 
@@ -197,8 +197,8 @@ refinementStyles.textContent = `
     }
 
     .hero-image img {
-      height: 114%;
-      margin-top: -7%;
+      height: 124%;
+      margin-top: -12%;
     }
 
     .process {
@@ -352,7 +352,7 @@ if (hero && heroImage && !reduceMotion) {
     parallaxFrame = null;
     const rect = hero.getBoundingClientRect();
     const progress = Math.max(0, Math.min(1, -rect.top / Math.max(1, rect.height)));
-    const travel = window.innerWidth <= 620 ? 26 : window.innerWidth <= 980 ? 42 : 70;
+    const travel = window.innerWidth <= 620 ? 48 : window.innerWidth <= 980 ? 78 : 128;
     heroImage.style.transform = `translate3d(0, ${progress * travel}px, 0) scale(1.035)`;
   };
 
