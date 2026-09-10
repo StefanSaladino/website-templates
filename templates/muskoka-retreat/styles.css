@@ -28,3 +28,13 @@
   a,button,input[type="date"],select{cursor:pointer}
   input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer}
 }
+
+/* Mobile CTA + seasons refinements */
+@media (max-width:620px){
+  .booking{gap:32px}
+  .booking-cta{width:fit-content;min-height:0;padding:15px 18px;flex-direction:row;align-items:center;justify-content:flex-start;justify-self:start;gap:14px;background:var(--cream);color:var(--rust)}
+  .booking-cta span{display:none}
+  .booking-cta strong{font:400 20px/1 Georgia,serif}
+  .booking-cta i{align-self:auto;font-size:17px}
+  .season--summer>div:last-child{padding-bottom:135px}
+}
