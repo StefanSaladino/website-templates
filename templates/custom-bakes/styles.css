@@ -830,3 +830,25 @@ button, a { -webkit-tap-highlight-color: transparent; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Prevent iOS Safari's native date control from forcing the mobile form wider than its card. */
+@media (max-width: 680px) {
+  .order-form,
+  .field-row,
+  .field-row > label {
+    min-width: 0;
+  }
+
+  .field-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .order-form input[type="date"] {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+}
