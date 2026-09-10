@@ -3,6 +3,47 @@ const toggle = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// iOS Safari can impose an intrinsic width on native date controls that is
+// wider than the form column. Keep the native date-picker behaviour, but
+// remove the WebKit appearance sizing and constrain the control to its label.
+const iosDateFix = document.createElement('style');
+iosDateFix.textContent = `
+  @media (max-width: 680px) {
+    .order-form,
+    .field-row,
+    .field-row > label {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .field-row > label {
+      overflow: hidden;
+    }
+
+    .order-form input[type="date"] {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      inline-size: 100%;
+      max-inline-size: 100%;
+      min-inline-size: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      font-size: 16px;
+    }
+
+    .order-form input[type="date"]::-webkit-date-and-time-value {
+      display: block;
+      width: 100%;
+      min-height: 1.2em;
+      text-align: left;
+    }
+  }
+`;
+document.head.appendChild(iosDateFix);
+
 function syncMobileMenuPosition() {
   if (!header || !mobileMenu || window.innerWidth > 980) return;
 
