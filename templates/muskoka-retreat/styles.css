@@ -38,3 +38,11 @@
   .booking-cta i{align-self:auto;font-size:17px}
   .season--summer>div:last-child{padding-bottom:135px}
 }
+
+/* Stronger mobile booking affordance */
+@media (max-width:620px){
+  .booking-cta{min-height:54px;padding:14px 18px 14px 20px;gap:18px;background:var(--cream);color:var(--ink);border:2px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 rgba(29,41,38,.22);transition:transform .15s ease,box-shadow .15s ease,background .25s ease,color .25s ease}
+  .booking-cta strong{font:600 19px/1 Georgia,serif}
+  .booking-cta i{width:30px;height:30px;display:grid;place-items:center;align-self:auto;border-radius:50%;background:var(--ink);color:var(--cream);font-size:15px}
+  .booking-cta:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(29,41,38,.22)}
+}
