@@ -64,16 +64,49 @@ galleryStyle.textContent = `
 `;
 document.head.appendChild(galleryStyle);
 
+
+/* Image-led additions: three distinct previews, inserted before filters initialize. */
+const imageFirstCatalog = [
+ {id:'monolith-architecture',cat:'business creative',title:'Architecture Studio',label:'Business · Creative',
+  inner:'<div class="thumb thumb--monolith-photo"><div class="mono-images"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=700&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;w=420&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&amp;fit=crop&amp;w=420&amp;q=76" alt="" loading="lazy"></div><div class="mono-caption"><b>MONOLITH</b><span>ARCHITECTURE / SELECTED WORK</span></div><span class="live-badge">Live</span></div>'},
+ {id:'frame-portfolio',cat:'minimal creative',title:'Photography Portfolio',label:'Minimal · Creative',
+  inner:'<div class="thumb thumb--frame-photo"><div class="frame-image-grid"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"></div><div class="frame-letter"><b>FRAME.</b><span>SELECTED IMAGES</span></div><span class="live-badge">Live</span></div>'},
+ {id:'garage-detailing',cat:'business creative',title:'Automotive Detailing',label:'Business · Creative',
+  inner:'<div class="thumb thumb--garage-photo"><img class="garage-image" src="https://images.unsplash.com/photo-1708805282706-f44730b7e527?auto=format&amp;fit=crop&amp;w=1100&amp;q=78" alt="" loading="lazy"><div class="garage-shade"></div><div class="garage-logo"><b>GARAGE</b><small>DETAILING STUDIO</small></div><div class="garage-tag">DETAIL / CORRECT / PROTECT</div><span class="live-badge">Live</span></div>'}
+];
+if(templateGrid){
+  for(const item of imageFirstCatalog){
+    if(templateGrid.querySelector('[data-template="'+item.id+'"]'))continue;
+    const url='templates/'+item.id+'/';
+    templateGrid.insertAdjacentHTML('beforeend','<article class="template-card is-live" data-template="'+item.id+'" data-category="'+item.cat+'">'+
+     '<a class="thumb-link" href="'+url+'" aria-label="Open '+item.title+' template">'+item.inner+'</a>'+
+     '<div class="card-copy"><div><h3>'+item.title+'</h3></div><p>'+item.label+'</p>'+
+     '<a class="card-live-link" href="'+url+'">View template ↗</a></div></article>');
+  }
+}
+const imageFirstStyles=document.createElement('style');
+imageFirstStyles.textContent=
+'.thumb--monolith-photo{position:relative;overflow:hidden;background:#e8e7df;color:#1d2922}.mono-images{position:absolute;inset:5% 4% 23%;display:grid;grid-template-columns:1.55fr .85fr .85fr;gap:3px}.mono-images img{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover;filter:saturate(.76)}.mono-caption{position:absolute;bottom:5%;left:4%;right:4%;display:flex;align-items:baseline;justify-content:space-between;gap:5px}.mono-caption b{font:650 clamp(12px,1.55vw,22px)/1 Arial,sans-serif;letter-spacing:-.06em}.mono-caption span{font:700 clamp(3px,.42vw,6px)/1.2 Arial,sans-serif;letter-spacing:.07em}'+
+'.thumb--frame-photo{position:relative;overflow:hidden;background:#f6f6f0;color:#151515}.frame-image-grid{position:absolute;inset:6% 4% 6% 36%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px}.frame-image-grid img{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover;filter:grayscale(1) contrast(1.08)}.frame-image-grid img:first-child{grid-row:1/-1}.frame-letter{position:absolute;top:9%;left:4%;display:grid;gap:9px}.frame-letter b{font:700 clamp(17px,2vw,29px)/1 Arial,sans-serif;letter-spacing:-.075em}.frame-letter span{max-width:70px;font:700 clamp(3px,.45vw,6px)/1.4 Arial,sans-serif;letter-spacing:.09em}'+
+'.thumb--garage-photo{position:relative;overflow:hidden;background:#101515;color:#fff}.garage-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.3) brightness(.7) contrast(1.15)}.garage-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,13,13,.87),transparent 70%),linear-gradient(90deg,rgba(10,13,13,.5),transparent 66%)}.garage-logo{position:absolute;z-index:2;top:8%;left:6%;display:grid;gap:3px}.garage-logo b{font:900 clamp(15px,2vw,28px)/.9 Arial,sans-serif;letter-spacing:-.06em}.garage-logo small{font:800 clamp(3px,.44vw,6px)/1.2 Arial,sans-serif;letter-spacing:.15em}.garage-tag{position:absolute;z-index:2;bottom:8%;left:6%;font:800 clamp(4px,.65vw,9px)/1.2 Arial,sans-serif;letter-spacing:.08em;color:#e8d0c0}';
+document.head.appendChild(imageFirstStyles);
+
 function applyGalleryCounts(){
-  const stats=document.querySelectorAll('.intro-stats strong');
-  if(stats[0])stats[0].textContent='21';
-  if(stats[1])stats[1].textContent='21';
-  const head=document.querySelector('.library-head > p');
-  if(head)head.textContent='The remaining eighteen templates live here. Use the filters to browse by direction without repeating the featured picks above.';
-  const note=document.querySelector('.library-note strong');
-  if(note)note.textContent='18 more templates';
-  const counts={all:'18',minimal:'2',business:'11',product:'6',creative:'12',experimental:'3'};
-  document.querySelectorAll('.filter').forEach(button=>{const span=button.querySelector('span');if(span&&counts[button.dataset.filter])span.textContent=counts[button.dataset.filter]});
+ const cards=[...document.querySelectorAll('.template-grid .template-card')];
+ const featured=document.querySelectorAll('.featured-pick').length;
+ const stats=document.querySelectorAll('.intro-stats strong');
+ if(stats[0])stats[0].textContent=String(cards.length+featured);
+ if(stats[1])stats[1].textContent=String(cards.length+featured);
+ const head=document.querySelector('.library-head > p');
+ if(head)head.textContent='The remaining '+cards.length+' templates live here. Use the filters to browse by direction without repeating the featured picks above.';
+ const note=document.querySelector('.library-note strong');
+ if(note)note.textContent=cards.length+' more templates';
+ document.querySelectorAll('.filter').forEach(button=>{
+  const span=button.querySelector('span');
+  if(!span)return;
+  const category=button.dataset.filter;
+  span.textContent=String(category==='all'?cards.length:cards.filter(card=>card.dataset.category.split(/\s+/).includes(category)).length);
+ });
 }
 applyGalleryCounts();
 setTimeout(applyGalleryCounts,0);

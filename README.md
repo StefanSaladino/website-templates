@@ -134,4 +134,15 @@ The demo forms are front-end examples only; GitHub Pages does not provide a form
 
 ## Gallery featured picks
 
-The homepage separates discovery into two non-duplicated layers: **3 Featured Templates** (OFFCUT / Creative Agency, CURRENT / Real Estate, and SERA / Restaurant) followed by the remaining **13 templates** in the filterable library. Featured picks are deliberately excluded from the library grid so visitors never see the same template twice on the homepage.
+The homepage separates discovery into two non-duplicated layers: **3 Featured Templates** (OFFCUT / Creative Agency, CURRENT / Real Estate, and SERA / Restaurant) followed by the remaining **21 templates** in the filterable library. Featured picks are deliberately excluded from the library grid so visitors never see the same template twice on the homepage.
+
+
+## Image-first templates 22–24
+
+- **MONOLITH — Architecture Studio** (`templates/monolith-architecture/`): contact-sheet introduction and four linked, photographic project studies.
+- **FRAME — Photography Portfolio** (`templates/frame-portfolio/`): editorial gallery with category filters and an accessible image viewer.
+- **GARAGE — Automotive Detailing** (`templates/garage-detailing/`): work-focused imagery, service selection, and a validated email-request preview.
+
+The collection now contains **24 live concepts**: 3 featured and 21 in the filterable gallery. The JavaScript now calculates counts from the gallery cards so future additions do not depend on hard-coded totals. Each new template includes its own source files, README, favicon and JPEG social card.
+
+**Demo limitations:** Photography is loaded from external Unsplash URLs and must be replaced with appropriately licensed local media for customer redistribution. GARAGE prepares an email request, but does not submit or book server-side. Replace demo contacts before production; finish real-device Safari and image-loading checks before selling these concepts.
