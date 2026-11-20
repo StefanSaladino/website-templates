@@ -12,9 +12,9 @@ npm run build
 Vite is isolated to this folder. Production output is `../dist/components/` and uses **relative paths**, so it can be hosted at `/website-templates/components/` without changing the existing 24 template routes. The source `components/index.html` also works when served as static files from the repository root. Do not open the page using a `file://` URL; use a local HTTP server.
 
 ## Data, publication, and IDs
-- `data/categories.json`: 29 category definitions, planned counts and stable prefixes.
-- `data/components.json`: 137 draft variants from the approved planning baseline. Every ID is permanent.
-- `data/stock-manifest.json`: rights registry; currently deliberately empty.
+- `data/categories.json`: 30 category definitions, planned counts and stable prefixes.
+- `data/components.json`: 157 source-complete `in-review` core variants (0 drafts and 0 live), with permanent IDs.
+- `data/stock-manifest.json`: 16 review-only provisional media records; no stock assets approved for release.
 - `?planning=1`: optional *internal* catalogue view showing draft descriptions without pretending they are live.
 - Default public view: only status `live`; no dummy/demo entries marketed as completed components.
 - When the first previews are implemented, use `previews/<ID>/index.html`, and set each component's `previewRoute` to `./previews/<ID>/`.
@@ -31,7 +31,7 @@ This writes responsive WebP widths and SHA-256 provenance. Do not commit raw sou
 Each example is an individual HTML document; namespace CSS with its component ID, and use local tokens. Never globally apply one component's styles across the showroom. For demo-only forms and booking controls, label limitations clearly. Keep the public catalogue fast by loading previews only on demand.
 
 ## Roadmap
-See `../docs/COMPONENT-SHOWROOM-ROADMAP.md`. Phase 2 delivers six real licensed/photo-verified previews, mobile/desktop controls, and the first shortlist proof. The existing templates gallery is intentionally unchanged in Phase 1.
+See `../docs/COMPONENT-SHOWROOM-ROADMAP.md`. The original Phase 2 planning stage described six initial examples; subsequent review-branch development now implements all 157 core previews, 44 independent mobile alternatives and 20 animation patterns. Licensing, browser QA and approval remain separate. The existing templates gallery is intentionally unchanged in Phase 1.
 
 
 ## Mobile design track (roadmap v1.1)
@@ -181,3 +181,13 @@ New complete responsive previews: TEST-02, TEST-03, TEST-04, TEST-05, MENU-02, M
 Actual controls include a quote carousel, fictional script-topic selector, filtering review wall, a locally generated silent motion clip with play/pause/restart and full transcript, a photo-led menu with category filters, keyboard-accessible meal tabs, and a genuine on-device text-only PDF menu download with an equivalent semantic HTML menu. All invented reviews are explicitly fictional; the illustrated portrait is not a real person, the video depicts no clients, and all restaurant prices/dishes/allergens are examples. MENU-02 photographs are independent Unsplash sources (STOCK-014..016), with rights still pending verification. MENU-04 produces an **untagged PDF**, not a fully accessible PDF, and supplies a readable HTML equivalent.
 
 Seven sets of HTML/CSS/JS source files passed source syntax, duplicate ID, local-anchor, alt text and CSS delimiter checks. Seven browser cases and 320px screen-overflow checks were added to Playwright smoke tests. The sample PDF's object-offset/xref and text-stream length were sanity-checked. **A passing browser run, full PDF rendering/accessibility review, physical-device QA and stock rights clearance are NOT yet verified.** These remain branch-only review demos; `main` remains untouched.
+ 
+## Full implementation checkpoint (November 20, 2026)
+
+**157/157 core examples are now source-complete and `in-review`; no drafts and no public `live` release.** The 30 core categories, all 44/44 separate optional mobile treatments and all 20/20 integrated animation patterns have been implemented on `feature/component-showroom`. The final ten added: `POST-01..04`, `EVENT-01..04` and `CONTACT-03..04`.
+
+The new examples contain real, locally operable controls: editorial filtering/search/sorting/printing/reading tools, event-card categories and disclosures, calendar/list schedules, authentic time arithmetic for clearly fictional countdown targets, unsent form drafts and reserved-example email/clipboard actions. Invented articles, events, venues, contact addresses and services are plainly described as examples. All final-ten original visuals use CSS art; no additional stock image assets were introduced.
+
+The final 30 HTML/CSS/JS sources passed the GitHub connector's source-level checks for parseability, IDs, anchor targets, alt descriptions and CSS brace balance. The preview checker enforces new Articles/Events section anchors, and ten new Playwright scenarios plus 320px overflow assertions are committed. **No Chromium test run, production build, visual/device accessibility test or client approval has been verified.** Existing stock-manifest entries remain **16/16 `needs-review`**. The existing sample PDF is text-based but untagged; use its readable HTML equivalent.
+
+See [COMPONENT-SHOWROOM-RELEASE-READINESS.md](../docs/COMPONENT-SHOWROOM-RELEASE-READINESS.md) for the precise build/browser commands, release blockers and source-media requirements. The next development work should verify CI, inspect responsive screenshots and fix defects before any promotion to `live` or merge to `main`.
