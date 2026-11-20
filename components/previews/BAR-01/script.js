@@ -1,0 +1,1 @@
+const bar=document.querySelector('#bar-showcase'),btn=document.querySelector('#bar-dismiss');btn.addEventListener('click',()=>{bar.hidden=true;btn.setAttribute('aria-label','Announcement dismissed')});

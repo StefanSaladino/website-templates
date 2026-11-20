@@ -50,16 +50,40 @@
     "id": "NAV-02",
     "category": "headers",
     "title": "Centered brand",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Boutique fashion wordmark between two link groups",
-    "previewRoute": null,
+    "previewRoute": "./previews/NAV-02/",
     "thumbnail": null,
     "stockAssetIds": [],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review functional sample. Final visual, photo or device approval still required.",
+    "reviewRoute": "./review.html?id=NAV-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Header & navigation",
+      "focus": "Centered brand",
+      "summary": "A fictional independent clothing label with a symmetrical navigation, a strong central wordmark, and a simple native mobile menu.",
+      "desktop": "A fictional independent clothing label with a symmetrical navigation, a strong central wordmark, and a simple native mobile menu.",
+      "mobile": "Purpose-built narrow layout with readable headings, comfortable controls and functional links.",
+      "lookFor": [
+        "Clothes for living in.",
+        "Clear hierarchy and responsive behavior"
+      ],
+      "focusAnchor": "nav-showcase",
+      "explain": "A fictional independent clothing label with a symmetrical navigation, a strong central wordmark, and a simple native mobile menu.",
+      "bestFor": [
+        "Independent small businesses and studios",
+        "Client sites needing a clear accessible section"
+      ],
+      "fitReason": "Choose this when the content structure matches the business, rather than because of a trendy effect."
+    }
   },
   {
     "id": "NAV-03",
@@ -203,16 +227,43 @@
     "id": "BAR-01",
     "category": "announcements",
     "title": "Single announcement",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Seasonal boutique offer across top",
-    "previewRoute": null,
+    "previewRoute": "./previews/BAR-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "interactive",
+      "keyboard-usable"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review functional sample. Final visual, photo or device approval still required.",
+    "reviewRoute": "./review.html?id=BAR-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Announcement bars",
+      "focus": "Single announcement",
+      "summary": "A compact editorial retail announcement, with a dismiss action that does not block navigation.",
+      "desktop": "A compact editorial retail announcement, with a dismiss action that does not block navigation.",
+      "mobile": "Purpose-built narrow layout with readable headings, comfortable controls and functional links.",
+      "lookFor": [
+        "Objects for everyday living.",
+        "Clear hierarchy and responsive behavior"
+      ],
+      "focusAnchor": "bar-showcase",
+      "explain": "A compact editorial retail announcement, with a dismiss action that does not block navigation.",
+      "bestFor": [
+        "Independent small businesses and studios",
+        "Client sites needing a clear accessible section"
+      ],
+      "fitReason": "Choose this when the content structure matches the business, rather than because of a trendy effect."
+    }
   },
   {
     "id": "BAR-02",
@@ -248,16 +299,40 @@
     "id": "FOOT-01",
     "category": "footers",
     "title": "Minimal footer",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Photographer wordmark and essential links",
-    "previewRoute": null,
+    "previewRoute": "./previews/FOOT-01/",
     "thumbnail": null,
     "stockAssetIds": [],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review functional sample. Final visual, photo or device approval still required.",
+    "reviewRoute": "./review.html?id=FOOT-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Footers",
+      "focus": "Minimal footer",
+      "summary": "A very small photography-studio footer showing just a wordmark, essential legal/navigation links and a useful return-to-top action.",
+      "desktop": "A very small photography-studio footer showing just a wordmark, essential legal/navigation links and a useful return-to-top action.",
+      "mobile": "Purpose-built narrow layout with readable headings, comfortable controls and functional links.",
+      "lookFor": [
+        "A quieter sign-off.",
+        "Clear hierarchy and responsive behavior"
+      ],
+      "focusAnchor": "footer-showcase",
+      "explain": "A very small photography-studio footer showing just a wordmark, essential legal/navigation links and a useful return-to-top action.",
+      "bestFor": [
+        "Independent small businesses and studios",
+        "Client sites needing a clear accessible section"
+      ],
+      "fitReason": "Choose this when the content structure matches the business, rather than because of a trendy effect."
+    }
   },
   {
     "id": "FOOT-02",
@@ -437,16 +512,40 @@
     "id": "CTA-03",
     "category": "calls-to-action",
     "title": "Oversized type CTA",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Editorial agency typography and email link",
-    "previewRoute": null,
+    "previewRoute": "./previews/CTA-03/",
     "thumbnail": null,
     "stockAssetIds": [],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review functional sample. Final visual, photo or device approval still required.",
+    "reviewRoute": "./review.html?id=CTA-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Calls to action",
+      "focus": "Oversized typographic call to action",
+      "summary": "An editorial creative-studio call to action built around one memorable sentence and one decisive link.",
+      "desktop": "An editorial creative-studio call to action built around one memorable sentence and one decisive link.",
+      "mobile": "Purpose-built narrow layout with readable headings, comfortable controls and functional links.",
+      "lookFor": [
+        "Tell us the beginning.",
+        "Clear hierarchy and responsive behavior"
+      ],
+      "focusAnchor": "cta-showcase",
+      "explain": "An editorial creative-studio call to action built around one memorable sentence and one decisive link.",
+      "bestFor": [
+        "Independent small businesses and studios",
+        "Client sites needing a clear accessible section"
+      ],
+      "fitReason": "Choose this when the content structure matches the business, rather than because of a trendy effect."
+    }
   },
   {
     "id": "CTA-04",
@@ -1001,16 +1100,40 @@
     "id": "PRJ-03",
     "category": "projects",
     "title": "Numbered project index",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Studio table of work and dates",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRJ-03/",
     "thumbnail": null,
     "stockAssetIds": [],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review functional sample. Final visual, photo or device approval still required.",
+    "reviewRoute": "./review.html?id=PRJ-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Projects and case studies",
+      "focus": "Numbered project index",
+      "summary": "A design studio's concise project ledger: project names, typology and year, with linked on-page context.",
+      "desktop": "A design studio's concise project ledger: project names, typology and year, with linked on-page context.",
+      "mobile": "Purpose-built narrow layout with readable headings, comfortable controls and functional links.",
+      "lookFor": [
+        "A record of useful work.",
+        "Clear hierarchy and responsive behavior"
+      ],
+      "focusAnchor": "projects-showcase",
+      "explain": "A design studio's concise project ledger: project names, typology and year, with linked on-page context.",
+      "bestFor": [
+        "Independent small businesses and studios",
+        "Client sites needing a clear accessible section"
+      ],
+      "fitReason": "Choose this when the content structure matches the business, rather than because of a trendy effect."
+    }
   },
   {
     "id": "PRJ-04",
@@ -1166,16 +1289,40 @@
     "id": "SRV-01",
     "category": "services",
     "title": "Text list",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architectural studio numbered service names",
-    "previewRoute": null,
+    "previewRoute": "./previews/SRV-01/",
     "thumbnail": null,
     "stockAssetIds": [],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review functional sample. Final visual, photo or device approval still required.",
+    "reviewRoute": "./review.html?id=SRV-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Services and capabilities",
+      "focus": "Numbered service list",
+      "summary": "An architectural practice with a numbered editorial service index, rather than a grid of matching cards.",
+      "desktop": "An architectural practice with a numbered editorial service index, rather than a grid of matching cards.",
+      "mobile": "Purpose-built narrow layout with readable headings, comfortable controls and functional links.",
+      "lookFor": [
+        "The work is the point.",
+        "Clear hierarchy and responsive behavior"
+      ],
+      "focusAnchor": "services-showcase",
+      "explain": "An architectural practice with a numbered editorial service index, rather than a grid of matching cards.",
+      "bestFor": [
+        "Independent small businesses and studios",
+        "Client sites needing a clear accessible section"
+      ],
+      "fitReason": "Choose this when the content structure matches the business, rather than because of a trendy effect."
+    }
   },
   {
     "id": "SRV-02",
@@ -2167,16 +2314,43 @@
     "id": "FORM-02",
     "category": "forms",
     "title": "Project inquiry",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Service budget dates project description",
-    "previewRoute": null,
+    "previewRoute": "./previews/FORM-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "interactive",
+      "keyboard-usable"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review functional sample. Final visual, photo or device approval still required.",
+    "reviewRoute": "./review.html?id=FORM-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Forms and lead capture",
+      "focus": "Detailed quote enquiry",
+      "summary": "A multi-field contractor quote enquiry with clear validation and a local copyable summary; never falsely claims a submission.",
+      "desktop": "A multi-field contractor quote enquiry with clear validation and a local copyable summary; never falsely claims a submission.",
+      "mobile": "Purpose-built narrow layout with readable headings, comfortable controls and functional links.",
+      "lookFor": [
+        "Tell us what you have in mind.",
+        "Clear hierarchy and responsive behavior"
+      ],
+      "focusAnchor": "form-showcase",
+      "explain": "A multi-field contractor quote enquiry with clear validation and a local copyable summary; never falsely claims a submission.",
+      "bestFor": [
+        "Independent small businesses and studios",
+        "Client sites needing a clear accessible section"
+      ],
+      "fitReason": "Choose this when the content structure matches the business, rather than because of a trendy effect."
+    }
   },
   {
     "id": "FORM-03",
@@ -2242,16 +2416,40 @@
     "id": "CONTACT-01",
     "category": "contact",
     "title": "Compact contact",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Studio email telephone and social",
-    "previewRoute": null,
+    "previewRoute": "./previews/CONTACT-01/",
     "thumbnail": null,
     "stockAssetIds": [],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review functional sample. Final visual, photo or device approval still required.",
+    "reviewRoute": "./review.html?id=CONTACT-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Contact sections",
+      "focus": "Contact-first split",
+      "summary": "A trades company contact feature with a strong local-service introduction, working in-page next step and no fictional live phone links.",
+      "desktop": "A trades company contact feature with a strong local-service introduction, working in-page next step and no fictional live phone links.",
+      "mobile": "Purpose-built narrow layout with readable headings, comfortable controls and functional links.",
+      "lookFor": [
+        "A conversation starts here.",
+        "Clear hierarchy and responsive behavior"
+      ],
+      "focusAnchor": "contact-showcase",
+      "explain": "A trades company contact feature with a strong local-service introduction, working in-page next step and no fictional live phone links.",
+      "bestFor": [
+        "Independent small businesses and studios",
+        "Client sites needing a clear accessible section"
+      ],
+      "fitReason": "Choose this when the content structure matches the business, rather than because of a trendy effect."
+    }
   },
   {
     "id": "CONTACT-02",
