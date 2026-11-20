@@ -1719,6 +1719,110 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Eight final galleries/pricing/product family specimens: real state and truthful boundaries.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/GAL-08/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-open]').count()===3
+  &&(await page.locator('.disclosure').textContent()).includes('unapproved'),'GAL-08 mixed gallery has three distinct inputs and honest media provenance');
+ await page.locator('[data-open=photo1]').click();
+ assert(await page.locator('#viewer').evaluate(el=>el.open)
+  &&await page.locator('#viewer-image').isVisible()
+  &&await page.locator('#viewer-video').isHidden(),'GAL-08 first image opens the actual native image viewer, not the film');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#viewer').evaluate(el=>!el.open)
+  &&await page.locator('[data-open=photo1]').evaluate(el=>document.activeElement===el),'GAL-08 image viewer closes on Escape with focus restored');
+ await page.locator('[data-open=film]').click();
+ assert(await page.locator('#viewer-video').isVisible()
+  &&(await page.locator('#viewer-video').getAttribute('src')).includes('9489382-uhd_4096_2160_25fps.mp4'),'GAL-08 selecting film loads the actual one review-only source into native controls');
+ await page.locator('#viewer-close').click();
+ assert(await page.locator('#viewer').evaluate(el=>!el.open)
+  &&await page.locator('[data-open=film]').evaluate(el=>document.activeElement===el),'GAL-08 film viewer closes and restores opener focus');
+
+ await page.goto(base+'previews/PRICE-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-item=portrait] button').getAttribute('aria-expanded')==='true'
+  &&await page.locator('#detail-portrait').isVisible(),'PRICE-03 starts with actual first rate details');
+ await page.locator('[data-item=editorial] button').click();
+ assert(await page.locator('#detail-editorial').isVisible()
+  &&await page.locator('#detail-portrait').isHidden()
+  &&await page.locator('[data-item=editorial] button').getAttribute('aria-expanded')==='true','PRICE-03 expanded starting rate actually swaps details');
+ await page.locator('[data-item=editorial] button').click();
+ assert(await page.locator('#detail-editorial').isHidden(),'PRICE-03 active rate can be collapsed again');
+
+ await page.goto(base+'previews/PRICE-04/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('#price').textContent()).includes('$49'),'PRICE-04 single offer begins with example weekly pass');
+ await page.locator('[name=pass][value=ten]').check();
+ assert((await page.locator('#price').textContent()).includes('$160')
+  &&(await page.locator('#pass-label').textContent()).includes('TEN-VISIT'),'PRICE-04 selection genuinely updates hypothetical price and pass label');
+ await page.locator('#prepare').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#result').textContent()).includes('NOT PURCHASED')
+  &&(await page.locator('#result-text').textContent()).includes('$160'),'PRICE-04 prepared result is explicitly non-purchased and reflects chosen option');
+
+ await page.goto(base+'previews/PRICE-05/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('#total').textContent()).includes('$1,920')
+  &&await page.locator('#pages').textContent()==='3','PRICE-05 starts with transparent correct sample arithmetic');
+ await page.locator('#increase').click();
+ await page.locator('#complexity').selectOption('1.25');
+ await page.locator('#forms').check();
+ await page.locator('#animation').check();
+ assert(await page.locator('#pages').textContent()==='4'
+  &&(await page.locator('#total').textContent()).includes('$3,450')
+  &&(await page.locator('#breakdown').textContent()).includes('× 1.25'),'PRICE-05 bounded count, multiplier and toggles actually compute the correct total');
+ await page.locator('#scope-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#note').textContent()).includes('NOT A QUOTE')
+  &&(await page.locator('#note').textContent()).includes('$3,450'),'PRICE-05 produces a correct local unsent arithmetic worksheet');
+
+ await page.goto(base+'previews/PROD-02/',{waitUntil:'domcontentloaded'});
+ await page.locator('[name=finish][value=walnut]').check();
+ assert(await page.locator('#chair-render').getAttribute('data-finish')==='walnut'
+  &&(await page.locator('#selected-finish').textContent()).includes('Deep walnut'),'PROD-02 real CSS chair drawing and text update on finish selection');
+ await page.locator('#save-study').click();
+ assert(await page.locator('#save-study').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#selected-finish').textContent()).includes('No wishlist or order'),'PROD-02 temporary study marker never falsely asserts a persisted cart');
+
+ await page.goto(base+'previews/PROD-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-panel]:visible').count()===1,'PROD-03 lookbook shows only one real stock portrait');
+ await page.locator('[data-select="2"]').click();
+ assert(await page.locator('[data-panel="2"]').isVisible()
+  &&await page.locator('[data-select="2"]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#story-title').textContent()).includes('shadow'),'PROD-03 chapter selection swaps visible portrait and actual editorial copy');
+ await page.locator('#prev').click();
+ assert(await page.locator('[data-panel="1"]').isVisible(),'PROD-03 bounded previous control navigates to prior portrait');
+
+ await page.goto(base+'previews/PROD-04/',{waitUntil:'domcontentloaded'});
+ await page.locator('[name=finish][value=sage]').check();
+ await page.locator('#size').selectOption('large');
+ assert(await page.locator('#lamp-visual').getAttribute('data-finish')==='sage'
+  &&await page.locator('#lamp-visual').getAttribute('data-size')==='large'
+  &&(await page.locator('#selected-name').textContent()).includes('Tall study'),'PROD-04 selection changes real CSS lamp state, size and description');
+ await page.locator('#save').click();
+ assert(await page.locator('#save').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#selected-description').textContent()).includes('no wishlist'),'PROD-04 local idea marker makes no order or storage claim');
+
+ await page.goto(base+'previews/PROD-05/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.item:visible').count()===4
+  &&await page.locator('#counter').textContent()==='01 / 04','PROD-05 has an actually browsable four-object rail');
+ await page.locator('[data-filter=lighting]').click();
+ assert(await page.locator('.item:visible').count()===2
+  &&await page.locator('#counter').textContent()==='01 / 02'
+  &&await page.locator('[data-filter=lighting]').getAttribute('aria-pressed')==='true','PROD-05 category filter changes real visible objects and bounds');
+ await page.locator('.item[data-item=light] [data-inspect]').click();
+ assert((await page.locator('#detail-title').textContent())==='Soft lamp'
+  &&(await page.locator('#detail-copy').textContent()).includes('lighting'),'PROD-05 inspect reveals actual detail for selected illustration');
+ await page.locator('#next').click();
+ assert(await page.locator('#counter').textContent()==='02 / 02'
+  &&await page.locator('#next').isDisabled(),'PROD-05 next advances within selected category and bounds final item');
+
+ for(const id of ['GAL-08','PRICE-03','PRICE-04','PRICE-05','PROD-02','PROD-03','PROD-04','PROD-05']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const size=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert(size.scroll<=size.width+2,id+' renders without page overflow at 320px ('+size.scroll+'/'+size.width+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
