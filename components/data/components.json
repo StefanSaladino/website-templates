@@ -190,46 +190,142 @@
     "id": "NAV-05",
     "category": "headers",
     "title": "Editorial rail",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Photographer site with side-mounted menu",
-    "previewRoute": null,
+    "previewRoute": "./previews/NAV-05/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-001",
+      "STOCK-002"
+    ],
+    "interactions": [
+      "desktop-editorial-rail",
+      "mobile-fullscreen-navigation",
+      "keyboard-escape",
+      "focus-restoration",
+      "current-section"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "navigation",
+      "editorial",
+      "photography",
+      "mobile-menu"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive review-only component. All studio/venue identities are fictional, and image rights are unapproved. Browser/physical-device QA and stakeholder acceptance remain unverified; no production release.",
+    "reviewRoute": "./review.html?id=NAV-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Header and navigation",
+      "focus": "Persistent editorial side rail with a distinct phone menu",
+      "summary": "A photographer-style navigation rail keeps in-page chapters visible on desktop, then becomes a real keyboard-operable full-screen phone menu that closes on selection or Escape.",
+      "desktop": "Slim persistent vertical navigation separates huge type and two landscape chapters with clearly disclaimed independent stock imagery.",
+      "mobile": "The rail transforms into a solid sticky top header and full-height menu with touch-sized chapter links, focus wrapping and body scroll protection.",
+      "lookFor": [
+        "Mobile menu opens and closes with real aria-expanded state, Escape and focus restoration, while every link targets a real section",
+        "Landscape images are explicitly independent stock rather than commissions, with image rights unresolved"
+      ],
+      "focusAnchor": "header-showcase",
+      "explain": "An authentic alternative desktop/phone information architecture—not a desktop rail simply scaled smaller.",
+      "bestFor": [
+        "Photographers with authentic licensed galleries",
+        "Editorial creators needing visible chapter navigation"
+      ],
+      "fitReason": "Use only verified photographer images and approved rights; preserve in-page link targets and accessible menu focus."
+    }
   },
   {
     "id": "NAV-06",
     "category": "headers",
     "title": "Fullscreen overlay menu",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Creative agency with accessible full-screen navigation",
-    "previewRoute": null,
+    "previewRoute": "./previews/NAV-06/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-fullscreen-dialog",
+      "escape-close",
+      "focus-return",
+      "real-section-links",
+      "secondary-menu-launch"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "navigation",
+      "overlay",
+      "agency",
+      "accessible"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive review-only component. All studio/venue identities are fictional, and image rights are unapproved. Browser/physical-device QA and stakeholder acceptance remain unverified; no production release.",
+    "reviewRoute": "./review.html?id=NAV-06",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Header and navigation",
+      "focus": "Full-screen native menu overlay for a creative agency",
+      "summary": "Two working openers launch a genuine full-viewport dialog with large numbered section routes; Escape, Close and in-page navigation work with native focus handling.",
+      "desktop": "Oversized studio masthead and original graphic hero yield to a two-column full-screen overlay with four large navigation options.",
+      "mobile": "A compact header triggers a true phone-height navigation dialog with readable large routes and correct safe-area scrolling.",
+      "lookFor": [
+        "Opening the menu moves focus into its dialog and Escape returns focus to the triggering button",
+        "All four huge menu destinations lead to actual page sections; no fake client work or dead links"
+      ],
+      "focusAnchor": "header-showcase",
+      "explain": "A high-impact but operable creative navigation component that uses native dialog semantics instead of a decorative overlay.",
+      "bestFor": [
+        "Creative agencies and portfolio practices",
+        "Concept-led websites with few primary sections"
+      ],
+      "fitReason": "Real deployment needs correctly maintained routes, focus, no conflicting overlays and legitimate studio information."
+    }
   },
   {
     "id": "NAV-07",
     "category": "headers",
     "title": "Mega/navigation dropdown",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Multi-service business with grouped routes",
-    "previewRoute": null,
+    "previewRoute": "./previews/NAV-07/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "mega-menu-toggle",
+      "category-picker",
+      "aria-pressed",
+      "escape-and-outside-dismissal",
+      "section-navigation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "navigation",
+      "mega-menu",
+      "services",
+      "responsive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive review-only component. All studio/venue identities are fictional, and image rights are unapproved. Browser/physical-device QA and stakeholder acceptance remain unverified; no production release.",
+    "reviewRoute": "./review.html?id=NAV-07",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Header and navigation",
+      "focus": "Grouped service navigation with a functional mega-menu",
+      "summary": "A desktop mega-dropdown and mobile full-height service menu use live category switching, pressed state, real internal page routes, outside-click dismissal and Escape-to-close.",
+      "desktop": "A service-focused header reveals three illustrated panels with grouped route information inside a wide dark mega-menu.",
+      "mobile": "The dropdown becomes a single-column full-height service browser with large category controls and active content rather than shrinking the desktop grid.",
+      "lookFor": [
+        "Category buttons actually switch the visible detail and each link points to a real on-page service section",
+        "Menu closes on Escape, outside click or internal navigation and restores focus on explicit dismissal"
+      ],
+      "focusAnchor": "header-showcase",
+      "explain": "Multi-service navigation with meaningful topical grouping, explicit keyboard dismissal and truthful fictional service descriptions.",
+      "bestFor": [
+        "Design and building businesses with several real service families",
+        "Service companies with multiple linked audiences or needs"
+      ],
+      "fitReason": "Replace example services with factual offerings and consider real URLs only after confirming each destination."
+    }
   },
   {
     "id": "BAR-01",
@@ -277,31 +373,92 @@
     "id": "BAR-02",
     "category": "announcements",
     "title": "Location and hours",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Cafe open hours and location strip",
-    "previewRoute": null,
+    "previewRoute": "./previews/BAR-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-hours-disclosure",
+      "dismiss-notice",
+      "restore-notice",
+      "escape-close-hours"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "announcement",
+      "location",
+      "hours",
+      "dismissible"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive review-only component. All studio/venue identities are fictional, and image rights are unapproved. Browser/physical-device QA and stakeholder acceptance remain unverified; no production release.",
+    "reviewRoute": "./review.html?id=BAR-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Announcement bars",
+      "focus": "Disclosure-based location and sample hours announcement",
+      "summary": "A truthful fictional cafe notice shows expandable example hours and an intentionally reversible dismiss/restore flow, without suggesting a live address or open-now status.",
+      "desktop": "A narrow warm-toned information ribbon sits above a distinct graphic café hero, with an anchored schedule panel.",
+      "mobile": "The compact strip wraps into a clear multi-row utility and accessible hours popover with large touch targets.",
+      "lookFor": [
+        "Visitors can open weekly sample hours, dismiss the bar and restore it from the header",
+        "All hours are plainly examples and no fabricated directions, active café or live opening claim appears"
+      ],
+      "focusAnchor": "bar-showcase",
+      "explain": "An actual location-information and reversible alert pattern for businesses with hours that can be verified.",
+      "bestFor": [
+        "Cafés and local stores communicating current hours",
+        "Service locations with visitor guidance"
+      ],
+      "fitReason": "Replace all fictional location information with verified hours, address, holiday notices and accessible venue details."
+    }
   },
   {
     "id": "BAR-03",
     "category": "announcements",
     "title": "Multi-message ticker",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Small retail campaign messages with pause control",
-    "previewRoute": null,
+    "previewRoute": "./previews/BAR-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "three-message-ticker",
+      "next-previous",
+      "pause-resume",
+      "reduced-motion-default",
+      "visibility-and-focus-pause"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "announcement",
+      "rotating",
+      "ticker",
+      "accessible"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive review-only component. All studio/venue identities are fictional, and image rights are unapproved. Browser/physical-device QA and stakeholder acceptance remain unverified; no production release.",
+    "reviewRoute": "./review.html?id=BAR-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Announcement bars",
+      "focus": "Controlled three-message retail announcement ticker",
+      "summary": "Three separate information messages switch via real previous/next controls or slow timer with pause/resume, focus/hover/visibility suspension and reduced-motion initial pause.",
+      "desktop": "A slim directional editorial bar includes an active count, simple outbound-to-section links, and controls above an original object-study hero.",
+      "mobile": "A deliberately rearranged multi-row message strip preserves label, count, pause and destination without horizontal overrun.",
+      "lookFor": [
+        "Previous/Next change the message, count and linked section; explicit pause prevents further automatic rotation",
+        "Reduced-motion, document-hidden and user-interaction states suspend the timer; sample marketing makes no fake sale promises"
+      ],
+      "focusAnchor": "bar-showcase",
+      "explain": "An actually operating retail message ticker that respects motion sensitivity and preserves manual control.",
+      "bestFor": [
+        "Retail stores communicating several verifiable notices",
+        "Publishers with multiple topical announcements"
+      ],
+      "fitReason": "Any live promotional claim and destination must be validated; never auto-scroll at a pace that interrupts reading."
+    }
   },
   {
     "id": "FOOT-01",
@@ -1286,16 +1443,50 @@
     "id": "GAL-04",
     "category": "galleries",
     "title": "Horizontal filmstrip",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Travel photographs scrolled sideways",
-    "previewRoute": null,
+    "previewRoute": "./previews/GAL-04/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-001",
+      "STOCK-002"
+    ],
+    "interactions": [
+      "horizontal-filmstrip",
+      "manual-prev-next",
+      "keyboard-filmstrip",
+      "scroll-snap",
+      "scroll-position-sync"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "gallery",
+      "filmstrip",
+      "travel",
+      "photography"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive review-only component. All studio/venue identities are fictional, and image rights are unapproved. Browser/physical-device QA and stakeholder acceptance remain unverified; no production release.",
+    "reviewRoute": "./review.html?id=GAL-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Galleries and media",
+      "focus": "Manually scrollable panoramic landscape filmstrip",
+      "summary": "Two unrelated landscape images and one original CSS study form a real horizontal, keyboard-operable, snap-scrolling gallery with true Prev/Next bounds and synchronized item status.",
+      "desktop": "Wide horizontal editorial image cards stretch beyond the viewport while keeping active counter and navigation visibly separate.",
+      "mobile": "Cards become independent nearly full-width horizontal swipes, with a real scrollable panel, touch-friendly controls and clear captions.",
+      "lookFor": [
+        "Prev/Next, focused keyboard navigation and manual scrolling change visible cards and selected count",
+        "Independent stock images do not claim specific destinations or one photographer's project; licensing remains pending"
+      ],
+      "focusAnchor": "gallery-showcase",
+      "explain": "A true swipe/scroll filmstrip with multiple visual sources and real state, not a fake row of static images.",
+      "bestFor": [
+        "Travel or landscape photographers with authorized image sets",
+        "Editorial photo essays with independent chapters"
+      ],
+      "fitReason": "Replace stock with rights-cleared photography and verify exact places or projects before adding location names."
+    }
   },
   {
     "id": "GAL-05",
@@ -1399,16 +1590,50 @@
     "id": "GAL-07",
     "category": "galleries",
     "title": "Immersive slideshow",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Hospitality photos with swipe and controls",
-    "previewRoute": null,
+    "previewRoute": "./previews/GAL-07/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-001",
+      "STOCK-002"
+    ],
+    "interactions": [
+      "immersive-slideshow",
+      "manual-arrows",
+      "numbered-slide-picker",
+      "touch-swipe",
+      "keyboard-arrows-home-end"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "gallery",
+      "hospitality",
+      "slideshow",
+      "swipe"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive review-only component. All studio/venue identities are fictional, and image rights are unapproved. Browser/physical-device QA and stakeholder acceptance remain unverified; no production release.",
+    "reviewRoute": "./review.html?id=GAL-07",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Galleries and media",
+      "focus": "Immersive photography-led slideshow without autoplay",
+      "summary": "A full-screen dramatic slider alternates two unrelated stock landscapes and original room artwork through actual arrows, numbered controls, keyboard keys and touch swipes, with no auto-rotation.",
+      "desktop": "Deep atmospheric full-screen stage uses dark overlay, prominent serif title, readable non-booking information and discrete image controls.",
+      "mobile": "The cinematic stage preserves readable layered copy and provides real swipe and keyboard alternatives with large manual controls.",
+      "lookFor": [
+        "Next/Previous, direct slide selection and touch/keyboard navigation change images and text with bounded controls",
+        "Slides are not real property imagery and no hospitality location, rate or booking is implied"
+      ],
+      "focusAnchor": "gallery-showcase",
+      "explain": "A visual atmosphere carousel distinct from general image galleries, with manual predictable controls and honest image sources.",
+      "bestFor": [
+        "Hospitality concepts evaluating gallery art direction",
+        "Property websites once verified true-to-property photography exists"
+      ],
+      "fitReason": "Use actual licensed property imagery and never claim accommodation or booking availability on a sample gallery."
+    }
   },
   {
     "id": "GAL-08",
@@ -2824,16 +3049,47 @@
     "id": "PRICE-02",
     "category": "pricing",
     "title": "Comparison matrix",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Agency plan features and exclusions",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRICE-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "three-plan-comparison",
+      "selected-column",
+      "mobile-single-plan-view",
+      "aria-pressed",
+      "live-plan-summary"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "pricing",
+      "comparison",
+      "service-plans",
+      "mobile-first"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive review-only component. All studio/venue identities are fictional, and image rights are unapproved. Browser/physical-device QA and stakeholder acceptance remain unverified; no production release.",
+    "reviewRoute": "./review.html?id=PRICE-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Pricing and comparison",
+      "focus": "Actual responsive three-plan pricing comparison matrix",
+      "summary": "Three fictional CAD monthly retainer amounts and feature rows form a real comparison table. Selecting Core, Studio or Partner updates the highlighted desktop column and the sole visible mobile column.",
+      "desktop": "An information-rich table lets visitors directly compare service inclusions and exclusions, visually highlighting the chosen plan.",
+      "mobile": "A custom plan selector switches the single visible price column alongside feature labels rather than forcing lateral scrolling.",
+      "lookFor": [
+        "Plan buttons actually update selection, visible mobile column and accessible summary, not merely button styles",
+        "All example CAD prices and service inclusions are explicitly fictional with no sale, contract or quote implication"
+      ],
+      "focusAnchor": "pricing-showcase",
+      "explain": "A useful service-price decision aid with genuinely distinct phone presentation and legible table semantics.",
+      "bestFor": [
+        "Agencies with real published plans and inclusions",
+        "Digital service companies presenting accurate tier differences"
+      ],
+      "fitReason": "Replace example numbers with approved rates, taxes, terms, exclusions and purchase options before use."
+    }
   },
   {
     "id": "PRICE-03",
