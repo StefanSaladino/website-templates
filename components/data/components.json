@@ -457,7 +457,7 @@
         "Image composition and text placement",
         "Photo-first mobile option"
       ],
-      "focusAnchor": "top",
+      "focusAnchor": "hero-showcase",
       "explain": "A dramatic first screen built around one large photograph, a short message and a clear next step. The photo creates the mood before visitors explore the rest of the page.",
       "bestFor": [
         "Retreats, lodges and boutique hotels",
@@ -501,7 +501,7 @@
         "Text-to-photo proportion",
         "Mobile reading order"
       ],
-      "focusAnchor": "top",
+      "focusAnchor": "hero-showcase",
       "explain": "An opening section divided into two clear parts: a message on one side and a large photograph on the other. Visitors understand what you do while still seeing the quality of your work.",
       "bestFor": [
         "Renovation and home-building companies",

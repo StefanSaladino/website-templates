@@ -36,8 +36,8 @@ jobs:
         run: npm run build
       - name: Verify built GitHub Pages subpath output
         run: node scripts/check-dist.mjs
-      - name: Install Chromium for browser tests
-        run: npx playwright install --with-deps chromium
+      - name: Confirm preinstalled Chrome
+        run: command -v google-chrome || command -v chromium
       - name: Test viewer interactions and scrolling in Chromium
         run: npm run check:browser
       - name: Save browser review evidence

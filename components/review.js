@@ -1,7 +1,7 @@
 try {
 const [components, treatments] = await Promise.all([
-  fetch('./data/components.json?v20261120e',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
-  fetch('./data/mobile-treatments.json?v20261120e',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
+  fetch('./data/components.json?v20261120f',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
+  fetch('./data/mobile-treatments.json?v20261120f',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
 ]);
 const treatmentMap = new Map(treatments.map(item => [item.id,item]));
 const examples = new Map(components.filter(item => item.previewRoute && item.status !== 'draft').map(item => [item.id,item]));
@@ -36,7 +36,7 @@ const focusId = focus.focusAnchor || null;
 // Never add section hashes to iframe URLs: lazy iframe fragment navigation can
 // unexpectedly scroll the containing showroom as several examples load.
 const failureLink = document.querySelector('#review-error a');
-if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120e';
+if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120f';
 title.textContent = focus.focus || design.title;
 document.title = (focus.focus || design.title) + ' — Explore design';
 document.querySelector('#review-id').textContent = 'Example '+design.id+' · Still in development';
@@ -82,6 +82,10 @@ function sizeFrame(){
       ? 'You are seeing the design at its normal size. You can interact with the example below.'
       : 'The full '+preset.name+' design is fitted into this space. Choose “Look closer” for more detail.')+' Use “Highlight this section” to find the featured part.';
   panControls.hidden = !requiresPan;
+  const deviceChanged=lastDevice!==null && lastDevice!==device;
+  if(deviceChanged && highlightTarget && highlightWindow){
+    requestAnimationFrame(()=>positionInsideFrame(highlightTarget.ownerDocument,highlightWindow,highlightTarget));
+  }
   if(lastDevice !== device || lastZoom !== zoom) viewport.scrollLeft = 0;
   lastDevice = device; lastZoom = zoom;
   updatePanButtons();
@@ -119,7 +123,10 @@ function positionInsideFrame(doc, win, target) {
   const root=doc.documentElement;
   const previous=root.style.scrollBehavior;
   root.style.scrollBehavior='auto';
-  const y=Math.max(0,Math.round(target.getBoundingClientRect().top+win.scrollY-(target.tagName==='HEADER'?0:12)));
+  const header=doc.querySelector('header');
+  const sticky=header && ['sticky','fixed'].includes(win.getComputedStyle(header).position);
+  const offset=target.tagName==='HEADER'?0:(sticky?Math.min(100,header.getBoundingClientRect().height+16):16);
+  const y=Math.max(0,Math.round(target.getBoundingClientRect().top+win.scrollY-offset));
   win.scrollTo(0,y);
   root.style.scrollBehavior=previous;
 }
@@ -160,9 +167,9 @@ function connectShowcase() {
   positionInsideFrame(doc,win,target);
   const style=doc.createElement('style');
   style.textContent=[
-    '@keyframes baShowcasePulse{0%,100%{outline-color:transparent;box-shadow:none}18%,65%{outline-color:#ffba4c;box-shadow:inset 0 0 0 5px rgba(255,186,76,.85),0 0 0 3px rgba(73,39,9,.48)}}',
-    '.ba-showcase-pulse{outline:5px solid transparent!important;outline-offset:-5px!important;animation:baShowcasePulse 2.4s ease-in-out 1!important;}',
-    '@media(prefers-reduced-motion:reduce){.ba-showcase-pulse{animation:none!important;outline-color:#ffba4c!important;box-shadow:inset 0 0 0 5px rgba(255,186,76,.9)!important}}'
+    '@keyframes baShowcasePulse{0%,100%{outline-color:transparent;box-shadow:none}15%,72%{outline-color:#ffcf58;box-shadow:inset 0 0 0 9px rgba(255,207,88,.94),0 0 0 4px rgba(67,40,11,.62)}}',
+    '.ba-showcase-pulse{outline:7px solid transparent!important;outline-offset:-7px!important;animation:baShowcasePulse 2.4s ease-in-out 1!important;}',
+    '@media(prefers-reduced-motion:reduce){.ba-showcase-pulse{animation:none!important;outline-color:#ffba4c!important;box-shadow:inset 0 0 0 9px rgba(255,207,88,.94)!important}}'
   ].join('\n');
   doc.head.append(style);
   const onInitialInteraction=()=>{
