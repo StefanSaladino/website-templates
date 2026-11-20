@@ -67,7 +67,9 @@
     "hasMobileLayout": true,
     "notes": "In-review functional sample. Final visual, photo or device approval still required.",
     "reviewRoute": "./review.html?id=NAV-02",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-NAV-05"
+    ],
     "showcase": {
       "label": "Header & navigation",
       "focus": "Centered brand",
@@ -159,7 +161,9 @@
     "hasMobileLayout": true,
     "notes": "Working demo with real responsive layout; final client visual approval deferred. All example branding is fictional.",
     "reviewRoute": "./review.html?id=NAV-04",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-NAV-06"
+    ],
     "showcase": {
       "label": "Header & navigation",
       "focus": "Contact-first contractor header",
@@ -1152,7 +1156,9 @@
     "hasMobileLayout": true,
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=GAL-05",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-UTIL-04"
+    ],
     "showcase": {
       "label": "Galleries and image collections",
       "focus": "Image collection with working filters",
@@ -1198,7 +1204,9 @@
     "hasMobileLayout": true,
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=GAL-06",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-GAL-05"
+    ],
     "showcase": {
       "label": "Galleries and image collections",
       "focus": "Keyboard-operable photo lightbox",
@@ -1439,7 +1447,9 @@
     "hasMobileLayout": true,
     "notes": "In review: stock photo rights, captions and crops require approval.",
     "reviewRoute": "./review.html?id=COMP-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-UTIL-03"
+    ],
     "showcase": {
       "label": "Before and after",
       "focus": "Drag-to-reveal image comparison",
@@ -2629,7 +2639,9 @@
     "hasMobileLayout": true,
     "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
     "reviewRoute": "./review.html?id=FORM-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-FRM-04"
+    ],
     "showcase": {
       "label": "Contact form",
       "focus": "Minimal three-field contact form",

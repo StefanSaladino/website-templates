@@ -770,3 +770,18 @@ Mobile alternatives in review: **10 / 44** (four earlier plus six newly added). 
 The defaults, original semantics and non-mobile layouts remain available. No client site has been deployed or any parent component marked live. Visual crop, photography rights, physical iOS/Android interaction and accessibility review remain mandatory before approval.
 
 **QA:** Added source-level parent-to-alternative symmetry and explicit browser tests for navigation focus/close, collage/gallery geometry, actual switcher selection, native field validity, step/back/summary continuity, sticky-action suppression and 390px overflow.
+
+## Mobile design expansion: six interaction-led options (November 20, 2026)
+
+Six more mobile alternatives are functional and in review, bringing the mobile library to **16 / 44 in review** (28 drafts). Core examples remain **56 / 157 in review**, and all **20 / 20 animation patterns** remain complete. Every mobile treatment is a distinct optional layout or behaviour within its original built parent; the normal design stays intact:
+
+| ID | Parent | Mobile behaviour |
+|---|---|---|
+| M-NAV-05 | NAV-02 | Sticky horizontal section-anchor rail with live location indicator |
+| M-NAV-06 | NAV-04 | Accessible off-canvas drawer with backdrop, focus containment, background inerting and Escape/return focus |
+| M-GAL-05 | GAL-06 | Compact thumbnail gallery, native full-screen viewer with optional horizontal touch swipe |
+| M-FRM-04 | FORM-01 | Native date/time preference in a local, non-booking contact summary |
+| M-UTIL-03 | COMP-01 | Touch-scrubbable image comparison with native keyboard slider and selection presets |
+| M-UTIL-04 | GAL-05 | Native filter modal using the live category filter control set |
+
+**Quality gates:** explicit browser interaction checks, selected state, native dialog semantics, Escape and return focus, no sideways phone scrolling, and unchanged base options. All treatments still require physical iOS Safari and Android Chrome checks, photography licensing/crop sign-off and a human accessibility review. These are **not live** and not merged to `main`.

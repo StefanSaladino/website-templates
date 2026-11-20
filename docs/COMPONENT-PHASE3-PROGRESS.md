@@ -32,3 +32,7 @@ The complete 20-pattern animation inventory now has **20 working isolated previe
 ## Mobile-alternative checkpoint (November 20, 2026)
 
 The first full six-option phone-design batch is implemented: M-NAV-01, M-HERO-03, M-GAL-03, M-SRV-02, M-FRM-02 and M-CTA-01. **10 / 44 mobile alternatives** are now in review (six new, four original). The core catalogue is **56 / 157 in review** and the completed animation inventory remains **20 / 20 working**. All six are linked to their actual parent previews through the same comparison UI; default component layouts are unchanged. User-facing gallery photography and final phone-device QA still block live approval.
+
+## Second mobile expansion checkpoint (November 20, 2026)
+
+Six more phone alternatives are implemented: M-NAV-05, M-NAV-06, M-GAL-05, M-FRM-04, M-UTIL-03 and M-UTIL-04. Now **16 / 44** planned mobile treatments in review; **28 drafts remain**. The build retains **56 / 157** core components in review and all **20 / 20** animated patterns integrated. New additions cover section navigation, off-canvas navigation, compact touch-gallery viewing, native contact time preference, drag-to-reveal touch comparison and a filter drawer. Default desktop and base preview modes remain intact. Final photo licensing, physical-device and accessibility gates remain open.

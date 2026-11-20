@@ -502,6 +502,112 @@ try{
   assert(bounds.scroll<=bounds.w+2,altId+' does not force horizontal page overflow at 390px (scroll width '+bounds.scroll+'px, viewport '+bounds.w+'px)');
  }
 
+
+ // Mobile expansion: six new genuine interactions, including native modal and pointer/touch fallbacks.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/NAV-02/?mobile=M-NAV-05',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.v-anchor-rail a').count()===3
+  &&await page.locator('.v-anchor-rail').isVisible()
+  &&await page.locator('.v-mobile').isHidden(),'M-NAV-05 replaces the mobile dropdown with horizontal anchor tabs');
+ await page.locator('[data-anchor-tab=story]').click();
+ assert(await page.evaluate(()=>location.hash)==='#story'
+  &&await page.locator('[data-anchor-tab=story]').getAttribute('aria-current')==='location','M-NAV-05 anchors to a real section and updates current-location state');
+
+ await page.goto(base+'previews/NAV-04/?mobile=M-NAV-06',{waitUntil:'domcontentloaded'});
+ await page.locator('#n4-toggle').click();
+ assert(await page.locator('#n4-links').isVisible()
+  &&await page.locator('#n4-toggle').getAttribute('aria-expanded')==='true'
+  &&await page.locator('main').evaluate(el=>el.inert),'M-NAV-06 opens a drawer and makes background content inert');
+ const drawer=await page.locator('#n4-links').evaluate(el=>el.getBoundingClientRect().width);
+ assert(drawer>=260&&drawer<=375,'M-NAV-06 drawer has a bounded phone width');
+ await page.locator('.n4-drawer-close').focus();
+ await page.keyboard.press('Shift+Tab');
+ assert(await page.locator('#n4-links a').last().evaluate(el=>document.activeElement===el),'M-NAV-06 focus remains contained in the open drawer');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#n4-links').isHidden()
+  &&await page.locator('#n4-toggle').getAttribute('aria-expanded')==='false'
+  &&await page.locator('#n4-toggle').evaluate(el=>document.activeElement===el),'M-NAV-06 Escape closes drawer and restores trigger focus');
+ await page.locator('#n4-toggle').click();
+ await page.locator('.n4-drawer-backdrop').click({position:{x:20,y:340}});
+ assert(await page.locator('#n4-links').isHidden(),'M-NAV-06 backdrop click closes the drawer');
+
+ await page.goto(base+'previews/GAL-06/?mobile=M-GAL-05',{waitUntil:'domcontentloaded'});
+ const thumbs=await page.locator('.g6-photos').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
+ assert(thumbs===3,'M-GAL-05 shows a three-track thumbnail gallery');
+ await page.locator('[data-photo="1"]').click();
+ assert(await page.locator('#g6-dialog').evaluate(el=>el.open)
+  &&await page.locator('#g6-dialog').evaluate(el=>Math.abs(el.getBoundingClientRect().width-innerWidth)<3),'M-GAL-05 opens a true phone-width native lightbox');
+ await page.locator('#g6-next').click();
+ assert((await page.locator('#g6-position').textContent()).includes('03'),'M-GAL-05 original next control advances the full-screen image');
+ const swiped=await page.locator('#g6-large').evaluate(el=>{const make=(x,y)=>new Touch({identifier:8,target:el,clientX:x,clientY:y});
+ el.dispatchEvent(new TouchEvent('touchstart',{touches:[make(320,200)],changedTouches:[make(320,200)],bubbles:true}));
+ el.dispatchEvent(new TouchEvent('touchend',{touches:[],changedTouches:[make(100,210)],bubbles:true}));
+ return document.querySelector('#g6-position').textContent});
+ assert(swiped.includes('04'),'M-GAL-05 touch swipe advances the native lightbox');
+ await page.keyboard.press('Escape');
+ assert(!await page.locator('#g6-dialog').evaluate(el=>el.open)
+  &&await page.locator('[data-photo="1"]').evaluate(el=>document.activeElement===el),'M-GAL-05 Escape closes lightbox and restores thumbnail focus');
+
+ await page.goto(base+'previews/FORM-01/?mobile=M-FRM-04',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#f1-date').isVisible()&&await page.locator('#f1-time').isVisible(),'M-FRM-04 exposes native date and time controls on phones');
+ await page.locator('#f1-name').fill('Demo Client');
+ await page.locator('#f1-email').fill('demo@example.com');
+ await page.locator('#f1-message').fill('Consultation about a fictional studio website.');
+ await page.locator('#f1-date').fill('2028-05-18');
+ await page.locator('#f1-form button[type=submit]').click();
+ assert((await page.locator('#f1-schedule-error').textContent()).includes('both a date and a time')
+  &&await page.locator('#f1-preview').isHidden(),'M-FRM-04 rejects an incomplete date/time preference');
+ await page.locator('#f1-time').fill('14:30');
+ await page.locator('#f1-form button[type=submit]').click();
+ assert(await page.locator('#f1-preview').isVisible()
+  &&(await page.locator('#f1-output').textContent()).includes('2028-05-18 at 14:30')
+  &&(await page.locator('#f1-output').textContent()).includes('not booked'),'M-FRM-04 includes preferred contact time in local draft without booking anything');
+
+ await page.goto(base+'previews/COMP-01/?mobile=M-UTIL-03',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-comp-preset="75"]').click();
+ assert(await page.locator('#comp-range').inputValue()==='75'
+  &&await page.locator('#comp-stage').evaluate(el=>el.style.getPropertyValue('--reveal')==='75%')
+  &&await page.locator('[data-comp-preset="75"]').getAttribute('aria-pressed')==='true','M-UTIL-03 preset changes actual comparison reveal and button state');
+ const box=await page.locator('#comp-stage').boundingBox();
+ await page.mouse.move(box.x+box.width*.2,box.y+box.height*.5);
+ await page.mouse.down();await page.mouse.move(box.x+box.width*.62,box.y+box.height*.5,{steps:5});await page.mouse.up();
+ const pct=Number(await page.locator('#comp-range').inputValue());
+ assert(pct>=57&&pct<=67,'M-UTIL-03 direct pointer drag scrubs the comparison image');
+ await page.locator('#comp-range').focus();
+ const keyStart=Number(await page.locator('#comp-range').inputValue());
+ await page.keyboard.press('ArrowLeft');
+ assert(Number(await page.locator('#comp-range').inputValue())===keyStart-1,'M-UTIL-03 original range remains keyboard adjustable');
+
+ await page.goto(base+'previews/GAL-05/?mobile=M-UTIL-04',{waitUntil:'domcontentloaded'});
+ await page.locator('.g5-filter-open').click();
+ assert(await page.locator('.g5-filter-drawer').evaluate(el=>el.open)
+  &&await page.locator('.g5-filter-drawer [data-filter]').count()===3,'M-UTIL-04 opens a native modal filter drawer with actual category buttons');
+ await page.locator('.g5-filter-drawer [data-filter="mono"]').click();
+ assert(!await page.locator('.g5-filter-drawer').evaluate(el=>el.open)
+  &&await page.locator('.g5-grid figure:visible').count()===1
+  &&(await page.locator('.g5-filter-open').textContent()).includes('Monochrome'),'M-UTIL-04 applies the selection and closes the drawer');
+ await page.locator('.g5-filter-open').click();
+ await page.keyboard.press('Escape');
+ assert(!await page.locator('.g5-filter-drawer').evaluate(el=>el.open),'M-UTIL-04 Escape closes the modal');
+ await page.locator('.g5-filter-open').click();
+ await page.locator('.g5-filter-drawer [data-filter="all"]').click();
+ assert(await page.locator('.g5-grid figure:visible').count()===4,'M-UTIL-04 returning to All restores every photograph');
+
+ // New phone compositions must be routable and free of horizontal document overflow.
+ for(const [parent,altId] of [['NAV-02','M-NAV-05'],['NAV-04','M-NAV-06'],['GAL-06','M-GAL-05'],['FORM-01','M-FRM-04'],['COMP-01','M-UTIL-03'],['GAL-05','M-UTIL-04']]){
+  await page.goto(base+'previews/'+parent+'/?mobile='+altId,{waitUntil:'domcontentloaded'});
+  assert(await page.locator('body').getAttribute('data-mobile-treatment')===altId,altId+' route activates the intended phone composition');
+  const overflow=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(overflow.document<=overflow.viewport+2,altId+' has no sideways phone page overflow ('+overflow.document+' / '+overflow.viewport+')');
+ }
+ // Default previews must not acquire alternate mobile-only furniture.
+ await page.goto(base+'previews/NAV-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.n4-drawer-backdrop').count()===0,'NAV-04 unchanged default omits off-canvas overlay');
+ await page.goto(base+'previews/GAL-05/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.g5-filter-drawer').count()===0&&await page.locator('[data-filter]').count()===3,'GAL-05 standard inline filtering remains intact');
+ await page.goto(base+'previews/FORM-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#f1-date').count()===0,'FORM-01 default does not show scheduling inputs');
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);

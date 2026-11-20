@@ -81,3 +81,7 @@ All 20 planned ANIM IDs now have isolated specimens and real full-page website i
 ## Mobile treatments — first expanded batch
 
 Six additional actual phone compositions are selectable as mobile alternatives on NAV-01, HERO-03, GAL-03, SRV-02, FORM-02 and CTA-01. Use review page → Phone → Alternate to compare the distinct layout with its parent. Validation now requires both the parent component and mobile-treatment record to refer to each other. Total active mobile variations: **10 / 44**; 34 remain drafts. No approval or main-branch merge implied.
+
+## Mobile expansion — interaction-focused set
+
+New selectable phone modes: M-NAV-05 on NAV-02, M-NAV-06 on NAV-04, M-GAL-05 on GAL-06, M-FRM-04 on FORM-01, M-UTIL-03 on COMP-01, and M-UTIL-04 on GAL-05. They reuse genuine original content and interactions rather than standalone screenshots. Current mobile alternatives: **16 in review / 44 planned**. Review each by opening its parent component, selecting Phone and then Alternate. No change to main and no production approval implied.
