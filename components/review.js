@@ -1,7 +1,7 @@
 try {
 const [components, treatments] = await Promise.all([
-  fetch('./data/components.json?v20261120f',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
-  fetch('./data/mobile-treatments.json?v20261120f',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
+  fetch('./data/components.json?v20261120g',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
+  fetch('./data/mobile-treatments.json?v20261120g',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
 ]);
 const treatmentMap = new Map(treatments.map(item => [item.id,item]));
 const examples = new Map(components.filter(item => item.previewRoute && item.status !== 'draft').map(item => [item.id,item]));
@@ -24,6 +24,8 @@ const panLeft = document.querySelector('#review-pan-left');
 const panRight = document.querySelector('#review-pan-right');
 const replayHighlight = document.querySelector('#review-highlight');
 const highlightFeedback = document.querySelector('#review-highlight-feedback');
+const spotlight=document.querySelector('#review-spotlight');
+const stage=document.querySelector('.review-stage');
 const phoneChoices = document.querySelector('#review-mobile-choices');
 const alternateChoice = document.querySelector('#review-alt-choice');
 const sizes = {desktop:{width:1440,height:900,name:'computer'}, tablet:{width:768,height:900,name:'tablet'}, phone:{width:390,height:780,name:'phone'}};
@@ -36,7 +38,7 @@ const focusId = focus.focusAnchor || null;
 // Never add section hashes to iframe URLs: lazy iframe fragment navigation can
 // unexpectedly scroll the containing showroom as several examples load.
 const failureLink = document.querySelector('#review-error a');
-if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120f';
+if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120g';
 title.textContent = focus.focus || design.title;
 document.title = (focus.focus || design.title) + ' — Explore design';
 document.querySelector('#review-id').textContent = 'Example '+design.id+' · Still in development';
@@ -89,6 +91,7 @@ function sizeFrame(){
   if(lastDevice !== device || lastZoom !== zoom) viewport.scrollLeft = 0;
   lastDevice = device; lastZoom = zoom;
   updatePanButtons();
+  if(!spotlight.hidden)requestAnimationFrame(updateSpotlightGeometry);
 }
 function render(){
   const device = selectedValue('device');
@@ -96,6 +99,8 @@ function render(){
   const url = './previews/'+design.id+'/index.html'+(phoneStyle === 'alternate' && alternative ? '?mobile='+encodeURIComponent(alternative.id) : '');
   if(iframe.getAttribute('src') !== url) {
     loading.hidden = false;
+    spotlight.hidden=true;
+    spotlight.classList.remove('review-spotlight--active');
     replayHighlight.disabled=true;
     highlightTarget=null;
     highlightWindow=null;
@@ -109,7 +114,13 @@ function render(){
 [...deviceControls, ...document.querySelectorAll('input[name=mobile]'), ...zoomControls].forEach(input => input.addEventListener('change',render));
 panLeft.addEventListener('click',()=>viewport.scrollBy({left:-Math.max(180,viewport.clientWidth*.75),behavior:prefersReducedMotion.matches?'instant':'smooth'}));
 panRight.addEventListener('click',()=>viewport.scrollBy({left:Math.max(180,viewport.clientWidth*.75),behavior:prefersReducedMotion.matches?'instant':'smooth'}));
-viewport.addEventListener('scroll',updatePanButtons,{passive:true});
+viewport.addEventListener('scroll',()=>{
+  updatePanButtons();
+  if(!spotlight.hidden)updateSpotlightGeometry();
+},{passive:true});
+window.addEventListener('scroll',()=>{
+  if(!spotlight.hidden)updateSpotlightGeometry();
+},{passive:true});
 if('ResizeObserver' in window) new ResizeObserver(sizeFrame).observe(viewport);
 else window.addEventListener('resize',sizeFrame);
 // Position the embedded document itself without changing the host page's scroll position.
@@ -130,21 +141,62 @@ function positionInsideFrame(doc, win, target) {
   win.scrollTo(0,y);
   root.style.scrollBehavior=previous;
 }
-function flashShowcase({reveal=false}={}) {
+// Paint the overlay in the PARENT, at true screen pixels (not CSS pixels
+// subsequently shrunk with the desktop iframe). Clip tall sections to the
+// visible part of the preview so every highlight has four visible sides.
+function updateSpotlightGeometry(){
+  if(!highlightTarget||!highlightWindow||spotlight.hidden)return false;
+  const stageRect=stage.getBoundingClientRect();
+  const viewRect=viewport.getBoundingClientRect();
+  const frameRect=iframe.getBoundingClientRect();
+  const targetRect=highlightTarget.getBoundingClientRect();
+  const scale=frameRect.width/highlightWindow.innerWidth;
+  if(!Number.isFinite(scale)||scale<=0)return false;
+  const clipLeft=Math.max(stageRect.left+5,viewRect.left+5,frameRect.left+3);
+  const clipRight=Math.min(stageRect.right-5,viewRect.right-5,frameRect.right-3);
+  const clipTop=Math.max(stageRect.top+5,viewRect.top+5,frameRect.top+3);
+  const clipBottom=Math.min(stageRect.bottom-5,viewRect.bottom-5,frameRect.bottom-3);
+  const left=Math.max(clipLeft,frameRect.left+targetRect.left*scale);
+  const right=Math.min(clipRight,frameRect.left+targetRect.right*scale);
+  const top=Math.max(clipTop,frameRect.top+targetRect.top*scale);
+  const bottom=Math.min(clipBottom,frameRect.top+targetRect.bottom*scale);
+  if(right-left<14||bottom-top<12){
+    spotlight.hidden=true;
+    return false;
+  }
+  spotlight.style.left=Math.round(left-stageRect.left)+'px';
+  spotlight.style.top=Math.round(top-stageRect.top)+'px';
+  spotlight.style.width=Math.round(right-left)+'px';
+  spotlight.style.height=Math.round(bottom-top)+'px';
+  spotlight.classList.toggle('review-spotlight--compact',bottom-top<55);
+  spotlight.classList.toggle('review-spotlight--bottom',clipBottom-bottom<35);
+  return true;
+}
+function flashShowcase({reveal=false}={}){
   if(!highlightTarget||!highlightWindow)return false;
-  const target=highlightTarget, win=highlightWindow;
+  const target=highlightTarget,win=highlightWindow;
   if(reveal)positionInsideFrame(target.ownerDocument,win,target);
   if(highlightClear!==null)win.clearTimeout(highlightClear);
   target.classList.remove('ba-showcase-pulse');
-  // Restart the short animation even if this button was pressed a moment ago.
   void target.offsetWidth;
   target.classList.add('ba-showcase-pulse');
+  spotlight.hidden=false;
+  spotlight.classList.remove('review-spotlight--active');
+  // Re-layout after scrolling, then restart a visible, 2.4-second frame.
+  const valid=updateSpotlightGeometry();
+  if(valid){
+    void spotlight.offsetWidth;
+    spotlight.classList.add('review-spotlight--active');
+    requestAnimationFrame(updateSpotlightGeometry);
+  }
   highlightClear=win.setTimeout(()=>{
     target.classList.remove('ba-showcase-pulse');
+    spotlight.classList.remove('review-spotlight--active');
+    spotlight.hidden=true;
     highlightClear=null;
   },2450);
   showcasedOnce=true;
-  return true;
+  return valid;
 }
 replayHighlight.addEventListener('click',()=>{
   if(flashShowcase({reveal:true})){
@@ -161,6 +213,8 @@ function connectShowcase() {
   if(!target)return;
   highlightWindow=win;
   highlightTarget=target;
+  win.addEventListener('scroll',()=>{if(!spotlight.hidden)updateSpotlightGeometry();},{passive:true});
+  win.addEventListener('resize',()=>{if(!spotlight.hidden)updateSpotlightGeometry();},{passive:true});
   showcasedOnce=false;
   replayHighlight.disabled=false;
   highlightFeedback.textContent='';

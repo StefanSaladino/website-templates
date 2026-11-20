@@ -85,3 +85,16 @@ a{color:inherit}button,input{font:inherit}
 #review-highlight:disabled{opacity:.5;cursor:wait}
 #review-highlight-feedback{font-size:12px;color:var(--muted)}
 @media(max-width:640px){.review-highlight-action{margin-top:14px;align-items:stretch}#review-highlight{width:100%;font-size:14px}#review-highlight-feedback{width:100%}}
+
+/* Spotlight is drawn by the viewer, outside the scaled iframe, so its stroke
+   remains plainly visible on phones inspecting a scaled 1440px desktop page.
+   Its geometry is clipped to the visible component and preview viewport. */
+.review-stage{position:relative;isolation:isolate}
+.review-spotlight{position:absolute;z-index:12;pointer-events:none;box-sizing:border-box;border:6px solid #ffcf46;outline:2px solid #3c2813;outline-offset:-1px;box-shadow:0 0 0 2px #453018,0 0 20px 4px rgba(245,165,22,.74),inset 0 0 0 2px rgba(40,28,9,.78);background:rgba(255,201,51,.09);border-radius:2px;opacity:1}
+.review-spotlight[hidden]{display:none!important}
+.review-spotlight-caption{position:absolute;top:9px;left:10px;max-width:calc(100% - 20px);display:block;background:#332a19;color:#fff8e3;border:2px solid #ffe38d;padding:5px 9px;font:bold 12px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.06em;white-space:nowrap;box-shadow:0 2px 9px #1b1b1480;overflow:hidden;text-overflow:ellipsis}
+.review-spotlight--compact .review-spotlight-caption{top:calc(100% + 7px);left:0}
+.review-spotlight--compact.review-spotlight--bottom .review-spotlight-caption{top:auto;bottom:calc(100% + 7px)}
+.review-spotlight--active{animation:baViewerSpotlight 2.4s ease-out both}
+@keyframes baViewerSpotlight{0%{opacity:0}12%,79%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.review-spotlight--active{animation:none;opacity:1}}

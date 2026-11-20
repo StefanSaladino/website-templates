@@ -17,6 +17,7 @@ if(!style.includes('.review-loading')||!style.includes('.review-error'))errors.p
 if(source.includes('localStorage')||markup.includes('review-shortlist'))errors.push('Removed shortlist returned');
 if(!markup.includes('id="review-about"')||!markup.includes('id="review-best-for"')||!markup.includes('id="review-phone-about"'))errors.push('Missing three simple explanatory accordions');
 if(source.includes("+focusAnchor")||source.includes("scrollIntoView("))errors.push('Do not navigate preview iframe by hash/scrollIntoView');
+if(!markup.includes('id="review-spotlight"')||!style.includes('.review-spotlight--active')||!source.includes('updateSpotlightGeometry'))errors.push('Missing unscaled, visible focus spotlight overlay');
 if(!source.includes('ba-showcase-pulse')||!source.includes("doc.addEventListener('pointerdown'"))errors.push('Missing first-interaction showcased section highlight');
 if(!markup.includes('id="review-highlight"')||!markup.includes('id="review-highlight-feedback"'))errors.push('Missing replay highlight button or feedback');
 if(!source.includes("replayHighlight.addEventListener('click'")||!source.includes('flashShowcase({reveal:true})'))errors.push('Highlight button does not replay pulse and reveal the section');
