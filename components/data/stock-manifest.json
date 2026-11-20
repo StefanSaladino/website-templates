@@ -419,6 +419,90 @@
         "photo-crop-approval-pending",
         "not-cleared-for-template-redistribution"
       ]
+    },
+    {
+      "id": "STOCK-014",
+      "sourceUrl": "https://unsplash.com/photos/flat-lay-photography-of-cooked-food-cVmNIJCa1XA",
+      "photographer": "Maddi Bazzocco",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-20",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Individual Unsplash source page visibly states free use under Unsplash License. Independent food photography unrelated to fictional restaurant offerings. Local download, crop, trademark/depicted-business concerns, attribution policy and inclusion in a redistributed template remain subject to review; no license-cleared release implied.",
+      "usageIds": [
+        "MENU-02"
+      ],
+      "altText": "Independent tapas spread stock photograph unrelated to any fictional menu item",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1542986151-13ecf8e0453e?auto=format&fit=crop&w=1100&q=78",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": "2026-11-20",
+      "sourcePageLicenseLabel": "Free to use under the Unsplash License",
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "source-referenced",
+        "independent-food-photo",
+        "sample-menu-not-depicted",
+        "photo-crop-approval-pending",
+        "not-cleared-for-template-redistribution"
+      ]
+    },
+    {
+      "id": "STOCK-015",
+      "sourceUrl": "https://unsplash.com/photos/a-table-with-plates-and-food-oQ7h-WWUmMY",
+      "photographer": "Raelle Cameron",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-20",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Individual Unsplash source page visibly states free use under Unsplash License. Independent food photography unrelated to fictional restaurant offerings. Local download, crop, trademark/depicted-business concerns, attribution policy and inclusion in a redistributed template remain subject to review; no license-cleared release implied.",
+      "usageIds": [
+        "MENU-02"
+      ],
+      "altText": "Independent food-table stock photograph, not an actual dish offered by the fictional restaurant",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1668072921628-6e024f6aadd8?auto=format&fit=crop&w=1100&q=78",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": "2026-11-20",
+      "sourcePageLicenseLabel": "Free to use under the Unsplash License",
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "source-referenced",
+        "independent-food-photo",
+        "sample-menu-not-depicted",
+        "photo-crop-approval-pending",
+        "not-cleared-for-template-redistribution"
+      ]
+    },
+    {
+      "id": "STOCK-016",
+      "sourceUrl": "https://unsplash.com/photos/a-table-topped-with-plates-of-food-and-glasses-8K7mplvphAo",
+      "photographer": "Stephanie Sarlos",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-20",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Individual Unsplash source page visibly states free use under Unsplash License. Independent food photography unrelated to fictional restaurant offerings. Local download, crop, trademark/depicted-business concerns, attribution policy and inclusion in a redistributed template remain subject to review; no license-cleared release implied.",
+      "usageIds": [
+        "MENU-02"
+      ],
+      "altText": "Independent plated-food stock photograph unrelated to any fictional restaurant's dishes",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1722938687754-d77c159da3c8?auto=format&fit=crop&w=1100&q=78",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": "2026-11-20",
+      "sourcePageLicenseLabel": "Free to use under the Unsplash License",
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "source-referenced",
+        "independent-food-photo",
+        "sample-menu-not-depicted",
+        "photo-crop-approval-pending",
+        "not-cleared-for-template-redistribution"
+      ]
     }
   ]
 }
