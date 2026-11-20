@@ -97,3 +97,9 @@ The showroom now allows Style 1 (the existing responsive default) and Style 2, S
 ## Seven more mobile designs (November 20, 2026)
 
 Built and selectable on their real parents: M-HERO-01 (HERO-01), M-GAL-01 (GAL-03), M-SRV-01 (SRV-03), M-CTA-02 (CTA-02), M-CTA-04 (FOOT-02), M-UTIL-01 (GAL-05) and M-UTIL-05 (PRJ-03). These provide genuinely different phone compositions and preserve real anchors, filter controls and native disclosure behavior. Phone style options now total **34/44 in review** (10 drafts). **60/157** core examples and **20/20** integrated animation examples remain in review. The browser regression suite includes explicit alternate-specific assertions; image rights, final imagery/crops, mobile-device QA and release acceptance are still incomplete. `main` is unchanged.
+ 
+## Mobile-alternative track complete (November 20, 2026)
+
+The remaining ten mobile styles (M-NAV-03, M-HERO-04, M-SRV-04, M-FRM-01, M-STORY-04, M-CTA-03, M-UTIL-02 and M-MEDIA-01/02/03) are now wired to the exact original parent previews. Two new core review-only specimens, TRUST-02 and MEDIA-01, demonstrate fictional credentials and actual video loading rather than pretending empty parent components have mobile layouts. All **44 of 44** optional phone styles are **in review**, with **62 of 157** core specimens and **20/20** animation patterns built. The review page supports Style 1 plus as many real alternate phone layouts as the parent owns.
+
+**Important:** MEDIA-01 reuses an existing Pexels-hosted video and poster as an unapproved development source, not redistribution-cleared stock. Its source attribution, creator, rights, optimized encode, media-loaded screenshots and device playback remain open. The complete 44/44 count is an implementation checkpoint, **not a release or client-ready claim**. Continue core backlog and QA on `feature/component-showroom` only; do not merge to `main`.
