@@ -10,7 +10,7 @@ if(!version)errors.push('Review JS must include a cache-busting version');
 if(!markup.includes('review.css?'+version))errors.push('Review CSS version must match');
 if(!source.includes("components.json?"+version)||!source.includes("mobile-treatments.json?"+version))errors.push('Metadata fetches must be versioned');
 if(!markup.includes('id="review-loading"')||!markup.includes('id="review-error"'))errors.push('Review must provide loading and fallback states');
-const matchIds=[...source.matchAll(/querySelector\('#([^']+)'\)/g)].map(x=>x[1]);
+const matchIds=[...source.matchAll(/querySelector\('#([^']+)'\)/g)].map(x=>x[1].split(/\s|[>+~]/)[0]);
 for(const id of new Set(matchIds))if(!markup.includes('id="'+id+'"'))errors.push('Broken review selector #'+id);
 if(!source.includes("iframe.addEventListener('load'"))errors.push('No iframe load listener');
 if(!style.includes('.review-loading')||!style.includes('.review-error'))errors.push('Missing loading/error styles');
