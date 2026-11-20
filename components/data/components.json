@@ -391,46 +391,136 @@
     "id": "FOOT-03",
     "category": "footers",
     "title": "Oversized brand footer",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Editorial studio large typographic signoff",
-    "previewRoute": null,
+    "previewRoute": "./previews/FOOT-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "anchor-navigation",
+      "clipboard-copy",
+      "live-copy-status",
+      "current-year"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "footer",
+      "editorial",
+      "typography",
+      "contact"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=FOOT-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Footer systems",
+      "focus": "Oversized editorial studio footer",
+      "summary": "A large original typographic signoff with genuinely linked page sections and an honest copy-to-clipboard contact control for a reserved sample address.",
+      "desktop": "A full-width oversized brand wordmark leads an editorial three-column navigation and contact ledger.",
+      "mobile": "Huge brand lettering scales deliberately into stacked, readable navigation and contact details with separate touch targets.",
+      "lookFor": [
+        "The footer anchors navigate to actual on-page sections",
+        "Copying the reserved address reports actual clipboard success or failure and never implies a staffed inbox"
+      ],
+      "focusAnchor": "footer-showcase",
+      "explain": "An expressive agency-footer specimen with working navigation and contact feedback, not a purely decorative title card.",
+      "bestFor": [
+        "Creative agencies with confident typography",
+        "Design studios that want the end of the page to feel like a destination"
+      ],
+      "fitReason": "Replace the fictional brand and address with authorized information and accurate contact routes."
+    }
   },
   {
     "id": "FOOT-04",
     "category": "footers",
     "title": "Contact-first footer",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Local trade phone email and service radius",
-    "previewRoute": null,
+    "previewRoute": "./previews/FOOT-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "working-footer-navigation",
+      "clipboard-contact",
+      "local-scope-form",
+      "form-validation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "footer",
+      "trade",
+      "contact-first",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=FOOT-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Footer systems",
+      "focus": "Local contractor contact-first footer",
+      "summary": "A dark contact footer combines active in-page links, a reserved-address copy button and a project-scope form that validates and creates only an unsent draft.",
+      "desktop": "Large invitation and trade-specific contact information sit beside a contrasting compact scope-entry panel.",
+      "mobile": "Contact information, clear sample services and the actual local form stack with large touch controls.",
+      "lookFor": [
+        "Service and area fields really block incomplete local drafts",
+        "No live contractor qualifications, service radius, contact inbox or submitted lead are asserted"
+      ],
+      "focusAnchor": "footer-showcase",
+      "explain": "A useful trade business footer, with working contact actions and a real local-only project note instead of fake lead delivery.",
+      "bestFor": [
+        "Local construction and home-service websites",
+        "Trades that want a clear invitation and low-friction scoping entry point"
+      ],
+      "fitReason": "Production requires accurate business identity, permitted work area, service descriptions and a secure real inquiry destination."
+    }
   },
   {
     "id": "FOOT-05",
     "category": "footers",
     "title": "Newsletter footer",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Retail newsletter plus site links",
-    "previewRoute": null,
+    "previewRoute": "./previews/FOOT-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "newsletter-email-validation",
+      "explicit-consent",
+      "local-success-reset",
+      "working-footer-links"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "footer",
+      "retail",
+      "newsletter",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=FOOT-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Footer systems",
+      "focus": "Retail newsletter and navigation footer",
+      "summary": "An editorial shop footer with a working newsletter opt-in validation flow, a resettable NOT SUBSCRIBED result and real sample-page anchors.",
+      "desktop": "Rich two-column newsletter invitation sits above a large typographic retail signoff and multi-column information links.",
+      "mobile": "Stacked pattern illustrations and newsletter inputs transition into a readable one-column footer directory.",
+      "lookFor": [
+        "Invalid email and unchecked consent are blocked before a local outcome",
+        "Every footer link has a real in-page destination and signup never claims to create a subscription"
+      ],
+      "focusAnchor": "footer-showcase",
+      "explain": "A substantive retailer footer showing working consent, navigation and sample reset without fictional commerce functionality.",
+      "bestFor": [
+        "Boutique retailers with authentic journal content",
+        "Independent brands seeking a strong email/links footer composition"
+      ],
+      "fitReason": "Requires lawful consent, real email delivery, unsubscribes and actual shop details before going live."
+    }
   },
   {
     "id": "CTA-01",
@@ -565,31 +655,95 @@
     "id": "CTA-04",
     "category": "calls-to-action",
     "title": "Split photo CTA",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architecture project image and inquiry copy",
-    "previewRoute": null,
+    "previewRoute": "./previews/CTA-04/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-009"
+    ],
+    "interactions": [
+      "native-inquiry-dialog",
+      "required-field-validation",
+      "escape-close",
+      "focus-restoration",
+      "local-only-note"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "calls-to-action",
+      "architecture",
+      "photo-led",
+      "dialog"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=CTA-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Calls to action",
+      "focus": "Architecture image and functioning inquiry CTA",
+      "summary": "A large unrelated stock-interior image and editorial invitation open a native modal with validation, Escape/focus restoration and an explicitly unsent project idea.",
+      "desktop": "A strong real image fills the left side while the right hosts a high-impact invitation and genuine dialog opener.",
+      "mobile": "A full-bleed photo precedes a large readable inquiry and a phone-height native dialog with accessible controls.",
+      "lookFor": [
+        "Photo openly disclaims depicting a commissioned studio project",
+        "CTA opens a usable modal, validates inputs and never claims to send or schedule a consultation"
+      ],
+      "focusAnchor": "cta-showcase",
+      "explain": "A photo-led conversion section with working interaction and honest photography rather than a fake project CTA.",
+      "bestFor": [
+        "Architecture firms with rights-cleared portfolio photos",
+        "Design practices seeking a simple contextual lead invitation"
+      ],
+      "fitReason": "A real site needs verified studio credentials, authentic photos and a secure consultation/enquiry channel."
+    }
   },
   {
     "id": "CTA-05",
     "category": "calls-to-action",
     "title": "Sticky mobile action",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Local business call or quote bar",
-    "previewRoute": null,
+    "previewRoute": "./previews/CTA-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "two-action-mobile-rail",
+      "hours-section-link",
+      "enquiry-section-link",
+      "observer-hide-near-form",
+      "local-only-scope-validation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "calls-to-action",
+      "mobile",
+      "dual-destination",
+      "service"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=CTA-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Calls to action",
+      "focus": "Two-action mobile service rail",
+      "summary": "Distinct from a single sticky button, this mobile-only dual rail offers real hours and scope-section links, hides near the form and validates an unsent local service note.",
+      "desktop": "Industrial abstract material study accompanies clear hour and inquiry sections without a sticky overlay.",
+      "mobile": "A deliberate paired fixed action offers separate destinations for sample hours and scope, with safe-area protection and automatic form visibility dismissal.",
+      "lookFor": [
+        "Both rail controls lead to real section targets, and the rail does not cover the inquiry form",
+        "Hours are explicitly fictional and a quote request produces only a NOT SENT result"
+      ],
+      "focusAnchor": "cta-showcase",
+      "explain": "A real two-destination conversion bar useful for testing phone navigation rather than duplicating a single CTA icon.",
+      "bestFor": [
+        "Home services balancing hours and lead capture",
+        "Local trades with real hours and a secure quote form"
+      ],
+      "fitReason": "Verify real opening hours and business availability; connect the quote route before production."
+    }
   },
   {
     "id": "HERO-01",
@@ -2975,61 +3129,183 @@
     "id": "BOOK-02",
     "category": "booking",
     "title": "Availability bar demo",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Retreat arrive depart guest controls",
-    "previewRoute": null,
+    "previewRoute": "./previews/BOOK-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-001"
+    ],
+    "interactions": [
+      "future-dates",
+      "arrival-departure-validation",
+      "bounded-guest-stepper",
+      "local-preference-summary"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "booking",
+      "hospitality",
+      "retreat",
+      "date-picker"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=BOOK-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Booking and reservation flows",
+      "focus": "Retreat arrival/departure and guest preferences",
+      "summary": "A full-height unrelated stock landscape accompanies working stay dates, a 1–8 guest stepper, valid-night calculation and an explicitly NOT BOOKED planning note.",
+      "desktop": "Atmospheric landscape with bold copy frames the clear booking-style date/guest controls and manual preview action.",
+      "mobile": "Image-first retreat composition gives way to stacked date inputs, large quantity buttons and a readable non-booking summary.",
+      "lookFor": [
+        "Departure must follow arrival and guest quantity stays within a visible 1–8 demo limit",
+        "Photo is unrelated stock, rates/inventory aren't checked and successful submission never says reserved"
+      ],
+      "focusAnchor": "booking-showcase",
+      "explain": "A responsible lodging selector prototype, making genuine front-end date handling distinct from backend availability.",
+      "bestFor": [
+        "Retreat booking interface prototypes",
+        "Hospitality concepts planning a transparent stay-preference flow"
+      ],
+      "fitReason": "Needs actual property imagery, availability system, rates, cancellation policies and reservation confirmation for production."
+    }
   },
   {
     "id": "BOOK-03",
     "category": "booking",
     "title": "Quote request selector",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Contractor job type and timeline",
-    "previewRoute": null,
+    "previewRoute": "./previews/BOOK-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "project-type-selection",
+      "timeline-range-validation",
+      "local-unsent-project-brief",
+      "edit-brief"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "booking",
+      "contractor",
+      "quote",
+      "scope"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=BOOK-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Booking and reservation flows",
+      "focus": "Contractor quote-request intake without pricing claims",
+      "summary": "A building-related scope-intake panel validates project category, timing and illustrative budget range, then produces a NOT SENT OR PRICED local brief.",
+      "desktop": "Original angular construction illustration offsets a formal work-scope selector with ample typography.",
+      "mobile": "Graphic and project introduction lead a single-column set of accessible choices and validated request preparation.",
+      "lookFor": [
+        "Required job category, timeframe and sample scope range all gate the local outcome",
+        "No example range becomes a computed estimate or implies contractor acceptance"
+      ],
+      "focusAnchor": "booking-showcase",
+      "explain": "A distinct quote-intake pattern focused on useful qualification before any genuine estimate process.",
+      "bestFor": [
+        "Contractors gathering initial job requirements",
+        "Renovation companies preparing a scoping questionnaire"
+      ],
+      "fitReason": "Budget guidance, real services, lead privacy, job eligibility and response process all require real business verification."
+    }
   },
   {
     "id": "BOOK-04",
     "category": "booking",
     "title": "Event RSVP panel",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Small workshop date and seat details",
-    "previewRoute": null,
+    "previewRoute": "./previews/BOOK-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "dynamic-future-example-dates",
+      "sample-session-selector",
+      "bounded-seat-stepper",
+      "unsent-rsvp-summary"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "booking",
+      "events",
+      "rsvp",
+      "quantity"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=BOOK-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Booking and reservation flows",
+      "focus": "Workshop interest RSVP and sample seat selection",
+      "summary": "A fictional workshop panel dynamically labels three example future Saturdays, bounds seat preferences at four and prepares a NOT REGISTERED interest summary.",
+      "desktop": "Original cut-paper workshop artwork sits beside bold event type and clearly fictional session choices.",
+      "mobile": "Art and event explanation lead large stacked session controls, seat stepper and local summary.",
+      "lookFor": [
+        "Selecting an example date and seat count changes the prepared outcome",
+        "No real workshop, ticket supply, paid registration or reserved seats are represented"
+      ],
+      "focusAnchor": "booking-showcase",
+      "explain": "A truthful workshop registration UI specimen with meaningful date/quantity controls but no misleading availability.",
+      "bestFor": [
+        "Community workshop organizers planning RSVP interfaces",
+        "Small classes and in-person event prototypes"
+      ],
+      "fitReason": "Real deployment needs confirmed event schedule, capacity data, terms, secure registration and a confirmation method."
+    }
   },
   {
     "id": "BOOK-05",
     "category": "booking",
     "title": "Reservation provider link",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Restaurant external booking integration placeholder",
-    "previewRoute": null,
+    "previewRoute": "./previews/BOOK-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "real-provider-selector",
+      "explicit-handoff-acknowledgment",
+      "verified-provider-homepage-link",
+      "provider-switch"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "booking",
+      "restaurant",
+      "external-handoff",
+      "integration"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Responsive, source-complete review example. Fictional locations, businesses, sessions, inventories and costs are explicitly disclosed. Third-party image licensing, actual Chromium/device QA and stakeholder approval remain outstanding. No main merge or live booking.",
+    "reviewRoute": "./review.html?id=BOOK-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Booking and reservation flows",
+      "focus": "Honest external restaurant reservation-provider handoff",
+      "summary": "An independent restaurant UI prototype lets visitors select OpenTable or Resy, requires acknowledgement and opens their real provider homepage—explicitly not a venue-specific reservation URL.",
+      "desktop": "Original CSS table-setting artwork and oversized restaurant type support a carefully disclosed third-party platform handoff.",
+      "mobile": "Tall illustrated opening flows into large selectable providers, an explicit handoff acknowledgement and functional external link.",
+      "lookFor": [
+        "The selected homepage URL and external-link label update correctly only after acknowledgment",
+        "No invented venue reservation page, real-time table availability or booking confirmation is claimed"
+      ],
+      "focusAnchor": "booking-showcase",
+      "explain": "A reservation-provider handoff example that shows actual navigation while preserving truth about what has not been integrated.",
+      "bestFor": [
+        "Restaurants planning a genuine third-party booking integration",
+        "Hospitality website teams comparing provider handoff design"
+      ],
+      "fitReason": "Production requires a restaurant's real approved reservation profile URL, specific provider linkage and current booking policies."
+    }
   },
   {
     "id": "POST-01",
