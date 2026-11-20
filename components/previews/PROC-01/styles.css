@@ -5,3 +5,22 @@
 @media(max-width:760px){.p1-header{min-height:65px;padding:17px 19px}.p1-header a:first-child{font-size:16px}.p1-header a span{display:none}.p1-intro{min-height:400px;padding:65px 20px}.p1-intro h1{font-size:clamp(60px,12vw,88px)}.p1-process{padding:77px 21px}.p1-heading{display:block}.p1-heading h2{font-size:clamp(63px,12vw,88px);margin:25px 0}.p1-heading>p{margin:0 0 44px}.p1-step{grid-template-columns:70px 1fr;gap:15px;padding:34px 0;min-height:0}.p1-num{font-size:54px}.p1-step h3{font-size:clamp(41px,8.5vw,62px)}.p1-step p{font-size:14px}.p1-after{display:block;padding:88px 21px}.p1-after h2{font-size:clamp(51px,11vw,80px);margin:25px 0}.p1-after a{display:inline-block;margin-top:9px}footer{flex-direction:column}}
 @media(max-width:360px){.p1-step{grid-template-columns:54px 1fr;gap:10px}.p1-num{font-size:46px}.p1-step h3{font-size:40px}.p1-intro h1{font-size:53px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* M-STORY-03: connected vertical stages with a sticky jump index. */
+.p1-phone-index[hidden]{display:none!important}.p1-phone-index{display:none}
+@media(max-width:760px){
+ body[data-mobile-treatment="M-STORY-03"] .p1-process{padding:63px 17px 95px;background:#e8e6da}
+ body[data-mobile-treatment="M-STORY-03"] .p1-heading h2{font-size:clamp(60px,12vw,86px)}
+ body[data-mobile-treatment="M-STORY-03"] .p1-phone-index:not([hidden]){position:sticky;top:0;z-index:20;display:flex;gap:8px;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;background:#e8e6daf0;border-bottom:1px solid #b2b7aa;padding:12px 2px}
+ body[data-mobile-treatment="M-STORY-03"] .p1-phone-index button{flex:0 0 auto;min-height:48px;padding:10px 14px;border:1px solid #9caa9b;background:#e0e5d8;color:#2e3e35;font-size:12px;font-weight:750}
+ body[data-mobile-treatment="M-STORY-03"] .p1-phone-index button[aria-current=step]{background:#334e3d;color:#fff;border-color:#334e3d;font-weight:900}
+ body[data-mobile-treatment="M-STORY-03"] .p1-track{position:relative;margin:20px 0 0;padding-left:19px;border-left:2px solid #9ca997}
+ body[data-mobile-treatment="M-STORY-03"] .p1-step{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr);gap:13px;padding:30px 0 48px 15px;min-height:0;scroll-margin-top:90px}
+ body[data-mobile-treatment="M-STORY-03"] .p1-step::before{content:"";position:absolute;left:-28px;top:45px;width:16px;height:16px;border-radius:50%;background:#334e3d;box-shadow:0 0 0 5px #e8e6da;border:1px solid #284034}
+ body[data-mobile-treatment="M-STORY-03"] .p1-num{font-size:40px;line-height:1;margin-top:9px;color:#6b796c}
+ body[data-mobile-treatment="M-STORY-03"] .p1-step>div{min-width:0;background:#f9f6ed;padding:20px 16px 26px;border-top:3px solid #849780}
+ body[data-mobile-treatment="M-STORY-03"] .p1-step h3{font-size:clamp(36px,8vw,50px);margin:13px 0}
+ body[data-mobile-treatment="M-STORY-03"] .p1-step details{margin-top:16px}
+}
+@media(max-width:360px){body[data-mobile-treatment="M-STORY-03"] .p1-phone-index button{padding:9px 11px}body[data-mobile-treatment="M-STORY-03"] .p1-step{gap:8px;grid-template-columns:41px minmax(0,1fr)}body[data-mobile-treatment="M-STORY-03"] .p1-step>div{padding:17px 12px}body[data-mobile-treatment="M-STORY-03"] .p1-num{font-size:35px}}
+

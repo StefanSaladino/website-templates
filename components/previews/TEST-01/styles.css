@@ -7,3 +7,19 @@
 @media(max-width:620px){.t1-header{min-height:67px;padding:15px 20px}.t1-header a:first-child{font-size:19px}.t1-lead{padding:77px 20px;min-height:370px}.t1-lead h1{font-size:clamp(59px,11.5vw,82px)}.t1-testimonial{padding:32px 22px 46px;min-height:730px}.t1-meta{flex-wrap:wrap;gap:11px;font-size:9px}.t1-body{display:block;margin:50px 0}.t1-quote-mark{display:block;font-size:110px;line-height:.6;margin-bottom:22px}.t1-body h2{font-size:clamp(53px,10.8vw,78px)}.t1-body blockquote p{font-size:17px;margin-top:24px}.t1-credit{padding:0}.t1-credit span{font-size:9px}.t1-end{display:block;padding:90px 21px}.t1-end h2{font-size:clamp(52px,10.8vw,77px);margin:28px 0}.t1-end a{display:inline-block;margin-top:5px}footer{flex-direction:column;gap:8px}}
 @media(max-width:360px){.t1-body h2{font-size:49px}.t1-lead h1{font-size:54px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* M-STORY-02: readable single-quote mobile focus with explicit manual navigation. */
+.t1-mobile-controls[hidden]{display:none!important}.t1-mobile-controls{display:none}
+@media(max-width:620px){
+ body[data-mobile-treatment="M-STORY-02"] .t1-testimonial{padding:35px 19px 45px;min-height:650px;background:#eee3d2}
+ body[data-mobile-treatment="M-STORY-02"] .t1-body{margin:46px 0 21px;min-height:355px}
+ body[data-mobile-treatment="M-STORY-02"] .t1-body h2{font-size:clamp(51px,11.2vw,70px);line-height:.95;letter-spacing:-.065em}
+ body[data-mobile-treatment="M-STORY-02"] .t1-body blockquote p{font-size:15px;line-height:1.65}
+ body[data-mobile-treatment="M-STORY-02"] .t1-quote-mark{font-size:88px;margin-bottom:15px}
+ body[data-mobile-treatment="M-STORY-02"] .t1-mobile-controls:not([hidden]){display:flex;align-items:center;justify-content:space-between;gap:8px;padding:19px 0;border-top:1px solid #a99a84;border-bottom:1px solid #a99a84}
+ body[data-mobile-treatment="M-STORY-02"] .t1-mobile-controls button{min-height:48px;padding:11px 10px;border:1px solid #4f6355;background:#314b3b;color:#fff;font-size:11px;font-weight:850}
+ body[data-mobile-treatment="M-STORY-02"] .t1-mobile-controls button:disabled{opacity:.35;cursor:default}
+ body[data-mobile-treatment="M-STORY-02"] .t1-mobile-controls>span{font-size:11px;line-height:1.35;text-align:center;max-width:115px}
+ body[data-mobile-treatment="M-STORY-02"] .t1-credit{margin-top:27px}
+}
+
