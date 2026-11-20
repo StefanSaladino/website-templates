@@ -201,5 +201,12 @@
     "order": 29,
     "prefix": "LEGAL",
     "plannedCount": 3
+  },
+  {
+    "id": "animations",
+    "title": "Motion and animation",
+    "order": 30,
+    "prefix": "ANIM",
+    "plannedCount": 7
   }
 ]

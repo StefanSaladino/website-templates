@@ -2537,5 +2537,138 @@
     "designTags": [],
     "hasMobileLayout": false,
     "notes": "Planned example only — not yet built, reviewed, or selectable."
+  },
+  {
+    "id": "ANIM-01",
+    "category": "animations",
+    "title": "Staged editorial reveal",
+    "status": "in-review",
+    "exampleContext": "Architecture materials studio: ordered typography, rule and project note",
+    "previewRoute": "./previews/ANIM-01/",
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [
+      "replay-button",
+      "staged-reveal",
+      "reduced-motion"
+    ],
+    "integrationLevel": "static",
+    "designTags": [
+      "editorial",
+      "motion",
+      "reduced-motion"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Interactive preview; visual approval and real-device QA deferred. No stock imagery needed.",
+    "reviewRoute": "./review.html?id=ANIM-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Replayable editorial sequence",
+      "summary": "This example demonstrates a user-triggered reveal sequence, not a whole-page theme.",
+      "desktop": "A typographic statement and two supporting details enter in a short deliberate sequence.",
+      "mobile": "A deliberate one-column arrangement preserves the same reading order.",
+      "lookFor": [
+        "Clearly paced text and rule entrance",
+        "Content stays fully visible with reduced motion"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Use the replay action to see how content arrives in sequence without hindering reading.",
+      "bestFor": [
+        "Editorial studios and makers",
+        "Short project or process introductions"
+      ],
+      "fitReason": "A thoughtful motion cue can guide a reader through a hierarchy, but the static content should remain just as usable."
+    }
+  },
+  {
+    "id": "ANIM-02",
+    "category": "animations",
+    "title": "Kinetic headline entrance",
+    "status": "draft",
+    "exampleContext": "Independent creative studio: two-line campaign statement",
+    "previewRoute": null,
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [],
+    "integrationLevel": "static",
+    "designTags": [],
+    "hasMobileLayout": false,
+    "notes": "Measured line timing, no ornamental per-character effects."
+  },
+  {
+    "id": "ANIM-03",
+    "category": "animations",
+    "title": "Image mask disclosure",
+    "status": "draft",
+    "exampleContext": "Architecture practice: project photograph with a simple horizontal reveal",
+    "previewRoute": null,
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [],
+    "integrationLevel": "static",
+    "designTags": [],
+    "hasMobileLayout": false,
+    "notes": "Purposeful photo disclosure; readable without motion."
+  },
+  {
+    "id": "ANIM-04",
+    "category": "animations",
+    "title": "Bounded image parallax",
+    "status": "draft",
+    "exampleContext": "Landscape design feature with small photographic depth",
+    "previewRoute": null,
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [],
+    "integrationLevel": "static",
+    "designTags": [],
+    "hasMobileLayout": false,
+    "notes": "Clamped scroll depth with mobile and low-power fallbacks."
+  },
+  {
+    "id": "ANIM-05",
+    "category": "animations",
+    "title": "Content transition",
+    "status": "draft",
+    "exampleContext": "Professional design studio switching two material stories",
+    "previewRoute": null,
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [],
+    "integrationLevel": "static",
+    "designTags": [],
+    "hasMobileLayout": false,
+    "notes": "Accessible, user-triggered crossfade between real content."
+  },
+  {
+    "id": "ANIM-06",
+    "category": "animations",
+    "title": "Controlled editorial ticker",
+    "status": "draft",
+    "exampleContext": "Local events studio advancing workshop announcements",
+    "previewRoute": null,
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [],
+    "integrationLevel": "static",
+    "designTags": [],
+    "hasMobileLayout": false,
+    "notes": "Finite, accessible previous/next controls; pause if autoplay."
+  },
+  {
+    "id": "ANIM-07",
+    "category": "animations",
+    "title": "Timeline progress motion",
+    "status": "draft",
+    "exampleContext": "Builder's four-step project process",
+    "previewRoute": null,
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [],
+    "integrationLevel": "static",
+    "designTags": [],
+    "hasMobileLayout": false,
+    "notes": "User-led progress with no invented real completion status."
   }
 ]
