@@ -29,3 +29,6 @@ copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(
  small.addEventListener('change',sync);sync();
 })();
 
+
+/* M-FRM-01 is a form-first narrow-layout alternative; native input types and custom validation remain unchanged. */
+if(new URLSearchParams(location.search).get('mobile')==='M-FRM-01')document.body.dataset.mobileTreatment='M-FRM-01';
