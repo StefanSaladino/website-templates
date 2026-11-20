@@ -5,7 +5,7 @@ For every **live** component, require:
 - A usable `previews/<ID>/index.html`, with isolated local CSS/JS and a meaningful demo brand.
 - Desktop, tablet, and specifically composed mobile layouts at 320–430px.
 - A thumbnail from the *finished* live rendering; page context for otherwise tiny components.
-- Local, rights-reviewed stock imagery where relevant; manifest IDs linked to delivered optimized files; realistic alt text.
+- Rights-reviewed stock imagery where relevant, using either approved locally optimized assets or documented externally hosted HTTPS images; manifest IDs must identify source, photographer, license, reviewed usage context and delivery URL; use meaningful alt text.
 - A concise use case, behavior and integrations note; functional keyboard and pointer states.
 - Honest demo labels: no fake booking slots, checkout confirmation, captured form submission or invented real client reviews.
 - Focus containment and Escape restoration for modal/mobile overlays, no scroll bleed, reduced-motion support.
@@ -27,3 +27,6 @@ Every **released** mobile treatment additionally requires:
 - A distinct status lifecycle `draft → in-review → approved → live`, with **no preview or selection claiming readiness before the image rights and behavior checks pass**.
 
 The counts must distinguish `137 planned core component options` from `44 planned optional mobile treatments`. See the full mobile inventory and delivery gates in Section 6 of `COMPONENT-SHOWROOM-ROADMAP.md`.
+
+## Media delivery and deferred visual sign-off
+Stock imagery may use documented direct Unsplash or Pexels HTTPS URLs instead of local binaries. Remote URLs must correspond to explicitly approved manifest records and pass real-load checks before release. Do not claim commercial rights to recognizable people or property from a platform license alone. The client has deferred final visual/image-crop selection until after catalogue implementation; component development and nonvisual QA continue in `in-review` meanwhile. Final client visual approval is required before changing an image-dependent specimen to `live`.
