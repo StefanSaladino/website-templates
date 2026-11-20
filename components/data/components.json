@@ -3206,16 +3206,47 @@
     "id": "ANIM-04",
     "category": "animations",
     "title": "Bounded image parallax",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Landscape design feature with small photographic depth",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Clamped scroll depth with mobile and low-power fallbacks."
+    "interactions": [
+      "scroll-depth",
+      "pause-resume",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "responsive",
+      "editorial",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working isolated preview and full-page template integration; imagery rights and physical-device QA still needed.",
+    "reviewRoute": "./review.html?id=ANIM-04",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/landscaping/index.html#top",
+    "fullTemplateName": "BED & BORDER / Landscaping",
+    "showcase": {
+      "label": "Animation and interaction",
+      "focus": "Clamped photographic depth",
+      "summary": "Scroll produces a subtle, bounded photo shift; mobile and reduced-motion screens receive a still image.",
+      "desktop": "Observe the real motion or controls, then inspect the full-page integrated treatment.",
+      "mobile": "Phone layout stays fully usable without forced movement; reduced motion is respected.",
+      "lookFor": [
+        "Clamped photographic depth",
+        "No scroll trapping or inaccessible controls"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Scroll produces a subtle, bounded photo shift; mobile and reduced-motion screens receive a still image.",
+      "bestFor": [
+        "Photography-led landscape projects",
+        "Editorial portfolio and real-estate stories"
+      ],
+      "fitReason": "The motion follows the photo and reader, without competing with content."
+    }
   },
   {
     "id": "ANIM-05",
@@ -3587,16 +3618,48 @@
     "id": "ANIM-13",
     "category": "animations",
     "title": "Horizontal story rail",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Photographic journal: scroll-snap story frames with keyboard controls",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-13/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Visible previous/next and reduced-motion instant scrolling."
+    "interactions": [
+      "horizontal-scroll",
+      "previous-next",
+      "keyboard-touch",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "responsive",
+      "editorial",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working isolated preview and full-page template integration; imagery rights and physical-device QA still needed.",
+    "reviewRoute": "./review.html?id=ANIM-13",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/real-estate/index.html#shore-stories",
+    "fullTemplateName": "Waterline / Real Estate",
+    "showcase": {
+      "label": "Animation and interaction",
+      "focus": "Touch-friendly horizontal editorial rail",
+      "summary": "A three-card photo journal can be swiped or navigated with previous/next; the rail never hijacks page scrolling.",
+      "desktop": "Observe the real motion or controls, then inspect the full-page integrated treatment.",
+      "mobile": "Phone layout stays fully usable without forced movement; reduced motion is respected.",
+      "lookFor": [
+        "Touch-friendly horizontal editorial rail",
+        "No scroll trapping or inaccessible controls"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A three-card photo journal can be swiped or navigated with previous/next; the rail never hijacks page scrolling.",
+      "bestFor": [
+        "Photography-led landscape projects",
+        "Editorial portfolio and real-estate stories"
+      ],
+      "fitReason": "The motion follows the photo and reader, without competing with content."
+    }
   },
   {
     "id": "ANIM-14",

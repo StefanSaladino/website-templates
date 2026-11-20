@@ -7,3 +7,8 @@
 .project-detail-zoom[aria-pressed=true]{background:#b66c46}
 @media(max-width:420px){.project-detail-zoom{top:10px;right:10px;padding:9px 12px}}
 @media(prefers-reduced-motion:reduce){.project-main[data-motion-pattern="ANIM-11"]>img{transition:none;transform:none!important}}
+
+/* ANIM-04: bounded image depth, independent of the ANIM-11 project zoom. */
+.hero-photo[data-motion-pattern="ANIM-04"]{overflow:hidden}.hero-photo[data-motion-pattern="ANIM-04"]>img{transform:none}.hero-photo.garden-depth-on>img{transform:translate3d(0,var(--garden-depth-y,0px),0) scale(1.08);will-change:transform}
+.garden-depth-control{min-height:44px;padding:10px 13px;border:1px solid currentColor;background:#f1ebd7;color:#283e30;cursor:pointer;font:700 11px Arial,sans-serif}.garden-depth-control[hidden]{display:none!important}
+@media(max-width:899px),(prefers-reduced-motion:reduce){.hero-photo.garden-depth-on>img{transform:none!important;will-change:auto}.garden-depth-control{display:none!important}}
