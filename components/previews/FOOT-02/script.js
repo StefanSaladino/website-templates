@@ -1,0 +1,1 @@
+(()=>{const queries=matchMedia('(max-width:680px)'),groups=[...document.querySelectorAll('.f2-group')];const align=()=>groups.forEach(g=>g.open=!queries.matches);align();queries.addEventListener?.('change',align)})();

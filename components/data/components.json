@@ -263,16 +263,44 @@
     "id": "FOOT-02",
     "category": "footers",
     "title": "Multi-column footer",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Service company links contacts and legal",
-    "previewRoute": null,
+    "previewRoute": "./previews/FOOT-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "responsive-disclosure",
+      "back-to-top"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "editorial"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working example. Fictional brand and clearly labeled illustrative content; final client visual signoff deferred.",
+    "reviewRoute": "./review.html?id=FOOT-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Footer",
+      "focus": "Multi-column business footer",
+      "summary": "The highlighted footer groups site links, ways to make an enquiry, explanatory details and a clear return-to-top link.",
+      "desktop": "A large closing message sits beside columns of useful links, with secondary business information underneath.",
+      "mobile": "Columns become easy-to-open groups; visitors can reveal only the links they need.",
+      "lookFor": [
+        "Organized navigation columns",
+        "Phone-friendly expandable groups"
+      ],
+      "focusAnchor": "footer-showcase",
+      "explain": "A complete website footer with a closing message, several useful link groups, contact information and clearly differentiated small print.",
+      "bestFor": [
+        "Contractors and service companies",
+        "Studios with several pages or service categories",
+        "Businesses that need visible contact and legal information"
+      ],
+      "fitReason": "Useful when visitors need a dependable place to find all the important information at the end of the page."
+    }
   },
   {
     "id": "FOOT-03",
@@ -678,16 +706,43 @@
     "id": "INTRO-01",
     "category": "introductions",
     "title": "Introductory quote",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "One-sentence founder statement next to portrait",
-    "previewRoute": null,
+    "previewRoute": "./previews/INTRO-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "native-links"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "editorial"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working example. Fictional brand and clearly labeled illustrative content; final client visual signoff deferred.",
+    "reviewRoute": "./review.html?id=INTRO-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Introduction section",
+      "focus": "Founder quote and portrait",
+      "summary": "This introduction gives a fictional studio founder one memorable sentence beside a portrait illustration.",
+      "desktop": "An editorial quote and portrait sit side by side, with personal details in a quieter credit line.",
+      "mobile": "The quote appears first, followed by a full-width illustrated portrait and caption.",
+      "lookFor": [
+        "One memorable founder message",
+        "Portrait with clear attribution"
+      ],
+      "focusAnchor": "intro-showcase",
+      "explain": "A personal introduction combining a short point of view with an illustrative founder portrait. The pictured person is an original drawing, not an actual individual.",
+      "bestFor": [
+        "Architects and independent design studios",
+        "Consultants and founder-led businesses",
+        "Creative firms that sell personal expertise"
+      ],
+      "fitReason": "Works when a founder's perspective and personality help clients decide whom to work with."
+    }
   },
   {
     "id": "INTRO-02",
@@ -1516,16 +1571,43 @@
     "id": "TEST-01",
     "category": "testimonials",
     "title": "Single pull quote",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Homeowner praise as explicitly fictional demo",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEST-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "native-links"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "editorial"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working example. Fictional brand and clearly labeled illustrative content; final client visual signoff deferred.",
+    "reviewRoute": "./review.html?id=TEST-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Testimonial section",
+      "focus": "Single featured client quote",
+      "summary": "The highlighted section presents one large quote, supporting context and a clear attribution—shown here with expressly fictional example text.",
+      "desktop": "One oversized editorial quote makes the client's voice the focal point, with a short context line and attribution.",
+      "mobile": "The quote becomes a readable single-column composition rather than a tiny carousel.",
+      "lookFor": [
+        "Large, readable quote",
+        "Clear fictional-demo labeling"
+      ],
+      "focusAnchor": "testimonial-showcase",
+      "explain": "A dedicated space for one meaningful customer testimonial. This sample quote and homeowner identity are fictional and must be replaced by a genuine permission-backed testimonial on a real website.",
+      "bestFor": [
+        "Home builders and renovation contractors",
+        "Professional services with strong customer feedback",
+        "Hospitality or local companies with one standout review"
+      ],
+      "fitReason": "Most effective when you have an authentic, specific customer statement worth giving plenty of space."
+    }
   },
   {
     "id": "TEST-02",
