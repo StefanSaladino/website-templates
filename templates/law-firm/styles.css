@@ -162,3 +162,10 @@ button, input, select, textarea { font: inherit; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .mobile-menu, .mobile-menu-links a, .menu-backdrop { transition: none; }
 }
+
+/* ANIM-14: native accordion with short detail entrance and no JS dependency. */
+.client-questions{padding:95px 0 115px;display:grid;grid-template-columns:.8fr 1.2fr;gap:7%;border-top:1px solid var(--line)}
+.client-questions-lead h2{font-size:clamp(39px,5.2vw,77px);line-height:1.05;letter-spacing:-.055em;margin:18px 0}.client-questions-lead>p:last-child{max-width:440px;line-height:1.7;color:var(--muted)}
+.client-questions-list{border-top:2px solid var(--ink)}.client-questions-list details{border-bottom:1px solid var(--line)}.client-questions-list summary{list-style:none;cursor:pointer;padding:25px 35px 25px 0;font-size:17px;font-weight:800;line-height:1.4;position:relative;min-height:64px}.client-questions-list summary::-webkit-details-marker{display:none}.client-questions-list summary:after{content:"+";position:absolute;right:0;top:18px;font-size:28px;font-weight:400}.client-questions-list details[open] summary:after{content:"−"}.client-questions-list details>div{padding:0 25px 25px 0;color:var(--muted)}.client-questions-list details>div p{margin:0}.client-questions-list details[open]>div{animation:lawFaqOpen .3s ease-out both}@keyframes lawFaqOpen{from{opacity:.4;transform:translateY(-9px)}to{opacity:1;transform:none}}
+@media(max-width:900px){.client-questions{display:block;padding:75px 22px}.client-questions-list{margin-top:40px}}
+@media(prefers-reduced-motion:reduce){.client-questions-list details[open]>div{animation:none!important}}

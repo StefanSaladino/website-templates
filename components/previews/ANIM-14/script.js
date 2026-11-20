@@ -1,0 +1,2 @@
+// Native <details> handles keyboard and touch, including without this script.
+const disclosures=[...document.querySelectorAll('.a14-questions details')];disclosures.forEach((el)=>{el.addEventListener('toggle',()=>{if(!el.open)return;for(const other of disclosures){if(other!==el&&other.open)other.open=false}})});

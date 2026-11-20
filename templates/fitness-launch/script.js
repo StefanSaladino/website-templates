@@ -62,3 +62,11 @@ if (form) {
   form.addEventListener('submit', (event) => event.preventDefault());
 }
 
+
+/* ANIM-15: replay the existing six-to-one illustrative format only. */
+const yardSection=document.querySelector('[data-motion-pattern="ANIM-15"]');
+if(yardSection){const fields=[...yardSection.querySelectorAll('[data-yard-count]')],button=yardSection.querySelector('[data-yard-replay]'),status=yardSection.querySelector('[data-yard-status]'),reduced=matchMedia('(prefers-reduced-motion: reduce)');let frame=null;
+ const finish=()=>{if(frame!==null)cancelAnimationFrame(frame);frame=null;fields.forEach(el=>el.textContent=el.dataset.yardCount)};
+ function play(){finish();if(reduced.matches){status.textContent='Reduced motion: six participants, one coach.';return}if(document.hidden)return;const started=performance.now(),duration=900;status.textContent='Demonstrating group size.';function draw(now){const t=Math.min(1,(now-started)/duration),ease=1-Math.pow(1-t,3);fields.forEach(el=>el.textContent=String(Math.round(Number(el.dataset.yardCount)*ease)));if(t<1)frame=requestAnimationFrame(draw);else{frame=null;status.textContent='Six participants, one coach.'}}frame=requestAnimationFrame(draw)}
+ button.addEventListener('click',play);reduced.addEventListener('change',e=>{if(e.matches)finish()});document.addEventListener('visibilitychange',()=>{if(document.hidden)finish()});
+}

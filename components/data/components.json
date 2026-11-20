@@ -3540,31 +3540,91 @@
     "id": "ANIM-14",
     "category": "animations",
     "title": "Accordion detail transition",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Craft workshop: expanding technical detail between numbered services",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-14/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "native-disclosure",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Native semantic disclosure, optional measured reveal, no focus traps."
+    "designTags": [
+      "animation",
+      "interaction",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Isolated specimen and full-page template integration in review; not a release.",
+    "reviewRoute": "./review.html?id=ANIM-14",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/law-firm/index.html#questions",
+    "fullTemplateName": "NORTHLINE LAW / Law Firm",
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Accessible accordion detail transition",
+      "summary": "Native disclosure controls reveal answers with short, unobtrusive movement.",
+      "desktop": "Use the controls and compare the effect inside the full-page linked template.",
+      "mobile": "Typography and controls adapt to a narrow screen, and reduced motion is supported.",
+      "lookFor": [
+        "Accessible accordion detail transition",
+        "Native keyboard, touch and reduced-motion operation"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Native disclosure controls reveal answers with short, unobtrusive movement.",
+      "bestFor": [
+        "Service brands with clear content needs",
+        "Editorial and portfolio websites"
+      ],
+      "fitReason": "This is appropriate when a transition clarifies content or a user-requested change."
+    }
   },
   {
     "id": "ANIM-15",
     "category": "animations",
     "title": "Meaningful number count-up",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Local nonprofit: funding goal/progress with explicit measurement labels",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-15/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "replay-count",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Static complete value until initiated, no invented precision."
+    "designTags": [
+      "animation",
+      "interaction",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Isolated specimen and full-page template integration in review; not a release.",
+    "reviewRoute": "./review.html?id=ANIM-15",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/fitness-launch/index.html#training",
+    "fullTemplateName": "YARD / Fitness Launch",
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Labeled group-size count-up",
+      "summary": "A deliberate replay of truthful, clearly described demo group-size values.",
+      "desktop": "Use the controls and compare the effect inside the full-page linked template.",
+      "mobile": "Typography and controls adapt to a narrow screen, and reduced motion is supported.",
+      "lookFor": [
+        "Labeled group-size count-up",
+        "Native keyboard, touch and reduced-motion operation"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A deliberate replay of truthful, clearly described demo group-size values.",
+      "bestFor": [
+        "Service brands with clear content needs",
+        "Editorial and portfolio websites"
+      ],
+      "fitReason": "This is appropriate when a transition clarifies content or a user-requested change."
+    }
   },
   {
     "id": "ANIM-16",
@@ -3600,16 +3660,47 @@
     "id": "ANIM-18",
     "category": "animations",
     "title": "Intersection reveal rhythm",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Gallery: art-directed project rows appearing as they enter view",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-18/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "intersection-reveal",
+      "replay-button",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Each reveals once, does not hide content before JS runs."
+    "designTags": [
+      "animation",
+      "interaction",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Isolated specimen and full-page template integration in review; not a release.",
+    "reviewRoute": "./review.html?id=ANIM-18",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/tattoo-studio/index.html#work",
+    "fullTemplateName": "BLACKLINE / Tattoo Studio",
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Editorial gallery reveal cadence",
+      "summary": "A brief sequence can emphasize selected gallery photographs without hiding the content.",
+      "desktop": "Use the controls and compare the effect inside the full-page linked template.",
+      "mobile": "Typography and controls adapt to a narrow screen, and reduced motion is supported.",
+      "lookFor": [
+        "Editorial gallery reveal cadence",
+        "Native keyboard, touch and reduced-motion operation"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A brief sequence can emphasize selected gallery photographs without hiding the content.",
+      "bestFor": [
+        "Service brands with clear content needs",
+        "Editorial and portfolio websites"
+      ],
+      "fitReason": "This is appropriate when a transition clarifies content or a user-requested change."
+    }
   },
   {
     "id": "ANIM-19",

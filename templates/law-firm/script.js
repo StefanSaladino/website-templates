@@ -37,3 +37,7 @@ if (reducedMotion || !('IntersectionObserver' in window)) {
   }, { threshold: .12 });
   reveals.forEach((el) => observer.observe(el));
 }
+
+/* ANIM-14: details remain fully functional without scripts. */
+const intakeList=document.querySelector('[data-motion-pattern="ANIM-14"]');
+if(intakeList){const questions=[...intakeList.querySelectorAll('details')];questions.forEach(d=>d.addEventListener('toggle',()=>{if(d.open)questions.filter(x=>x!==d&&x.open).forEach(x=>x.open=false)}))}

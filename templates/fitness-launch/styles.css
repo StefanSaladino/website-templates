@@ -123,3 +123,8 @@ button,input{font:inherit}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}.hero-title span{animation:none;opacity:1;transform:none}.reveal{opacity:1;transform:none;transition:none}.hero-media,.image-parallax{transform:none!important}
 }
+
+/* ANIM-15: illustrative group numbers, not real-time customer metrics. */
+.yard-demo-stats{padding:55px clamp(20px,6vw,100px);display:flex;align-items:center;gap:25px;justify-content:space-between;background:#dce46c;color:#202921;flex-wrap:wrap}
+.yard-demo-stats>div>span{display:block;font:800 10px Arial,sans-serif;letter-spacing:.15em}.yard-demo-stats strong{display:block;font:400 clamp(72px,10vw,145px)/.9 Georgia,serif;letter-spacing:-.075em;font-variant-numeric:tabular-nums;margin:16px 0}.yard-demo-stats p{margin:0;font-size:13px}.yard-demo-stats button{min-height:48px;background:#202921;color:#fff;border:0;padding:13px 20px;cursor:pointer;font:800 12px Arial,sans-serif}.yard-demo-stats>[data-yard-status]{flex-basis:100%;font-size:11px}
+@media(max-width:720px){.yard-demo-stats{padding:55px 22px;display:block}.yard-demo-stats button{width:100%;margin-top:30px}}
