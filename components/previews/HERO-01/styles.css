@@ -29,3 +29,16 @@ img.pending-image{visibility:hidden}.image-pending{background-color:#687b70;back
   body[data-mobile-treatment="M-HERO-02"] .h1-gradient{position:absolute;inset:0 0 auto;height:55svh;margin:0;grid-row:auto;grid-column:auto}
   body[data-mobile-treatment="M-HERO-02"] .h1-copy{grid-column:1;min-width:0}
 }
+
+/* M-HERO-01 — immersive photo-first phone art direction: compact copy and full-width action stay in the photograph. */
+@media(max-width:740px){
+ body[data-mobile-treatment="M-HERO-01"] .h1-scene{height:100svh;min-height:620px;background:#29463f}
+ body[data-mobile-treatment="M-HERO-01"] .h1-scene>img{object-position:57% 34%}
+ body[data-mobile-treatment="M-HERO-01"] .h1-gradient{background:linear-gradient(0deg,rgba(8,26,24,.94),rgba(8,26,24,.34) 46%,rgba(8,26,24,.08) 75%),linear-gradient(180deg,rgba(6,29,24,.55),transparent 32%)}
+ body[data-mobile-treatment="M-HERO-01"] .h1-mark{display:block;top:135px;left:21px;writing-mode:horizontal-tb;transform:none;letter-spacing:.18em;font-weight:800}
+ body[data-mobile-treatment="M-HERO-01"] .h1-copy{padding:0 20px calc(34px + env(safe-area-inset-bottom,0px));max-width:520px}
+ body[data-mobile-treatment="M-HERO-01"] .h1-copy p{font-size:10px}
+ body[data-mobile-treatment="M-HERO-01"] .h1-copy h1{font-size:clamp(47px,11.8vw,72px);line-height:.94;letter-spacing:-.065em;margin:16px 0 28px}
+ body[data-mobile-treatment="M-HERO-01"] .h1-copy a{display:flex;justify-content:space-between;width:100%;min-height:58px;align-items:center;padding:15px 18px;border:1px solid rgba(255,255,255,.75);background:rgba(10,37,33,.54);font-weight:700}
+ body[data-mobile-treatment="M-HERO-01"] .h1-side{display:none}
+}
