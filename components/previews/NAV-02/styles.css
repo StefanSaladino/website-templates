@@ -14,3 +14,16 @@
  body[data-mobile-treatment="M-NAV-05"] .v-hero{min-height:540px;padding:65px 20px}
 }
 
+
+/* M-NAV-03: anchored, safe-area mobile navigation instead of a header dropdown or sticky top tab row. */
+.v-bottom-rail{display:none}
+@media(max-width:760px){
+ body[data-mobile-treatment="M-NAV-03"]{padding-bottom:calc(77px + env(safe-area-inset-bottom,0px))}
+ body[data-mobile-treatment="M-NAV-03"] .v-nav{padding:21px 20px}
+ body[data-mobile-treatment="M-NAV-03"] .v-logo{font-size:27px}
+ body[data-mobile-treatment="M-NAV-03"] .v-mobile{display:none}
+ body[data-mobile-treatment="M-NAV-03"] .v-bottom-rail:not([hidden]){position:fixed;inset:auto 0 0;z-index:40;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:7px 9px calc(8px + env(safe-area-inset-bottom,0px));background:#293f35;color:#eef3e8;box-shadow:0 -7px 23px #13241b55}
+ body[data-mobile-treatment="M-NAV-03"] .v-bottom-rail a{display:flex;align-items:center;justify-content:center;min-height:52px;padding:10px 5px;border-top:3px solid transparent;text-align:center;text-decoration:none;font-size:13px;line-height:1.15}
+ body[data-mobile-treatment="M-NAV-03"] .v-bottom-rail a[aria-current="location"]{border-top-color:#e1cda5;background:#3f584a;font-weight:850}
+ body[data-mobile-treatment="M-NAV-03"] :is(#collection,#story,#contact){scroll-margin-top:12px}
+}
