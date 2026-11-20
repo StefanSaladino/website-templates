@@ -1,0 +1,1 @@
+(()=>{const disclosures=[...document.querySelectorAll('.accordions details')];disclosures.forEach(section=>section.addEventListener('toggle',()=>{if(!section.open)return;disclosures.forEach(other=>{if(other!==section)other.open=false;});}));})();
