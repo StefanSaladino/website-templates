@@ -362,6 +362,7 @@ try{
  await page.setViewportSize({width:1280,height:900});
  await openTemplate('dark-tech');
  const inspection=page.locator('[data-spot-card]');
+ await inspection.scrollIntoViewIfNeeded();
  const rect=await inspection.boundingBox();
  await page.mouse.move(rect.x+rect.width*.3,rect.y+rect.height*.45);
  await page.waitForFunction(()=>Boolean(document.querySelector('[data-spot-card]')?.style.getPropertyValue('--spot-x')));
