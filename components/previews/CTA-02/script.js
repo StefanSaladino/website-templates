@@ -10,3 +10,6 @@ document.querySelectorAll('img').forEach(image=>{
    if(wrapper)wrapper.classList.add('image-pending');
  },{once:true});
 });
+
+/* M-CTA-02 moves the invitation below its image on phones; the existing link remains a real page anchor. */
+if(new URLSearchParams(location.search).get('mobile')==='M-CTA-02')document.body.dataset.mobileTreatment='M-CTA-02';
