@@ -2105,6 +2105,145 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Final ten core examples: article discovery, event flows, countdowns and contact drafts.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/POST-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.cards article:visible').count()===3,'POST-01 starts with three real editorial story cards');
+ await page.locator('button[data-topic=materials]').click();
+ assert(await page.locator('.cards article:visible').count()===1
+  &&await page.locator('button[data-topic=materials]').getAttribute('aria-pressed')==='true'
+  &&await page.locator('.cards article:visible a').getAttribute('href')==='#chapter-materials','POST-01 topic control really filters articles with real chapter links');
+ await page.locator('.cards article:visible a').click();
+ assert(await page.evaluate(()=>location.hash)==='#chapter-materials','POST-01 article link navigates to an existing editorial section');
+ await page.locator('button[data-topic=all]').click();
+ assert(await page.locator('.cards article:visible').count()===3,'POST-01 restores the full editorial index');
+
+ await page.goto(base+'previews/POST-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.toc a').count()===3
+  &&await page.locator('#premise').isVisible(),'POST-02 original featured essay has three real chapters');
+ await page.locator('.toc a[href="#space"]').click();
+ assert(await page.evaluate(()=>location.hash)==='#space','POST-02 table-of-contents reaches the actual story chapter');
+ await page.evaluate(()=>{window.__testPrinted=false;window.print=()=>{window.__testPrinted=true;};});
+ await page.locator('#print-story').click();
+ assert(await page.evaluate(()=>window.__testPrinted===true)
+  &&(await page.locator('#print-note').textContent()).includes('print dialog'),'POST-02 browser Print action is genuine and its status explains the action');
+
+ await page.goto(base+'previews/POST-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#results article:visible').count()===5,'POST-03 displays five fictional business updates');
+ await page.locator('#search').fill('scope');
+ assert(await page.locator('#results article:visible').count()===1
+  &&(await page.locator('#result-count').textContent()).includes('1 fictional update'),'POST-03 live search actually filters the update list');
+ await page.locator('#clear').click();
+ await page.locator('#order').selectOption('oldest');
+ assert(await page.locator('#results article').first().getAttribute('data-issue')==='1','POST-03 issue-sort changes the actual document order');
+ await page.locator('button[data-type=process]').click();
+ assert(await page.locator('#results article:visible').count()===2
+  &&await page.locator('button[data-type=process]').getAttribute('aria-pressed')==='true','POST-03 topic filtering respects the underlying issue dataset');
+
+ await page.goto(base+'previews/POST-04/',{waitUntil:'domcontentloaded'});
+ await page.locator('#wide').click();
+ assert(await page.locator('#reading').getAttribute('data-width')==='wide'
+  &&await page.locator('#wide').getAttribute('aria-pressed')==='true','POST-04 readable article width control actually switches the reading layout');
+ await page.locator('#font-size').evaluate(el=>{el.value='22';el.dispatchEvent(new Event('input',{bubbles:true}));});
+ assert(await page.locator('#size-output').textContent()==='22 px'
+  &&(await page.locator('#article').getAttribute('style')).includes('22px'),'POST-04 text-size slider genuinely updates article typography');
+ await page.locator('#chapter-three').scrollIntoViewIfNeeded();
+ await page.waitForTimeout(130);
+ assert((await page.locator('#progress-label').textContent()).includes('% through')
+  &&await page.locator('#progress-fill').evaluate(el=>parseFloat(el.style.width)>0),'POST-04 real scrolling updates the article progress indicator');
+
+ await page.goto(base+'previews/EVENT-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.cards article:visible').count()===3,'EVENT-01 displays three honestly fictional cultural programmes');
+ await page.locator('button[data-kind=workshop]').click();
+ assert(await page.locator('.cards article:visible').count()===1
+  &&(await page.locator('#count').textContent()).includes('1 imaginary workshop'),'EVENT-01 category selection genuinely filters exhibition listings');
+ await page.locator('.cards article:visible summary').click();
+ assert(await page.locator('.cards article:visible details').evaluate(el=>el.open),'EVENT-01 details expand genuine sample-programme information');
+ await page.locator('button[data-kind=all]').click();
+ assert(await page.locator('.cards article:visible').count()===3,'EVENT-01 can restore every sample exhibition');
+
+ await page.goto(base+'previews/EVENT-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#class-list article:visible').count()===5
+  &&await page.locator('#class-calendar').isHidden(),'EVENT-02 sample class schedule defaults to actual readable list');
+ await page.locator('button[data-view=calendar]').click();
+ assert(await page.locator('#class-calendar').isVisible()
+  &&await page.locator('.calendar-col').count()===7,'EVENT-02 Calendar view generates seven real weekday columns');
+ await page.locator('button[data-day=thu]').click();
+ assert(await page.locator('.calendar-col[data-day=thu] .class-slot:visible').count()===2
+  &&await page.locator('.calendar-col[data-day=mon] .class-slot:visible').count()===0
+  &&(await page.locator('#results').textContent()).includes('2 fictional'),'EVENT-02 weekday filters apply to genuine calendar cells and status');
+ await page.locator('button[data-view=list]').click();
+ assert(await page.locator('#class-list article:visible').count()===2,'EVENT-02 same sample sessions power the filtered list representation');
+ await page.locator('#reset').click();
+ assert(await page.locator('#class-list article:visible').count()===5
+  &&await page.locator('#reset').isDisabled(),'EVENT-02 Reset restores unfiltered default view');
+
+ await page.goto(base+'previews/EVENT-03/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('.facts').textContent()).includes('no physical address')
+  &&await page.locator('#draft').isHidden(),'EVENT-03 does not imply a real venue or registered attendance');
+ await page.locator('#guest').fill('Test Visitor');
+ await page.locator('#email').fill('demo@example.com');
+ await page.locator('#guests').selectOption('3');
+ await page.locator('#ack').check();
+ await page.locator('#rsvp-form button[type=submit]').click();
+ assert(await page.locator('#draft').isVisible()
+  &&(await page.locator('#draft-text').textContent()).includes('UNSENT DRAFT')
+  &&(await page.locator('#draft-text').textContent()).includes('3'),'EVENT-03 validating sample RSVP creates a local draft rather than sending a reservation');
+ await page.locator('#clear').click();
+ assert(await page.locator('#draft').isHidden()
+  &&await page.locator('#guest').inputValue()==='','EVENT-03 Clear removes the actual local preview and resets its form');
+
+ await page.goto(base+'previews/EVENT-04/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('#target-label').textContent()).includes('1 APRIL 2027')
+  &&await page.locator('#days').evaluate(el=>/^\d+$/.test(el.textContent.trim())),'EVENT-04 computes real numeric countdown from an explicit fictional target');
+ await page.locator('button[data-target=summer]').click();
+ assert((await page.locator('#target-label').textContent()).includes('1 JULY 2027')
+  &&await page.locator('button[data-target=summer]').getAttribute('aria-pressed')==='true','EVENT-04 switching sample targets updates real date arithmetic and active selection');
+ await page.locator('#freeze').click();
+ assert(await page.locator('#freeze').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#timer-status').textContent()).includes('numbers are frozen'),'EVENT-04 freezes number updates without claiming time has stopped');
+ await page.locator('#freeze').click();
+ assert(await page.locator('#freeze').getAttribute('aria-pressed')==='false','EVENT-04 can resume current time display');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.reload({waitUntil:'domcontentloaded'});
+ assert((await page.locator('#seconds').textContent()).trim()==='—','EVENT-04 reduced-motion users receive no changing seconds');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+
+ await page.goto(base+'previews/CONTACT-03/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('.service-info').textContent()).includes('None connected')
+  &&await page.locator('#preview').isHidden(),'CONTACT-03 truthfully identifies no live service inbox or saved inquiry');
+ await page.locator('#full-name').fill('Example Customer');
+ await page.locator('#contact-email').fill('sample@example.com');
+ await page.locator('#service').selectOption('Material study');
+ await page.locator('#notes').fill('An illustrative request to explore a fictional office planning concept.');
+ await page.locator('#ack').check();
+ await page.locator('#inquiry button[type=submit]').click();
+ assert(await page.locator('#preview').isVisible()
+  &&(await page.locator('#preview-text').textContent()).includes('UNSENT'),'CONTACT-03 validated contact form creates only an honest local preview');
+ await page.locator('#reset-preview').click();
+ assert(await page.locator('#preview').isHidden()
+  &&await page.locator('#full-name').inputValue()==='','CONTACT-03 reset clears the preview and actual form inputs');
+
+ await page.goto(base+'previews/CONTACT-04/',{waitUntil:'domcontentloaded'});
+ await page.locator('button[data-topic=identity]').click();
+ assert(await page.locator('button[data-topic=identity]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#mail-link').getAttribute('href')).includes('Illustrative%20identity%20concept')
+  &&(await page.locator('#draft-summary').textContent()).includes('Identity concept'),'CONTACT-04 topic picker changes actual mailto subject and brief');
+ await page.locator('#copy').click();
+ await page.waitForFunction(()=>{const value=document.querySelector('#copy-status').textContent;return value.includes('Copied the fictional')||value.includes('manual copying');});
+ assert((await page.locator('#copy-status').textContent()).includes('Copied the fictional')
+  ||await page.locator('#fallback').isVisible(),'CONTACT-04 performs real clipboard copy or gives a visible manual-copy fallback, never claiming to send an email');
+ assert((await page.locator('.compose strong').textContent()).includes('hello@example.com'),'CONTACT-04 openly uses a reserved undeliverable demonstration address');
+
+ for(const id of ['POST-01','POST-02','POST-03','POST-04','EVENT-01','EVENT-02','EVENT-03','EVENT-04','CONTACT-03','CONTACT-04']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const dims=await page.evaluate(()=>({viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
+  assert(dims.scrollWidth<=dims.viewport+2,id+' has no page-level horizontal overflow at 320px ('+dims.scrollWidth+'/'+dims.viewport+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
