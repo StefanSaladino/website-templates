@@ -1,0 +1,1 @@
+// Native, accessible restaurant menu content; mobile enhancements are opt-in.

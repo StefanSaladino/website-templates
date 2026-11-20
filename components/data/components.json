@@ -2170,16 +2170,45 @@
     "id": "PRICE-01",
     "category": "pricing",
     "title": "Simple tier list",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Detailing bronze silver gold",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRICE-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-details",
+      "responsive",
+      "no-checkout"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "phase-4",
+      "responsive",
+      "editorial",
+      "mobile-ready"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
+    "reviewRoute": "./review.html?id=PRICE-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Pricing and services",
+      "focus": "Simple tier list",
+      "summary": "Three clearly fictional consultation plans with transparent details and expandable inclusions.",
+      "desktop": "Inspect the full editorial composition and working native controls.",
+      "mobile": "The base layout reflows naturally; an alternate phone-specific treatment is available for comparison.",
+      "lookFor": [
+        "Simple tier list",
+        "Real controls, clear sample-only and no-submission labeling"
+      ],
+      "focusAnchor": "pricing-showcase",
+      "explain": "Three clearly fictional consultation plans with transparent details and expandable inclusions.",
+      "bestFor": [
+        "Small service businesses",
+        "Consulting practices"
+      ],
+      "fitReason": "Readable tier comparisons and concrete inclusions without implying real services or prices."
+    }
   },
   {
     "id": "PRICE-02",
@@ -2245,16 +2274,45 @@
     "id": "PROD-01",
     "category": "products",
     "title": "Product grid",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Ceramics or accessories photographs",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROD-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "material-detail",
+      "keyboard-native",
+      "no-checkout"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "phase-4",
+      "responsive",
+      "editorial",
+      "mobile-ready"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
+    "reviewRoute": "./review.html?id=PROD-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Commerce and merchandise",
+      "focus": "Product grid",
+      "summary": "CSS-illustrated ceramic object collection with expandable material details.",
+      "desktop": "Inspect the full editorial composition and working native controls.",
+      "mobile": "The base layout reflows naturally; an alternate phone-specific treatment is available for comparison.",
+      "lookFor": [
+        "Product grid",
+        "Real controls, clear sample-only and no-submission labeling"
+      ],
+      "focusAnchor": "products-showcase",
+      "explain": "CSS-illustrated ceramic object collection with expandable material details.",
+      "bestFor": [
+        "Independent makers",
+        "Catalogues of physical goods"
+      ],
+      "fitReason": "Original CSS product illustrations make a responsive object-grid demonstration without misleading product photography."
+    }
   },
   {
     "id": "PROD-02",
@@ -2320,16 +2378,45 @@
     "id": "MENU-01",
     "category": "menus",
     "title": "Minimal restaurant menu",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Cafe categories names and prices",
-    "previewRoute": null,
+    "previewRoute": "./previews/MENU-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-content",
+      "responsive",
+      "no-live-bookings"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "phase-4",
+      "responsive",
+      "editorial",
+      "mobile-ready"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
+    "reviewRoute": "./review.html?id=MENU-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Restaurant menu",
+      "focus": "Minimal restaurant menu",
+      "summary": "Editorial food menu containing illustrative dishes, prices and transparent sample labeling.",
+      "desktop": "Inspect the full editorial composition and working native controls.",
+      "mobile": "The base layout reflows naturally; an alternate phone-specific treatment is available for comparison.",
+      "lookFor": [
+        "Minimal restaurant menu",
+        "Real controls, clear sample-only and no-submission labeling"
+      ],
+      "focusAnchor": "menu-showcase",
+      "explain": "Editorial food menu containing illustrative dishes, prices and transparent sample labeling.",
+      "bestFor": [
+        "Independent cafés",
+        "Hospitality brands"
+      ],
+      "fitReason": "A clear printed-menu-inspired hierarchy that keeps all items accessible."
+    }
   },
   {
     "id": "MENU-02",
@@ -2380,16 +2467,46 @@
     "id": "BOOK-01",
     "category": "booking",
     "title": "Appointment picker demo",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Salon service and date selection without real slots",
-    "previewRoute": null,
+    "previewRoute": "./previews/BOOK-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-date",
+      "validated-selection",
+      "local-summary",
+      "no-booking"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "phase-4",
+      "responsive",
+      "editorial",
+      "mobile-ready"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
+    "reviewRoute": "./review.html?id=BOOK-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Booking and enquiry",
+      "focus": "Appointment picker demo",
+      "summary": "Native validated consultation preferences and a local, explicitly unbooked request summary.",
+      "desktop": "Inspect the full editorial composition and working native controls.",
+      "mobile": "The base layout reflows naturally; an alternate phone-specific treatment is available for comparison.",
+      "lookFor": [
+        "Appointment picker demo",
+        "Real controls, clear sample-only and no-submission labeling"
+      ],
+      "focusAnchor": "booking-showcase",
+      "explain": "Native validated consultation preferences and a local, explicitly unbooked request summary.",
+      "bestFor": [
+        "Consultation-led studios",
+        "Local service businesses"
+      ],
+      "fitReason": "A real form workflow demonstrated locally without claiming to secure an appointment."
+    }
   },
   {
     "id": "BOOK-02",

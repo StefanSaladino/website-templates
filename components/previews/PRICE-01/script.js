@@ -1,0 +1,1 @@
+// Pricing is illustrative; native details controls remain usable without JavaScript.

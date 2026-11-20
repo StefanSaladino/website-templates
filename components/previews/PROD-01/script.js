@@ -1,0 +1,8 @@
+(()=>{
+ const cards=[...document.querySelectorAll('.p1-item')],panel=document.querySelector('#p1-detail'),detail={name:panel.querySelector('[data-detail-name]'),material:panel.querySelector('[data-detail-material]'),description:panel.querySelector('[data-detail-description]')};
+ const data=[{"id":"sand","name":"Sandstone Vessel","material":"Stoneware · matte glaze","desc":"Earth-coloured glaze over a subtly irregular silhouette."},{"id":"oxide","name":"Oxide Pitcher","material":"Stoneware · oxide slip","desc":"A considered everyday pitcher, expressed as a sculptural study."},{"id":"chalk","name":"Chalk Bowl","material":"Porcelain · satin surface","desc":"Simple round form inspired by soft-edged river stones."},{"id":"umber","name":"Umber Jar","material":"Stoneware · brown glaze","desc":"A lidded study in rich, warm brown tones."}];
+ let active=null;
+ function close(){active=null;panel.hidden=true;cards.forEach(card=>card.querySelector('[data-inspect]').setAttribute('aria-pressed','false'))}
+ cards.forEach(card=>card.querySelector('[data-inspect]').addEventListener('click',()=>{const id=card.dataset.productId;if(active===id){close();return}const item=data.find(x=>x.id===id);active=id;detail.name.textContent=item.name;detail.material.textContent=item.material;detail.description.textContent=item.desc;panel.hidden=false;cards.forEach(c=>c.querySelector('[data-inspect]').setAttribute('aria-pressed',String(c.dataset.productId===id)));panel.focus({preventScroll:true})}));
+ panel.querySelector('[data-detail-close]').addEventListener('click',()=>{const chosen=active;close();cards.find(c=>c.dataset.productId===chosen)?.querySelector('[data-inspect]')?.focus()});
+})();
