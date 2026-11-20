@@ -92,13 +92,15 @@
     "category": "Hero compositions",
     "title": "Immersive photo first",
     "exampleContext": "Lake retreat with an image-dominant first screen and short overlaid headline",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "HERO-01"
+    ],
+    "previewRoute": "./previews/HERO-01/?mobile=M-HERO-01",
+    "reviewRoute": "./review.html?id=HERO-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working photo-first phone composition with an immersive crop, a compact readable overlaid headline and a genuine full-width on-page action. Photo licensing, mobile crops and physical-device review remain open."
   },
   {
     "id": "M-HERO-02",
@@ -163,13 +165,15 @@
     "category": "Galleries and project imagery",
     "title": "Single-column image sequence",
     "exampleContext": "Architectural portfolio with edge-to-edge images and concise captions",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "GAL-03"
+    ],
+    "previewRoute": "./previews/GAL-03/?mobile=M-GAL-01",
+    "reviewRoute": "./review.html?id=GAL-03",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working edge-to-edge vertical architectural photo sequence with chapter captions over readable contrast gradients, no detached cards or simulated interaction. Photo rights, cropping and real-phone review remain open."
   },
   {
     "id": "M-GAL-02",
@@ -236,13 +240,15 @@
     "category": "Services and capability presentation",
     "title": "Alternating desktop to vertical photo story",
     "exampleContext": "Renovation services retaining image-first hierarchy without zigzag on phone",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "SRV-03"
+    ],
+    "previewRoute": "./previews/SRV-03/?mobile=M-SRV-01",
+    "reviewRoute": "./review.html?id=SRV-03",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working photographic service storytelling with full-bleed images, overlapping text-first cards and intact native service details; existing illustrative photos and physical-device QA remain in review."
   },
   {
     "id": "M-SRV-02",
@@ -483,13 +489,15 @@
     "category": "Calls to action, contact, and footer",
     "title": "Full-width inline action",
     "exampleContext": "Retreat booking CTA framed clearly without excessive borders or ornament",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "CTA-02"
+    ],
+    "previewRoute": "./previews/CTA-02/?mobile=M-CTA-02",
+    "reviewRoute": "./review.html?id=CTA-02",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working phone layout with a photo above a separate high-contrast invitation panel and a full-width real in-page action. Availability is never fabricated; visual/photo rights and phone QA remain open."
   },
   {
     "id": "M-CTA-03",
@@ -509,26 +517,30 @@
     "category": "Calls to action, contact, and footer",
     "title": "Compact disclosure footer",
     "exampleContext": "Multi-column footer turning into accessible expand/collapse groups",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "FOOT-02"
+    ],
+    "previewRoute": "./previews/FOOT-02/?mobile=M-CTA-04",
+    "reviewRoute": "./review.html?id=FOOT-02",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working compact company footer using one native accessible disclosure group at a time, preserved page links and responsive desktop multi-column layout; human/physical-device QA remains open."
   },
   {
     "id": "M-UTIL-01",
     "category": "Utility interactions",
     "title": "Tabs to scrollable rail",
     "exampleContext": "Category filters becoming a labeled horizontal strip rather than tiny pills",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "GAL-05"
+    ],
+    "previewRoute": "./previews/GAL-05/?mobile=M-UTIL-01",
+    "reviewRoute": "./review.html?id=GAL-05",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working native horizontal scroll-snap filter rail; original category buttons, selection state and live photo filtering remain functional. Existing modal alternative is unaffected. Image and physical-device QA remain open."
   },
   {
     "id": "M-UTIL-02",
@@ -578,13 +590,15 @@
     "category": "Utility interactions",
     "title": "Contextual back-to-top",
     "exampleContext": "Long portfolio with unobtrusive visible return navigation",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "PRJ-03"
+    ],
+    "previewRoute": "./previews/PRJ-03/?mobile=M-UTIL-05",
+    "reviewRoute": "./review.html?id=PRJ-03",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working contextual safe-area-aware back-to-projects link shown only after actual page scroll on phones, using a real in-page anchor and maintaining the unaltered desktop ledger. Physical-device QA remains open."
   },
   {
     "id": "M-MEDIA-01",
