@@ -53,3 +53,5 @@ document.querySelectorAll('.frame img,.opening-images img').forEach(img=>{
 /* ANIM-12: selected image and label change together; full image is available without JS. */
 const featurePanel=document.querySelector('[data-motion-pattern="ANIM-12"]');
 if(featurePanel){const controls=[...featurePanel.querySelectorAll('[data-feature-select]')],images=[...featurePanel.querySelectorAll('[data-feature-image]')],status=featurePanel.querySelector('[data-feature-status]'),reduced=matchMedia('(prefers-reduced-motion: reduce)'),names=['Early light','Off duty','Quiet object'];function show(i){images.forEach((figure,n)=>{figure.hidden=n!==i;figure.classList.remove('is-arriving')});controls.forEach((control,n)=>control.setAttribute('aria-pressed',String(n===i)));if(!reduced.matches){void images[i].offsetWidth;images[i].classList.add('is-arriving')}status.textContent='Showing '+String(i+1).padStart(2,'0')+' / '+names[i]}controls.forEach((control,i)=>control.addEventListener('click',()=>show(i)));reduced.addEventListener('change',e=>{if(e.matches)images.forEach(x=>x.classList.remove('is-arriving'))})}
+
+featurePanel?.classList.add('is-motion-ready');

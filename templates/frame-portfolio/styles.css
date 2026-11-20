@@ -48,3 +48,5 @@ footer a{min-height:44px;display:flex;align-items:center}
 @media(max-width:780px){.frame-feature{margin:20px 0 65px;padding:28px 0 45px}.frame-feature-body{display:block}.frame-feature-stage{height:460px}.frame-feature-side{margin-top:18px}.frame-feature-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.frame-feature-buttons button{text-align:center;min-height:48px;padding:12px 4px;font-size:10px}}
 @media(max-width:430px){.frame-feature-stage{height:340px}.frame-feature-intro h3{font-size:39px}}
 @media(prefers-reduced-motion:reduce){.frame-feature-image.is-arriving{animation:none!important}}
+
+/* No dead selectors without scripts. */ .frame-feature-buttons{display:none}.frame-feature.is-motion-ready .frame-feature-buttons{display:block}
