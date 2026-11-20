@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex">
   <meta name="description" content="Explore a website component on computer, tablet, and phone.">
   <title>Explore a website design — Boomer Automation</title>
-  <link rel="stylesheet" href="review.css?v20261120c">
-  <script type="module" src="review.js?v20261120c"></script>
+  <link rel="stylesheet" href="review.css?v20261120d">
+  <script type="module" src="review.js?v20261120d"></script>
 </head>
 <body>
   <a class="review-skip" href="#review-design">Skip to design preview</a>
@@ -23,11 +23,21 @@
       </div>
       <h1 id="review-title">Loading the design…</h1>
       <p class="review-description" id="review-focus-summary">This example shows one part of a website.</p>
-      <details class="review-explanation">
-        <summary>What am I looking at?</summary>
-        <p>This is a sample website showing one particular design idea. You can choose a different screen below to see how that part would look on a computer, tablet, or phone.</p>
-        <p>Text, photos, and business names are examples; they can be changed for your own website.</p>
-      </details>
+      <div class="review-accordions" aria-label="About this design">
+        <details class="review-accordion" id="review-about">
+          <summary>What is this design?</summary>
+          <p id="review-about-text">A particular website section shown in a sample page.</p>
+        </details>
+        <details class="review-accordion" id="review-best-for">
+          <summary>What kind of website is it good for?</summary>
+          <p id="review-best-for-reason"></p>
+          <ul id="review-best-for-list"></ul>
+        </details>
+        <details class="review-accordion" id="review-phone-about">
+          <summary>How does it work on a phone?</summary>
+          <p id="review-phone-text"></p>
+        </details>
+      </div>
     </section>
 
     <section id="review-design" class="review-design" aria-label="Explore the design">
@@ -52,7 +62,7 @@
           <label><input type="radio" name="zoom" value="actual">Look closer</label>
         </fieldset>
       </div>
-      <p class="review-tip" id="review-tip">The design will fit your screen. Select “Look closer” to see details.</p>
+      <p class="review-tip" id="review-tip">The design will fit your screen. Tap the preview to briefly highlight the section being shown.</p>
       <div class="review-stage">
         <div class="review-loading" id="review-loading" role="status">Loading your design…</div>
         <div class="review-viewport" id="review-viewport" tabindex="0" role="region" aria-label="Website design preview. In Look closer mode, scroll horizontally to inspect the design.">
@@ -66,7 +76,7 @@
       <div class="review-error" id="review-error" hidden role="alert">
         <strong>We couldn't load this design.</strong>
         <p>Check your connection, then try loading it again.</p>
-        <a href="review.html?v20261120c">Reload the design page</a>
+        <a href="review.html?v20261120d">Reload the design page</a>
       </div>
       <div class="review-pan-controls" id="review-pan-controls" hidden>
         <button type="button" id="review-pan-left" aria-label="Move left across the preview">Move left</button>
@@ -76,16 +86,7 @@
       <div class="review-view-actions"><a id="review-open" target="_blank" rel="noopener">Open this example on my screen</a><span>Opens in a new tab using your own screen size.</span></div>
     </section>
 
-    <section class="review-details" aria-labelledby="review-details-title">
-      <div>
-        <p class="review-eyebrow">ABOUT THIS DESIGN</p>
-        <h2 id="review-details-title">What makes it different?</h2>
-      </div>
-      <div class="review-detail-columns">
-        <div><h3>On a computer</h3><p id="review-focus-desktop"></p></div>
-        <div><h3>On a phone</h3><p id="review-focus-mobile"></p></div>
-      </div>
-    </section>
+
     <div class="review-bottom-nav"><a href="./index.html">Back to all designs</a><span>Examples only · final designs may be customized</span></div>
   </main>
   <footer class="review-footer"><span>BOOMER AUTOMATION / DESIGN LIBRARY</span><span>Designs are still being developed.</span></footer>

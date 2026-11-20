@@ -66,3 +66,14 @@ a{color:inherit}button,input{font:inherit}
 .review-loading{padding:27px 15px;text-align:center;font-size:14px;font-weight:700;background:#e6eae3;color:#26382e}
 .review-error{padding:25px 24px;margin:18px auto;max-width:760px;background:#f4e9dd;border:1px solid #a86a45;color:#35362e}
 .review-error strong{font-size:18px}.review-error p{font-size:14px;line-height:1.6}.review-error a{display:inline-block;padding:8px 0;font-weight:700;text-underline-offset:4px}
+
+/* Plain-language, compact details: native disclosure widgets preserve keyboard access. */
+.review-accordions{max-width:790px;margin-top:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.review-accordion{border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.review-accordion:last-child{border-bottom:0}
+.review-accordion summary{display:list-item;cursor:pointer;font-size:14px;line-height:1.4;font-weight:750;color:var(--ink);min-height:49px;padding:15px 1px;list-style-position:inside}
+.review-accordion[open] summary{color:#7e482d}
+.review-accordion>p{margin:0 5px 14px 22px;max-width:720px;line-height:1.65}
+.review-accordion ul{margin:0 0 17px 34px;padding:0;line-height:1.65}
+.review-accordion li{margin:5px 0}
+@media(max-width:640px){.review-accordions{margin-top:19px}.review-accordion summary{font-size:14px;min-height:48px}.review-accordion>p{font-size:13px}.review-accordion ul{font-size:13px}}

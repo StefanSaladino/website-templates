@@ -17,7 +17,7 @@ const loadJSON=async path=>{
   return response.json();
 };
 try{
-  const [categories,components]=await Promise.all([loadJSON('./data/categories.json?v20261120c'),loadJSON('./data/components.json?v20261120c')]);
+  const [categories,components]=await Promise.all([loadJSON('./data/categories.json?v20261120d'),loadJSON('./data/components.json?v20261120d')]);
   const built=components.filter(item=>item.previewRoute&&['in-review','approved','live'].includes(item.status));
   const live=built.filter(item=>item.status==='live');
   const visible=planningMode?components:built;
@@ -74,10 +74,11 @@ try{
       article.className='cs-item'+(working?' cs-item--preview':' cs-item--draft');
       const previewRoute=working?item.previewRoute:'';
       const reviewRoute=working?(item.reviewRoute||item.previewRoute):'';
-      const reviewUrl=reviewRoute+(reviewRoute.includes('?')?'&':'?')+'v20261120c';
+      const reviewUrl=reviewRoute+(reviewRoute.includes('?')?'&':'?')+'v20261120d';
       const stateLabel=item.status==='live'?'Ready':item.status==='in-review'?'In review':item.status==='approved'?'Awaiting release':'Planned';
       const focus=item.showcase;
-      const targetUrl=previewRoute+(focus?.focusAnchor?'#'+encodeURIComponent(focus.focusAnchor):'');
+      const targetUrl=previewRoute;
+      // Keep embedded iframe URLs fragment-free; section hashes can scroll the parent page on load.
       const categoryLabel=focus?.label||labelById.get(item.category)||'Component';
       const frame=working
         ? '<div class="cs-preview-window"><iframe title="Preview of '+escapeText(item.id)+' focusing on '+escapeText(categoryLabel)+'" src="'+escapeText(targetUrl)+'" loading="lazy" tabindex="-1" aria-hidden="true"></iframe><a class="cs-preview-cover" href="'+escapeText(targetUrl)+'" aria-label="View showcased '+escapeText(categoryLabel)+' in '+escapeText(item.id)+'"></a></div>'
@@ -89,6 +90,23 @@ try{
         ? '<div class="cs-focus-info"><span class="cs-focus-label">WHAT THIS SHOWCASES</span><strong>'+escapeText(focus.focus)+'</strong><p>'+escapeText(focus.summary)+'</p><div class="cs-focus-cues"><span>'+escapeText(focus.lookFor[0])+'</span><span>'+escapeText(focus.lookFor[1])+'</span></div></div>'
         : '<p class="cs-example-context">'+escapeText(item.exampleContext)+'</p>';
       article.innerHTML='<p class="cs-card-category">'+escapeText(categoryLabel)+'</p>'+frame+'<div class="cs-item-top"><span>'+escapeText(item.id)+'</span><span class="cs-item-status">'+stateLabel+'</span></div><h4>'+escapeText(item.title)+'</h4>'+focusContent+actions;
+      const smallPreview=article.querySelector('.cs-preview-window iframe');
+      if(smallPreview && focus?.focusAnchor){
+        smallPreview.addEventListener('load',()=>{
+          try{
+            const child=smallPreview.contentWindow;
+            const doc=smallPreview.contentDocument;
+            const target=doc?.getElementById(focus.focusAnchor);
+            if(!target)return;
+            const root=doc.documentElement;
+            const previous=root.style.scrollBehavior;
+            root.style.scrollBehavior='auto';
+            // Only move inside the iframe. No hash navigation or outer scrollIntoView.
+            child.scrollTo(0,Math.max(0,Math.round(target.getBoundingClientRect().top+child.scrollY-12)));
+            root.style.scrollBehavior=previous;
+          }catch(error){console.warn('Preview focus positioning unavailable for '+item.id,error);}
+        });
+      }
       elements.grid.append(article);
     }
     fitPreviewFrames();

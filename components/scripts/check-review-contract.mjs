@@ -15,5 +15,10 @@ for(const id of new Set(matchIds))if(!markup.includes('id="'+id+'"'))errors.push
 if(!source.includes("iframe.addEventListener('load'"))errors.push('No iframe load listener');
 if(!style.includes('.review-loading')||!style.includes('.review-error'))errors.push('Missing loading/error styles');
 if(source.includes('localStorage')||markup.includes('review-shortlist'))errors.push('Removed shortlist returned');
+if(!markup.includes('id="review-about"')||!markup.includes('id="review-best-for"')||!markup.includes('id="review-phone-about"'))errors.push('Missing three simple explanatory accordions');
+if(source.includes("+focusAnchor")||source.includes("scrollIntoView("))errors.push('Do not navigate preview iframe by hash/scrollIntoView');
+if(!source.includes('ba-showcase-pulse')||!source.includes("doc.addEventListener('pointerdown'"))errors.push('Missing first-interaction showcased section highlight');
+const catalogue=read('catalogue.js');
+if(catalogue.includes("const targetUrl=previewRoute+(focus?.focusAnchor"))errors.push('Catalogue preview iframe URLs must remain hash-free');
 if(errors.length){errors.forEach(x=>console.error('FAIL: '+x));process.exit(1)}
 console.log('Review DOM contract: '+matchIds.length+' JS references, version '+version+', loading and fallback verified');

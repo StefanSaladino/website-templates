@@ -36,7 +36,14 @@
         "Wordmark and link spacing",
         "Sticky behavior and mobile menu"
       ],
-      "focusAnchor": "top"
+      "focusAnchor": "top",
+      "explain": "A simple, always-available menu across the top of the page. It keeps the business name and important links easy to find without competing with the photographs or content.",
+      "bestFor": [
+        "Architects, interior designers and boutique studios",
+        "Consultants, accountants and professional services",
+        "Small businesses that want a calm, uncluttered website"
+      ],
+      "fitReason": "Choose this when visitors should find the essentials quickly and the work itself deserves the attention."
     }
   },
   {
@@ -93,7 +100,14 @@
         "Transparent-to-solid header transition",
         "Full-screen mobile menu alternative"
       ],
-      "focusAnchor": "head"
+      "focusAnchor": "head",
+      "explain": "A menu that sits over a large opening photograph. It feels part of the image at first, then becomes easier to read against a solid background as the visitor scrolls.",
+      "bestFor": [
+        "Hotels, resorts and vacation rentals",
+        "Luxury property and travel businesses",
+        "Photographers and image-led brands"
+      ],
+      "fitReason": "Choose this when a striking first photo is central to the impression you want visitors to have."
     }
   },
   {
@@ -308,7 +322,14 @@
         "Single clear enquiry action",
         "Compact layout at phone width"
       ],
-      "focusAnchor": "invitation"
+      "focusAnchor": "invitation",
+      "explain": "A short invitation that appears between other sections of a website. It has one easy-to-understand message and one clear button, without taking over the entire page.",
+      "bestFor": [
+        "Contractors and local trades",
+        "Consultants and professional services",
+        "Any service website that wants more quote or contact enquiries"
+      ],
+      "fitReason": "Useful when visitors may be ready to get in touch after viewing your work."
     }
   },
   {
@@ -345,7 +366,14 @@
         "Image contrast behind the message",
         "Dominant action and responsive crop"
       ],
-      "focusAnchor": "scene"
+      "focusAnchor": "scene",
+      "explain": "A large photograph combined with a short invitation and a prominent action. It encourages visitors to take the next step while keeping the atmosphere of the site.",
+      "bestFor": [
+        "Hotels, cabins and vacation rentals",
+        "Event venues and destination businesses",
+        "Experiences or services with compelling photography"
+      ],
+      "fitReason": "Works best when an attractive image helps convince visitors to make an enquiry or booking."
     }
   },
   {
@@ -429,7 +457,14 @@
         "Image composition and text placement",
         "Photo-first mobile option"
       ],
-      "focusAnchor": "top"
+      "focusAnchor": "top",
+      "explain": "A dramatic first screen built around one large photograph, a short message and a clear next step. The photo creates the mood before visitors explore the rest of the page.",
+      "bestFor": [
+        "Retreats, lodges and boutique hotels",
+        "Travel and outdoor-experience businesses",
+        "High-end homes or spaces with strong photography"
+      ],
+      "fitReason": "Best when you have a distinctive location, product or experience worth showing immediately."
     }
   },
   {
@@ -466,7 +501,14 @@
         "Text-to-photo proportion",
         "Mobile reading order"
       ],
-      "focusAnchor": "top"
+      "focusAnchor": "top",
+      "explain": "An opening section divided into two clear parts: a message on one side and a large photograph on the other. Visitors understand what you do while still seeing the quality of your work.",
+      "bestFor": [
+        "Renovation and home-building companies",
+        "Interior design and architectural firms",
+        "Professional services that need a clear introduction"
+      ],
+      "fitReason": "A good choice when clarity and photography matter equally."
     }
   },
   {
@@ -659,7 +701,14 @@
         "Even tile sizes and captions",
         "Click-to-expand lightbox"
       ],
-      "focusAnchor": "gallery"
+      "focusAnchor": "gallery",
+      "explain": "A clean collection of evenly sized photos. The consistent grid keeps the page orderly, and visitors can open individual images for a closer look.",
+      "bestFor": [
+        "Photography portfolios",
+        "Beauty, fashion and product collections",
+        "Businesses showing a consistent series of finished projects"
+      ],
+      "fitReason": "Works well when photographs should be easy to scan and compare."
     }
   },
   {
@@ -705,7 +754,14 @@
         "Asymmetric image arrangement",
         "Filter, enlarge and mobile rail"
       ],
-      "focusAnchor": "gallery"
+      "focusAnchor": "gallery",
+      "explain": "A gallery with images of different heights arranged in a more editorial way. Visitors can explore the collection and open photos without leaving the page.",
+      "bestFor": [
+        "Fashion and editorial photography",
+        "Creative studios and artist portfolios",
+        "Design-led brands with a mix of portrait and landscape images"
+      ],
+      "fitReason": "Choose this when the collection should feel expressive rather than perfectly uniform."
     }
   },
   {
@@ -1061,7 +1117,14 @@
         "Alternating section rhythm",
         "Expandable mobile service option"
       ],
-      "focusAnchor": "services"
+      "focusAnchor": "services",
+      "explain": "A services section where photos and descriptions take turns appearing on opposite sides. It gives each service room to be explained and illustrated.",
+      "bestFor": [
+        "Renovation contractors and custom home builders",
+        "Landscaping and outdoor-living businesses",
+        "Design and specialist service companies with several offerings"
+      ],
+      "fitReason": "A strong fit when you want to explain different services without making a dense list."
     }
   },
   {
@@ -1923,7 +1986,14 @@
         "Inline error feedback",
         "Demo enquiry summary (not sent)"
       ],
-      "focusAnchor": "form"
+      "focusAnchor": "form",
+      "explain": "A straightforward contact form with fields for name, email and a message. It checks the information entered and clearly shows what happens next. This example prepares a draft and does not send it.",
+      "bestFor": [
+        "Service companies and consultants",
+        "Designers, freelancers and small studios",
+        "Simple business websites that only need basic enquiries"
+      ],
+      "fitReason": "A sensible starting point when you want enquiries without asking visitors too many questions."
     }
   },
   {
