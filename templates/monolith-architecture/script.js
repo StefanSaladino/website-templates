@@ -34,3 +34,7 @@ document.querySelectorAll('main img').forEach(img=>{
   img.addEventListener('error',failed,{once:true});
   if(img.complete&&img.naturalWidth===0)failed();
 });
+
+/* ANIM-17: sticky editorial chapters with a real native-link active indicator. */
+const monolithChapters=document.querySelector('[data-motion-pattern="ANIM-17"]');
+if(monolithChapters){const cards=[...monolithChapters.querySelectorAll('[data-monolith-card]')],links=[...monolithChapters.querySelectorAll('[data-monolith-link]')],status=monolithChapters.querySelector('#monolith-story-status'),names=['Shape','Material','Light'];let active=-1,frame=null;function setActive(i){if(i===active)return;active=i;links.forEach((link,n)=>{if(i===n)link.setAttribute('aria-current','step');else link.removeAttribute('aria-current')});status.textContent='Chapter '+(i+1)+' of '+cards.length+': '+names[i]}function sync(){frame=null;let index=0;cards.forEach((card,n)=>{if(card.getBoundingClientRect().top<=180)index=n});setActive(index)}function schedule(){if(frame!==null)return;frame=requestAnimationFrame(sync)}links.forEach((link,i)=>link.addEventListener('click',()=>{setActive(i);schedule()}));addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);schedule()}

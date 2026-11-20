@@ -3707,16 +3707,47 @@
     "id": "ANIM-17",
     "category": "animations",
     "title": "Layered story stack",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architectural publication: stacked editorial chapter cards on scroll",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-17/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Small bounded layering with a normal linear document fallback."
+    "interactions": [
+      "scroll-driven-stack",
+      "chapter-navigation",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "editorial",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working isolated preview and matching full-page template; media rights and physical-device visual QA required.",
+    "reviewRoute": "./review.html?id=ANIM-17",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/monolith-architecture/index.html#chapters",
+    "fullTemplateName": "MONOLITH / Architecture Index",
+    "showcase": {
+      "label": "Animation and interaction",
+      "focus": "Layered architectural story chapters",
+      "summary": "Three editorial story cards stack on desktop scrolling and read linearly on phones or reduced-motion settings.",
+      "desktop": "Scroll or use the controls; then inspect the genuine full-page template integration.",
+      "mobile": "Linear document structure or finite touch controls stay available without forced movement.",
+      "lookFor": [
+        "Layered architectural story chapters",
+        "Accessible controls and reduced-motion fallback"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Three editorial story cards stack on desktop scrolling and read linearly on phones or reduced-motion settings.",
+      "bestFor": [
+        "Architectural storytelling",
+        "Portfolio work and craft-based products"
+      ],
+      "fitReason": "Intentional progression supports the narrative without trapping the user."
+    }
   },
   {
     "id": "ANIM-18",
@@ -3783,15 +3814,46 @@
     "id": "ANIM-20",
     "category": "animations",
     "title": "Step-controlled image carousel",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Product craft portfolio: navigating a finite sequence of still images",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-20/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Explicit arrows and position indicators; no unpausable autoplay."
+    "interactions": [
+      "previous-next",
+      "step-jump",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "editorial",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working isolated preview and matching full-page template; media rights and physical-device visual QA required.",
+    "reviewRoute": "./review.html?id=ANIM-20",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/woodworker/index.html#craft-showcase",
+    "fullTemplateName": "GRAIN & GABLE / Woodworker",
+    "showcase": {
+      "label": "Animation and interaction",
+      "focus": "Finite step-controlled portfolio carousel",
+      "summary": "Three still photographs advance only on button presses, with finite bounds, a visible step index, and reduced-motion handling.",
+      "desktop": "Scroll or use the controls; then inspect the genuine full-page template integration.",
+      "mobile": "Linear document structure or finite touch controls stay available without forced movement.",
+      "lookFor": [
+        "Finite step-controlled portfolio carousel",
+        "Accessible controls and reduced-motion fallback"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Three still photographs advance only on button presses, with finite bounds, a visible step index, and reduced-motion handling.",
+      "bestFor": [
+        "Architectural storytelling",
+        "Portfolio work and craft-based products"
+      ],
+      "fitReason": "Intentional progression supports the narrative without trapping the user."
+    }
   }
 ]
