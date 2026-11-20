@@ -17,7 +17,10 @@
         "CONTACT-02",
         "ABOUT-03",
         "MEDIA-04",
-        "BOOK-02"
+        "BOOK-02",
+        "NAV-05",
+        "GAL-04",
+        "GAL-07"
       ],
       "altText": "Pine forest and mountains surrounding a calm alpine lake",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1764590385310-7f4d28425241?auto=format&fit=crop&w=1900&q=82",
@@ -45,7 +48,10 @@
       "usageIds": [
         "CTA-02",
         "ABOUT-03",
-        "MEDIA-04"
+        "MEDIA-04",
+        "NAV-05",
+        "GAL-04",
+        "GAL-07"
       ],
       "altText": "Warm sun settling over a calm sea",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1763448817227-b7c23b0cea60?auto=format&fit=crop&w=1900&q=82",
