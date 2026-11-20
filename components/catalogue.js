@@ -53,7 +53,8 @@ try{
       const article=document.createElement('article');
       article.className='cs-item'+(item.status!=='live'?' cs-item--draft':'');
       const previewable=item.previewRoute&&(item.status==='live'||(planningMode&&item.status==='in-review'));
-      const cta=previewable?'<a href="'+escapeText(item.previewRoute)+'">'+(item.status==='live'?'Open working example':'Open development preview')+'</a>':'';
+      const destination=planningMode&&item.status==='in-review'&&item.reviewRoute?item.reviewRoute:item.previewRoute;
+      const cta=previewable?'<a href="'+escapeText(destination)+'">'+(item.status==='live'?'Open working example':'Compare development previews')+'</a>':'';
       article.innerHTML='<div class="cs-item-top"><span>'+escapeText(item.id)+'</span><span class="cs-item-status">'+(item.status==='live'?'Reviewed':item.status==='in-review'?'In review · not published':'Draft · not available')+'</span></div><h4>'+escapeText(item.title)+'</h4><p>'+escapeText(item.exampleContext)+'</p>'+cta;
       elements.grid.append(article);
     }

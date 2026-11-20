@@ -14,3 +14,21 @@ document.addEventListener('keydown',event=>{
  else if(!event.shiftKey && active===toggle){event.preventDefault();first.focus();}
 });
 const sync=()=>{head.classList.toggle('scrolled',window.scrollY>45);if(window.innerWidth>850&&!menu.hidden)close();};addEventListener('scroll',sync,{passive:true});addEventListener('resize',sync);sync();
+
+
+/* Phase 2 preview-mode selection */
+(() => {
+ const option = new URLSearchParams(location.search).get('mobile');
+ if (option === 'M-NAV-04') document.body.dataset.mobileTreatment = option;
+})();
+
+
+/* Phase 2 preview-mode selection */
+document.querySelectorAll('img').forEach(image=>{
+ image.addEventListener('error',()=>{
+   image.classList.add('pending-image');
+   image.setAttribute('alt','');
+   const wrapper=image.closest('.n3-scene,.h1-scene,.g2-photo,.s3-media,.c2-scene');
+   if(wrapper)wrapper.classList.add('image-pending');
+ },{once:true});
+});

@@ -2,3 +2,22 @@
 @media(max-width:900px){.g2-intro{grid-template-columns:1fr 1fr}.g2-intro h1{grid-column:1/-1;grid-row:2}.g2-intro p{grid-column:2;grid-row:1;max-width:260px}.g2-grid{gap:38px 16px}.g2-photo:nth-child(4n+2){margin-top:70px}.g2-photo b{font-size:19px}}
 @media(max-width:600px){.g2-header{min-height:65px;padding:12px 19px}.g2-header>span{display:none}.g2-intro{padding:85px 22px 63px;display:block}.g2-intro h1{margin-top:28px;font-size:clamp(76px,15vw,103px)}.g2-intro p{max-width:350px}.g2-work{padding:15px 18px 80px}.g2-tabs{overflow-x:auto;white-space:nowrap;margin-bottom:22px}.g2-tabs button{flex-shrink:0}.g2-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}.g2-photo{grid-column:span 1}.g2-photo:nth-child(n){margin:0}.g2-photo:nth-child(even){margin-top:40px}.g2-grid.filtered .g2-photo{margin:0}.g2-photo img{aspect-ratio:2/3}.g2-photo span{display:block;padding:10px 0}.g2-photo b{font-size:16px;display:block}.g2-photo small{display:block;font-size:9px;margin-top:4px}.g2-contact{padding:78px 20px}.g2-footer{padding:24px 20px;flex-direction:column}.g2-dialog:not([hidden]){padding:80px 11px 80px;gap:8px}.g2-dialog .g2-close{top:15px;right:13px}.g2-dialog .g2-previous,.g2-dialog .g2-next{position:absolute;bottom:15px}.g2-dialog .g2-previous{left:16px}.g2-dialog .g2-next{right:16px}.g2-dialog figure img{max-height:68vh}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.g2-photo img{transition:none}}
+
+
+/* Phase 2 alternate mobile treatment */
+@media(max-width:600px){
+  body[data-mobile-treatment="M-GAL-02"] .g2-mobile-rail-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 17px}
+  body[data-mobile-treatment="M-GAL-02"] .g2-mobile-rail-controls[hidden]{display:flex}
+  body[data-mobile-treatment="M-GAL-02"] .g2-mobile-rail-controls button{border:1px solid #79736b;background:#fff0;color:#211f1f;padding:11px 13px;min-height:44px;font-size:12px}
+  body[data-mobile-treatment="M-GAL-02"] .g2-mobile-rail-controls .g2-rail-status{font-size:12px;color:#4d4740;white-space:nowrap}
+  body[data-mobile-treatment="M-GAL-02"] .g2-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:0;overscroll-behavior-inline:contain;gap:16px;padding-bottom:16px;scrollbar-width:thin}
+  body[data-mobile-treatment="M-GAL-02"] .g2-photo,body[data-mobile-treatment="M-GAL-02"] .g2-photo:nth-child(n){display:block;flex:0 0 86%;width:86%;min-width:0;margin:0;scroll-snap-align:start}
+  body[data-mobile-treatment="M-GAL-02"] .g2-photo[hidden]{display:none!important}
+  body[data-mobile-treatment="M-GAL-02"] .g2-photo img{aspect-ratio:4/5}
+  body[data-mobile-treatment="M-GAL-02"] .g2-photo b{font-size:22px}
+}
+
+
+
+/* Phase 2 alternate mobile treatment */
+img.pending-image{visibility:hidden}.image-pending{background-color:#687b70;background-image:linear-gradient(130deg,rgba(15,46,43,.55),rgba(185,166,136,.3))}.g2-photo.image-pending{background-image:linear-gradient(140deg,#ccc3b7,#f3eee4)}.s3-media.image-pending{background-image:linear-gradient(135deg,#c9bfb3,#ece5da)}

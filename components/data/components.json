@@ -53,7 +53,11 @@
       "illustrative"
     ],
     "hasMobileLayout": true,
-    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
+    "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
+    "reviewRoute": "./review.html?id=NAV-03",
+    "mobileTreatmentIds": [
+      "M-NAV-04"
+    ]
   },
   {
     "id": "NAV-04",
@@ -271,7 +275,9 @@
       "illustrative"
     ],
     "hasMobileLayout": true,
-    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
+    "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
+    "reviewRoute": "./review.html?id=CTA-02",
+    "mobileTreatmentIds": []
   },
   {
     "id": "CTA-03",
@@ -339,7 +345,11 @@
       "illustrative"
     ],
     "hasMobileLayout": true,
-    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
+    "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
+    "reviewRoute": "./review.html?id=HERO-01",
+    "mobileTreatmentIds": [
+      "M-HERO-02"
+    ]
   },
   {
     "id": "HERO-02",
@@ -549,7 +559,11 @@
       "illustrative"
     ],
     "hasMobileLayout": true,
-    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
+    "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
+    "reviewRoute": "./review.html?id=GAL-02",
+    "mobileTreatmentIds": [
+      "M-GAL-02"
+    ]
   },
   {
     "id": "GAL-03",
@@ -889,7 +903,11 @@
       "illustrative"
     ],
     "hasMobileLayout": true,
-    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
+    "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
+    "reviewRoute": "./review.html?id=SRV-03",
+    "mobileTreatmentIds": [
+      "M-SRV-03"
+    ]
   },
   {
     "id": "SRV-04",
@@ -1737,7 +1755,9 @@
       "illustrative"
     ],
     "hasMobileLayout": true,
-    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
+    "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
+    "reviewRoute": "./review.html?id=FORM-01",
+    "mobileTreatmentIds": []
   },
   {
     "id": "FORM-02",
