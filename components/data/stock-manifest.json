@@ -82,7 +82,9 @@
         "HERO-03",
         "GAL-05",
         "GAL-06",
-        "TEAM-01"
+        "TEAM-01",
+        "PRICE-03",
+        "PROD-03"
       ],
       "altText": "Editorial fashion portrait, study one",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1632766984155-d42dd9affe85?auto=format&fit=crop&w=1000&q=80",
@@ -116,7 +118,8 @@
         "GAL-06",
         "ABOUT-01",
         "TEAM-01",
-        "ABOUT-04"
+        "ABOUT-04",
+        "PROD-03"
       ],
       "altText": "Editorial fashion portrait, study two",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1741298856762-1ff2f1204bc8?auto=format&fit=crop&w=1000&q=80",
@@ -148,7 +151,8 @@
         "HERO-03",
         "GAL-05",
         "GAL-06",
-        "TEAM-01"
+        "TEAM-01",
+        "PROD-03"
       ],
       "altText": "Editorial fashion portrait, study three",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1633994048003-071f6c11e26a?auto=format&fit=crop&w=1000&q=80",
@@ -220,7 +224,8 @@
         "ANIM-11",
         "SRV-01",
         "MEDIA-04",
-        "NEWS-02"
+        "NEWS-02",
+        "GAL-08"
       ],
       "altText": "Modern kitchen renovation with open shelving and pendant lights",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772567733000-5d5acb9ef4f9?auto=format&fit=crop&w=1400&q=82",
@@ -251,7 +256,8 @@
         "HERO-05",
         "GAL-03",
         "PRJ-02",
-        "ABOUT-03"
+        "ABOUT-03",
+        "GAL-08"
       ],
       "altText": "Contemporary interior with marble backsplash and kitchen island",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772567733061-f7b44c0587b0?auto=format&fit=crop&w=1400&q=82",
@@ -335,7 +341,8 @@
       "usageIds": [
         "MEDIA-01",
         "MEDIA-02",
-        "MEDIA-03"
+        "MEDIA-03",
+        "GAL-08"
       ],
       "altText": "Poster for sample creative-studio film",
       "temporaryPreviewUrl": "https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg?auto=compress&dpr=1&w=1800",
