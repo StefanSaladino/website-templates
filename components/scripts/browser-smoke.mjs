@@ -568,11 +568,12 @@ try{
  assert(await page.locator('#comp-range').inputValue()==='75'
   &&await page.locator('#comp-stage').evaluate(el=>el.style.getPropertyValue('--reveal')==='75%')
   &&await page.locator('[data-comp-preset="75"]').getAttribute('aria-pressed')==='true','M-UTIL-03 preset changes actual comparison reveal and button state');
+ await page.locator('#comp-stage').scrollIntoViewIfNeeded();
  const box=await page.locator('#comp-stage').boundingBox();
  await page.mouse.move(box.x+box.width*.2,box.y+box.height*.5);
  await page.mouse.down();await page.mouse.move(box.x+box.width*.62,box.y+box.height*.5,{steps:5});await page.mouse.up();
  const pct=Number(await page.locator('#comp-range').inputValue());
- assert(pct>=57&&pct<=67,'M-UTIL-03 direct pointer drag scrubs the comparison image');
+ assert(pct>=57&&pct<=67,'M-UTIL-03 direct pointer drag scrubs the comparison image (actual '+pct+'%; stage '+Math.round(box.width)+'px wide, top '+Math.round(box.y)+'px)');
  await page.locator('#comp-range').focus();
  const keyStart=Number(await page.locator('#comp-range').inputValue());
  await page.keyboard.press('ArrowLeft');
