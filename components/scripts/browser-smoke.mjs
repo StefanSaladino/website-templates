@@ -307,8 +307,10 @@ try{
    await page.locator('[data-a12-select="2"]').getAttribute('aria-pressed')==='true','ANIM-12 isolated project image exchange works');
  await page.goto(base+'previews/ANIM-17/index.html',{waitUntil:'domcontentloaded'});
  await page.locator('[data-a17-link="2"]').click();
- await page.waitForFunction(()=>document.querySelector('[data-a17-link="2"]')?.getAttribute('aria-current')==='step');
- assert((await page.locator('#a17-status').textContent()).includes('Light'),'ANIM-17 isolated stacked chapters update selection');
+ await page.waitForTimeout(960);
+ await page.waitForFunction(()=>document.querySelector('[data-a17-link="2"]')?.getAttribute('aria-current')==='step'
+  &&document.querySelector('#a17-status')?.textContent.includes('Light'));
+ assert((await page.locator('#a17-status').textContent()).includes('Light'),'ANIM-17 isolated stacked chapters hold the chosen reading chapter through smooth scrolling');
  await page.goto(base+'previews/ANIM-20/index.html',{waitUntil:'domcontentloaded'});
  await page.locator('[data-a20-next]').click();
  assert(await page.locator('[data-a20-slide="1"]').isVisible(),'ANIM-20 isolated carousel advances by an explicit action');
