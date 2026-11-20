@@ -20,3 +20,20 @@
  body[data-mobile-treatment="M-FRM-04"] .f1-action button{width:100%;min-height:52px}
 }
 
+
+/* M-FRM-01: dedicated mobile inquiry ticket, contrasting with the default long editorial introduction. */
+@media(max-width:650px){
+ body[data-mobile-treatment="M-FRM-01"] .f1-contact{display:flex;flex-direction:column;gap:24px;padding:28px 16px 72px;min-height:0}
+ body[data-mobile-treatment="M-FRM-01"] .f1-fields{order:1;background:#f5f2e9;border:1px solid #acbbb2;padding:24px 17px 28px;box-shadow:5px 5px 0 #c2cec2}
+ body[data-mobile-treatment="M-FRM-01"] .f1-intro{order:0}
+ body[data-mobile-treatment="M-FRM-01"] .f1-intro h1{font-size:clamp(42px,9.5vw,66px);line-height:.96;margin:18px 0}
+ body[data-mobile-treatment="M-FRM-01"] .f1-intro>p:not(.f1-disclosure){font-size:16px;line-height:1.5;margin:14px 0}
+ body[data-mobile-treatment="M-FRM-01"] .f1-disclosure{font-size:11px;line-height:1.5;margin:13px 0 0}
+ body[data-mobile-treatment="M-FRM-01"] .f1-field{gap:7px;margin-bottom:18px}
+ body[data-mobile-treatment="M-FRM-01"] .f1-field label{font-size:14px}
+ body[data-mobile-treatment="M-FRM-01"] .f1-field input,body[data-mobile-treatment="M-FRM-01"] .f1-field textarea{padding:13px 12px;background:#fff;border:1px solid #879a8e;font-size:16px;min-height:49px}
+ body[data-mobile-treatment="M-FRM-01"] .f1-field textarea{min-height:115px;max-height:300px}
+ body[data-mobile-treatment="M-FRM-01"] .f1-error{min-height:15px}
+ body[data-mobile-treatment="M-FRM-01"] .f1-action{display:grid;grid-template-columns:1fr;gap:10px}
+ body[data-mobile-treatment="M-FRM-01"] .f1-action button{width:100%;min-height:55px;font-size:15px}
+}
