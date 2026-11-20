@@ -3195,16 +3195,47 @@
     "id": "CAREER-02",
     "category": "careers",
     "title": "Team recruitment CTA",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Agency hiring photography and email",
-    "previewRoute": null,
+    "previewRoute": "./previews/CAREER-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-006"
+    ],
+    "interactions": [
+      "sample-discipline-selector",
+      "local-draft",
+      "clipboard-copy-real-result"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "careers",
+      "recruitment",
+      "photo-led",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive preview with deliberate phone composition; real browser/physical-device QA, third-party photography licensing and release acceptance still outstanding. All identities and transactions are demonstrative; no business claim, live consent service, subscription or application.",
+    "reviewRoute": "./review.html?id=CAREER-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Careers & recruitment",
+      "focus": "Photo-led fictional agency recruitment invitation",
+      "summary": "A striking stock-portrait recruitment CTA with a real local role-interest selector and reserved email copy control; no fake current vacancy, application or employer inbox.",
+      "desktop": "Full-height monochrome third-party portrait sits alongside an editorial recruitment story and sample role preview.",
+      "mobile": "Large monochrome non-staff photograph leads a readable talent overview and vertically composed non-sending interest form.",
+      "lookFor": [
+        "Stock portrait explicitly states the person is not staff or an applicant",
+        "Role selection produces an unsent draft; reserved example email copy reflects actual clipboard result"
+      ],
+      "focusAnchor": "career-showcase",
+      "explain": "An agency-style people CTA that demonstrates useful interaction without inventing opportunities, endorsements or employment.",
+      "bestFor": [
+        "Creative employers with a real culture and hiring process",
+        "Recruitment page layouts awaiting genuine vacancies and authentic photography"
+      ],
+      "fitReason": "Real openings, authorized team imagery, secure application route and employer privacy information are required before release."
+    }
   },
   {
     "id": "CAREER-03",
@@ -3424,16 +3455,47 @@
     "id": "FORM-05",
     "category": "forms",
     "title": "Newsletter consent",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Email opt-in with privacy text",
-    "previewRoute": null,
+    "previewRoute": "./previews/FORM-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "email-validation",
+      "frequency-radio",
+      "explicit-opt-in",
+      "native-details",
+      "non-sending-result"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "forms",
+      "newsletter",
+      "opt-in",
+      "privacy"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive preview with deliberate phone composition; real browser/physical-device QA, third-party photography licensing and release acceptance still outstanding. All identities and transactions are demonstrative; no business claim, live consent service, subscription or application.",
+    "reviewRoute": "./review.html?id=FORM-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Forms & validation",
+      "focus": "Consent-first standalone email form",
+      "summary": "A highly legible, field-led mailing-list form validates email, a required frequency choice and separately unchecked explicit opt-in before producing a NOT SUBSCRIBED result.",
+      "desktop": "Warm registration-stamp illustration beside a typography-led form emphasizing consent and readable policy detail.",
+      "mobile": "Stacked editorial heading, original stamp motif and large radio and consent controls with their own error messages.",
+      "lookFor": [
+        "Invalid email, missing cadence and unchecked consent are all blocked and identified",
+        "Successful local form never sends, stores or subscribes an address"
+      ],
+      "focusAnchor": "form-showcase",
+      "explain": "A form design variant focused on validity and permission controls rather than a visually led editorial newsletter page.",
+      "bestFor": [
+        "Brands validating an opt-in layout",
+        "Organizations comparing a compact newsletter consent UI"
+      ],
+      "fitReason": "Must be connected to an authorized provider, unsubscribes, accurate disclosures and compliant records for a real list."
+    }
   },
   {
     "id": "FORM-06",
@@ -3966,31 +4028,92 @@
     "id": "UI-04",
     "category": "interface",
     "title": "Carousel controls",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Image and reviews next previous",
-    "previewRoute": null,
+    "previewRoute": "./previews/UI-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "manual-carousel",
+      "previous-next",
+      "numbered-selection",
+      "arrow-home-end-keyboard",
+      "live-slide-count"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "interface",
+      "carousel",
+      "keyboard",
+      "abstract-art"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive preview with deliberate phone composition; real browser/physical-device QA, third-party photography licensing and release acceptance still outstanding. All identities and transactions are demonstrative; no business claim, live consent service, subscription or application.",
+    "reviewRoute": "./review.html?id=UI-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Interface & utilities",
+      "focus": "Manually controlled, keyboard-friendly project carousel",
+      "summary": "Three original CSS illustration panels with true previous/next navigation, numbered selection, keyboard support, and synchronized captions; no fabricated testimonials or projects.",
+      "desktop": "Gallery stage uses visual abstract material compositions beside a large typographic reading panel and deliberate navigation.",
+      "mobile": "Tall art frames move above the caption and controls; full-width touch targets, live count and correct end limits remain.",
+      "lookFor": [
+        "Next, Previous, numbered buttons and stage arrow keys actually swap visible artwork and caption text",
+        "No auto-rotation, false project photos, invented reviewer endorsements or disabled-controls ambiguity"
+      ],
+      "focusAnchor": "interface-showcase",
+      "explain": "A real gallery-control specimen with accessible count, bounded controls and original artwork rather than misleading stock projects.",
+      "bestFor": [
+        "Project galleries with genuine image permissions",
+        "Editorial portfolio or material exploration pages"
+      ],
+      "fitReason": "Pair with actual approved photos and truthful captions; do not use fictional samples as completed work."
+    }
   },
   {
     "id": "UI-05",
     "category": "interface",
     "title": "Sticky action",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Mobile booking or contact control",
-    "previewRoute": null,
+    "previewRoute": "./previews/UI-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "mobile-sticky-action",
+      "section-link",
+      "intersection-hide",
+      "local-enquiry-validation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "interface",
+      "sticky-cta",
+      "mobile-first",
+      "contractor"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive preview with deliberate phone composition; real browser/physical-device QA, third-party photography licensing and release acceptance still outstanding. All identities and transactions are demonstrative; no business claim, live consent service, subscription or application.",
+    "reviewRoute": "./review.html?id=UI-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Interface & utilities",
+      "focus": "A functional mobile sticky enquiry action",
+      "summary": "A fixed, safe-area-aware phone action scrolls to a real inquiry form and hides near the form; validation generates only a local sample scope note.",
+      "desktop": "Large industrial graphic, service synopsis and an obvious non-sticky section action show the component in its landing-page context.",
+      "mobile": "An intentional bottom action with safe area remains visible until the destination form enters view, then gets out of the way.",
+      "lookFor": [
+        "Sticky action leads to an actual labelled, functioning target section and does not cover the form",
+        "Scope and project-category validation produce an explicitly NOT SENT draft, not a false lead"
+      ],
+      "focusAnchor": "interface-showcase",
+      "explain": "An actual mobile conversion-control pattern, not a decorative fixed CTA in an empty template.",
+      "bestFor": [
+        "Contractors with a real inquiry funnel",
+        "Local service pages needing a visible phone call to action"
+      ],
+      "fitReason": "A live deployment needs truthful service offerings, a destination and a secured real lead process."
+    }
   },
   {
     "id": "UI-06",
@@ -4037,16 +4160,48 @@
     "id": "UI-07",
     "category": "interface",
     "title": "Floating help/FAQ",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Small help entry opening accessible panel",
-    "previewRoute": null,
+    "previewRoute": "./previews/UI-07/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "floating-help",
+      "native-dialog",
+      "search-filter",
+      "native-details",
+      "empty-state",
+      "focus-restoration"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "interface",
+      "floating-help",
+      "faq",
+      "accessible"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive preview with deliberate phone composition; real browser/physical-device QA, third-party photography licensing and release acceptance still outstanding. All identities and transactions are demonstrative; no business claim, live consent service, subscription or application.",
+    "reviewRoute": "./review.html?id=UI-07",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Interface & utilities",
+      "focus": "Searchable floating FAQ/help-sheet",
+      "summary": "A fixed help control opens a native, focus-managed FAQ sheet with genuinely searchable disclosures, clear no-results reset and no claim of staffed support.",
+      "desktop": "Editorial paper-cutout hero contextualizes a corner help launcher and independently scrollable search/disclosure panel.",
+      "mobile": "Help becomes a rounded-bottom sheet with clear close, responsive search, safe-area padding and large touch controls.",
+      "lookFor": [
+        "Launching the sheet moves focus inside and Escape restores it to the actual opener",
+        "Searching filters real FAQ content and no-match state offers a working reset"
+      ],
+      "focusAnchor": "interface-showcase",
+      "explain": "An accessible self-service help entry distinctly different from a lead dialog or an imaginary live-chat widget.",
+      "bestFor": [
+        "Service sites with a handful of vetted support topics",
+        "Complex offers needing persistent FAQ access"
+      ],
+      "fitReason": "Connect to truthful help content and a genuine support channel without inventing availability."
+    }
   },
   {
     "id": "LEGAL-01",
@@ -4094,31 +4249,92 @@
     "id": "LEGAL-02",
     "category": "legal",
     "title": "Privacy/terms links",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Footer policies and disclosure navigation",
-    "previewRoute": null,
+    "previewRoute": "./previews/LEGAL-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "in-page-policy-links",
+      "native-details",
+      "clipboard-link-with-result",
+      "footer-navigation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "legal",
+      "privacy",
+      "terms",
+      "anchors"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive preview with deliberate phone composition; real browser/physical-device QA, third-party photography licensing and release acceptance still outstanding. All identities and transactions are demonstrative; no business claim, live consent service, subscription or application.",
+    "reviewRoute": "./review.html?id=LEGAL-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Legal & transparency",
+      "focus": "Functional example policy and terms navigation",
+      "summary": "A three-section public information index with working in-page and footer links, native disclosure details and honest copy-link feedback—each nonbinding document plainly illustrative.",
+      "desktop": "Large typographic policy introduction, numbered emblem study and a structured long-form document ledger with real anchor routes.",
+      "mobile": "Large responsive navigation targets and document sections remain readable and internally linked without nested fake policy pages.",
+      "lookFor": [
+        "Every privacy/terms/external-services link navigates to a real destination",
+        "Copy-link controls report actual success or failure and sample content explicitly denies legally binding status"
+      ],
+      "focusAnchor": "legal-showcase",
+      "explain": "A complete demonstration of discoverable legal-information navigation without manufacturing valid policies for a fictional company.",
+      "bestFor": [
+        "Website footers requiring clearly labelled legal links",
+        "Design systems that organize policy and disclosure navigation"
+      ],
+      "fitReason": "Publication requires a legally reviewed site-specific policy and actual operator details."
+    }
   },
   {
     "id": "LEGAL-03",
     "category": "legal",
     "title": "Accessibility notice",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Site accessibility statement and feedback link",
-    "previewRoute": null,
+    "previewRoute": "./previews/LEGAL-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "larger-text-toggle",
+      "contrast-toggle",
+      "reset-reading",
+      "native-details",
+      "local-feedback-validation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "legal",
+      "accessibility",
+      "feedback",
+      "preferences"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functioning responsive preview with deliberate phone composition; real browser/physical-device QA, third-party photography licensing and release acceptance still outstanding. All identities and transactions are demonstrative; no business claim, live consent service, subscription or application.",
+    "reviewRoute": "./review.html?id=LEGAL-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Legal & transparency",
+      "focus": "Accessible feedback and readable accessibility statement",
+      "summary": "A candid sample accessibility statement with live text-size/contrast controls and a working unsent barrier-feedback form; no conformance certification is claimed.",
+      "desktop": "A spacious editorial accessibility page with reading controls, two detailed explanatory disclosures and a separate feedback area.",
+      "mobile": "Single-column oversized typography, stacked reading buttons and a simple locally validating feedback section.",
+      "lookFor": [
+        "Reading buttons actually change the sample appearance, pressed state and reset",
+        "Barrier feedback validates and only prepares a NOT SENT note, never implies a real support ticket"
+      ],
+      "focusAnchor": "legal-showcase",
+      "explain": "An accessibility information design that demonstrates practical controls while explicitly distinguishing a sample from an actual assessed site.",
+      "bestFor": [
+        "Organizations publishing an honest accessibility statement",
+        "Site teams designing a usable channel for reporting barriers"
+      ],
+      "fitReason": "Actual deployment needs real testing, a responsible team, accurate issues and genuinely operable feedback/contact routes."
+    }
   },
   {
     "id": "ANIM-01",
