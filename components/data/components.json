@@ -4279,13 +4279,13 @@
       "accessible"
     ],
     "hasMobileLayout": true,
-    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified.",
+    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified. Generated PDF is text-based but not tagged for full PDF accessibility; the matching semantic HTML menu is the accessible alternative.",
     "reviewRoute": "./review.html?id=MENU-04",
     "mobileTreatmentIds": [],
     "showcase": {
       "label": "Restaurant menus",
-      "focus": "Downloadable one-page PDF menu generated locally from actual visible sample content",
-      "summary": "A functional browser-generated PDF contains the same fictional menu shown on the page; a real download is triggered on user action, accompanied by accessible success/failure feedback, with no server or outside media.",
+      "focus": "Downloadable one-page text-based PDF menu with a readable HTML counterpart",
+      "summary": "A functional browser-generated PDF contains the same fictional menu shown on the page; a real local PDF download is triggered on user action, accompanied by accessible success/failure feedback, with no server or outside media.",
       "desktop": "An original abstract plated-food still life complements a dramatic two-column document-download invitation and full text menu below.",
       "mobile": "Hero copy, real download action, original still-life artwork and all menu text stack clearly without horizontal scrolling.",
       "lookFor": [
@@ -4293,7 +4293,7 @@
         "PDF and webpage prominently disclaim fictional dishes, prices and all allergen/dietary details; no venue, booking or payment is implied"
       ],
       "focusAnchor": "menu-showcase",
-      "explain": "A meaningful menu-document handoff with an actual generated artifact rather than a decorative PDF icon.",
+      "explain": "A meaningful untagged-PDF menu handoff with a readable HTML alternative with an actual generated artifact rather than a decorative PDF icon.",
       "bestFor": [
         "Restaurants with verified maintained PDF menus",
         "Venues wanting both readable HTML and downloadable menu documents"
