@@ -1823,6 +1823,94 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Eight completed responsive heroes, introductions and project concepts.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/HERO-06/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#poster').isVisible()
+  &&!await page.locator('#motion').getAttribute('src')
+  &&(await page.locator('#motion-status').textContent()).includes('not loaded'),'HERO-06 displays a poster without requesting large video until a visitor opts in');
+ await page.route('**/9489382-uhd_4096_2160_25fps.mp4',route=>route.abort());
+ await page.locator('#motion-toggle').click();
+ await page.waitForFunction(()=>Boolean(document.querySelector('#motion').getAttribute('src')));
+ assert((await page.locator('#motion').getAttribute('src')).includes('9489382-uhd')
+  &&(await page.locator('.credit').textContent()).includes('RIGHTS'),'HERO-06 only installs unrelated review-video URL after explicit user action');
+ await page.unroute('**/9489382-uhd_4096_2160_25fps.mp4');
+
+ await page.goto(base+'previews/HERO-08/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#stage').getAttribute('data-finish')==='sand'
+  &&await page.locator('[data-finish=sand]').getAttribute('aria-pressed')==='true','HERO-08 starts in original Sand illustrated state');
+ await page.locator('[data-finish=oxide]').click();
+ assert(await page.locator('#stage').getAttribute('data-finish')==='oxide'
+  &&(await page.locator('#stage').getAttribute('aria-label')).includes('rust-toned')
+  &&(await page.locator('#selected').textContent()).includes('Oxide'),'HERO-08 controls update the original ceramic illustration, accessible description and selection');
+ assert(await page.locator('.cta').getAttribute('href')==='#collection','HERO-08 hero CTA reaches a real collection section');
+
+ await page.goto(base+'previews/HERO-09/',{waitUntil:'domcontentloaded'});
+ const sourceOne=await page.locator('#main-image').getAttribute('src');
+ await page.locator('[data-study="1"]').click();
+ const sourceTwo=await page.locator('#main-image').getAttribute('src');
+ assert(sourceTwo!==sourceOne
+  &&(await page.locator('#main-caption').textContent()).includes('SEPARATE STOCK')
+  &&await page.locator('[data-study="1"]').getAttribute('aria-pressed')==='true','HERO-09 numbered index swaps actual separate stock photograph, caption and selected state');
+ await page.locator('[data-study="2"]').click();
+ assert((await page.locator('#main-image').getAttribute('alt')).includes('wood cabinetry'),'HERO-09 accessible image description updates with actual selected study');
+
+ await page.goto(base+'previews/INTRO-02/',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-choice=objects]').click();
+ assert(await page.locator('#selected-art').getAttribute('data-choice')==='objects'
+  &&await page.locator('#selected-link').getAttribute('href')==='#objects'
+  &&(await page.locator('#selected-title').textContent()).includes('Matter'),'INTRO-02 selected category changes illustration, text and real destination');
+ await page.locator('#selected-link').click();
+ assert(await page.evaluate(()=>location.hash)==='#objects','INTRO-02 category index links to an actual page chapter');
+
+ await page.goto(base+'previews/INTRO-03/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('.hero-photo>span').textContent()).includes('NOT OUR PEOPLE'),'INTRO-03 clearly disclaims unrelated workshop photograph');
+ await page.locator('.accordions details').nth(0).locator('summary').click();
+ assert(await page.locator('.accordions details').nth(0).evaluate(el=>el.open),'INTRO-03 native principle disclosure opens');
+ await page.locator('.accordions details').nth(1).locator('summary').click();
+ assert(await page.locator('.accordions details').nth(1).evaluate(el=>el.open)
+  &&!await page.locator('.accordions details').nth(0).evaluate(el=>el.open),'INTRO-03 keeps just one original manifesto principle open');
+
+ await page.goto(base+'previews/PRJ-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#scene').getAttribute('data-phase')==='before'
+  &&await page.locator('[data-phase=before]').getAttribute('aria-pressed')==='true','PRJ-04 starts with the actual conceptual room before state');
+ await page.locator('[data-phase=process]').click();
+ assert(await page.locator('#scene').getAttribute('data-phase')==='process'
+  &&(await page.locator('#step-title').textContent()).includes('thinking'),'PRJ-04 process control changes CSS conceptual room and narrative');
+ await page.locator('[data-phase=after]').click();
+ assert(await page.locator('#scene').getAttribute('data-phase')==='after'
+  &&(await page.locator('#scene').getAttribute('aria-label')).includes('not a real renovation'),'PRJ-04 after is a genuinely different illustrated room, without claiming a completed job');
+
+ await page.goto(base+'previews/PRJ-05/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.index a[data-chapter]').count()===3
+  &&await page.locator('#material .material-art').isVisible(),'PRJ-05 contains three real narrative chapters and original concept artwork');
+ await page.locator('.index a[href="#material"]').click();
+ assert(await page.evaluate(()=>location.hash)==='#material','PRJ-05 active case-study index links to real material chapter');
+ await page.locator('#context summary').click();
+ assert(await page.locator('#context details').evaluate(el=>el.open)
+  &&(await page.locator('#context details').textContent()).includes('no site'),'PRJ-05 sample case-study detail explicitly discloses no real client or construction');
+
+ await page.goto(base+'previews/PRJ-06/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[role=tab]').count()===3
+  &&await page.locator('#scene').getAttribute('data-scene')==='garden','PRJ-06 starts with three accessible concept tabs and original garden diagram');
+ await page.locator('#tab-garden').focus();
+ await page.keyboard.press('ArrowDown');
+ assert(await page.locator('#tab-courtyard').getAttribute('aria-selected')==='true'
+  &&await page.locator('#scene').getAttribute('data-scene')==='courtyard'
+  &&(await page.locator('#title').textContent()).includes('Courtyard'),'PRJ-06 keyboard switches real landscape illustration and text');
+ await page.keyboard.press('End');
+ assert(await page.locator('#tab-passage').getAttribute('aria-selected')==='true'
+  &&(await page.locator('#concept-panel').getAttribute('aria-labelledby'))==='tab-passage','PRJ-06 keyboard End updates the selected accessible project panel');
+
+ for(const id of ['HERO-06','HERO-08','HERO-09','INTRO-02','INTRO-03','PRJ-04','PRJ-05','PRJ-06']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const widths=await page.evaluate(()=>({screen:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(widths.document<=widths.screen+2,id+' avoids horizontal page overflow at 320px ('+widths.document+'/'+widths.screen+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
