@@ -1,5 +1,169 @@
 {
   "schemaVersion": 1,
-  "notes": "No stock imagery approved yet. Add an individual rights-reviewed record before importing assets or releasing image-dependent examples.",
-  "assets": []
+  "notes": "Phase 2 in review: exact free Unsplash source pages and photographers recorded. These are temporary hotlinked development images ONLY; download authorized files, optimize, review crops/releases, and move to local assets before any component is marked live. Do not distribute the original images separately.",
+  "assets": [
+    {
+      "id": "STOCK-001",
+      "sourceUrl": "https://unsplash.com/photos/a-serene-lake-surrounded-by-pine-trees-and-mountains-A3Z9_C4xzEU",
+      "photographer": "Erik Fabian",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Landscape photography of Lago di Braies, Italy. Does not depict a real location for the fictional hotel brand. Rights license visible at source; local copy and crop review pending.",
+      "usageIds": [
+        "NAV-03",
+        "HERO-01"
+      ],
+      "altText": "Pine forest and mountains surrounding a calm alpine lake",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1764590385310-7f4d28425241?auto=format&fit=crop&w=1900&q=82",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    },
+    {
+      "id": "STOCK-002",
+      "sourceUrl": "https://unsplash.com/photos/sun-setting-over-a-calm-ocean-horizon-eldkvRrPCVY",
+      "photographer": "insung yoon",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Landscape photograph, no identifiable people or branding known from source description. Verify actual downloaded image and crop before release.",
+      "usageIds": [
+        "CTA-02"
+      ],
+      "altText": "Warm sun settling over a calm sea",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1763448817227-b7c23b0cea60?auto=format&fit=crop&w=1900&q=82",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    },
+    {
+      "id": "STOCK-003",
+      "sourceUrl": "https://unsplash.com/photos/a-close-up-of-a-woman-qEx37VRlEDs",
+      "photographer": "Nora Hutton",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Recognizable person's likeness; do not imply model endorses or works for fictional studio. Model-release status unverified.",
+      "usageIds": [
+        "GAL-02"
+      ],
+      "altText": "Editorial fashion portrait, study one",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1632766984155-d42dd9affe85?auto=format&fit=crop&w=1000&q=80",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    },
+    {
+      "id": "STOCK-004",
+      "sourceUrl": "https://unsplash.com/photos/a-woman-poses-elegantly-for-a-portrait-Z296_iJ-MLo",
+      "photographer": "Venti Views",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Recognizable person's likeness; do not imply endorsement. Model-release status unverified.",
+      "usageIds": [
+        "GAL-02"
+      ],
+      "altText": "Editorial fashion portrait, study two",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1741298856762-1ff2f1204bc8?auto=format&fit=crop&w=1000&q=80",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    },
+    {
+      "id": "STOCK-005",
+      "sourceUrl": "https://unsplash.com/photos/a-woman-in-a-black-dress-posing-for-a-picture-aHJ0hciTzG4",
+      "photographer": "Simone Perrone",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Recognizable person's likeness; do not imply endorsement. Model-release status unverified.",
+      "usageIds": [
+        "GAL-02"
+      ],
+      "altText": "Editorial fashion portrait, study three",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1633994048003-071f6c11e26a?auto=format&fit=crop&w=1000&q=80",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    },
+    {
+      "id": "STOCK-006",
+      "sourceUrl": "https://unsplash.com/photos/black-and-white-portrait-of-a-young-woman-lhIo1TIgGPs",
+      "photographer": "Brian Wangenheim",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Recognizable person's likeness; do not imply endorsement. Model-release status unverified.",
+      "usageIds": [
+        "GAL-02"
+      ],
+      "altText": "Monochrome editorial portrait, study four",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1766299231533-27fb998d1a6e?auto=format&fit=crop&w=1000&q=80",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    },
+    {
+      "id": "STOCK-007",
+      "sourceUrl": "https://unsplash.com/photos/modern-kitchen-with-open-shelving-and-pendant-lights-oCp9MYiElKE",
+      "photographer": "Franco Debartolo",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Interior property and distinctive design: source license checked but property/third-party rights and suitability for commercial service demo require review.",
+      "usageIds": [
+        "SRV-03"
+      ],
+      "altText": "Modern kitchen renovation with open shelving and pendant lights",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772567733000-5d5acb9ef4f9?auto=format&fit=crop&w=1400&q=82",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    },
+    {
+      "id": "STOCK-008",
+      "sourceUrl": "https://unsplash.com/photos/modern-kitchen-with-island-and-marble-backsplash-hhDYh0_YQIA",
+      "photographer": "Franco Debartolo",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Interior/architectural rights review pending. Image is demonstrative stock, never presented as original builder's work.",
+      "usageIds": [
+        "SRV-03"
+      ],
+      "altText": "Contemporary interior with marble backsplash and kitchen island",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772567733061-f7b44c0587b0?auto=format&fit=crop&w=1400&q=82",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    },
+    {
+      "id": "STOCK-009",
+      "sourceUrl": "https://unsplash.com/photos/modern-kitchen-with-wood-cabinets-and-marble-backsplash-PkV2k48-N6E",
+      "photographer": "Franco Debartolo",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": "2026-11-19",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Interior/architectural rights review pending. Image is demonstrative stock, not actual client construction work.",
+      "usageIds": [
+        "SRV-03"
+      ],
+      "altText": "Wood cabinetry and marble backsplash in contemporary kitchen",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1771287490583-ab03482ba338?auto=format&fit=crop&w=1400&q=82",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": []
+    }
+  ]
 }

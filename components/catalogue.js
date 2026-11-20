@@ -20,7 +20,7 @@ try{
   const [categories,components]=await Promise.all([loadJSON('./data/categories.json'),loadJSON('./data/components.json')]);
   const live=components.filter(c=>c.status==='live');
   const visible=planningMode?components:live;
-  if(planningMode)elements.hint.textContent='Planning view: unreleased examples are labelled Draft and cannot be selected.';
+  if(planningMode)elements.hint.textContent='Planning view: unreleased examples are labelled Draft or In review and are not yet selectable.';
   elements.stats.innerHTML='<span><strong>'+categories.length+'</strong>section families</span><span><strong>'+components.length+'</strong>planned options</span><span><strong>'+live.length+'</strong>ready to explore</span>';
   const labelById=new Map(categories.map(category=>[category.id,category.title]));
   const showCategories=()=>{
@@ -52,8 +52,9 @@ try{
     for(const item of matches){
       const article=document.createElement('article');
       article.className='cs-item'+(item.status!=='live'?' cs-item--draft':'');
-      const cta=item.status==='live'&&item.previewRoute?'<a href="'+escapeText(item.previewRoute)+'">Open working example</a>':'';
-      article.innerHTML='<div class="cs-item-top"><span>'+escapeText(item.id)+'</span><span class="cs-item-status">'+(item.status==='live'?'Reviewed':'Draft · not available')+'</span></div><h4>'+escapeText(item.title)+'</h4><p>'+escapeText(item.exampleContext)+'</p>'+cta;
+      const previewable=item.previewRoute&&(item.status==='live'||(planningMode&&item.status==='in-review'));
+      const cta=previewable?'<a href="'+escapeText(item.previewRoute)+'">'+(item.status==='live'?'Open working example':'Open development preview')+'</a>':'';
+      article.innerHTML='<div class="cs-item-top"><span>'+escapeText(item.id)+'</span><span class="cs-item-status">'+(item.status==='live'?'Reviewed':item.status==='in-review'?'In review · not published':'Draft · not available')+'</span></div><h4>'+escapeText(item.title)+'</h4><p>'+escapeText(item.exampleContext)+'</p>'+cta;
       elements.grid.append(article);
     }
     elements.empty.hidden=matches.length!==0;

@@ -33,16 +33,27 @@
     "id": "NAV-03",
     "category": "headers",
     "title": "Transparent overlay",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Hotel hero image with readable overlay menu",
-    "previewRoute": null,
+    "previewRoute": "./previews/NAV-03/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-001"
+    ],
+    "interactions": [
+      "sticky-header",
+      "responsive-menu",
+      "keyboard-focus-trap",
+      "escape-to-close"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-2",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
   },
   {
     "id": "NAV-04",
@@ -243,16 +254,24 @@
     "id": "CTA-02",
     "category": "calls-to-action",
     "title": "Image-backed CTA",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Hospitality sunset image and availability action",
-    "previewRoute": null,
+    "previewRoute": "./previews/CTA-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-002"
+    ],
+    "interactions": [
+      "anchor-scroll"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-2",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
   },
   {
     "id": "CTA-03",
@@ -303,16 +322,24 @@
     "id": "HERO-01",
     "category": "heroes",
     "title": "Full-bleed photography",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Retreat shoreline photo with short stay message",
-    "previewRoute": null,
+    "previewRoute": "./previews/HERO-01/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-001"
+    ],
+    "interactions": [
+      "anchor-scroll"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-2",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
   },
   {
     "id": "HERO-02",
@@ -498,16 +525,31 @@
     "id": "GAL-02",
     "category": "galleries",
     "title": "Masonry editorial",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Fashion portrait staggered columns",
-    "previewRoute": null,
+    "previewRoute": "./previews/GAL-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-003",
+      "STOCK-004",
+      "STOCK-005",
+      "STOCK-006"
+    ],
+    "interactions": [
+      "gallery-filter",
+      "modal-lightbox",
+      "keyboard-arrows",
+      "escape-to-close",
+      "focus-restoration"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-2",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
   },
   {
     "id": "GAL-03",
@@ -828,16 +870,26 @@
     "id": "SRV-03",
     "category": "services",
     "title": "Alternating split rows",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Renovation services by image",
-    "previewRoute": null,
+    "previewRoute": "./previews/SRV-03/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-007",
+      "STOCK-008",
+      "STOCK-009"
+    ],
+    "interactions": [
+      "native-details"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-2",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
   },
   {
     "id": "SRV-04",
@@ -1668,16 +1720,24 @@
     "id": "FORM-01",
     "category": "forms",
     "title": "Minimal contact",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Name email message",
-    "previewRoute": null,
+    "previewRoute": "./previews/FORM-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "required-field-validation",
+      "client-only-inquiry-summary",
+      "copy-to-clipboard"
+    ],
+    "integrationLevel": "client-side-demo",
+    "designTags": [
+      "phase-2",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Development preview only. Image-based examples still use temporary externally hosted stock and require local rights/crop review and real browser/Safari QA before approval; no form submissions are sent."
   },
   {
     "id": "FORM-02",
