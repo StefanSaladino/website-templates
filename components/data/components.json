@@ -114,16 +114,45 @@
     "id": "NAV-04",
     "category": "headers",
     "title": "Utility/contact header",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Contractor with phone and estimate action",
-    "previewRoute": null,
+    "previewRoute": "./previews/NAV-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "mobile-menu",
+      "keyboard-Escape",
+      "focus-management"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "service-business"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working demo with real responsive layout; final client visual approval deferred. All example branding is fictional.",
+    "reviewRoute": "./review.html?id=NAV-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Header & navigation",
+      "focus": "Contact-first contractor header",
+      "summary": "The highlighted part is the entire top navigation: service area, business name, links and the prominent project enquiry button.",
+      "desktop": "A narrow utility bar sits above the main header, with important links and an estimate action always easy to spot.",
+      "mobile": "The header compresses to a brand and large menu button; opening the menu reveals the links and the estimate action.",
+      "lookFor": [
+        "Phone-friendly menu controls",
+        "Enquiry action in the header"
+      ],
+      "focusAnchor": "header-feature",
+      "explain": "A practical header that keeps contact and project enquiries prominent rather than hiding them at the bottom of the website.",
+      "bestFor": [
+        "Construction and renovation businesses",
+        "Roofing, landscaping and local trades",
+        "Service providers taking estimate requests"
+      ],
+      "fitReason": "Best when visitors should find the services offered and how to request a quote immediately."
+    }
   },
   {
     "id": "NAV-05",
@@ -575,16 +604,45 @@
     "id": "HERO-07",
     "category": "heroes",
     "title": "Service/conversion hero",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Detailing studio key offer and booking action",
-    "previewRoute": null,
+    "previewRoute": "./previews/HERO-07/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-010"
+    ],
+    "interactions": [
+      "real-anchor-links"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "service-business"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working demo with real responsive layout; final client visual approval deferred. All example branding is fictional.",
+    "reviewRoute": "./review.html?id=HERO-07",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Hero section",
+      "focus": "Service-first conversion hero",
+      "summary": "This opening section pairs a clear service promise with buttons that lead toward a consultation or the list of treatments.",
+      "desktop": "A strong heading and two useful actions sit beside one substantial vehicle image.",
+      "mobile": "The headline and consultation action come first; the vehicle photograph follows without obscuring the message.",
+      "lookFor": [
+        "Clear enquiry button",
+        "Service promise plus imagery"
+      ],
+      "focusAnchor": "hero-showcase",
+      "explain": "A hero designed to explain a business's main service quickly and lead interested visitors to an enquiry.",
+      "bestFor": [
+        "Automotive detailing and specialty garages",
+        "Local service businesses with a premium offer",
+        "Companies that prioritize consultations over online shopping"
+      ],
+      "fitReason": "Ideal when explaining the offer and generating enquiries matters more than showcasing a long portfolio."
+    }
   },
   {
     "id": "HERO-08",
@@ -1296,16 +1354,43 @@
     "id": "PROC-01",
     "category": "process",
     "title": "Numbered timeline",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Builder consultation design build",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROC-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "native-disclosure"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "service-business"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working demo with real responsive layout; final client visual approval deferred. All example branding is fictional.",
+    "reviewRoute": "./review.html?id=PROC-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Process section",
+      "focus": "Numbered project timeline",
+      "summary": "The highlighted section shows four clear stages from first conversation to handover; tap any stage's disclosure to read more.",
+      "desktop": "Generous numbered rows create a calm sequence, with each step opening to reveal additional details.",
+      "mobile": "The stages stay numbered and readable in a vertical timeline with easy-to-tap disclosures.",
+      "lookFor": [
+        "Four-stage readable sequence",
+        "Expandable stage descriptions"
+      ],
+      "focusAnchor": "process-showcase",
+      "explain": "A structured explanation of how a project moves from the first call through planning, delivery and completion.",
+      "bestFor": [
+        "Custom home builders and renovation contractors",
+        "Design studios and architects",
+        "Consultants or service firms with a multi-step process"
+      ],
+      "fitReason": "Helpful when clients have questions about what happens after making the first enquiry."
+    }
   },
   {
     "id": "PROC-02",

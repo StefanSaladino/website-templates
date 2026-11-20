@@ -249,6 +249,30 @@
         "local-download-pending",
         "visual-crop-pending"
       ]
+    },
+    {
+      "id": "STOCK-010",
+      "sourceUrl": "https://unsplash.com/photos/a-black-sports-car-parked-in-a-showroom-CMIwWDjAAxc",
+      "photographer": "Komorebi Photo",
+      "platform": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Unsplash source lists photographer and a free Unsplash License. Illustrative image for a fictional detailing studio; no implication the car or showroom is client work. Trademark/vehicle imagery context and final license/crop review pending.",
+      "usageIds": [
+        "HERO-07"
+      ],
+      "altText": "Black sports car parked in a showroom",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1666887509159-797b77fc5ef5?auto=format&fit=crop&w=1450&q=82",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "recognizable-vehicle-brand",
+        "final-rights-review-pending",
+        "remote-image-visual-review-pending"
+      ]
     }
   ]
 }
