@@ -1,0 +1,1 @@
+const stage=document.querySelector('#comp-stage'),range=document.querySelector('#comp-range'),value=document.querySelector('#comp-value');range.addEventListener('input',()=>{stage.style.setProperty('--reveal',range.value+'%');value.textContent=range.value+'%';});
