@@ -98,3 +98,9 @@ a{color:inherit}button,input{font:inherit}
 .review-spotlight--active{animation:baViewerSpotlight 2.4s ease-out both}
 @keyframes baViewerSpotlight{0%{opacity:0}12%,79%{opacity:1}100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.review-spotlight--active{animation:none;opacity:1}}
+
+/* The review fieldset supports multiple distinct phone styles for one source component. */
+.review-mobile-variants{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-width:0}
+.review-phone-styles{flex:1 1 380px}
+.review-phone-styles legend{flex:0 0 auto}
+@media(max-width:620px){.review-phone-styles{flex-basis:100%}.review-mobile-variants{max-width:100%}.review-phone-styles label{font-size:12px;padding:10px 13px;min-height:44px}}

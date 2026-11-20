@@ -54,7 +54,7 @@ async function runCase(item, device, hostWidth, alt=null, shot=false){
  assert(await page.locator('#review-error').isHidden(),item.id+' '+device+': review loaded without error');
  if(device!==(hostWidth<640?'phone':'desktop'))await page.locator('input[name=device][value='+device+']').check({force:true});
  if(alt){
-  await page.locator('input[name=mobile][value=alternate]').check({force:true});
+  await page.locator('input[name=mobile][value='+alt.id+']').check({force:true});
   await page.waitForFunction(()=>document.querySelector('#review-highlight')?.disabled===false,{timeout:10000});
  }
  // Allow selected iframe width and responsive layout to settle for two frames.

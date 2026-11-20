@@ -10,8 +10,7 @@ const design = examples.get(requested) || examples.values().next().value;
 if(!design) throw new Error('No preview examples are available');
 const loading = document.querySelector('#review-loading');
 const errorPanel = document.querySelector('#review-error');
-const alternativeId = (design.mobileTreatmentIds || []).find(id => treatmentMap.has(id) && treatmentMap.get(id).status !== 'draft');
-const alternative = alternativeId ? treatmentMap.get(alternativeId) : null;
+const alternatives = (design.mobileTreatmentIds || []).map(id => treatmentMap.get(id)).filter(item => item && item.status !== 'draft' && item.compatibleComponentIds?.includes(design.id));
 const title = document.querySelector('#review-title');
 const frame = document.querySelector('#review-frame');
 const iframe = document.querySelector('#review-iframe');
@@ -27,7 +26,7 @@ const highlightFeedback = document.querySelector('#review-highlight-feedback');
 const spotlight=document.querySelector('#review-spotlight');
 const stage=document.querySelector('.review-stage');
 const phoneChoices = document.querySelector('#review-mobile-choices');
-const alternateChoice = document.querySelector('#review-alt-choice');
+const variantChoices = document.querySelector('#review-mobile-variants');
 const sizes = {desktop:{width:1440,height:900,name:'computer'}, tablet:{width:768,height:900,name:'tablet'}, phone:{width:390,height:780,name:'phone'}};
 const deviceControls = [...document.querySelectorAll('input[name=device]')];
 const zoomControls = [...document.querySelectorAll('input[name=zoom]')];
@@ -59,10 +58,15 @@ for(const useCase of focus.bestFor || []){
   bestForList.append(li);
 }
 document.querySelector('#review-phone-text').textContent = focus.mobile || 'This design changes to fit smaller screens.';
-if(alternative){
-  alternateChoice.hidden = false;
-  document.querySelector('#review-alt-name').textContent = 'Style 2 · '+alternative.title;
-}
+// Each built component has a fully responsive default. Variations are independent phone design choices.
+alternatives.forEach((alternative,index)=>{
+  const label=document.createElement('label');
+  const radio=document.createElement('input');
+  radio.type='radio';radio.name='mobile';radio.value=alternative.id;
+  const caption=document.createElement('span');
+  caption.textContent='Style '+(index+2)+' · '+alternative.title;
+  label.append(radio,caption);variantChoices.append(label);
+});
 const defaultDevice = window.innerWidth < 640 ? 'phone' : 'desktop';
 document.querySelector('input[name=device][value='+defaultDevice+']').checked = true;
 let lastDevice = null, lastZoom = null;
@@ -102,7 +106,8 @@ function sizeFrame(){
 function render(){
   const device = selectedValue('device');
   const phoneStyle = device === 'phone' ? selectedValue('mobile') : 'default';
-  const url = './previews/'+design.id+'/index.html'+(phoneStyle === 'alternate' && alternative ? '?mobile='+encodeURIComponent(alternative.id) : '');
+  const chosen = alternatives.find(item => item.id === phoneStyle);
+  const url = './previews/'+design.id+'/index.html'+(chosen ? '?mobile='+encodeURIComponent(chosen.id) : '');
   if(iframe.getAttribute('src') !== url) {
     loading.hidden = false;
     spotlight.hidden=true;
@@ -114,7 +119,7 @@ function render(){
     iframe.src = url;
   }
   document.querySelector('#review-open').href = url;
-  phoneChoices.hidden = device !== 'phone' || !alternative;
+  phoneChoices.hidden = device !== 'phone' || alternatives.length === 0;
   sizeFrame();
 }
 [...deviceControls, ...document.querySelectorAll('input[name=mobile]'), ...zoomControls].forEach(input => input.addEventListener('change',render));

@@ -42,6 +42,14 @@ if(!Array.isArray(stock.assets))fail('Stock manifest must contain assets[]');
 if(mobile.length!==44)fail('Mobile treatment baseline must include 44 options');
 const mobileIds=new Set();for(const m of mobile){if(mobileIds.has(m.id))fail('Duplicate mobile treatment '+m.id);mobileIds.add(m.id);if(!/^M-[A-Z]+-\d{2}$/.test(m.id))fail('Bad mobile ID '+m.id);for(const parent of m.compatibleComponentIds||[])if(!componentIds.has(parent))fail('Invalid parent '+parent+' for '+m.id);if(m.status==='in-review'&&(!m.previewRoute||!m.compatibleComponentIds.length))fail('Incomplete mobile preview '+m.id)}
 
+// Multiple phone variations may share a parent, but every active variation must be linked exactly once.
+for(const item of components.filter(x=>x.status!=='draft')){
+ const variants=item.mobileTreatmentIds||[];
+ if(new Set(variants).size!==variants.length)fail('Duplicate mobile variation on '+item.id);
+ for(const id of variants){const match=mobile.find(x=>x.id===id);
+  if(!match||match.status==='draft'||!match.compatibleComponentIds?.includes(item.id))fail('Broken phone variation reference '+id+' on '+item.id);
+ }
+}
 for(const m of mobile.filter(x=>x.status!=='draft')){
  if(m.compatibleComponentIds.length!==1)fail('One parent per active mobile treatment: '+m.id);
  const parent=components.find(x=>x.id===m.compatibleComponentIds[0]);
