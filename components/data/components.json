@@ -1132,16 +1132,49 @@
     "id": "HERO-06",
     "category": "heroes",
     "title": "Video background",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Fitness campaign with muted video and poster fallback",
-    "previewRoute": null,
+    "previewRoute": "./previews/HERO-06/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-011"
+    ],
+    "interactions": [
+      "on-demand-video",
+      "muted-loop-playback",
+      "pause-and-resume",
+      "poster-fallback",
+      "reduced-motion-still-default"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "hero",
+      "video",
+      "fitness",
+      "poster-first"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct actual responsive source preview; original CSS artwork or third-party media identified with truthful boundaries. Browser/real-device QA, stock licensing and release acceptance not yet verified. No invented client commissions, booking, product sales or professional qualifications.",
+    "reviewRoute": "./review.html?id=HERO-06",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Hero sections",
+      "focus": "Consentful video backdrop with muted playback and poster fallback",
+      "summary": "A dramatic fictional fitness hero shows a sample poster first and requests unapproved UHD stock footage only after the user clicks Play; real Pause/status and fallback controls preserve the visual if media fails.",
+      "desktop": "Full-viewport cinematic backdrop with oversized text, primary programme link and explicit play or pause action.",
+      "mobile": "Portrait-style deep composition keeps readable text, stacked actions, and a still-poster-first experience on phone.",
+      "lookFor": [
+        "Video source is added only on a real playback gesture and play/pause status reflects actual outcomes rather than a fake control",
+        "Sample film and studio are unrelated and rights-unapproved; no real classes, employees, availability or fitness results are claimed"
+      ],
+      "focusAnchor": "hero-showcase",
+      "explain": "A functional muted-background-video hero that respects user initiation and a still poster alternative.",
+      "bestFor": [
+        "Fitness brands with permission-cleared motion footage",
+        "Campaign landing pages with real program details and video assets"
+      ],
+      "fitReason": "Needs optimized licensed footage, truthful class offerings, production autoplay review and independent accessibility/device checks."
+    }
   },
   {
     "id": "HERO-07",
@@ -1191,31 +1224,96 @@
     "id": "HERO-08",
     "category": "heroes",
     "title": "Product hero",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Artisan object close-up with shop collection link",
-    "previewRoute": null,
+    "previewRoute": "./previews/HERO-08/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "illustrative-finish-switch",
+      "css-object-color-update",
+      "real-collection-anchor",
+      "live-visual-description"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "hero",
+      "product",
+      "ceramics",
+      "original-illustration"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct actual responsive source preview; original CSS artwork or third-party media identified with truthful boundaries. Browser/real-device QA, stock licensing and release acceptance not yet verified. No invented client commissions, booking, product sales or professional qualifications.",
+    "reviewRoute": "./review.html?id=HERO-08",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Hero sections",
+      "focus": "Art-directed artisan-object hero with selectable illustrated finishes",
+      "summary": "An original CSS ceramic-vessel hero updates visible material color, accessible object description and selected information for three conceptual finishes, with a meaningful link to the on-page collection.",
+      "desktop": "Very large restrained type and meaningful finish buttons frame a sculptural original object study on a tall pedestal.",
+      "mobile": "A purposeful stacked story, wide product art and touch-sized surface selectors replace the split desktop presentation.",
+      "lookFor": [
+        "Sand/Smoke/Oxide controls update the actual illustration, pressed state and accessible description",
+        "The object, surface options, manufacturer and merchandise are illustrative only—no product availability or checkout"
+      ],
+      "focusAnchor": "hero-showcase",
+      "explain": "A visually rich product-facing hero with real UI state and original art, not a false physical-product listing.",
+      "bestFor": [
+        "Craft product brands with real verified collections",
+        "Ceramics and material-forward retail campaigns"
+      ],
+      "fitReason": "Real launch requires product photographs, exact material specifications, inventory and a merchant-controlled purchase route."
+    }
   },
   {
     "id": "HERO-09",
     "category": "heroes",
     "title": "Minimal photographic index",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architecture projects named beneath massive first image",
-    "previewRoute": null,
+    "previewRoute": "./previews/HERO-09/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-007",
+      "STOCK-008",
+      "STOCK-009"
+    ],
+    "interactions": [
+      "three-study-photo-index",
+      "live-photo-switch",
+      "accurate-alt-swap",
+      "aria-pressed",
+      "photo-caption-swap"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "hero",
+      "minimal",
+      "architecture",
+      "photographic-index"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct actual responsive source preview; original CSS artwork or third-party media identified with truthful boundaries. Browser/real-device QA, stock licensing and release acceptance not yet verified. No invented client commissions, booking, product sales or professional qualifications.",
+    "reviewRoute": "./review.html?id=HERO-09",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Hero sections",
+      "focus": "Minimal architecture-index hero that switches real independent images",
+      "summary": "Three independently sourced stock interiors are explicitly framed as image studies. Selecting a numbered entry swaps the large actual photograph, accessible description, caption and visual selection status.",
+      "desktop": "An enormous serif masthead and almost full-width photographic frame lead a clean three-column numbered index.",
+      "mobile": "A genuine image-first reading experience transitions into one-column large selectable index cards.",
+      "lookFor": [
+        "Each index selection changes the image source, caption, alt text and selected state",
+        "Three unrelated images are never represented as one architectural commission or a fictional firm's work"
+      ],
+      "focusAnchor": "hero-showcase",
+      "explain": "A simple photography-led architectural navigation pattern, using deliberate independent media disclosures instead of invented projects.",
+      "bestFor": [
+        "Architecture portfolios using fully verified actual projects",
+        "Editorial image indexes with permission-cleared photography"
+      ],
+      "fitReason": "Replace study images with owned projects and accurately attributed designers before presenting a professional portfolio."
+    }
   },
   {
     "id": "INTRO-01",
@@ -1263,31 +1361,93 @@
     "id": "INTRO-02",
     "category": "introductions",
     "title": "Category index",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Numbered projects and short captions",
-    "previewRoute": null,
+    "previewRoute": "./previews/INTRO-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "category-choice",
+      "dynamic-original-art",
+      "live-description",
+      "real-section-destination",
+      "aria-pressed"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "introduction",
+      "category-index",
+      "editorial",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct actual responsive source preview; original CSS artwork or third-party media identified with truthful boundaries. Browser/real-device QA, stock licensing and release acceptance not yet verified. No invented client commissions, booking, product sales or professional qualifications.",
+    "reviewRoute": "./review.html?id=INTRO-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Introductions",
+      "focus": "Numbered category introduction with a genuine changing art-and-link panel",
+      "summary": "Three fictional practice categories update their original CSS visual, copy, section link and accessible state while navigating to real destination sections.",
+      "desktop": "Large index-like typography introduces a two-column component with numbered buttons and a contextual art panel.",
+      "mobile": "Index controls stack into touch targets, followed by full-height original artwork and a real contextual destination link.",
+      "lookFor": [
+        "Selecting a category changes actual art presentation, explanatory text and the destination href",
+        "All linked destinations are actual sections and the studio/client work remains explicitly fictional"
+      ],
+      "focusAnchor": "intro-showcase",
+      "explain": "An introduction that functions as meaningful navigation rather than an inert list or decorative accordion.",
+      "bestFor": [
+        "Design practices with verified service families",
+        "Editorial portfolios organized into clear categories"
+      ],
+      "fitReason": "Publish actual offering names and working routes; avoid representing illustrative concepts as client projects."
+    }
   },
   {
     "id": "INTRO-03",
     "category": "introductions",
     "title": "Image and manifesto",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Studio material close-up with two-line positioning",
-    "previewRoute": null,
+    "previewRoute": "./previews/INTRO-03/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-012"
+    ],
+    "interactions": [
+      "native-principles-disclosure",
+      "one-open-at-a-time",
+      "real-principles-anchor"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "introduction",
+      "manifesto",
+      "materials",
+      "image-led"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct actual responsive source preview; original CSS artwork or third-party media identified with truthful boundaries. Browser/real-device QA, stock licensing and release acceptance not yet verified. No invented client commissions, booking, product sales or professional qualifications.",
+    "reviewRoute": "./review.html?id=INTRO-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Introductions",
+      "focus": "Material-led manifesto with honest independent workshop stock and expandable principles",
+      "summary": "A striking fictional craft-practice introduction pairs independently attributed workshop stock with concise positioning and three individually expandable principles.",
+      "desktop": "Tall workshop photograph and offset manifesto typography create a split-page composition with a considered reading rhythm.",
+      "mobile": "Photograph becomes an atmospheric lead image above large manifesto copy and single-column usable disclosures.",
+      "lookFor": [
+        "Native disclosures genuinely open distinct guidance and keep one at a time if another opens",
+        "Stock worker is clearly not a fictional business employee or verified maker of the pictured object"
+      ],
+      "focusAnchor": "intro-showcase",
+      "explain": "A thoughtful image-and-point-of-view introductory section that avoids false staff/project credit.",
+      "bestFor": [
+        "Actual maker practices with consented workshop photography",
+        "Craft and material studios expressing verified philosophies"
+      ],
+      "fitReason": "Requires authentic maker biographies, source permission and genuine materials and process claims for publication."
+    }
   },
   {
     "id": "GAL-01",
@@ -1814,46 +1974,137 @@
     "id": "PRJ-04",
     "category": "projects",
     "title": "Before/process/after story",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Renovator three-image sequence",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRJ-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "before-process-after-stage",
+      "original-css-room-updates",
+      "aria-pressed",
+      "stage-description"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "projects",
+      "renovation",
+      "process",
+      "truthful-concept"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct actual responsive source preview; original CSS artwork or third-party media identified with truthful boundaries. Browser/real-device QA, stock licensing and release acceptance not yet verified. No invented client commissions, booking, product sales or professional qualifications.",
+    "reviewRoute": "./review.html?id=PRJ-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Project showcases",
+      "focus": "Before/process/after story built from original single-room diagrams",
+      "summary": "Three genuine stage controls alter the same purely illustrative CSS interior, including colors, cabinetry and lighting, while descriptive text distinguishes a design concept from a renovation record.",
+      "desktop": "A large stage illustration pairs with numbered step descriptions and clear before/process/after selectors.",
+      "mobile": "The entire visual sequence moves above a spacious story card with large stage buttons and live copy.",
+      "lookFor": [
+        "Each of the three buttons changes actual room geometry and copy, not only styling on the control",
+        "No unrelated stock images are falsely framed as the before/after photos from one real job"
+      ],
+      "focusAnchor": "project-showcase",
+      "explain": "A responsible project-transformation storytelling pattern using consistent original room drawings without manufacturing client history.",
+      "bestFor": [
+        "Renovation firms with authenticated progress photography",
+        "Design systems exploring project stories before actual job content exists"
+      ],
+      "fitReason": "Live case studies need genuine same-job source pictures, client permission, accurate chronology and verified materials."
+    }
   },
   {
     "id": "PRJ-05",
     "category": "projects",
     "title": "Editorial case study",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Interior design long image sequence with details",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRJ-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "editorial-chapter-anchors",
+      "active-section-observer",
+      "native-evidence-disclosures",
+      "original-material-diagrams"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "projects",
+      "editorial",
+      "case-study",
+      "long-form"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct actual responsive source preview; original CSS artwork or third-party media identified with truthful boundaries. Browser/real-device QA, stock licensing and release acceptance not yet verified. No invented client commissions, booking, product sales or professional qualifications.",
+    "reviewRoute": "./review.html?id=PRJ-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Project showcases",
+      "focus": "Long-form editorial interior project story with active chapter navigation",
+      "summary": "The imaginary Long Room is an all-original CSS case study with three actual section links, sticky active-chapter indicator and clear documentation disclosures instead of unverifiable project claims.",
+      "desktop": "Long-form photographic-feeling original scene, sticky editorial chapter ledger and alternating large concept panels.",
+      "mobile": "Original art chapters and in-page navigation stack into a tall case-study rhythm with a compact sticky chapter row.",
+      "lookFor": [
+        "Chapter links navigate to real brief/material/outcome sections and indicate active reading section",
+        "Project, construction status, site and outcomes are explicitly unbuilt fictional concepts, not external client work"
+      ],
+      "focusAnchor": "project-showcase",
+      "explain": "A real case-study information architecture for verified project narratives, demonstrating scroll chapters rather than a mock image gallery.",
+      "bestFor": [
+        "Interior practices with genuine photographed case studies",
+        "Architectural studios presenting deeply documented projects"
+      ],
+      "fitReason": "Replace all fictional information with permissioned client project material and validate claims before public use."
+    }
   },
   {
     "id": "PRJ-06",
     "category": "projects",
     "title": "Interactive project switcher",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Landscape project tabs and images",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRJ-06/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "three-landscape-tabs",
+      "keyboard-arrow-navigation",
+      "original-css-landscape-swaps",
+      "aria-selected",
+      "active-tabpanel"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "projects",
+      "landscape",
+      "project-switcher",
+      "keyboard"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct actual responsive source preview; original CSS artwork or third-party media identified with truthful boundaries. Browser/real-device QA, stock licensing and release acceptance not yet verified. No invented client commissions, booking, product sales or professional qualifications.",
+    "reviewRoute": "./review.html?id=PRJ-06",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Project showcases",
+      "focus": "Working tabbed landscape concept gallery with three independently illustrated projects",
+      "summary": "Three conceptual garden/courtyard/passage drawings change their actual scene, project title and description through an accessible tablist with arrow/Home/End keyboard support.",
+      "desktop": "A tall landscape artwork anchors a separate dark project-reading panel with numbered accessible project tabs.",
+      "mobile": "Large illustration leads an entirely stacked selection-and-detail flow with full-width touch targets.",
+      "lookFor": [
+        "Changing tabs visibly changes art and content, and keyboard arrows/Home/End maintain focus and aria selection",
+        "No drawn concept is claimed as an actual finished landscape, public park or approved architectural work"
+      ],
+      "focusAnchor": "project-showcase",
+      "explain": "A genuine project-level interactive switcher with original work, not invented landscaped properties represented by stock photography.",
+      "bestFor": [
+        "Landscape firms with authenticated separate projects",
+        "Design studios planning multi-case-study selection"
+      ],
+      "fitReason": "For real firms, document actual site locations, authorizations, roles, results and project images accurately."
+    }
   },
   {
     "id": "COMP-01",
