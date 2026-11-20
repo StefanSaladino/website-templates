@@ -836,3 +836,28 @@ The optional mobile-design inventory reaches **34 / 44 in review** (**10 drafts 
 | M-UTIL-05 | PRJ-03 | Return-to-projects control appears after scrolling and links to the real index; respects phone safe area |
 
 The original default compositions, existing phone styles and wide-screen versions remain intact. The reviewer dynamically exposes the additional named Style choices for each parent and the new modes use the same source content. The existing Chromium smoke suite has explicit assertions for these layouts, disclosure/filter/back-to-top interactions and absence of page-level horizontal overflow. **These checks are committed, not newly reported as passed here.** Media-rights acceptance, image-loaded screenshots, physical-device Safari/Android testing, accessibility/performance and final visual approval remain outstanding. Do not promote these options to live or merge to main.
+
+## Mobile-alternative track completed — November 20, 2026
+
+All **44 / 44** optional mobile designs now have source implementations, reciprocal catalogue metadata and phone selector routes. They are all `in-review`, **none live**; every parent continues to offer its deliberately composed default responsive layout. The 10 latest options complete the previously open groups:
+
+| Phone ID | Existing/new parent | Distinct working design |
+|---|---|---|
+| M-NAV-03 | NAV-02 | Fixed safe-area bottom navigation for the actual portfolio section anchors |
+| M-HERO-04 | HERO-04 | Offset creative-studio portrait crop with explicit stock caption |
+| M-SRV-04 | SRV-01 | Compact numbered architecture index with a single clearly illustrative photograph |
+| M-FRM-01 | FORM-01 | Form-first compact inquiry ticket, retaining native field types and honest validation |
+| M-STORY-04 | TRUST-02 (new) | Two-column wrapping category badges; no fabricated real certifications or infinite marquee |
+| M-CTA-03 | CONTACT-01 | Tel/mailto demonstration with reserved fictional example destinations and non-live disclosures |
+| M-UTIL-02 | GAL-06 | Native full-height portrait-information sheet with keyboard navigation and focus restoration |
+| M-MEDIA-01 | MEDIA-01 (new) | Poster-first vertical film with explicit opt-in playback |
+| M-MEDIA-02 | MEDIA-01 | Muted in-view inline loop, manual pause, reduced-motion/data-saver poster fallback |
+| M-MEDIA-03 | MEDIA-01 | Art-directed 3:4 portrait crop of the existing wide film with explicit playback |
+
+Two genuinely new core preview implementations, **TRUST-02** and **MEDIA-01**, were required rather than claiming mobile options had no parent. Core catalogue advances from **60 to 62 / 157**. Animations remain **20 / 20 built and integrated**. The review viewer already supports multiple independently selectable styles under one parent: MEDIA-01 now has default plus three distinct phone alternatives.
+
+**Media limitation:** MEDIA-01 reuses the existing OFFCUT Pexels video ID 9489382 with a static poster. This is a development reference, **not a cleared distribution asset**. Creator/source link, rights, final handset crop, video file size/format and real playback must be verified; do not publish/sell the prototype footage on the strength of its preview. It does not claim actual studio clients or real qualifications. STOCK-011 records these unresolved matters, and SRV-01's illustrative kitchen photo now has reciprocal STOCK-007 attribution.
+
+**QA:** New source and browser regression assertions cover the 10 options, real interactions, video fetch only on request except opt-in muted loop, reduced-motion/data-saving fallback, image/detail-sheet focus/keyboard controls, native contact link destinations, and 390px overflow. **The code/test additions are not proof of a passing CI or physical-device run.** Complete existing release gates: rights/media audit, image-loaded screenshots, iOS Safari and Android Chrome, keyboard/accessibility review, video performance, client visual signoff. All items stay in review and `main` remains untouched.
+
+**Next engineering milestone:** the optional mobile design backlog is now zero. Prioritize remaining **95 core examples** by real client demand, starting underrepresented trust, rich media, about/team and contact sections; preserve quality gates and avoid inventing demo transactions. Do not add new phone variants merely to inflate inventory.
