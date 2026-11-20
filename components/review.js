@@ -1,12 +1,15 @@
+try {
 const [components, treatments] = await Promise.all([
-  fetch('./data/components.json').then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
-  fetch('./data/mobile-treatments.json').then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
+  fetch('./data/components.json?v20261120c',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
+  fetch('./data/mobile-treatments.json?v20261120c',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
 ]);
 const treatmentMap = new Map(treatments.map(item => [item.id,item]));
 const examples = new Map(components.filter(item => item.previewRoute && item.status !== 'draft').map(item => [item.id,item]));
 const requested = new URLSearchParams(location.search).get('id') || 'NAV-03';
 const design = examples.get(requested) || examples.values().next().value;
 if(!design) throw new Error('No preview examples are available');
+const loading = document.querySelector('#review-loading');
+const errorPanel = document.querySelector('#review-error');
 const alternativeId = (design.mobileTreatmentIds || []).find(id => treatmentMap.has(id) && treatmentMap.get(id).status !== 'draft');
 const alternative = alternativeId ? treatmentMap.get(alternativeId) : null;
 const title = document.querySelector('#review-title');
@@ -28,6 +31,8 @@ const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const selectedValue = name => document.querySelector('input[name='+name+']:checked').value;
 const focus = design.showcase || {};
 const focusAnchor = focus.focusAnchor ? '#'+encodeURIComponent(focus.focusAnchor) : '';
+const failureLink = document.querySelector('#review-error a');
+if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120c';
 title.textContent = focus.focus || design.title;
 document.title = (focus.focus || design.title) + ' — Explore design';
 document.querySelector('#review-id').textContent = 'Example '+design.id+' · Still in development';
@@ -74,7 +79,10 @@ function render(){
   const device = selectedValue('device');
   const phoneStyle = device === 'phone' ? selectedValue('mobile') : 'default';
   const url = './previews/'+design.id+'/index.html'+(phoneStyle === 'alternate' && alternative ? '?mobile='+encodeURIComponent(alternative.id) : '')+focusAnchor;
-  if(iframe.getAttribute('src') !== url) iframe.src = url;
+  if(iframe.getAttribute('src') !== url) {
+    loading.hidden = false;
+    iframe.src = url;
+  }
   document.querySelector('#review-open').href = url;
   phoneChoices.hidden = device !== 'phone' || !alternative;
   sizeFrame();
@@ -85,4 +93,16 @@ panRight.addEventListener('click',()=>viewport.scrollBy({left:Math.max(180,viewp
 viewport.addEventListener('scroll',updatePanButtons,{passive:true});
 if('ResizeObserver' in window) new ResizeObserver(sizeFrame).observe(viewport);
 else window.addEventListener('resize',sizeFrame);
+iframe.addEventListener('load',()=>{loading.hidden=true;});
 render();
+} catch(error) {
+ console.error('Component review could not initialize',error);
+ const loading=document.querySelector('#review-loading');
+ if(loading)loading.hidden=true;
+ const panel=document.querySelector('#review-error');
+ if(panel)panel.hidden=false;
+ const title=document.querySelector('#review-title');
+ if(title)title.textContent='This design could not be loaded';
+ const summary=document.querySelector('#review-focus-summary');
+ if(summary)summary.textContent='Please try again. The other designs are available from All designs.';
+}

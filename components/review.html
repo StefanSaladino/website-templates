@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex">
   <meta name="description" content="Explore a website component on computer, tablet, and phone.">
   <title>Explore a website design — Boomer Automation</title>
-  <link rel="stylesheet" href="review.css">
-  <script type="module" src="review.js"></script>
+  <link rel="stylesheet" href="review.css?v20261120c">
+  <script type="module" src="review.js?v20261120c"></script>
 </head>
 <body>
   <a class="review-skip" href="#review-design">Skip to design preview</a>
@@ -21,7 +21,7 @@
         <p id="review-component-label" class="review-eyebrow">Website section</p>
         <span class="review-id" id="review-id">Design example</span>
       </div>
-      <h1 id="review-title">Explore this design</h1>
+      <h1 id="review-title">Loading the design…</h1>
       <p class="review-description" id="review-focus-summary">This example shows one part of a website.</p>
       <details class="review-explanation">
         <summary>What am I looking at?</summary>
@@ -54,6 +54,7 @@
       </div>
       <p class="review-tip" id="review-tip">The design will fit your screen. Select “Look closer” to see details.</p>
       <div class="review-stage">
+        <div class="review-loading" id="review-loading" role="status">Loading your design…</div>
         <div class="review-viewport" id="review-viewport" tabindex="0" role="region" aria-label="Website design preview. In Look closer mode, scroll horizontally to inspect the design.">
           <div class="review-frame-shell" id="review-frame-shell">
             <div class="review-frame" id="review-frame" data-device="desktop">
@@ -61,6 +62,11 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="review-error" id="review-error" hidden role="alert">
+        <strong>We couldn't load this design.</strong>
+        <p>Check your connection, then try loading it again.</p>
+        <a href="review.html?v20261120c">Reload the design page</a>
       </div>
       <div class="review-pan-controls" id="review-pan-controls" hidden>
         <button type="button" id="review-pan-left" aria-label="Move left across the preview">Move left</button>

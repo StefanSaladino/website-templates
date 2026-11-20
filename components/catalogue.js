@@ -17,7 +17,7 @@ const loadJSON=async path=>{
   return response.json();
 };
 try{
-  const [categories,components]=await Promise.all([loadJSON('./data/categories.json'),loadJSON('./data/components.json')]);
+  const [categories,components]=await Promise.all([loadJSON('./data/categories.json?v20261120c'),loadJSON('./data/components.json?v20261120c')]);
   const built=components.filter(item=>item.previewRoute&&['in-review','approved','live'].includes(item.status));
   const live=built.filter(item=>item.status==='live');
   const visible=planningMode?components:built;
@@ -74,6 +74,7 @@ try{
       article.className='cs-item'+(working?' cs-item--preview':' cs-item--draft');
       const previewRoute=working?item.previewRoute:'';
       const reviewRoute=working?(item.reviewRoute||item.previewRoute):'';
+      const reviewUrl=reviewRoute+(reviewRoute.includes('?')?'&':'?')+'v20261120c';
       const stateLabel=item.status==='live'?'Ready':item.status==='in-review'?'In review':item.status==='approved'?'Awaiting release':'Planned';
       const focus=item.showcase;
       const targetUrl=previewRoute+(focus?.focusAnchor?'#'+encodeURIComponent(focus.focusAnchor):'');
@@ -82,7 +83,7 @@ try{
         ? '<div class="cs-preview-window"><iframe title="Preview of '+escapeText(item.id)+' focusing on '+escapeText(categoryLabel)+'" src="'+escapeText(targetUrl)+'" loading="lazy" tabindex="-1" aria-hidden="true"></iframe><a class="cs-preview-cover" href="'+escapeText(targetUrl)+'" aria-label="View showcased '+escapeText(categoryLabel)+' in '+escapeText(item.id)+'"></a></div>'
         : '';
       const actions=working
-        ? '<div class="cs-item-actions"><a class="cs-action-primary" href="'+escapeText(reviewRoute)+'">Explore this design</a></div>'
+        ? '<div class="cs-item-actions"><a class="cs-action-primary" href="'+escapeText(reviewUrl)+'">Explore this design</a></div>'
         : '';
       const focusContent=focus
         ? '<div class="cs-focus-info"><span class="cs-focus-label">WHAT THIS SHOWCASES</span><strong>'+escapeText(focus.focus)+'</strong><p>'+escapeText(focus.summary)+'</p><div class="cs-focus-cues"><span>'+escapeText(focus.lookFor[0])+'</span><span>'+escapeText(focus.lookFor[1])+'</span></div></div>'
