@@ -1620,31 +1620,90 @@
     "id": "MEDIA-03",
     "category": "media",
     "title": "Thumbnail video gallery",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Fitness session clips in grid",
-    "previewRoute": null,
+    "previewRoute": "./previews/MEDIA-03/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-011"
+    ],
+    "interactions": [
+      "native-video-dialog",
+      "single-source-chapters",
+      "keyboard-escape",
+      "focus-restoration",
+      "opt-in-video-load"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "video",
+      "interactive",
+      "gallery",
+      "accessible"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Live responsive demonstration only. Fictional identities, data, locations and assets are disclosed. Final photography rights, real-device behavior, visual acceptance and publishing remain unverified; do not mark live.",
+    "reviewRoute": "./review.html?id=MEDIA-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Video and rich media",
+      "focus": "Working sample film gallery",
+      "summary": "Three selectable editorial chapters open a real native video dialog; all explicitly share the same unapproved stock sample source.",
+      "desktop": "Three poster-backed chapter cards open a reusable modal film viewer with accurate chapter labels and playback controls.",
+      "mobile": "A stacked thumbnail-and-title gallery opens a safe-area-aware full-screen native player that restores focus when closed.",
+      "lookFor": [
+        "The player loads footage only on deliberate thumbnail activation",
+        "The sample cards never impersonate three real video recordings or client sessions"
+      ],
+      "focusAnchor": "media-showcase",
+      "explain": "A video gallery interface with genuine modal playback, keyboard-close behavior, focus restoration and transparent sample-media identity.",
+      "fitReason": "In production every gallery item needs its own truthful rights-cleared recording and suitable poster."
+    }
   },
   {
     "id": "MEDIA-04",
     "category": "media",
     "title": "Photo + captions feature",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Retreat editorial image sequence with captions",
-    "previewRoute": null,
+    "previewRoute": "./previews/MEDIA-04/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-001",
+      "STOCK-002",
+      "STOCK-007"
+    ],
+    "interactions": [
+      "photo-chapter-selector",
+      "previous-next",
+      "aria-pressed",
+      "status-updates"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "photography",
+      "editorial",
+      "storytelling",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Live responsive demonstration only. Fictional identities, data, locations and assets are disclosed. Final photography rights, real-device behavior, visual acceptance and publishing remain unverified; do not mark live.",
+    "reviewRoute": "./review.html?id=MEDIA-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Video and rich media",
+      "focus": "Interactive image-and-caption feature",
+      "summary": "A three-scene editorial reader swaps genuine images and captions through real numbered selectors and previous/next controls.",
+      "desktop": "A large photo canvas and a separate reading panel form an interactive landscape and architectural chapter reader.",
+      "mobile": "The picture fills the phone width above its caption panel; explicit chapter controls provide touch and keyboard navigation.",
+      "lookFor": [
+        "Buttons change the real displayed photo and paired editorial text",
+        "All three sources are unrelated sample images rather than a single real retreat"
+      ],
+      "focusAnchor": "media-showcase",
+      "explain": "A short interactive media story with readable descriptions, accessible buttons and deliberate no-autoplay pacing.",
+      "fitReason": "Appropriate when captions correctly describe original rights-cleared media and location."
+    }
   },
   {
     "id": "SRV-01",
@@ -1917,31 +1976,83 @@
     "id": "ABOUT-03",
     "category": "about",
     "title": "Image-led values",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Hospitality three atmosphere photos and labels",
-    "previewRoute": null,
+    "previewRoute": "./previews/ABOUT-03/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-001",
+      "STOCK-002",
+      "STOCK-008"
+    ],
+    "interactions": [
+      "anchor-scroll"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "hospitality",
+      "image-led",
+      "values",
+      "editorial"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Live responsive demonstration only. Fictional identities, data, locations and assets are disclosed. Final photography rights, real-device behavior, visual acceptance and publishing remain unverified; do not mark live.",
+    "reviewRoute": "./review.html?id=ABOUT-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "About and studio introductions",
+      "focus": "Staggered hospitality atmosphere story",
+      "summary": "Three unrelated photographic studies each support a different hospitality value, with image-level non-property disclosure.",
+      "desktop": "A large editorial heading introduces a staggered twelve-column photo-and-caption manifesto with three different photo proportions.",
+      "mobile": "A fully paced vertical photo essay with varied image ratios, readable value headings and unchanged imagery disclaimers.",
+      "lookFor": [
+        "Editorial image crops and staggered visual pacing",
+        "Every photo explicitly disclaims a fictional shared property or venue"
+      ],
+      "focusAnchor": "about-showcase",
+      "explain": "A hospitality about section that lets authentic images support an honest explanation of values, not an invented list of amenities.",
+      "fitReason": "Use only when actual venue photography accurately depicts the real setting."
+    }
   },
   {
     "id": "ABOUT-04",
     "category": "about",
     "title": "Two-column mission",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Local business positioning and founder photo",
-    "previewRoute": null,
+    "previewRoute": "./previews/ABOUT-04/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-004"
+    ],
+    "interactions": [
+      "anchor-scroll"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "mission",
+      "business-story",
+      "image-led",
+      "typographic"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Live responsive demonstration only. Fictional identities, data, locations and assets are disclosed. Final photography rights, real-device behavior, visual acceptance and publishing remain unverified; do not mark live.",
+    "reviewRoute": "./review.html?id=ABOUT-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "About and studio introductions",
+      "focus": "Mission-first local business introduction",
+      "summary": "A large two-column positioning statement, explicitly illustrative founder portrait and three concrete example operating commitments.",
+      "desktop": "The mission and business story occupy a wide editorial column beside a portrait rail and a separate numbered-commitments section.",
+      "mobile": "The mission leads a single-column story, followed by the illustrative portrait and clearly separated practice commitments.",
+      "lookFor": [
+        "The company's mission remains dominant over the supporting portrait",
+        "The portrait and invented quote do not imply the pictured person is an actual founder"
+      ],
+      "focusAnchor": "about-showcase",
+      "explain": "A company-about layout organized around practical values and evidence-based commitments instead of generic founder marketing.",
+      "fitReason": "Replace the fictional company and portrait with accurate business history and approved founder material."
+    }
   },
   {
     "id": "TEAM-01",
@@ -2033,31 +2144,82 @@
     "id": "TEAM-03",
     "category": "teams",
     "title": "Artist roster",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Tattoo studio artists and booking routes",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEAM-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "local-artist-selection",
+      "local-enquiry-draft",
+      "aria-pressed"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "tattoo",
+      "artist-roster",
+      "interactive",
+      "local-only"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Live responsive demonstration only. Fictional identities, data, locations and assets are disclosed. Final photography rights, real-device behavior, visual acceptance and publishing remain unverified; do not mark live.",
+    "reviewRoute": "./review.html?id=TEAM-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Teams and people",
+      "focus": "Artist roster with local enquiry selection",
+      "summary": "Three original illustrated artist-specialty cards, real preference buttons and a locally prepared enquiry note—no bookings or messages sent.",
+      "desktop": "Distinct illustrated artist panels introduce three fictional practice categories, with live selection and a draft enquiry section.",
+      "mobile": "A compact stacked artist index preserves unique conceptual illustrations, large selection controls and the same local-only form.",
+      "lookFor": [
+        "Artist selection updates the real on-page preference and enquiry draft",
+        "Every artist and illustrated flash study is explicitly fictional"
+      ],
+      "focusAnchor": "team-showcase",
+      "explain": "An interactive artist roster suitable for displaying actual tattoo practitioners and their portfolio links after real identity and booking routes are supplied.",
+      "fitReason": "Only use with real artist identities, permitted artwork and accurate appointment workflows."
+    }
   },
   {
     "id": "TEAM-04",
     "category": "teams",
     "title": "Compact team list",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Agency names roles and links",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEAM-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "role-filter",
+      "native-details",
+      "aria-pressed",
+      "status-updates"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "agency",
+      "team",
+      "text-led",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Live responsive demonstration only. Fictional identities, data, locations and assets are disclosed. Final photography rights, real-device behavior, visual acceptance and publishing remain unverified; do not mark live.",
+    "reviewRoute": "./review.html?id=TEAM-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Teams and people",
+      "focus": "Filterable compact agency roster",
+      "summary": "A lean fictional employee directory with live department filters, status counts and four keyboard-usable disclosure rows.",
+      "desktop": "An editorial people ledger with names, specialty columns, role filters and native detailed descriptions.",
+      "mobile": "An accessible role rail and stacked compact names retain filtering and details without requiring headshots.",
+      "lookFor": [
+        "Filters change the visible set and correctly expose aria-pressed state",
+        "Native detail summaries open and close using keyboard or touch"
+      ],
+      "focusAnchor": "team-showcase",
+      "explain": "A text-first people index for businesses that need to present roles without a wall of repetitive portrait cards.",
+      "fitReason": "Works best when biographies and role categories are factual and maintained."
+    }
   },
   {
     "id": "PROC-01",
@@ -2318,16 +2480,41 @@
     "id": "TRUST-04",
     "category": "trust",
     "title": "Proof stats",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Business metrics clearly marked as sample data",
-    "previewRoute": null,
+    "previewRoute": "./previews/TRUST-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "period-switch",
+      "live-kpi-values",
+      "native-details"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "proof",
+      "metrics",
+      "sample-data",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Live responsive demonstration only. Fictional identities, data, locations and assets are disclosed. Final photography rights, real-device behavior, visual acceptance and publishing remain unverified; do not mark live.",
+    "reviewRoute": "./review.html?id=TRUST-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Proof and credentials",
+      "focus": "Transparent example performance statistics",
+      "summary": "A demonstration-only metric panel with real period switching, explicit sample labels and explanations of data provenance.",
+      "desktop": "Four substantial typographic metrics, clear period controls and explanatory native data-definition disclosures.",
+      "mobile": "A two-column metric matrix with large usable period switches and a stacked evidence-explanation section.",
+      "lookFor": [
+        "Switching sample periods actually changes four displayed data values",
+        "No synthetic statistics are presented as real results or verified customer outcomes"
+      ],
+      "focusAnchor": "trust-showcase",
+      "explain": "A credible KPI presentation format paired with strict disclosure that its demonstration values are fabricated.",
+      "fitReason": "Only useful for a production site when measurement windows, sources and definitions are accurate."
+    }
   },
   {
     "id": "TEST-01",
