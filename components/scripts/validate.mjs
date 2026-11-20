@@ -37,7 +37,7 @@ for(const cat of categories){
   const count=components.filter(x=>x.category===cat.id).length;
   if(count!==cat.plannedCount)fail('Category count '+cat.id+' expected '+cat.plannedCount+' got '+count);
 }
-if(categories.length!==30||components.length!==144)fail('Catalog must contain 30 families and 144 options with seven animation patterns');
+if(categories.length!==30||components.length!==157)fail('Catalog must contain 30 families and 144 options with seven animation patterns');
 if(!Array.isArray(stock.assets))fail('Stock manifest must contain assets[]');
 if(mobile.length!==44)fail('Mobile treatment baseline must include 44 options');
 const mobileIds=new Set();for(const m of mobile){if(mobileIds.has(m.id))fail('Duplicate mobile treatment '+m.id);mobileIds.add(m.id);if(!/^M-[A-Z]+-\d{2}$/.test(m.id))fail('Bad mobile ID '+m.id);for(const parent of m.compatibleComponentIds||[])if(!componentIds.has(parent))fail('Invalid parent '+parent+' for '+m.id);if(m.status==='in-review'&&(!m.previewRoute||!m.compatibleComponentIds.length))fail('Incomplete mobile preview '+m.id)}

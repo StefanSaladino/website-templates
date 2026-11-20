@@ -664,3 +664,27 @@ The Component Showroom stays a **browse-and-explore experience** until the plann
 **Implementation order:** start with ANIM-01 (interactive proof), then ANIM-02/03 after the current Phase 3 sections, followed by ANIM-05/07; review ANIM-04/06 carefully for motion sensitivity and mobile/performance costs. Each variation receives its own focusable preview, realistic fictional context, and descriptive catalogue guidance. Public availability stays blocked until the usual approval steps.
 
 **Roadmap hygiene:** the heading "35 distinct IDs" in the Phase 3 target actually lists 36 different IDs; use the enumerated list as the build baseline. Keep approved/client-release status separate from working preview counts. The client portal's Save feature remains deferred and is not part of this animation work.
+
+## Additional animation inventory — expansion to twenty patterns (November 20, 2026)
+
+The initial seven-pattern amendment has been **expanded to ANIM-01–ANIM-20**. The current authoritative total is **30 categories and 157 planned core options** (original 137 plus 20 motion variants), with the pre-existing 44 optional phone-layout choices unchanged. The first seven remain as described immediately above; these thirteen further patterns are also required distinct examples, not simple changes of speed or color.
+
+| ID | Additional pattern | Realistic sample | UX and QA condition |
+|---|---|---|---|
+| ANIM-08 | Text line-wipe | Editorial publisher: a heading exposed line by line | Line masking reveals complete readable sentences; no broken text at zoom. |
+| ANIM-09 | Diagonal section reveal | Independent furniture studio: a clipped transition between two editorial panels | One intentional angled panel wipe with a simple no-motion replacement. |
+| ANIM-10 | Scroll chapter indicator | Travel feature: narrative progress across three illustrated chapters | Scroll-derived position, clear chapter labels, no scroll hijacking. |
+| ANIM-11 | Image focus zoom | Architectural portfolio: slight project photograph enlargement on hover and focus | Limited scale, keyboard/touch equivalent and no crop clipping. |
+| ANIM-12 | Project image exchange | Interior designer: switching project photography by focus or click | Persistent selected state and accessible controls, never hover-only. |
+| ANIM-13 | Horizontal story rail | Photographic journal: scroll-snap story frames with keyboard controls | Visible previous/next and reduced-motion instant scrolling. |
+| ANIM-14 | Accordion detail transition | Craft workshop: expanding technical detail between numbered services | Native semantic disclosure, optional measured reveal, no focus traps. |
+| ANIM-15 | Meaningful number count-up | Local nonprofit: funding goal/progress with explicit measurement labels | Static complete value until initiated, no invented precision. |
+| ANIM-16 | Pointer-tracking spotlight | Creative studio: restrained light following product detail under a pointer | Mouse-only enhancement, fully useful with keyboard/touch and reduced motion. |
+| ANIM-17 | Layered story stack | Architectural publication: stacked editorial chapter cards on scroll | Small bounded layering with a normal linear document fallback. |
+| ANIM-18 | Intersection reveal rhythm | Gallery: art-directed project rows appearing as they enter view | Each reveals once, does not hide content before JS runs. |
+| ANIM-19 | Local page transition | Museum microsite: switching two internal exhibit views | Same-origin navigable demo, transition never conceals route state or history. |
+| ANIM-20 | Step-controlled image carousel | Product craft portfolio: navigating a finite sequence of still images | Explicit arrows and position indicators; no unpausable autoplay. |
+
+**Grouping to help clients:** text & editorial (ANIM-01, 02, 08); image & project motion (03, 04, 11, 12, 20); section & scrolling (09, 10, 13, 17, 18); interface & feedback (05, 06, 07, 14, 15, 16, 19). These are catalog filters/tags rather than a new explosion of category IDs. Keep phone behavior deliberate; interactive components require pointer, touch and keyboard parity; all effects must respect `prefers-reduced-motion`. Never create an infinite, distracting animated effect simply to reach the target count.
+
+**Build order:** implement and test ANIM-01, 02, 05 and 07 first to validate different interaction classes. Then animation examples join the regular Phase 3 backlog. Image-led motion requires the existing stock-image approval, cropping and performance gates. Current IDs stay `draft` until a working isolated preview and metadata contract exist; no status is promoted to `live` without client acceptance.
