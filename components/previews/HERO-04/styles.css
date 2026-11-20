@@ -1,3 +1,17 @@
 *{box-sizing:border-box}body{margin:0;font:16px/1.55 Arial,Helvetica,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}:focus-visible{outline:3px solid #b75435;outline-offset:4px}img{display:block;max-width:100%}.skip{position:fixed;top:-90px;left:12px;padding:12px;background:#fff;color:#222;z-index:50}.skip:focus{top:10px}.demo-footer{display:flex;justify-content:space-between;gap:20px;padding:22px 6vw;background:#262827;color:#fff;font-size:11px}.demo-footer span{max-width:360px}img[style*="hidden"]{background:#ccc} 
 body{background:#e8e8d9;color:#252e44}.h4-head{display:flex;justify-content:space-between;padding:20px 6vw;border-bottom:2px solid;font-size:12px;font-weight:800}.h4-head a:first-child{text-decoration:none}.h4-scene{min-height:810px;padding:80px 6vw 90px;background:#d3d8a0}.h4-scene>span{font-size:11px;letter-spacing:.2em;font-weight:800}.h4-scene h1{font-family:Impact,'Arial Narrow',Arial,sans-serif;font-weight:900;letter-spacing:-.058em;line-height:.78;font-size:clamp(105px,14vw,225px);margin:35px 0 60px}.h4-scene h1 i{color:#d1493d;font-style:normal}.h4-bottom{display:flex;align-items:end;gap:50px;max-width:850px}.h4-bottom figure{margin:0;width:170px;height:150px;flex-shrink:0;background:#7a817b}.h4-bottom img{width:100%;height:100%;object-fit:cover}.h4-bottom>div{max-width:380px}.h4-bottom a{font-weight:800}.h4-after{padding:100px 6vw}.h4-after h2{font:400 clamp(45px,6vw,85px) Georgia,serif}@media(max-width:800px){.h4-scene{padding:60px 22px}.h4-scene h1{font-size:clamp(82px,14vw,130px);margin:65px 0}.h4-bottom{align-items:start;gap:20px}.h4-bottom figure{width:100px;height:110px}.h4-bottom p{font-size:13px}.h4-after{padding:70px 22px}}@media(max-width:350px){.h4-scene h1{font-size:75px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+/* M-HERO-04: intentionally offset full portrait crop and caption against a tightly composed poster headline. */
+@media(max-width:800px){
+ body[data-mobile-treatment="M-HERO-04"] .h4-scene{min-height:0;padding:46px 0 52px;overflow:hidden}
+ body[data-mobile-treatment="M-HERO-04"] .h4-scene>span{display:block;margin:0 22px}
+ body[data-mobile-treatment="M-HERO-04"] .h4-scene h1{font-size:clamp(74px,16vw,117px);line-height:.85;margin:29px 18px 39px;position:relative;z-index:1;letter-spacing:-.06em}
+ body[data-mobile-treatment="M-HERO-04"] .h4-bottom{display:flex;flex-direction:column;align-items:stretch;gap:0;max-width:none}
+ body[data-mobile-treatment="M-HERO-04"] .h4-bottom figure{position:relative;align-self:flex-end;width:85%;height:clamp(390px,69svh,630px);flex:none;margin-right:-6%;overflow:visible;background:#66766f}
+ body[data-mobile-treatment="M-HERO-04"] .h4-bottom img{height:100%;width:100%;object-fit:cover;object-position:64% 20%}
+ body[data-mobile-treatment="M-HERO-04"] .h4-mobile-caption{position:absolute;bottom:0;left:-17%;width:90%;padding:12px 14px;background:#252e44;color:#fff;font-size:11px;letter-spacing:.05em}
+ body[data-mobile-treatment="M-HERO-04"] .h4-bottom>div{align-self:flex-start;width:80%;max-width:350px;margin:30px 0 0 22px}
+ body[data-mobile-treatment="M-HERO-04"] .h4-bottom p{font-size:15px;line-height:1.6}
+ body[data-mobile-treatment="M-HERO-04"] .h4-bottom a{display:inline-flex;min-height:44px;align-items:center}
+}
+@media(max-width:350px){body[data-mobile-treatment="M-HERO-04"] .h4-scene h1{font-size:clamp(66px,15vw,85px)}}
