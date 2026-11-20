@@ -1,3 +1,22 @@
 *{box-sizing:border-box}body{margin:0;font:16px/1.55 Arial,Helvetica,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}:focus-visible{outline:3px solid #b75435;outline-offset:4px}img{display:block;max-width:100%}.skip{position:fixed;top:-90px;left:12px;padding:12px;background:#fff;color:#222;z-index:50}.skip:focus{top:10px}.demo-footer{display:flex;justify-content:space-between;gap:20px;padding:22px 6vw;background:#262827;color:#fff;font-size:11px}.demo-footer span{max-width:360px}img[style*="hidden"]{background:#ccc} 
 body{background:#f7f5f1;color:#1f2627}.g5-head{display:flex;justify-content:space-between;padding:24px 6vw;border-bottom:1px solid #b3b0a9;font-size:12px}.g5-head a:first-child{font-weight:900;text-decoration:none}.g5-gallery{padding:80px 6vw 110px}.g5-intro span{font-size:11px;letter-spacing:.18em}.g5-intro h1{font:400 clamp(70px,8vw,130px)/.9 Georgia,serif;letter-spacing:-.07em;margin:25px 0}.g5-intro p{max-width:360px}.g5-filters{display:flex;flex-wrap:wrap;gap:10px;margin:35px 0 60px}.g5-filters button{background:transparent;color:inherit;padding:12px 17px;border:1px solid #a4a7a2;min-height:48px}.g5-filters button[aria-pressed=true]{background:#233735;color:#fff}.g5-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.g5-grid figure{margin:0}.g5-grid figure[hidden]{display:none}.g5-grid img{width:100%;height:clamp(220px,34vw,470px);object-fit:cover;background:#ddd}.g5-grid figcaption{font-size:10px;letter-spacing:.08em;padding:12px 0}.g5-note{padding:85px 6vw;background:#283635;color:#fff}.g5-note h2{font:400 clamp(46px,6vw,90px) Georgia,serif}@media(max-width:850px){.g5-gallery{padding:65px 22px}.g5-intro h1{font-size:clamp(65px,12vw,92px)}.g5-grid{grid-template-columns:repeat(2,1fr)}.g5-grid img{height:clamp(200px,55vw,360px)}.g5-note{padding:70px 22px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+/* M-UTIL-04: bottom-free portrait filter drawer, safe-area-aware modal controls. */
+.g5-filter-open[hidden],.g5-filter-count[hidden]{display:none!important}.g5-filter-open{display:none}.g5-filter-drawer{border:0}
+@media(max-width:760px){
+ body[data-mobile-treatment="M-UTIL-04"] .g5-gallery{padding:58px 17px 85px}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-intro h1{font-size:clamp(67px,14vw,90px);margin:20px 0}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-filter-open:not([hidden]){display:flex;align-items:center;justify-content:space-between;min-height:52px;min-width:0;width:100%;text-align:left;margin:22px 0 10px;padding:13px 18px;border:1px solid #263e36;background:#263e36;color:#fff;font-size:13px;font-weight:850}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-filter-count{margin:10px 0 25px;font-size:12px;color:#546657}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-filter-drawer{box-sizing:border-box;position:fixed;inset:auto 0 0 0;margin:auto 0 0;width:100vw;max-width:100vw;max-height:90dvh;padding:25px 20px calc(26px + env(safe-area-inset-bottom,0px));overflow-y:auto;border-radius:16px 16px 0 0;background:#f5f3eb;color:#25362f;box-shadow:0 -15px 50px #09170e58}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-filter-drawer::backdrop{background:rgba(8,18,14,.7)}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-drawer-header{display:flex;align-items:start;justify-content:space-between;gap:20px;border-bottom:1px solid #a9b7ac;padding-bottom:25px}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-drawer-header strong{font:400 clamp(24px,6vw,35px) Georgia,serif}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-drawer-header button{min-height:48px;border:1px solid #8c9c90;background:transparent;padding:12px;font-size:12px;font-weight:800}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-filter-drawer .g5-filters{display:flex;flex-direction:column;margin:25px 0 0;gap:0}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-filter-drawer .g5-filters button{width:100%;min-height:60px;text-align:left;border:0;border-bottom:1px solid #b5bfb6;padding:18px 12px;font-size:18px}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-filter-drawer .g5-filters button[aria-pressed=true]{background:#294438;color:#fff;font-weight:850}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ body[data-mobile-treatment="M-UTIL-04"] .g5-grid img{height:clamp(230px,53vw,370px)}
+}
+

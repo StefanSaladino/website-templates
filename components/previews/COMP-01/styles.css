@@ -1,3 +1,20 @@
 *{box-sizing:border-box}body{margin:0;font:16px/1.55 Arial,Helvetica,sans-serif}a{color:inherit}button,input{font:inherit}button{cursor:pointer}:focus-visible{outline:3px solid #b5583d;outline-offset:3px}img{display:block;max-width:100%}.skip{position:fixed;top:-90px;left:8px;background:#fff;color:#242424;padding:12px;z-index:50}.skip:focus{top:8px}.end{display:flex;justify-content:space-between;gap:16px;background:#202623;color:#fff;padding:26px 6vw;font-size:11px}.end span{max-width:380px} 
 body{background:#eeece7;color:#2b322f}.comp-head{display:flex;justify-content:space-between;padding:22px 6vw;border-bottom:1px solid #b4b2aa;font-size:12px}.comp-head a:first-child{font-weight:900;text-decoration:none}.comp-scene{padding:85px 7vw 115px}.comp-intro span{font-size:11px;letter-spacing:.16em}.comp-intro h1{font:400 clamp(65px,8vw,128px)/.9 Georgia,serif;letter-spacing:-.07em;margin:30px 0}.comp-intro p{max-width:630px}.comp-stage{margin-top:60px;position:relative;height:clamp(330px,54vw,650px);background:#b8b9af;overflow:hidden}.comp-images{position:relative;width:100%;height:100%}.comp-images img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}.comp-before{filter:grayscale(100%) brightness(.86)}.comp-after{clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}.comp-line{position:absolute;left:var(--reveal);top:0;bottom:0;width:3px;background:#fff;box-shadow:0 0 0 1px #333;pointer-events:none}.comp-label{position:absolute;top:20px;background:#fff;color:#222;font-size:10px;font-weight:800;padding:9px 12px}.comp-label-before{right:20px}.comp-label-after{left:20px}.comp-slider-label{margin:30px 0 10px;display:flex;justify-content:space-between;gap:15px;font-size:13px;font-weight:800}.comp-scene input{display:block;width:100%;accent-color:#96583d;cursor:ew-resize;min-height:44px}.comp-note{background:#333b35;color:#fff;padding:85px 7vw}.comp-note h2{font:400 clamp(55px,7vw,105px) Georgia,serif}@media(max-width:760px){.comp-scene{padding:65px 22px 75px}.comp-intro h1{font-size:clamp(64px,11vw,90px)}.comp-stage{height:330px;margin-top:35px}.comp-note{padding:75px 22px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* M-UTIL-03: touch-ready photo reveal with an exposed grab handle and usable preset targets. */
+.comp-presets[hidden],.comp-touch-hint[hidden]{display:none!important}.comp-presets{display:none}
+@media(max-width:760px){
+ body[data-mobile-treatment="M-UTIL-03"] .comp-scene{padding:65px 17px 85px}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-stage{margin-top:28px;height:clamp(330px,62svh,490px);touch-action:pan-y;cursor:ew-resize;user-select:none}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-line{width:3px;background:white}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-line::after{content:'↔';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;border-radius:50%;width:54px;height:54px;background:#fff;color:#26392e;font-size:26px;font-weight:800;box-shadow:0 2px 16px #17271a88}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-label{top:10px;padding:8px;font-size:9px}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-label-before{right:10px}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-label-after{left:10px}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-touch-hint{font-size:12px;line-height:1.5;margin:16px 0 10px;max-width:350px;color:#515b50}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-presets:not([hidden]){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:16px}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-presets button{min-width:0;min-height:50px;padding:12px 5px;background:#e2e5dc;color:#28372c;border:1px solid #93a293;font-size:13px;font-weight:850}
+ body[data-mobile-treatment="M-UTIL-03"] .comp-presets button[aria-pressed=true]{background:#2f4a37;color:#fff}
+ body[data-mobile-treatment="M-UTIL-03"] #comp-range{min-height:50px;accent-color:#2e503b}
+}
+

@@ -379,13 +379,15 @@
     "category": "Forms and booking controls",
     "title": "Native date and time controls",
     "exampleContext": "Appointment request using mobile-native pickers and overflow-safe labels",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "FORM-01"
+    ],
+    "previewRoute": "./previews/FORM-01/?mobile=M-FRM-04",
+    "reviewRoute": "./review.html?id=FORM-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Implemented phone alternative. Optional native date and time contact preference with pair validation and local-only non-booking summary. Real device, visual, and stock-image approval pending."
   },
   {
     "id": "M-STORY-01",
@@ -524,26 +526,30 @@
     "category": "Utility interactions",
     "title": "Touch comparison slider",
     "exampleContext": "Project before-and-after with slider label and accessible alternative",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "COMP-01"
+    ],
+    "previewRoute": "./previews/COMP-01/?mobile=M-UTIL-03",
+    "reviewRoute": "./review.html?id=COMP-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Implemented phone alternative. Direct touch/pen photo scrubbing, visible comparison handle, keyboard slider and 25/50/75 percent presets. Real device, visual, and stock-image approval pending."
   },
   {
     "id": "M-UTIL-04",
     "category": "Utility interactions",
     "title": "Filter drawer",
     "exampleContext": "Product filtering in an accessible modal drawer with apply/reset controls",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "GAL-05"
+    ],
+    "previewRoute": "./previews/GAL-05/?mobile=M-UTIL-04",
+    "reviewRoute": "./review.html?id=GAL-05",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Implemented phone alternative. Accessible native modal filter drawer that reuses live category-filter buttons, includes close and selected-photo count. Real device, visual, and stock-image approval pending."
   },
   {
     "id": "M-UTIL-05",
