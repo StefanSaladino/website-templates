@@ -1240,6 +1240,119 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Eight additional responsive, genuinely interactive core components; assertions require actual browser behavior.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/UI-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[role=tab]').count()===3
+  &&await page.locator('[role=tabpanel]:visible').count()===1,'UI-02 exposes three semantic tabs and exactly one visible panel');
+ await page.locator('#tab-architecture').focus();
+ await page.keyboard.press('ArrowRight');
+ assert(await page.locator('#tab-interiors').getAttribute('aria-selected')==='true'
+  &&await page.locator('#panel-interiors').isVisible(),'UI-02 keyboard ArrowRight changes actual art/content and selected state');
+ await page.keyboard.press('End');
+ assert(await page.locator('#tab-research').getAttribute('aria-selected')==='true'
+  &&await page.locator('#panel-research').isVisible(),'UI-02 keyboard End selects the final panel');
+
+ await page.goto(base+'previews/UI-03/',{waitUntil:'domcontentloaded'});
+ await page.locator('#open-dialog').click();
+ assert(await page.locator('#inquiry-dialog').evaluate(el=>el.open)
+  &&await page.locator('#close-dialog').evaluate(el=>document.activeElement===el),'UI-03 native dialog opens and focuses Close');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#inquiry-dialog').evaluate(el=>!el.open)
+  &&await page.locator('#open-dialog').evaluate(el=>document.activeElement===el),'UI-03 Escape dismisses and restores opener focus');
+ await page.locator('#open-dialog').click();
+ await page.locator('#dialog-form button[type=submit]').click();
+ assert((await page.locator('#form-error').textContent()).includes('Choose'),'UI-03 does not generate an empty fake inquiry');
+ await page.locator('#idea-type').selectOption('Interior update');
+ await page.locator('#idea-desc').fill('Illustrative kitchen design inquiry.');
+ await page.locator('#dialog-form button[type=submit]').click();
+ assert(await page.locator('#draft').isVisible()
+  &&(await page.locator('#draft-output').textContent()).includes('NOT SENT'),'UI-03 dialog produces only an unsent local project note');
+ await page.locator('#close-dialog').click();
+
+ await page.goto(base+'previews/UI-06/',{waitUntil:'domcontentloaded'});
+ await page.locator('#show-info').click();
+ assert(await page.locator('#toast').isVisible()
+  &&(await page.locator('#toast-text').textContent()).includes('reserved'),'UI-06 informational toast is real and discloses reserved sample contact');
+ await page.locator('#toast-dismiss').click();
+ assert(await page.locator('#toast').isHidden(),'UI-06 toast can be actively dismissed');
+ await page.locator('#copy-button').click();
+ assert((await page.locator('#persistent-status').textContent())!=='Nothing copied yet.'
+  &&await page.locator('#toast').isVisible(),'UI-06 reports the actual clipboard outcome instead of leaving inert feedback');
+
+ await page.goto(base+'previews/LOC-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-branch=centre]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#branch-name').textContent())==='Centre Room','LOC-03 starts with one selected fictional salon branch');
+ await page.locator('[data-branch=shore]').click();
+ assert(await page.locator('[data-branch=shore]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#branch-name').textContent())==='Shore Room'
+  &&(await page.locator('#branch-hours').textContent()).includes('Thu'),'LOC-03 branch selector changes actual visible details');
+
+ await page.goto(base+'previews/LOC-04/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('#directions-link').getAttribute('href')).includes('100%20Queen%20Street%20West')
+  &&(await page.locator('.disclose').textContent()).includes('not affiliated'),'LOC-04 links a documented public landmark rather than fabricated coordinates');
+ await page.locator('[data-mode=transit]').click();
+ assert(await page.locator('[data-mode=transit]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#mode-heading').textContent())==='Public transit','LOC-04 travel-topic selector really updates its information');
+
+ await page.goto(base+'previews/FORM-04/',{waitUntil:'domcontentloaded'});
+ assert(Boolean(await page.locator('#date').getAttribute('min')),'FORM-04 applies browser-local minimum date');
+ await page.locator('#service-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('Choose an example service')
+  &&await page.locator('#summary').isHidden(),'FORM-04 blocks an empty appointment preference');
+ await page.locator('[name=service][value=Inspection]').check();
+ const earliest=await page.locator('#date').getAttribute('min');
+ await page.locator('#date').fill(earliest);
+ await page.locator('#time').selectOption({label:'Morning preference'});
+ await page.locator('#name').fill('Demo Driver');
+ await page.locator('#email').fill('demo@example.com');
+ await page.locator('#service-form button[type=submit]').click();
+ assert(await page.locator('#summary').isVisible()
+  &&(await page.locator('#draft').textContent()).includes('NOT SENT OR BOOKED'),'FORM-04 generates only an unsent service preference without availability claims');
+
+ await page.goto(base+'previews/FORM-06/',{waitUntil:'domcontentloaded'});
+ await page.locator('#file-name').fill('Concept boards');
+ await page.locator('#file-form button[type=submit]').click();
+ assert((await page.locator('#file-error').textContent()).includes('Choose one local')
+  &&await page.locator('#file-summary').isHidden(),'FORM-06 attachment is a genuinely required input');
+ await page.locator('#file').setInputFiles({name:'notes.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.7\nDemo local metadata only')});
+ await page.locator('#file-form button[type=submit]').click();
+ assert(await page.locator('#file-summary').isVisible()
+  &&(await page.locator('#file-output').textContent()).includes('NOT UPLOADED')
+  &&(await page.locator('#file-output').textContent()).includes('notes.pdf'),'FORM-06 accepts valid local metadata without reading or uploading file data');
+ await page.locator('#clear-file').click();
+ assert(await page.locator('#file-summary').isHidden()
+  &&(await page.locator('#file-details').textContent()).includes('No file chosen'),'FORM-06 clears chosen local file metadata');
+
+ await page.goto(base+'previews/LEGAL-01/',{waitUntil:'domcontentloaded'});
+ await page.evaluate(()=>localStorage.removeItem('showroom-legal01-preferences-v1'));
+ await page.reload({waitUntil:'domcontentloaded'});
+ assert(await page.locator('#consent-banner').isVisible()
+  &&!await page.locator('#analytics').isChecked()
+  &&!await page.locator('#marketing').isChecked(),'LEGAL-01 initially offers visible neutral consent and unselected optional purposes');
+ await page.locator('#reject-all').click();
+ assert(await page.locator('#consent-banner').isHidden()
+  &&(await page.locator('#current-state').textContent()).includes('analytics off'),'LEGAL-01 Reject optional actually stores disabled optional preferences');
+ await page.locator('[data-open-preferences]').first().click();
+ await page.locator('#analytics').check();
+ await page.locator('#preference-form button[type=submit]').click();
+ assert(await page.locator('#preference-dialog').evaluate(el=>!el.open)
+  &&(await page.locator('#current-state').textContent()).includes('analytics on'),'LEGAL-01 consent toggles save independently and close native preferences dialog');
+ await page.reload({waitUntil:'domcontentloaded'});
+ assert(await page.locator('#consent-banner').isHidden()
+  &&(await page.locator('#current-state').textContent()).includes('analytics on'),'LEGAL-01 optional preferences survive reload when localStorage is available');
+ await page.locator('#reset-preferences').click();
+ assert(await page.locator('#consent-banner').isVisible(),'LEGAL-01 demo preferences can be reset and banner reopened');
+
+ for(const id of ['UI-02','UI-03','UI-06','LOC-03','LOC-04','FORM-04','FORM-06','LEGAL-01']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const widths=await page.evaluate(()=>({screen:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(widths.document<=widths.screen+2,id+' avoids horizontal page overflow at 320px ('+widths.document+'/'+widths.screen+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
