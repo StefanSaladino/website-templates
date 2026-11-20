@@ -3402,16 +3402,47 @@
     "id": "ANIM-09",
     "category": "animations",
     "title": "Diagonal section reveal",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Independent furniture studio: a clipped transition between two editorial panels",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-09/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "One intentional angled panel wipe with a simple no-motion replacement."
+    "interactions": [
+      "replay",
+      "intersection-trigger",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "editorial",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working isolated preview and matching full template; media rights and physical-device visual QA required.",
+    "reviewRoute": "./review.html?id=ANIM-09",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/editorial-commerce/index.html#journal",
+    "fullTemplateName": "RANGE/FOUND / Editorial Commerce",
+    "showcase": {
+      "label": "Animation and interaction",
+      "focus": "Diagonal editorial chapter reveal",
+      "summary": "An angular panel wipe introduces the field-note chapter once; a control allows replay.",
+      "desktop": "Review the working motion and selected state; compare with the linked full-page template.",
+      "mobile": "Buttons work by touch or keyboard. Reduced-motion skips the transitional effect.",
+      "lookFor": [
+        "Diagonal editorial chapter reveal",
+        "Clear selected state and readable no-motion fallback"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "An angular panel wipe introduces the field-note chapter once; a control allows replay.",
+      "bestFor": [
+        "Editorial journal sections",
+        "Distinct chapter changes"
+      ],
+      "fitReason": "Motion emphasizes a deliberate editorial transition or directly requested content change."
+    }
   },
   {
     "id": "ANIM-10",
@@ -3510,16 +3541,47 @@
     "id": "ANIM-12",
     "category": "animations",
     "title": "Project image exchange",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Interior designer: switching project photography by focus or click",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-12/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Persistent selected state and accessible controls, never hover-only."
+    "interactions": [
+      "image-selection",
+      "keyboard-touch",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "editorial",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working isolated preview and matching full template; media rights and physical-device visual QA required.",
+    "reviewRoute": "./review.html?id=ANIM-12",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/frame-portfolio/index.html#frame-feature",
+    "fullTemplateName": "FRAME / Portfolio",
+    "showcase": {
+      "label": "Animation and interaction",
+      "focus": "Selected project photograph exchange",
+      "summary": "Three genuine selectable images share a stage, changing the visible photo and its label.",
+      "desktop": "Review the working motion and selected state; compare with the linked full-page template.",
+      "mobile": "Buttons work by touch or keyboard. Reduced-motion skips the transitional effect.",
+      "lookFor": [
+        "Selected project photograph exchange",
+        "Clear selected state and readable no-motion fallback"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Three genuine selectable images share a stage, changing the visible photo and its label.",
+      "bestFor": [
+        "Creative photography portfolios",
+        "Selected project modules"
+      ],
+      "fitReason": "Motion emphasizes a deliberate editorial transition or directly requested content change."
+    }
   },
   {
     "id": "ANIM-13",

@@ -500,3 +500,10 @@ h1,h2,h3,p,blockquote,dd,dt,strong,span,a { overflow-wrap: break-word; }
   .reveal { opacity: 1; transform: none; }
   .hero-media img { transform: none !important; }
 }
+
+/* ANIM-09: deliberate diagonal journal panel reveal. Text visible with JS disabled. */
+.journal-wipe-replay{display:none;align-self:start;min-height:44px;margin-top:16px;padding:10px 0;border:0;border-bottom:1px solid currentColor;background:transparent;color:inherit;font:800 11px Arial,sans-serif;cursor:pointer}
+.journal-motion-ready .journal-wipe-replay{display:inline-flex;align-items:center}
+@keyframes journalDiagonalPanel{from{clip-path:polygon(0 0,6% 0,0 100%,0 100%)}to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+.journal.journal-motion-playing>.journal-copy{animation:journalDiagonalPanel .88s cubic-bezier(.22,.73,.2,1) both}
+@media(prefers-reduced-motion:reduce){.journal.journal-motion-playing>.journal-copy{animation:none!important}}

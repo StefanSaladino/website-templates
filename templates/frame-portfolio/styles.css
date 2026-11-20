@@ -39,3 +39,12 @@ footer a{min-height:44px;display:flex;align-items:center}
 /* Explicit dimensions must not become fixed heights on failed image requests. */
 .opening-images img,.frame img{height:auto!important;display:block}
 .opening-images img,.frame img{background:repeating-linear-gradient(135deg,#deded8,#deded8 18px,#cdcec7 18px,#cdcec7 19px)}
+
+/* ANIM-12: project image exchange, independent of the existing filter and lightbox. */
+.frame-feature{margin:25px 0 100px;border-block:1px solid var(--ink);padding:38px 0 60px}
+.frame-feature-intro{max-width:760px;margin-bottom:35px}.frame-feature-intro>p:first-child{font-size:10px;letter-spacing:.16em;font-weight:850}.frame-feature-intro h3{font:400 clamp(37px,5.2vw,72px)/1 Georgia,serif;letter-spacing:-.055em;margin:20px 0}.frame-feature-intro>p:last-child{font-size:14px;line-height:1.6}
+.frame-feature-body{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(220px,.55fr);gap:clamp(22px,4vw,58px);align-items:end}.frame-feature-stage{height:clamp(380px,47vw,650px);background:#ddd9cf;overflow:hidden}.frame-feature-image{position:relative;margin:0;height:100%}.frame-feature-image[hidden]{display:none!important}.frame-feature-image img{width:100%;height:100%;object-fit:cover}.frame-feature-image figcaption{position:absolute;bottom:0;left:0;background:var(--paper,#f8f8f4);padding:13px 18px;font-size:10px;font-weight:800;letter-spacing:.1em}.frame-feature-image.is-arriving{animation:frameExchange .45s ease-out both}@keyframes frameExchange{from{opacity:.3;transform:scale(1.03)}to{opacity:1;transform:none}}
+.frame-feature-buttons button{display:block;width:100%;min-height:57px;padding:18px 10px;text-align:left;background:transparent;border:0;border-bottom:1px solid #aaa;color:#666;font-weight:800;font-size:12px;cursor:pointer}.frame-feature-buttons button[aria-pressed=true]{color:var(--ink);background:#e5e5dc}.frame-feature-side>p{font-size:11px;letter-spacing:.07em;margin-top:25px}
+@media(max-width:780px){.frame-feature{margin:20px 0 65px;padding:28px 0 45px}.frame-feature-body{display:block}.frame-feature-stage{height:460px}.frame-feature-side{margin-top:18px}.frame-feature-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.frame-feature-buttons button{text-align:center;min-height:48px;padding:12px 4px;font-size:10px}}
+@media(max-width:430px){.frame-feature-stage{height:340px}.frame-feature-intro h3{font-size:39px}}
+@media(prefers-reduced-motion:reduce){.frame-feature-image.is-arriving{animation:none!important}}

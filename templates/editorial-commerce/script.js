@@ -61,3 +61,9 @@ if (heroImage && !reduceMotion.matches && window.innerWidth > 980) {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 }
+
+/* ANIM-09: in-view diagonal panel reveal with a replayable, reduced-motion-safe trigger. */
+const fieldJournal=document.querySelector('[data-motion-pattern="ANIM-09"]'),fieldReplay=fieldJournal?.querySelector('[data-journal-replay]'),fieldReduced=matchMedia('(prefers-reduced-motion: reduce)');let fieldTimer;
+function stopFieldReveal(){clearTimeout(fieldTimer);fieldJournal?.classList.remove('journal-motion-playing')}
+function playFieldReveal(){stopFieldReveal();if(!fieldJournal||fieldReduced.matches||document.hidden)return;void fieldJournal.offsetWidth;fieldJournal.classList.add('journal-motion-playing');fieldTimer=setTimeout(stopFieldReveal,1200)}
+if(fieldJournal&&fieldReplay){document.body.classList.add('journal-motion-ready');fieldReplay.addEventListener('click',playFieldReveal);fieldReduced.addEventListener('change',e=>{if(e.matches)stopFieldReveal()});document.addEventListener('visibilitychange',()=>{if(document.hidden)stopFieldReveal()});if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){playFieldReveal();io.disconnect()}},{threshold:.25});io.observe(fieldJournal.querySelector('.journal-copy')||fieldJournal)}}
