@@ -60,26 +60,30 @@
     "category": "Navigation and sticky chrome",
     "title": "Horizontal anchor tabs",
     "exampleContext": "Restaurant page with scrollable section anchors and a visible active section",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "NAV-02"
+    ],
+    "previewRoute": "./previews/NAV-02/?mobile=M-NAV-05",
+    "reviewRoute": "./review.html?id=NAV-02",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Implemented mobile alternative. Persistent horizontally scrolling native section tabs, with a current-location indicator and real section anchors. Still subject to physical-device and media approvals."
   },
   {
     "id": "M-NAV-06",
     "category": "Navigation and sticky chrome",
     "title": "Off-canvas drawer",
     "exampleContext": "Product collection with accessible slide-in navigation and scroll lock",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "NAV-04"
+    ],
+    "previewRoute": "./previews/NAV-04/?mobile=M-NAV-06",
+    "reviewRoute": "./review.html?id=NAV-04",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Implemented mobile alternative. Right-edge safe-area drawer with dimming overlay, close control, Escape, focus trap and inert background. Still subject to physical-device and media approvals."
   },
   {
     "id": "M-HERO-01",
@@ -211,13 +215,15 @@
     "category": "Galleries and project imagery",
     "title": "Thumbnails to full-screen viewer",
     "exampleContext": "Detailing before-and-after gallery opening an accessible photo viewer",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "GAL-06"
+    ],
+    "previewRoute": "./previews/GAL-06/?mobile=M-GAL-05",
+    "reviewRoute": "./review.html?id=GAL-06",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Implemented mobile alternative. Compact three-column gallery with an enlarged lead thumbnail; true viewport-height native lightbox and left/right swipe gestures. Still subject to physical-device and media approvals."
   },
   {
     "id": "M-SRV-01",
