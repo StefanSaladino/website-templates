@@ -3155,16 +3155,41 @@
     "id": "CAREER-01",
     "category": "careers",
     "title": "Open roles list",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Contractor job roles and locations",
-    "previewRoute": null,
+    "previewRoute": "./previews/CAREER-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "department-filter",
+      "native-details",
+      "sample-role-selection"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "careers",
+      "recruitment",
+      "list",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functional source-complete in-review preview only; no real address, business opening, applicant intake, mailing-list subscription, backend processing or quote. Full browser/physical-device QA and licensing signoff pending.",
+    "reviewRoute": "./review.html?id=CAREER-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Careers and recruitment",
+      "focus": "Fictional role listing and filters",
+      "summary": "An accessible recruitment-style listing with three expandable example roles and real site/office filters, explicitly stating no job is currently open.",
+      "desktop": "A compact editorial jobs ledger includes department filters and role details without invented real employment opportunities.",
+      "mobile": "Three touch-friendly disclosure rows, category filters and a truthful non-applying role selection summary.",
+      "lookFor": [
+        "Site and office filters really change the visible positions",
+        "Every vacancy and application path is labeled as fictional, not hiring"
+      ],
+      "focusAnchor": "career-showcase",
+      "explain": "A grounded careers-directory design that can be connected to genuine positions and compliant applications when a client hires.",
+      "fitReason": "Actual deployment requires verifiable current openings, employer identity and a secure application process."
+    }
   },
   {
     "id": "CAREER-02",
@@ -3185,16 +3210,41 @@
     "id": "CAREER-03",
     "category": "careers",
     "title": "Application interest form",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Sample application capture clearly non-live",
-    "previewRoute": null,
+    "previewRoute": "./previews/CAREER-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "required-field-validation",
+      "local-only-candidate-draft",
+      "copy-to-clipboard"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "careers",
+      "application",
+      "form",
+      "local-only"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functional source-complete in-review preview only; no real address, business opening, applicant intake, mailing-list subscription, backend processing or quote. Full browser/physical-device QA and licensing signoff pending.",
+    "reviewRoute": "./review.html?id=CAREER-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Careers and recruitment",
+      "focus": "Local-only application-interest draft",
+      "summary": "A responsive recruitment-interest form checks native email and required fields and builds an honest local-only, non-submitted draft.",
+      "desktop": "A narrative explanation and privacy caveats sit beside a labeled input form with explicit submit-result states.",
+      "mobile": "A prominent explanation leads a one-column form with readable validation, full-width controls and accessible prepared-draft panel.",
+      "lookFor": [
+        "Empty and malformed submissions focus real errors",
+        "Valid entries generate a NOT SENT draft without storing an application"
+      ],
+      "focusAnchor": "career-showcase",
+      "explain": "A safe applicant-interest interaction pattern, intentionally without actual hiring submission or storage.",
+      "fitReason": "Do not deploy as a real application channel until privacy, secure upload and backend handling are approved."
+    }
   },
   {
     "id": "FORM-01",
@@ -3291,16 +3341,43 @@
     "id": "FORM-03",
     "category": "forms",
     "title": "Multi-step questionnaire",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Renovation budget and scope walkthrough",
-    "previewRoute": null,
+    "previewRoute": "./previews/FORM-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "three-step-questionnaire",
+      "per-step-validation",
+      "back-navigation",
+      "local-only-summary",
+      "copy-to-clipboard"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "forms",
+      "renovation",
+      "questionnaire",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functional source-complete in-review preview only; no real address, business opening, applicant intake, mailing-list subscription, backend processing or quote. Full browser/physical-device QA and licensing signoff pending.",
+    "reviewRoute": "./review.html?id=FORM-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Forms",
+      "focus": "Multi-step local renovation enquiry",
+      "summary": "A functional three-step scope, budget/timeline and contact questionnaire validates in stages and builds a NOT SENT project summary.",
+      "desktop": "A supporting editorial intro occupies a separate column next to a progressive form and visible three-stage tracker.",
+      "mobile": "A vertically composed explanation leads full-width sample options, clear progress text, Back buttons and local-only summary.",
+      "lookFor": [
+        "Cannot advance without the required scope and budget selections",
+        "Back retains real answers; finishing produces only an unsent local summary"
+      ],
+      "focusAnchor": "form-showcase",
+      "explain": "An honest prospective-project intake flow showing progressive disclosure without pretending to submit a contractor lead or compute a quote.",
+      "fitReason": "Requires approved fields, actual budget guidance, consent and a secure submission route before publication."
+    }
   },
   {
     "id": "FORM-04",
@@ -3468,31 +3545,81 @@
     "id": "LOC-01",
     "category": "locations",
     "title": "Single location",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Cafe address hours and directions",
-    "previewRoute": null,
+    "previewRoute": "./previews/LOC-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-details",
+      "anchor-navigation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "location",
+      "hours",
+      "hospitality",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functional source-complete in-review preview only; no real address, business opening, applicant intake, mailing-list subscription, backend processing or quote. Full browser/physical-device QA and licensing signoff pending.",
+    "reviewRoute": "./review.html?id=LOC-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Locations and service areas",
+      "focus": "Single example location and hours",
+      "summary": "An editorial café location section with an explicitly fictional address, sample weekly hours and useful native arrival disclosures.",
+      "desktop": "A large typographic invitation shares the page with a full fictional schedule, location note and original abstract café scene.",
+      "mobile": "A bold single-column invitation leads an architectural illustration and stacked readable address/hours before FAQ disclosures.",
+      "lookFor": [
+        "No fake external directions or unsupported live open-now status",
+        "Fictional address and opening hours visibly disclosed"
+      ],
+      "focusAnchor": "location-showcase",
+      "explain": "An honest single-location layout for a business with real details to substitute later; native details give usable arrival guidance.",
+      "fitReason": "Publish only after a real address, access route and seasonal opening times are confirmed."
+    }
   },
   {
     "id": "LOC-02",
     "category": "locations",
     "title": "Service-area map",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Contractor region map with sample boundaries",
-    "previewRoute": null,
+    "previewRoute": "./previews/LOC-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "zone-picker",
+      "aria-pressed",
+      "live-selected-region",
+      "anchor-navigation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "regional",
+      "map-like",
+      "service-area",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functional source-complete in-review preview only; no real address, business opening, applicant intake, mailing-list subscription, backend processing or quote. Full browser/physical-device QA and licensing signoff pending.",
+    "reviewRoute": "./review.html?id=LOC-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Locations and service areas",
+      "focus": "Conceptual regional service-area selector",
+      "summary": "A real four-region selector highlights an explicitly abstract illustration and updates sample service-area copy without masquerading as a geographic map.",
+      "desktop": "Four stylized map-like quadrants sit beside a readable zone-selector and an honest selected-coverage panel.",
+      "mobile": "The diagram becomes a touch-friendly square composition followed by large individual region selection buttons.",
+      "lookFor": [
+        "Selecting a zone changes both highlight and descriptive content",
+        "Diagram does not imply addresses, distances, real municipality boundaries or availability"
+      ],
+      "focusAnchor": "location-showcase",
+      "explain": "An interactive service-region information architecture demonstration without false map data.",
+      "fitReason": "Replace abstract shapes with validated service geography and live contact workflows before production."
+    }
   },
   {
     "id": "LOC-03",
@@ -3528,46 +3655,127 @@
     "id": "NEWS-01",
     "category": "newsletter",
     "title": "Inline sign-up",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Fashion footer email and consent",
-    "previewRoute": null,
+    "previewRoute": "./previews/NEWS-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "email-validation",
+      "consent-checkbox",
+      "local-only-signup-preview",
+      "form-reset"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "newsletter",
+      "consent",
+      "retail",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functional source-complete in-review preview only; no real address, business opening, applicant intake, mailing-list subscription, backend processing or quote. Full browser/physical-device QA and licensing signoff pending.",
+    "reviewRoute": "./review.html?id=NEWS-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Newsletter subscriptions",
+      "focus": "Consent-aware inline retail newsletter",
+      "summary": "A restrained fictional fashion-letter signup with genuine validation, unchecked explicit consent and a successful local-only preview—never a subscribed user.",
+      "desktop": "A typography-led retail intro faces a compact editorial email signup and clear privacy disclosure.",
+      "mobile": "Large editorial intro followed by an entirely stacked, legible native email and consent experience.",
+      "lookFor": [
+        "Invalid email or unchecked consent cannot pass",
+        "Success messaging never implies real subscription or data transmission"
+      ],
+      "focusAnchor": "newsletter-showcase",
+      "explain": "An email opt-in pattern illustrating meaningful consent and validation, separate from a mail provider integration.",
+      "fitReason": "Production needs an actual subscription provider, policy disclosures, consent records and unsubscribe links."
+    }
   },
   {
     "id": "NEWS-02",
     "category": "newsletter",
     "title": "Editorial subscription panel",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architecture journal subscription with image",
-    "previewRoute": null,
+    "previewRoute": "./previews/NEWS-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-007"
+    ],
+    "interactions": [
+      "topic-preferences",
+      "consent-checkbox",
+      "email-validation",
+      "local-only-preference-preview"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "newsletter",
+      "editorial",
+      "architecture",
+      "image-led"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functional source-complete in-review preview only; no real address, business opening, applicant intake, mailing-list subscription, backend processing or quote. Full browser/physical-device QA and licensing signoff pending.",
+    "reviewRoute": "./review.html?id=NEWS-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Newsletter subscriptions",
+      "focus": "Photo-led editorial subscription preferences",
+      "summary": "A stock-photo architecture journal concept where readers select topics and cadence and generate an unsent preview after consent validation.",
+      "desktop": "Tall photo with overlaid journal typography beside a topic/frequency-controlled subscription editor.",
+      "mobile": "A cinematic cropped editorial cover leads to vertically stacked topic, frequency, email and consent fields.",
+      "lookFor": [
+        "Topic selection, cadence and consent are validated for actual local preview",
+        "Photo explicitly disclaims original studio work and backend signups"
+      ],
+      "focusAnchor": "newsletter-showcase",
+      "explain": "A richer editorial newsletter design with purposeful content preferences, not a duplicate of the simple inline signup.",
+      "fitReason": "A business must supply authenticated imagery and operational subscription processing before using this live."
+    }
   },
   {
     "id": "UI-01",
     "category": "interface",
     "title": "Accordion",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Accessible FAQ disclosure for services",
-    "previewRoute": null,
+    "previewRoute": "./previews/UI-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "search-filter",
+      "native-details",
+      "single-expanded",
+      "empty-state",
+      "live-count"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "faq",
+      "interface",
+      "search",
+      "accessible"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Functional source-complete in-review preview only; no real address, business opening, applicant intake, mailing-list subscription, backend processing or quote. Full browser/physical-device QA and licensing signoff pending.",
+    "reviewRoute": "./review.html?id=UI-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Interface and utilities",
+      "focus": "Searchable services FAQ accordion",
+      "summary": "Six native disclosure rows can be searched in place; unmatched questions hide, the results count updates and empty-state controls restore all items.",
+      "desktop": "A large editorial questions heading and separate search field lead a high-contrast row-based FAQ index.",
+      "mobile": "Compact labeled search and tall native accordion headings retain keyboard and touch behavior without horizontal page scrolling.",
+      "lookFor": [
+        "Typing filters real answer content and reveals useful no-results state",
+        "Only one disclosure stays expanded at a time, with no dead FAQ controls"
+      ],
+      "focusAnchor": "interface-showcase",
+      "explain": "An accessible, genuinely filterable FAQ interface for service businesses with truthful answers.",
+      "fitReason": "Use vetted answers and real business terms in production; the demonstration answers are illustrative."
+    }
   },
   {
     "id": "UI-02",
