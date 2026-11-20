@@ -59,3 +59,6 @@ The review page intentionally has no working shortlist or local browser storage.
 
 ## New motion catalogue (Nov 20, 2026)
 Twenty animation patterns, ANIM-01–ANIM-20, expand the catalogue to **30 families and 157 core choices**, with 44 separately planned mobile alternatives. ANIM-01 starts the in-review interactive previews; other motion variants are built in progressive QA-checked batches. See the roadmap amendment for motion/accessibility/preview requirements. Do not auto-apply motion effects to existing templates.
+
+## Phase 3 status (November 20, 2026)
+All 36 individually enumerated first-release core IDs now have in-review preview implementations, plus four in-review motion examples. This is **40 working prototypes**, not 40 production-approved components. The other 16 planned motion patterns are draft entries. Licensed imagery approval, genuine preview thumbnails, final mobile/accessible QA and client sign-off remain outstanding; main is unchanged. Note that the original roadmap incorrectly calls its 36-item Phase 3 ID list "35". See docs/COMPONENT-PHASE3-PROGRESS.md for the newest checkpoint.

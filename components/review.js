@@ -158,8 +158,19 @@ function updateSpotlightGeometry(){
   const clipBottom=Math.min(stageRect.bottom-5,viewRect.bottom-5,frameRect.bottom-3);
   const left=Math.max(clipLeft,frameRect.left+targetRect.left*scale);
   const right=Math.min(clipRight,frameRect.left+targetRect.right*scale);
-  const top=Math.max(clipTop,frameRect.top+targetRect.top*scale);
-  const bottom=Math.min(clipBottom,frameRect.top+targetRect.bottom*scale);
+  let top=Math.max(clipTop,frameRect.top+targetRect.top*scale);
+  let bottom=Math.min(clipBottom,frameRect.top+targetRect.bottom*scale);
+  // A compact bar can shrink below 12 real pixels on a phone when a
+  // desktop preview is fitted. Give the overlay an unclipped visible stroke.
+  if(bottom>top && bottom-top<18){
+    const center=(top+bottom)/2;
+    top=Math.max(clipTop,center-10);
+    bottom=Math.min(clipBottom,center+10);
+    if(bottom-top<12){
+      if(top<=clipTop+1)bottom=Math.min(clipBottom,top+12);
+      else top=Math.max(clipTop,bottom-12);
+    }
+  }
   if(right-left<14||bottom-top<12){
     spotlight.hidden=true;
     return false;
