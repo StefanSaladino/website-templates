@@ -1899,7 +1899,9 @@
     "hasMobileLayout": true,
     "notes": "Working demo with real responsive layout; final client visual approval deferred. All example branding is fictional.",
     "reviewRoute": "./review.html?id=PROC-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-STORY-03"
+    ],
     "showcase": {
       "label": "Process section",
       "focus": "Numbered project timeline",
@@ -2085,7 +2087,9 @@
     "hasMobileLayout": true,
     "notes": "Working example. Fictional brand and clearly labeled illustrative content; final client visual signoff deferred.",
     "reviewRoute": "./review.html?id=TEST-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-STORY-02"
+    ],
     "showcase": {
       "label": "Testimonial section",
       "focus": "Single featured client quote",
@@ -2190,7 +2194,9 @@
     "hasMobileLayout": true,
     "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
     "reviewRoute": "./review.html?id=PRICE-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-COM-04"
+    ],
     "showcase": {
       "label": "Pricing and services",
       "focus": "Simple tier list",
@@ -2294,7 +2300,9 @@
     "hasMobileLayout": true,
     "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
     "reviewRoute": "./review.html?id=PROD-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-COM-01"
+    ],
     "showcase": {
       "label": "Commerce and merchandise",
       "focus": "Product grid",
@@ -2398,7 +2406,9 @@
     "hasMobileLayout": true,
     "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
     "reviewRoute": "./review.html?id=MENU-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-COM-03"
+    ],
     "showcase": {
       "label": "Restaurant menu",
       "focus": "Minimal restaurant menu",
@@ -2488,7 +2498,9 @@
     "hasMobileLayout": true,
     "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
     "reviewRoute": "./review.html?id=BOOK-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-FRM-03"
+    ],
     "showcase": {
       "label": "Booking and enquiry",
       "focus": "Appointment picker demo",

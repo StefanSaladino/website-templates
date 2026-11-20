@@ -85,3 +85,7 @@ Six additional actual phone compositions are selectable as mobile alternatives o
 ## Mobile expansion — interaction-focused set
 
 New selectable phone modes: M-NAV-05 on NAV-02, M-NAV-06 on NAV-04, M-GAL-05 on GAL-06, M-FRM-04 on FORM-01, M-UTIL-03 on COMP-01, and M-UTIL-04 on GAL-05. They reuse genuine original content and interactions rather than standalone screenshots. Current mobile alternatives: **16 in review / 44 planned**. Review each by opening its parent component, selecting Phone and then Alternate. No change to main and no production approval implied.
+
+## Commerce + mobile storytelling expansion
+
+New live-working but **not production-approved** core previews: PROD-01 (CSS product illustrations), PRICE-01 (fictional pricing), MENU-01 (illustrative restaurant menu), BOOK-01 (local appointment preferences, no actual booking). They add mobile alternatives M-COM-01, M-COM-04, M-COM-03, M-FRM-03 respectively. TEST-01 gains M-STORY-02 manual fictional quote navigation, and PROC-01 gains M-STORY-03 connected vertical timeline. **22/44 mobile alternatives**, **60/157 core examples** and **20/20 animations** built, all under review. Review each parent via Phone → Alternate; `main` remains untouched.

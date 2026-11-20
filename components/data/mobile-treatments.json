@@ -286,13 +286,15 @@
     "category": "Products, menus, and pricing",
     "title": "Product carousel",
     "exampleContext": "Apparel collection with touch browsing and non-hidden prices",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "PROD-01"
+    ],
+    "previewRoute": "./previews/PROD-01/?mobile=M-COM-01",
+    "reviewRoute": "./review.html?id=PROD-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working fictional mobile alternative. Native four-item swipeable ceramic rail with bounded previous/next controls, visible count and working product inspection. Visual, real-device and rights review outstanding."
   },
   {
     "id": "M-COM-02",
@@ -312,26 +314,30 @@
     "category": "Products, menus, and pricing",
     "title": "Compact restaurant menu",
     "exampleContext": "Food menu with readable dish names, prices, and optional photo detail",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "MENU-01"
+    ],
+    "previewRoute": "./previews/MENU-01/?mobile=M-COM-03",
+    "reviewRoute": "./review.html?id=MENU-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working fictional mobile alternative. Native grouped restaurant-menu disclosures, one category expanded at a time on phones, all sample dishes readable on desktop. Visual, real-device and rights review outstanding."
   },
   {
     "id": "M-COM-04",
     "category": "Products, menus, and pricing",
     "title": "Stacked or toggleable pricing",
     "exampleContext": "Service packages with clear price comparisons and no inaccessible horizontal table",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "PRICE-01"
+    ],
+    "previewRoute": "./previews/PRICE-01/?mobile=M-COM-04",
+    "reviewRoute": "./review.html?id=PRICE-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working fictional mobile alternative. Three selectable sample pricing plans using keyboard/touch controls; accessible tier details remain native. Visual, real-device and rights review outstanding."
   },
   {
     "id": "M-FRM-01",
@@ -366,13 +372,15 @@
     "category": "Forms and booking controls",
     "title": "Sticky booking action",
     "exampleContext": "Hotel availability action that stays useful without covering form fields",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "BOOK-01"
+    ],
+    "previewRoute": "./previews/BOOK-01/?mobile=M-FRM-03",
+    "reviewRoute": "./review.html?id=BOOK-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working fictional mobile alternative. Safe-area sticky consultation-request action that invokes native form validation and never claims or makes a booking. Visual, real-device and rights review outstanding."
   },
   {
     "id": "M-FRM-04",
@@ -407,26 +415,30 @@
     "category": "About, trust, and process",
     "title": "Swipeable testimonial focus",
     "exampleContext": "One readable review at a time, real attribution or clearly fictional demo text",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "TEST-01"
+    ],
+    "previewRoute": "./previews/TEST-01/?mobile=M-STORY-02",
+    "reviewRoute": "./review.html?id=TEST-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working fictional mobile alternative. Reader-controlled, swipeable set of three explicitly fictional sample quotes with visible previous/next and no autoplay. Visual, real-device and rights review outstanding."
   },
   {
     "id": "M-STORY-03",
     "category": "About, trust, and process",
     "title": "Vertical numbered timeline",
     "exampleContext": "Renovation process steps with short descriptions and an obvious sequence",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "PROC-01"
+    ],
+    "previewRoute": "./previews/PROC-01/?mobile=M-STORY-03",
+    "reviewRoute": "./review.html?id=PROC-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working fictional mobile alternative. Connected vertical project timeline with a sticky jump index, current-step indicator and retained native details. Visual, real-device and rights review outstanding."
   },
   {
     "id": "M-STORY-04",

@@ -785,3 +785,22 @@ Six more mobile alternatives are functional and in review, bringing the mobile l
 | M-UTIL-04 | GAL-05 | Native filter modal using the live category filter control set |
 
 **Quality gates:** explicit browser interaction checks, selected state, native dialog semantics, Escape and return focus, no sideways phone scrolling, and unchanged base options. All treatments still require physical iOS Safari and Android Chrome checks, photography licensing/crop sign-off and a human accessibility review. These are **not live** and not merged to `main`.
+
+## Commerce, project storytelling and appointment mobile treatments — November 20, 2026
+
+Core in-review examples **60 / 157** (four added): `PROD-01` illustrated ceramics product grid, `PRICE-01` illustrative pricing tiers, `MENU-01` fictional restaurant menu, and `BOOK-01` local-only consultation planner. All four have real responsive markup and behaviour, not an empty mobile dependency.
+
+Mobile treatments in review: **22 / 44** (six newly added), with 22 still draft. Animations remain **20 / 20** implemented. The six additions:
+
+| ID | Parent core | Functional phone treatment |
+|---|---|---|
+| M-COM-01 | PROD-01 | Native scroll-snap product rail, bounded next/previous and real product material inspection |
+| M-COM-03 | MENU-01 | Native compact restaurant category disclosures; original menu readable in normal mode |
+| M-COM-04 | PRICE-01 | Keyboard/touch-selectable pricing tier cards with working native inclusions |
+| M-FRM-03 | BOOK-01 | Safe-area sticky consultation request; local validation only, never a real appointment |
+| M-STORY-02 | TEST-01 | Three clearly fictional quote studies, manual next/previous and touch swipe, no autoplay |
+| M-STORY-03 | PROC-01 | Vertical project-stage rail with native detail expansion and linked sticky progress index |
+
+**Release integrity:** Example ceramic objects are original CSS studies, not real inventory. Sample restaurant dishes, prices and client quotes are explicitly illustrative. Appointment selections never check availability, collect user data, reserve slots or send requests. All remain `in-review` pending visual, real-phone, accessibility, content and legal/media review.
+
+**QA:** original parent functionality, native form validation, reduced-motion fallback, focus management, touch/navigation state, mobile overflow and base-mode regression tests.

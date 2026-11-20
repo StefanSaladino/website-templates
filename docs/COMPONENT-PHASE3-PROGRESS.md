@@ -36,3 +36,7 @@ The first full six-option phone-design batch is implemented: M-NAV-01, M-HERO-03
 ## Second mobile expansion checkpoint (November 20, 2026)
 
 Six more phone alternatives are implemented: M-NAV-05, M-NAV-06, M-GAL-05, M-FRM-04, M-UTIL-03 and M-UTIL-04. Now **16 / 44** planned mobile treatments in review; **28 drafts remain**. The build retains **56 / 157** core components in review and all **20 / 20** animated patterns integrated. New additions cover section navigation, off-canvas navigation, compact touch-gallery viewing, native contact time preference, drag-to-reveal touch comparison and a filter drawer. Default desktop and base preview modes remain intact. Final photo licensing, physical-device and accessibility gates remain open.
+
+## Commerce, story and booking milestone — November 20, 2026
+
+Four previously draft core specimens were built as usable, explicitly fictional demos: PROD-01, PRICE-01, MENU-01 and BOOK-01. The core catalogue now has **60 of 157 in review**. Six mobile treatments are now linked and implemented: M-COM-01, M-COM-03, M-COM-04, M-FRM-03, M-STORY-02 and M-STORY-03, bringing the phone alternative count to **22 of 44 in review**, with **22 drafts remaining**. The animation catalogue remains **20/20 built**. All user-facing commerce and appointment examples are local demonstrations: no real goods, customer reviews, prices, booking or availability assertions. Responsive browser QA has dedicated functional assertions. Photography licensing, actual mobile hardware validation and final accessibility approval remain open.

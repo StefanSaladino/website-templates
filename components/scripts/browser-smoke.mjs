@@ -609,6 +609,129 @@ try{
  await page.goto(base+'previews/FORM-01/',{waitUntil:'domcontentloaded'});
  assert(await page.locator('#f1-date').count()===0,'FORM-01 default does not show scheduling inputs');
 
+
+ // Phase 4 next batch: original commerce/booking parents and six truly functional phone alternatives.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/PROD-01/',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-inspect=sand]').click();
+ assert(await page.locator('#p1-detail').isVisible()
+   &&(await page.locator('[data-detail-name]').textContent()).includes('Sandstone Vessel')
+   &&await page.locator('[data-inspect=sand]').getAttribute('aria-pressed')==='true','PROD-01 parent has a functional, accessible product-material inspection');
+ await page.locator('[data-detail-close]').click();
+ assert(await page.locator('#p1-detail').isHidden()
+   &&await page.locator('[data-inspect=sand]').evaluate(el=>el===document.activeElement),'PROD-01 detail close restores keyboard focus to source');
+ await page.goto(base+'previews/PRICE-01/',{waitUntil:'domcontentloaded'});
+ await page.locator('.price-card').first().locator('summary').click();
+ assert(await page.locator('.price-card').first().locator('details').evaluate(el=>el.open),'PRICE-01 original pricing details open natively');
+ await page.goto(base+'previews/MENU-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.menu-category').count()===3
+   &&await page.locator('.menu-dishes article').count()===8,'MENU-01 parent displays the full, explicitly fictional food menu');
+ await page.goto(base+'previews/BOOK-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#book-service').isVisible()
+   &&await page.locator('#book-date').getAttribute('type')==='date'
+   &&await page.locator('#book-confirmation').isHidden(),'BOOK-01 parent exposes real native request controls without claiming a booking');
+ await page.locator('#book-service').selectOption('Studio introduction');
+ await page.locator('#book-date').fill('2028-05-18');
+ await page.locator('#book-window').selectOption('Afternoon');
+ await page.locator('#book-form [type=submit]').click();
+ assert(await page.locator('#book-confirmation').isVisible()
+   &&(await page.locator('[data-book-details]').textContent()).includes('NOT submitted or booked'),'BOOK-01 prepares a valid local request with explicit non-booking disclosure');
+ await page.locator('[data-book-edit]').click();
+ assert(await page.locator('#book-confirmation').isHidden()
+   &&await page.locator('#book-service').inputValue()==='Studio introduction','BOOK-01 local request can be edited without losing the form');
+
+ await page.goto(base+'previews/PROD-01/?mobile=M-COM-01',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-product-next]').isVisible()
+   &&await page.locator('[data-product-previous]').isDisabled()
+   &&(await page.locator('[data-product-status]').textContent()).includes('1 of 4'),'M-COM-01 enables a bounded product-rail controller');
+ await page.locator('[data-product-next]').click();
+ assert((await page.locator('[data-product-status]').textContent()).includes('2 of 4'),'M-COM-01 Next changes the selected object');
+ await page.waitForTimeout(710);
+ assert(await page.locator('[data-product-track]').evaluate(el=>el.scrollLeft>90),'M-COM-01 genuinely scrolls the horizontal native rail');
+ await page.locator('[data-product-track] [data-inspect=oxide]').click();
+ assert(await page.locator('[data-detail-name]').textContent()==='Oxide Pitcher','M-COM-01 retains working product inspection within the swipe rail');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-product-next]').click();
+ assert((await page.locator('[data-product-status]').textContent()).includes('3 of 4'),'M-COM-01 continues to work without smooth motion');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+
+ await page.goto(base+'previews/MENU-01/?mobile=M-COM-03',{waitUntil:'domcontentloaded'});
+ const menuPanels=page.locator('.menu-mobile-details');
+ assert(await menuPanels.count()===3
+   &&await menuPanels.nth(0).evaluate(el=>el.open)
+   &&!await menuPanels.nth(1).evaluate(el=>el.open),'M-COM-03 opens the first compact menu category by default');
+ await menuPanels.nth(1).locator('summary').click();
+ assert(await menuPanels.nth(1).evaluate(el=>el.open)
+   &&!await menuPanels.nth(0).evaluate(el=>el.open)
+   &&await menuPanels.nth(1).locator('article').count()===3,'M-COM-03 native grouped accordions show the correct dishes');
+ await page.keyboard.press('Enter');
+ assert(!await menuPanels.nth(1).evaluate(el=>el.open),'M-COM-03 category summary is keyboard operable');
+
+ await page.goto(base+'previews/PRICE-01/?mobile=M-COM-04',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-price-tab]').count()===3
+   &&await page.locator('.price-card:visible').count()===1
+   &&await page.locator('[data-price-tab="1"]').getAttribute('aria-pressed')==='true','M-COM-04 presents one selected sample pricing plan at a time');
+ await page.locator('[data-price-tab="2"]').click();
+ assert(await page.locator('.price-card[data-plan=extended]').isVisible()
+   &&await page.locator('[data-price-tab="2"]').getAttribute('aria-pressed')==='true'
+   &&(await page.locator('.price-toggle-status').textContent()).includes('Extended'),'M-COM-04 tier selector changes real content and status');
+ await page.locator('.price-card[data-plan=extended] summary').click();
+ assert(await page.locator('.price-card[data-plan=extended] details').evaluate(el=>el.open),'M-COM-04 selected plan retains native inclusion details');
+
+ await page.goto(base+'previews/BOOK-01/?mobile=M-FRM-03',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>document.querySelector('.book-sticky-action')?.hidden===false);
+ assert(await page.locator('.book-sticky-action').isVisible()
+   &&await page.locator('.book-sticky-action').evaluate(el=>getComputedStyle(el).position==='fixed'),'M-FRM-03 safe-area action is available near the top of the demo');
+ await page.locator('.book-sticky-action button').click();
+ assert(await page.locator('#book-confirmation').isHidden()
+   &&await page.locator('#book-service').evaluate(el=>!el.validity.valid),'M-FRM-03 incomplete preferences do not create a fake booking');
+ await page.locator('#book-service').selectOption('Project discovery');
+ await page.locator('#book-date').fill('2028-05-18');
+ await page.locator('#book-window').selectOption('Morning');
+ await page.evaluate(()=>scrollTo(0,0));
+ await page.waitForFunction(()=>document.querySelector('.book-sticky-action')?.hidden===false);
+ await page.locator('.book-sticky-action button').click();
+ assert(await page.locator('#book-confirmation').isVisible()
+   &&(await page.locator('[data-book-details]').textContent()).includes('NOT submitted or booked'),'M-FRM-03 sticky action submits only a local, explicitly unbooked preference');
+ await page.waitForFunction(()=>document.querySelector('.book-sticky-action')?.hidden===true);
+ assert(await page.locator('.book-sticky-action').isHidden(),'M-FRM-03 hides sticky request action after local summary appears');
+
+ await page.goto(base+'previews/TEST-01/?mobile=M-STORY-02',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('[data-story-status]').textContent()).includes('1 of 3')
+   &&await page.locator('[data-story-previous]').isDisabled(),'M-STORY-02 starts with one clearly marked fictional testimonial');
+ await page.locator('[data-story-next]').click();
+ assert((await page.locator('[data-story-status]').textContent()).includes('2 of 3')
+   &&(await page.locator('.t1-body h2').textContent()).includes('Every corner'),'M-STORY-02 manual next genuinely changes the quoted sample');
+ const swipe=await page.locator('.t1-body').evaluate(el=>{const t=(x,y)=>new Touch({identifier:6,target:el,clientX:x,clientY:y});
+ el.dispatchEvent(new TouchEvent('touchstart',{touches:[t(310,240)],changedTouches:[t(310,240)],bubbles:true}));
+ el.dispatchEvent(new TouchEvent('touchend',{touches:[],changedTouches:[t(120,246)],bubbles:true}));
+ return document.querySelector('[data-story-status]').textContent});
+ assert(swipe.includes('3 of 3')&&await page.locator('[data-story-next]').isDisabled(),'M-STORY-02 touch swipe advances to bounded final sample without autoplay');
+
+ await page.goto(base+'previews/PROC-01/?mobile=M-STORY-03',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-mobile-stage]').count()===4
+   &&await page.locator('[data-mobile-stage="0"]').getAttribute('aria-current')==='step','M-STORY-03 provides a live four-stage sticky jump index');
+ await page.locator('[data-mobile-stage="2"]').click();
+ assert(await page.locator('[data-mobile-stage="2"]').getAttribute('aria-current')==='step','M-STORY-03 Build navigation immediately selects the matching step');
+ await page.waitForFunction(()=>{const el=document.querySelector('#mobile-stage-3');return el&&el.getBoundingClientRect().top<150},{timeout:4000});
+ await page.locator('#mobile-stage-3 details summary').click();
+ assert(await page.locator('#mobile-stage-3 details').evaluate(el=>el.open),'M-STORY-03 retains real readable stage details');
+
+ // All new modes are linked from their parent and do not overflow the physical phone viewport.
+ for(const [parent,id] of [['PROD-01','M-COM-01'],['MENU-01','M-COM-03'],['PRICE-01','M-COM-04'],['BOOK-01','M-FRM-03'],['TEST-01','M-STORY-02'],['PROC-01','M-STORY-03']]){
+  await page.goto(base+'previews/'+parent+'/?mobile='+id,{waitUntil:'domcontentloaded'});
+  assert(await page.locator('body').getAttribute('data-mobile-treatment')===id,id+' activated by its exact review route');
+  const width=await page.evaluate(()=>({visible:innerWidth,total:document.documentElement.scrollWidth}));
+  assert(width.total<=width.visible+2,id+' avoids document-level phone overflow ('+width.total+' / '+width.visible+')');
+ }
+ // Default mode must preserve the original, non-carousel and non-tabbed content.
+ await page.goto(base+'previews/PROD-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-product-next]').count()===0,'PROD-01 base retains the default unmodified product grid');
+ await page.goto(base+'previews/PRICE-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.price-card:visible').count()===3,'PRICE-01 default displays every pricing tier');
+ await page.goto(base+'previews/MENU-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.menu-mobile-details').count()===0,'MENU-01 default keeps the complete menu visible');
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
