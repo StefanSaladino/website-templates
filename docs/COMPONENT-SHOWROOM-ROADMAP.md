@@ -1,10 +1,10 @@
 # Boomer Automation — Client Component Showroom
-## Development roadmap and complete component inventory (planning baseline v1.0)
+## Development roadmap and complete component inventory (planning baseline v1.1 — mobile design tracks)
 
 **Status:** Specification only — nothing in this document is deployed or approved as completed code.  
 **Repository target:** `StefanSaladino/website-templates`; **existing collection:** 24 independently designed templates.  
 **Product:** A public, client-facing **visual selection showroom**, not a website builder, code marketplace, or internal developer-component package.  
-**Success:** A prospective client can browse realistic components, inspect mobile and desktop views, shortlist exact IDs, and give the team a coherent design brief.
+**Success:** A prospective client can browse realistic components, inspect mobile and desktop views, select compatible mobile-specific layouts where available, shortlist exact paired IDs, and give the team a coherent design brief.
 
 ### Product boundaries
 
@@ -47,14 +47,14 @@
 
 Component code should use prefixed selectors/classes and local tokens, not global `h2`, `button`, or `img` selectors that clash with neighboring samples. Preview examples render in isolated documents or frames so one component's design system never leaks into another. Live previews are **lazy loaded on demand**; listing 100+ simultaneously running iframes is not acceptable.
 
-**Client UX requirements:** category tabs, relevant filters (minimal / editorial / commercial / image-led / interactive), search, relevant-industry tags, descriptive short titles, both phone/desktop views, "Save to vision board", shortlist count, shareable selection summary and copy-to-clipboard. Keep the client experience plain-English: IDs are reference labels, not technical jargon. Selecting components does not promise a plug-and-play compatible site.
+**Client UX requirements:** mobile treatment comparison and compatible desktop/mobile pairing; category tabs, relevant filters (minimal / editorial / commercial / image-led / interactive), search, relevant-industry tags, descriptive short titles, both phone/desktop views, "Save to vision board", shortlist count, shareable selection summary and copy-to-clipboard. Keep the client experience plain-English: IDs are reference labels, not technical jargon. Selecting components does not promise a plug-and-play compatible site.
 
 **Style and layout rule:** Separate structural variants (full-bleed vs split vs gallery) from styling choices (typefaces, colors, square/soft treatments). Style themes may be switched on selected showcase examples but must not be counted as completely new components unless the layout or interaction actually changes. Avoid a catalogue of minor color swaps.
 
 ## 2. Example contract — mandatory for EACH published option
 
 1. **Real rendered example** with fictional business and believable content. Never a blank wireframe or mere description.
-2. **Desktop and deliberately composed 320–430px mobile states**, plus tablet; a one-click viewport selector and separate screenshot thumbnail.
+2. **Desktop and deliberately composed 320–430px mobile states**, plus tablet; a one-click viewport selector and separate screenshot thumbnail. Where a selectable alternate mobile treatment exists, show an actual second rendered narrow-screen design and its stable mobile ID (see Section 6).
 3. **Stock photography or video where imagery is relevant**, selected to illustrate the *actual layout*. Non-image elements such as a basic footer may use typography alone, but must appear inside a realistic full-width page-context preview.
 4. **Visible component ID, name, 1-sentence use case**, industry tags, behavior, and any special integration caveat.
 5. **Realistic interaction**: menus open and close; galleries filter; dialogs trap focus; slides use controls; forms validate; fake bookings/checkout never claim a real submission or confirmed availability.
@@ -397,7 +397,140 @@ The initial list was strongest on visual sections (navigation, heroes, galleries
 
 **Optional style references (not counted as variations):** typography pairs, color palette combinations, icon treatment, button shape, hover and scroll motion, image crops, section dividers and spacing density. These are selectable design preferences but should be presented in a separate "Visual details" panel rather than inflating the main component count.
 
-## 6. Development phases and completion gates
+## 6. Mobile design tracks — 44 additional named options
+
+**Mobile is both a required state and a client-selectable design decision.** The original 137 component IDs remain stable and each still requires its own fully implemented, considered phone layout. In addition, we will maintain **44 curated mobile-specific treatments** (not 137 × 44 permutations) that clients can compare and select independently where structurally compatible. These are a planning backlog, not 44 finished previews.
+
+**Example:** A client can choose `HERO-01` (desktop full-bleed photography) and `M-HERO-02` (photograph above concise copy on phones), while another client pairs that same desktop section with `M-HERO-01` (immersive mobile photo). Both combinations must be genuinely implemented and validated; do not suggest unsupported combinations.
+
+### Mobile selection and compatibility rules
+
+1. **Every core component has one mandatory mobile baseline** designed for 320px and up. Baseline behavior is not counted as an extra catalogue choice or a second component.
+2. **Additional mobile treatments use stable `M-<FAMILY>-NN` IDs.** Each is a distinct layout or interaction change, not a palette, breakpoint tweak, or minor typographic variation.
+3. **Every released mobile option gets an actual browser-rendered example**, with a fictional brand, realistic copy, suitable reviewed local stock imagery where relevant, mobile screenshots at 390px and 320px, interaction and accessibility evidence, and a compatibility list of core component IDs.
+4. **Selections are a pair when applicable** (`desktopComponentId`, `mobileTreatmentId`); if no alternate is chosen, use the core component's default mobile treatment. Shortlists and copied briefs must preserve the pair, not only the desktop ID.
+5. **Preview controls must show Desktop / Tablet / Phone, and on Phone allow Default / Mobile A / Mobile B only where implemented.** No fake phone mockups or screenshots posing as an interactive view. On a physical phone, allow opening the example full screen without a scaled tiny frame.
+6. **Incompatible pairings are not offered** (e.g. hotel booking-only sticky controls on a legal footer). Any responsive overrides must preserve semantics, reading order, focus, keyboard behavior, and accessible labels.
+7. **Mobile source photography needs its own crop review**, safe text contrast and focal-point verification. Record image usage by component and treatment; generate dedicated phone derivatives where necessary, using the same rights-reviewed source.
+8. **Sticky UI is restrained**: avoid multiple overlapping sticky elements, respect `env(safe-area-inset-bottom)` / inset top, keep input fields and native keyboards clear, and allow adequate viewport for content.
+9. **Mobile interactions are mobile-native where helpful**: swipe as an enhancement with buttons/keyboard alternatives; minimum practical touch targets; non-hover access to actions; no hidden critical functionality.
+10. **Do not offer every mobile treatment on every desktop component.** Compatibility and conversion implications determine pairings; document why a combination is supported.
+
+### Curated mobile-option inventory (44 distinct examples)
+
+Every row below requires its own realistic example with an actual working narrow-screen interaction and individually reviewed imagery when the scene calls for photography.
+
+#### Navigation and sticky chrome — 6 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-NAV-01** | Compact wordmark and menu | A boutique hotel with a fixed brand bar, 44px menu target, and clear open state |
+| **M-NAV-02** | Logo plus persistent inquiry | Local contractor header with compact branding and a single reachable quote action |
+| **M-NAV-03** | Bottom navigation | Multi-section studio portfolio with three grounded destinations and safe-area clearance |
+| **M-NAV-04** | Full-screen menu overlay | Hotel photo hero opening a focus-contained full-height menu with Escape/return focus |
+| **M-NAV-05** | Horizontal anchor tabs | Restaurant page with scrollable section anchors and a visible active section |
+| **M-NAV-06** | Off-canvas drawer | Product collection with accessible slide-in navigation and scroll lock |
+
+#### Hero compositions — 5 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-HERO-01** | Immersive photo first | Lake retreat with an image-dominant first screen and short overlaid headline |
+| **M-HERO-02** | Photograph above short copy | Architectural home image followed by a tightly composed headline and action |
+| **M-HERO-03** | Typography before image | Professional service hero prioritizing a readable promise and call button |
+| **M-HERO-04** | Offset image crop and caption | Creative studio portrait positioned intentionally for narrow screens |
+| **M-HERO-05** | Touch-controlled slides | Boutique accommodation hero with explicit next/previous and slide position |
+
+#### Galleries and project imagery — 5 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-GAL-01** | Single-column image sequence | Architectural portfolio with edge-to-edge images and concise captions |
+| **M-GAL-02** | Swipeable photo rail | Hospitality image gallery with visible next-item affordance and keyboard support |
+| **M-GAL-03** | Adaptive two-column grid | Product lookbook with consistent image proportions and readable labels |
+| **M-GAL-04** | Compact masonry reflow | Portrait portfolio with variable heights but a stable reading order |
+| **M-GAL-05** | Thumbnails to full-screen viewer | Detailing before-and-after gallery opening an accessible photo viewer |
+
+#### Services and capability presentation — 4 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-SRV-01** | Alternating desktop to vertical photo story | Renovation services retaining image-first hierarchy without zigzag on phone |
+| **M-SRV-02** | Scrollable category switcher | Wellness services with short touch-friendly category tabs |
+| **M-SRV-03** | Expandable service rows | Contractor services showing details on demand and full keyboard control |
+| **M-SRV-04** | Compact service index | Architecture studio showing text-first offerings with a single photo feature |
+
+#### Products, menus, and pricing — 4 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-COM-01** | Product carousel | Apparel collection with touch browsing and non-hidden prices |
+| **M-COM-02** | Adaptive merchandise grid | Homewares catalogue using one column on narrow devices, two when readable |
+| **M-COM-03** | Compact restaurant menu | Food menu with readable dish names, prices, and optional photo detail |
+| **M-COM-04** | Stacked or toggleable pricing | Service packages with clear price comparisons and no inaccessible horizontal table |
+
+#### Forms and booking controls — 4 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-FRM-01** | Single-column contact form | Name, email and message with correct native input types and visible error states |
+| **M-FRM-02** | Progressive inquiry steps | Renovation intake split into short steps with review and back controls |
+| **M-FRM-03** | Sticky booking action | Hotel availability action that stays useful without covering form fields |
+| **M-FRM-04** | Native date and time controls | Appointment request using mobile-native pickers and overflow-safe labels |
+
+#### About, trust, and process — 4 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-STORY-01** | Portrait and brief introduction | Founder story with legible caption and high-quality phone crop |
+| **M-STORY-02** | Swipeable testimonial focus | One readable review at a time, real attribution or clearly fictional demo text |
+| **M-STORY-03** | Vertical numbered timeline | Renovation process steps with short descriptions and an obvious sequence |
+| **M-STORY-04** | Wrapped credentials strip | Qualified partner marks that remain legible without infinite marquee animation |
+
+#### Calls to action, contact, and footer — 4 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-CTA-01** | Safe-area sticky primary action | Service enquiry button with dismissal/overlap safeguards |
+| **M-CTA-02** | Full-width inline action | Retreat booking CTA framed clearly without excessive borders or ornament |
+| **M-CTA-03** | Click-to-call contact sheet | Local trades contact section with phone/email choices, no fake backend |
+| **M-CTA-04** | Compact disclosure footer | Multi-column footer turning into accessible expand/collapse groups |
+
+#### Utility interactions — 5 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-UTIL-01** | Tabs to scrollable rail | Category filters becoming a labeled horizontal strip rather than tiny pills |
+| **M-UTIL-02** | Full-screen modal sheet | Gallery details opening as a keyboard-safe mobile sheet |
+| **M-UTIL-03** | Touch comparison slider | Project before-and-after with slider label and accessible alternative |
+| **M-UTIL-04** | Filter drawer | Product filtering in an accessible modal drawer with apply/reset controls |
+| **M-UTIL-05** | Contextual back-to-top | Long portfolio with unobtrusive visible return navigation |
+
+#### Video and motion — 3 options
+
+| ID | Mobile layout / behavior | Required example |
+|---|---|---|
+| **M-MEDIA-01** | Poster-first video | Studio reel loading an optimized still before explicit playback |
+| **M-MEDIA-02** | Muted inline loop | Short decorative clip with reduced-motion static fallback |
+| **M-MEDIA-03** | Portrait crop for wide film | Landscape footage art-directed for phone without losing the subject |
+
+### Mobile delivery by milestone
+
+- **Phase 1 / foundation:** add the mobile-treatment schema and compatibility linkage to the component catalogue, plus a shared browser preview harness and capture standards; no claims that treatments are live before implementation.
+- **Phase 2 / six vertical-slice examples:** implement the default phone layout for all six core specimens; additionally prove at least four paired alternative treatments: `M-NAV-04` with `NAV-03`, `M-HERO-02` with `HERO-01`, `M-GAL-02` with `GAL-02`, and `M-SRV-03` with `SRV-03`. All four alternates must show actual differences, stock where applicable, and working controls. Verify `CTA-02` and `FORM-01` mobile defaults and safe-area interactions.
+- **Phase 3 / first public showroom:** target roughly 14 published mobile treatments across navigation, heroes, galleries, services, CTAs and forms alongside 35 core IDs. No unsupported combinatorial permutations.
+- **Phase 4 / commercial utility:** publish relevant mobile product, price, booking, service and contact treatments as those section families are built.
+- **Phase 5 / full coverage:** complete, consolidate or deliberately retire the remaining mobile treatments based on actual distinct value; do not manufacture 44 nearly identical options to hit a quota.
+- **Phase 6 / shortlist:** include mobile treatment IDs and their parent pairs in save/export/share flows; offer a plain-language visual comparison of alternatives.
+- **Phase 7 / automated QA:** verify mobile permutations chosen for publication, screenshot diffs, orientation change, keyboard/assistive input, and actual iOS Safari and Android Chrome on phones.
+
+### Mobile-specific quality gate
+
+Check 320 / 360 / 375 / 390 / 430px and short-height landscape devices, plus 768px transition. Confirm no horizontal overflow, meaningful fold composition, copy legibility, image focal points, menu/overlay focus handling, safe-area padding, native date inputs, zoomed text, on-screen keyboard avoidance, tap/drag parity and reduced-motion fallback. Capture at least one actual iPhone Safari and one Android Chrome pass for each **interaction class**, with representative layouts sampled across the catalogue; treat emulation as insufficient for final production approval.
+
+**Mobile naming rule:** the base 137 options and these 44 mobile treatments are tracked as **separate catalogues**, not 181 interchangeable desktop components. Counts and progress reports must distinguish them (`core options live` vs `mobile treatments live`).
+
+## 7. Development phases and completion gates
 
 ### Phase 0 — Confirm scope and matrix
 **Deliverables:** ratified 29-category inventory; priorities and use cases; list of 24 existing sites to mine for patterns; design-system contract; live-versus-demo distinctions; permanent ID policy.
@@ -407,19 +540,19 @@ The initial list was strongest on visual sections (navigation, heroes, galleries
 ### Phase 1 — Foundation and content/asset pipeline
 **Deliverables:** `/components` route and shell; Vite integration under the existing GitHub Pages base path; JSON manifest; category schema; stock-license registry; image download-and-optimization script; thumbnail-generation rules; static preview isolation; base design tokens; client-centered terminology.
 
-**Exit:** adding one component means creating its files/metadata and assets, not manually editing category counts or copying markup into three places. Production build and correct base paths pass.
+**Exit:** adding one component means creating its files/metadata and assets, not manually editing category counts or copying markup into three places. Production build and correct base paths pass. Data model also accommodates optional mobile treatment ID(s), compatible core IDs and their per-treatment media and preview evidence.
 
 ### Phase 2 — Vertical slice: six finished components
 **Suggested reference specimens:** NAV-03 transparent image navigation; HERO-01 full-bleed image; GAL-02 masonry; SRV-03 alternating services; CTA-02 image CTA; FORM-01 minimal contact.
 
-**Deliverables:** all example-contract fields; real local licensed media; desktop/mobile preview; one fully interactive example (navigation, gallery); small sample shortlist; smoke tests.
+**Deliverables:** all example-contract fields; real local licensed media; desktop/mobile preview; one fully interactive example (navigation, gallery); small sample shortlist; smoke tests. Prove four distinct alternate phone designs (M-NAV-04, M-HERO-02, M-GAL-02, M-SRV-03) in addition to the six default phone layouts.
 
-**Exit:** a coworker can add a component consistently; a client can choose six distinct options without explanation; 320px works; image-license evidence is complete.
+**Exit:** a coworker can add a component consistently; a client can choose six distinct options without explanation and compare the four corresponding mobile alternatives; 320px works; image-license evidence is complete.
 
 ### Phase 3 — First public showroom release: approximately 35 options
 **Coverage target (35 distinct IDs):** NAV-01/02/03/04; BAR-01; HERO-01/02/03/04/05/07; INTRO-01; GAL-01/02/03/05/06; PRJ-01/02/03; COMP-01; SRV-01/02/03; ABOUT-01; TEST-01; PROC-01/02; CTA-01/02/03; FORM-01/02; CONTACT-01; FOOT-01/02.
 
-**Deliverables:** complete category index, real thumbnail + live preview for every item, keyboard-usable navigation, interactive mobile/desktop tabs, search, category and style filters, shortlist, copy summary.
+**Deliverables:** complete category index, real thumbnail + live preview for every item, keyboard-usable navigation, interactive mobile/desktop tabs and compatible alternative mobile treatments (target 14 published), search, category and style filters, shortlist, copy summary.
 
 **Exit:** 35/35 publish-ready checklist passes; no dead interactions; category counts auto-generated from metadata; gallery includes a clear Components link; preexisting template gallery remains unchanged.
 
@@ -434,7 +567,7 @@ The initial list was strongest on visual sections (navigation, heroes, galleries
 **Exit:** each approved family has sufficient genuinely distinct choices; no publication purely to hit a number. Update the inventory when justified and record rationale.
 
 ### Phase 6 — Polish client selection workflow
-**Deliverables:** persistent local shortlist, reorder selections, remove choices, view side-by-side, export/copy a brief (`NAV-03 + HERO-01 + GAL-02 ...`), optional link to prefilled inquiry email, 'what can change?' FAQ, mobile shortlist accessibility.
+**Deliverables:** persistent local shortlist, reorder selections, remove choices, view side-by-side, export/copy a brief (`NAV-03 [mobile: M-NAV-04] + HERO-01 [mobile: M-HERO-02] ...`), optional link to prefilled inquiry email, 'what can change?' FAQ, mobile shortlist accessibility.
 
 **Exit:** a nontechnical client can go from browse to a coherent design brief in under 10 minutes, with no login.
 
@@ -448,11 +581,11 @@ The initial list was strongest on visual sections (navigation, heroes, galleries
 
 **Exit:** internal developers can reuse components without coupling all client sites to the public gallery's CSS or JavaScript. Public showroom remains client-first.
 
-## 7. Quality gates per published option
+## 8. Quality gates per published option
 
 **Functional:** all links/actions have a meaningful result; keyboard works; Escape dismisses overlays; focus stays inside modal/menu when open and returns to trigger on close; menus do not scroll background when open; touch targets practical for phones; forms validate and cannot pretend to send.
 
-**Responsive:** test 320, 360, 375, 390, 430, 768, 1024 and 1440px plus at least one wide viewport. No horizontal page overflow or clipped text. Check cropped photo subjects and touch layouts, not just computed bounding boxes. Real iOS Safari + Android Chrome spot checks are required for publishing the catalogue.
+**Responsive:** test 320, 360, 375, 390, 430, 768, 1024 and 1440px plus at least one wide viewport and short-height landscape. Every core component needs its own deliberate mobile baseline; all selectable mobile alternates require separate QA. No horizontal overflow or clipped text. Check cropped photo subjects, sticky safe areas, text zoom, native controls and touch layouts, not just computed bounding boxes. Real iOS Safari + Android Chrome spot checks are required for publishing the catalogue.
 
 **Accessible:** landmarks/headings, associated input labels, contrast and focus visibility, image alt semantics, captions/transcripts for meaningful video, reduced-motion behavior, appropriate ARIA, no keyboard traps except intentional focus-contained dialogs. Automated scans are necessary but not sufficient.
 
@@ -464,7 +597,7 @@ The initial list was strongest on visual sections (navigation, heroes, galleries
 
 **Publishing:** `draft → in-review → approved → live`. Only `live` appears as a selectable ready option. Every live ID has its own preview, screenshots, documented integration level and image manifest. Gallery counts and category stats derive from live manifest records, never hardcoded.
 
-## 8. Suggested implementation repository layout
+## 9. Suggested implementation repository layout
 
 ```text
 website-templates/
@@ -497,10 +630,10 @@ website-templates/
 
 For maintainability, the example-preview folder can later live in the separately versioned internal component library and be bundled into the public gallery. Don't assume cross-repo publishing is needed in the first milestone.
 
-## 9. Practical acceptance and next action
+## 10. Practical acceptance and next action
 
 **First actual implementation step:** build the design/preview infrastructure and the six-component vertical slice. Do not start by generating 137 screenshots or hand-coding 137 pages, because the system has to prove accurate examples, safe stock media, isolation, mobile behavior, QA, and client selection first.
 
-**Milestone 1 definition of done:** A gallery category can be browsed, an example opened, desktop/mobile previews switched, its interaction tried, its ID saved, its selected IDs copied, and the asset/license provenance audited. Once those six specimens pass, phase 3 becomes repeatable production rather than experimental work.
+**Milestone 1 definition of done:** A gallery category can be browsed, an example opened, desktop/mobile previews switched, its interaction tried, and compatible alternate mobile designs compared; its ID (and selected mobile treatment ID where applicable) saved, selected IDs copied, and the asset/license provenance audited. Once those six specimens pass, phase 3 becomes repeatable production rather than experimental work.
 
-**Repository action:** None. This is a planning artifact only. Explicit authorization is still required to implement or push changes.
+**Repository state:** The foundation is being developed on `feature/component-showroom`; this roadmap amendment is planning only, not evidence of 44 implemented mobile examples. Do not merge or publish until the component and mobile-specific release gates pass.
