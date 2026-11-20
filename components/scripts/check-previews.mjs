@@ -10,10 +10,10 @@ for(const id of ids){
  for(const file of ['index.html','styles.css','script.js'])if(!existsSync(path.join(dir,file)))errors.push(id+'/'+file+' missing');
  if(!existsSync(path.join(dir,'index.html')))continue;
  const html=readFileSync(path.join(dir,'index.html'),'utf8');
- const idsInPage=new Set([...html.matchAll(/\\bid="([^"]+)"/g)].map(m=>m[1]));
+ const idsInPage=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
  for(const match of html.matchAll(/href="#([^"]+)"/g))if(!idsInPage.has(match[1]))errors.push(id+' dead anchor: #'+match[1]);
  if(!html.includes('<main')||!html.includes('<h1'))errors.push(id+' missing main/h1');
- for(const img of html.matchAll(/<img\\b[^>]*>/g))if(!/\\balt="[^"]*"/.test(img[0]))errors.push(id+' image missing alt');
+ for(const img of html.matchAll(/<img\b[^>]*>/g))if(!/\balt="[^"]*"/.test(img[0]))errors.push(id+' image missing alt');
  if(record.previewRoute!=='./previews/'+id+'/')errors.push(id+' wrong preview route');
  try{execFileSync(process.execPath,['--check',path.join(dir,'script.js')],{stdio:'pipe'})}catch{errors.push(id+' JavaScript syntax failure')}
  for(const asset of record.stockAssetIds||[])if(!stock.assets.some(x=>x.id===asset))errors.push(id+' unregistered stock asset: '+asset);
