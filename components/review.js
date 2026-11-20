@@ -1,7 +1,7 @@
 try {
 const [components, treatments] = await Promise.all([
-  fetch('./data/components.json?v20261120d',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
-  fetch('./data/mobile-treatments.json?v20261120d',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
+  fetch('./data/components.json?v20261120e',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
+  fetch('./data/mobile-treatments.json?v20261120e',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
 ]);
 const treatmentMap = new Map(treatments.map(item => [item.id,item]));
 const examples = new Map(components.filter(item => item.previewRoute && item.status !== 'draft').map(item => [item.id,item]));
@@ -22,6 +22,8 @@ const viewTip = document.querySelector('#review-tip');
 const panControls = document.querySelector('#review-pan-controls');
 const panLeft = document.querySelector('#review-pan-left');
 const panRight = document.querySelector('#review-pan-right');
+const replayHighlight = document.querySelector('#review-highlight');
+const highlightFeedback = document.querySelector('#review-highlight-feedback');
 const phoneChoices = document.querySelector('#review-mobile-choices');
 const alternateChoice = document.querySelector('#review-alt-choice');
 const sizes = {desktop:{width:1440,height:900,name:'computer'}, tablet:{width:768,height:900,name:'tablet'}, phone:{width:390,height:780,name:'phone'}};
@@ -34,7 +36,7 @@ const focusId = focus.focusAnchor || null;
 // Never add section hashes to iframe URLs: lazy iframe fragment navigation can
 // unexpectedly scroll the containing showroom as several examples load.
 const failureLink = document.querySelector('#review-error a');
-if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120d';
+if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120e';
 title.textContent = focus.focus || design.title;
 document.title = (focus.focus || design.title) + ' — Explore design';
 document.querySelector('#review-id').textContent = 'Example '+design.id+' · Still in development';
@@ -74,11 +76,11 @@ function sizeFrame(){
   shell.style.height = (preset.height*scale)+'px';
   const requiresPan = zoom === 'actual' && preset.width > available + 3;
   viewStatus.textContent = 'Showing the '+preset.name+' version';
-  viewTip.textContent = requiresPan
+  viewTip.textContent = (requiresPan
     ? 'You are looking at a close-up. Use the buttons below or swipe left and right to see more.'
     : zoom === 'actual'
       ? 'You are seeing the design at its normal size. You can interact with the example below.'
-      : 'The full '+preset.name+' design is fitted into this space. Choose “Look closer” for more detail.';
+      : 'The full '+preset.name+' design is fitted into this space. Choose “Look closer” for more detail.')+' Use “Highlight this section” to find the featured part.';
   panControls.hidden = !requiresPan;
   if(lastDevice !== device || lastZoom !== zoom) viewport.scrollLeft = 0;
   lastDevice = device; lastZoom = zoom;
@@ -90,6 +92,10 @@ function render(){
   const url = './previews/'+design.id+'/index.html'+(phoneStyle === 'alternate' && alternative ? '?mobile='+encodeURIComponent(alternative.id) : '');
   if(iframe.getAttribute('src') !== url) {
     loading.hidden = false;
+    replayHighlight.disabled=true;
+    highlightTarget=null;
+    highlightWindow=null;
+    highlightFeedback.textContent='';
     iframe.src = url;
   }
   document.querySelector('#review-open').href = url;
@@ -103,9 +109,12 @@ viewport.addEventListener('scroll',updatePanButtons,{passive:true});
 if('ResizeObserver' in window) new ResizeObserver(sizeFrame).observe(viewport);
 else window.addEventListener('resize',sizeFrame);
 // Position the embedded document itself without changing the host page's scroll position.
-// Using element.scrollIntoView() here can also scroll the outer document, so avoid it.
-let showcaseFlashed=false;
-function positionInsideFrame(doc, win, target){
+// Avoid helpers that scroll ancestor documents; move only the inner preview.
+let showcasedOnce = false;
+let highlightTarget = null;
+let highlightWindow = null;
+let highlightClear = null;
+function positionInsideFrame(doc, win, target) {
   if(!target)return;
   const root=doc.documentElement;
   const previous=root.style.scrollBehavior;
@@ -114,12 +123,40 @@ function positionInsideFrame(doc, win, target){
   win.scrollTo(0,y);
   root.style.scrollBehavior=previous;
 }
-function enableShowcaseFlash(){
+function flashShowcase({reveal=false}={}) {
+  if(!highlightTarget||!highlightWindow)return false;
+  const target=highlightTarget, win=highlightWindow;
+  if(reveal)positionInsideFrame(target.ownerDocument,win,target);
+  if(highlightClear!==null)win.clearTimeout(highlightClear);
+  target.classList.remove('ba-showcase-pulse');
+  // Restart the short animation even if this button was pressed a moment ago.
+  void target.offsetWidth;
+  target.classList.add('ba-showcase-pulse');
+  highlightClear=win.setTimeout(()=>{
+    target.classList.remove('ba-showcase-pulse');
+    highlightClear=null;
+  },2450);
+  showcasedOnce=true;
+  return true;
+}
+replayHighlight.addEventListener('click',()=>{
+  if(flashShowcase({reveal:true})){
+    highlightFeedback.textContent='Highlighted the section shown in this example.';
+  }else{
+    highlightFeedback.textContent='The example is still loading. Try again shortly.';
+  }
+});
+function connectShowcase() {
   let doc,win;
-  try{doc=iframe.contentDocument;win=iframe.contentWindow;}catch(error){return;}
+  try{doc=iframe.contentDocument;win=iframe.contentWindow;}catch{return;}
   if(!doc||!win||!doc.body)return;
   const target=focusId?doc.getElementById(focusId):null;
   if(!target)return;
+  highlightWindow=win;
+  highlightTarget=target;
+  showcasedOnce=false;
+  replayHighlight.disabled=false;
+  highlightFeedback.textContent='';
   positionInsideFrame(doc,win,target);
   const style=doc.createElement('style');
   style.textContent=[
@@ -128,23 +165,20 @@ function enableShowcaseFlash(){
     '@media(prefers-reduced-motion:reduce){.ba-showcase-pulse{animation:none!important;outline-color:#ffba4c!important;box-shadow:inset 0 0 0 5px rgba(255,186,76,.9)!important}}'
   ].join('\n');
   doc.head.append(style);
-  const flash=()=>{
-    if(showcaseFlashed)return;
-    showcaseFlashed=true;
-    target.classList.add('ba-showcase-pulse');
-    win.setTimeout(()=>{target.classList.remove('ba-showcase-pulse');style.remove();},2450);
+  const onInitialInteraction=()=>{
+    if(showcasedOnce)return;
+    flashShowcase();
   };
-  // Capture the first *real* interaction inside the sample without swallowing
-  // a click, trapping focus, or navigating to another component.
-  doc.addEventListener('pointerdown',flash,{capture:true,once:true});
+  // The first real click/touch/key action highlights without blocking the action.
+  doc.addEventListener('pointerdown',onInitialInteraction,{capture:true,once:true});
   doc.addEventListener('keydown',event=>{
     if(['Shift','Control','Alt','Meta'].includes(event.key))return;
-    flash();
-  },{capture:true,once:true});
+    onInitialInteraction();
+  },{capture:true});
 }
 iframe.addEventListener('load',()=>{
   loading.hidden=true;
-  enableShowcaseFlash();
+  connectShowcase();
 });
 render();
 } catch(error) {

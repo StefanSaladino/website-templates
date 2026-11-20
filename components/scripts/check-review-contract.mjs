@@ -18,6 +18,8 @@ if(source.includes('localStorage')||markup.includes('review-shortlist'))errors.p
 if(!markup.includes('id="review-about"')||!markup.includes('id="review-best-for"')||!markup.includes('id="review-phone-about"'))errors.push('Missing three simple explanatory accordions');
 if(source.includes("+focusAnchor")||source.includes("scrollIntoView("))errors.push('Do not navigate preview iframe by hash/scrollIntoView');
 if(!source.includes('ba-showcase-pulse')||!source.includes("doc.addEventListener('pointerdown'"))errors.push('Missing first-interaction showcased section highlight');
+if(!markup.includes('id="review-highlight"')||!markup.includes('id="review-highlight-feedback"'))errors.push('Missing replay highlight button or feedback');
+if(!source.includes("replayHighlight.addEventListener('click'")||!source.includes('flashShowcase({reveal:true})'))errors.push('Highlight button does not replay pulse and reveal the section');
 const catalogue=read('catalogue.js');
 if(catalogue.includes("const targetUrl=previewRoute+(focus?.focusAnchor"))errors.push('Catalogue preview iframe URLs must remain hash-free');
 if(errors.length){errors.forEach(x=>console.error('FAIL: '+x));process.exit(1)}

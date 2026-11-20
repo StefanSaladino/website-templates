@@ -17,7 +17,7 @@ const loadJSON=async path=>{
   return response.json();
 };
 try{
-  const [categories,components]=await Promise.all([loadJSON('./data/categories.json?v20261120d'),loadJSON('./data/components.json?v20261120d')]);
+  const [categories,components]=await Promise.all([loadJSON('./data/categories.json?v20261120e'),loadJSON('./data/components.json?v20261120e')]);
   const built=components.filter(item=>item.previewRoute&&['in-review','approved','live'].includes(item.status));
   const live=built.filter(item=>item.status==='live');
   const visible=planningMode?components:built;
@@ -74,7 +74,7 @@ try{
       article.className='cs-item'+(working?' cs-item--preview':' cs-item--draft');
       const previewRoute=working?item.previewRoute:'';
       const reviewRoute=working?(item.reviewRoute||item.previewRoute):'';
-      const reviewUrl=reviewRoute+(reviewRoute.includes('?')?'&':'?')+'v20261120d';
+      const reviewUrl=reviewRoute+(reviewRoute.includes('?')?'&':'?')+'v20261120e';
       const stateLabel=item.status==='live'?'Ready':item.status==='in-review'?'In review':item.status==='approved'?'Awaiting release':'Planned';
       const focus=item.showcase;
       const targetUrl=previewRoute;
