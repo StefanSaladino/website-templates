@@ -1,98 +1,88 @@
-const [items,mobile] = await Promise.all([
- fetch('./data/components.json').then(r=>{if(!r.ok)throw Error('Component records unavailable');return r.json()}),
- fetch('./data/mobile-treatments.json').then(r=>{if(!r.ok)throw Error('Mobile records unavailable');return r.json()})
+const [components, treatments] = await Promise.all([
+  fetch('./data/components.json').then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
+  fetch('./data/mobile-treatments.json').then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
 ]);
-const mobileById=new Map(mobile.map(x=>[x.id,x]));
-const entries=Object.fromEntries(items.filter(x=>x.status!=='draft').map(x=>{
- const alternative=(x.mobileTreatmentIds||[]).find(id=>mobileById.has(id)&&mobileById.get(id).status!=='draft')||null;
- return [x.id,{name:x.title,alternative,label:alternative?mobileById.get(alternative).title:'',showcase:x.showcase,previewRoute:x.previewRoute}];
-}));
-const params=new URLSearchParams(location.search),requested=params.get('id')||'NAV-03',id=Object.hasOwn(entries,requested)?requested:Object.keys(entries)[0],spec=entries[id];
-const iframe=document.querySelector('#review-iframe'),frame=document.querySelector('#review-frame'),open=document.querySelector('#review-open'),alternate=document.querySelector('#review-alt-choice');
-const viewport=document.querySelector('#review-viewport'),shell=document.querySelector('#review-frame-shell');
-const sizeStatus=document.querySelector('#review-view-status'),panControls=document.querySelector('#review-pan-controls');
-const panLeft=document.querySelector('#review-pan-left'),panRight=document.querySelector('#review-pan-right');
-const sizes={desktop:{width:1440,height:900,label:'Desktop'},tablet:{width:768,height:900,label:'Tablet'},phone:{width:390,height:780,label:'Phone'}};
-const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
-const getMode=()=>document.querySelector('input[name=zoom]:checked').value;
-const getDevice=()=>document.querySelector('input[name=device]:checked').value;
-let previousDevice=null,previousZoom=null;
+const treatmentMap = new Map(treatments.map(item => [item.id,item]));
+const examples = new Map(components.filter(item => item.previewRoute && item.status !== 'draft').map(item => [item.id,item]));
+const requested = new URLSearchParams(location.search).get('id') || 'NAV-03';
+const design = examples.get(requested) || examples.values().next().value;
+if(!design) throw new Error('No preview examples are available');
+const alternativeId = (design.mobileTreatmentIds || []).find(id => treatmentMap.has(id) && treatmentMap.get(id).status !== 'draft');
+const alternative = alternativeId ? treatmentMap.get(alternativeId) : null;
+const title = document.querySelector('#review-title');
+const frame = document.querySelector('#review-frame');
+const iframe = document.querySelector('#review-iframe');
+const viewport = document.querySelector('#review-viewport');
+const shell = document.querySelector('#review-frame-shell');
+const viewStatus = document.querySelector('#review-view-status');
+const viewTip = document.querySelector('#review-tip');
+const panControls = document.querySelector('#review-pan-controls');
+const panLeft = document.querySelector('#review-pan-left');
+const panRight = document.querySelector('#review-pan-right');
+const phoneChoices = document.querySelector('#review-mobile-choices');
+const alternateChoice = document.querySelector('#review-alt-choice');
+const sizes = {desktop:{width:1440,height:900,name:'computer'}, tablet:{width:768,height:900,name:'tablet'}, phone:{width:390,height:780,name:'phone'}};
+const deviceControls = [...document.querySelectorAll('input[name=device]')];
+const zoomControls = [...document.querySelectorAll('input[name=zoom]')];
+const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const selectedValue = name => document.querySelector('input[name='+name+']:checked').value;
+const focus = design.showcase || {};
+const focusAnchor = focus.focusAnchor ? '#'+encodeURIComponent(focus.focusAnchor) : '';
+title.textContent = focus.focus || design.title;
+document.title = (focus.focus || design.title) + ' — Explore design';
+document.querySelector('#review-id').textContent = 'Example '+design.id+' · Still in development';
+document.querySelector('#review-component-label').textContent = focus.label || 'Website section';
+document.querySelector('#review-focus-summary').textContent = focus.summary || design.exampleContext;
+document.querySelector('#review-focus-desktop').textContent = focus.desktop || 'This design adapts to a wide computer screen.';
+document.querySelector('#review-focus-mobile').textContent = focus.mobile || 'This design changes to fit a phone screen.';
+if(alternative){
+  alternateChoice.hidden = false;
+  document.querySelector('#review-alt-name').textContent = 'Style 2 · '+alternative.title;
+}
+const defaultDevice = window.innerWidth < 640 ? 'phone' : 'desktop';
+document.querySelector('input[name=device][value='+defaultDevice+']').checked = true;
+let lastDevice = null, lastZoom = null;
 function updatePanButtons(){
-  panLeft.disabled=viewport.scrollLeft<=2;
-  panRight.disabled=viewport.scrollLeft+viewport.clientWidth>=viewport.scrollWidth-2;
+  panLeft.disabled = viewport.scrollLeft <= 2;
+  panRight.disabled = viewport.scrollLeft + viewport.clientWidth >= viewport.scrollWidth - 2;
 }
 function sizeFrame(){
-  const device=getDevice(),zoom=getMode(),preset=sizes[device];
-  const available=Math.max(1,viewport.clientWidth-2);
-  const scale=zoom==='fit'?Math.min(1,available/preset.width):1;
-  frame.dataset.device=device;
-  frame.dataset.zoom=zoom;
-  frame.style.width=preset.width+'px';
-  frame.style.height=preset.height+'px';
-  frame.style.transform='scale('+scale+')';
-  shell.style.width=(preset.width*scale)+'px';
-  shell.style.height=(preset.height*scale)+'px';
-  sizeStatus.textContent=preset.label+' layout · '+preset.width+'px rendered viewport · shown at '+Math.round(scale*100)+'%'+(zoom==='actual'&&preset.width>available?' · pan sideways to see the full width':'');
-  panControls.hidden=!(zoom==='actual'&&preset.width>available+3);
-  if(device!==previousDevice||zoom!==previousZoom)viewport.scrollLeft=0;
-  previousDevice=device;previousZoom=zoom;
+  const device = selectedValue('device'), zoom = selectedValue('zoom');
+  const preset = sizes[device];
+  const available = Math.max(1,viewport.clientWidth - 2);
+  const scale = zoom === 'fit' ? Math.min(1,available/preset.width) : 1;
+  frame.dataset.device = device;
+  frame.dataset.zoom = zoom;
+  frame.style.width = preset.width+'px';
+  frame.style.height = preset.height+'px';
+  frame.style.transform = 'scale('+scale+')';
+  shell.style.width = (preset.width*scale)+'px';
+  shell.style.height = (preset.height*scale)+'px';
+  const requiresPan = zoom === 'actual' && preset.width > available + 3;
+  viewStatus.textContent = 'Showing the '+preset.name+' version';
+  viewTip.textContent = requiresPan
+    ? 'You are looking at a close-up. Use the buttons below or swipe left and right to see more.'
+    : zoom === 'actual'
+      ? 'You are seeing the design at its normal size. You can interact with the example below.'
+      : 'The full '+preset.name+' design is fitted into this space. Choose “Look closer” for more detail.';
+  panControls.hidden = !requiresPan;
+  if(lastDevice !== device || lastZoom !== zoom) viewport.scrollLeft = 0;
+  lastDevice = device; lastZoom = zoom;
   updatePanButtons();
 }
-panLeft.addEventListener('click',()=>viewport.scrollBy({left:-Math.max(160,viewport.clientWidth*.72),behavior:reducedMotion.matches?'instant':'smooth'}));
-panRight.addEventListener('click',()=>viewport.scrollBy({left:Math.max(160,viewport.clientWidth*.72),behavior:reducedMotion.matches?'instant':'smooth'}));
+function render(){
+  const device = selectedValue('device');
+  const phoneStyle = device === 'phone' ? selectedValue('mobile') : 'default';
+  const url = './previews/'+design.id+'/index.html'+(phoneStyle === 'alternate' && alternative ? '?mobile='+encodeURIComponent(alternative.id) : '')+focusAnchor;
+  if(iframe.getAttribute('src') !== url) iframe.src = url;
+  document.querySelector('#review-open').href = url;
+  phoneChoices.hidden = device !== 'phone' || !alternative;
+  sizeFrame();
+}
+[...deviceControls, ...document.querySelectorAll('input[name=mobile]'), ...zoomControls].forEach(input => input.addEventListener('change',render));
+panLeft.addEventListener('click',()=>viewport.scrollBy({left:-Math.max(180,viewport.clientWidth*.75),behavior:prefersReducedMotion.matches?'instant':'smooth'}));
+panRight.addEventListener('click',()=>viewport.scrollBy({left:Math.max(180,viewport.clientWidth*.75),behavior:prefersReducedMotion.matches?'instant':'smooth'}));
 viewport.addEventListener('scroll',updatePanButtons,{passive:true});
-if('ResizeObserver' in window)new ResizeObserver(sizeFrame).observe(viewport);
+if('ResizeObserver' in window) new ResizeObserver(sizeFrame).observe(viewport);
 else window.addEventListener('resize',sizeFrame);
-document.querySelector('#review-title').textContent=id+' / '+spec.name;
-document.querySelector('#review-meta').textContent='Design example · in review; visual sign-off pending';
-const focus=spec.showcase||{};
-document.querySelector('#review-component-label').textContent=focus.label||'Component section';
-document.querySelector('#review-focus-title').textContent=focus.focus||spec.name;
-document.querySelector('#review-focus-summary').textContent=focus.summary||'Explore the section in its sample page.';
-document.querySelector('#review-focus-desktop').textContent=focus.desktop||'Explore the desktop layout.';
-document.querySelector('#review-focus-mobile').textContent=focus.mobile||'Switch to phone to view the mobile layout.';
-const focusAnchor=focus.focusAnchor?'#'+encodeURIComponent(focus.focusAnchor):'';
-document.querySelector('#review-focus-link').href='./previews/'+id+'/'+focusAnchor;
-if(spec.alternative){alternate.hidden=false;document.querySelector('#review-alt-name').textContent=spec.alternative+' · '+spec.label;}
-const render=()=>{
-const device=getDevice();
-let mobile=document.querySelector('input[name=mobile]:checked').value;
-if(device!=='phone')mobile='default';
-const url='./previews/'+id+'/index.html'+(mobile==='alternate'&&spec.alternative?'?mobile='+encodeURIComponent(spec.alternative):'')+focusAnchor;
-if(iframe.getAttribute('src')!==url)iframe.src=url;
-open.href=url;
-document.querySelector('#review-mobile-choices').hidden=device!=='phone';
-sizeFrame();
-};
-document.querySelectorAll('input[name=device],input[name=mobile],input[name=zoom]').forEach(el=>el.addEventListener('change',render));
 render();
-// Small internal shortlist proof. Never equate an in-review reference with an approved selection.
-const shortKey='boomer-showroom-dev-shortlist-v1';
-let saved=[];
-try{const raw=JSON.parse(localStorage.getItem(shortKey)||'[]');if(Array.isArray(raw))saved=raw.filter(x=>x&&Object.hasOwn(entries,x.id)).slice(0,40)}catch(error){saved=[]}
-const store=()=>{try{localStorage.setItem(shortKey,JSON.stringify(saved))}catch(error){document.querySelector('#review-save-status').textContent='Saved for this session only.'}};
-const list=document.querySelector('#review-saved-items'),save=document.querySelector('#review-save'),copy=document.querySelector('#review-copy'),feedback=document.querySelector('#review-save-status');
-const renderList=()=>{
- list.replaceChildren();
- if(!saved.length){const li=document.createElement('li');li.textContent='No examples saved yet.';list.append(li)}
- else for(const item of saved){
-  const li=document.createElement('li'),label=document.createElement('span'),remove=document.createElement('button');
-  label.textContent=item.id+(item.mobile?' · Mobile '+item.mobile:' · Default mobile');
-  remove.type='button';remove.textContent='Remove';remove.setAttribute('aria-label','Remove '+item.id+' from shortlist');
-  remove.addEventListener('click',()=>{saved=saved.filter(x=>x.id!==item.id);store();renderList();feedback.textContent='Removed '+item.id;});
-  li.append(label,remove);list.append(li);
- }
- const current=saved.find(x=>x.id===id);save.textContent=current?'Update saved example':'Save this example';
- copy.disabled=!saved.length;
-};
-save.addEventListener('click',()=>{
- const alt=document.querySelector('input[name=mobile]:checked').value==='alternate'&&document.querySelector('input[name=device]:checked').value==='phone';
- const mobile=alt&&spec.alternative?spec.alternative:null;
- saved=saved.filter(x=>x.id!==id);saved.push({id,mobile});store();renderList();feedback.textContent='Saved '+id+(mobile?' with '+mobile:' with default mobile layout')+' (development reference).';
-});
-copy.addEventListener('click',async()=>{
- const message=saved.map(x=>x.id+(x.mobile?' [phone: '+x.mobile+']':'')).join(' + ');
- try{await navigator.clipboard.writeText(message);feedback.textContent='Reference IDs copied.'}
- catch(error){feedback.textContent='Copy unavailable here: '+message}
-});
-renderList();

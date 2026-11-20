@@ -47,9 +47,12 @@ The FORM-01 example validates fields and prepares a local copyable draft; it exp
 ## Phase 2 — previews and mobile alternatives (in review)
 The showroom currently includes working prototypes for **NAV-03, HERO-01, GAL-02, SRV-03, CTA-02 and FORM-01**, plus four alternate mobile treatments: **M-NAV-04, M-HERO-02, M-GAL-02, M-SRV-03**. These are **in review**, not client-selectable.
 
-Use `review.html?id=NAV-03` (substitute another ID) to compare full desktop/tablet/phone previews, switch between default and alternate phone layouts where offered, and save internal reference pairs to a browser-local shortlist. The `?planning=1` catalogue lists in-review demos; the public catalogue only shows `live` entries.
+Use `review.html?id=NAV-03` (substitute another ID) to compare full desktop/tablet/phone previews, switch between default and alternate phone layouts where offered, without a shortlist or save controls. The `?planning=1` catalogue lists in-review demos; the public catalogue only shows `live` entries.
 
 **Stock photo gate remains open:** images currently hotlink to Unsplash as temporary development candidates, tracked in `data/stock-manifest.json` and still marked `needs-review`. Verify individual sources, obtain local licensed assets, optimize crops/derivatives, capture real photography-loaded previews and complete manual iOS/Android checks before marking anything live. See `../docs/COMPONENT-PHASE2-PROGRESS.md`.
 
 ## Current review policy
 The client will perform final visual review once all showroom examples have been built. Continue implementing and code-testing now. Remote Unsplash and Pexels URLs are acceptable with recorded source, creator, license and appropriate commercial/third-party rights; local image copies are optional. Do not mark an item `live` until rights approval, functioning image URLs and eventual client visual acceptance. Added in Phase 3: NAV-01, HERO-02, GAL-01 and CTA-01, all `in-review`.
+
+## Client-friendly viewer (November 2026)
+The review page intentionally has no working shortlist or local browser storage. Visitors choose Computer, Tablet or Phone and can see the Whole design or Look closer. All preview examples still use controlled iframe widths independent of the visitor's actual device. A Save button will be designed later as part of a client portal, not within this public showroom.

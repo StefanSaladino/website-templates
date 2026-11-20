@@ -1,22 +1,87 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="Internal component previews under review; not yet released."><title>Component development review — Boomer Automation</title><link rel="stylesheet" href="review.css"><script type="module" src="review.js"></script></head><body>
-<header class="review-header"><a href="./index.html">BOOMER / COMPONENTS</a><span>DEVELOPMENT REVIEW · NOT PUBLISHED</span></header>
-<main><section class="review-head"><div><p>COMPONENT SPECIMEN / DEVELOPMENT PREVIEW</p><h1 id="review-title">Working example</h1><span id="review-meta">Not release-ready: stock photo rights and image rendering must be verified.</span></div><a id="review-source" href="./index.html">See all planned components</a></section>
-<section class="review-focus-guide" aria-labelledby="review-focus-title"><div class="review-focus-intro"><p class="review-focus-kicker">WHAT'S BEING SHOWCASED / <span id="review-component-label"></span></p><h2 id="review-focus-title">Component focus</h2><p id="review-focus-summary">The example page provides context for one selectable design section.</p><a id="review-focus-link" href="#">Jump straight to the showcased section</a></div><div class="review-focus-behavior"><div><strong>On desktop</strong><p id="review-focus-desktop"></p></div><div><strong>On mobile</strong><p id="review-focus-mobile"></p></div><p class="review-focus-note">The sample brand, other page sections, and photographs are illustrative. You're choosing this component's layout and interaction, not the entire demo website.</p></div></section>
-<div class="review-controls" aria-label="Preview controls"><fieldset><legend>Render as</legend><label><input type="radio" name="device" value="desktop" checked>Desktop · 1440px</label><label><input type="radio" name="device" value="tablet">Tablet · 768px</label><label><input type="radio" name="device" value="phone">Phone · 390px</label></fieldset><fieldset id="review-mobile-choices"><legend>Phone treatment</legend><label><input type="radio" name="mobile" value="default" checked>Default</label><label id="review-alt-choice" hidden><input type="radio" name="mobile" value="alternate"><span id="review-alt-name">Alternate</span></label></fieldset><fieldset class="review-zoom-controls"><legend>Inspect</legend><label><input type="radio" name="zoom" value="fit" checked>Fit overview</label><label><input type="radio" name="zoom" value="actual">100% size</label></fieldset><a id="review-open" target="_blank" rel="noopener">Open at my device size</a></div>
-<div class="review-view-status" id="review-view-status" role="status" aria-live="polite">Preparing the selected viewport…</div>
-<div class="review-stage">
-  <div class="review-viewport" id="review-viewport" tabindex="0" role="region" aria-label="Component preview. In 100 percent size mode, pan horizontally to inspect the full design.">
-    <div class="review-frame-shell" id="review-frame-shell">
-      <div class="review-frame" id="review-frame" data-device="desktop">
-        <iframe id="review-iframe" title="Component rendered at the selected desktop, tablet, or phone viewport width" loading="eager"></iframe>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Explore a website component on computer, tablet, and phone.">
+  <title>Explore a website design — Boomer Automation</title>
+  <link rel="stylesheet" href="review.css">
+  <script type="module" src="review.js"></script>
+</head>
+<body>
+  <a class="review-skip" href="#review-design">Skip to design preview</a>
+  <header class="review-header">
+    <a class="review-brand" href="./index.html" aria-label="Back to all designs">BOOMER <span>AUTOMATION</span></a>
+    <a class="review-back" href="./index.html">All designs</a>
+  </header>
+  <main>
+    <section class="review-intro" aria-labelledby="review-title">
+      <div class="review-intro-top">
+        <p id="review-component-label" class="review-eyebrow">Website section</p>
+        <span class="review-id" id="review-id">Design example</span>
       </div>
-    </div>
-  </div>
-</div>
-<div class="review-pan-controls" id="review-pan-controls" hidden>
-  <button type="button" id="review-pan-left" aria-label="Pan preview to the left">← Left</button>
-  <span>Full-size view · move across the preview to inspect details</span>
-  <button type="button" id="review-pan-right" aria-label="Pan preview to the right">Right →</button>
-</div>
-<p class="review-note"><strong>Fit overview</strong> shows the entire selected layout, even if your screen is smaller. Choose <strong>100% size</strong> for readable details and horizontal panning. The preview uses the selected CSS viewport width; the separate “Open at my device size” link uses your actual screen instead. This is a responsive-layout preview, not an operating-system or browser emulator. Final visual approval and device testing will be completed after the catalogue is built.</p>
-<section class="review-shortlist" aria-labelledby="review-shortlist-title"><div class="review-shortlist-heading"><div><p>INTERNAL / DRAFT VISION BOARD</p><h2 id="review-shortlist-title">Your working shortlist</h2></div><button type="button" id="review-save">Save this example</button></div><p>Preview references only; final client options are not released. The shortlist retains mobile preferences when an alternate is selected.</p><ul id="review-saved-items"></ul><div class="review-shortlist-actions"><button type="button" id="review-copy">Copy reference IDs</button><span id="review-save-status" role="status" aria-live="polite"></span></div></section></main><footer><a href="./index.html">Back to catalogue planning view</a><span>All examples fictional · no client data collected</span></footer></body></html>
+      <h1 id="review-title">Explore this design</h1>
+      <p class="review-description" id="review-focus-summary">This example shows one part of a website.</p>
+      <details class="review-explanation">
+        <summary>What am I looking at?</summary>
+        <p>This is a sample website showing one particular design idea. You can choose a different screen below to see how that part would look on a computer, tablet, or phone.</p>
+        <p>Text, photos, and business names are examples; they can be changed for your own website.</p>
+      </details>
+    </section>
+
+    <section id="review-design" class="review-design" aria-label="Explore the design">
+      <div class="review-toolbar">
+        <fieldset class="review-device-options">
+          <legend>See how it looks on a</legend>
+          <label><input type="radio" name="device" value="desktop" checked><span class="review-control-icon" aria-hidden="true">▣</span> Computer</label>
+          <label><input type="radio" name="device" value="tablet"><span class="review-control-icon" aria-hidden="true">▯</span> Tablet</label>
+          <label><input type="radio" name="device" value="phone"><span class="review-control-icon" aria-hidden="true">▯</span> Phone</label>
+        </fieldset>
+        <fieldset id="review-mobile-choices" class="review-phone-styles" hidden>
+          <legend>Phone layout</legend>
+          <label><input type="radio" name="mobile" value="default" checked>Style 1</label>
+          <label id="review-alt-choice" hidden><input type="radio" name="mobile" value="alternate"><span id="review-alt-name">Style 2</span></label>
+        </fieldset>
+      </div>
+      <div class="review-viewbar">
+        <p id="review-view-status" role="status" aria-live="polite">Showing the computer layout</p>
+        <fieldset class="review-zoom-controls">
+          <legend>View</legend>
+          <label><input type="radio" name="zoom" value="fit" checked>Whole design</label>
+          <label><input type="radio" name="zoom" value="actual">Look closer</label>
+        </fieldset>
+      </div>
+      <p class="review-tip" id="review-tip">The design will fit your screen. Select “Look closer” to see details.</p>
+      <div class="review-stage">
+        <div class="review-viewport" id="review-viewport" tabindex="0" role="region" aria-label="Website design preview. In Look closer mode, scroll horizontally to inspect the design.">
+          <div class="review-frame-shell" id="review-frame-shell">
+            <div class="review-frame" id="review-frame" data-device="desktop">
+              <iframe id="review-iframe" title="Website design at the selected screen size" loading="eager"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="review-pan-controls" id="review-pan-controls" hidden>
+        <button type="button" id="review-pan-left" aria-label="Move left across the preview">Move left</button>
+        <span>Move sideways to see more of the design</span>
+        <button type="button" id="review-pan-right" aria-label="Move right across the preview">Move right</button>
+      </div>
+      <div class="review-view-actions"><a id="review-open" target="_blank" rel="noopener">Open this example on my screen</a><span>Opens in a new tab using your own screen size.</span></div>
+    </section>
+
+    <section class="review-details" aria-labelledby="review-details-title">
+      <div>
+        <p class="review-eyebrow">ABOUT THIS DESIGN</p>
+        <h2 id="review-details-title">What makes it different?</h2>
+      </div>
+      <div class="review-detail-columns">
+        <div><h3>On a computer</h3><p id="review-focus-desktop"></p></div>
+        <div><h3>On a phone</h3><p id="review-focus-mobile"></p></div>
+      </div>
+    </section>
+    <div class="review-bottom-nav"><a href="./index.html">Back to all designs</a><span>Examples only · final designs may be customized</span></div>
+  </main>
+  <footer class="review-footer"><span>BOOMER AUTOMATION / DESIGN LIBRARY</span><span>Designs are still being developed.</span></footer>
+</body>
+</html>
