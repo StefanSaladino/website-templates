@@ -363,7 +363,9 @@
     "hasMobileLayout": true,
     "notes": "Working example. Fictional brand and clearly labeled illustrative content; final client visual signoff deferred.",
     "reviewRoute": "./review.html?id=FOOT-02",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-CTA-04"
+    ],
     "showcase": {
       "label": "Footer",
       "focus": "Multi-column business footer",
@@ -496,7 +498,9 @@
     "hasMobileLayout": true,
     "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
     "reviewRoute": "./review.html?id=CTA-02",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-CTA-02"
+    ],
     "showcase": {
       "label": "Call to action",
       "focus": "Photographic call to action",
@@ -610,7 +614,8 @@
     "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
     "reviewRoute": "./review.html?id=HERO-01",
     "mobileTreatmentIds": [
-      "M-HERO-02"
+      "M-HERO-02",
+      "M-HERO-01"
     ],
     "showcase": {
       "label": "Hero section",
@@ -1098,7 +1103,8 @@
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=GAL-03",
     "mobileTreatmentIds": [
-      "M-GAL-03"
+      "M-GAL-03",
+      "M-GAL-01"
     ],
     "showcase": {
       "label": "Galleries and image collections",
@@ -1161,7 +1167,8 @@
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=GAL-05",
     "mobileTreatmentIds": [
-      "M-UTIL-04"
+      "M-UTIL-04",
+      "M-UTIL-01"
     ],
     "showcase": {
       "label": "Galleries and image collections",
@@ -1363,7 +1370,9 @@
     "hasMobileLayout": true,
     "notes": "In-review functional sample. Final visual, photo or device approval still required.",
     "reviewRoute": "./review.html?id=PRJ-03",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-UTIL-05"
+    ],
     "showcase": {
       "label": "Projects and case studies",
       "focus": "Numbered project index",
@@ -1669,7 +1678,8 @@
     "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
     "reviewRoute": "./review.html?id=SRV-03",
     "mobileTreatmentIds": [
-      "M-SRV-03"
+      "M-SRV-03",
+      "M-SRV-01"
     ],
     "showcase": {
       "label": "Services section",
