@@ -199,7 +199,8 @@
         "PRJ-02",
         "COMP-01",
         "ANIM-03",
-        "ANIM-11"
+        "ANIM-11",
+        "SRV-01"
       ],
       "altText": "Modern kitchen renovation with open shelving and pendant lights",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772567733000-5d5acb9ef4f9?auto=format&fit=crop&w=1400&q=82",
@@ -298,6 +299,35 @@
         "recognizable-vehicle-brand",
         "final-rights-review-pending",
         "remote-image-visual-review-pending"
+      ]
+    },
+    {
+      "id": "STOCK-011",
+      "sourceUrl": "https://www.pexels.com/video/9489382/",
+      "photographer": "Pexels contributor — exact creator not yet verified",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Existing OFFCUT full-page template already references Pexels video ID 9489382. The linked Pexels source-page identity and contributor have NOT been verified, and no representation is made of approved commercial redistribution. The same review-only video and poster are used by MEDIA-01. Require source validation, license/likeness/property review, a smaller encoded video and handset crop tests.",
+      "usageIds": [
+        "MEDIA-01"
+      ],
+      "altText": "Poster for sample creative-studio film",
+      "temporaryPreviewUrl": "https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg?auto=compress&dpr=1&w=1800",
+      "temporaryVideoUrl": "https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "assetAcquisitionStatus": "not-downloaded",
+      "sourcePageVerifiedAt": null,
+      "reviewFlags": [
+        "creator-unverified",
+        "source-url-unverified",
+        "full-license-review-pending",
+        "high-bandwidth-4k-only-reference",
+        "mobile-video-crop-review-pending",
+        "redistribution-not-approved"
       ]
     }
   ]
