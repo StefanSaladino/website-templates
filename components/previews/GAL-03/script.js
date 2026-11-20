@@ -1,5 +1,5 @@
 // Static editorial preview; no JavaScript behavior is necessary.
 
 
-if(new URLSearchParams(location.search).get('mobile')==='M-GAL-03')document.body.dataset.mobileTreatment='M-GAL-03';
+const galMode=new URLSearchParams(location.search).get('mobile');if(['M-GAL-03','M-GAL-01'].includes(galMode))document.body.dataset.mobileTreatment=galMode;
 
