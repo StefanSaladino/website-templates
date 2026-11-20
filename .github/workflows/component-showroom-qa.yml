@@ -38,10 +38,12 @@ jobs:
         working-directory: components
         run: npm run build
 
-      - name: Confirm system browser is installed
-        run: |
-          command -v google-chrome || command -v chromium || command -v google-chrome-stable
-          python3 --version
+      - name: Install Playwright Chromium and required system libraries
+        working-directory: components
+        run: npx playwright install --with-deps chromium
+
+      - name: Confirm Python for local showroom HTTP server
+        run: python3 --version
 
       - name: Execute Chromium interaction and responsive smoke suite
         working-directory: components
