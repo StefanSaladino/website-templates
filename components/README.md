@@ -93,3 +93,7 @@ New live-working but **not production-approved** core previews: PROD-01 (CSS pro
 ## Multiple phone layout options for one component
 
 The showroom now allows Style 1 (the existing responsive default) and Style 2, Style 3, etc. for any component with several built phone variants. New in-review treatments: M-NAV-02, M-GAL-04, M-COM-02, M-HERO-05, M-STORY-01. NAV-04, GAL-02 and PROD-01 each have at least two mobile alternatives. Review selector shows all available named options on the same phone preview. Total **27 / 44** mobile layouts in review; **17 remain drafts**. CTA-03's main CTA no longer uses an arrow glyph. No main merge or production approval is implied.
+ 
+## Seven more mobile designs (November 20, 2026)
+
+Built and selectable on their real parents: M-HERO-01 (HERO-01), M-GAL-01 (GAL-03), M-SRV-01 (SRV-03), M-CTA-02 (CTA-02), M-CTA-04 (FOOT-02), M-UTIL-01 (GAL-05) and M-UTIL-05 (PRJ-03). These provide genuinely different phone compositions and preserve real anchors, filter controls and native disclosure behavior. Phone style options now total **34/44 in review** (10 drafts). **60/157** core examples and **20/20** integrated animation examples remain in review. The browser regression suite includes explicit alternate-specific assertions; image rights, final imagery/crops, mobile-device QA and release acceptance are still incomplete. `main` is unchanged.
