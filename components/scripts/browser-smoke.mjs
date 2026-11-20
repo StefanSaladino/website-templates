@@ -213,6 +213,7 @@ try{
  await page.locator('[data-detail-zoom]').click();
  assert(await page.locator('[data-motion-pattern="ANIM-11"]').evaluate(el=>el.classList.contains('detail-is-zoomed')),'ANIM-11 garden photograph zooms on demand');
  await page.emulateMedia({reducedMotion:'reduce'});
+ await page.waitForFunction(()=>!document.querySelector('[data-motion-pattern="ANIM-11"]')?.classList.contains('detail-is-zoomed'));
  assert(!await page.locator('[data-motion-pattern="ANIM-11"]').evaluate(el=>el.classList.contains('detail-is-zoomed')),'ANIM-11 zoom disabled for reduced motion');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('law-firm');
