@@ -20,3 +20,14 @@ body{background:#f7f5f1;color:#1f2627}.g5-head{display:flex;justify-content:spac
  body[data-mobile-treatment="M-UTIL-04"] .g5-grid img{height:clamp(230px,53vw,370px)}
 }
 
+
+/* M-UTIL-01 — horizontal scrollable filter rail, unlike the alternative full-screen filter drawer. */
+@media(max-width:760px){
+ body[data-mobile-treatment="M-UTIL-01"] .g5-gallery{padding:58px 20px 85px}
+ body[data-mobile-treatment="M-UTIL-01"] .g5-intro h1{font-size:clamp(60px,12.5vw,86px);margin:20px 0}
+ body[data-mobile-treatment="M-UTIL-01"] .g5-filters{display:flex;flex-wrap:nowrap;gap:9px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:thin;width:calc(100% + 40px);max-width:calc(100% + 40px);margin:24px -20px 38px;padding:12px 20px 17px}
+ body[data-mobile-treatment="M-UTIL-01"] .g5-filters button{flex:0 0 168px;min-width:168px;min-height:54px;scroll-snap-align:center;text-align:center;border-radius:0;font-weight:750}
+ body[data-mobile-treatment="M-UTIL-01"] .g5-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ body[data-mobile-treatment="M-UTIL-01"] .g5-grid img{height:clamp(225px,58vw,360px)}
+ body[data-mobile-treatment="M-UTIL-01"] .g5-grid figcaption{font-size:9px}
+}
