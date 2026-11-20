@@ -187,3 +187,25 @@ This seven-component build brings the working branch to **99 / 157 core examples
 **Source QA completed:** All seven new HTML/CSS/JS preview sets were created in the branch. Source checks found no duplicate HTML IDs, missing local anchor targets, invalid preview script syntax, unbalanced CSS delimiters or missing image alt text. New metadata and bidirectional stock usage checks passed. The browser smoke script parses and includes a new block of interaction tests for all seven (keyboard carousel, real sticky CTA, native help, explicit newsletter consent, policy navigation, reading settings, recruitment draft and 320px page-width checks). **These regression assertions are committed but a passing Chromium/GitHub Actions run and loaded-image visual/device QA have not been verified.** The existing branch QA workflow should be inspected through Actions when available, without inferring success from the absence of status results.
 
 **Next planned work:** Focus on unfinished conversion and commercial sections (FOOT-03/04/05, CTA-04/05, BOOK-02..05 and any other draft families), rather than duplicating now-complete form, interface, legal and careers patterns. Maintain true interactions, no pretend transactions, rights verification and browser/device review before any release.
+
+## Footer, booking and CTA families completed — November 20, 2026
+
+The showroom branch now contains **108 / 157 core components built and in review** (**49 drafts remain**); the **44 / 44** optional mobile treatments and **20 / 20** integrated animation patterns remain present. Three more families are source-complete: **footers 5/5, booking 5/5 and calls-to-action 5/5**. No core is marked `live` and no merge to `main` occurred.
+
+| New review preview | Functional behavior and honest boundary |
+|---|---|
+| FOOT-03 | Large editorial studio footer: real section navigation, oversized brand lettering, dynamic year and clipboard result for the reserved `hello@example.com` address |
+| FOOT-04 | Trades contact-first footer: local project scope validation, unsent notes, in-page navigation, reserved address copy with truthful status |
+| FOOT-05 | Retail newsletter footer: working email and unchecked consent validation, NOT SUBSCRIBED local confirmation, reset and functioning in-page links |
+| BOOK-02 | Unrelated STOCK-001 landscape and retreat date/guest controls: future arrival, departure-after-arrival, 1–8 guest stepper, real nights count, NOT BOOKED summary; no property inventory or rates |
+| BOOK-03 | Contractor quote-request: project type, timing, expressly illustrative budget-category validation and a local NOT SENT OR PRICED project brief |
+| BOOK-04 | Fictional workshop RSVP: three dynamically generated future sample Saturday labels, bounded 1–4-seat chooser and NOT REGISTERED local preference summary; no ticket capacity or payments |
+| BOOK-05 | Restaurant provider handoff: actual selectable **Resy** and **OpenTable** provider *homepages*, explicit acknowledgement before revealing a real external link, no fabricated restaurant page or reservation availability |
+| CTA-04 | Photo-led architecture invitation: unrelated STOCK-009 interior explicitly not commissioned work, true native modal, Escape/focus restoration, validated local NOT SENT design note |
+| CTA-05 | Distinct two-action mobile service rail: separate genuine hours and scope-section anchors, IntersectionObserver hiding near the form, clear fictional operating hours and validated unsent inquiry |
+
+All nine have isolated `index.html`, `styles.css`, `script.js` files, real desktop/phone layouts, catalogue/reviewer metadata, expected section anchors, and the declared interactive behavior. STOCK-001 and STOCK-009 have reciprocal manifest usage records; both still require rights approval.
+
+**Quality gates:** Connector-based source checks across all nine previews found no JavaScript parse errors, duplicate HTML IDs, broken internal anchors, missing photo alt attributes or unbalanced CSS braces. Source catalogue and stock-manifest consistency checks passed; the expanded smoke test script parses and exercises functional outcomes, keyboard dialog behavior, date/quantity controls, sample-data disclosures and 320px page overflow across the batch. The branch-specific workflow `.github/workflows/component-showroom-qa.yml` was amended to explicitly run `npx playwright install --with-deps chromium`, addressing the missing-browser risk on Ubuntu GitHub Actions. **A successful Chromium run, screenshots, physical-device accessibility/visual QA and stock license signoff remain unverified.** No user-facing live site or release was changed.
+
+**Next suggested work:** Prioritize running and reviewing CI evidence, then address unfinished headers, announcements, galleries and commercial families while preserving demo truthfulness. Do not add a persistent shortlist/selection system or publish without separate approval.
