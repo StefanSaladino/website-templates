@@ -20,3 +20,21 @@
  media.addEventListener('change',schedule);sync();
 })();
 
+
+/* M-NAV-03: accessible bottom destinations on the actual three-section sample. */
+(()=>{
+ if(new URLSearchParams(location.search).get('mobile')!=='M-NAV-03')return;
+ document.body.dataset.mobileTreatment='M-NAV-03';
+ const rail=document.createElement('nav');rail.className='v-bottom-rail';rail.setAttribute('aria-label','Primary phone sections');
+ const items=[['collection','Collection'],['story','Journal'],['contact','Contact']];
+ const anchors=items.map(([id,label])=>{const link=document.createElement('a');link.href='#'+id;link.textContent=label;link.dataset.bottomTarget=id;rail.append(link);return link;});
+ document.body.append(rail);
+ const small=matchMedia('(max-width:760px)');
+ let queued=false;
+ function sync(){queued=false;let current='collection';
+  if(small.matches){for(const [id] of items){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<innerHeight*.55)current=id}}
+  rail.hidden=!small.matches;anchors.forEach(link=>{if(small.matches&&link.dataset.bottomTarget===current)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current')});}
+ const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(sync)}};
+ addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);
+ small.addEventListener('change',schedule);sync();
+})();
