@@ -40,6 +40,7 @@ for(const component of components.filter(x=>x.status!=='draft'&&x.category==='an
  else {
   const file=path.resolve(output,route);
   if(!file.startsWith(rootOutput+path.sep)||!existsSync(file))missing.push('Missing connected full template '+component.id+' / '+route);
+  else if(!readFileSync(file,'utf8').includes('data-motion-pattern="'+component.id+'"'))missing.push('Template lacks actual animation implementation marker '+component.id+' / '+route);
  }
 }
 if(missing.length){for(const file of missing)console.error('FAIL dist:',file);process.exit(1)}

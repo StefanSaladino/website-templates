@@ -723,3 +723,18 @@ The working motion catalogue is now **12 of 20** planned patterns. Each is linke
 **Remaining draft motion IDs:** ANIM-04, ANIM-09, ANIM-12, ANIM-13, ANIM-16, ANIM-17, ANIM-19, ANIM-20. They require equally genuine in-template behaviour before status promotion. All in-review examples still await live image-loading and crop QA, physical iOS Safari and Android Chrome, motion-sensitive/accessibility checks, performance review and client visual acceptance. Nothing is promoted to live or merged into main.
 
 **Enforced contract:** Every non-draft animation must have a valid full-page template route and name. Build and browser regressions verify the integration as well as the isolated preview.
+
+## Four integrated motion patterns — November 20, 2026
+
+Four additional distinct behaviours move to **in-review**. The working animation set is now **16 of 20**. Every option has an isolated showroom demo and a real integration in one of the existing complete templates:
+
+| ID | Pattern | Full-page destination | Active interaction |
+|---|---|---|---|
+| ANIM-09 | Diagonal section reveal | RANGE/FOUND / Editorial Commerce (`#journal`) | Angled journal panel appears on entry and supports manual replay |
+| ANIM-12 | Project image exchange | FRAME / Photographer Portfolio (`#frame-feature`) | Portrait, editorial and object images exchange with accessible pressed state and live text |
+| ANIM-17 | Layered story stack | MONOLITH / Architecture (`#chapters`) | Three actual sticky editorial cards on wide screens, conventional linear scroll on phone and reduced-motion |
+| ANIM-20 | Step-controlled image carousel | GRAIN & GABLE / Woodworker (`#craft-showcase`) | Finite three-frame craft sequence with previous/next, direct step choice, boundaries and no autoplay |
+
+**Still drafts:** ANIM-04 (bounded parallax), ANIM-13 (horizontal story rail), ANIM-16 (pointer spotlight), ANIM-19 (local page transition). Each must satisfy the preview+full-template integration policy before review. In-review is **not** live or release-ready; images still require crop and rights checks, and motion requires real mobile Safari/Android plus accessibility and visual QA. No changes to main are authorized.
+
+**QA contract strengthened:** In addition to testing interactive behaviour, the built catalogue now requires the actual `data-motion-pattern="ANIM-xx"` marker inside the linked complete template. This prevents a route existing without an implemented motion treatment.

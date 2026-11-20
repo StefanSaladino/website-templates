@@ -250,6 +250,80 @@ try{
   await page.screenshot({path:path.join(evidence,folder+'-integrated-phone.png'),animations:'disabled'});
  }
 
+
+ // Third motion integration batch: every new pattern runs inside a real, complete template.
+ await openTemplate('editorial-commerce');
+ await page.locator('[data-journal-replay]').click();
+ assert(await page.locator('[data-motion-pattern="ANIM-09"]').evaluate(el=>el.classList.contains('journal-motion-playing')),'ANIM-09 diagonal panel reveal actually replays in RANGE/FOUND');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-journal-replay]').click();
+ assert(!await page.locator('[data-motion-pattern="ANIM-09"]').evaluate(el=>el.classList.contains('journal-motion-playing')),'ANIM-09 skips diagonal motion for reduced-motion users');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await openTemplate('frame-portfolio');
+ await page.locator('[data-feature-select="2"]').click();
+ assert(await page.locator('[data-feature-image="2"]').isVisible()&&await page.locator('[data-feature-image="0"]').isHidden()
+   &&await page.locator('[data-feature-select="2"]').getAttribute('aria-pressed')==='true'
+   &&(await page.locator('[data-feature-status]').textContent()).includes('Quiet object'),'ANIM-12 FRAME exchange changes a real photograph, its caption and selected state');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-feature-select="1"]').click();
+ assert(await page.locator('[data-feature-image="1"]').isVisible()&&
+   !await page.locator('[data-feature-image="1"]').evaluate(el=>el.classList.contains('is-arriving')),'ANIM-12 remains selectable without motion');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await openTemplate('monolith-architecture');
+ assert(await page.locator('[data-monolith-card]').count()===3,'ANIM-17 MONOLITH contains three real story chapters');
+ assert(await page.locator('[data-monolith-card="0"]').evaluate(el=>getComputedStyle(el).position==='relative'),'ANIM-17 mobile chapters remain in normal document flow');
+ await page.locator('[data-monolith-link="2"]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-monolith-link="2"]')?.getAttribute('aria-current')==='step');
+ assert((await page.locator('#monolith-story-status').textContent()).includes('Light'),'ANIM-17 chapter link updates reading position');
+ await page.setViewportSize({width:1280,height:900});
+ await openTemplate('monolith-architecture');
+ assert(await page.locator('[data-monolith-card="0"]').evaluate(el=>getComputedStyle(el).position==='sticky'),'ANIM-17 wide-screen narrative has actual sticky layering');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ assert(await page.locator('[data-monolith-card="0"]').evaluate(el=>getComputedStyle(el).position==='relative'),'ANIM-17 reduced-motion removes sticky layer overlap');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.setViewportSize({width:390,height:900});
+ await openTemplate('woodworker');
+ assert(await page.locator('[data-craft-prev]').isDisabled(),'ANIM-20 craft carousel cannot move before first image');
+ await page.locator('[data-craft-next]').click();
+ assert(await page.locator('[data-craft-slide="1"]').isVisible()&&
+   await page.locator('[data-craft-jump="1"]').getAttribute('aria-pressed')==='true','ANIM-20 next moves the real craft photograph and selected step');
+ await page.locator('[data-craft-next]').click();
+ assert(await page.locator('[data-craft-next]').isDisabled()&&(await page.locator('[data-craft-status]').textContent()).includes('3 of 3'),'ANIM-20 finite carousel stops at the third slide');
+ await page.locator('[data-craft-prev]').focus();
+ await page.locator('[data-craft-prev]').press('Enter');
+ assert((await page.locator('[data-craft-status]').textContent()).includes('2 of 3'),'ANIM-20 carousel responds to keyboard input');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-craft-jump="0"]').click();
+ assert(await page.locator('[data-craft-slide="0"]').isVisible()&&
+   !await page.locator('[data-craft-slide="0"]').evaluate(el=>el.classList.contains('is-arriving')),'ANIM-20 reduced-motion still permits a slide change');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ // Verify isolated variants also have live controls, not only a spotlight marker.
+ await page.goto(base+'previews/ANIM-09/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('#a09-replay').click();
+ assert(await page.locator('.a09-panel').evaluate(el=>el.classList.contains('is-playing')),'ANIM-09 isolated diagonal panel is replayable');
+ await page.goto(base+'previews/ANIM-12/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-a12-select="2"]').click();
+ assert(await page.locator('[data-a12-frame="2"]').isVisible()&&
+   await page.locator('[data-a12-select="2"]').getAttribute('aria-pressed')==='true','ANIM-12 isolated project image exchange works');
+ await page.goto(base+'previews/ANIM-17/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-a17-link="2"]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-a17-link="2"]')?.getAttribute('aria-current')==='step');
+ assert((await page.locator('#a17-status').textContent()).includes('Light'),'ANIM-17 isolated stacked chapters update selection');
+ await page.goto(base+'previews/ANIM-20/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-a20-next]').click();
+ assert(await page.locator('[data-a20-slide="1"]').isVisible(),'ANIM-20 isolated carousel advances by an explicit action');
+ // Review links must point directly at the real full-page examples.
+ for(const [id,route] of [['ANIM-09','../templates/editorial-commerce/index.html#journal'],['ANIM-12','../templates/frame-portfolio/index.html#frame-feature'],['ANIM-17','../templates/monolith-architecture/index.html#chapters'],['ANIM-20','../templates/woodworker/index.html#craft-showcase']]){
+   await page.goto(base+'review.html?id='+id,{waitUntil:'domcontentloaded'});
+   await page.waitForFunction(()=>document.querySelector('#review-template-example')?.hidden===false);
+   assert(await page.locator('#review-template-example').getAttribute('href')===route,id+' links to its authentic integrated full-page treatment');
+ }
+ for(const folder of ['editorial-commerce','frame-portfolio','monolith-architecture','woodworker']){
+   await openTemplate(folder);
+   assert(await page.locator('[data-motion-pattern]').count()>0,folder+': full-page template includes the actual motion target');
+   await page.screenshot({path:path.join(evidence,folder+'-integrated-phone.png'),animations:'disabled'});
+ }
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);

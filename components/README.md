@@ -69,3 +69,7 @@ Six in-review animation patterns have actual integrations into six original temp
 ## Motion design integrations — second batch
 
 Six additional animation examples, ANIM-08/10/11/14/15/18, now have both isolated previews and actual effects within the matching full-page site templates. The total is 12 integrated motion patterns, 8 drafts. New build validation rejects a motion item if it lacks a working full-template reference. None is automatically applied to unrelated templates.
+
+## Animation continuation — four further full-template patterns
+
+ANIM-09, ANIM-12, ANIM-17 and ANIM-20 now have functional isolated previews and matching full-page treatments. The motion inventory has **16 working in-review demos** and **4 drafts**. The original complete templates keep their distinct identities, and motion stays opt-in or scroll-driven with static fallbacks. The built-template gate checks for a genuine `data-motion-pattern` element in the linked site.

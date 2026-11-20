@@ -20,3 +20,7 @@ Six working animation variations are now explicitly mapped into six existing ful
 The core review inventory reaches **48 of 157**: 36 Phase 3 layout specimens plus 12 integrated animation patterns. Four of 44 mobile alternatives are in review. Newly included: ANIM-08, 10, 11, 14, 15 and 18, integrated into event, retreat, landscaping, law, fitness and tattoo templates. Eight ANIM concepts remain drafts. Do not count these as live or client-approved before media, device and visual release gates.
 
 **Gallery-motion polish:** ANIM-18 now observes its first image, rather than the entire tall work section, so the reveal starts when photography is visible. The direct browser test covers both automatic entrance and manual replay.
+
+## Third integration batch (November 20, 2026)
+
+**52 / 157** core options are now in review: the 36 original Phase 3 components and **16 / 20** finished animation patterns. Four animation patterns remain drafts (04, 13, 16, 19), and the separate mobile alternatives inventory is **4 / 44** in review. Latest full-page integrations: diagonal editorial reveal (RANGE/FOUND), photographic exchange (FRAME), sticky/linear story chapters (MONOLITH), and a finite controlled craft carousel (GRAIN & GABLE). None are marked live; the full release gates remain unchanged.
