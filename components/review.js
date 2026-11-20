@@ -9,6 +9,40 @@ const entries=Object.fromEntries(items.filter(x=>x.status!=='draft').map(x=>{
 }));
 const params=new URLSearchParams(location.search),requested=params.get('id')||'NAV-03',id=Object.hasOwn(entries,requested)?requested:Object.keys(entries)[0],spec=entries[id];
 const iframe=document.querySelector('#review-iframe'),frame=document.querySelector('#review-frame'),open=document.querySelector('#review-open'),alternate=document.querySelector('#review-alt-choice');
+const viewport=document.querySelector('#review-viewport'),shell=document.querySelector('#review-frame-shell');
+const sizeStatus=document.querySelector('#review-view-status'),panControls=document.querySelector('#review-pan-controls');
+const panLeft=document.querySelector('#review-pan-left'),panRight=document.querySelector('#review-pan-right');
+const sizes={desktop:{width:1440,height:900,label:'Desktop'},tablet:{width:768,height:900,label:'Tablet'},phone:{width:390,height:780,label:'Phone'}};
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+const getMode=()=>document.querySelector('input[name=zoom]:checked').value;
+const getDevice=()=>document.querySelector('input[name=device]:checked').value;
+let previousDevice=null,previousZoom=null;
+function updatePanButtons(){
+  panLeft.disabled=viewport.scrollLeft<=2;
+  panRight.disabled=viewport.scrollLeft+viewport.clientWidth>=viewport.scrollWidth-2;
+}
+function sizeFrame(){
+  const device=getDevice(),zoom=getMode(),preset=sizes[device];
+  const available=Math.max(1,viewport.clientWidth-2);
+  const scale=zoom==='fit'?Math.min(1,available/preset.width):1;
+  frame.dataset.device=device;
+  frame.dataset.zoom=zoom;
+  frame.style.width=preset.width+'px';
+  frame.style.height=preset.height+'px';
+  frame.style.transform='scale('+scale+')';
+  shell.style.width=(preset.width*scale)+'px';
+  shell.style.height=(preset.height*scale)+'px';
+  sizeStatus.textContent=preset.label+' layout · '+preset.width+'px rendered viewport · shown at '+Math.round(scale*100)+'%'+(zoom==='actual'&&preset.width>available?' · pan sideways to see the full width':'');
+  panControls.hidden=!(zoom==='actual'&&preset.width>available+3);
+  if(device!==previousDevice||zoom!==previousZoom)viewport.scrollLeft=0;
+  previousDevice=device;previousZoom=zoom;
+  updatePanButtons();
+}
+panLeft.addEventListener('click',()=>viewport.scrollBy({left:-Math.max(160,viewport.clientWidth*.72),behavior:reducedMotion.matches?'instant':'smooth'}));
+panRight.addEventListener('click',()=>viewport.scrollBy({left:Math.max(160,viewport.clientWidth*.72),behavior:reducedMotion.matches?'instant':'smooth'}));
+viewport.addEventListener('scroll',updatePanButtons,{passive:true});
+if('ResizeObserver' in window)new ResizeObserver(sizeFrame).observe(viewport);
+else window.addEventListener('resize',sizeFrame);
 document.querySelector('#review-title').textContent=id+' / '+spec.name;
 document.querySelector('#review-meta').textContent='Design example · in review; visual sign-off pending';
 const focus=spec.showcase||{};
@@ -21,16 +55,16 @@ const focusAnchor=focus.focusAnchor?'#'+encodeURIComponent(focus.focusAnchor):''
 document.querySelector('#review-focus-link').href='./previews/'+id+'/'+focusAnchor;
 if(spec.alternative){alternate.hidden=false;document.querySelector('#review-alt-name').textContent=spec.alternative+' · '+spec.label;}
 const render=()=>{
-const device=document.querySelector('input[name=device]:checked').value;
+const device=getDevice();
 let mobile=document.querySelector('input[name=mobile]:checked').value;
 if(device!=='phone')mobile='default';
-frame.dataset.device=device;
 const url='./previews/'+id+'/index.html'+(mobile==='alternate'&&spec.alternative?'?mobile='+encodeURIComponent(spec.alternative):'')+focusAnchor;
 if(iframe.getAttribute('src')!==url)iframe.src=url;
 open.href=url;
 document.querySelector('#review-mobile-choices').hidden=device!=='phone';
+sizeFrame();
 };
-document.querySelectorAll('input[name=device],input[name=mobile]').forEach(el=>el.addEventListener('change',render));
+document.querySelectorAll('input[name=device],input[name=mobile],input[name=zoom]').forEach(el=>el.addEventListener('change',render));
 render();
 // Small internal shortlist proof. Never equate an in-review reference with an approved selection.
 const shortKey='boomer-showroom-dev-shortlist-v1';

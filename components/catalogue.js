@@ -82,7 +82,7 @@ try{
         ? '<div class="cs-preview-window"><iframe title="Preview of '+escapeText(item.id)+' focusing on '+escapeText(categoryLabel)+'" src="'+escapeText(targetUrl)+'" loading="lazy" tabindex="-1" aria-hidden="true"></iframe><a class="cs-preview-cover" href="'+escapeText(targetUrl)+'" aria-label="View showcased '+escapeText(categoryLabel)+' in '+escapeText(item.id)+'"></a></div>'
         : '';
       const actions=working
-        ? '<div class="cs-item-actions"><a class="cs-action-primary" href="'+escapeText(targetUrl)+'">View showcased section</a><a href="'+escapeText(reviewRoute)+'">Desktop & mobile details</a></div>'
+        ? '<div class="cs-item-actions"><a class="cs-action-primary" href="'+escapeText(reviewRoute)+'">Compare desktop & mobile</a><a href="'+escapeText(targetUrl)+'">Open on my device</a></div>'
         : '';
       const focusContent=focus
         ? '<div class="cs-focus-info"><span class="cs-focus-label">WHAT THIS SHOWCASES</span><strong>'+escapeText(focus.focus)+'</strong><p>'+escapeText(focus.summary)+'</p><div class="cs-focus-cues"><span>'+escapeText(focus.lookFor[0])+'</span><span>'+escapeText(focus.lookFor[1])+'</span></div></div>'
