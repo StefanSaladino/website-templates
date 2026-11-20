@@ -41,5 +41,9 @@ if(categories.length!==30||components.length!==157)fail('Catalog must contain 30
 if(!Array.isArray(stock.assets))fail('Stock manifest must contain assets[]');
 if(mobile.length!==44)fail('Mobile treatment baseline must include 44 options');
 const mobileIds=new Set();for(const m of mobile){if(mobileIds.has(m.id))fail('Duplicate mobile treatment '+m.id);mobileIds.add(m.id);if(!/^M-[A-Z]+-\d{2}$/.test(m.id))fail('Bad mobile ID '+m.id);for(const parent of m.compatibleComponentIds||[])if(!componentIds.has(parent))fail('Invalid parent '+parent+' for '+m.id);if(m.status==='in-review'&&(!m.previewRoute||!m.compatibleComponentIds.length))fail('Incomplete mobile preview '+m.id)}
+for(const component of components.filter(x=>x.status!=='draft'&&x.category==='animations')){
+ if(!/^\.\.\/templates\/[a-z-]+\/index\.html(?:#[a-z0-9-]+)?$/.test(component.fullTemplateRoute||''))fail('Animation missing full-page integration route: '+component.id);
+ if(!component.fullTemplateName)fail('Animation missing full-page template name: '+component.id);
+}
 if(errors.length){for(const error of errors)console.error('FAIL:',error);process.exit(1);}
 console.log('Catalogue valid: '+categories.length+' categories, '+components.length+' options, '+components.filter(x=>x.status==='live').length+' live, '+stock.assets.length+' stock assets recorded.');

@@ -14,3 +14,7 @@ New working first-release IDs completed in this continuation: NAV-02, BAR-01, HE
 
 ## Follow-on integration checkpoint — November 20, 2026
 Six working animation variations are now explicitly mapped into six existing full-page templates, and the showroom reviewer links to the applied real-world example. The 36 planned first-release core IDs remain implemented; with six motion prototypes, **42 core examples** are in review out of 157 planned, plus four in-review optional mobile variants. Release remains blocked by final imagery, photographic permissions, image-loaded screenshots, physical device QA, accessibility/performance review and client sign-off. The intended static concepts remain static.
+
+## Motion continuation checkpoint — November 20, 2026
+
+The core review inventory reaches **48 of 157**: 36 Phase 3 layout specimens plus 12 integrated animation patterns. Four of 44 mobile alternatives are in review. Newly included: ANIM-08, 10, 11, 14, 15 and 18, integrated into event, retreat, landscaping, law, fitness and tattoo templates. Eight ANIM concepts remain drafts. Do not count these as live or client-approved before media, device and visual release gates.

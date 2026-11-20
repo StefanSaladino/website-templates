@@ -706,3 +706,20 @@ The initial seven-pattern amendment has been **expanded to ANIM-01–ANIM-20**. 
 The six working animation specimens (ANIM-01, 02, 03, 05, 06, 07) and their full-template routes remain **in-review**. Fourteen remaining animation IDs are still drafts. Each pattern's metadata includes a `fullTemplateRoute` and `fullTemplateName`; the viewer/catalogue offer a dedicated “See on a full website” link. Build artifacts include the unmodified-other full templates so these relative routes remain valid on the GitHub Pages project base and in the CI preview.
 
 **QA expansion:** The browser test suite must open the full templates and verify motion can be replayed or controlled with keyboard/touch controls, required text remains present, and reduced-motion preferences suppress movement. Screenshot/automated checks do not waive manual iOS Safari, Android, photo crop/rights and final visual approval. All work stays on `feature/component-showroom`; do not merge to main until separately authorized.
+
+## Six-animation continuation (November 20, 2026)
+
+The working motion catalogue is now **12 of 20** planned patterns. Each is linked to an original full-page website, not just an isolated demo. The existing Phase 3 release inventory of 36 core layout IDs is unchanged.
+
+| ID | Animation | Integrated full-page template | Verified behaviour to test |
+|---|---|---|---|
+| ANIM-08 | Whole-line text wipe | AFTER DARK (Event Launch) | Replayable poster title; reduced-motion static |
+| ANIM-10 | Chapter progress | Morrow House (Muskoka Retreat) | Current section indicator, native anchor links and progress meter |
+| ANIM-11 | Image focus zoom | BED & BORDER (Landscaping) | Button-controlled detail zoom with static reduced-motion mode |
+| ANIM-14 | FAQ detail transition | NORTHLINE LAW (Law Firm) | Native, accessible disclosure sections; measured content entrance |
+| ANIM-15 | Meaningful count-up | YARD (Fitness Launch) | Replay of the existing fictional six-person/one-coach format |
+| ANIM-18 | Image entrance rhythm | BLACKLINE (Tattoo Studio) | Once-on-entry image cadence plus explicit replay |
+
+**Remaining draft motion IDs:** ANIM-04, ANIM-09, ANIM-12, ANIM-13, ANIM-16, ANIM-17, ANIM-19, ANIM-20. They require equally genuine in-template behaviour before status promotion. All in-review examples still await live image-loading and crop QA, physical iOS Safari and Android Chrome, motion-sensitive/accessibility checks, performance review and client visual acceptance. Nothing is promoted to live or merged into main.
+
+**Enforced contract:** Every non-draft animation must have a valid full-page template route and name. Build and browser regressions verify the integration as well as the isolated preview.

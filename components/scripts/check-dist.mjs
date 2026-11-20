@@ -31,6 +31,9 @@ if(existsSync(path.join(output,'assets'))){
 }
 // Every connected animation example must resolve to a real bundled template.
 const rootOutput=path.resolve(here,'../dist');
+for(const component of components.filter(x=>x.status!=='draft'&&x.category==='animations')){
+ if(!component.fullTemplateRoute||!component.fullTemplateName)missing.push('Animation not integrated into a real template '+component.id);
+}
 for(const component of components.filter(x=>x.status!=='draft'&&x.category==='animations'&&x.fullTemplateRoute)){
  const route=component.fullTemplateRoute.split('#')[0];
  if(!/^\.\.\/templates\/[a-z-]+\/index\.html$/.test(route))missing.push('Invalid connected template route '+component.id);

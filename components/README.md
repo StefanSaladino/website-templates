@@ -65,3 +65,7 @@ All 36 individually enumerated first-release core IDs now have in-review preview
 
 ## See motion in full-page templates
 Six in-review animation patterns have actual integrations into six original templates. The relevant animation cards and review pages contain a “See on a full website” link that opens the corresponding working page/section. To test on this development branch, serve the repository root over HTTP, or build from `components/` and serve `dist/` (the build now includes `dist/templates/`). The matching HTML, CSS and JS reside in the original `templates/` directories, not in screenshots. No animation is globally injected into other designs, and no publication to `main` has been requested.
+
+## Motion design integrations — second batch
+
+Six additional animation examples, ANIM-08/10/11/14/15/18, now have both isolated previews and actual effects within the matching full-page site templates. The total is 12 integrated motion patterns, 8 drafts. New build validation rejects a motion item if it lacks a working full-template reference. None is automatically applied to unrelated templates.

@@ -196,6 +196,57 @@ try{
  }
 
 
+
+ // Full-page animation tests for the six newly built patterns.
+ await openTemplate('event-launch');
+ await page.locator('[data-replay-motion="ANIM-08"]').click();
+ assert(await page.locator('[data-motion-pattern="ANIM-08"]').evaluate(el=>el.classList.contains('event-line-playing')),'ANIM-08 headline wipe appears on AFTER DARK');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-replay-motion="ANIM-08"]').click();
+ assert(!await page.locator('[data-motion-pattern="ANIM-08"]').evaluate(el=>el.classList.contains('event-line-playing')),'ANIM-08 reduced-motion fallback');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await openTemplate('muskoka-retreat');
+ await page.locator('[data-retreat-chapter="2"]').click();
+ assert(await page.locator('[data-retreat-chapter="2"]').getAttribute('aria-current')==='step'&&
+  await page.locator('.retreat-chapter-meter span').evaluate(el=>el.style.width==='100%'),'ANIM-10 retreat chapter navigation is interactive');
+ await openTemplate('landscaping');
+ await page.locator('[data-detail-zoom]').click();
+ assert(await page.locator('[data-motion-pattern="ANIM-11"]').evaluate(el=>el.classList.contains('detail-is-zoomed')),'ANIM-11 garden photograph zooms on demand');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ assert(!await page.locator('[data-motion-pattern="ANIM-11"]').evaluate(el=>el.classList.contains('detail-is-zoomed')),'ANIM-11 zoom disabled for reduced motion');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await openTemplate('law-firm');
+ await page.locator('#questions details').nth(1).locator('summary').click();
+ assert(await page.locator('#questions details').nth(1).evaluate(el=>el.open),'ANIM-14 law firm FAQ opens natively');
+ await page.locator('#questions details').nth(2).locator('summary').click();
+ await page.waitForFunction(()=>!document.querySelectorAll('#questions details')[1].open);
+ assert(await page.locator('#questions details').nth(2).evaluate(el=>el.open),'ANIM-14 native FAQ keeps current answer accessible');
+ await openTemplate('fitness-launch');
+ await page.locator('[data-yard-replay]').click();
+ assert((await page.locator('[data-yard-status]').textContent()).includes('Demonstrating'),'ANIM-15 meaningful group count replays');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-yard-replay]').click();
+ assert((await page.locator('[data-yard-count="6"]').textContent())==='6'&&
+  (await page.locator('[data-yard-status]').textContent()).includes('Reduced motion'),'ANIM-15 numbers remain intact for reduced motion');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await openTemplate('tattoo-studio');
+ await page.locator('[data-rhythm-replay]').click();
+ assert(await page.locator('[data-motion-pattern="ANIM-18"]').evaluate(el=>el.classList.contains('is-rhythm-playing')),'ANIM-18 tattoo gallery entrance replays');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-rhythm-replay]').click();
+ assert(!await page.locator('[data-motion-pattern="ANIM-18"]').evaluate(el=>el.classList.contains('is-rhythm-playing')),'ANIM-18 respects reduced motion');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ for(const [id,control] of [['ANIM-08','#p8-replay'],['ANIM-10','[data-p10-go="2"]'],['ANIM-11','#p11-toggle'],['ANIM-14','.a14-questions details:nth-child(2) summary'],['ANIM-15','#a15-play'],['ANIM-18','#a18-replay']]){
+  await page.goto(base+'previews/'+id+'/index.html',{waitUntil:'domcontentloaded'});
+  await page.locator(control).click();
+  assert(await page.locator('#motion-showcase').count()===1,id+' isolated motion preview has an operable control');
+ }
+ for(const folder of ['event-launch','muskoka-retreat','landscaping','law-firm','fitness-launch','tattoo-studio']){
+  await openTemplate(folder);
+  assert(await page.locator('[data-motion-pattern]').count()>0,folder+': original full-page template contains an integrated motion');
+  await page.screenshot({path:path.join(evidence,folder+'-integrated-phone.png'),animations:'disabled'});
+ }
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
