@@ -1,3 +1,31 @@
+# Visibility re-test — 16-component showroom (November 20, 2026)
+
+**Result: PASS — 46 browser scenarios, 697 assertions, with screenshot evidence.** This supersedes the previous 10-component visibility sign-off below.
+
+**Relevant code:** `30af33ce` (new overlay and strict QA); **passing run:** https://github.com/StefanSaladino/website-templates/actions/runs/44677167662  
+**Screenshot artifact:** https://github.com/StefanSaladino/website-templates/actions/runs/44677167662/artifacts/14603260137
+
+### User-reported defect and repair
+
+The old highlight painted an outline **on the component itself**. Tall components could extend beyond the visible frame, and 1440px desktop designs viewed on a phone scaled the outline down so far that it became difficult to notice. Source/behavior checks passed even when the highlight was not prominent enough for a client.
+
+The viewer now draws a **high-contrast frame in its own screen pixels, outside the scaled iframe**, labeled **THIS IS THE SECTION**. The frame is clipped to the component's visible intersection with the preview so all four sides are apparent. Small navigation headers place the label just below their thin frame. Its animation lasts approximately 2.4 seconds, can be replayed with **Highlight this section**, and honors reduced-motion preferences. The overlay does not intercept clicks.
+
+### Test scope
+
+All 16 in-review core components: NAV-01, NAV-03, NAV-04, HERO-01, HERO-02, HERO-07, GAL-01, GAL-02, SRV-03, PROC-01, TEST-01, INTRO-01, CTA-01, CTA-02, FORM-01, FOOT-02. All four available alternative mobile layouts also tested: M-NAV-04, M-HERO-02, M-GAL-02, M-SRV-03.
+
+- Actual child iframe CSS width checks for Phone (390px), Tablet (768px) and Computer (1440px), including desktop rendered on a phone
+- Verified target element ID and semantic region (header, hero, gallery, services, process, testimonial, intro, CTA, form, footer)
+- Verified new **outer** highlight overlay is not hidden, draws a frame with visible area, stays inside preview bounds, and has the clear label and 6px border
+- Verified initial click and explicit replay activate the correct highlighted element
+- Verified screenshot pixel changes, successful fade, no outer-page jumps, no fragment-navigation for catalogue thumbnails, and no uncaught browser errors
+- Reviewed a 32-image desktop/phone screenshot contact sheet in addition to the automated checks; new frame is visible around intended regions
+
+**Not part of this sign-off:** Real iOS Safari / Android browser testing and final Unsplash photo loading/crop review. Those remain deferred per the project plan. All components remain **in review**, and main is not merged.
+
+---
+
 # Component Showroom — highlight targeting QA
 
 **Verified:** 2026-11-20  
