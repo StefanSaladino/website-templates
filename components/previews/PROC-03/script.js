@@ -1,0 +1,1 @@
+(()=>{const chapters=[...document.querySelectorAll('.step')];chapters.forEach((step,i)=>{const disclosure=step.querySelector('details');disclosure.addEventListener('toggle',()=>{if(!disclosure.open)return;chapters.forEach(other=>{const d=other.querySelector('details');if(d!==disclosure)d.open=false;});});});})();
