@@ -230,6 +230,9 @@ try{
   (await page.locator('[data-yard-status]').textContent()).includes('Reduced motion'),'ANIM-15 numbers remain intact for reduced motion');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('tattoo-studio');
+ await page.locator('[data-rhythm-piece]').first().scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('[data-motion-pattern="ANIM-18"]')?.classList.contains('is-rhythm-playing'));
+ assert(await page.locator('[data-motion-pattern="ANIM-18"]').evaluate(el=>el.classList.contains('is-rhythm-playing')),'ANIM-18 starts when the first gallery photo becomes visible');
  await page.locator('[data-rhythm-replay]').click();
  assert(await page.locator('[data-motion-pattern="ANIM-18"]').evaluate(el=>el.classList.contains('is-rhythm-playing')),'ANIM-18 tattoo gallery entrance replays');
  await page.emulateMedia({reducedMotion:'reduce'});
