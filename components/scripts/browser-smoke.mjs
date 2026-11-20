@@ -1047,6 +1047,89 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Seven more fully registered core components — interactions, fictional disclosures and mobile geometry.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/TEAM-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.a-card').count()===3
+  &&await page.locator('.a-art-label').count()===3
+  &&(await page.locator('.a-disclaimer').textContent()).includes('placeholders'),'TEAM-03 provides three clearly fictional artist panels, not invented authentic portfolios');
+ await page.locator('[data-artist="Artist B"]').click();
+ assert(await page.locator('[data-artist="Artist B"]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#a-selection').textContent()).includes('Artist B'),'TEAM-03 artist selection updates an actual accessible preference');
+ await page.locator('#a-idea').fill('Geometric motif for a local-only demo.');
+ await page.locator('#a-form button[type=submit]').click();
+ assert(await page.locator('#a-note').isVisible()
+  &&(await page.locator('#a-output').inputValue()).includes('Artist B')
+  &&(await page.locator('#a-output').inputValue()).includes('NOT SENT'),'TEAM-03 generates a candid local-only note without booking or sending');
+
+ await page.goto(base+'previews/TEAM-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.r4-person').count()===4
+  &&(await page.locator('.r4-disclaimer').textContent()).includes('not a real employee'),'TEAM-04 is a full fictional team directory, not a headshot placeholder');
+ await page.locator('.r4-filters button[data-filter=technical]').click();
+ assert(await page.locator('.r4-person:visible').count()===1
+  &&await page.locator('.r4-filters button[data-filter=technical]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#r4-count').textContent()).includes('1 fictional role'),'TEAM-04 filter actually narrows the directory and reports the correct count');
+ await page.locator('.r4-person:visible summary').click();
+ assert(await page.locator('.r4-person:visible').evaluate(el=>el.open),'TEAM-04 filtered profile opens through native details');
+ await page.locator('.r4-filters button[data-filter=all]').click();
+ assert(await page.locator('.r4-person:visible').count()===4,'TEAM-04 restores the full team without stale hidden rows');
+
+ await page.goto(base+'previews/TRUST-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-metric=projects]').textContent()==='12'
+  &&(await page.locator('.s-disclaimer').textContent()).includes('No real records'),'TRUST-04 initializes wholly simulated metrics with candid sourcing disclaimer');
+ await page.locator('[data-period=quarter]').click();
+ assert(await page.locator('[data-metric=projects]').textContent()==='37'
+  &&await page.locator('[data-metric=timely]').textContent()==='88%'
+  &&await page.locator('[data-period=quarter]').getAttribute('aria-pressed')==='true','TRUST-04 quarter switch changes real rendered figures and accessible selection');
+ await page.locator('.s-cards details').first().locator('summary').click();
+ assert(await page.locator('.s-cards details').first().evaluate(el=>el.open),'TRUST-04 expands a native metric-definition disclosure');
+
+ await page.goto(base+'previews/ABOUT-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.v-card').count()===3
+  &&await page.locator('.v-card img').count()===3
+  &&await page.locator('.v-card figcaption').count()===3
+  &&(await page.locator('.v-disclosure').textContent()).includes('separate sources'),'ABOUT-03 shows three separately captioned unrelated real image references, not one fabricated venue');
+
+ await page.goto(base+'previews/ABOUT-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.m-aside figcaption').isVisible()
+  &&(await page.locator('.m-aside figcaption').textContent()).includes('NOT THE ACTUAL FOUNDER')
+  &&await page.locator('.m-rows article').count()===3
+  &&await page.locator('.m-title a').getAttribute('href')==='#commitments','ABOUT-04 contains mission, genuine anchor, labeled unrelated portrait and three actual commitments');
+
+ await page.goto(base+'previews/MEDIA-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.v3-thumb').count()===3
+  &&await page.locator('#v3-video').getAttribute('src')===null
+  &&(await page.locator('.v3-legal').textContent()).includes('single Pexels demonstration video'),'MEDIA-03 is a three-card video interface with an honest single-source warning and no preloaded film');
+ await page.locator('[data-cut="1"]').click();
+ assert(await page.locator('#v3-dialog').evaluate(el=>el.open)
+  &&(await page.locator('#v3-dialog-title').textContent())==='Middle study'
+  &&(await page.locator('#v3-video').getAttribute('src')).includes('videos.pexels.com'),'MEDIA-03 opens a native modal and requests the one real sample film only after user activation');
+ await page.keyboard.press('Escape');
+ await page.waitForFunction(()=>!document.querySelector('#v3-dialog').open
+  &&document.activeElement===document.querySelector('[data-cut="1"]'));
+ assert(await page.locator('#v3-dialog').isHidden(),'MEDIA-03 supports Escape to close and returns focus to the selected thumbnail');
+
+ await page.goto(base+'previews/MEDIA-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.p4-frame:visible').count()===1
+  &&await page.locator('#p4-count').textContent()==='01 / 03'
+  &&await page.locator('#p4-prev').isDisabled(),'MEDIA-04 begins with one real photo chapter and appropriately bounded navigation');
+ await page.locator('[data-story-tab="2"]').click();
+ assert(await page.locator('.p4-frame[data-frame="2"]').isVisible()
+  &&await page.locator('.p4-frame[data-frame="0"]').isHidden()
+  &&await page.locator('[data-story-tab="2"]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#p4-heading').textContent())==='Gather in good company.','MEDIA-04 changes image, headline and pressed state together');
+ await page.locator('#p4-prev').click();
+ assert(await page.locator('#p4-count').textContent()==='02 / 03','MEDIA-04 Previous button truly navigates to the preceding chapter');
+
+ for(const id of ['TEAM-03','TEAM-04','TRUST-04','ABOUT-03','ABOUT-04','MEDIA-03','MEDIA-04']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const widths=await page.evaluate(()=>({screen:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(widths.document<=widths.screen+2,id+' avoids horizontal page overflow at 320px ('+widths.document+'/'+widths.screen+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
