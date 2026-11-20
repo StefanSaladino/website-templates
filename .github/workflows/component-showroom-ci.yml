@@ -1,0 +1,45 @@
+name: Component showroom CI
+on:
+  push:
+    branches:
+      - feature/component-showroom
+    paths:
+      - 'components/**'
+      - 'docs/COMPONENT-**'
+      - '.github/workflows/component-showroom-ci.yml'
+  pull_request:
+    paths:
+      - 'components/**'
+      - 'docs/COMPONENT-**'
+      - '.github/workflows/component-showroom-ci.yml'
+permissions:
+  contents: read
+jobs:
+  validate-build:
+    name: Validate isolated showroom
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    defaults:
+      run:
+        working-directory: components
+    steps:
+      - uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install component dependencies
+        run: npm install --no-audit --no-fund
+      - name: Validate all metadata and in-review previews
+        run: npm run check
+      - name: Build catalogue and review routes
+        run: npm run build
+      - name: Verify built GitHub Pages subpath output
+        run: node scripts/check-dist.mjs
+      - name: Store build for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: component-showroom-build
+          path: dist/components
+          if-no-files-found: error
+          retention-days: 7

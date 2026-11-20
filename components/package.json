@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "check": "node scripts/validate.mjs && node scripts/check-previews.mjs",
-    "build": "npm run check && vite build && node scripts/postbuild.mjs",
+    "check": "node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs",
+    "build": "npm run check && vite build && node scripts/postbuild.mjs && node scripts/check-dist.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "optimize:stock": "node scripts/optimize-stock.mjs"
   },
