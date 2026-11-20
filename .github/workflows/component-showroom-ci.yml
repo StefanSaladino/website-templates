@@ -18,7 +18,7 @@ jobs:
   validate-build:
     name: Validate isolated showroom
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 18
     defaults:
       run:
         working-directory: components
@@ -36,6 +36,18 @@ jobs:
         run: npm run build
       - name: Verify built GitHub Pages subpath output
         run: node scripts/check-dist.mjs
+      - name: Install Chromium for browser tests
+        run: npx playwright install --with-deps chromium
+      - name: Test viewer interactions and scrolling in Chromium
+        run: npm run check:browser
+      - name: Save browser review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: component-browser-smoke
+          path: components/component-browser-evidence
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Store build for review
         uses: actions/upload-artifact@v4
         with:

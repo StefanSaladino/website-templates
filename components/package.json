@@ -10,10 +10,12 @@
     "preview": "vite preview --host 127.0.0.1",
     "optimize:stock": "node scripts/optimize-stock.mjs",
     "acquire:stock": "node scripts/acquire-stock.mjs",
-    "check:review": "node scripts/check-review-contract.mjs"
+    "check:review": "node scripts/check-review-contract.mjs",
+    "check:browser": "node scripts/browser-smoke.mjs"
   },
   "devDependencies": {
     "vite": "^6.3.0",
-    "sharp": "^0.34.0"
+    "sharp": "^0.34.0",
+    "playwright": "1.56.1"
   }
 }
