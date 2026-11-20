@@ -1,0 +1,5 @@
+// All content is present and visible before JS; motion is opt-in and replayable.
+const scene=document.querySelector('#motion-showcase'),button=document.querySelector('#a1-play'),status=document.querySelector('#a1-status'),motion=matchMedia('(prefers-reduced-motion: reduce)');let timer;
+const stop=()=>{clearTimeout(timer);scene.classList.remove('is-playing');};
+button.addEventListener('click',()=>{stop();if(motion.matches){status.textContent='Reduced motion is enabled. The complete content remains visible.';return;}void scene.offsetWidth;scene.classList.add('is-playing');status.textContent='Playing the editorial reveal.';timer=setTimeout(()=>{scene.classList.remove('is-playing');status.textContent='Sequence complete. Play it again whenever you like.';},1450);});
+motion.addEventListener('change',()=>{stop();status.textContent=motion.matches?'Reduced motion is enabled.':'Press play to see the reveal.';});document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
