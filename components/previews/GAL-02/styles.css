@@ -21,3 +21,21 @@
 
 /* Phase 2 alternate mobile treatment */
 img.pending-image{visibility:hidden}.image-pending{background-color:#687b70;background-image:linear-gradient(130deg,rgba(15,46,43,.55),rgba(185,166,136,.3))}.g2-photo.image-pending{background-image:linear-gradient(140deg,#ccc3b7,#f3eee4)}.s3-media.image-pending{background-image:linear-gradient(135deg,#c9bfb3,#ece5da)}
+
+/* M-GAL-04: compact editorial masonry rather than the original swipe rail. */
+@media(max-width:600px){
+ body[data-mobile-treatment="M-GAL-04"] .g2-work{padding:24px 12px 85px}
+ body[data-mobile-treatment="M-GAL-04"] .g2-tabs{margin:0 4px 21px}
+ body[data-mobile-treatment="M-GAL-04"] .g2-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;align-items:start}
+ body[data-mobile-treatment="M-GAL-04"] .g2-photo,body[data-mobile-treatment="M-GAL-04"] .g2-photo:nth-child(n){grid-column:span 1;min-width:0;margin:0;align-self:stretch;background:#d9d1c5}
+ body[data-mobile-treatment="M-GAL-04"] .g2-grid:not(.filtered) .g2-photo:first-child{grid-column:1/-1}
+ body[data-mobile-treatment="M-GAL-04"] .g2-grid:not(.filtered) .g2-photo:first-child img{aspect-ratio:1.45}
+ body[data-mobile-treatment="M-GAL-04"] .g2-grid:not(.filtered) .g2-photo:nth-child(4){grid-column:1/-1}
+ body[data-mobile-treatment="M-GAL-04"] .g2-grid:not(.filtered) .g2-photo:nth-child(4) img{aspect-ratio:1.4}
+ body[data-mobile-treatment="M-GAL-04"] .g2-photo img{aspect-ratio:4/5;width:100%;height:auto;object-fit:cover}
+ body[data-mobile-treatment="M-GAL-04"] .g2-photo span{padding:9px 8px 12px}
+ body[data-mobile-treatment="M-GAL-04"] .g2-photo b{font-size:clamp(15px,4.5vw,22px);line-height:1.2}
+ body[data-mobile-treatment="M-GAL-04"] .g2-photo small{font-size:9px}
+ body[data-mobile-treatment="M-GAL-04"] .g2-grid.filtered .g2-photo{grid-column:span 1}
+}
+

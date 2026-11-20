@@ -18,3 +18,18 @@
  body[data-mobile-treatment="M-NAV-06"] .n4-toggle{position:relative;z-index:0}
 }
 
+
+/* M-NAV-02: keep a persistent inquiry beside the brand and original menu trigger. */
+.n4-phone-inquiry{display:none}
+@media(max-width:790px){
+ body[data-mobile-treatment="M-NAV-02"] .n4-utility{display:none}
+ body[data-mobile-treatment="M-NAV-02"] .n4-mainbar{min-height:68px;gap:8px;padding:10px 11px}
+ body[data-mobile-treatment="M-NAV-02"] .n4-wordmark{flex:1 1 auto;min-width:0;gap:7px;font-size:clamp(13px,3.7vw,18px)}
+ body[data-mobile-treatment="M-NAV-02"] .n4-wordmark small{font-size:7px;letter-spacing:.08em}
+ body[data-mobile-treatment="M-NAV-02"] .n4-logomark{flex:0 0 34px;width:34px;height:34px;font-size:20px}
+ body[data-mobile-treatment="M-NAV-02"] .n4-phone-inquiry{display:inline-flex;flex:0 0 auto;align-items:center;justify-content:center;min-height:46px;padding:10px clamp(9px,2.5vw,15px);font-size:12px;font-weight:850;text-decoration:none;background:#2e4534;color:#fff}
+ body[data-mobile-treatment="M-NAV-02"] .n4-toggle{width:46px;height:46px;flex:0 0 46px}
+ body[data-mobile-treatment="M-NAV-02"] .n4-links.is-open{top:68px}
+}
+@media(max-width:355px){body[data-mobile-treatment="M-NAV-02"] .n4-wordmark{font-size:12px}body[data-mobile-treatment="M-NAV-02"] .n4-wordmark small{display:none}body[data-mobile-treatment="M-NAV-02"] .n4-phone-inquiry{padding:9px}}
+

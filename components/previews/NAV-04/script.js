@@ -20,3 +20,13 @@
  addEventListener('resize',()=>{if(innerWidth>790&&document.body.classList.contains('n4-drawer-open'))set(false,false)});
 })();
 
+
+/* M-NAV-02: compact visible inquiry link with the original functional menu. */
+(()=>{
+ if(new URLSearchParams(location.search).get('mobile')!=='M-NAV-02')return;
+ document.body.dataset.mobileTreatment='M-NAV-02';
+ const bar=document.querySelector('.n4-mainbar'),toggle=document.querySelector('#n4-toggle');
+ if(!bar||!toggle)return;
+ const link=document.createElement('a');link.className='n4-phone-inquiry';link.href='#contact';link.textContent='Enquire';link.setAttribute('aria-label','Go to project enquiry section');
+ bar.insertBefore(link,toggle);
+})();

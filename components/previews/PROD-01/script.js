@@ -28,3 +28,6 @@
  addEventListener('resize',sync);media.addEventListener('change',sync);selected(0);sync();
 })();
 
+
+/* M-COM-02: adaptive feature-plus-pair merchandise layout with same usable details. */
+if(new URLSearchParams(location.search).get('mobile')==='M-COM-02')document.body.dataset.mobileTreatment='M-COM-02';

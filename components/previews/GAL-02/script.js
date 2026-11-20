@@ -42,3 +42,11 @@ document.querySelectorAll('img').forEach(image=>{
    if(wrapper)wrapper.classList.add('image-pending');
  },{once:true});
 });
+
+/* M-GAL-04: dense editorial mosaic; preserve original filtering and dialog. */
+(()=>{
+ if(new URLSearchParams(location.search).get('mobile')!=='M-GAL-04')return;
+ document.body.dataset.mobileTreatment='M-GAL-04';
+ const count=document.querySelector('.g2-count');
+ if(count)count.insertAdjacentText('beforebegin','');
+})();

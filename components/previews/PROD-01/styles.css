@@ -22,3 +22,23 @@ body{background:#efeae1;color:#30372f}.p1-head{min-height:78px;padding:20px 6vw;
 @media(max-width:360px){body[data-mobile-treatment="M-COM-01"] .p1-mobile-nav{gap:4px}body[data-mobile-treatment="M-COM-01"] .p1-mobile-nav button{padding:9px;font-size:11px}}
 @media(prefers-reduced-motion:reduce){body[data-mobile-treatment="M-COM-01"] .p1-grid{scroll-behavior:auto}}
 
+
+/* M-COM-02: leading collectible in full width, remaining objects in a compact grid. */
+@media(max-width:760px){
+ body[data-mobile-treatment="M-COM-02"] .p1-products{padding:64px 13px 87px}
+ body[data-mobile-treatment="M-COM-02"] .p1-section-head{padding:0 7px}
+ body[data-mobile-treatment="M-COM-02"] .p1-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:27px 12px}
+ body[data-mobile-treatment="M-COM-02"] .p1-item{min-width:0}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:first-child{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:14px;padding-bottom:24px;border-bottom:1px solid #acb7a6}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:first-child .p1-visual{aspect-ratio:.85}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:first-child .p1-cardcopy{display:flex;flex-direction:column;justify-content:center}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:first-child .p1-cardcopy button{align-self:flex-start}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:not(:first-child) .p1-visual{aspect-ratio:.83}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:not(:first-child) .p1-object{width:47%;height:48%}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:not(:first-child) .p1-cardcopy h3{font-size:clamp(23px,6vw,34px);overflow-wrap:anywhere}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:not(:first-child) .p1-cardcopy p{font-size:12px;line-height:1.5}
+ body[data-mobile-treatment="M-COM-02"] .p1-item:not(:first-child) .p1-cardcopy button{font-size:11px;padding:10px 8px;width:100%;min-height:47px}
+ body[data-mobile-treatment="M-COM-02"] .p1-detail{margin-top:28px;padding:23px 17px}
+}
+@media(max-width:350px){body[data-mobile-treatment="M-COM-02"] .p1-item:first-child{display:block}body[data-mobile-treatment="M-COM-02"] .p1-item:first-child .p1-visual{aspect-ratio:1.25}}
+
