@@ -27,3 +27,17 @@ body{background:#edeae3;color:#2e332b}.g3-head{display:flex;justify-content:spac
  body[data-mobile-treatment="M-GAL-03"] :is(.g3-intro,.g3-chapter,.g3-image,.g3-chapter figcaption){min-width:0;max-width:100%}
  body[data-mobile-treatment="M-GAL-03"] :is(.g3-intro h1,.g3-chapter figcaption h2,.g3-chapter figcaption p){overflow-wrap:anywhere}
 }
+
+/* M-GAL-01 — one edge-to-edge photo per chapter, with a readable overlay caption and no detached cards. */
+@media(max-width:760px){
+ body[data-mobile-treatment="M-GAL-01"] .g3-intro{padding:50px 20px 36px;background:#edeae3}
+ body[data-mobile-treatment="M-GAL-01"] .g3-intro h1{font-size:clamp(49px,11vw,72px);margin:15px 0 0}
+ body[data-mobile-treatment="M-GAL-01"] .g3-chapter{position:relative;display:block;margin:0;border-top:8px solid #edeae3;overflow:hidden;background:#303c38}
+ body[data-mobile-treatment="M-GAL-01"] .g3-image{height:clamp(440px,76svh,680px);background:#5b665f}
+ body[data-mobile-treatment="M-GAL-01"] .g3-image img{object-fit:cover;object-position:50% 45%}
+ body[data-mobile-treatment="M-GAL-01"] .g3-chapter figcaption{position:absolute;inset:auto 0 0;display:block;min-width:0;padding:105px 23px 30px;background:linear-gradient(0deg,rgba(18,30,27,.97),rgba(18,30,27,.66) 54%,transparent);color:#f5f1e8}
+ body[data-mobile-treatment="M-GAL-01"] .g3-chapter figcaption span{font-size:10px;letter-spacing:.15em}
+ body[data-mobile-treatment="M-GAL-01"] .g3-chapter figcaption h2{font-size:clamp(35px,9vw,51px);line-height:1.05;margin:10px 0 12px;overflow-wrap:anywhere}
+ body[data-mobile-treatment="M-GAL-01"] .g3-chapter figcaption p{font-size:12px;line-height:1.55;color:#e4e2db;max-width:330px;margin:0}
+}
+@media(max-width:350px){body[data-mobile-treatment="M-GAL-01"] .g3-chapter figcaption{padding-left:17px;padding-right:17px}}
