@@ -73,3 +73,7 @@ Six additional animation examples, ANIM-08/10/11/14/15/18, now have both isolate
 ## Animation continuation — four further full-template patterns
 
 ANIM-09, ANIM-12, ANIM-17 and ANIM-20 now have functional isolated previews and matching full-page treatments. The motion inventory has **16 working in-review demos** and **4 drafts**. The original complete templates keep their distinct identities, and motion stays opt-in or scroll-driven with static fallbacks. The built-template gate checks for a genuine `data-motion-pattern` element in the linked site.
+
+## Finished motion inventory — 20 working patterns
+
+All 20 planned ANIM IDs now have isolated specimens and real full-page website integrations. The final four use BED & BORDER (ANIM-04), Waterline (ANIM-13), KERN (ANIM-16) and Tide (ANIM-19). Each remains in review. Any future proposed motion must solve a real design need and satisfy the same accessibility, reduced-motion, progressive-enhancement and full-template integration criteria; the next backlog phase is mobile alternatives and visual release review.

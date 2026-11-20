@@ -41,6 +41,7 @@ for(const component of components.filter(x=>x.status!=='draft'&&x.category==='an
   const file=path.resolve(output,route);
   if(!file.startsWith(rootOutput+path.sep)||!existsSync(file))missing.push('Missing connected full template '+component.id+' / '+route);
   else if(!readFileSync(file,'utf8').includes('data-motion-pattern="'+component.id+'"'))missing.push('Template lacks actual animation implementation marker '+component.id+' / '+route);
+  else if(component.fullTemplateRoute.includes('#')&&!readFileSync(file,'utf8').includes('id="'+component.fullTemplateRoute.split('#')[1]+'"'))missing.push('Integrated animation link has missing fragment target '+component.id);
  }
 }
 if(missing.length){for(const file of missing)console.error('FAIL dist:',file);process.exit(1)}

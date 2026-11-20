@@ -326,6 +326,100 @@ try{
    await page.screenshot({path:path.join(evidence,folder+'-integrated-phone.png'),animations:'disabled'});
  }
 
+
+ // Final four motion patterns must work in full site templates and isolated previews.
+ await page.setViewportSize({width:1280,height:900});
+ await openTemplate('landscaping');
+ await page.waitForSelector('[data-garden-depth]:visible');
+ const depth0=await page.locator('[data-motion-pattern="ANIM-04"]').evaluate(el=>({active:el.classList.contains('garden-depth-on'),shift:parseFloat(el.style.getPropertyValue('--garden-depth-y'))}));
+ assert(depth0.active&&Number.isFinite(depth0.shift)&&Math.abs(depth0.shift)<=24,'ANIM-04 garden parallax is active and bounded on desktop');
+ await page.locator('[data-garden-depth]').click();
+ assert(!await page.locator('[data-motion-pattern="ANIM-04"]').evaluate(el=>el.classList.contains('garden-depth-on'))
+  && await page.locator('[data-garden-depth]').getAttribute('aria-pressed')==='false','ANIM-04 pause control stops motion on the actual landscaping template');
+ await page.locator('[data-garden-depth]').click();
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.waitForFunction(()=>!document.querySelector('[data-motion-pattern="ANIM-04"]')?.classList.contains('garden-depth-on'));
+ assert(await page.locator('[data-garden-depth]').isHidden(),'ANIM-04 reduced motion hides the unavailable depth control');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.setViewportSize({width:390,height:900});
+ await openTemplate('landscaping');
+ assert(await page.locator('[data-garden-depth]').isHidden()&&
+   !await page.locator('[data-motion-pattern="ANIM-04"]').evaluate(el=>el.classList.contains('garden-depth-on')),'ANIM-04 phone layout uses the still photo');
+ await openTemplate('real-estate');
+ await page.waitForSelector('[data-shore-next]:visible');
+ assert(await page.locator('[data-shore-prev]').isDisabled(),'ANIM-13 story rail begins at its first frame');
+ await page.locator('[data-shore-next]').click();
+ assert((await page.locator('[data-shore-status]').textContent()).includes('2 of 3'),'ANIM-13 next changes the active editorial frame');
+ await page.waitForTimeout(750);
+ assert(await page.locator('[data-shore-track]').evaluate(el=>el.scrollLeft>80),'ANIM-13 changes the native horizontal rail scroll position');
+ await page.locator('[data-shore-next]').click();
+ assert(await page.locator('[data-shore-next]').isDisabled()&&(await page.locator('[data-shore-status]').textContent()).includes('3 of 3'),'ANIM-13 story rail stops at its last frame');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-shore-prev]').click();
+ assert((await page.locator('[data-shore-status]').textContent()).includes('2 of 3'),'ANIM-13 reduced motion keeps direct navigation functional');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.setViewportSize({width:1280,height:900});
+ await openTemplate('dark-tech');
+ const inspection=page.locator('[data-spot-card]');
+ const rect=await inspection.boundingBox();
+ await page.mouse.move(rect.x+rect.width*.3,rect.y+rect.height*.45);
+ await page.waitForFunction(()=>Boolean(document.querySelector('[data-spot-card]')?.style.getPropertyValue('--spot-x')));
+ assert(await inspection.evaluate(el=>el.classList.contains('spot-following')),'ANIM-16 fine-pointer spotlight follows the real release card');
+ await page.locator('[data-spot-toggle]').click();
+ assert(await page.locator('[data-spot-toggle]').getAttribute('aria-pressed')==='true'
+   &&await inspection.evaluate(el=>el.classList.contains('spot-selected')),'ANIM-16 accessible emphasis control works independently of pointer');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.waitForFunction(()=>!document.querySelector('[data-spot-card]')?.classList.contains('spot-following'));
+ assert(await inspection.evaluate(el=>el.classList.contains('spot-selected')),'ANIM-16 reduced motion stops pointer following while keeping accessible emphasis');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.setViewportSize({width:390,height:900});
+ await openTemplate('app-launch');
+ assert(await page.locator('#tide-today').isVisible()&&await page.locator('#tide-tomorrow').isHidden(),'ANIM-19 Tide opens on its Today view');
+ await page.locator('[data-tide-link="tomorrow"]').click();
+ assert(await page.locator('#tide-tomorrow').isVisible()&&
+   await page.locator('[data-tide-link="tomorrow"]').getAttribute('aria-current')==='page'
+   &&await page.evaluate(()=>location.hash)==='#tide-tomorrow','ANIM-19 changes the visible view and URL together');
+ await page.goBack({waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>location.hash===''&&document.querySelector('#tide-today')?.hidden===false);
+ assert(await page.locator('#tide-tomorrow').isHidden(),'ANIM-19 browser Back restores the Today view');
+ await page.goForward({waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>location.hash==='#tide-tomorrow'&&document.querySelector('#tide-tomorrow')?.hidden===false);
+ assert(await page.locator('#tide-today').isHidden(),'ANIM-19 browser Forward restores the Tomorrow view');
+ await openTemplate('app-launch');
+ await page.goto(templateBase+'app-launch/index.html#tide-tomorrow',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#tide-tomorrow').isVisible(),'ANIM-19 deep link opens the correct internal view');
+ const noJsContext=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:900}});
+ const noJsPage=await noJsContext.newPage();
+ await noJsPage.goto(templateBase+'app-launch/index.html',{waitUntil:'domcontentloaded'});
+ assert(await noJsPage.locator('#tide-today').isVisible()&&await noJsPage.locator('#tide-tomorrow').isVisible(),'ANIM-19 no-JavaScript fallback retains both accessible views');
+ await noJsContext.close();
+ // Isolated demonstrations must expose working, not decorative controls.
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto(base+'previews/ANIM-04/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-a04-pause]').click();
+ assert(await page.locator('[data-a04-pause]').getAttribute('aria-pressed')==='false','ANIM-04 isolated scroll-depth preview can be paused');
+ await page.setViewportSize({width:390,height:900});
+ await page.goto(base+'previews/ANIM-13/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-a13-next]').click();
+ assert((await page.locator('[data-a13-status]').textContent()).includes('2 of 3'),'ANIM-13 isolated rail has real previous/next behaviour');
+ await page.goto(base+'previews/ANIM-16/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-spot-toggle]').click();
+ assert(await page.locator('[data-spot-toggle]').getAttribute('aria-pressed')==='true','ANIM-16 isolated card has keyboard/touch emphasis');
+ await page.goto(base+'previews/ANIM-19/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-a19-link="tomorrow"]').click();
+ assert(await page.locator('#a19-tomorrow').isVisible()&&await page.evaluate(()=>location.hash)==='#a19-tomorrow','ANIM-19 isolated view changes real route state');
+ // Verify all four review links resolve to genuine full-page examples.
+ for(const [id,route] of [['ANIM-04','../templates/landscaping/index.html#top'],['ANIM-13','../templates/real-estate/index.html#shore-stories'],['ANIM-16','../templates/dark-tech/index.html#inspection'],['ANIM-19','../templates/app-launch/index.html#planner-views']]){
+  await page.goto(base+'review.html?id='+id,{waitUntil:'domcontentloaded'});
+  await page.waitForFunction(()=>document.querySelector('#review-template-example')?.hidden===false);
+  assert(await page.locator('#review-template-example').getAttribute('href')===route,id+' review provides a link to its real website implementation');
+ }
+ for(const folder of ['landscaping','real-estate','dark-tech','app-launch']){
+  await openTemplate(folder);
+  assert(await page.locator('[data-motion-pattern]').count()>=1,folder+': integrated animation marker remains present');
+  await page.screenshot({path:path.join(evidence,folder+'-final-motion-phone.png'),animations:'disabled'});
+ }
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);

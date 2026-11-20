@@ -24,3 +24,7 @@ The core review inventory reaches **48 of 157**: 36 Phase 3 layout specimens plu
 ## Third integration batch (November 20, 2026)
 
 **52 / 157** core options are now in review: the 36 original Phase 3 components and **16 / 20** finished animation patterns. Four animation patterns remain drafts (04, 13, 16, 19), and the separate mobile alternatives inventory is **4 / 44** in review. Latest full-page integrations: diagonal editorial reveal (RANGE/FOUND), photographic exchange (FRAME), sticky/linear story chapters (MONOLITH), and a finite controlled craft carousel (GRAIN & GABLE). None are marked live; the full release gates remain unchanged.
+
+## Animation implementation milestone — November 20, 2026
+
+The complete 20-pattern animation inventory now has **20 working isolated previews and 20 full-template integrations**. Core catalogue in-review count: **56 of 157** (36 original Phase 3 examples + 20 animations), with **4 of 44** optional mobile layouts in review. The final four are ANIM-04 (landscape image depth), ANIM-13 (waterfront editorial rail), ANIM-16 (pointer spotlight with touch/keyboard fallback) and ANIM-19 (hash-navigable internal page transition). All are in-review and none live. Browser testing checks actual controls, motion fallback and browser history; final visual/device/media approval remains open.

@@ -738,3 +738,18 @@ Four additional distinct behaviours move to **in-review**. The working animation
 **Still drafts:** ANIM-04 (bounded parallax), ANIM-13 (horizontal story rail), ANIM-16 (pointer spotlight), ANIM-19 (local page transition). Each must satisfy the preview+full-template integration policy before review. In-review is **not** live or release-ready; images still require crop and rights checks, and motion requires real mobile Safari/Android plus accessibility and visual QA. No changes to main are authorized.
 
 **QA contract strengthened:** In addition to testing interactive behaviour, the built catalogue now requires the actual `data-motion-pattern="ANIM-xx"` marker inside the linked complete template. This prevents a route existing without an implemented motion treatment.
+
+## Final motion batch — all 20 patterns implemented (November 20, 2026)
+
+The planned motion range is now **20 / 20 working in-review**. Each example has an isolated responsive showroom specimen, a working motion treatment within an original complete website template, and direct review/catalogue links. Four last additions:
+
+| ID | Behaviour | Integrated website | Fallbacks |
+|---|---|---|---|
+| ANIM-04 | Bounded photographic parallax | BED & BORDER (Landscaping) · hero photo | ±24px clamp, pause control, still image on phones and reduced-motion devices |
+| ANIM-13 | Horizontal photographic story rail | Waterline (Real Estate) · `#shore-stories` | Native scroll-snap, swipe/keyboard support, finite previous/next, instant reduced-motion scroll |
+| ANIM-16 | Pointer-tracking spotlight | KERN (Dark Tech) · `#inspection` | Content never hidden; optional keyboard/touch emphasis control; pointer halo disabled for reduced motion or coarse pointers |
+| ANIM-19 | Local page transition with browser history | Tide (App Launch) · `#planner-views` | Hash-addressable Today/Tomorrow views, working Back/Forward, both views visible when JS disabled |
+
+**Release status:** all 20 are `in-review`, none are `live`. Core catalogue has 56 in-review of 157 options; mobile alternatives remain 4 in-review of 44. The animation build stage is complete; further work prioritizes visual QA and the mobile-alternative design backlog, not gratuitously adding effects. Media licensing, image loading and cropping, real iOS Safari / Android Chrome checks, reduced-motion inspection, performance and human accessibility review are still required before approval. `main` remains unchanged.
+
+**QA:** Added explicit integration route/fragment checks and browser regressions for photo clamp, parallax pause, rail movement and bounds, pointer follow and accessible fallback, deep-linked local views, Back/Forward and no-script content.
