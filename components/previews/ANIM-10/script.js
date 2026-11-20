@@ -1,0 +1,4 @@
+const chapters=[...document.querySelectorAll('[data-p10-chapter]')],buttons=[...document.querySelectorAll('[data-p10-go]')],meter=document.querySelector('.p10-meter span'),reduce=matchMedia('(prefers-reduced-motion: reduce)');let active=-1;function activate(i){if(active===i)return;active=i;buttons.forEach((b,n)=>{if(n===i)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});meter.style.width=((i+1)/chapters.length*100)+'%'}
+buttons.forEach((b,i)=>b.addEventListener('click',()=>{activate(i);chapters[i].scrollIntoView({behavior:reduce.matches?'auto':'smooth',block:'start'})}));
+if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting)activate(chapters.indexOf(entry.target))}},{rootMargin:'-20% 0px -60% 0px',threshold:0});chapters.forEach(ch=>io.observe(ch))}
+activate(0);

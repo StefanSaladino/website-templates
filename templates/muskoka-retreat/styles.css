@@ -46,3 +46,14 @@
   .booking-cta i{width:30px;height:30px;display:grid;place-items:center;align-self:auto;border-radius:50%;background:var(--ink);color:var(--cream);font-size:15px}
   .booking-cta:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(29,41,38,.22)}
 }
+
+/* ANIM-10: scroll-driven chapter index; native anchors remain usable without JS. */
+.retreat-chapter-nav{position:sticky;top:var(--header-h,70px);z-index:15;display:flex;align-items:center;gap:clamp(8px,2vw,28px);padding:13px clamp(20px,5vw,80px) 16px;background:#ece6d9f4;color:#263a33;border-block:1px solid #a8b4ab;backdrop-filter:blur(9px);font:700 11px Arial,sans-serif;letter-spacing:.04em}
+.retreat-chapter-nav>span{font-size:10px;letter-spacing:.13em;margin-right:auto;white-space:nowrap}
+.retreat-chapter-nav a{text-decoration:none;padding:12px 0;min-height:44px;display:inline-flex;align-items:center;color:#66736a}
+.retreat-chapter-nav a[aria-current=step]{color:#263a33;font-weight:900;text-decoration:underline;text-underline-offset:5px}
+.retreat-chapter-meter{position:absolute;bottom:0;left:0;right:0;height:3px;background:#c5c9be}
+.retreat-chapter-meter span{display:block;width:33.333%;height:100%;background:#947052;transition:width .35s ease}
+@media(max-width:700px){.retreat-chapter-nav{top:64px;gap:9px;padding:8px 16px 13px;font-size:10px;flex-wrap:wrap}.retreat-chapter-nav>span{display:none}.retreat-chapter-nav a{flex:1;justify-content:center;white-space:nowrap}}
+@media(max-width:360px){.retreat-chapter-nav a{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.retreat-chapter-meter span{transition:none}}

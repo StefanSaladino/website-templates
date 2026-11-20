@@ -58,3 +58,9 @@ const ticketNote = document.querySelector('[data-ticket-note]');
 demoTicket?.addEventListener('click', () => {
   ticketNote.textContent = 'Demo template only — ticket checkout is not connected.';
 });
+
+/* ANIM-08: replayable whole-line headline, no hidden text before JS. */
+const eventHeadline=document.querySelector('[data-motion-pattern="ANIM-08"]'),eventReplay=document.querySelector('[data-replay-motion="ANIM-08"]'),eventReduced=matchMedia('(prefers-reduced-motion: reduce)');let eventTimer;
+function stopEventLines(){clearTimeout(eventTimer);eventHeadline?.classList.remove('event-line-playing')}
+function playEventLines(){stopEventLines();if(!eventHeadline||eventReduced.matches||document.hidden)return;void eventHeadline.offsetWidth;eventHeadline.classList.add('event-line-playing');eventTimer=setTimeout(stopEventLines,1300)}
+if(eventHeadline&&eventReplay){document.body.classList.add('event-motion-ready');eventReplay.addEventListener('click',playEventLines);requestAnimationFrame(()=>requestAnimationFrame(playEventLines));eventReduced.addEventListener('change',e=>{if(e.matches)stopEventLines()});document.addEventListener('visibilitychange',()=>{if(document.hidden)stopEventLines()})}

@@ -69,3 +69,11 @@ button{font:inherit}
   .hero-grid{padding-top:16px;padding-bottom:20px}.hero-kicker,.hero-stamp{top:76px}.hero h1{font-size:clamp(68px,min(13vw,17vh),150px);margin-bottom:1.5vh}.hero-bottom>a{min-height:42px}.hero-bottom p{font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation:none}.reveal{opacity:1;transform:none;transition:none}.mobile-menu,.mobile-menu-links a,.menu-toggle span{transition:none!important}}
+
+/* ANIM-08: actual line-wipe motion on the festival poster title. */
+.event-replay{display:none;min-height:44px;padding:8px 4px;border:0;border-bottom:1px solid rgba(255,255,255,.8);background:transparent;color:#fff;cursor:pointer;font-size:11px;font-weight:800}
+.event-motion-ready .event-replay{display:inline-flex;align-items:center}
+@keyframes eventLineWipe{from{clip-path:inset(0 100% 0 0);opacity:.3}to{clip-path:inset(0 0 0 0);opacity:1}}
+#hero-title.event-line-playing>span,#hero-title.event-line-playing>em{animation:eventLineWipe .72s cubic-bezier(.17,.83,.23,1) both}
+#hero-title.event-line-playing>em{animation-delay:.2s}
+@media(prefers-reduced-motion:reduce){#hero-title.event-line-playing>span,#hero-title.event-line-playing>em{animation:none!important}}

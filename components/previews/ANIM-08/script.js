@@ -1,0 +1,4 @@
+const scene=document.querySelector('#motion-showcase'),button=document.querySelector('#p8-replay'),status=document.querySelector('#p8-status'),reduce=matchMedia('(prefers-reduced-motion: reduce)');let timer;
+function stop(){clearTimeout(timer);scene.classList.remove('is-playing')}
+function replay(){stop();if(reduce.matches){status.textContent='Reduced motion is enabled; all lines are shown.';return}if(document.hidden)return;void scene.offsetWidth;scene.classList.add('is-playing');status.textContent='Wiping in each full line.';timer=setTimeout(()=>{stop();status.textContent='Complete. Replay whenever you like.'},1450)}
+button.addEventListener('click',replay);reduce.addEventListener('change',e=>{if(e.matches)stop()});document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});requestAnimationFrame(()=>requestAnimationFrame(replay));

@@ -3357,16 +3357,46 @@
     "id": "ANIM-08",
     "category": "animations",
     "title": "Text line-wipe",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Editorial publisher: a heading exposed line by line",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-08/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "replay-or-toggle",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Line masking reveals complete readable sentences; no broken text at zoom."
+    "designTags": [
+      "animation",
+      "editorial",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review isolated specimen and genuine full-page integration. Final visual and physical-device checks outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-08",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/event-launch/index.html#top",
+    "fullTemplateName": "AFTER DARK / Event Launch",
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Whole-line poster reveal",
+      "summary": "A headline is revealed by complete lines with a user-controlled replay action.",
+      "desktop": "Explore the actual interaction and compare it with the linked full-page template.",
+      "mobile": "The controls remain readable and accessible on a phone, with motion reduced when requested.",
+      "lookFor": [
+        "Whole-line poster reveal",
+        "Clear controls and accessible reduced-motion behavior"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A headline is revealed by complete lines with a user-controlled replay action.",
+      "bestFor": [
+        "Editorial, portfolio and service websites",
+        "Clients who want deliberate interactive motion"
+      ],
+      "fitReason": "This treatment works when it supports content hierarchy or a deliberate user action."
+    }
   },
   {
     "id": "ANIM-09",
@@ -3387,31 +3417,94 @@
     "id": "ANIM-10",
     "category": "animations",
     "title": "Scroll chapter indicator",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Travel feature: narrative progress across three illustrated chapters",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-10/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "chapter-navigation",
+      "scroll-progress",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Scroll-derived position, clear chapter labels, no scroll hijacking."
+    "designTags": [
+      "animation",
+      "editorial",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review isolated specimen and genuine full-page integration. Final visual and physical-device checks outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-10",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/muskoka-retreat/index.html#house",
+    "fullTemplateName": "Morrow House / Muskoka Retreat",
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Three-chapter scroll indicator",
+      "summary": "An active reading chapter and a progress bar follow the visitor without scroll hijacking.",
+      "desktop": "Explore the actual interaction and compare it with the linked full-page template.",
+      "mobile": "The controls remain readable and accessible on a phone, with motion reduced when requested.",
+      "lookFor": [
+        "Three-chapter scroll indicator",
+        "Clear controls and accessible reduced-motion behavior"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "An active reading chapter and a progress bar follow the visitor without scroll hijacking.",
+      "bestFor": [
+        "Editorial, portfolio and service websites",
+        "Clients who want deliberate interactive motion"
+      ],
+      "fitReason": "This treatment works when it supports content hierarchy or a deliberate user action."
+    }
   },
   {
     "id": "ANIM-11",
     "category": "animations",
     "title": "Image focus zoom",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architectural portfolio: slight project photograph enlargement on hover and focus",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-11/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-007"
+    ],
+    "interactions": [
+      "replay-or-toggle",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Limited scale, keyboard/touch equivalent and no crop clipping."
+    "designTags": [
+      "animation",
+      "editorial",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review isolated specimen and genuine full-page integration. Final visual and physical-device checks outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-11",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/landscaping/index.html#project",
+    "fullTemplateName": "BED & BORDER / Landscaping",
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Bounded photographic focus",
+      "summary": "A controlled crop zoom makes design details available to mouse, keyboard and touch users.",
+      "desktop": "Explore the actual interaction and compare it with the linked full-page template.",
+      "mobile": "The controls remain readable and accessible on a phone, with motion reduced when requested.",
+      "lookFor": [
+        "Bounded photographic focus",
+        "Clear controls and accessible reduced-motion behavior"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A controlled crop zoom makes design details available to mouse, keyboard and touch users.",
+      "bestFor": [
+        "Editorial, portfolio and service websites",
+        "Clients who want deliberate interactive motion"
+      ],
+      "fitReason": "This treatment works when it supports content hierarchy or a deliberate user action."
+    }
   },
   {
     "id": "ANIM-12",

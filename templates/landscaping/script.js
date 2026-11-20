@@ -39,3 +39,7 @@ if ('IntersectionObserver' in window && !reduceMotion) {
 } else {
   reveals.forEach((item) => item.classList.add('is-visible'));
 }
+
+/* ANIM-11: controlled detail zoom instead of hover-only interaction. */
+const gardenFigure=document.querySelector('[data-motion-pattern="ANIM-11"]'),gardenZoom=gardenFigure?.querySelector('[data-detail-zoom]'),gardenReduced=matchMedia('(prefers-reduced-motion: reduce)');
+if(gardenZoom){let selected=false;function render(){const active=selected&&!gardenReduced.matches;gardenFigure.classList.toggle('detail-is-zoomed',active);gardenZoom.setAttribute('aria-pressed',String(active));gardenZoom.textContent=gardenReduced.matches?'Detail zoom off (reduced motion)':active?'Return to full photograph':'Inspect the stonework';gardenZoom.disabled=gardenReduced.matches}gardenZoom.addEventListener('click',()=>{selected=!selected;render()});gardenReduced.addEventListener('change',render);render()}

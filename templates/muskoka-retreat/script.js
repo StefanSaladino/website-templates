@@ -62,3 +62,13 @@ if('IntersectionObserver'in window&&!reducedMotion){
 }else{
   reveals.forEach(item=>item.classList.add('is-visible'));
 }
+
+/* ANIM-10: an active story index with no scroll hijack. */
+const retreatNav=document.querySelector('[data-motion-pattern="ANIM-10"]');
+if(retreatNav){
+ const links=[...retreatNav.querySelectorAll('[data-retreat-chapter]')],ids=['house','stay','guide'],meter=retreatNav.querySelector('.retreat-chapter-meter span');
+ function current(i){links.forEach((a,n)=>{if(i===n)a.setAttribute('aria-current','step');else a.removeAttribute('aria-current')});meter.style.width=((i+1)/ids.length*100)+'%'}
+ links.forEach((a,i)=>a.addEventListener('click',()=>current(i)));
+ if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)current(ids.indexOf(e.target.id))})},{rootMargin:'-20% 0px -60% 0px'});ids.map(id=>document.getElementById(id)).filter(Boolean).forEach(x=>observer.observe(x))}
+ current(0);
+}
