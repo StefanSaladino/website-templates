@@ -11,3 +11,10 @@
 - [ ] Gallery load performance and LCP reviewed; images lazy loaded where appropriate.
 - [ ] Automated smoke/accessibility tests and manual mobile Safari QA documented.
 - [ ] Status changed to live **only after** all preceding items pass.
+
+- [ ] Every core component has a deliberately art-directed **default mobile composition**, not just stacked desktop columns.
+- [ ] When an alternate mobile layout is offered, its stable `M-...` ID, compatibility matrix, working preview, separate screenshots and release status are documented.
+- [ ] A client can compare default vs alternate mobile treatments, and saved selections export both the core ID and the selected mobile treatment ID.
+- [ ] Phone safe areas, short landscape heights, native picker behavior, virtual keyboard overlap, 200% text enlargement, non-hover functionality and focal-point image cropping have been inspected.
+- [ ] Mobile treatment imagery is individually licensed and locally optimized; no placeholder image is treated as production-approved.
+- [ ] Real iOS Safari and Android Chrome representative interaction testing is recorded for the released pattern family.
