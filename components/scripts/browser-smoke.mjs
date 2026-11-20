@@ -335,6 +335,7 @@ try{
  const depth0=await page.locator('[data-motion-pattern="ANIM-04"]').evaluate(el=>({active:el.classList.contains('garden-depth-on'),shift:parseFloat(el.style.getPropertyValue('--garden-depth-y'))}));
  assert(depth0.active&&Number.isFinite(depth0.shift)&&Math.abs(depth0.shift)<=24,'ANIM-04 garden parallax is active and bounded on desktop');
  await page.locator('[data-garden-depth]').click();
+ await page.waitForFunction(()=>!document.querySelector('[data-motion-pattern="ANIM-04"]')?.classList.contains('garden-depth-on'));
  assert(!await page.locator('[data-motion-pattern="ANIM-04"]').evaluate(el=>el.classList.contains('garden-depth-on'))
   && await page.locator('[data-garden-depth]').getAttribute('aria-pressed')==='false','ANIM-04 pause control stops motion on the actual landscaping template');
  await page.locator('[data-garden-depth]').click();
@@ -399,6 +400,7 @@ try{
  await page.setViewportSize({width:1280,height:900});
  await page.goto(base+'previews/ANIM-04/index.html',{waitUntil:'domcontentloaded'});
  await page.locator('[data-a04-pause]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-a04-pause]')?.getAttribute('aria-pressed')==='false');
  assert(await page.locator('[data-a04-pause]').getAttribute('aria-pressed')==='false','ANIM-04 isolated scroll-depth preview can be paused');
  await page.setViewportSize({width:390,height:900});
  await page.goto(base+'previews/ANIM-13/index.html',{waitUntil:'domcontentloaded'});
