@@ -34,13 +34,15 @@
     "category": "Navigation and sticky chrome",
     "title": "Bottom navigation",
     "exampleContext": "Multi-section studio portfolio with three grounded destinations and safe-area clearance",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "NAV-02"
+    ],
+    "previewRoute": "./previews/NAV-02/?mobile=M-NAV-03",
+    "reviewRoute": "./review.html?id=NAV-02",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. A safe-area fixed bottom navigation bar for the existing three real section anchors; current section follows scrolling while the original header/menu and desktop remain intact. Browser/device and visual approval pending."
   },
   {
     "id": "M-NAV-04",
@@ -137,13 +139,15 @@
     "category": "Hero compositions",
     "title": "Offset image crop and caption",
     "exampleContext": "Creative studio portrait positioned intentionally for narrow screens",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "HERO-04"
+    ],
+    "previewRoute": "./previews/HERO-04/?mobile=M-HERO-04",
+    "reviewRoute": "./review.html?id=HERO-04",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. Offset mobile portrait image and anchored editorial caption under a compact poster headline, using the existing fictional creative-studio photograph. Browser/device and visual approval pending."
   },
   {
     "id": "M-HERO-05",
@@ -285,13 +289,15 @@
     "category": "Services and capability presentation",
     "title": "Compact service index",
     "exampleContext": "Architecture studio showing text-first offerings with a single photo feature",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "SRV-01"
+    ],
+    "previewRoute": "./previews/SRV-01/?mobile=M-SRV-04",
+    "reviewRoute": "./review.html?id=SRV-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. Condensed numbered architecture services and an expressly illustrative single stock-image feature, retaining the original text list at wider sizes. Browser/device and visual approval pending."
   },
   {
     "id": "M-COM-01",
@@ -358,13 +364,15 @@
     "category": "Forms and booking controls",
     "title": "Single-column contact form",
     "exampleContext": "Name, email and message with correct native input types and visible error states",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "FORM-01"
+    ],
+    "previewRoute": "./previews/FORM-01/?mobile=M-FRM-01",
+    "reviewRoute": "./review.html?id=FORM-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. A compact form-first ticket with accessible labels, native name/email fields, full-width validation and honest local-only inquiry drafts. Browser/device and visual approval pending."
   },
   {
     "id": "M-FRM-02",
@@ -461,13 +469,15 @@
     "category": "About, trust, and process",
     "title": "Wrapped credentials strip",
     "exampleContext": "Qualified partner marks that remain legible without infinite marquee animation",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "TRUST-02"
+    ],
+    "previewRoute": "./previews/TRUST-02/?mobile=M-STORY-04",
+    "reviewRoute": "./review.html?id=TRUST-02",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. Two-column wrapping sample credential cards, never a marquee or fabricated real qualifications; fictional badges are labeled unverified. Browser/device and visual approval pending."
   },
   {
     "id": "M-CTA-01",
@@ -504,13 +514,15 @@
     "category": "Calls to action, contact, and footer",
     "title": "Click-to-call contact sheet",
     "exampleContext": "Local trades contact section with phone/email choices, no fake backend",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "CONTACT-01"
+    ],
+    "previewRoute": "./previews/CONTACT-01/?mobile=M-CTA-03",
+    "reviewRoute": "./review.html?id=CONTACT-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. Mobile contact sheet offering tel: and mailto: links to clearly reserved fictional example destinations, not a live builder's contact information. Browser/device and visual approval pending."
   },
   {
     "id": "M-CTA-04",
@@ -547,13 +559,15 @@
     "category": "Utility interactions",
     "title": "Full-screen modal sheet",
     "exampleContext": "Gallery details opening as a keyboard-safe mobile sheet",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "GAL-06"
+    ],
+    "previewRoute": "./previews/GAL-06/?mobile=M-UTIL-02",
+    "reviewRoute": "./review.html?id=GAL-06",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. Native full-screen image-information sheet with readable descriptions, next/previous keyboard controls and focus restoration after Escape. Browser/device and visual approval pending."
   },
   {
     "id": "M-UTIL-03",
@@ -605,38 +619,44 @@
     "category": "Video and motion",
     "title": "Poster-first video",
     "exampleContext": "Studio reel loading an optimized still before explicit playback",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "MEDIA-01"
+    ],
+    "previewRoute": "./previews/MEDIA-01/?mobile=M-MEDIA-01",
+    "reviewRoute": "./review.html?id=MEDIA-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. Poster-first vertical mobile video layout that loads the sample video only on explicit play, with a fallback for blocked footage. Browser/device and visual approval pending."
   },
   {
     "id": "M-MEDIA-02",
     "category": "Video and motion",
     "title": "Muted inline loop",
     "exampleContext": "Short decorative clip with reduced-motion static fallback",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "MEDIA-01"
+    ],
+    "previewRoute": "./previews/MEDIA-01/?mobile=M-MEDIA-02",
+    "reviewRoute": "./review.html?id=MEDIA-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. Opt-in muted inline loop only while visible, with pause control, image poster, reduced-motion static fallback and data-saver awareness. Browser/device and visual approval pending."
   },
   {
     "id": "M-MEDIA-03",
     "category": "Video and motion",
     "title": "Portrait crop for wide film",
     "exampleContext": "Landscape footage art-directed for phone without losing the subject",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "MEDIA-01"
+    ],
+    "previewRoute": "./previews/MEDIA-01/?mobile=M-MEDIA-03",
+    "reviewRoute": "./review.html?id=MEDIA-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working responsive phone alternative. An art-directed portrait crop of the original widescreen video, with explicit playback and intact fallback poster. Browser/device and visual approval pending."
   }
 ]
