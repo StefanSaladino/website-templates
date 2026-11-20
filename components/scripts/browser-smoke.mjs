@@ -1130,6 +1130,116 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Eight additional source-built business and conversion specimens: real behavior, honest demo boundaries.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/LOC-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.l1-hours dl>div').count()===7
+  &&(await page.locator('.l1-address').textContent()).includes('DEMO ADDRESS')
+  &&(await page.locator('.l1-hours-heading').textContent()).includes('Not live hours'),'LOC-01 displays a fictional, explicitly non-live seven-day schedule');
+ await page.locator('.l1-questions details').first().locator('summary').click();
+ assert(await page.locator('.l1-questions details').first().evaluate(el=>el.open),'LOC-01 arrival details genuinely expand with native elements');
+
+ await page.goto(base+'previews/LOC-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-zone=central]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('.l2-diagram').getAttribute('aria-label')).includes('not a geographic map'),'LOC-02 begins with a single selected zone and discloses non-geographic diagram');
+ await page.locator('[data-zone=west]').click();
+ assert(await page.locator('[data-zone=west]').getAttribute('aria-pressed')==='true'
+  &&await page.locator('.l2-tile[data-zone-tile=west]').evaluate(el=>el.classList.contains('is-selected'))
+  &&(await page.locator('#l2-selection').textContent())==='Western sample zone','LOC-02 actual selection updates both its map-like illustration and content');
+
+ await page.goto(base+'previews/CAREER-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.c1-job').count()===3
+  &&(await page.locator('.c1-disclaimer').textContent()).includes('sample data'),'CAREER-01 has three expandable fictional job rows, no false vacancies');
+ await page.locator('[data-role-filter=office]').click();
+ assert(await page.locator('.c1-job:visible').count()===1
+  &&(await page.locator('#c1-status').textContent()).includes('1 fictional role'),'CAREER-01 department filter updates the actual visible job list');
+ await page.locator('.c1-job:visible summary').click();
+ await page.locator('.c1-job:visible [data-select-job]').click();
+ assert((await page.locator('#c1-selected').textContent()).includes('Project administrator')
+  &&(await page.locator('#c1-selected').textContent()).includes('not an application'),'CAREER-01 example selection never claims to apply');
+
+ await page.goto(base+'previews/CAREER-03/',{waitUntil:'domcontentloaded'});
+ await page.locator('#a3-form button[type=submit]').click();
+ assert((await page.locator('#a3-name-error').textContent()).includes('required')
+  &&await page.locator('#a3-summary').isHidden(),'CAREER-03 blank fields produce visible validation without generating an application');
+ await page.locator('#a3-name').fill('Sample Candidate');
+ await page.locator('#a3-email').fill('sample@example.com');
+ await page.locator('#a3-role').selectOption({label:'Design'});
+ await page.locator('#a3-message').fill('Example interest in a design role.');
+ await page.locator('#a3-form button[type=submit]').click();
+ assert(await page.locator('#a3-summary').isVisible()
+  &&(await page.locator('#a3-output').textContent()).includes('NOT SENT')
+  &&(await page.locator('#a3-output').textContent()).includes('Design'),'CAREER-03 validates and creates only a candid locally prepared draft');
+
+ await page.goto(base+'previews/NEWS-01/',{waitUntil:'domcontentloaded'});
+ await page.locator('#n1-email').fill('person@example.com');
+ await page.locator('#n1-form button[type=submit]').click();
+ assert(await page.locator('#n1-result').isHidden()
+  &&(await page.locator('#n1-consent-error').textContent()).includes('acknowledge'),'NEWS-01 does not accept email without explicit sample consent');
+ await page.locator('#n1-consent').check();
+ await page.locator('#n1-form button[type=submit]').click();
+ assert(await page.locator('#n1-result').isVisible()
+  &&(await page.locator('#n1-result-copy').textContent()).includes('not added to a list'),'NEWS-01 produces honest non-subscription status after validation');
+ await page.locator('#n1-reset').click();
+ assert(await page.locator('#n1-result').isHidden()&&!await page.locator('#n1-consent').isChecked(),'NEWS-01 reset clears local demo state');
+
+ await page.goto(base+'previews/NEWS-02/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('.n2-credit').textContent()).includes('NOT STUDIO WORK')
+  &&await page.locator('#n2-form [name=topic]:checked').count()===1,'NEWS-02 has attributed stock and an initialized topical preference');
+ await page.locator('#n2-email').fill('reader@example.com');
+ await page.locator('#n2-form button[type=submit]').click();
+ assert(await page.locator('#n2-result').isHidden()
+  &&(await page.locator('#n2-consent-error').textContent()).includes('non-sending'),'NEWS-02 requires sample consent before showing any preferences');
+ await page.locator('[name=topic][value=Materials]').check();
+ await page.locator('#n2-frequency').selectOption('Quarterly');
+ await page.locator('#n2-consent').check();
+ await page.locator('#n2-form button[type=submit]').click();
+ assert(await page.locator('#n2-result').isVisible()
+  &&(await page.locator('#n2-output').textContent()).includes('Materials')
+  &&(await page.locator('#n2-output').textContent()).includes('Quarterly'),'NEWS-02 creates a truthful local-only topic and cadence preview');
+
+ await page.goto(base+'previews/UI-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.u1-item:visible').count()===6,'UI-01 has six actual native FAQ rows');
+ await page.locator('#u1-query').fill('permits');
+ assert(await page.locator('.u1-item:visible').count()===1
+  &&(await page.locator('#u1-status').textContent()).includes('1 matching'),'UI-01 actual search filters FAQ content and announces count');
+ await page.locator('#u1-query').fill('no-matching-pretend-phrase');
+ assert(await page.locator('#u1-empty').isVisible()&&await page.locator('.u1-item:visible').count()===0,'UI-01 shows a useful real no-results state');
+ await page.locator('#u1-reset').click();
+ assert(await page.locator('.u1-item:visible').count()===6,'UI-01 restores the real FAQ list via clear control');
+
+ await page.goto(base+'previews/FORM-03/',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-next="1"]').click();
+ assert(await page.locator('.f3-stage[data-step="1"]').isVisible()
+  &&(await page.locator('#f3-step1-error').textContent()).includes('Choose'),'FORM-03 does not advance before the first required project choice');
+ await page.locator('[name=project][value="Bathroom renovation"]').check();
+ await page.locator('[data-next="1"]').click();
+ assert(await page.locator('.f3-stage[data-step="2"]').isVisible()
+  &&await page.locator('[data-progress="2"]').getAttribute('aria-current')==='step','FORM-03 truly advances to scope after selecting a project');
+ await page.locator('#f3-budget').selectOption({label:'$30,000–$75,000 (example)'});
+ await page.locator('#f3-timeline').selectOption({label:'6–12 months'});
+ await page.locator('[data-next="2"]').click();
+ assert(await page.locator('.f3-stage[data-step="3"]').isVisible(),'FORM-03 advances to contact only with sample budget and timing filled');
+ await page.locator('[data-back="3"]').click();
+ assert(await page.locator('#f3-budget').inputValue()!==''
+  &&await page.locator('.f3-stage[data-step="2"]').isVisible(),'FORM-03 back navigation preserves prior answers');
+ await page.locator('[data-next="2"]').click();
+ await page.locator('#f3-name').fill('Example Project');
+ await page.locator('#f3-email').fill('example@example.com');
+ await page.locator('#f3-form button[type=submit]').click();
+ assert(await page.locator('#f3-result').isVisible()
+  &&(await page.locator('#f3-output').textContent()).includes('Bathroom renovation')
+  &&(await page.locator('#f3-output').textContent()).includes('NOT SENT'),'FORM-03 finishes with a genuine local-only summary, not an invented builder quote');
+
+ for(const id of ['LOC-01','LOC-02','CAREER-01','CAREER-03','NEWS-01','NEWS-02','UI-01','FORM-03']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const sizes=await page.evaluate(()=>({window:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(sizes.document<=sizes.window+2,id+' has no page-level horizontal overflow on a 320px phone ('+sizes.document+'/'+sizes.window+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
