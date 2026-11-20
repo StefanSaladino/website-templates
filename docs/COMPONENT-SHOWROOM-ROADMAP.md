@@ -1,7 +1,7 @@
 # Boomer Automation — Client Component Showroom
 ## Development roadmap and complete component inventory (planning baseline v1.1 — mobile design tracks)
 
-**Status:** Specification only — nothing in this document is deployed or approved as completed code.  
+**Status:** All 157 core and 44 optional mobile demos are implemented on the review branch; no approval, `live` promotion or public deployment is claimed. See the [release-readiness gates](./COMPONENT-SHOWROOM-RELEASE-READINESS.md).  
 **Repository target:** `StefanSaladino/website-templates`; **existing collection:** 24 independently designed templates.  
 **Product:** A public, client-facing **visual selection showroom**, not a website builder, code marketplace, or internal developer-component package.  
 **Success:** A prospective client can browse realistic components, inspect mobile and desktop views, select compatible mobile-specific layouts where available, shortlist exact paired IDs, and give the team a coherent design brief.
@@ -1083,3 +1083,32 @@ Seven distinct responsive, functioning core previews were implemented. The branc
 **What is NOT yet verified:** No completed/passing Chromium CI workflow, physical device, visual screenshots, actual rendered PDF accessibility/compliance audit, or source photo redistribution approval has been confirmed. Written smoke tests and PDF object-offset sanity checks do not replace executable browser or PDF-output inspection. All entries remain in review only.
 
 **Remaining ten drafts:** Four articles (`POST-01` through `POST-04`), four events (`EVENT-01` through `EVENT-04`) and two contact variants (`CONTACT-03`, `CONTACT-04`). Implement these next while safeguarding against fabricated editorial author identities, actual event schedules or bookings, real lead delivery and any implied public launch.
+
+## All core categories implemented on the review branch — 20 November 2026
+
+**Implementation checkpoint:** All **157 / 157 core examples** are now built, catalogued and marked `in-review` (**0 core drafts, 0 live**). The **44 / 44 independent optional mobile alternatives** and **20 / 20 integrated animation patterns** are present. There are **30 planned categories** in `components/data/categories.json`. This is a source/interaction implementation milestone, **not** an approved release or verified passing CI run.
+
+### Final ten core previews
+
+| Family | ID | Working experience |
+|---|---|---|
+| Articles (4/4) | POST-01 | Original architecture editorial cards with actual topic filtering, count and on-page article routes |
+| Articles (4/4) | POST-02 | Featured original design essay, real chapter links, section status and print-specific article view |
+| Articles (4/4) | POST-03 | Fictional business updates with live text search, category filtering, issue sorting, count and reset |
+| Articles (4/4) | POST-04 | Long-form original reading layout with width toggle, real type-size slider, scroll progress and chapter index |
+| Events (4/4) | EVENT-01 | Three clearly hypothetical exhibition cards with category filtering and native programme detail disclosures |
+| Events (4/4) | EVENT-02 | Genuine list/calendar view switch of five fictional class sessions, weekday filtering and shared data |
+| Events (4/4) | EVENT-03 | Fictional studio open-house detail, sample agenda, validated frontend-only RSVP draft and reset |
+| Events (4/4) | EVENT-04 | Date-based countdown to two explicitly fictional 2027 targets, freeze/resume display and reduced-motion cadence |
+| Contact (4/4) | CONTACT-03 | Split service-form concept with genuine HTML validation, local unsent inquiry preview and reset |
+| Contact (4/4) | CONTACT-04 | Editorial email headline with topic-specific reserved example.com mailto, clipboard copy and manual-copy fallback |
+
+The new previews do not borrow unverifiable third-party photographs. All original article writing, events, dates, venue references, consultation details and sample contact channels are clearly demonstrative. No event is bookable, no inquiry or RSVP is sent, and the example.com address is deliberately undeliverable.
+
+### Source-level QA and release status
+
+The 30 new `index.html`/`styles.css`/`script.js` files were fetched from the branch and checked for JS syntax, CSS brace balance, duplicate HTML IDs, dangling in-page anchors, required main/title/focus sections and missing image-alt attributes: **no source-level failures were detected**. The existing source validator now also enforces the expected `<section>` tag for Article and Event focus anchors. All ten additional interaction tests and 320px overflow assertions are authored in `components/scripts/browser-smoke.mjs`; test-source syntax is valid. **These are not execution results.**
+
+**Release blocked:** A passing production build/Chromium CI run has not been observed; manual desktop/mobile/Safari/Android visual QA, accessibility audit and component acceptance remain outstanding. The **16 registered stock assets are still `needs-review`** (none approved for final redistributed use). Some demos intentionally have no actual backend or a fully tagged PDF. The branch remains **`feature/component-showroom`** and `main` remains unchanged.
+
+See **[COMPONENT-SHOWROOM-RELEASE-READINESS.md](./COMPONENT-SHOWROOM-RELEASE-READINESS.md)** for the explicit gate matrix, precise local and CI commands, artifact review and promotion rules. The next development phase should be verification and defect fixing—not further expansion of core draft counts.
