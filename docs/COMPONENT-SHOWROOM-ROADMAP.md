@@ -643,3 +643,24 @@ The component showroom can use source-documented direct HTTPS stock image URLs (
 
 ## Interface decision — client portal saving deferred
 The Component Showroom stays a **browse-and-explore experience** until the planned client portal is designed. Remove the public/in-review working shortlist, localStorage saving and copy-ID controls from the live review interface. Component IDs remain visible as references for project conversations. The future authenticated client portal may have a simple Save action tied to client accounts; do not implement account storage, favorites or placeholder buttons in the public viewer. Use plain-language device choices (Computer / Tablet / Phone) and simple inspection modes (Whole design / Look closer) rather than pixels and scale percentages. This decision supersedes earlier Phase 2 and Phase 6 prototype shortlist requirements.
+
+
+## Scope amendment — dedicated animation patterns (November 20, 2026)
+
+**New catalogue family:** Motion and animation (ANIM-01 through ANIM-07), distinct from generic hover effects used inside other components. The original 29-family/137-variation inventory remains the v1.1 historical baseline above. The current plan is **30 families / 144 core IDs**; 44 optional mobile layouts remain separate. Motion patterns are previewed as realistic interactive sections—not abstract GIFs, global themes or animations added to every page. This amendment does not waive the earlier Phase 3 release gate.
+
+| ID | Pattern | Client-facing example | Completion acceptance |
+|---|---|---|---|
+| ANIM-01 | Staggered editorial reveal | Materials studio headline, rule and small project description | User replay; each element shown in order; text always visible with no JS/reduced motion. **In review.** |
+| ANIM-02 | Kinetic headline entrance | Creative agency two-line title | Once/replayable, measured timing, no per-character gimmicks or clipping at 320px. |
+| ANIM-03 | Image mask reveal | Architecture project photograph | Deliberate rectangular reveal and static mobile/reduced-motion fallback; image-source rights cleared. |
+| ANIM-04 | Bounded scroll parallax | Landscaping project image | Small, clamped transform only in view, and disabled for low-power/mobile/reduced-motion. |
+| ANIM-05 | Content transition | Materials studio switches two narratives | Accessible, user-controlled change with no focus loss or visually hidden interactive controls. |
+| ANIM-06 | Controlled editorial ticker | Studio events/announcements | Step-by-step navigation; if it moves automatically, provide a pause control; never essential continuously moving text. |
+| ANIM-07 | Step/timeline progress | Builder's illustrative four-stage process | User-triggered stage changes and labelled progress, never fabricated real delivery status. |
+
+**Performance and accessibility contract:** Motion is optional, purposeful and finite; prefer opacity/transform over layout shifts, and prevent cumulative layout shift. Do not hide core content until JS initializes. Honor `prefers-reduced-motion`, keyboard/touch parity, contrast, 200% text zoom and short mobile viewports. Pause nonessential motion when the tab is hidden; never prevent clicking or reading. Only mark `live` after actual rendered screenshot review, browser interaction QA, device QA and rights verification for image-led patterns.
+
+**Implementation order:** start with ANIM-01 (interactive proof), then ANIM-02/03 after the current Phase 3 sections, followed by ANIM-05/07; review ANIM-04/06 carefully for motion sensitivity and mobile/performance costs. Each variation receives its own focusable preview, realistic fictional context, and descriptive catalogue guidance. Public availability stays blocked until the usual approval steps.
+
+**Roadmap hygiene:** the heading "35 distinct IDs" in the Phase 3 target actually lists 36 different IDs; use the enumerated list as the build baseline. Keep approved/client-release status separate from working preview counts. The client portal's Save feature remains deferred and is not part of this animation work.

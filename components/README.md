@@ -56,3 +56,6 @@ The client will perform final visual review once all showroom examples have been
 
 ## Client-friendly viewer (November 2026)
 The review page intentionally has no working shortlist or local browser storage. Visitors choose Computer, Tablet or Phone and can see the Whole design or Look closer. All preview examples still use controlled iframe widths independent of the visitor's actual device. A Save button will be designed later as part of a client portal, not within this public showroom.
+
+## New motion catalogue (Nov 20, 2026)
+Seven animation patterns, ANIM-01–ANIM-07, expand the catalogue to **30 families and 144 core choices**, with 44 separately planned mobile alternatives. ANIM-01 is an in-review, user-replayable specimen; the other six remain drafts. See the roadmap amendment for motion/accessibility/preview requirements. Do not auto-apply motion effects to existing templates.
