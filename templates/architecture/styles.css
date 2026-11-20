@@ -483,3 +483,10 @@ dd { margin: 0; }
   html{scroll-padding-top:72px}
   #work,#practice,#contact{scroll-margin-top:72px}
 }
+
+/* ANIM-03: deliberate full-photo mask reveal, never permanently hidden. */
+.morrow-mask-replay{display:none;margin:18px 0 0;padding:10px 0;min-height:44px;border:0;border-bottom:1px solid rgba(255,255,255,.75);background:transparent;color:#fff;font:700 11px Arial,sans-serif;cursor:pointer}
+.morrow-mask-ready .morrow-mask-replay{display:inline-flex;align-items:center}
+@keyframes morrowImageMask{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.hero-media.morrow-mask-playing{animation:morrowImageMask 1.05s cubic-bezier(.35,.08,.2,1) both}
+@media(prefers-reduced-motion:reduce){.hero-media.morrow-mask-playing{animation:none!important;clip-path:none!important}}

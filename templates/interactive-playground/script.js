@@ -7,3 +7,23 @@ const run=document.querySelector('[data-runaway]');const zone=document.querySele
 function makeDraggable(el){let startX=0,startY=0,baseX=0,baseY=0,drag=false;const move=e=>{if(!drag)return;const dx=e.clientX-startX,dy=e.clientY-startY;el.style.translate=`${baseX+dx}px ${baseY+dy}px`};const end=e=>{if(!drag)return;drag=false;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch{};const t=getComputedStyle(el).translate.split(' ');baseX=parseFloat(t[0])||0;baseY=parseFloat(t[1])||0};el.addEventListener('pointerdown',e=>{drag=true;startX=e.clientX;startY=e.clientY;const t=getComputedStyle(el).translate.split(' ');baseX=parseFloat(t[0])||0;baseY=parseFloat(t[1])||0;el.classList.add('dragging');el.setPointerCapture(e.pointerId)});el.addEventListener('pointermove',move);el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end)}document.querySelectorAll('[data-drag]').forEach(makeDraggable);
 if(!reduced&&!coarse){let last=0;addEventListener('pointermove',e=>{const now=performance.now();if(now-last<34)return;last=now;const d=document.createElement('i');d.className='trail';d.style.left=`${e.clientX}px`;d.style.top=`${e.clientY}px`;d.style.background=['var(--hot)','var(--acid)','var(--blue)','var(--mint)'][Math.floor(Math.random()*4)];document.body.appendChild(d);setTimeout(()=>d.remove(),700);document.querySelectorAll('[data-bounce]').forEach((s,i)=>{const r=s.getBoundingClientRect();const x=(e.clientX-(r.left+r.width/2))/innerWidth;const y=(e.clientY-(r.top+r.height/2))/innerHeight;s.style.setProperty('--tx',`${x*(18+i*8)}px`);s.style.setProperty('--ty',`${y*(12+i*5)}px`);s.style.setProperty('--r',`${x*(2+i)}deg`)})},{passive:true});document.querySelectorAll('.magnetic').forEach(btn=>{btn.addEventListener('pointermove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.08}px,${(e.clientY-r.top-r.height/2)*.12}px)`});btn.addEventListener('pointerleave',()=>btn.style.transform='')})}
 const reveals=document.querySelectorAll('.reveal');if(reduced||!('IntersectionObserver'in window)){reveals.forEach(x=>x.classList.add('is-visible'))}else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.1});reveals.forEach(x=>io.observe(x))}if(!reduced){let tick=false;addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{root.style.setProperty('--scroll',String(scrollY*.08));root.style.setProperty('--tilt',`${Math.sin(scrollY*.004)*2}deg`);tick=false})},{passive:true})}
+/* ANIM-06: keyboard/touch pause, automatic pause when the document is hidden. */
+const motionTicker=document.querySelector('[data-motion-pattern="ANIM-06"]');
+const motionTickerControl=document.querySelector('[data-ticker-control]');
+if(motionTicker&&motionTickerControl){
+  document.body.classList.add('ticker-motion-ready');
+  const motionQuery=matchMedia('(prefers-reduced-motion: reduce)');
+  let paused=motionQuery.matches,requestedPause=paused;
+  const updateTicker=()=>{
+    paused=requestedPause||motionQuery.matches||document.hidden;
+    motionTicker.classList.toggle('is-paused',paused);
+    motionTickerControl.setAttribute('aria-pressed',String(requestedPause));
+    motionTickerControl.textContent=paused?'Play ticker':'Pause ticker';
+    motionTickerControl.disabled=motionQuery.matches;
+    if(motionQuery.matches)motionTickerControl.textContent='Motion reduced';
+  };
+  motionTickerControl.addEventListener('click',()=>{requestedPause=!requestedPause;updateTicker()});
+  motionQuery.addEventListener('change',updateTicker);
+  document.addEventListener('visibilitychange',updateTicker);
+  updateTicker();
+}

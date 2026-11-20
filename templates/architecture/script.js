@@ -16,6 +16,27 @@
     revealItems.forEach((item) => observer.observe(item));
   }
 
+
+  /* ANIM-03: a genuine photo reveal inside Morrow, not just a showroom graphic. */
+  const mask=document.querySelector('[data-motion-pattern="ANIM-03"]');
+  const replay=document.querySelector('[data-replay-motion="ANIM-03"]');
+  let maskTimer;
+  function stopMask(){clearTimeout(maskTimer);mask?.classList.remove('morrow-mask-playing')}
+  function playMask(){
+    stopMask();
+    if(!mask||matchMedia('(prefers-reduced-motion: reduce)').matches||document.hidden)return;
+    void mask.offsetWidth;
+    mask.classList.add('morrow-mask-playing');
+    maskTimer=setTimeout(stopMask,1180);
+  }
+  if(mask&&replay){
+    document.body.classList.add('morrow-mask-ready');
+    replay.addEventListener('click',playMask);
+    requestAnimationFrame(()=>requestAnimationFrame(playMask));
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',event=>{if(event.matches)stopMask()});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)stopMask()});
+  }
+
   if (reduceMotion) return;
 
   const heroImage = document.querySelector('.hero-image');
