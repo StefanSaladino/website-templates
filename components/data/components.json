@@ -1639,16 +1639,51 @@
     "id": "GAL-08",
     "category": "galleries",
     "title": "Mixed image and video",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Creative studio portfolio with motion thumbnails",
-    "previewRoute": null,
+    "previewRoute": "./previews/GAL-08/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-007",
+      "STOCK-008",
+      "STOCK-011"
+    ],
+    "interactions": [
+      "mixed-image-video",
+      "native-media-dialog",
+      "lazy-video-request",
+      "real-video-controls",
+      "focus-restoration"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "gallery",
+      "mixed-media",
+      "film",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "A complete responsive source preview in review; original CSS or unrelated rights-unapproved third-party media are disclosed. All prices, accounts, products and capabilities are illustrative. Browser/device QA and stakeholder signoff remain open; no live publication.",
+    "reviewRoute": "./review.html?id=GAL-08",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Galleries and media",
+      "focus": "Mixed photography and on-demand film viewer",
+      "summary": "A three-entry mixed-media portfolio uses two independent stock interiors and the same single sample film/poster source already used elsewhere in the showroom. Each opens a real native viewer; video bytes are requested only on explicit selection.",
+      "desktop": "Editorial three-column media composition anchors a large film poster between independent photographic studies, with a shared accessible viewer.",
+      "mobile": "Media cards become full-width vertical frames with reachable controls and a compact native image/video viewer.",
+      "lookFor": [
+        "Image entries enlarge real photos, while the film entry reveals a native player and sets its genuine video URL only after user selection",
+        "All third-party imagery and film remain unapproved review sources and cannot be interpreted as one studio's commissioned work"
+      ],
+      "focusAnchor": "gallery-showcase",
+      "explain": "A mixed-medium gallery with working image enlargement and real user-initiated video controls rather than fake motion thumbnails.",
+      "bestFor": [
+        "Studios with genuinely owned photography and motion assets",
+        "Portfolios that need mixed static and moving media"
+      ],
+      "fitReason": "Replace all placeholders with licensed, correctly attributed media and an appropriately optimized video source."
+    }
   },
   {
     "id": "PRJ-01",
@@ -3095,46 +3130,137 @@
     "id": "PRICE-03",
     "category": "pricing",
     "title": "Starting-at price rows",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Photographer package rates",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRICE-03/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-003"
+    ],
+    "interactions": [
+      "starting-rate-accordion",
+      "expand-collapse",
+      "exclusion-guidance"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "pricing",
+      "photographer",
+      "starting-at",
+      "accordion"
+    ],
+    "hasMobileLayout": true,
+    "notes": "A complete responsive source preview in review; original CSS or unrelated rights-unapproved third-party media are disclosed. All prices, accounts, products and capabilities are illustrative. Browser/device QA and stakeholder signoff remain open; no live publication.",
+    "reviewRoute": "./review.html?id=PRICE-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Pricing and comparison",
+      "focus": "Starting-at photographer rates with transparent expanding details",
+      "summary": "Three fictional CAD starting prices expand individually to reveal illustrative scope constraints and why no line constitutes a full quote.",
+      "desktop": "Large type and stacked expandable session rows sit beside an explicitly unrelated editorial portrait.",
+      "mobile": "Rate rows and disclosure details become comfortable single-column controls ahead of the non-portfolio sample image.",
+      "lookFor": [
+        "Each rate actually opens its own distinct details and can be closed without manufacturing a booking",
+        "All CAD amounts are fictional starting examples and the unrelated stock model is not attributed to the fictional photographer"
+      ],
+      "focusAnchor": "pricing-showcase",
+      "explain": "A clear starting-at pricing presentation that teaches actual disclosure and source honesty without a fake scheduling pathway.",
+      "bestFor": [
+        "Professional photographers with verified public starting rates",
+        "Creative service companies with genuinely variable scopes"
+      ],
+      "fitReason": "Use approved photography, real scope, licensing terms, taxes, and confirmed fees before publication."
+    }
   },
   {
     "id": "PRICE-04",
     "category": "pricing",
     "title": "Single featured offer",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Fitness pass promotion",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRICE-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "pass-type-switch",
+      "dynamic-disclosed-amount",
+      "local-not-purchased-preference"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "pricing",
+      "fitness",
+      "featured-offer",
+      "selection"
+    ],
+    "hasMobileLayout": true,
+    "notes": "A complete responsive source preview in review; original CSS or unrelated rights-unapproved third-party media are disclosed. All prices, accounts, products and capabilities are illustrative. Browser/device QA and stakeholder signoff remain open; no live publication.",
+    "reviewRoute": "./review.html?id=PRICE-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Pricing and comparison",
+      "focus": "Single featured gym pass with responsive choice and actual summary",
+      "summary": "An original CSS fitness composition features two fictional CAD pass styles. Radio controls genuinely update the visible amount and prepared NOT PURCHASED preference.",
+      "desktop": "Oversized sculptural fitness illustration anchors one prominent highlighted pass and its deliberately transparent alternative.",
+      "mobile": "Illustration leads a stacked single-feature offer with wide radio choices, readable amount and explicitly nontransactional local summary.",
+      "lookFor": [
+        "Pass selection changes displayed price and description and the prepared choice reflects the selected option",
+        "No genuine facility, schedule, checkout, health promise, pass inventory or purchase is implied"
+      ],
+      "focusAnchor": "pricing-showcase",
+      "explain": "A focused offer design with real option state, distinct from the tier pricing grid or quote calculator.",
+      "bestFor": [
+        "Fitness brands planning a verified single promotion",
+        "Membership landing pages needing a clear purchase-boundary prototype"
+      ],
+      "fitReason": "Live use requires authenticated venue, real eligibility, terms, validated prices and secure purchase flow."
+    }
   },
   {
     "id": "PRICE-05",
     "category": "pricing",
     "title": "Custom quote estimator",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Simple scope picker labelled illustrative only",
-    "previewRoute": null,
+    "previewRoute": "./previews/PRICE-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "bounded-page-count",
+      "design-level-multiplier",
+      "optional-cost-toggles",
+      "live-math-breakdown",
+      "unsent-worksheet"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "pricing",
+      "estimate",
+      "calculator",
+      "transparent"
+    ],
+    "hasMobileLayout": true,
+    "notes": "A complete responsive source preview in review; original CSS or unrelated rights-unapproved third-party media are disclosed. All prices, accounts, products and capabilities are illustrative. Browser/device QA and stakeholder signoff remain open; no live publication.",
+    "reviewRoute": "./review.html?id=PRICE-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Pricing and comparison",
+      "focus": "Transparent arithmetic estimator with a clearly nonbinding result",
+      "summary": "A functioning example worksheet uses bounded page quantity, one of three fictional complexity multipliers and two optional studies to recalculate a labelled CAD total and local NOT A QUOTE note.",
+      "desktop": "Original geometric grid art supports a separate white calculator with actual running line-item math.",
+      "mobile": "A vertically composed stepper and options panel uses legible live totals and local-only report preparation.",
+      "lookFor": [
+        "Increasing page count, changing design factor and toggling options visibly recomputes the correct sample arithmetic",
+        "No computed amount is called a market rate, quotation, tax figure, booking or purchasable commitment"
+      ],
+      "focusAnchor": "pricing-showcase",
+      "explain": "A real pricing computation pattern that exposes the formula and clearly separates demonstration arithmetic from professional estimating.",
+      "bestFor": [
+        "Service companies testing scope estimators",
+        "Agency planners considering transparent quote-intake interfaces"
+      ],
+      "fitReason": "Production needs verified current costs, genuine inclusions/exclusions, taxation, scope review and an actual quoting process."
+    }
   },
   {
     "id": "PROD-01",
@@ -3187,61 +3313,185 @@
     "id": "PROD-02",
     "category": "products",
     "title": "Featured product",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Artisan chair full-width photography",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROD-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "finish-radio-switch",
+      "original-css-product-visual-update",
+      "local-study-marker"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "products",
+      "featured-product",
+      "furniture",
+      "illustration"
+    ],
+    "hasMobileLayout": true,
+    "notes": "A complete responsive source preview in review; original CSS or unrelated rights-unapproved third-party media are disclosed. All prices, accounts, products and capabilities are illustrative. Browser/device QA and stakeholder signoff remain open; no live publication.",
+    "reviewRoute": "./review.html?id=PROD-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Product showcase",
+      "focus": "Featured artisan chair study with original illustrative finishes",
+      "summary": "One dramatic original CSS chair illustration changes actual visible finish between oak, walnut and ash concept colors; visitors can temporarily mark an idea without saving an account or cart.",
+      "desktop": "Full-height sculptural furniture illustration pairs with a tailored finish selector, material reading and unusually spacious typography.",
+      "mobile": "The original chair becomes a tall lead image followed by separate finish swatches and large stateful controls.",
+      "lookFor": [
+        "Each illustrative finish updates the real chair drawing and its accessible image description",
+        "Temporary idea marking is not represented as a persisted wishlist, stock item or purchase"
+      ],
+      "focusAnchor": "products-showcase",
+      "explain": "An authentic featured-product layout using original graphics so unverified stock furniture isn't passed off as saleable.",
+      "bestFor": [
+        "Furniture brands once genuine models exist",
+        "Material-forward product design explorations"
+      ],
+      "fitReason": "For real ecommerce use verified product photography, safety/material specs, stock availability and checkout."
+    }
   },
   {
     "id": "PROD-03",
     "category": "products",
     "title": "Collection lookbook",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Fashion editorial garments",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROD-03/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-003",
+      "STOCK-004",
+      "STOCK-005"
+    ],
+    "interactions": [
+      "editorial-lookbook-selector",
+      "three-independent-portraits",
+      "next-previous",
+      "live-chapter-copy"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "products",
+      "lookbook",
+      "fashion",
+      "editorial"
+    ],
+    "hasMobileLayout": true,
+    "notes": "A complete responsive source preview in review; original CSS or unrelated rights-unapproved third-party media are disclosed. All prices, accounts, products and capabilities are illustrative. Browser/device QA and stakeholder signoff remain open; no live publication.",
+    "reviewRoute": "./review.html?id=PROD-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Product showcase",
+      "focus": "Editorial fashion lookbook with three independent portrait studies",
+      "summary": "Three explicitly unrelated editorial stock photographs form a working selectable lookbook with original narrative, real visible image swaps and bounded next/previous controls.",
+      "desktop": "A tall monochromatic portrait stage sits beside numbered editorial chapters and large switching typography.",
+      "mobile": "Full-height imagery becomes the lead canvas followed by stacked chapter navigation and distinct descriptive controls.",
+      "lookFor": [
+        "Chapter selection changes the actual visible portrait, active state and narrative copy",
+        "Unrelated portraits and pictured garments are not attributed to the fictional fashion label or represented as products for sale"
+      ],
+      "focusAnchor": "products-showcase",
+      "explain": "A deliberately editorial product-family concept rather than a disguised merchandise catalog with counterfeit product associations.",
+      "bestFor": [
+        "Fashion brands with rights-cleared campaign photos",
+        "Editorial retail storytelling with genuine collections"
+      ],
+      "fitReason": "Obtain image/model permissions and actual stock/campaign attribution before publication."
+    }
   },
   {
     "id": "PROD-04",
     "category": "products",
     "title": "Product detail strip",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "One item with options and information",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROD-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "lamp-finish-options",
+      "size-selector",
+      "real-css-object-variation",
+      "nonpersistent-idea-marker"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "products",
+      "detail",
+      "variant",
+      "object"
+    ],
+    "hasMobileLayout": true,
+    "notes": "A complete responsive source preview in review; original CSS or unrelated rights-unapproved third-party media are disclosed. All prices, accounts, products and capabilities are illustrative. Browser/device QA and stakeholder signoff remain open; no live publication.",
+    "reviewRoute": "./review.html?id=PROD-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Product showcase",
+      "focus": "Single lamp detail strip with functional conceptual variants",
+      "summary": "A sculptural lamp built entirely with CSS responds to three finish options and two nominal size studies; the selected description and image meaning update and a nonpersistent idea marker works locally.",
+      "desktop": "Typographic options and fact boundaries on one side balance an art-directed lamp object graphic on the other.",
+      "mobile": "An intentionally image-first variant leads the stacked options panel rather than shrinking two desktop columns.",
+      "lookFor": [
+        "Changing finish or size updates actual object shape/color, accessible image description and selection text",
+        "No physical lamp, actual measurements, electrical certification, shopping cart or availability is claimed"
+      ],
+      "focusAnchor": "products-showcase",
+      "explain": "A real variant-selection UI specimen with one illustrated object, not a mock product page claiming an invented manufactured item.",
+      "bestFor": [
+        "Home-goods merchants with real specification sets",
+        "Detail-page design systems comparing variant controls"
+      ],
+      "fitReason": "Real products need exact specs, safety compliance, verified variant availability and a genuine purchase path."
+    }
   },
   {
     "id": "PROD-05",
     "category": "products",
     "title": "New arrivals rail",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Independent retail horizontally browsable",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROD-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "horizontal-arrivals-rail",
+      "category-filter",
+      "bounded-next-previous",
+      "keyboard-navigation",
+      "interactive-detail"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "products",
+      "new-arrivals",
+      "rail",
+      "filter"
+    ],
+    "hasMobileLayout": true,
+    "notes": "A complete responsive source preview in review; original CSS or unrelated rights-unapproved third-party media are disclosed. All prices, accounts, products and capabilities are illustrative. Browser/device QA and stakeholder signoff remain open; no live publication.",
+    "reviewRoute": "./review.html?id=PROD-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Product showcase",
+      "focus": "Four-item filterable new-ideas rail with real keyboard and inspection behavior",
+      "summary": "Four original CSS object studies form an actual horizontal swipe/scroll rail. Category filtering, previous/next bounds, keyboard controls and item inspection update visible content and an honest detail section.",
+      "desktop": "Wide editorial multi-card rail with separate filter/navigation controls and an item-detail ledger.",
+      "mobile": "The object cards become individually swipeable near-full-width panels, with filtered controls and a stacked detail view.",
+      "lookFor": [
+        "Filtering to Lighting or Vessels changes visible cards, count and bounded navigation while Inspect changes actual description",
+        "Illustrative new ideas aren't falsely called physical new stock, priced products or purchasable inventory"
+      ],
+      "focusAnchor": "products-showcase",
+      "explain": "A functional commerce-adjacent browsing pattern that exercises filters, scroll and details without simulating an order.",
+      "bestFor": [
+        "Independent shops with real categorized stock",
+        "Object-oriented collections that need browsable arrivals"
+      ],
+      "fitReason": "Use actual verified inventory, photographs, prices and merchant routes before storefront integration."
+    }
   },
   {
     "id": "MENU-01",
