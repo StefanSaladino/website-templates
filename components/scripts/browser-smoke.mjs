@@ -482,14 +482,15 @@ try{
   &&(await page.locator('#f2-message').textContent()).includes('Nothing was submitted'),'M-FRM-02 preserves the functional local enquiry summary without sending data');
 
  await page.goto(base+'previews/CTA-01/?mobile=M-CTA-01',{waitUntil:'domcontentloaded'});
- await page.waitForFunction(()=>!document.querySelector('.c1-mobile-dock')?.hidden);
  const dock=page.locator('.c1-mobile-dock');
- assert(await dock.isVisible()&&(await dock.locator('a').getAttribute('href'))==='../../review.html?id=FORM-01','M-CTA-01 shows a working safe-area mobile enquiry action');
+ await page.locator('.c1-explanation').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('.c1-mobile-dock')?.hidden===false);
+ assert(await dock.isVisible()&&(await dock.locator('a').getAttribute('href'))==='../../review.html?id=FORM-01','M-CTA-01 shows a working safe-area mobile enquiry action when the original action is out of view');
  assert(await dock.evaluate(el=>getComputedStyle(el).position)==='fixed','M-CTA-01 action is fixed to the phone viewport');
  await page.locator('.c1-action').scrollIntoViewIfNeeded();
  await page.waitForFunction(()=>document.querySelector('.c1-mobile-dock')?.hidden===true);
  assert(await dock.isHidden(),'M-CTA-01 suppresses duplicate sticky action when original button is visible');
- await page.locator('.c1-intro').scrollIntoViewIfNeeded();
+ await page.locator('.c1-explanation').scrollIntoViewIfNeeded();
  await page.waitForFunction(()=>document.querySelector('.c1-mobile-dock')?.hidden===false);
  assert(await dock.isVisible(),'M-CTA-01 sticky action returns when original action leaves the viewport');
 
