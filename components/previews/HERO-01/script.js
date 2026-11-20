@@ -4,7 +4,7 @@
 /* Phase 2 preview-mode selection */
 (() => {
  const option = new URLSearchParams(location.search).get('mobile');
- if (option === 'M-HERO-02') document.body.dataset.mobileTreatment = option;
+ if (['M-HERO-02','M-HERO-01'].includes(option)) document.body.dataset.mobileTreatment = option;
 })();
 
 
