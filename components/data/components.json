@@ -68,7 +68,8 @@
     "notes": "In-review functional sample. Final visual, photo or device approval still required.",
     "reviewRoute": "./review.html?id=NAV-02",
     "mobileTreatmentIds": [
-      "M-NAV-05"
+      "M-NAV-05",
+      "M-NAV-03"
     ],
     "showcase": {
       "label": "Header & navigation",
@@ -747,7 +748,9 @@
     "hasMobileLayout": true,
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=HERO-04",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-HERO-04"
+    ],
     "showcase": {
       "label": "Hero sections",
       "focus": "Typographic statement with small image",
@@ -1216,7 +1219,8 @@
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=GAL-06",
     "mobileTreatmentIds": [
-      "M-GAL-05"
+      "M-GAL-05",
+      "M-UTIL-02"
     ],
     "showcase": {
       "label": "Galleries and image collections",
@@ -1516,16 +1520,54 @@
     "id": "MEDIA-01",
     "category": "media",
     "title": "Embedded feature film",
-    "status": "draft",
-    "exampleContext": "Architecture walkthrough with consent-aware play",
-    "previewRoute": null,
+    "status": "in-review",
+    "exampleContext": "Creative studio feature film with explicit playback, poster fallback and alternative phone crops",
+    "previewRoute": "./previews/MEDIA-01/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-011"
+    ],
+    "interactions": [
+      "poster-fallback",
+      "video-playback",
+      "explicit-play-control",
+      "reduced-motion",
+      "muted-inline-loop"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "video",
+      "editorial",
+      "responsive",
+      "motion"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real Pexels-hosted sample video reused from the existing OFFCUT full-page template. External media creator/license page, redistribution permissions, video bytes, mobile crops and physical-device QA are unverified. Do not mark live.",
+    "mobileTreatmentIds": [
+      "M-MEDIA-01",
+      "M-MEDIA-02",
+      "M-MEDIA-03"
+    ],
+    "reviewRoute": "./review.html?id=MEDIA-01",
+    "showcase": {
+      "label": "Video and rich media",
+      "focus": "Poster-first editorial film",
+      "summary": "An actual video element with explicit playback, honest poster fallback, and three optional responsive video treatments.",
+      "desktop": "A cinematic wide media frame with poster and a deliberate play control.",
+      "mobile": "Compare a poster-first vertical panel, a muted inline loop and an intentional portrait video crop.",
+      "lookFor": [
+        "Video starts only when requested except the optional visible muted loop",
+        "Portrait crop, poster fallback and reduced-motion controls"
+      ],
+      "focusAnchor": "media-showcase",
+      "explain": "A video-backed brand or portfolio story with a genuine play action, a meaningful fallback image and no false promise of successful media loading.",
+      "bestFor": [
+        "Creative studios with actual video footage",
+        "Portfolios where a short reel helps explain the work",
+        "Brands wanting deliberate video storytelling"
+      ],
+      "fitReason": "Good when the site has appropriate rights-cleared film; use a still image when motion has no purpose."
+    }
   },
   {
     "id": "MEDIA-02",
@@ -1580,7 +1622,9 @@
     "exampleContext": "Architectural studio numbered service names",
     "previewRoute": "./previews/SRV-01/",
     "thumbnail": null,
-    "stockAssetIds": [],
+    "stockAssetIds": [
+      "STOCK-007"
+    ],
     "interactions": [],
     "integrationLevel": "static",
     "designTags": [
@@ -1591,7 +1635,9 @@
     "hasMobileLayout": true,
     "notes": "In-review functional sample. Final visual, photo or device approval still required.",
     "reviewRoute": "./review.html?id=SRV-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-SRV-04"
+    ],
     "showcase": {
       "label": "Services and capabilities",
       "focus": "Numbered service list",
@@ -2041,16 +2087,43 @@
     "id": "TRUST-02",
     "category": "trust",
     "title": "Credentials strip",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Contractor certifications only if fictional demo-labelled",
-    "previewRoute": null,
+    "previewRoute": "./previews/TRUST-02/",
     "thumbnail": null,
     "stockAssetIds": [],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "trust",
+      "credentials",
+      "typography",
+      "responsive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Fictional credential categories and unverified sample marks only, never real certifications or endorsement claims. Release requires real issuer verification and client signoff.",
+    "mobileTreatmentIds": [
+      "M-STORY-04"
+    ],
+    "reviewRoute": "./review.html?id=TRUST-02",
+    "showcase": {
+      "label": "Proof and credentials",
+      "focus": "Illustrative credential categories",
+      "summary": "A structured credentials strip that clearly discloses fictional placeholder badges.",
+      "desktop": "Four typographic sample credential categories sit in one horizontal row.",
+      "mobile": "Switch between a readable linear list and a compact wrapped two-column card arrangement.",
+      "lookFor": [
+        "No invented verified licences or third-party marks",
+        "Legible badges without animated marquees"
+      ],
+      "focusAnchor": "trust-showcase",
+      "explain": "A professional trust and qualifications section showing the future placement of authentic, verifiable certificates without falsely asserting that the demo business has them.",
+      "bestFor": [
+        "Contractors and professional studios with real qualifications",
+        "Trades that need visible third-party certification disclosure"
+      ],
+      "fitReason": "Only publish real credentials after verifying the issuer and the client's right to display them."
+    }
   },
   {
     "id": "TRUST-03",
@@ -2786,7 +2859,8 @@
     "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
     "reviewRoute": "./review.html?id=FORM-01",
     "mobileTreatmentIds": [
-      "M-FRM-04"
+      "M-FRM-04",
+      "M-FRM-01"
     ],
     "showcase": {
       "label": "Contact form",
@@ -2931,7 +3005,9 @@
     "hasMobileLayout": true,
     "notes": "In-review functional sample. Final visual, photo or device approval still required.",
     "reviewRoute": "./review.html?id=CONTACT-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-CTA-03"
+    ],
     "showcase": {
       "label": "Contact sections",
       "focus": "Contact-first split",
