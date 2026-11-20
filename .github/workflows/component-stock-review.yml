@@ -1,0 +1,35 @@
+name: Acquire stock candidates for review
+on:
+  push:
+    branches:
+      - feature/component-showroom
+    paths:
+      - 'components/scripts/acquire-stock.mjs'
+      - '.github/workflows/component-stock-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acquire:
+    name: Download and inspect review candidates
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: components
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - name: Fetch stock images from verified provider CDN
+        run: npm run acquire:stock
+      - name: Archive visual review candidates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: component-stock-candidates
+          path: stock-candidates/
+          retention-days: 7
+          if-no-files-found: error
