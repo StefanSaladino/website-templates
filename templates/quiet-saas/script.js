@@ -62,3 +62,24 @@ if (!reduceMotion) {
   }, { passive: true });
 }
 
+
+/* ANIM-01 applies the showroom's staged reveal to a real template. */
+const arcMotionTarget=document.querySelector('[data-motion-pattern="ANIM-01"]');
+const arcMotionControl=document.querySelector('[data-replay-motion="ANIM-01"]');
+const arcReduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let arcMotionTimer;
+function stopArcMotion(){clearTimeout(arcMotionTimer);arcMotionTarget?.classList.remove('arc-motion-playing')}
+function replayArcMotion(){
+  stopArcMotion();
+  if(!arcMotionTarget||arcReduceMotion.matches||document.hidden)return;
+  void arcMotionTarget.offsetWidth;
+  arcMotionTarget.classList.add('arc-motion-playing');
+  arcMotionTimer=setTimeout(stopArcMotion,1650);
+}
+if(arcMotionTarget&&arcMotionControl){
+  document.body.classList.add('arc-motion-ready');
+  arcMotionControl.addEventListener('click',replayArcMotion);
+  requestAnimationFrame(()=>requestAnimationFrame(replayArcMotion));
+  arcReduceMotion.addEventListener('change',event=>{if(event.matches)stopArcMotion()});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stopArcMotion()});
+}

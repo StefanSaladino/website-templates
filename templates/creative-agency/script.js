@@ -54,3 +54,23 @@ if ('IntersectionObserver' in window && !reduceMotion.matches) {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 }
 
+
+/* ANIM-02: typography-only motion; existing film playback control stays independent. */
+const offcutTitle=document.querySelector('[data-motion-pattern="ANIM-02"]');
+const offcutReplay=document.querySelector('[data-replay-motion="ANIM-02"]');
+let offcutMotionTimer;
+function stopOffcutTitle(){clearTimeout(offcutMotionTimer);offcutTitle?.classList.remove('offcut-motion-playing')}
+function replayOffcutTitle(){
+  stopOffcutTitle();
+  if(!offcutTitle||reduceMotion.matches||document.hidden)return;
+  void offcutTitle.offsetWidth;
+  offcutTitle.classList.add('offcut-motion-playing');
+  offcutMotionTimer=setTimeout(stopOffcutTitle,1680);
+}
+if(offcutTitle&&offcutReplay){
+  document.body.classList.add('offcut-motion-ready');
+  offcutReplay.addEventListener('click',replayOffcutTitle);
+  requestAnimationFrame(()=>requestAnimationFrame(replayOffcutTitle));
+  reduceMotion.addEventListener('change',event=>{if(event.matches)stopOffcutTitle()});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stopOffcutTitle()});
+}

@@ -135,3 +135,14 @@ a{color:inherit;text-decoration:none}button{font:inherit}.skip-link{position:fix
   html{scroll-padding-top:72px}
   #product,#why-arc,#pricing{scroll-margin-top:72px}
 }
+
+/* ANIM-01: accessible staged editorial entrance in the actual Arc hero.
+   Content remains visible without JavaScript or with reduced motion. */
+.arc-motion-replay{display:none;border:0;background:transparent;color:var(--green-dark);padding:9px 4px;font-size:12px;text-decoration:underline;text-underline-offset:4px;cursor:pointer;min-height:44px}
+.arc-motion-ready .arc-motion-replay{display:inline-flex;align-items:center}
+@keyframes arcEditorialArrival{from{opacity:.25;transform:translate3d(0,18px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.hero-copy.arc-motion-playing>.eyebrow,.hero-copy.arc-motion-playing>h1,.hero-copy.arc-motion-playing>.hero-lede,.hero-copy.arc-motion-playing>.hero-actions{animation:arcEditorialArrival .7s cubic-bezier(.2,.75,.25,1) both}
+.hero-copy.arc-motion-playing>h1{animation-delay:.12s}
+.hero-copy.arc-motion-playing>.hero-lede{animation-delay:.23s}
+.hero-copy.arc-motion-playing>.hero-actions{animation-delay:.34s}
+@media(prefers-reduced-motion:reduce){.hero-copy.arc-motion-playing>.eyebrow,.hero-copy.arc-motion-playing>h1,.hero-copy.arc-motion-playing>.hero-lede,.hero-copy.arc-motion-playing>.hero-actions{animation:none!important}}
