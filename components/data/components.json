@@ -2155,31 +2155,91 @@
     "id": "COMP-02",
     "category": "before-after",
     "title": "Side-by-side pair",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Garden installation before and after",
-    "previewRoute": null,
+    "previewRoute": "./previews/COMP-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "paired-illustrations",
+      "highlight-differences",
+      "pressed-state",
+      "live-difference-description"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "comparison",
+      "garden",
+      "side-by-side",
+      "original-art"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct source-complete responsive interactive preview with original CSS art and all business identities/events/sites fictional. No customer evidence, booked work, guaranteed service, professional advice or real onboarding; passing Chromium/device QA and release approval remain unverified.",
+    "reviewRoute": "./review.html?id=COMP-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Before / after comparisons",
+      "focus": "A same-viewpoint original-art garden before/after comparison",
+      "summary": "Two original CSS drawings depict a fictional garden concept from a consistent viewpoint, with a working Highlight Differences action that actually changes emphasis and explanatory text.",
+      "desktop": "Spacious paired garden compositions are displayed side by side under oversized editorial headings, followed by a dedicated inspection control.",
+      "mobile": "Illustrations and captions deliberately stack into a readable sequential comparison without hiding either original viewpoint.",
+      "lookFor": [
+        "The highlight button changes the pair's actual scene emphasis, pressed state and live explanatory text",
+        "Both before and after images are original CSS illustrations of one imagined garden, never implied to be real landscaping photos"
+      ],
+      "focusAnchor": "comparison-showcase",
+      "explain": "A responsible side-by-side comparison system demonstrating matched visual perspective without falsely implying a real client transformation.",
+      "bestFor": [
+        "Landscape businesses with permissioned same-site photo pairs",
+        "Renovation studios planning visually trustworthy case studies"
+      ],
+      "fitReason": "Production requires genuine matched photos and documentation of scope, location and permission."
+    }
   },
   {
     "id": "COMP-03",
     "category": "before-after",
     "title": "Toggle comparison",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Car paint correction image state switch",
-    "previewRoute": null,
+    "previewRoute": "./previews/COMP-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "before-after-toggle",
+      "original-css-car-finish",
+      "aria-pressed",
+      "live-condition-description"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "comparison",
+      "vehicle",
+      "paint-finish",
+      "toggle"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct source-complete responsive interactive preview with original CSS art and all business identities/events/sites fictional. No customer evidence, booked work, guaranteed service, professional advice or real onboarding; passing Chromium/device QA and release approval remain unverified.",
+    "reviewRoute": "./review.html?id=COMP-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Before / after comparisons",
+      "focus": "Interactive paint-finish study with real original car-art state changes",
+      "summary": "A car silhouette rendered in CSS alternates between a schematic marked surface and a reflected glossy concept, with the visual, accessible description and state text all changing.",
+      "desktop": "High-contrast dark detailing story opens beside a large consistent car composition and prominent two-state finish selector.",
+      "mobile": "The copy and two honest state controls move above a large car study, with readable condition explanations.",
+      "lookFor": [
+        "Before and after toggle actually changes the car illustration's surface, marks, accessible description and text",
+        "No unrelated automobile photographs, promised correction results, service receipts or real customer cars are asserted"
+      ],
+      "focusAnchor": "comparison-showcase",
+      "explain": "A visual state comparison with explicit illustration provenance, not an invented paint-correction portfolio.",
+      "bestFor": [
+        "Detailing firms with actual same-panel evidence",
+        "Automotive websites prototyping finish comparison interfaces"
+      ],
+      "fitReason": "Replace schematic art with verified same-vehicle photos and disclose correction limits and lighting."
+    }
   },
   {
     "id": "MEDIA-01",
@@ -2507,46 +2567,139 @@
     "id": "SRV-04",
     "category": "services",
     "title": "Interactive service tabs",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Vehicle detailing packages with changing image",
-    "previewRoute": null,
+    "previewRoute": "./previews/SRV-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "three-service-tabs",
+      "arrow-home-end-keys",
+      "live-service-details",
+      "real-css-visual-swaps",
+      "aria-selected"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "services",
+      "auto-detailing",
+      "tabs",
+      "keyboard"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct source-complete responsive interactive preview with original CSS art and all business identities/events/sites fictional. No customer evidence, booked work, guaranteed service, professional advice or real onboarding; passing Chromium/device QA and release approval remain unverified.",
+    "reviewRoute": "./review.html?id=SRV-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Service layouts",
+      "focus": "Keyboard-operable detailing service browser with changing original artwork",
+      "summary": "Three car-care tabs switch actual CSS illustration palettes and shapes plus service descriptions, consideration bullets and ARIA panel linkage; keyboard navigation uses arrows, Home and End.",
+      "desktop": "Oversized vehicle-care typography leads a balanced vehicle graphic and richly formatted service tabs.",
+      "mobile": "A large original drawing leads vertically stacked service choices and clear sample-scope reading.",
+      "lookFor": [
+        "Tab selection changes actual stage artwork, tab-panel heading, bullet points and selected/keyboard states",
+        "Examples describe questions and service boundaries, not fabricated detailing results, appointments or verified packages"
+      ],
+      "focusAnchor": "services-showcase",
+      "explain": "Functional service navigation with synchronized imagery rather than three dead buttons beside static copy.",
+      "bestFor": [
+        "Auto detailing businesses with real categories",
+        "Service businesses separating multiple closely related offerings"
+      ],
+      "fitReason": "Live deployment needs accurate packages, methods, credentials, availability and real contacts."
+    }
   },
   {
     "id": "SRV-05",
     "category": "services",
     "title": "Accordion services",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Technical installation list with details",
-    "previewRoute": null,
+    "previewRoute": "./previews/SRV-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-technical-details",
+      "expand-all",
+      "collapse-all",
+      "expanded-count",
+      "accurate-disabled-states"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "services",
+      "installation",
+      "accordion",
+      "technical"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct source-complete responsive interactive preview with original CSS art and all business identities/events/sites fictional. No customer evidence, booked work, guaranteed service, professional advice or real onboarding; passing Chromium/device QA and release approval remain unverified.",
+    "reviewRoute": "./review.html?id=SRV-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Service layouts",
+      "focus": "Technical service accordion with truthful Expand All and Collapse All controls",
+      "summary": "Three accessible installation service categories show distinct native disclosures, working expand/collapse-all actions, accurate progress count and explicit limits around qualifications and site conditions.",
+      "desktop": "Original technical drawing acts as a graphic counterweight to an extensive right-hand disclosure ledger.",
+      "mobile": "Tall blueprint-style artwork moves above single-column disclosure rows and reachable bulk controls.",
+      "lookFor": [
+        "Expand All genuinely opens three separate sections; Collapse All closes them and count/disabled states update",
+        "No wiring instructions, licensure claims, equipment compatibility or site inspections are falsely implied"
+      ],
+      "focusAnchor": "services-showcase",
+      "explain": "A useful technical FAQ/service pattern with actual bulk state behavior and professional-scope transparency.",
+      "bestFor": [
+        "Technical installers with verified professional services",
+        "Infrastructure and maintenance businesses needing detailed service disclosure"
+      ],
+      "fitReason": "Real credentials, scope boundaries, equipment instructions and compliance approvals must be documented."
+    }
   },
   {
     "id": "SRV-06",
     "category": "services",
     "title": "Service matrix",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "B2B advisory offerings by audience",
-    "previewRoute": null,
+    "previewRoute": "./previews/SRV-06/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "audience-column-filter",
+      "aria-pressed",
+      "full-matrix-mode",
+      "responsive-selected-column",
+      "live-audience-guidance"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "services",
+      "b2b",
+      "audience-matrix",
+      "responsive-table"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct source-complete responsive interactive preview with original CSS art and all business identities/events/sites fictional. No customer evidence, booked work, guaranteed service, professional advice or real onboarding; passing Chromium/device QA and release approval remain unverified.",
+    "reviewRoute": "./review.html?id=SRV-06",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Service layouts",
+      "focus": "B2B advisory service matrix with real audience-column filtering",
+      "summary": "A four-row illustrative advisory comparison table can display all three audience columns or isolate Founders, Operating Teams or Partners, with changing ARIA state and explanatory text.",
+      "desktop": "An information-dense fully visible comparison matrix pairs with sharply focused selectable audience filters.",
+      "mobile": "A scrollable all-audiences view switches to a readable two-column comparison on audience selection rather than shrinking tiny text.",
+      "lookFor": [
+        "Buttons actually hide nonselected table columns and update the audience-specific explanation, with a return-to-all control",
+        "All support alignments are clearly examples, not consulting proof, guaranteed availability or real client outcomes"
+      ],
+      "focusAnchor": "services-showcase",
+      "explain": "A genuinely functional service matrix distinct from generic service cards and suitable for explicit audience comparison.",
+      "bestFor": [
+        "B2B businesses with real qualified offerings",
+        "Consultancies explaining how verified services differ for audiences"
+      ],
+      "fitReason": "Publish actual offering eligibility, contacts, qualifications and scope before using any alignment matrix."
+    }
   },
   {
     "id": "ABOUT-01",
@@ -2973,46 +3126,138 @@
     "id": "PROC-03",
     "category": "process",
     "title": "Alternating steps",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Renovator milestones with large imagery",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROC-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "working-next-step-anchors",
+      "native-step-disclosures",
+      "single-expanded-detail",
+      "original-three-stage-art"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "process",
+      "renovation",
+      "staggered",
+      "illustration"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct source-complete responsive interactive preview with original CSS art and all business identities/events/sites fictional. No customer evidence, booked work, guaranteed service, professional advice or real onboarding; passing Chromium/device QA and release approval remain unverified.",
+    "reviewRoute": "./review.html?id=PROC-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Process and milestones",
+      "focus": "Alternating renovation stages with three original visual studies and real details",
+      "summary": "Three large staggered chapters combine unique CSS interior-plan artworks with real next-step navigation and native disclosures that retain only one expanded chapter.",
+      "desktop": "Renovation milestone stories alternate reading and image sides with generous photography-sized original diagrams.",
+      "mobile": "Every stage follows a deliberate text-then-image flow, replacing desktop alternation with clear sequential reading.",
+      "lookFor": [
+        "Real chapter anchors progress between actual assessment, design and handoff; native details work and avoid fake completed-project claims",
+        "Each image is original illustrative art, not an unrelated construction photo or approved architectural plan"
+      ],
+      "focusAnchor": "process-showcase",
+      "explain": "A complete staggered process information system with believable explanation and useful interactions rather than invented project evidence.",
+      "bestFor": [
+        "Builders describing their verified project approach",
+        "Renovation contractors showing staged process clarity"
+      ],
+      "fitReason": "Real use requires actual company workflow, qualifications, permissions and verified project photography."
+    }
   },
   {
     "id": "PROC-04",
     "category": "process",
     "title": "Horizontal milestones",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Event project schedule",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROC-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "five-stage-tablist",
+      "keyboard-arrows-home-end",
+      "next-previous-milestones",
+      "live-stage-progress",
+      "original-art-swaps"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "process",
+      "events",
+      "horizontal-milestones",
+      "keyboard"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct source-complete responsive interactive preview with original CSS art and all business identities/events/sites fictional. No customer evidence, booked work, guaranteed service, professional advice or real onboarding; passing Chromium/device QA and release approval remain unverified.",
+    "reviewRoute": "./review.html?id=PROC-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Process and milestones",
+      "focus": "Five-stage event milestone timeline with working progress and keyboard controls",
+      "summary": "An illustrative event-production schedule has five actual selectable milestones, a real progress indicator, prev/next bounds, keyboard navigation and five different original CSS stages.",
+      "desktop": "A long horizontal five-column timeline leads a spacious changing art-and-detail milestone reader.",
+      "mobile": "The milestones become a genuinely horizontally browsable step strip, followed by a large dedicated illustration and explanatory stage card.",
+      "lookFor": [
+        "Selecting a stage updates original art, current description, progress percentage, selection state and disabled navigation bounds",
+        "No real event dates, contracted suppliers, tickets, venues or client approvals are asserted"
+      ],
+      "focusAnchor": "process-showcase",
+      "explain": "A functional event schedule visualization, not a static timeline pretending real production milestones are complete.",
+      "bestFor": [
+        "Event teams with real documented milestones",
+        "Agencies presenting a truthful stage-based timeline"
+      ],
+      "fitReason": "Live timelines need real dates, commitments, names, dependencies and up-to-date status."
+    }
   },
   {
     "id": "PROC-05",
     "category": "process",
     "title": "Expandable steps",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "B2B onboarding frequently expanded",
-    "previewRoute": null,
+    "previewRoute": "./previews/PROC-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-onboarding-details",
+      "single-open-at-a-time",
+      "local-reading-checklist",
+      "progress-meter",
+      "reset-review"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "process",
+      "b2b",
+      "onboarding",
+      "disclosure"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Distinct source-complete responsive interactive preview with original CSS art and all business identities/events/sites fictional. No customer evidence, booked work, guaranteed service, professional advice or real onboarding; passing Chromium/device QA and release approval remain unverified.",
+    "reviewRoute": "./review.html?id=PROC-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Process and milestones",
+      "focus": "Expandable onboarding sequence with a real local-only reading-progress meter",
+      "summary": "Four native onboarding steps include readable requirements, individual reviewed checkboxes, a working 0–4 progress meter, a first-step opener and full reset without saving or submitting any account data.",
+      "desktop": "An original paper-stack graphic offsets detailed onboarding reading, disclosures and a large overview progress counter.",
+      "mobile": "Image-first and fully stacked details with obvious checkbox controls preserve meaningful review-state feedback on phones.",
+      "lookFor": [
+        "Checking a read section updates actual counter/progress; Reset clears checks and disclosures; Open First focuses the disclosure",
+        "Checked steps are explicitly local reading markers, not proof of real onboarding, client acceptance or a persistent account"
+      ],
+      "focusAnchor": "process-showcase",
+      "explain": "A fully operable onboarding education interface with truthful local-only state and accessible reading controls.",
+      "bestFor": [
+        "B2B firms explaining genuine onboarding steps",
+        "Client portals prototyping read-status interfaces before backend integration"
+      ],
+      "fitReason": "Production must use secure authenticated state, real agreements, genuine approval flows and suitable privacy handling."
+    }
   },
   {
     "id": "TRUST-01",
