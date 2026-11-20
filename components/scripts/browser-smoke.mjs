@@ -129,6 +129,73 @@ try{
  page=await browser.newPage({viewport:{width:390,height:900},deviceScaleFactor:1});
  page.on('pageerror',e=>errors.push(String(e)));
  await page.route(/^https:\/\/images\.unsplash\.com\//,route=>route.abort());
+ // Integrated motion: the animated components must also be real and interactive
+ // on complete existing templates, not only isolated showroom specimens.
+ const templateBase='http://127.0.0.1:4199/templates/';
+ const openTemplate=async folder=>{
+   await page.goto(templateBase+folder+'/index.html',{waitUntil:'domcontentloaded'});
+   await page.waitForTimeout(120);
+ };
+ await page.route(/^https:\/\/(?:videos\.pexels\.com|images\.pexels\.com)\//,route=>route.abort());
+ await page.goto(base+'review.html?id=ANIM-01',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>document.querySelector('#review-template-example')?.hidden===false);
+ const linked=await page.locator('#review-template-example').getAttribute('href');
+ assert(linked==='../templates/quiet-saas/index.html#top','animation review links to the actual Arc template');
+ await page.goto(base+'index.html',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(expected=>document.querySelectorAll('.cs-item--preview').length===expected,components.length);
+ assert(await page.locator('.cs-item').filter({hasText:'ANIM-01'}).locator('a[href*="templates/quiet-saas"]').count()===1,'animation catalogue provides a genuine full-template link');
+ await openTemplate('quiet-saas');
+ await page.waitForSelector('.arc-motion-ready');
+ await page.locator('[data-replay-motion="ANIM-01"]').click();
+ assert(await page.locator('[data-motion-pattern="ANIM-01"]').evaluate(el=>el.classList.contains('arc-motion-playing')),'Arc ANIM-01 replays the real hero entrance');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('[data-replay-motion="ANIM-01"]').click();
+ assert(!await page.locator('[data-motion-pattern="ANIM-01"]').evaluate(el=>el.classList.contains('arc-motion-playing')),'Arc motion stops for reduced-motion preference');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await openTemplate('creative-agency');
+ await page.waitForSelector('.offcut-motion-ready');
+ await page.locator('[data-replay-motion="ANIM-02"]').click();
+ assert(await page.locator('[data-motion-pattern="ANIM-02"]').evaluate(el=>el.classList.contains('offcut-motion-playing')),'OFFCUT ANIM-02 replays a line-wise title');
+ await openTemplate('architecture');
+ await page.waitForSelector('.morrow-mask-ready');
+ await page.locator('[data-replay-motion="ANIM-03"]').click();
+ assert(await page.locator('[data-motion-pattern="ANIM-03"]').evaluate(el=>el.classList.contains('morrow-mask-playing')),'Morrow ANIM-03 reveals its actual hero image');
+ await openTemplate('storefront');
+ await page.locator('[data-product="Counter Wash"] .swatches button').nth(1).click();
+ const finish=await page.locator('[data-product="Counter Wash"]').evaluate(el=>({
+  text:el.querySelector('.finish-feedback')?.textContent,
+  color:getComputedStyle(el.querySelector('.product-media')).backgroundColor,
+  pressed:el.querySelectorAll('.swatches button')[1].getAttribute('aria-pressed')
+ }));
+ assert(finish.text.includes('Stone')&&finish.pressed==='true'&&finish.color.startsWith('rgb('),'MORA ANIM-05 actually changes the product finish and selected text');
+ await openTemplate('interactive-playground');
+ await page.waitForSelector('.ticker-motion-ready');
+ await page.locator('[data-ticker-control]').click();
+ assert(await page.locator('[data-motion-pattern="ANIM-06"]').evaluate(el=>el.classList.contains('is-paused')),'WOBBLEWORKS ANIM-06 ticker can be paused');
+ await page.locator('[data-ticker-control]').click();
+ assert(!await page.locator('[data-motion-pattern="ANIM-06"]').evaluate(el=>el.classList.contains('is-paused')),'WOBBLEWORKS ticker can resume');
+ await openTemplate('contractor');
+ await page.locator('[data-motion-stage="4"]').click();
+ assert(await page.locator('#process-current-stage').textContent()==='Stage 4 of 4'
+   && await page.locator('.process-motion-meter span').evaluate(el=>el.style.width==='100%'),'LINE + LEVEL ANIM-07 responds to a selected stage');
+ await page.goto(base+'previews/ANIM-03/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('#a3-play').click();
+ assert(await page.locator('#a3-image').evaluate(el=>el.classList.contains('is-playing')),'ANIM-03 isolated image mask replays');
+ await page.goto(base+'previews/ANIM-06/index.html',{waitUntil:'domcontentloaded'});
+ await page.locator('#a6-next').click();
+ assert((await page.locator('#a6-position').textContent()).includes('02'),'ANIM-06 finite ticker advances manually');
+ await page.locator('#a6-play').click();
+ assert(await page.locator('#a6-play').getAttribute('aria-pressed')==='true','ANIM-06 opt-in rotation starts');
+ await page.locator('#a6-play').click();
+ assert(await page.locator('#a6-play').getAttribute('aria-pressed')==='false','ANIM-06 rotation pauses');
+ for(const folder of ['quiet-saas','creative-agency','architecture','storefront','interactive-playground','contractor']){
+   await openTemplate(folder);
+   const marked=await page.locator('[data-motion-pattern]').count();
+   assert(marked>=1,folder+': full template contains a real integrated motion target');
+   await page.screenshot({path:path.join(evidence,folder+'-integrated-phone.png'),fullPage:false,animations:'disabled'});
+ }
+
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
@@ -210,72 +277,6 @@ try{
  assert((await page.locator('#a1-status').textContent()).includes('Reduced motion'),'ANIM-01 honours reduced-motion playback preference');
  await page.emulateMedia({reducedMotion:'no-preference'});
  
-
- // Integrated motion: the animated components must also be real and interactive
- // on complete existing templates, not only isolated showroom specimens.
- const templateBase='http://127.0.0.1:4199/templates/';
- const openTemplate=async folder=>{
-   await page.goto(templateBase+folder+'/index.html',{waitUntil:'domcontentloaded'});
-   await page.waitForTimeout(120);
- };
- await page.route(/^https:\/\/(?:videos\.pexels\.com|images\.pexels\.com)\//,route=>route.abort());
- await page.goto(base+'review.html?id=ANIM-01',{waitUntil:'domcontentloaded'});
- await page.waitForFunction(()=>document.querySelector('#review-template-example')?.hidden===false);
- const linked=await page.locator('#review-template-example').getAttribute('href');
- assert(linked==='../templates/quiet-saas/index.html#top','animation review links to the actual Arc template');
- await page.goto(base+'index.html',{waitUntil:'domcontentloaded'});
- await page.waitForFunction(()=>document.querySelectorAll('.cs-item--preview').length===components.length);
- assert(await page.locator('.cs-item').filter({hasText:'ANIM-01'}).locator('a[href*="templates/quiet-saas"]').count()===1,'animation catalogue provides a genuine full-template link');
- await openTemplate('quiet-saas');
- await page.waitForSelector('.arc-motion-ready');
- await page.locator('[data-replay-motion="ANIM-01"]').click();
- assert(await page.locator('[data-motion-pattern="ANIM-01"]').evaluate(el=>el.classList.contains('arc-motion-playing')),'Arc ANIM-01 replays the real hero entrance');
- await page.emulateMedia({reducedMotion:'reduce'});
- await page.locator('[data-replay-motion="ANIM-01"]').click();
- assert(!await page.locator('[data-motion-pattern="ANIM-01"]').evaluate(el=>el.classList.contains('arc-motion-playing')),'Arc motion stops for reduced-motion preference');
- await page.emulateMedia({reducedMotion:'no-preference'});
- await openTemplate('creative-agency');
- await page.waitForSelector('.offcut-motion-ready');
- await page.locator('[data-replay-motion="ANIM-02"]').click();
- assert(await page.locator('[data-motion-pattern="ANIM-02"]').evaluate(el=>el.classList.contains('offcut-motion-playing')),'OFFCUT ANIM-02 replays a line-wise title');
- await openTemplate('architecture');
- await page.waitForSelector('.morrow-mask-ready');
- await page.locator('[data-replay-motion="ANIM-03"]').click();
- assert(await page.locator('[data-motion-pattern="ANIM-03"]').evaluate(el=>el.classList.contains('morrow-mask-playing')),'Morrow ANIM-03 reveals its actual hero image');
- await openTemplate('storefront');
- await page.locator('[data-product="Counter Wash"] .swatches button').nth(1).click();
- const finish=await page.locator('[data-product="Counter Wash"]').evaluate(el=>({
-  text:el.querySelector('.finish-feedback')?.textContent,
-  color:getComputedStyle(el.querySelector('.product-media')).backgroundColor,
-  pressed:el.querySelectorAll('.swatches button')[1].getAttribute('aria-pressed')
- }));
- assert(finish.text.includes('Stone')&&finish.pressed==='true'&&finish.color.startsWith('rgb('),'MORA ANIM-05 actually changes the product finish and selected text');
- await openTemplate('interactive-playground');
- await page.waitForSelector('.ticker-motion-ready');
- await page.locator('[data-ticker-control]').click();
- assert(await page.locator('[data-motion-pattern="ANIM-06"]').evaluate(el=>el.classList.contains('is-paused')),'WOBBLEWORKS ANIM-06 ticker can be paused');
- await page.locator('[data-ticker-control]').click();
- assert(!await page.locator('[data-motion-pattern="ANIM-06"]').evaluate(el=>el.classList.contains('is-paused')),'WOBBLEWORKS ticker can resume');
- await openTemplate('contractor');
- await page.locator('[data-motion-stage="4"]').click();
- assert(await page.locator('#process-current-stage').textContent()==='Stage 4 of 4'
-   && await page.locator('.process-motion-meter span').evaluate(el=>el.style.width==='100%'),'LINE + LEVEL ANIM-07 responds to a selected stage');
- await openSpecimen('ANIM-03');
- await page.locator('#a3-play').click();
- assert(await page.locator('#a3-image').evaluate(el=>el.classList.contains('is-playing')),'ANIM-03 isolated image mask replays');
- await openSpecimen('ANIM-06');
- await page.locator('#a6-next').click();
- assert((await page.locator('#a6-position').textContent()).includes('02'),'ANIM-06 finite ticker advances manually');
- await page.locator('#a6-play').click();
- assert(await page.locator('#a6-play').getAttribute('aria-pressed')==='true','ANIM-06 opt-in rotation starts');
- await page.locator('#a6-play').click();
- assert(await page.locator('#a6-play').getAttribute('aria-pressed')==='false','ANIM-06 rotation pauses');
- for(const folder of ['quiet-saas','creative-agency','architecture','storefront','interactive-playground','contractor']){
-   await openTemplate(folder);
-   const marked=await page.locator('[data-motion-pattern]').count();
-   assert(marked>=1,folder+': full template contains a real integrated motion target');
-   await page.screenshot({path:path.join(evidence,folder+'-integrated-phone.png'),fullPage:false,animations:'disabled'});
- }
 
  assert(errors.length===0,'no uncaught browser script errors');
  console.log('RESULT: '+cases.length+' responsive highlight scenarios, '+checks.length+' checks passed');
