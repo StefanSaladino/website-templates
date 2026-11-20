@@ -3755,16 +3755,48 @@
     "id": "ANIM-16",
     "category": "animations",
     "title": "Pointer-tracking spotlight",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Creative studio: restrained light following product detail under a pointer",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-16/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Mouse-only enhancement, fully useful with keyboard/touch and reduced motion."
+    "interactions": [
+      "pointermove",
+      "keyboard-touch",
+      "pressed-state",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "responsive",
+      "interactive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Interactive isolated specimen and full website integration in review; physical device and media QA outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-16",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/dark-tech/index.html#inspection",
+    "fullTemplateName": "KERN / Dark Tech",
+    "showcase": {
+      "label": "Animation and interaction",
+      "focus": "Decorative pointer light and accessible inspection",
+      "summary": "A subtle pointer-following light highlights a fictional release review card; touch and keyboard visitors get a plain emphasis control.",
+      "desktop": "Use the interaction in the specimen and compare with the full-page template.",
+      "mobile": "Content and navigation remain accessible without hover or motion.",
+      "lookFor": [
+        "Decorative pointer light and accessible inspection",
+        "Fallback with usable controls and no hidden critical content"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A subtle pointer-following light highlights a fictional release review card; touch and keyboard visitors get a plain emphasis control.",
+      "bestFor": [
+        "Technical product cards",
+        "Independent studio project overviews"
+      ],
+      "fitReason": "The visual effect is optional, while navigation and content remain usable."
+    }
   },
   {
     "id": "ANIM-17",
@@ -3862,16 +3894,48 @@
     "id": "ANIM-19",
     "category": "animations",
     "title": "Local page transition",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Museum microsite: switching two internal exhibit views",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-19/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Same-origin navigable demo, transition never conceals route state or history."
+    "interactions": [
+      "hash-route",
+      "popstate",
+      "keyboard-touch",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "responsive",
+      "interactive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Interactive isolated specimen and full website integration in review; physical device and media QA outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-19",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/app-launch/index.html#planner-views",
+    "fullTemplateName": "Tide / App Launch",
+    "showcase": {
+      "label": "Animation and interaction",
+      "focus": "Hash-addressable local page transition",
+      "summary": "Switching Today and Tomorrow changes the URL and browser history; without JavaScript both views remain accessible.",
+      "desktop": "Use the interaction in the specimen and compare with the full-page template.",
+      "mobile": "Content and navigation remain accessible without hover or motion.",
+      "lookFor": [
+        "Hash-addressable local page transition",
+        "Fallback with usable controls and no hidden critical content"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Switching Today and Tomorrow changes the URL and browser history; without JavaScript both views remain accessible.",
+      "bestFor": [
+        "Product landing-page previews",
+        "Small in-page multi-view experiences"
+      ],
+      "fitReason": "The visual effect is optional, while navigation and content remain usable."
+    }
   },
   {
     "id": "ANIM-20",
