@@ -1,3 +1,21 @@
 *{box-sizing:border-box}body{margin:0;font:16px/1.55 Arial,Helvetica,sans-serif}a{color:inherit}button,input{font:inherit}button{cursor:pointer}:focus-visible{outline:3px solid #b5583d;outline-offset:3px}img{display:block;max-width:100%}.skip{position:fixed;top:-90px;left:8px;background:#fff;color:#242424;padding:12px;z-index:50}.skip:focus{top:8px}.end{display:flex;justify-content:space-between;gap:16px;background:#202623;color:#fff;padding:26px 6vw;font-size:11px}.end span{max-width:380px} 
 body{background:#ebe8df;color:#2e3830}.sv2-head{display:flex;justify-content:space-between;border-bottom:1px solid #9fa89a;padding:22px 6vw;font-size:12px}.sv2-head a:first-child{text-decoration:none;font-weight:900}.sv2-scene{padding:90px 6vw 120px}.sv2-intro span,.sv2-grid article>span{font-size:11px;letter-spacing:.16em}.sv2-intro h1{font:400 clamp(70px,8vw,130px)/.92 Georgia,serif;letter-spacing:-.07em;margin:25px 0}.sv2-intro p{max-width:660px}.sv2-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:70px}.sv2-art{height:clamp(290px,31vw,460px);position:relative;overflow:hidden;background:#949687;margin-bottom:22px}.sv2-art span{position:absolute}.sv2-stone{background:#9a9b8d}.sv2-stone span{background:#d6d0b6;border:4px solid #a8a28e;transform:rotate(-16deg);width:90%;height:95px;left:7%;top:18%}.sv2-stone span:nth-child(2){top:46%;left:-12%}.sv2-stone span:nth-child(3){top:73%;left:23%}.sv2-plant{background:#b1c1a8}.sv2-plant span{background:#435f42;border-radius:58% 42% 35% 65%;width:60%;height:70%;left:4%;top:10%}.sv2-plant span:nth-child(2){background:#6f8461;left:45%;top:25%}.sv2-plant span:nth-child(3){background:#cfbd83;left:28%;top:60%;width:38%;height:35%}.sv2-light{background:#323e35}.sv2-light span{width:12px;height:80%;background:#141c16;left:24%;top:12%;box-shadow:0 0 65px 15px #cba15d}.sv2-light span:nth-child(2){left:52%;height:60%;top:28%}.sv2-light span:nth-child(3){left:80%;top:44%;height:45%}.sv2-grid h2{font:400 clamp(38px,4vw,59px) Georgia,serif;letter-spacing:-.04em;margin:10px 0}.sv2-grid p{font-size:14px;max-width:300px}.sv2-note{background:#34473d;color:#fff;padding:85px 6vw}.sv2-note h2{font:400 clamp(48px,6vw,90px) Georgia,serif;letter-spacing:-.05em}@media(max-width:850px){.sv2-scene{padding:65px 22px}.sv2-intro h1{font-size:clamp(66px,11vw,95px)}.sv2-grid{display:block;margin-top:50px}.sv2-grid article{margin-bottom:50px}.sv2-art{height:320px}.sv2-note{padding:70px 22px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* M-SRV-02: horizontally scrolling but selectable one-at-a-time service tabs. */
+.sv2-switcher[hidden]{display:none!important}.sv2-grid article[hidden]{display:none!important}
+@media(max-width:850px){
+ body[data-mobile-treatment="M-SRV-02"] .sv2-scene{padding:70px 19px 95px}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-intro h1{font-size:clamp(62px,12vw,86px)}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-switcher{margin:34px 0 0}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-switcher-buttons{display:flex;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;gap:8px;padding-bottom:13px}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-switcher-buttons button{min-height:48px;padding:12px 19px;flex:0 0 auto;border:1px solid #86988b;background:#eee9db;color:#334239;font-weight:800;font-size:13px}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-switcher-buttons button[aria-pressed=true]{background:#324c3c;color:#f8f5ec;border-color:#324c3c}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-switcher-status{font-size:11px;letter-spacing:.1em;margin:10px 0 0}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-grid{margin-top:24px;border-top:1px solid #9eafa0;padding-top:25px}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-grid article{margin:0}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-art{height:clamp(290px,52svh,480px)}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-grid h2{font-size:clamp(47px,10vw,68px)}
+ body[data-mobile-treatment="M-SRV-02"] .sv2-grid p{font-size:16px;max-width:350px}
+}
+

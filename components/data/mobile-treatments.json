@@ -237,13 +237,15 @@
     "category": "Services and capability presentation",
     "title": "Scrollable category switcher",
     "exampleContext": "Wellness services with short touch-friendly category tabs",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "SRV-02"
+    ],
+    "previewRoute": "./previews/SRV-02/?mobile=M-SRV-02",
+    "reviewRoute": "./review.html?id=SRV-02",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working mobile alternate in review. Usable horizontally-scrollable service choices with selected state, live region and one service panel; all service content remains available without scripts. Physical-device and visual QA outstanding."
   },
   {
     "id": "M-SRV-03",
@@ -343,13 +345,15 @@
     "category": "Forms and booking controls",
     "title": "Progressive inquiry steps",
     "exampleContext": "Renovation intake split into short steps with review and back controls",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "FORM-02"
+    ],
+    "previewRoute": "./previews/FORM-02/?mobile=M-FRM-02",
+    "reviewRoute": "./review.html?id=FORM-02",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working mobile alternate in review. Two validated, keyboard/touch-friendly enquiry steps with back, focus movement, and original locally generated summary; standard layout retained on desktop. Physical-device and visual QA outstanding."
   },
   {
     "id": "M-FRM-03",
@@ -434,13 +438,15 @@
     "category": "Calls to action, contact, and footer",
     "title": "Safe-area sticky primary action",
     "exampleContext": "Service enquiry button with dismissal/overlap safeguards",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "CTA-01"
+    ],
+    "previewRoute": "./previews/CTA-01/?mobile=M-CTA-01",
+    "reviewRoute": "./review.html?id=CTA-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working mobile alternate in review. Safe-area-aware mobile enquiry dock using a real review destination; automatically hides when the original action enters view and never appears without scripts. Physical-device and visual QA outstanding."
   },
   {
     "id": "M-CTA-02",

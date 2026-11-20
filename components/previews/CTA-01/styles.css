@@ -18,3 +18,13 @@
 @media(max-width:480px){.c1-header{padding:13px 18px;min-height:68px}.c1-logo{font-size:17px}.c1-header nav{gap:14px;font-size:11px}.c1-intro{min-height:310px;padding:58px 21px}.c1-intro h1{font-size:clamp(55px,12vw,76px)}.c1-invitation{padding:33px 20px 38px}.c1-action{width:100%;min-height:48px}.c1-explanation h2{font-size:clamp(34px,9vw,50px)}.c1-footer{flex-direction:column;gap:6px;padding:24px 20px}}
 @media(max-width:340px){.c1-intro h1{font-size:51px}.c1-header nav{gap:9px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* M-CTA-01: bottom-safe-area dock, no overlap when the original CTA is visible. */
+.c1-mobile-dock[hidden]{display:none!important}.c1-mobile-dock{display:none}
+@media(max-width:760px){
+ body[data-mobile-treatment="M-CTA-01"]{padding-bottom:calc(75px + env(safe-area-inset-bottom,0px))}
+ body[data-mobile-treatment="M-CTA-01"] .c1-mobile-dock:not([hidden]){display:block;position:fixed;z-index:40;inset:auto 0 0;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:#f5f2ebef;border-top:1px solid #bec6bc;box-shadow:0 -9px 24px #162a2325}
+ body[data-mobile-treatment="M-CTA-01"] .c1-mobile-dock a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:50px;width:100%;background:#294638;color:#fff;text-decoration:none;font-size:13px;font-weight:900;padding:12px 18px}
+}
+
