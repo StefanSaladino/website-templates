@@ -1601,6 +1601,124 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Eight functional navigation, announcement, gallery, pricing additions.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/NAV-05/',{waitUntil:'domcontentloaded'});
+ await page.locator('#open-menu').click();
+ assert(await page.locator('#open-menu').getAttribute('aria-expanded')==='true'
+  &&await page.locator('#mobile-panel').isVisible()
+  &&await page.locator('body').evaluate(el=>el.classList.contains('menu-open')),'NAV-05 phone rail opens a real full-screen scroll-locked navigation');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#mobile-panel').isHidden()
+  &&await page.locator('#open-menu').evaluate(el=>document.activeElement===el),'NAV-05 Escape restores focus to the real trigger');
+ await page.locator('#open-menu').click();
+ await page.locator('#mobile-panel a[href="#landscape"]').click();
+ assert(await page.locator('#mobile-panel').isHidden()
+  &&await page.evaluate(()=>location.hash)==='#landscape','NAV-05 chapter selection closes menu and navigates to genuine photo section');
+
+ await page.goto(base+'previews/NAV-06/',{waitUntil:'domcontentloaded'});
+ await page.locator('#open-menu').click();
+ assert(await page.locator('#site-menu').evaluate(el=>el.open)
+  &&await page.locator('#close-menu').evaluate(el=>document.activeElement===el),'NAV-06 opens full-screen native dialog and moves keyboard focus into it');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#site-menu').evaluate(el=>!el.open)
+  &&await page.locator('#open-menu').evaluate(el=>document.activeElement===el),'NAV-06 Escape closes full screen menu and restores original focus');
+ await page.locator('#hero-menu').click();
+ assert(await page.locator('#site-menu').evaluate(el=>el.open),'NAV-06 secondary hero menu actually opens');
+ await page.locator('#close-menu').click();
+ assert(await page.locator('#hero-menu').evaluate(el=>document.activeElement===el),'NAV-06 secondary opener also receives focus on Close');
+
+ await page.goto(base+'previews/NAV-07/',{waitUntil:'domcontentloaded'});
+ await page.locator('#services-toggle').click();
+ assert(await page.locator('#mega-menu').isVisible()
+  &&await page.locator('#services-toggle').getAttribute('aria-expanded')==='true','NAV-07 service mega-menu opens with a real expanded state');
+ await page.locator('[data-group=work]').click();
+ assert(await page.locator('[data-menu-panel=work]').isVisible()
+  &&await page.locator('[data-menu-panel=home]').isHidden()
+  &&await page.locator('[data-group=work]').getAttribute('aria-pressed')==='true','NAV-07 group switch updates actual service copy and accessible pressed state');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#mega-menu').isHidden()
+  &&await page.locator('#services-toggle').evaluate(el=>document.activeElement===el),'NAV-07 Escape closes and restores menu trigger focus');
+ await page.locator('#services-toggle').click();
+ await page.locator('[data-group=planning]').click();
+ await page.locator('[data-menu-panel=planning] a[href="#method"]').click();
+ assert(await page.locator('#mega-menu').isHidden()
+  &&await page.evaluate(()=>location.hash)==='#method','NAV-07 real service link closes flyout and navigates to actual method section');
+
+ await page.goto(base+'previews/BAR-02/',{waitUntil:'domcontentloaded'});
+ await page.locator('#hours-disclosure summary').click();
+ assert(await page.locator('#hours-disclosure').evaluate(el=>el.open)
+  &&(await page.locator('.hours-content').textContent()).includes('Closed (sample)'),'BAR-02 native hours disclosure expands to actual example weekly schedule');
+ await page.locator('#dismiss').click();
+ assert(await page.locator('#bar-showcase').isHidden()
+  &&await page.locator('#restore').isVisible(),'BAR-02 dismissal offers a real way to reopen the notice');
+ await page.locator('#restore').click();
+ assert(await page.locator('#bar-showcase').isVisible(),'BAR-02 restoration brings the actual location strip back');
+
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto(base+'previews/BAR-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#pause').getAttribute('aria-pressed')==='true','BAR-03 reduced-motion preference disables automatic rotation by default');
+ await page.locator('#next').click();
+ assert(await page.locator('#counter').textContent()==='02 / 03'
+  &&await page.locator('#message-link').getAttribute('href')==='#care','BAR-03 Next changes actual message, count and destination link');
+ await page.locator('#previous').click();
+ assert(await page.locator('#counter').textContent()==='01 / 03'
+  &&await page.locator('#message-link').getAttribute('href')==='#journal','BAR-03 Previous returns to original message and actual journal destination');
+ await page.locator('#pause').click();
+ assert(await page.locator('#pause').getAttribute('aria-pressed')==='false','BAR-03 explicitly resumes rotations only after user action');
+ await page.locator('#pause').click();
+ assert(await page.locator('#pause').getAttribute('aria-pressed')==='true','BAR-03 can pause again at any time');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+
+ await page.goto(base+'previews/GAL-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.frame').count()===3
+  &&await page.locator('#slide-count').textContent()==='01 / 03'
+  &&await page.locator('#previous').isDisabled(),'GAL-04 filmstrip starts with three distinct real cards and bounded prev');
+ await page.locator('#next').click();
+ assert(await page.locator('#slide-count').textContent()==='02 / 03'
+  &&(await page.locator('#selected-label').textContent()).includes('Afterglow'),'GAL-04 Next updates filmstrip position and the actual selected status');
+ await page.locator('#filmstrip').focus();
+ await page.keyboard.press('End');
+ assert(await page.locator('#slide-count').textContent()==='03 / 03'
+  &&await page.locator('#next').isDisabled(),'GAL-04 focused filmstrip responds to End and bounds the last selection');
+ await page.locator('#back-first').click();
+ assert(await page.locator('#slide-count').textContent()==='01 / 03','GAL-04 return-to-first control actually resets active selection');
+
+ await page.goto(base+'previews/GAL-07/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.slide:visible').count()===1
+  &&await page.locator('#counter').textContent()==='01 / 03','GAL-07 starts with a single immersive photograph');
+ await page.locator('#next').click();
+ assert(await page.locator('.slide[data-slide="1"]').isVisible()
+  &&(await page.locator('#slide-line2').textContent()).includes('still moments'),'GAL-07 Next changes actual backdrop and caption while preserving art-directed typography');
+ await page.locator('[data-index="2"]').click();
+ assert(await page.locator('.slide[data-slide="2"]').isVisible()
+  &&await page.locator('[data-index="2"]').getAttribute('aria-pressed')==='true','GAL-07 direct selection displays an original non-photo room study');
+ await page.locator('.stage').focus();
+ await page.keyboard.press('Home');
+ assert(await page.locator('.slide[data-slide="0"]').isVisible(),'GAL-07 keyboard Home returns to the first image');
+
+ await page.goto(base+'previews/PRICE-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#matrix [data-plan=core]:visible').count()>0
+  &&await page.locator('#matrix [data-plan=studio]:visible').count()===0,'PRICE-02 390px layout defaults to one legible plan column');
+ await page.locator('[data-pick=partner]').click();
+ assert(await page.locator('#matrix').getAttribute('data-active')==='partner'
+  &&await page.locator('#matrix [data-plan=core]:visible').count()===0
+  &&await page.locator('#matrix [data-plan=partner]:visible').count()>0
+  &&(await page.locator('#plan-details').textContent()).includes('$1,850'),'PRICE-02 phone plan buttons genuinely replace visible comparison column and summary');
+ await page.setViewportSize({width:1200,height:850});
+ assert(await page.locator('#matrix [data-plan=core]:visible').count()>0
+  &&await page.locator('#matrix [data-plan=studio]:visible').count()>0
+  &&await page.locator('#matrix [data-plan=partner]:visible').count()>0,'PRICE-02 wide layout shows all three plan feature columns together');
+
+ for(const id of ['NAV-05','NAV-06','NAV-07','BAR-02','BAR-03','GAL-04','GAL-07','PRICE-02']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const dims=await page.evaluate(()=>({viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
+  assert(dims.scrollWidth<=dims.viewport+2,id+' has no page-level 320px horizontal overflow ('+dims.scrollWidth+'/'+dims.viewport+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
