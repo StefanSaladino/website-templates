@@ -1,0 +1,13 @@
+# Component Release Checklist
+- [ ] Component ID is unique, stable and matches its category.
+- [ ] The variation demonstrates a meaningfully distinct structure or interaction.
+- [ ] A real contextualized example (not a screenshot-only mockup) exists.
+- [ ] All intended photography rights are recorded and local optimized variants load successfully.
+- [ ] Desktop and mobile thumbnails match the real finished component.
+- [ ] Mobile composition validated at 320/360/375/390/430px; tablet, desktop and wide layout reviewed.
+- [ ] Keyboard, focus trapping/return, ARIA, focus outlines, contrast and reduced motion pass.
+- [ ] All forms, booking flows and interactive controls behave honestly and correctly.
+- [ ] No dead links or dummy third-party integrations claiming success.
+- [ ] Gallery load performance and LCP reviewed; images lazy loaded where appropriate.
+- [ ] Automated smoke/accessibility tests and manual mobile Safari QA documented.
+- [ ] Status changed to live **only after** all preceding items pass.

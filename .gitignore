@@ -1,0 +1,3 @@
+# Isolated component-showroom development artifacts
+/components/node_modules/
+/dist/

@@ -1,0 +1,31 @@
+import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import sharp from 'sharp';
+const here=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const [id,sourceFile]=process.argv.slice(2);
+if(!id||!sourceFile)throw Error('Usage: npm run optimize:stock -- STOCK-001 /path/to/approved-source.jpg');
+const manifestPath=path.join(here,'data/stock-manifest.json');
+const manifest=JSON.parse(readFileSync(manifestPath,'utf8'));
+const entry=manifest.assets.find(x=>x.id===id);
+if(!entry)throw Error('Asset ID not registered in stock-manifest.json: '+id);
+if(entry.reviewStatus!=='approved'||!entry.sourceUrl||!entry.licenseUrl||!entry.licenseReviewedAt||!entry.photographer)throw Error('Stock rights not reviewed: '+id);
+if(!existsSync(sourceFile))throw Error('Source file does not exist: '+sourceFile);
+const file=readFileSync(sourceFile);
+const hash=createHash('sha256').update(file).digest('hex');
+const output=path.join(here,'assets/photography',id.toLowerCase());
+mkdirSync(output,{recursive:true});
+const metadata=await sharp(file).metadata();
+const widths=[480,768,1200,1800].filter(n=>n<=metadata.width);
+if(!widths.includes(metadata.width))widths.push(metadata.width);
+entry.derived=[];
+for(const width of widths){
+  const name=id.toLowerCase()+'-'+width+'.webp';
+  await sharp(file).resize({width,withoutEnlargement:true}).webp({quality:78,effort:5}).toFile(path.join(output,name));
+  entry.derived.push({width,path:'assets/photography/'+id.toLowerCase()+'/'+name});
+}
+entry.fileHashSHA256=hash;
+entry.originalFilename=path.basename(sourceFile);
+writeFileSync(manifestPath,JSON.stringify(manifest,null,2)+'\n');
+console.log('Optimized '+id+': '+entry.derived.length+' variants; confirm all intended crops and alt text before publishing.');

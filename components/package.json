@@ -1,0 +1,17 @@
+{
+  "name": "boomer-component-showroom",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "check": "node scripts/validate.mjs",
+    "build": "npm run check && vite build && node scripts/postbuild.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "optimize:stock": "node scripts/optimize-stock.mjs"
+  },
+  "devDependencies": {
+    "vite": "^6.3.0",
+    "sharp": "^0.34.0"
+  }
+}

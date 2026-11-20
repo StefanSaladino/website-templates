@@ -1,0 +1,1 @@
+Preview each component in an isolated folder named by stable ID (for example HERO-01/index.html), with its own styles.css and script.js. Components are initially all drafts; no preview is claimed as finished before implementation and approval.

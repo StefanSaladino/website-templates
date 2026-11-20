@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore individual website sections, compare real examples, and build a shortlist for your next project.">
+  <meta name="color-scheme" content="light">
+  <title>Components — Boomer Automation</title>
+  <link rel="stylesheet" href="./catalogue.css">
+  <script type="module" src="./catalogue.js"></script>
+</head>
+<body>
+  <a class="cs-skip" href="#catalogue">Skip to components</a>
+  <header class="cs-header">
+    <a class="cs-wordmark" href="../index.html" aria-label="Boomer Automation template gallery">BOOMER <span>AUTOMATION</span></a>
+    <nav class="cs-topnav" aria-label="Site navigation">
+      <a href="../index.html#library">Templates</a>
+      <span aria-current="page">Components</span>
+    </nav>
+    <a class="cs-header-link" href="../index.html#about">Discuss a project</a>
+  </header>
+  <main>
+    <section class="cs-intro" aria-labelledby="cs-title">
+      <div class="cs-kicker">COMPONENT SHOWROOM <span> / DESIGN REFERENCE LIBRARY</span></div>
+      <div class="cs-hero-grid">
+        <h1 id="cs-title">A website,<br><em>piece by piece.</em></h1>
+        <div class="cs-hero-aside">
+          <p>Browse individual sections. Find what fits your vision. Save the ones you like.</p>
+          <p class="cs-muted">Every released option will have a working example and its own desktop and mobile view.</p>
+        </div>
+      </div>
+      <div class="cs-stats" id="cs-stats" aria-live="polite">Loading catalogue…</div>
+    </section>
+    <section id="catalogue" class="cs-catalogue" aria-labelledby="cs-catalogue-heading">
+      <div class="cs-section-head"><div><span class="cs-eyebrow">01 / BROWSE THE OPTIONS</span><h2 id="cs-catalogue-heading">Choose a section.</h2></div><p>Browse by part of the page. Each option has a permanent reference number.</p></div>
+      <div class="cs-controls">
+        <label class="cs-search-label" for="cs-search">Find a component</label>
+        <input id="cs-search" type="search" placeholder="Search headers, galleries, booking…" autocomplete="off">
+        <p class="cs-hint" id="cs-mode-hint">Only fully reviewed examples are available to select.</p>
+      </div>
+      <div id="cs-categories" class="cs-category-list" role="group" aria-label="Component categories"></div>
+      <div class="cs-results-title"><h3 id="cs-results-heading">Available examples</h3><span id="cs-result-count"></span></div>
+      <div id="cs-grid" class="cs-grid" aria-live="polite"></div>
+      <div id="cs-empty" class="cs-empty" hidden><h3>Examples are being prepared.</h3><p>Our first set will cover navigation, full-image heroes, galleries, services, contact forms, and calls to action. Nothing is shown as ready before its example and imagery have passed review.</p></div>
+      <noscript><p class="cs-noscript">JavaScript is needed for catalogue filters. The full website-template gallery remains available from the navigation above.</p></noscript>
+    </section>
+    <aside class="cs-footnote"><p><strong>How to use this collection</strong></p><p>Choose the layouts you like and share their IDs with us. Fonts, color, imagery and content can be adapted. Selecting options is a reference for your design brief—not a promise that every layout can be plugged together unchanged.</p></aside>
+  </main>
+  <footer class="cs-footer"><span>BOOMER AUTOMATION / COMPONENTS</span><a href="../index.html">Back to complete templates</a><span>Illustrative concepts, not client work.</span></footer>
+</body>
+</html>

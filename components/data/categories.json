@@ -1,0 +1,205 @@
+[
+  {
+    "id": "headers",
+    "title": "Headers and navigation",
+    "order": 1,
+    "prefix": "NAV",
+    "plannedCount": 7
+  },
+  {
+    "id": "announcements",
+    "title": "Announcements and utility strips",
+    "order": 2,
+    "prefix": "BAR",
+    "plannedCount": 3
+  },
+  {
+    "id": "footers",
+    "title": "Footers",
+    "order": 3,
+    "prefix": "FOOT",
+    "plannedCount": 5
+  },
+  {
+    "id": "calls-to-action",
+    "title": "Calls to action",
+    "order": 4,
+    "prefix": "CTA",
+    "plannedCount": 5
+  },
+  {
+    "id": "heroes",
+    "title": "Hero sections",
+    "order": 5,
+    "prefix": "HERO",
+    "plannedCount": 9
+  },
+  {
+    "id": "introductions",
+    "title": "Page and section introductions",
+    "order": 6,
+    "prefix": "INTRO",
+    "plannedCount": 3
+  },
+  {
+    "id": "galleries",
+    "title": "Galleries and image collections",
+    "order": 7,
+    "prefix": "GAL",
+    "plannedCount": 8
+  },
+  {
+    "id": "projects",
+    "title": "Projects and case studies",
+    "order": 8,
+    "prefix": "PRJ",
+    "plannedCount": 6
+  },
+  {
+    "id": "before-after",
+    "title": "Before-and-after comparisons",
+    "order": 9,
+    "prefix": "COMP",
+    "plannedCount": 3
+  },
+  {
+    "id": "media",
+    "title": "Video and rich media",
+    "order": 10,
+    "prefix": "MEDIA",
+    "plannedCount": 4
+  },
+  {
+    "id": "services",
+    "title": "Services and capabilities",
+    "order": 11,
+    "prefix": "SRV",
+    "plannedCount": 6
+  },
+  {
+    "id": "about",
+    "title": "About and studio introductions",
+    "order": 12,
+    "prefix": "ABOUT",
+    "plannedCount": 4
+  },
+  {
+    "id": "teams",
+    "title": "Teams and people",
+    "order": 13,
+    "prefix": "TEAM",
+    "plannedCount": 4
+  },
+  {
+    "id": "process",
+    "title": "Process and how it works",
+    "order": 14,
+    "prefix": "PROC",
+    "plannedCount": 5
+  },
+  {
+    "id": "trust",
+    "title": "Proof and credentials",
+    "order": 15,
+    "prefix": "TRUST",
+    "plannedCount": 4
+  },
+  {
+    "id": "testimonials",
+    "title": "Testimonials and reviews",
+    "order": 16,
+    "prefix": "TEST",
+    "plannedCount": 5
+  },
+  {
+    "id": "pricing",
+    "title": "Pricing and packages",
+    "order": 17,
+    "prefix": "PRICE",
+    "plannedCount": 5
+  },
+  {
+    "id": "products",
+    "title": "Products and collections",
+    "order": 18,
+    "prefix": "PROD",
+    "plannedCount": 5
+  },
+  {
+    "id": "menus",
+    "title": "Menus and offering lists",
+    "order": 19,
+    "prefix": "MENU",
+    "plannedCount": 4
+  },
+  {
+    "id": "booking",
+    "title": "Booking and scheduling UI",
+    "order": 20,
+    "prefix": "BOOK",
+    "plannedCount": 5
+  },
+  {
+    "id": "articles",
+    "title": "Articles and updates",
+    "order": 21,
+    "prefix": "POST",
+    "plannedCount": 4
+  },
+  {
+    "id": "events",
+    "title": "Events and schedules",
+    "order": 22,
+    "prefix": "EVENT",
+    "plannedCount": 4
+  },
+  {
+    "id": "careers",
+    "title": "Careers and opportunities",
+    "order": 23,
+    "prefix": "CAREER",
+    "plannedCount": 3
+  },
+  {
+    "id": "forms",
+    "title": "Forms and lead capture",
+    "order": 24,
+    "prefix": "FORM",
+    "plannedCount": 6
+  },
+  {
+    "id": "contact",
+    "title": "Contact sections",
+    "order": 25,
+    "prefix": "CONTACT",
+    "plannedCount": 4
+  },
+  {
+    "id": "locations",
+    "title": "Locations and maps",
+    "order": 26,
+    "prefix": "LOC",
+    "plannedCount": 4
+  },
+  {
+    "id": "newsletter",
+    "title": "Newsletter signups",
+    "order": 27,
+    "prefix": "NEWS",
+    "plannedCount": 2
+  },
+  {
+    "id": "interface",
+    "title": "Interactive and utility patterns",
+    "order": 28,
+    "prefix": "UI",
+    "plannedCount": 7
+  },
+  {
+    "id": "legal",
+    "title": "Privacy, consent and policies",
+    "order": 29,
+    "prefix": "LEGAL",
+    "plannedCount": 3
+  }
+]
