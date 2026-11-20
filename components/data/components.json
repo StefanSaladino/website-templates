@@ -1573,16 +1573,48 @@
     "id": "MEDIA-02",
     "category": "media",
     "title": "Inline muted reel",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Creative studio showreel with reduced-motion fallback",
-    "previewRoute": null,
+    "previewRoute": "./previews/MEDIA-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-011"
+    ],
+    "interactions": [
+      "user-enabled-muted-reel",
+      "pause-control",
+      "poster-fallback",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "video",
+      "editorial",
+      "interactive",
+      "reduced-motion"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied.",
+    "reviewRoute": "./review.html?id=MEDIA-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Video and rich media",
+      "focus": "Opt-in muted studio reel",
+      "summary": "A genuinely rendered inline video sits within an editorial article; the film loads only after a visitor presses its explicit play control.",
+      "desktop": "Tall portrait-cropped video pane beside substantive editorial copy, with distinct play and pause states.",
+      "mobile": "The inline media becomes a poster-first phone card with a large, easy-to-use play/pause control and independent crop.",
+      "lookFor": [
+        "Video has no source until the visitor enables motion",
+        "Muted film pauses offscreen and falls back to the poster on errors or reduced motion"
+      ],
+      "focusAnchor": "media-showcase",
+      "explain": "A controlled inline showreel specimen, different from the wide feature-film layout. It preserves the image and information when the sample Pexels video cannot load.",
+      "bestFor": [
+        "Creative studios with edited short reels",
+        "Portfolio storytelling where motion adds useful evidence"
+      ],
+      "fitReason": "Only appropriate when the client has properly licensed, lightweight video that serves the narrative."
+    }
   },
   {
     "id": "MEDIA-03",
@@ -1839,16 +1871,47 @@
     "id": "ABOUT-02",
     "category": "about",
     "title": "Workshop story",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Woodworker tools and short studio intro",
-    "previewRoute": null,
+    "previewRoute": "./previews/ABOUT-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-012",
+      "STOCK-013"
+    ],
+    "interactions": [
+      "native-details",
+      "anchor-scroll"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "image-led",
+      "workshop",
+      "woodworking",
+      "editorial"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied.",
+    "reviewRoute": "./review.html?id=ABOUT-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "About and studio introductions",
+      "focus": "Photo-led workshop narrative",
+      "summary": "An introductory workshop portrait, a cutting-timber photograph and a process essay create a material-first studio story.",
+      "desktop": "A split photographic title section followed by editorial copy, a second workshop image and process disclosures.",
+      "mobile": "Wide workshop images and independently tuned typography become a deliberate vertical narrative, not compressed desktop columns.",
+      "lookFor": [
+        "Actual image blocks illustrate real intended workshop storytelling",
+        "Native process disclosures and transparent third-party-photo notes"
+      ],
+      "focusAnchor": "about-showcase",
+      "explain": "An immersive workshop introduction for a fictional woodworker; photographs are development stock from an existing template and not client work.",
+      "bestFor": [
+        "Woodworkers and cabinetmakers with actual process photos",
+        "Artisan businesses where tools and methods define the identity"
+      ],
+      "fitReason": "Choose when real photography can demonstrate the workshop's genuine process."
+    }
   },
   {
     "id": "ABOUT-03",
@@ -1884,31 +1947,87 @@
     "id": "TEAM-01",
     "category": "teams",
     "title": "Portrait grid",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architecture staff photographs and roles",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEAM-01/",
     "thumbnail": null,
-    "stockAssetIds": [],
+    "stockAssetIds": [
+      "STOCK-003",
+      "STOCK-004",
+      "STOCK-005"
+    ],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "editorial",
+      "image-led",
+      "team",
+      "portrait-grid"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied.",
+    "reviewRoute": "./review.html?id=TEAM-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Teams and people",
+      "focus": "Architecture team portrait grid",
+      "summary": "Three editorial stock portrait studies illustrate an asymmetrical multi-role architecture team grid, with visible non-staff disclaimers.",
+      "desktop": "A deliberate staggered three-column portrait composition with role descriptions instead of generic matching cards.",
+      "mobile": "A featured portrait and concise two-column secondary roster retain readable roles and clear photograph caveats.",
+      "lookFor": [
+        "Distinct photographic hierarchy and readable role labels",
+        "Stock models never presented as actual employees"
+      ],
+      "focusAnchor": "team-showcase",
+      "explain": "A multi-person team introduction in an architecture-site context. Each portrait is genuinely rendered but explicitly described as an unrelated stock model.",
+      "bestFor": [
+        "Architecture and design studios with authentic staff photography",
+        "Small service firms introducing several team disciplines"
+      ],
+      "fitReason": "Useful when an established real team has approved, accurate portraits and meaningful roles."
+    }
   },
   {
     "id": "TEAM-02",
     "category": "teams",
     "title": "Featured founder",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Salon owner portrait and introduction",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEAM-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
+    "stockAssetIds": [
+      "STOCK-006"
+    ],
     "interactions": [],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "editorial",
+      "image-led",
+      "founder",
+      "salon"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied.",
+    "reviewRoute": "./review.html?id=TEAM-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Teams and people",
+      "focus": "Single-founder salon introduction",
+      "summary": "An immersive monochrome portrait and detailed studio introduction demonstrate a founder-first people section.",
+      "desktop": "Tall monochrome portrait beside personal editorial introduction and a grounded next-step link.",
+      "mobile": "A tall cinematic portrait leads into vertically composed studio copy and a readable continuation.",
+      "lookFor": [
+        "Founder-first photo and personal typographic hierarchy",
+        "Illustrative portrait openly labeled as not the actual founder"
+      ],
+      "focusAnchor": "team-showcase",
+      "explain": "A salon founder page structure that is distinct from a team grid. The fictional biography does not describe the person pictured.",
+      "bestFor": [
+        "Salons and independent practitioners",
+        "Solo founders who want to establish personality and practice"
+      ],
+      "fitReason": "Use a real authorized portrait and truthful biography before publishing for a business."
+    }
   },
   {
     "id": "TEAM-03",
@@ -2072,16 +2191,43 @@
     "id": "TRUST-01",
     "category": "trust",
     "title": "Logo row",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "B2B trusted clients with permitted marks",
-    "previewRoute": null,
+    "previewRoute": "./previews/TRUST-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "anchor-scroll"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "typographic",
+      "b2b",
+      "trust",
+      "wordmarks"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied.",
+    "reviewRoute": "./review.html?id=TRUST-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Proof and credentials",
+      "focus": "Fictional client-logo strip",
+      "summary": "Five custom letterform marks demonstrate a real logo-row layout without representing or counterfeiting actual client organizations.",
+      "desktop": "A disciplined five-column baseline with varied typography and explanatory legend.",
+      "mobile": "A two-column grid and prominent final mark keep each wordmark legible, never an autoplaying ticker.",
+      "lookFor": [
+        "Legible optical variation without forced decorative logos",
+        "Explicit fictional placeholders without invented customer relationships"
+      ],
+      "focusAnchor": "trust-showcase",
+      "explain": "A client and partner mark row, responsibly illustrated with wholly fictional names and no false endorsements.",
+      "bestFor": [
+        "B2B consulting and service businesses with verified clients",
+        "Agencies with genuine permission to show partner marks"
+      ],
+      "fitReason": "Once licensed marks and consent are collected, this format can show credible client relationships."
+    }
   },
   {
     "id": "TRUST-02",
@@ -2129,16 +2275,44 @@
     "id": "TRUST-03",
     "category": "trust",
     "title": "Awards/media mentions",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Creative studio publication references with demo labels",
-    "previewRoute": null,
+    "previewRoute": "./previews/TRUST-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-details",
+      "anchor-scroll"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "editorial",
+      "trust",
+      "publication-index",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied.",
+    "reviewRoute": "./review.html?id=TRUST-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Proof and credentials",
+      "focus": "Press mentions and awards ledger",
+      "summary": "Three entirely fictional editorial and awards references use native expandable details to explain what legitimate citations would require.",
+      "desktop": "An understated publication ledger with dates, names and openable disclosure rows.",
+      "mobile": "Compact stacked metadata and touch-friendly summaries preserve both reading order and accessible proof details.",
+      "lookFor": [
+        "Details rows open natively via mouse or keyboard",
+        "Every magazine and award clearly identified as a fictional example"
+      ],
+      "focusAnchor": "trust-showcase",
+      "explain": "A press-and-recognition section that avoids fabrication, with expandable source-verification explanations.",
+      "bestFor": [
+        "Studios with independently verifiable media coverage",
+        "Creative practices with legitimate award records"
+      ],
+      "fitReason": "Best only when publication references, dates and marks can be validated against real sources."
+    }
   },
   {
     "id": "TRUST-04",
@@ -3031,16 +3205,47 @@
     "id": "CONTACT-02",
     "category": "contact",
     "title": "Image-led contact",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Hospitality map-adjacent photo and address",
-    "previewRoute": null,
+    "previewRoute": "./previews/CONTACT-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-001"
+    ],
+    "interactions": [
+      "native-details",
+      "anchor-scroll",
+      "demo-form-link"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "hospitality",
+      "destination",
+      "image-led",
+      "contact"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied.",
+    "reviewRoute": "./review.html?id=CONTACT-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Contact sections",
+      "focus": "Photo-led lodge contact section",
+      "summary": "An illustrative lake photo, plainly fictional arrival information, and an abstract nongeographic sketch lead to a working contact-form example.",
+      "desktop": "A half-photo destination contact composition followed by an intentionally abstract diagram and detailed arrival information.",
+      "mobile": "A carefully cropped first image leads a single-column, full-width action and location-information section.",
+      "lookFor": [
+        "Imagery, practical details and contact links work together",
+        "Map-like drawing is never presented as real directions or booking availability"
+      ],
+      "focusAnchor": "contact-showcase",
+      "explain": "A hospitality contact design demonstrating how location photography and arrival instructions could be arranged on a real site.",
+      "bestFor": [
+        "Retreats and boutique accommodations",
+        "Venues whose arrival process needs careful explanation"
+      ],
+      "fitReason": "Release requires a correct, verifiable destination address and a real business enquiry route."
+    }
   },
   {
     "id": "CONTACT-03",
