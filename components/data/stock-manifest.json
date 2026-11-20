@@ -14,7 +14,9 @@
       "usageIds": [
         "NAV-03",
         "HERO-01",
-        "CONTACT-02"
+        "CONTACT-02",
+        "ABOUT-03",
+        "MEDIA-04"
       ],
       "altText": "Pine forest and mountains surrounding a calm alpine lake",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1764590385310-7f4d28425241?auto=format&fit=crop&w=1900&q=82",
@@ -40,7 +42,9 @@
       "reviewStatus": "needs-review",
       "rightsNotes": "Landscape photograph, no identifiable people or branding known from source description. Verify actual downloaded image and crop before release.",
       "usageIds": [
-        "CTA-02"
+        "CTA-02",
+        "ABOUT-03",
+        "MEDIA-04"
       ],
       "altText": "Warm sun settling over a calm sea",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1763448817227-b7c23b0cea60?auto=format&fit=crop&w=1900&q=82",
@@ -104,7 +108,8 @@
         "GAL-05",
         "GAL-06",
         "ABOUT-01",
-        "TEAM-01"
+        "TEAM-01",
+        "ABOUT-04"
       ],
       "altText": "Editorial fashion portrait, study two",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1741298856762-1ff2f1204bc8?auto=format&fit=crop&w=1000&q=80",
@@ -205,7 +210,8 @@
         "COMP-01",
         "ANIM-03",
         "ANIM-11",
-        "SRV-01"
+        "SRV-01",
+        "MEDIA-04"
       ],
       "altText": "Modern kitchen renovation with open shelving and pendant lights",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772567733000-5d5acb9ef4f9?auto=format&fit=crop&w=1400&q=82",
@@ -235,7 +241,8 @@
         "SRV-03",
         "HERO-05",
         "GAL-03",
-        "PRJ-02"
+        "PRJ-02",
+        "ABOUT-03"
       ],
       "altText": "Contemporary interior with marble backsplash and kitchen island",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772567733061-f7b44c0587b0?auto=format&fit=crop&w=1400&q=82",
@@ -317,7 +324,8 @@
       "rightsNotes": "Existing OFFCUT full-page template already references Pexels video ID 9489382. The linked Pexels source-page identity and contributor have NOT been verified, and no representation is made of approved commercial redistribution. The same review-only video and poster are used by MEDIA-01. Require source validation, license/likeness/property review, a smaller encoded video and handset crop tests.",
       "usageIds": [
         "MEDIA-01",
-        "MEDIA-02"
+        "MEDIA-02",
+        "MEDIA-03"
       ],
       "altText": "Poster for sample creative-studio film",
       "temporaryPreviewUrl": "https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg?auto=compress&dpr=1&w=1800",
