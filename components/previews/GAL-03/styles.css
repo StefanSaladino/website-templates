@@ -1,3 +1,21 @@
 *{box-sizing:border-box}body{margin:0;font:16px/1.55 Arial,Helvetica,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}:focus-visible{outline:3px solid #b75435;outline-offset:4px}img{display:block;max-width:100%}.skip{position:fixed;top:-90px;left:12px;padding:12px;background:#fff;color:#222;z-index:50}.skip:focus{top:10px}.demo-footer{display:flex;justify-content:space-between;gap:20px;padding:22px 6vw;background:#262827;color:#fff;font-size:11px}.demo-footer span{max-width:360px}img[style*="hidden"]{background:#ccc} 
 body{background:#edeae3;color:#2e332b}.g3-head{display:flex;justify-content:space-between;padding:24px 6vw;font-size:12px;border-bottom:1px solid #afa99a}.g3-head a{text-decoration:none;font-weight:900}.g3-intro{padding:90px 7vw 80px}.g3-intro span{font-size:11px;letter-spacing:.18em}.g3-intro h1{font:400 clamp(65px,7vw,115px)/.95 Georgia,serif;letter-spacing:-.075em;margin:25px 0}.g3-chapter{margin:0}.g3-image{height:clamp(350px,55vw,770px);background:#c4c2b6}.g3-image img{width:100%;height:100%;object-fit:cover}.g3-chapter figcaption{display:grid;grid-template-columns:18% 1fr;gap:20px;padding:45px 7vw 120px}.g3-chapter figcaption span{font-size:11px;letter-spacing:.15em}.g3-chapter figcaption h2{font:400 clamp(46px,6vw,90px)/1 Georgia,serif;letter-spacing:-.06em;margin:0}.g3-chapter figcaption p{grid-column:2;max-width:500px;color:#616359}@media(max-width:760px){.g3-intro{padding:70px 22px}.g3-intro h1{font-size:clamp(54px,11vw,85px)}.g3-image{height:350px}.g3-chapter figcaption{display:block;padding:30px 22px 80px}.g3-chapter figcaption h2{font-size:48px;margin:14px 0}.g3-head span{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* M-GAL-03: recompose full-width gallery chapters to a considered two-column grid. */
+@media(max-width:760px){
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;padding:0 12px 75px}
+ body[data-mobile-treatment="M-GAL-03"] .g3-intro{grid-column:1/-1;padding:57px 8px 26px}
+ body[data-mobile-treatment="M-GAL-03"] .g3-intro h1{font-size:clamp(49px,11vw,75px)}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter{min-width:0;display:flex;flex-direction:column;gap:0;padding-bottom:30px}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter:first-of-type{grid-column:1/-1;display:grid;grid-template-columns:1.12fr .88fr;gap:14px;padding-bottom:32px;margin-bottom:22px;border-bottom:1px solid #aaa79a}
+ body[data-mobile-treatment="M-GAL-03"] .g3-image{height:clamp(240px,49vw,370px)}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter:first-of-type .g3-image{height:clamp(240px,56vw,400px)}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter figcaption{padding:15px 4px 0;display:block}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter:first-of-type figcaption{padding:18px 0;align-self:end}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter figcaption span{font-size:9px;letter-spacing:.1em}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter figcaption h2{font-size:clamp(24px,6vw,36px);line-height:1.05;letter-spacing:-.05em;margin:12px 0}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter figcaption p{font-size:11px;line-height:1.55}
+}
+@media(max-width:350px){body[data-mobile-treatment="M-GAL-03"] .g3-chapters{gap:5px 9px}body[data-mobile-treatment="M-GAL-03"] .g3-chapter figcaption h2{font-size:23px}}
+

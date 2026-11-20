@@ -4,13 +4,15 @@
     "category": "Navigation and sticky chrome",
     "title": "Compact wordmark and menu",
     "exampleContext": "A boutique hotel with a fixed brand bar, 44px menu target, and clear open state",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "NAV-01"
+    ],
+    "previewRoute": "./previews/NAV-01/?mobile=M-NAV-01",
+    "reviewRoute": "./review.html?id=NAV-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working in-review phone alternative. Compact anchored mobile menu with the existing Escape, focus trap and return-focus behaviour; visibly distinct from full-height overlay. Rights and physical-device visual checks remain outstanding."
   },
   {
     "id": "M-NAV-02",
@@ -112,13 +114,15 @@
     "category": "Hero compositions",
     "title": "Typography before image",
     "exampleContext": "Professional service hero prioritizing a readable promise and call button",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "HERO-03"
+    ],
+    "previewRoute": "./previews/HERO-03/?mobile=M-HERO-03",
+    "reviewRoute": "./review.html?id=HERO-03",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working in-review phone alternative. Poster-first typographic mobile composition with a separate three-photo editorial strip, not just a resized desktop collage. Rights and physical-device visual checks remain outstanding."
   },
   {
     "id": "M-HERO-04",
@@ -179,13 +183,15 @@
     "category": "Galleries and project imagery",
     "title": "Adaptive two-column grid",
     "exampleContext": "Product lookbook with consistent image proportions and readable labels",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "GAL-03"
+    ],
+    "previewRoute": "./previews/GAL-03/?mobile=M-GAL-03",
+    "reviewRoute": "./review.html?id=GAL-03",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working in-review phone alternative. Feature image plus adaptive two-column chapter images with readable captions and constrained crops. Rights and physical-device visual checks remain outstanding."
   },
   {
     "id": "M-GAL-04",
