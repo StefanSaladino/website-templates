@@ -77,3 +77,7 @@ ANIM-09, ANIM-12, ANIM-17 and ANIM-20 now have functional isolated previews and 
 ## Finished motion inventory — 20 working patterns
 
 All 20 planned ANIM IDs now have isolated specimens and real full-page website integrations. The final four use BED & BORDER (ANIM-04), Waterline (ANIM-13), KERN (ANIM-16) and Tide (ANIM-19). Each remains in review. Any future proposed motion must solve a real design need and satisfy the same accessibility, reduced-motion, progressive-enhancement and full-template integration criteria; the next backlog phase is mobile alternatives and visual release review.
+
+## Mobile treatments — first expanded batch
+
+Six additional actual phone compositions are selectable as mobile alternatives on NAV-01, HERO-03, GAL-03, SRV-02, FORM-02 and CTA-01. Use review page → Phone → Alternate to compare the distinct layout with its parent. Validation now requires both the parent component and mobile-treatment record to refer to each other. Total active mobile variations: **10 / 44**; 34 remain drafts. No approval or main-branch merge implied.

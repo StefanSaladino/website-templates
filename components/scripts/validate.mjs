@@ -41,6 +41,14 @@ if(categories.length!==30||components.length!==157)fail('Catalogue must contain 
 if(!Array.isArray(stock.assets))fail('Stock manifest must contain assets[]');
 if(mobile.length!==44)fail('Mobile treatment baseline must include 44 options');
 const mobileIds=new Set();for(const m of mobile){if(mobileIds.has(m.id))fail('Duplicate mobile treatment '+m.id);mobileIds.add(m.id);if(!/^M-[A-Z]+-\d{2}$/.test(m.id))fail('Bad mobile ID '+m.id);for(const parent of m.compatibleComponentIds||[])if(!componentIds.has(parent))fail('Invalid parent '+parent+' for '+m.id);if(m.status==='in-review'&&(!m.previewRoute||!m.compatibleComponentIds.length))fail('Incomplete mobile preview '+m.id)}
+
+for(const m of mobile.filter(x=>x.status!=='draft')){
+ if(m.compatibleComponentIds.length!==1)fail('One parent per active mobile treatment: '+m.id);
+ const parent=components.find(x=>x.id===m.compatibleComponentIds[0]);
+ if(!parent||!parent.mobileTreatmentIds?.includes(m.id))fail('Parent does not advertise mobile option '+m.id);
+ if(m.previewRoute!==`./previews/${parent?.id}/?mobile=${m.id}`)fail('Mobile preview route mismatch '+m.id);
+ if(m.reviewRoute!==`./review.html?id=${parent?.id}`)fail('Mobile review route mismatch '+m.id);
+}
 for(const component of components.filter(x=>x.status!=='draft'&&x.category==='animations')){
  if(!/^\.\.\/templates\/[a-z-]+\/index\.html(?:#[a-z0-9-]+)?$/.test(component.fullTemplateRoute||''))fail('Animation missing full-page integration route: '+component.id);
  if(!component.fullTemplateName)fail('Animation missing full-page template name: '+component.id);

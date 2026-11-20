@@ -424,6 +424,83 @@ try{
   await page.screenshot({path:path.join(evidence,folder+'-final-motion-phone.png'),animations:'disabled'});
  }
 
+
+ // Phase 4: genuinely distinct, selectable phone treatments in the existing review system.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/NAV-01/?mobile=M-NAV-01',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('body').getAttribute('data-mobile-treatment')==='M-NAV-01','M-NAV-01 mobile variant explicitly selected');
+ await page.locator('.n1-toggle').click();
+ assert(await page.locator('.n1-toggle').getAttribute('aria-expanded')==='true'
+  &&await page.locator('.n1-menu').isVisible(),'M-NAV-01 opens a functional mobile menu');
+ const menuWidth=await page.locator('.n1-menu').evaluate(el=>el.getBoundingClientRect().width);
+ assert(menuWidth<=320&&menuWidth>200,'M-NAV-01 uses a compact anchored menu rather than a full-screen overlay');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('.n1-menu').isHidden()&&await page.locator('.n1-toggle').getAttribute('aria-expanded')==='false','M-NAV-01 closes by Escape and restores menu state');
+ assert(await page.locator('.n1-toggle').evaluate(el=>document.activeElement===el),'M-NAV-01 returns keyboard focus to menu toggle');
+
+ await page.goto(base+'previews/HERO-03/?mobile=M-HERO-03',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('body').getAttribute('data-mobile-treatment')==='M-HERO-03','M-HERO-03 poster-first mobile variant selected');
+ const poster=await page.locator('.h3-scene').evaluate(el=>{const a=el.querySelector('.h3-copy').getBoundingClientRect(),b=el.querySelector('.h3-collage').getBoundingClientRect();return {imageBelow:b.top>=a.bottom-2,columns:getComputedStyle(el.querySelector('.h3-collage')).gridTemplateColumns.split(' ').length}});
+ assert(poster.imageBelow&&poster.columns===3,'M-HERO-03 renders typography first and a three-photo editorial strip underneath');
+
+ await page.goto(base+'previews/GAL-03/?mobile=M-GAL-03',{waitUntil:'domcontentloaded'});
+ const grid=await page.locator('.g3-chapters').evaluate(el=>({columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,first:getComputedStyle(el.querySelector('.g3-chapter')).gridColumnEnd,third:el.querySelectorAll('.g3-chapter').length}));
+ assert(grid.columns===2&&grid.first==='-1'&&grid.third===3,'M-GAL-03 creates a featured wide study and two narrow photographic chapters');
+
+ await page.goto(base+'previews/SRV-02/?mobile=M-SRV-02',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.sv2-switcher-buttons button').count()===3
+  &&await page.locator('.sv2-grid article:visible').count()===1,'M-SRV-02 exposes three category buttons and one selected service');
+ await page.locator('.sv2-switcher-buttons button').nth(2).click();
+ assert(await page.locator('.sv2-switcher-buttons button').nth(2).getAttribute('aria-pressed')==='true'
+  &&await page.locator('.sv2-grid article').nth(2).isVisible()
+  &&(await page.locator('.sv2-switcher-status').textContent()).includes('Lighting'),'M-SRV-02 actually switches the visible service and announced selection');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ assert(await page.locator('.sv2-switcher-buttons button').nth(2).isVisible(),'M-SRV-02 remains usable under reduced-motion preference');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+
+ await page.goto(base+'previews/FORM-02/?mobile=M-FRM-02',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('[data-f2-step-status]').textContent()).includes('Step 1 of 2')
+  &&await page.locator('[data-f2-next]').isVisible()
+  &&await page.locator('button[type=submit]').isHidden(),'M-FRM-02 starts on a real first step with no premature submit');
+ await page.locator('[data-f2-next]').click();
+ assert((await page.locator('[data-f2-step-status]').textContent()).includes('Step 1 of 2'),'M-FRM-02 does not advance past missing required project data');
+ await page.locator('[name=type]').selectOption({label:'Renovation'});
+ await page.locator('[name=timeline]').selectOption({label:'3–6 months'});
+ await page.locator('[name=details]').fill('Kitchen and hallway renovation demonstration.');
+ await page.locator('[data-f2-next]').click();
+ assert((await page.locator('[data-f2-step-status]').textContent()).includes('Step 2 of 2')
+  &&await page.locator('[name=email]').isVisible()
+  &&await page.locator('button[type=submit]').isVisible(),'M-FRM-02 validates step one and advances to contact details');
+ await page.locator('[data-f2-back]').click();
+ assert(await page.locator('[name=details]').inputValue()==='Kitchen and hallway renovation demonstration.','M-FRM-02 back navigation preserves the entered project details');
+ await page.locator('[data-f2-next]').click();
+ await page.locator('[name=name]').fill('Demo Client');
+ await page.locator('[name=email]').fill('client@example.com');
+ await page.locator('button[type=submit]').click();
+ assert(await page.locator('#f2-output-label').isVisible()
+  &&(await page.locator('#f2-output').inputValue()).includes('Renovation')
+  &&(await page.locator('#f2-message').textContent()).includes('Nothing was submitted'),'M-FRM-02 preserves the functional local enquiry summary without sending data');
+
+ await page.goto(base+'previews/CTA-01/?mobile=M-CTA-01',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>!document.querySelector('.c1-mobile-dock')?.hidden);
+ const dock=page.locator('.c1-mobile-dock');
+ assert(await dock.isVisible()&&(await dock.locator('a').getAttribute('href'))==='../../review.html?id=FORM-01','M-CTA-01 shows a working safe-area mobile enquiry action');
+ assert(await dock.evaluate(el=>getComputedStyle(el).position)==='fixed','M-CTA-01 action is fixed to the phone viewport');
+ await page.locator('.c1-action').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('.c1-mobile-dock')?.hidden===true);
+ assert(await dock.isHidden(),'M-CTA-01 suppresses duplicate sticky action when original button is visible');
+ await page.locator('.c1-intro').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('.c1-mobile-dock')?.hidden===false);
+ assert(await dock.isVisible(),'M-CTA-01 sticky action returns when original action leaves the viewport');
+
+ // Confirm all six mobile previews have no sideways page overflow at a phone width.
+ for(const [parent,altId] of [['NAV-01','M-NAV-01'],['HERO-03','M-HERO-03'],['GAL-03','M-GAL-03'],['SRV-02','M-SRV-02'],['FORM-02','M-FRM-02'],['CTA-01','M-CTA-01']]){
+  await page.goto(base+'previews/'+parent+'/?mobile='+altId,{waitUntil:'domcontentloaded'});
+  assert(await page.locator('body').getAttribute('data-mobile-treatment')===altId,altId+' preview is routable by mobile treatment query');
+  const bounds=await page.evaluate(()=>({w:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert(bounds.scroll<=bounds.w+2,altId+' does not force horizontal page overflow at 390px');
+ }
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);

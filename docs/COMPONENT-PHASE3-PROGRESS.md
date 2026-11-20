@@ -28,3 +28,7 @@ The core review inventory reaches **48 of 157**: 36 Phase 3 layout specimens plu
 ## Animation implementation milestone — November 20, 2026
 
 The complete 20-pattern animation inventory now has **20 working isolated previews and 20 full-template integrations**. Core catalogue in-review count: **56 of 157** (36 original Phase 3 examples + 20 animations), with **4 of 44** optional mobile layouts in review. The final four are ANIM-04 (landscape image depth), ANIM-13 (waterfront editorial rail), ANIM-16 (pointer spotlight with touch/keyboard fallback) and ANIM-19 (hash-navigable internal page transition). All are in-review and none live. Browser testing checks actual controls, motion fallback and browser history; final visual/device/media approval remains open.
+
+## Mobile-alternative checkpoint (November 20, 2026)
+
+The first full six-option phone-design batch is implemented: M-NAV-01, M-HERO-03, M-GAL-03, M-SRV-02, M-FRM-02 and M-CTA-01. **10 / 44 mobile alternatives** are now in review (six new, four original). The core catalogue is **56 / 157 in review** and the completed animation inventory remains **20 / 20 working**. All six are linked to their actual parent previews through the same comparison UI; default component layouts are unchanged. User-facing gallery photography and final phone-device QA still block live approval.

@@ -753,3 +753,20 @@ The planned motion range is now **20 / 20 working in-review**. Each example has 
 **Release status:** all 20 are `in-review`, none are `live`. Core catalogue has 56 in-review of 157 options; mobile alternatives remain 4 in-review of 44. The animation build stage is complete; further work prioritizes visual QA and the mobile-alternative design backlog, not gratuitously adding effects. Media licensing, image loading and cropping, real iOS Safari / Android Chrome checks, reduced-motion inspection, performance and human accessibility review are still required before approval. `main` remains unchanged.
 
 **QA:** Added explicit integration route/fragment checks and browser regressions for photo clamp, parallax pause, rail movement and bounds, pointer follow and accessible fallback, deep-linked local views, Back/Forward and no-script content.
+
+## Mobile design expansion — six distinct phone treatments (November 20, 2026)
+
+Mobile alternatives in review: **10 / 44** (four earlier plus six newly added). Core examples remain **56 / 157** in review; animations remain **20 / 20 implemented**. These treatments are selectable by the existing review page's phone comparison selector, retain their original parent previews, and are not applied to unrelated full website templates:
+
+| ID | Parent | Alternate phone design |
+|---|---|---|
+| M-NAV-01 | NAV-01 | Compact anchored menu with focus management and Escape close |
+| M-HERO-03 | HERO-03 | Large poster-first typography above a tight three-photo editorial strip |
+| M-GAL-03 | GAL-03 | First featured study followed by a two-column, captioned image gallery |
+| M-SRV-02 | SRV-02 | Scrollable service category tabs with one visible service and an announced selected state |
+| M-FRM-02 | FORM-02 | Two validated project/contact steps with back navigation and the original local summary |
+| M-CTA-01 | CTA-01 | Fixed bottom phone action honoring safe-area insets; hides beside its original CTA |
+
+The defaults, original semantics and non-mobile layouts remain available. No client site has been deployed or any parent component marked live. Visual crop, photography rights, physical iOS/Android interaction and accessibility review remain mandatory before approval.
+
+**QA:** Added source-level parent-to-alternative symmetry and explicit browser tests for navigation focus/close, collage/gallery geometry, actual switcher selection, native field validity, step/back/summary continuity, sticky-action suppression and 390px overflow.

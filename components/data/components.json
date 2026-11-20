@@ -25,7 +25,9 @@
     "hasMobileLayout": true,
     "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
     "reviewRoute": "./review.html?id=NAV-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-NAV-01"
+    ],
     "showcase": {
       "label": "Header & navigation",
       "focus": "Minimal sticky header",
@@ -443,7 +445,9 @@
     "hasMobileLayout": true,
     "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
     "reviewRoute": "./review.html?id=CTA-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-CTA-01"
+    ],
     "showcase": {
       "label": "Call to action",
       "focus": "Compact consultation band",
@@ -690,7 +694,9 @@
     "hasMobileLayout": true,
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=HERO-03",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-HERO-03"
+    ],
     "showcase": {
       "label": "Hero sections",
       "focus": "Editorial asymmetrical collage",
@@ -1083,7 +1089,9 @@
     "hasMobileLayout": true,
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=GAL-03",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-GAL-03"
+    ],
     "showcase": {
       "label": "Galleries and image collections",
       "focus": "Single-image photographic chapters",
@@ -1599,7 +1607,9 @@
     "hasMobileLayout": true,
     "notes": "In review: section interaction/layout built with material illustration placeholders; approved project photography is outstanding.",
     "reviewRoute": "./review.html?id=SRV-02",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-SRV-02"
+    ],
     "showcase": {
       "label": "Services and capabilities",
       "focus": "Photographic service tiles",
@@ -2662,7 +2672,9 @@
     "hasMobileLayout": true,
     "notes": "In-review functional sample. Final visual, photo or device approval still required.",
     "reviewRoute": "./review.html?id=FORM-02",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-FRM-02"
+    ],
     "showcase": {
       "label": "Forms and lead capture",
       "focus": "Detailed quote enquiry",
