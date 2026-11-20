@@ -60,7 +60,7 @@ Component code should use prefixed selectors/classes and local tokens, not globa
 5. **Realistic interaction**: menus open and close; galleries filter; dialogs trap focus; slides use controls; forms validate; fake bookings/checkout never claim a real submission or confirmed availability.
 6. **Clarity about editable parts**: brand, colors, text, images, font and links; display preview-only customization when feasible.
 7. **Asset source record** tied to the asset ID and to the final local file, photographer, URL, license, date checked, rights flags, crop, and alt text.
-8. **Performance-aware assets**: locally hosted, responsive images (`srcset`, `sizes`, width/height, modern formats, loading priority) and video poster/fallback; no dependence on hotlinked stock photos. <https://web.dev/learn/images/responsive-images>
+8. **Performance-aware assets**: license-documented responsive images via local assets or reviewed external HTTPS URLs (`srcset`, `sizes`, width/height, modern formats, loading priority) and video poster/fallback; remote image delivery is allowed with trusted-source metadata, resilience checks and an optional local fallback. <https://web.dev/learn/images/responsive-images>
 9. **Responsive/accessible QA evidence** and no critical or high-severity issues.
 10. **Functional visible links**: no `href="#"` pretending to navigate, no dead CTAs, no fake purchase/booking completion. If demo only, explicitly say so.
 11. **Graceful degradation** if image fails or JS is disabled; don't display an empty black rectangle or inaccessible content.
@@ -68,14 +68,14 @@ Component code should use prefixed selectors/classes and local tokens, not globa
 
 ## 3. Stock photography and licensing policy
 
-**Preferred stock sources:** Pexels and Unsplash free libraries, with approved images downloaded and optimized for our demo site. Consult and record the current license at the exact asset's source page. Pexels expressly allows use in a website template that is sold; Unsplash generally permits commercial use, but restricts aggregating images into a competing stock service. These licenses do NOT automatically clear people’s likeness, identifiable brands, trademarked designs, private property, or all redistribution models.
+**Preferred stock sources:** Pexels and Unsplash free libraries, using individually reviewed image URLs or downloaded/optimized copies for our demo site. Consult and record the current license at the exact asset's source page. Pexels expressly allows use in a website template that is sold; Unsplash generally permits commercial use, but restricts aggregating images into a competing stock service. These licenses do NOT automatically clear people’s likeness, identifiable brands, trademarked designs, private property, or all redistribution models.
 
 - Sources: <https://www.pexels.com/license/> ; <https://unsplash.com/license> ; <https://help.unsplash.com/en/articles/2612329-releases-and-trademarks>.
 - Maintain `assets/licensing/stock-manifest.json` with: unique asset ID, source URL, photographer/creator, platform, license URL, retrieval + review dates, allowed uses, release/trademark concerns, file hash, original filename, derived image paths, usage IDs, attribution when needed, and replacement status.
 - **Never assume “stock = automatically compliant.”** Review licenses specifically before allowing source downloads or bundled sellable templates; preview use and asset redistribution are not identical. Avoid using a recognizable person as an implied customer/testimonial or an identifiable brand as an implied partner.
 - Do not scrape a stock site, sell individual stock files, turn this into an image library, or make original stock assets separately downloadable.
 - Use licensed images from distinct scenes; don't repeat the same architectural image across all 20 examples. Each image should prove the composition it is assigned to.
-- Maintain an offline asset copy where rights allow; generate WebP/AVIF/JPEG fallbacks, mobile crops, `srcset` and metadata. Don't make the public catalogue depend on remote image URLs that can disappear.
+- Prefer responsive image delivery, stable image URLs and documented source/crop metadata; local optimized copies are optional. Remotely hosted photos must have verified URLs and visual fallbacks because sources can change.
 - For genuinely licensed premium imagery (if used later), record the individual purchaser, scope, transferability, and distribution restrictions before use.
 - For demos without meaningful image content (cookies, forms, typography), use a realistic surrounding page/context; no forced decorative stock photo.
 
@@ -545,7 +545,7 @@ Check 320 / 360 / 375 / 390 / 430px and short-height landscape devices, plus 768
 ### Phase 2 — Vertical slice: six finished components
 **Suggested reference specimens:** NAV-03 transparent image navigation; HERO-01 full-bleed image; GAL-02 masonry; SRV-03 alternating services; CTA-02 image CTA; FORM-01 minimal contact.
 
-**Deliverables:** all example-contract fields; real local licensed media; desktop/mobile preview; one fully interactive example (navigation, gallery); small sample shortlist; smoke tests. Prove four distinct alternate phone designs (M-NAV-04, M-HERO-02, M-GAL-02, M-SRV-03) in addition to the six default phone layouts.
+**Deliverables:** all example-contract fields; license-documented stock media (local or remote HTTPS); desktop/mobile preview; one fully interactive example (navigation, gallery); small sample shortlist; smoke tests. Prove four distinct alternate phone designs (M-NAV-04, M-HERO-02, M-GAL-02, M-SRV-03) in addition to the six default phone layouts.
 
 **Exit:** a coworker can add a component consistently; a client can choose six distinct options without explanation and compare the four corresponding mobile alternatives; 320px works; image-license evidence is complete.
 
@@ -591,9 +591,9 @@ Check 320 / 360 / 375 / 390 / 430px and short-height landscape devices, plus 768
 
 **Visual quality:** each variation demonstrates a genuine structural/interaction difference from its siblings; no generic card wall, fake KPI filler, arbitrary gradients, unreadable tiny labels, image repetition, or aesthetic-only motion. The choice still feels intentional with real photography.
 
-**Assets and performance:** local optimized image variants, reserved dimensions, LCP hero priority, noncritical lazy loading, preload only when justified, lightweight interactive scripts, no rendering 137 iframes at page load, optimized thumbnail sizes and a no-JS browse fallback.
+**Assets and performance:** rights-reviewed remote or locally optimized image variants, reserved dimensions, LCP hero priority, noncritical lazy loading, preload only when justified, lightweight interactive scripts, no rendering 137 iframes at page load, optimized thumbnail sizes and a no-JS browse fallback.
 
-**Legal/content:** stock license recorded; photography use appropriate to rights and context; no invented genuine client reviews/testimonials presented as real; no misleading real-service claims; no fake reservation time slots; contact/demo placeholders unmistakably marked.
+**Legal/content:** stock license and source recorded; photography use appropriate to rights and context; no invented genuine client reviews/testimonials presented as real; no misleading real-service claims; no fake reservation time slots; contact/demo placeholders unmistakably marked.
 
 **Publishing:** `draft → in-review → approved → live`. Only `live` appears as a selectable ready option. Every live ID has its own preview, screenshots, documented integration level and image manifest. Gallery counts and category stats derive from live manifest records, never hardcoded.
 
@@ -637,3 +637,5 @@ For maintainability, the example-preview folder can later live in the separately
 **Milestone 1 definition of done:** A gallery category can be browsed, an example opened, desktop/mobile previews switched, its interaction tried, and compatible alternate mobile designs compared; its ID (and selected mobile treatment ID where applicable) saved, selected IDs copied, and the asset/license provenance audited. Once those six specimens pass, phase 3 becomes repeatable production rather than experimental work.
 
 **Repository state:** The foundation is being developed on `feature/component-showroom`; this roadmap amendment is planning only, not evidence of 44 implemented mobile examples. Do not merge or publish until the component and mobile-specific release gates pass.
+## Development amendment — remote stock and final client visual review
+The component showroom can use source-documented direct HTTPS stock image URLs (Unsplash or Pexels) instead of downloading every image into GitHub. Include photographer, source URL, current license link, permitted usage assessment, and the production CDN URL in the media manifest. Check real image availability, behavior and accessible alternatives before release. Retain a sensible fallback if image loading fails. This does **not** eliminate likeness, trademark, property, endorsement or other rights considerations. The client has chosen to perform final visual inspection **after the showroom is implemented**, so do not hold up building the remaining components for preliminary photo-crop approval. Track those visual approvals as deferred and keep unapproved examples in review. Functional, route, accessibility and responsive code checks continue throughout development.
