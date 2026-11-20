@@ -18,14 +18,33 @@ const loadJSON=async path=>{
 };
 try{
   const [categories,components]=await Promise.all([loadJSON('./data/categories.json'),loadJSON('./data/components.json')]);
-  const live=components.filter(c=>c.status==='live');
-  const visible=planningMode?components:live;
-  if(planningMode)elements.hint.textContent='Planning view: unreleased examples are labelled Draft or In review and are not yet selectable.';
-  elements.stats.innerHTML='<span><strong>'+categories.length+'</strong>section families</span><span><strong>'+components.length+'</strong>planned options</span><span><strong>'+live.length+'</strong>ready to explore</span>';
+  const built=components.filter(item=>item.previewRoute&&['in-review','approved','live'].includes(item.status));
+  const live=built.filter(item=>item.status==='live');
+  const visible=planningMode?components:built;
+  elements.hint.textContent=planningMode
+    ? 'Planning mode shows all options, including concepts not yet built. Remove ?planning=1 to browse only working designs.'
+    : 'Browse and open these working design examples. They are still being developed, with final visual review pending.';
+  elements.stats.innerHTML='<span><strong>'+built.length+'</strong>working examples</span><span><strong>'+categories.length+'</strong>categories planned</span><span><strong>'+components.length+'</strong>total concepts</span>';
   const labelById=new Map(categories.map(category=>[category.id,category.title]));
+  let resizeObserver=null;
+  function fitPreviewFrames(){
+    if(resizeObserver)resizeObserver.disconnect();
+    const windows=[...elements.grid.querySelectorAll('.cs-preview-window')];
+    if('ResizeObserver' in window){
+      resizeObserver=new ResizeObserver(entries=>{
+        for(const entry of entries){
+          const width=entry.target.getBoundingClientRect().width;
+          entry.target.style.setProperty('--cs-preview-scale',String(Math.max(.12,width/1280)));
+        }
+      });
+      windows.forEach(el=>resizeObserver.observe(el));
+    }else{
+      windows.forEach(el=>el.style.setProperty('--cs-preview-scale',String(Math.max(.12,el.getBoundingClientRect().width/1280))));
+    }
+  }
   const showCategories=()=>{
     elements.categories.replaceChildren();
-    const options=[{id:'all',title:'All sections',plannedCount:components.length},...categories];
+    const options=[{id:'all',title:'All sections',plannedCount:components.length},...categories.filter(c=>planningMode||built.some(item=>item.category===c.id))];
     for(const category of options){
       const button=document.createElement('button');
       button.type='button';
@@ -46,18 +65,26 @@ try{
       const haystack=[item.id,item.title,item.exampleContext,labelById.get(item.category),...(item.designTags||[])].join(' ').toLocaleLowerCase();
       return byCategory&&haystack.includes(query);
     });
-    elements.resultsHeading.textContent=state.category==='all'?'Available examples':labelById.get(state.category);
-    elements.resultsCount.textContent=matches.length+' '+(planningMode?'catalogue entries':'ready examples');
+    elements.resultsHeading.textContent=state.category==='all'?(planningMode?'All planned components':'Explore working designs'):labelById.get(state.category);
+    elements.resultsCount.textContent=matches.length+' '+(planningMode?'catalogue entries':'working examples');
     elements.grid.replaceChildren();
     for(const item of matches){
       const article=document.createElement('article');
-      article.className='cs-item'+(item.status!=='live'?' cs-item--draft':'');
-      const previewable=item.previewRoute&&(item.status==='live'||(planningMode&&item.status==='in-review'));
-      const destination=planningMode&&item.status==='in-review'&&item.reviewRoute?item.reviewRoute:item.previewRoute;
-      const cta=previewable?'<a href="'+escapeText(destination)+'">'+(item.status==='live'?'Open working example':'Compare development previews')+'</a>':'';
-      article.innerHTML='<div class="cs-item-top"><span>'+escapeText(item.id)+'</span><span class="cs-item-status">'+(item.status==='live'?'Reviewed':item.status==='in-review'?'In review · not published':'Draft · not available')+'</span></div><h4>'+escapeText(item.title)+'</h4><p>'+escapeText(item.exampleContext)+'</p>'+cta;
+      const working=Boolean(item.previewRoute&&['in-review','approved','live'].includes(item.status));
+      article.className='cs-item'+(working?' cs-item--preview':' cs-item--draft');
+      const previewRoute=working?item.previewRoute:'';
+      const reviewRoute=working?(item.reviewRoute||item.previewRoute):'';
+      const stateLabel=item.status==='live'?'Ready':item.status==='in-review'?'In review':item.status==='approved'?'Awaiting release':'Planned';
+      const frame=working
+        ? '<div class="cs-preview-window"><iframe title="Visual preview of '+escapeText(item.id)+' '+escapeText(item.title)+'" src="'+escapeText(previewRoute)+'" loading="lazy" tabindex="-1" aria-hidden="true"></iframe><a class="cs-preview-cover" href="'+escapeText(previewRoute)+'" aria-label="Open full-page design preview of '+escapeText(item.id)+'"></a></div>'
+        : '';
+      const actions=working
+        ? '<div class="cs-item-actions"><a class="cs-action-primary" href="'+escapeText(previewRoute)+'">Open design</a><a href="'+escapeText(reviewRoute)+'">Compare desktop and mobile</a></div>'
+        : '';
+      article.innerHTML=frame+'<div class="cs-item-top"><span>'+escapeText(item.id)+'</span><span class="cs-item-status">'+stateLabel+'</span></div><h4>'+escapeText(item.title)+'</h4><p>'+escapeText(item.exampleContext)+'</p>'+actions;
       elements.grid.append(article);
     }
+    fitPreviewFrames();
     elements.empty.hidden=matches.length!==0;
     if(matches.length===0&&visible.length>0)elements.empty.querySelector('h3').textContent='Nothing matches these filters.';
     else elements.empty.querySelector('h3').textContent='Examples are being prepared.';

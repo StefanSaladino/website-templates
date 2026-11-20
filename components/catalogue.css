@@ -18,3 +18,20 @@
 @media(max-width:570px){.cs-wordmark{font-size:17px}.cs-wordmark span{font-size:8px}.cs-topnav{gap:12px;font-size:12px}.cs-intro{padding-top:68px;padding-bottom:55px}.cs-hero-grid h1{font-size:clamp(51px,12vw,72px)}.cs-hero-aside p:first-child{font-size:21px}.cs-catalogue{padding-top:53px;padding-bottom:70px}.cs-grid{grid-template-columns:1fr}.cs-category-list{flex-wrap:nowrap;overflow-x:auto;padding:0 0 14px;scroll-snap-type:x mandatory;margin:30px 0}.cs-category-list button{flex:0 0 auto;scroll-snap-align:start}.cs-stats{gap:15px}.cs-section-head h2{font-size:44px}.cs-footer{display:grid;gap:14px}}
 @media(max-width:350px){.cs-wordmark span{display:none}.cs-topnav{gap:9px}.cs-hero-grid h1{font-size:49px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.cs-category-list button{transition:none}}
+
+/* Development gallery: working, visual component previews, not just text-only entries. */
+.cs-grid{column-gap:26px;row-gap:18px}
+.cs-item--preview{padding:17px 0 29px}
+.cs-preview-window{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden;background:#d8d8d0;border:1px solid #c3c6bd;--cs-preview-scale:.45}
+.cs-preview-window iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform:scale(var(--cs-preview-scale));transform-origin:top left;pointer-events:none;background:#d8d8d0}
+.cs-preview-cover{position:absolute;inset:0;z-index:2;display:block;cursor:pointer}
+.cs-preview-cover:hover{box-shadow:inset 0 0 0 3px var(--cs-ink)}
+.cs-preview-cover:focus-visible{outline:3px solid var(--cs-rust);outline-offset:-3px}
+.cs-item--preview .cs-item-top{margin-top:17px}
+.cs-item-status{font-weight:700;color:#554d45}
+.cs-item-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:17px}
+.cs-item-actions a{font-size:13px;margin:0;min-height:44px;display:inline-flex;align-items:center;text-underline-offset:4px}
+.cs-item-actions .cs-action-primary{background:var(--cs-ink);color:#fff;padding:10px 16px;text-decoration:none}
+.cs-item--draft{padding:22px 0;opacity:.72}
+@media(max-width:570px){.cs-grid{gap:0}.cs-preview-window{aspect-ratio:16/10}.cs-item--preview{padding:19px 0 29px}.cs-item-actions{gap:10px}.cs-item-actions a{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.cs-preview-cover{transition:none}}
