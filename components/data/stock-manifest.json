@@ -13,7 +13,8 @@
       "rightsNotes": "Landscape photography of Lago di Braies, Italy. Does not depict a real location for the fictional hotel brand. Rights license visible at source; local copy and crop review pending.",
       "usageIds": [
         "NAV-03",
-        "HERO-01"
+        "HERO-01",
+        "CONTACT-02"
       ],
       "altText": "Pine forest and mountains surrounding a calm alpine lake",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1764590385310-7f4d28425241?auto=format&fit=crop&w=1900&q=82",
@@ -69,7 +70,8 @@
         "GAL-01",
         "HERO-03",
         "GAL-05",
-        "GAL-06"
+        "GAL-06",
+        "TEAM-01"
       ],
       "altText": "Editorial fashion portrait, study one",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1632766984155-d42dd9affe85?auto=format&fit=crop&w=1000&q=80",
@@ -101,7 +103,8 @@
         "HERO-03",
         "GAL-05",
         "GAL-06",
-        "ABOUT-01"
+        "ABOUT-01",
+        "TEAM-01"
       ],
       "altText": "Editorial fashion portrait, study two",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1741298856762-1ff2f1204bc8?auto=format&fit=crop&w=1000&q=80",
@@ -132,7 +135,8 @@
         "GAL-01",
         "HERO-03",
         "GAL-05",
-        "GAL-06"
+        "GAL-06",
+        "TEAM-01"
       ],
       "altText": "Editorial fashion portrait, study three",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1633994048003-071f6c11e26a?auto=format&fit=crop&w=1000&q=80",
@@ -163,7 +167,8 @@
         "GAL-01",
         "HERO-04",
         "GAL-05",
-        "GAL-06"
+        "GAL-06",
+        "TEAM-02"
       ],
       "altText": "Monochrome editorial portrait, study four",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1766299231533-27fb998d1a6e?auto=format&fit=crop&w=1000&q=80",
@@ -311,7 +316,8 @@
       "reviewStatus": "needs-review",
       "rightsNotes": "Existing OFFCUT full-page template already references Pexels video ID 9489382. The linked Pexels source-page identity and contributor have NOT been verified, and no representation is made of approved commercial redistribution. The same review-only video and poster are used by MEDIA-01. Require source validation, license/likeness/property review, a smaller encoded video and handset crop tests.",
       "usageIds": [
-        "MEDIA-01"
+        "MEDIA-01",
+        "MEDIA-02"
       ],
       "altText": "Poster for sample creative-studio film",
       "temporaryPreviewUrl": "https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg?auto=compress&dpr=1&w=1800",
@@ -328,6 +334,60 @@
         "high-bandwidth-4k-only-reference",
         "mobile-video-crop-review-pending",
         "redistribution-not-approved"
+      ]
+    },
+    {
+      "id": "STOCK-012",
+      "sourceUrl": "https://images.unsplash.com/photo-1769353086138-19ee65291a04?auto=format&fit=crop&fm=jpg&q=78&w=1800",
+      "photographer": "Unverified — source credit in existing GRAIN & GABLE template needs matching to individual asset",
+      "platform": "Unsplash (as credited by existing template)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Reuses remote Unsplash image already displayed in templates/woodworker/index.html. Exact Unsplash source page, creator attribution, property/model permissions and suitability for redistribution were NOT verified. Review-only until source mapping and rights/crop checks are completed. This image is NOT actual work of the fictional studio.",
+      "usageIds": [
+        "ABOUT-02"
+      ],
+      "altText": "Carpenter working carefully on a piece of wood at a bench; illustrative stock",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1769353086138-19ee65291a04?auto=format&fit=crop&fm=jpg&q=78&w=1800",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "exact-source-page-pending",
+        "creator-unverified",
+        "property-and-model-rights-unverified",
+        "photo-crop-approval-pending",
+        "not-cleared-for-template-redistribution"
+      ]
+    },
+    {
+      "id": "STOCK-013",
+      "sourceUrl": "https://images.unsplash.com/photo-1760939858984-5dc76f0ea34a?auto=format&fit=crop&fm=jpg&q=78&w=1400",
+      "photographer": "Unverified — source credit in existing GRAIN & GABLE template needs matching to individual asset",
+      "platform": "Unsplash (as credited by existing template)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Reuses remote Unsplash image already displayed in templates/woodworker/index.html. Exact Unsplash source page, creator attribution, property/model permissions and suitability for redistribution were NOT verified. Review-only until source mapping and rights/crop checks are completed. This image is NOT actual work of the fictional studio.",
+      "usageIds": [
+        "ABOUT-02"
+      ],
+      "altText": "Woodworker cutting timber in a workshop; illustrative stock",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1760939858984-5dc76f0ea34a?auto=format&fit=crop&fm=jpg&q=78&w=1400",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "exact-source-page-pending",
+        "creator-unverified",
+        "property-and-model-rights-unverified",
+        "photo-crop-approval-pending",
+        "not-cleared-for-template-redistribution"
       ]
     }
   ]
