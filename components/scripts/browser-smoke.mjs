@@ -17,10 +17,18 @@ const errors=[],checks=[],cases=[];
 async function visiblePixelChanges(before,after){
  const a=await sharp(before).removeAlpha().raw().toBuffer({resolveWithObject:true});
  const b=await sharp(after).removeAlpha().raw().toBuffer({resolveWithObject:true});
- if(a.info.width!==b.info.width||a.info.height!==b.info.height)throw Error('Stage screenshot dimensions changed during highlight');
+ // Embedded responsive layouts can alter scrollbars while settling. Compare only
+ // the overlapping image rectangle, rather than failing on a 1px size change.
+ const width=Math.min(a.info.width,b.info.width);
+ const height=Math.min(a.info.height,b.info.height);
+ if(width<100||height<100)throw Error('Stage image too small to verify highlight');
  let changed=0;
- for(let i=0;i<a.data.length;i+=3){
-  if(Math.abs(a.data[i]-b.data[i])+Math.abs(a.data[i+1]-b.data[i+1])+Math.abs(a.data[i+2]-b.data[i+2])>80)changed++;
+ for(let y=0;y<height;y++){
+  for(let x=0;x<width;x++){
+   const i=(y*a.info.width+x)*3;
+   const j=(y*b.info.width+x)*3;
+   if(Math.abs(a.data[i]-b.data[j])+Math.abs(a.data[i+1]-b.data[j+1])+Math.abs(a.data[i+2]-b.data[j+2])>80)changed++;
+  }
  }
  return changed;
 }
