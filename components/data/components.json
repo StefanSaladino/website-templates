@@ -3474,61 +3474,185 @@
     "id": "TEST-02",
     "category": "testimonials",
     "title": "Quote carousel",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Hospitality guest reviews with buttons",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEST-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "manual-prev-next",
+      "direct-quote-selection",
+      "bounded-navigation",
+      "aria-pressed",
+      "real-quote-state"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "testimonials",
+      "carousel",
+      "hospitality",
+      "fictional"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified.",
+    "reviewRoute": "./review.html?id=TEST-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Testimonials and reviews",
+      "focus": "A fully controlled sample guest-quote carousel with no counterfeit reviews",
+      "summary": "A three-scene hospitality quote carousel changes actual invented instructional statements, descriptions, active counts and accessible selection, with no real reviewer names, ratings, stays or endorsements.",
+      "desktop": "Original architectural CSS artwork anchors a warm editorial quote panel with distinct navigation and example counts.",
+      "mobile": "Art and quote stack into a generous phone story with large touch controls and explicitly fictional source notes.",
+      "lookFor": [
+        "Next, Previous and numbered buttons switch real explanatory quote content, counter, pressed state and disabled bounds",
+        "Every statement is conspicuously fictional, with no implied verified guest, hotel stay or actual endorsement"
+      ],
+      "focusAnchor": "testimonials-showcase",
+      "explain": "A complete testimonial-carousel interaction that treats invented marketing copy honestly until genuine approved reviews are available.",
+      "bestFor": [
+        "Hospitality sites with verified permissioned guest feedback",
+        "Brands testing review-carousel information design before publishing any endorsements"
+      ],
+      "fitReason": "Use authentic guest quotes only with permission, accurate attribution and trustworthy source documentation."
+    }
   },
   {
     "id": "TEST-03",
     "category": "testimonials",
     "title": "Photo and quote",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Portrait with fictional attributed story",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEST-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "three-fictional-story-angles",
+      "live-sample-quote",
+      "aria-pressed",
+      "original-portrait-art"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "testimonials",
+      "portrait",
+      "editorial",
+      "consent"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified.",
+    "reviewRoute": "./review.html?id=TEST-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Testimonials and reviews",
+      "focus": "Portrait-and-quote composition with an original, non-person silhouette and clearly fictional scripts",
+      "summary": "A visual portrait-and-story layout uses original geometric artwork rather than an actual person's likeness, and three real controls swap clearly fictional quote examples and transparent non-attribution.",
+      "desktop": "Tall plum-toned original illustration balances editorial typography, a large simulated quote and compact active topic controls.",
+      "mobile": "Portrait stage leads a readable stack with phone-sized topic switches, without inventing a portrait subject or genuine speaker.",
+      "lookFor": [
+        "Clarity, Collaboration and Learning change actual sample copy, attribution disclaimer and pressed-state feedback",
+        "No picture shows a real person and no statement impersonates a customer or employee"
+      ],
+      "focusAnchor": "testimonials-showcase",
+      "explain": "A highly stylized testimonial composition intentionally built without fictional identities masquerading as real endorsements.",
+      "bestFor": [
+        "Design reviews awaiting consented customer portraits",
+        "Editorial client-story patterns with verified sources"
+      ],
+      "fitReason": "Before going live, replace art and copy with approved photos, true quotations and appropriate permission records."
+    }
   },
   {
     "id": "TEST-04",
     "category": "testimonials",
     "title": "Review wall",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Service reviews in clean editorial rows",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEST-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "topic-filter",
+      "real-card-hide-show",
+      "filter-reset",
+      "aria-pressed",
+      "count-status"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "testimonials",
+      "review-wall",
+      "editorial",
+      "filter"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified.",
+    "reviewRoute": "./review.html?id=TEST-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Testimonials and reviews",
+      "focus": "Filterable service-feedback wall of explicitly invented editorial examples",
+      "summary": "Five wholly fictional feedback themes are arranged in an editorial grid that genuinely filters by Communication, Process and Handoff with accessible active-state, result count and reset.",
+      "desktop": "Clean blue-grey two-column typographic review rows give room to longer balanced sample statements and prominent disclaimer text.",
+      "mobile": "The wall stacks into one large readable quote column and exposes touch-friendly topic filters and reset.",
+      "lookFor": [
+        "Filtering actually changes which statement rows display and updates the result count; reset restores all five",
+        "Every row is labelled fictional with no fake source platform, ratings, customers or genuine projects"
+      ],
+      "focusAnchor": "testimonials-showcase",
+      "explain": "A fully functioning category-based feedback wall that will not confuse invented testimonials with real endorsements.",
+      "bestFor": [
+        "Service sites with permissioned, categorised customer feedback",
+        "Design teams testing review-filter layouts and accessibility"
+      ],
+      "fitReason": "Obtain real feedback, substantiate publication permissions and review potential selection bias before public use."
+    }
   },
   {
     "id": "TEST-05",
     "category": "testimonials",
     "title": "Video testimonial",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Client-story player with transcript",
-    "previewRoute": null,
+    "previewRoute": "./previews/TEST-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "locally-generated-video-stream",
+      "play-pause",
+      "restart",
+      "fallback-canvas",
+      "accessible-transcript",
+      "progress-status"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "testimonials",
+      "video",
+      "transcript",
+      "original-animation"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified.",
+    "reviewRoute": "./review.html?id=TEST-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Testimonials and reviews",
+      "focus": "True browser-generated silent motion-story clip plus complete accessible transcript",
+      "summary": "A silent, original animated canvas sequence can feed an actual locally generated video stream on user request, with functional Play/Pause/Restart, progress, fallback and complete fictional transcript; no customer is filmed or impersonated.",
+      "desktop": "Brutalist near-black and coral typography frames a wide working motion stage with a separate transcript-reading column.",
+      "mobile": "Video and controls stack above full transcript and clear non-endorsement information, with no dependence on external media.",
+      "lookFor": [
+        "Play genuinely starts a locally rendered 12-second motion sequence and Pause/Restart control state and progress; no network video is loaded",
+        "The original typographic clip has no human interview, voice, guest, client or endorsement and its entire scripted text is explicitly fictional"
+      ],
+      "focusAnchor": "testimonials-showcase",
+      "explain": "A responsible functioning video-testimonial framework with true video stream capability and visible transcript instead of misleading synthetic client footage.",
+      "bestFor": [
+        "Client-story video layouts awaiting consented footage",
+        "Accessibility reviews of short video and transcript presentation"
+      ],
+      "fitReason": "A real testimonial requires actual recorded footage, media permissions, accurate text transcripts, captions and approved hosting."
+    }
   },
   {
     "id": "PRICE-01",
@@ -4039,46 +4163,143 @@
     "id": "MENU-02",
     "category": "menus",
     "title": "Food-photo menu",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Restaurant small plate photography",
-    "previewRoute": null,
+    "previewRoute": "./previews/MENU-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "stockAssetIds": [
+      "STOCK-014",
+      "STOCK-015",
+      "STOCK-016"
+    ],
+    "interactions": [
+      "food-category-filter",
+      "real-card-selection",
+      "reset",
+      "aria-pressed",
+      "visible-count"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "menus",
+      "food-photography",
+      "small-plates",
+      "filter"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified.",
+    "reviewRoute": "./review.html?id=MENU-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Restaurant menus",
+      "focus": "Food-photography menu grid with actual dish-category filtering and independent stock sources",
+      "summary": "Three separate Unsplash food images sit beside fictional small-plate descriptions and sample CAD prices; controls genuinely filter vegetables, sea and shared dishes, with source-image disclaimers and reset.",
+      "desktop": "Large real food-photo cards create an editorial three-up restaurant menu with a clear category ledger.",
+      "mobile": "Cards become a one-column photo-and-dish sequence with finger-friendly menu filters and full readable image credits.",
+      "lookFor": [
+        "Category filters really hide irrelevant dishes, update the pressed controls and show a live result count",
+        "Photos are unrelated independent food imagery, not the example dishes or a real restaurant's menu; prices and allergens are unverified"
+      ],
+      "focusAnchor": "menu-showcase",
+      "explain": "An actual food-photography-led restaurant menu whose categories work without claiming fictional offers are purchasable.",
+      "bestFor": [
+        "Restaurants with rights-cleared photos of real dishes",
+        "Dining concepts evaluating photo-led menus with accessible filtering"
+      ],
+      "fitReason": "Requires actual dish photography, verified current descriptions, precise allergens, prices and legitimate order/booking paths."
+    }
   },
   {
     "id": "MENU-03",
     "category": "menus",
     "title": "Tabbed seasonal menu",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Hotel restaurant lunch and dinner",
-    "previewRoute": null,
+    "previewRoute": "./previews/MENU-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "lunch-dinner-late-tabs",
+      "keyboard-arrow-home-end",
+      "live-dish-replacement",
+      "meal-count",
+      "aria-selected"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "menus",
+      "hotel",
+      "seasonal",
+      "tabs"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified.",
+    "reviewRoute": "./review.html?id=MENU-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Restaurant menus",
+      "focus": "Keyboard-operated seasonal lunch, dinner and late-night menu browser",
+      "summary": "A fictional hotel dining site uses three genuine accessible meal tabs. Each swaps item names, descriptions, illustrative CAD prices and explanatory status with correct focus and ARIA relationships.",
+      "desktop": "Dark evergreen hospitality identity pairs oversized editorial meal copy with a cream menu ledger and clear meal selection.",
+      "mobile": "Meal content moves into a full-width stacked menu and touch-size tab strip without tiny columns.",
+      "lookFor": [
+        "Switching meals genuinely replaces the list, item count, heading and ARIA state, including arrow-key navigation",
+        "No venue hours, availability, price, reservation path, food composition or allergy information is represented as real"
+      ],
+      "focusAnchor": "menu-showcase",
+      "explain": "A working restaurant meal-period selector, with sufficient content and clean transition between genuine tab panels.",
+      "bestFor": [
+        "Hotels with verified menus by service period",
+        "Restaurants presenting current lunch and dinner offerings"
+      ],
+      "fitReason": "Live menus require current dishes, hours, ingredients/allergens, prices, policies and accurate booking instructions."
+    }
   },
   {
     "id": "MENU-04",
     "category": "menus",
     "title": "Downloadable menu panel",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Venue pdf menu with accessible link",
-    "previewRoute": null,
+    "previewRoute": "./previews/MENU-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "locally-generated-real-pdf",
+      "working-download-button",
+      "accessible-status",
+      "matching-on-page-menu",
+      "real-menu-anchor"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "menus",
+      "downloadable-pdf",
+      "document",
+      "accessible"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete distinct desktop/mobile responsive preview with working demonstration interactions; all stories/quotes/customer references and restaurant offerings are explicitly fictional. MENU-02 independent photo license/crops pending review. Browser/device QA and publication permission remain unverified.",
+    "reviewRoute": "./review.html?id=MENU-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Restaurant menus",
+      "focus": "Downloadable one-page PDF menu generated locally from actual visible sample content",
+      "summary": "A functional browser-generated PDF contains the same fictional menu shown on the page; a real download is triggered on user action, accompanied by accessible success/failure feedback, with no server or outside media.",
+      "desktop": "An original abstract plated-food still life complements a dramatic two-column document-download invitation and full text menu below.",
+      "mobile": "Hero copy, real download action, original still-life artwork and all menu text stack clearly without horizontal scrolling.",
+      "lookFor": [
+        "Download creates a valid text-based PDF rather than a fake button, while the source menu remains readable directly on the page",
+        "PDF and webpage prominently disclaim fictional dishes, prices and all allergen/dietary details; no venue, booking or payment is implied"
+      ],
+      "focusAnchor": "menu-showcase",
+      "explain": "A meaningful menu-document handoff with an actual generated artifact rather than a decorative PDF icon.",
+      "bestFor": [
+        "Restaurants with verified maintained PDF menus",
+        "Venues wanting both readable HTML and downloadable menu documents"
+      ],
+      "fitReason": "Real production requires a regularly updated accessible document and current verified ingredient, allergen, pricing and service details."
+    }
   },
   {
     "id": "BOOK-01",
