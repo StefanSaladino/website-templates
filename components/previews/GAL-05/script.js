@@ -26,3 +26,6 @@ const controls=[...document.querySelectorAll('[data-filter]')];const photos=[...
  small.addEventListener('change',sync);sync();
 })();
 
+
+/* M-UTIL-01 keeps the real filter controls in a native scroll-snap rail rather than a modal. */
+if(new URLSearchParams(location.search).get('mobile')==='M-UTIL-01')document.body.dataset.mobileTreatment='M-UTIL-01';
