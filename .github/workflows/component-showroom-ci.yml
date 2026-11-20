@@ -5,11 +5,13 @@ on:
       - feature/component-showroom
     paths:
       - 'components/**'
+      - 'templates/**'
       - 'docs/COMPONENT-**'
       - '.github/workflows/component-showroom-ci.yml'
   pull_request:
     paths:
       - 'components/**'
+      - 'templates/**'
       - 'docs/COMPONENT-**'
       - '.github/workflows/component-showroom-ci.yml'
 permissions:
@@ -52,6 +54,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: component-showroom-build
-          path: dist/components
+          path: dist
           if-no-files-found: error
           retention-days: 7

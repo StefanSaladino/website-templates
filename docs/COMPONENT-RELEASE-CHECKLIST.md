@@ -18,3 +18,9 @@
 - [ ] Phone safe areas, short landscape heights, native picker behavior, virtual keyboard overlap, 200% text enlargement, non-hover functionality and focal-point image cropping have been inspected.
 - [ ] Mobile treatment imagery has source-reviewed rights and verified mobile cropping, using approved remote or local media; no placeholder image is treated as production-approved.
 - [ ] Real iOS Safari and Android Chrome representative interaction testing is recorded for the released pattern family.
+
+## Additional motion-pattern gate
+- [ ] A released animation has a distinctive real, isolated preview and a working full-page template example linked from the catalogue/review.
+- [ ] Full-template interaction is demonstrated, including visible entrance/replay or controllable state and keyboard/touch parity.
+- [ ] Reduced motion suppresses nonessential movement; no JavaScript failure leaves content hidden or controls falsely enabled.
+- [ ] An effect is appropriate for the specific template; intentionally static designs are not forced into animation.

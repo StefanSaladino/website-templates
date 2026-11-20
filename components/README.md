@@ -62,3 +62,6 @@ Twenty animation patterns, ANIM-01–ANIM-20, expand the catalogue to **30 famil
 
 ## Phase 3 status (November 20, 2026)
 All 36 individually enumerated first-release core IDs now have in-review preview implementations, plus four in-review motion examples. This is **40 working prototypes**, not 40 production-approved components. The other 16 planned motion patterns are draft entries. Licensed imagery approval, genuine preview thumbnails, final mobile/accessible QA and client sign-off remain outstanding; main is unchanged. Note that the original roadmap incorrectly calls its 36-item Phase 3 ID list "35". See docs/COMPONENT-PHASE3-PROGRESS.md for the newest checkpoint.
+
+## See motion in full-page templates
+Six in-review animation patterns have actual integrations into six original templates. The relevant animation cards and review pages contain a “See on a full website” link that opens the corresponding working page/section. To test on this development branch, serve the repository root over HTTP, or build from `components/` and serve `dist/` (the build now includes `dist/templates/`). The matching HTML, CSS and JS reside in the original `templates/` directories, not in screenshots. No animation is globally injected into other designs, and no publication to `main` has been requested.

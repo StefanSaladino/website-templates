@@ -688,3 +688,21 @@ The initial seven-pattern amendment has been **expanded to ANIM-01–ANIM-20**. 
 **Grouping to help clients:** text & editorial (ANIM-01, 02, 08); image & project motion (03, 04, 11, 12, 20); section & scrolling (09, 10, 13, 17, 18); interface & feedback (05, 06, 07, 14, 15, 16, 19). These are catalog filters/tags rather than a new explosion of category IDs. Keep phone behavior deliberate; interactive components require pointer, touch and keyboard parity; all effects must respect `prefers-reduced-motion`. Never create an infinite, distracting animated effect simply to reach the target count.
 
 **Build order:** implement and test ANIM-01, 02, 05 and 07 first to validate different interaction classes. Then animation examples join the regular Phase 3 backlog. Image-led motion requires the existing stock-image approval, cropping and performance gates. Current IDs stay `draft` until a working isolated preview and metadata contract exist; no status is promoted to `live` without client acceptance.
+
+
+## Integration amendment — animation patterns inside complete templates (November 20, 2026)
+
+**Product rule:** An animation preview alone is not enough to demonstrate a reusable design treatment. Every implemented motion pattern must also be inspectable on at least one relevant **real full-page template**, with an obvious route from the component card and review screen. Patterns should not be distributed uniformly across all templates; each effect needs a design reason. The naturally static STILL waitlist and other intentionally still designs are exempt unless a meaningful user-triggered transition is requested.
+
+| Animation ID | Full-page template | Applied section and effect | Proof |
+|---|---|---|---|
+| ANIM-01 | Arc (Quiet SaaS) | Staged hero copy entrance, replayable via “Replay intro” | CSS/JS in templates/quiet-saas |
+| ANIM-02 | OFFCUT (Creative Agency) | Whole-line kinetic headline entrance with “Replay title” | CSS/JS in templates/creative-agency |
+| ANIM-03 | Morrow (Architecture) | Photographic hero image mask reveal with replay, static fallback | CSS/JS in templates/architecture |
+| ANIM-05 | MORA (Storefront) | Finish swatches now actually change product media and selection text, with a restrained transition | CSS/JS in templates/storefront |
+| ANIM-06 | WOBBLEWORKS (Interactive Playground) | Existing full-width ticker now has a working pause/play control and reduced-motion behavior | CSS/JS in templates/interactive-playground |
+| ANIM-07 | LINE + LEVEL (Contractor) | Selectable numbered process stages drive a real visual progress line | CSS/JS in templates/contractor |
+
+The six working animation specimens (ANIM-01, 02, 03, 05, 06, 07) and their full-template routes remain **in-review**. Fourteen remaining animation IDs are still drafts. Each pattern's metadata includes a `fullTemplateRoute` and `fullTemplateName`; the viewer/catalogue offer a dedicated “See on a full website” link. Build artifacts include the unmodified-other full templates so these relative routes remain valid on the GitHub Pages project base and in the CI preview.
+
+**QA expansion:** The browser test suite must open the full templates and verify motion can be replayed or controlled with keyboard/touch controls, required text remains present, and reduced-motion preferences suppress movement. Screenshot/automated checks do not waive manual iOS Safari, Android, photo crop/rights and final visual approval. All work stays on `feature/component-showroom`; do not merge to main until separately authorized.

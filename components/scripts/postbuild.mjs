@@ -9,3 +9,10 @@ for(const folder of ['data','assets','previews']){
   if(existsSync(source))cpSync(source,path.join(out,folder),{recursive:true,force:true});
 }
 console.log('Copied catalogue metadata and local assets to '+out);
+
+// A showroom animation links to the *actual* full-page templates. Include
+// these static files in the isolated production preview artifact and browser QA.
+const templateSource=path.resolve(here,'../templates');
+const templateOutput=path.resolve(here,'../dist/templates');
+if(existsSync(templateSource))cpSync(templateSource,templateOutput,{recursive:true,force:true});
+console.log('Copied full website template examples for motion links to '+templateOutput);
