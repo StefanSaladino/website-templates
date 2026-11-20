@@ -6,3 +6,16 @@
 
 /* Phase 2 alternate mobile treatment */
 img.pending-image{visibility:hidden}.image-pending{background-color:#687b70;background-image:linear-gradient(130deg,rgba(15,46,43,.55),rgba(185,166,136,.3))}.g2-photo.image-pending{background-image:linear-gradient(140deg,#ccc3b7,#f3eee4)}.s3-media.image-pending{background-image:linear-gradient(135deg,#c9bfb3,#ece5da)}
+
+/* M-CTA-02 — photo-led but text-safe phone panel with a single full-width inline action. */
+@media(max-width:750px){
+ body[data-mobile-treatment="M-CTA-02"] .c2-scene{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:clamp(270px,43svh,460px) auto;height:auto;min-height:0;overflow:visible;background:#f1ece3;color:#282725}
+ body[data-mobile-treatment="M-CTA-02"] .c2-scene img{position:relative;grid-row:1;grid-column:1;width:100%;height:100%;object-fit:cover;object-position:50% 55%}
+ body[data-mobile-treatment="M-CTA-02"] .c2-overlay{position:absolute;inset:0 0 auto;height:clamp(270px,43svh,460px);background:linear-gradient(0deg,rgba(34,31,28,.2),transparent 60%);pointer-events:none}
+ body[data-mobile-treatment="M-CTA-02"] .c2-text{grid-row:2;grid-column:1;padding:33px 22px 45px;background:#f1ece3;color:#292725}
+ body[data-mobile-treatment="M-CTA-02"] .c2-text span{color:#79654c;font-weight:800}
+ body[data-mobile-treatment="M-CTA-02"] .c2-text h1{font-size:clamp(48px,10.8vw,72px);line-height:.94;margin:20px 0 30px;overflow-wrap:anywhere}
+ body[data-mobile-treatment="M-CTA-02"] .c2-cta{display:flex;width:100%;min-height:60px;background:#33342c;color:#fff;border-color:#33342c;font-size:15px}
+ body[data-mobile-treatment="M-CTA-02"] .c2-cta:hover{background:#4d5547;color:#fff}
+ body[data-mobile-treatment="M-CTA-02"] .c2-date{display:none}
+}
