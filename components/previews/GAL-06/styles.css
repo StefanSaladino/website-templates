@@ -19,3 +19,20 @@ body{background:#282726;color:#f1f0e9}.g6-head{display:flex;justify-content:spac
 }
 @media(max-width:380px){body[data-mobile-treatment="M-GAL-05"] .g6-dialog-head button,body[data-mobile-treatment="M-GAL-05"] .g6-dialog-controls button{min-width:95px}}
 
+
+/* M-UTIL-02: reading-first full-screen modal sheet, unlike the thumbnail-first immersive photo lightbox. */
+@media(max-width:800px){
+ body[data-mobile-treatment="M-UTIL-02"] .g6-show{padding:50px 20px 75px}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-heading h1{font-size:clamp(63px,12vw,90px);margin:20px 0}
+ body[data-mobile-treatment="M-UTIL-02"] #g6-dialog{box-sizing:border-box;position:fixed;inset:0;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:calc(16px + env(safe-area-inset-top,0px)) 18px calc(15px + env(safe-area-inset-bottom,0px));background:#f6f4ee;color:#182620;border:0;overflow-y:auto}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-dialog-head{border-bottom:1px solid #859b8a;padding-bottom:13px}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-dialog-head button{background:#283e32;color:#fff;min-width:84px}
+ body[data-mobile-treatment="M-UTIL-02"] #g6-large{width:100%;height:clamp(260px,44svh,440px);max-height:none;object-fit:contain;background:#d5d2c8;margin:20px auto 0}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-detail-copy{display:grid;gap:7px;padding:18px 0 10px;border-bottom:1px solid #bac5bb}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-detail-copy span{font-size:10px;font-weight:850;letter-spacing:.12em}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-detail-copy h2{font:400 34px Georgia,serif;margin:2px 0}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-detail-copy p{font-size:13px;line-height:1.55;margin:0}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-detail-copy p:last-child{color:#556359;font-size:11px}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-dialog-controls{padding-top:18px;gap:12px}
+ body[data-mobile-treatment="M-UTIL-02"] .g6-dialog-controls button{flex:1 1 0;min-width:0;background:#283e32;color:#fff;min-height:53px}
+}
