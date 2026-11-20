@@ -32,7 +32,14 @@ for(const component of components){
   const remoteUrls=[...html.matchAll(/<(?:img|video|source)\b[^>]*\bsrc=["'](https?:\/\/[^"']+)/gi)].map(m=>m[1]);
   const remoteSources=remoteUrls.filter(url=>/^(?:https?:)?\/\/(?:images\.unsplash\.com|images\.pexels\.com|videos\.pexels\.com)/.test(url));
   remote+=remoteSources.length;
-  if(component.status==='live'&&remoteUrls.length) addError(component.id+' live preview still loads external media');
+  if(component.status==='live'&&remoteUrls.length){
+  const declared=new Set((component.stockAssetIds||[]).map(id=>stockById.get(id)?.productionUrl).filter(Boolean));
+  for(const remote of remoteUrls){
+    const url=remote.replace(/&amp;/g,'&');
+    if(!declared.has(url))addError(component.id+' has unapproved remote media '+url);
+    if(!['images.unsplash.com','images.pexels.com','videos.pexels.com'].includes(new URL(url).hostname))addError(component.id+' has untrusted remote media host');
+  }
+}
   if(component.status==='live'&&component.stockAssetIds?.length===0&&!['forms','interface','footers'].includes(component.category))warnings.push(component.id+' live media-free component requires editorial check');
   for(const stockId of component.stockAssetIds||[]){
     const asset=stockById.get(stockId);

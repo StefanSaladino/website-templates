@@ -29,7 +29,7 @@ for(const item of components){
     if(item.thumbnail&&!existsSync(path.join(here,item.thumbnail.replace(/^\.\/|^\/components\//,''))))fail('Missing thumbnail '+item.id);
     for(const id of item.stockAssetIds||[]){
       const match=stock.assets.find(x=>x.id===id);
-      if(!match||match.reviewStatus!=='approved'||!match.licenseReviewedAt||!match.sourceUrl)fail('Unapproved stock asset '+id+' on '+item.id);
+      if(!match||match.reviewStatus!=='approved'||!match.licenseReviewedAt||!match.sourceUrl||!(match.derived?.length||match.productionUrl))fail('Unapproved stock asset '+id+' on '+item.id);
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "notes": "Phase 2 in review: exact free Unsplash source pages and photographers recorded. These are temporary hotlinked development images ONLY; download authorized files, optimize, review crops/releases, and move to local assets before any component is marked live. Do not distribute the original images separately.",
+  "notes": "Development uses documented remotely hosted stock images. The user will review image appearance and crops after the full showroom is built. Source licensing and context/rights review remain required before release.",
   "assets": [
     {
       "id": "STOCK-001",
@@ -65,7 +65,8 @@
       "reviewStatus": "needs-review",
       "rightsNotes": "Recognizable person's likeness; do not imply model endorses or works for fictional studio. Model-release status unverified.",
       "usageIds": [
-        "GAL-02"
+        "GAL-02",
+        "GAL-01"
       ],
       "altText": "Editorial fashion portrait, study one",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1632766984155-d42dd9affe85?auto=format&fit=crop&w=1000&q=80",
@@ -92,7 +93,8 @@
       "reviewStatus": "needs-review",
       "rightsNotes": "Recognizable person's likeness; do not imply endorsement. Model-release status unverified.",
       "usageIds": [
-        "GAL-02"
+        "GAL-02",
+        "GAL-01"
       ],
       "altText": "Editorial fashion portrait, study two",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1741298856762-1ff2f1204bc8?auto=format&fit=crop&w=1000&q=80",
@@ -119,7 +121,8 @@
       "reviewStatus": "needs-review",
       "rightsNotes": "Recognizable person's likeness; do not imply endorsement. Model-release status unverified.",
       "usageIds": [
-        "GAL-02"
+        "GAL-02",
+        "GAL-01"
       ],
       "altText": "Editorial fashion portrait, study three",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1633994048003-071f6c11e26a?auto=format&fit=crop&w=1000&q=80",
@@ -146,7 +149,8 @@
       "reviewStatus": "needs-review",
       "rightsNotes": "Recognizable person's likeness; do not imply endorsement. Model-release status unverified.",
       "usageIds": [
-        "GAL-02"
+        "GAL-02",
+        "GAL-01"
       ],
       "altText": "Monochrome editorial portrait, study four",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1766299231533-27fb998d1a6e?auto=format&fit=crop&w=1000&q=80",
@@ -173,7 +177,9 @@
       "reviewStatus": "needs-review",
       "rightsNotes": "Interior property and distinctive design: source license checked but property/third-party rights and suitability for commercial service demo require review.",
       "usageIds": [
-        "SRV-03"
+        "SRV-03",
+        "NAV-01",
+        "HERO-02"
       ],
       "altText": "Modern kitchen renovation with open shelving and pendant lights",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772567733000-5d5acb9ef4f9?auto=format&fit=crop&w=1400&q=82",

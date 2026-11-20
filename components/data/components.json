@@ -3,16 +3,29 @@
     "id": "NAV-01",
     "category": "headers",
     "title": "Minimal wordmark",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architecture studio on a photographic homepage",
-    "previewRoute": null,
+    "previewRoute": "./previews/NAV-01/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-007"
+    ],
+    "interactions": [
+      "sticky-header",
+      "responsive-menu",
+      "keyboard-focus-trap",
+      "escape-to-close"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
+    "reviewRoute": "./review.html?id=NAV-01",
+    "mobileTreatmentIds": []
   },
   {
     "id": "NAV-02",
@@ -243,16 +256,24 @@
     "id": "CTA-01",
     "category": "calls-to-action",
     "title": "Compact band",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Contractor book-consultation strip",
-    "previewRoute": null,
+    "previewRoute": "./previews/CTA-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "anchor-scroll"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
+    "reviewRoute": "./review.html?id=CTA-01",
+    "mobileTreatmentIds": []
   },
   {
     "id": "CTA-02",
@@ -355,16 +376,26 @@
     "id": "HERO-02",
     "category": "heroes",
     "title": "Split image and copy",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Renovator portrait-or-work photo beside concise promise",
-    "previewRoute": null,
+    "previewRoute": "./previews/HERO-02/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-007"
+    ],
+    "interactions": [
+      "anchor-scroll"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
+    "reviewRoute": "./review.html?id=HERO-02",
+    "mobileTreatmentIds": []
   },
   {
     "id": "HERO-03",
@@ -520,16 +551,32 @@
     "id": "GAL-01",
     "category": "galleries",
     "title": "Uniform grid",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Landscape portfolio image tiles",
-    "previewRoute": null,
+    "previewRoute": "./previews/GAL-01/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-003",
+      "STOCK-004",
+      "STOCK-005",
+      "STOCK-006"
+    ],
+    "interactions": [
+      "native-modal",
+      "keyboard-arrows",
+      "escape-to-close",
+      "focus-restoration"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "designTags": [
+      "phase-3",
+      "responsive",
+      "illustrative"
+    ],
+    "hasMobileLayout": true,
+    "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
+    "reviewRoute": "./review.html?id=GAL-01",
+    "mobileTreatmentIds": []
   },
   {
     "id": "GAL-02",

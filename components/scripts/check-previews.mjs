@@ -1,6 +1,6 @@
 import {readFileSync,existsSync} from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import {execFileSync} from 'node:child_process';
 const here=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const ids=['NAV-03','HERO-01','GAL-02','SRV-03','CTA-02','FORM-01'];
+const ids=JSON.parse(readFileSync(path.join(here,'data/components.json'),'utf8')).filter(x=>x.status!=='draft').map(x=>x.id);
 const errors=[];
 const components=JSON.parse(readFileSync(path.join(here,'data/components.json'),'utf8'));
 const stock=JSON.parse(readFileSync(path.join(here,'data/stock-manifest.json'),'utf8'));
@@ -19,4 +19,4 @@ for(const id of ids){
  for(const asset of record.stockAssetIds||[])if(!stock.assets.some(x=>x.id===asset))errors.push(id+' unregistered stock asset: '+asset);
 }
 if(errors.length){errors.forEach(e=>console.error('FAIL',e));process.exit(1)}
-console.log('Six in-review examples passed source-level checks. Runtime visual and image QA still required.');
+console.log('All '+ids.length+' in-review and approved examples passed source-level checks. Runtime visual and image QA still required.');

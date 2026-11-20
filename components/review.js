@@ -1,12 +1,13 @@
-const entries={
-'NAV-03':{name:'Transparent overlay navigation',alternative:'M-NAV-04',label:'Full-screen navigation'},
-'HERO-01':{name:'Full-bleed photo hero',alternative:'M-HERO-02',label:'Photo above copy'},
-'GAL-02':{name:'Editorial masonry gallery',alternative:'M-GAL-02',label:'Swipeable photo rail'},
-'SRV-03':{name:'Alternating services',alternative:'M-SRV-03',label:'Compact mobile service index'},
-'CTA-02':{name:'Image-backed call to action',alternative:null},
-'FORM-01':{name:'Minimal contact form',alternative:null}
-};
-const params=new URLSearchParams(location.search),requested=params.get('id')||'NAV-03',id=Object.hasOwn(entries,requested)?requested:'NAV-03',spec=entries[id];
+const [items,mobile] = await Promise.all([
+ fetch('./data/components.json').then(r=>{if(!r.ok)throw Error('Component records unavailable');return r.json()}),
+ fetch('./data/mobile-treatments.json').then(r=>{if(!r.ok)throw Error('Mobile records unavailable');return r.json()})
+]);
+const mobileById=new Map(mobile.map(x=>[x.id,x]));
+const entries=Object.fromEntries(items.filter(x=>x.status!=='draft').map(x=>{
+ const alternative=(x.mobileTreatmentIds||[]).find(id=>mobileById.has(id)&&mobileById.get(id).status!=='draft')||null;
+ return [x.id,{name:x.title,alternative,label:alternative?mobileById.get(alternative).title:''}];
+}));
+const params=new URLSearchParams(location.search),requested=params.get('id')||'NAV-03',id=Object.hasOwn(entries,requested)?requested:Object.keys(entries)[0],spec=entries[id];
 const iframe=document.querySelector('#review-iframe'),frame=document.querySelector('#review-frame'),open=document.querySelector('#review-open'),alternate=document.querySelector('#review-alt-choice');
 document.querySelector('#review-title').textContent=id+' / '+spec.name;
 document.querySelector('#review-meta').textContent='In-review specimen · stock assets and device QA incomplete';
