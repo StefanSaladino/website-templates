@@ -12,3 +12,20 @@ const entries=[...document.querySelectorAll('[data-photo]')],dialog=document.que
  img.addEventListener('touchcancel',()=>{start=null},{passive:true});
 })();
 
+
+/* M-UTIL-02: full-height information sheet inside the original native dialog;
+   arrow navigation, Escape and opener focus restoration remain the parent behaviour. */
+(()=>{
+ if(new URLSearchParams(location.search).get('mobile')!=='M-UTIL-02')return;
+ document.body.dataset.mobileTreatment='M-UTIL-02';
+ const viewer=document.querySelector('#g6-dialog'),large=document.querySelector('#g6-large');
+ if(!viewer||!large)return;
+ const caption=document.createElement('div');caption.className='g6-detail-copy';
+ const label=document.createElement('span');label.textContent='IMAGE NOTES / FICTIONAL PORTRAIT COLLECTION';
+ const heading=document.createElement('h2');heading.textContent='Portrait study';
+ const detail=document.createElement('p');detail.setAttribute('aria-live','polite');
+ const notice=document.createElement('p');notice.textContent='Illustrative stock photography; this is not a portfolio client or endorsement.';
+ caption.append(label,heading,detail,notice);large.insertAdjacentElement('afterend',caption);
+ const sync=()=>{detail.textContent=large.alt||'Photograph detail';heading.textContent='Study '+(document.querySelector('#g6-position')?.textContent.split(' / ')[0]||'01');};
+ new MutationObserver(sync).observe(large,{attributes:true,attributeFilter:['alt']});sync();
+})();
