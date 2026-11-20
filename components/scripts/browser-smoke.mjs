@@ -883,6 +883,91 @@ try{
   assert(state.active===phoneId&&state.width<=state.screen+2,phoneId+' is active and has no page-wide horizontal overflow');
  }
 
+
+ // Final phone-design batch: these are real renderings or interactions, never metadata-only choices.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/NAV-02/?mobile=M-NAV-03',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.v-bottom-rail').isVisible()
+  &&await page.locator('.v-bottom-rail a[href="#contact"]').count()===1
+  &&await page.locator('.v-mobile').isHidden(),'M-NAV-03 is a real accessible bottom-nav alternative, not the old mobile menu');
+ assert(await page.locator('.v-bottom-rail a').count()===3
+  &&await page.locator('.v-bottom-rail a[aria-current="location"]').count()===1,'M-NAV-03 has three real destinations and one active location');
+
+ await page.goto(base+'previews/HERO-04/?mobile=M-HERO-04',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.h4-mobile-caption').isVisible()
+  &&await page.locator('.h4-bottom figure').evaluate(el=>el.getBoundingClientRect().width>250),'M-HERO-04 uses a large offset portrait with an accurate stock photo caption');
+
+ await page.goto(base+'previews/SRV-01/?mobile=M-SRV-04',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.srv-feature').isVisible()
+  &&await page.locator('.srv-row').count()===3
+  &&await page.locator('.srv-feature figcaption').textContent()!=='','M-SRV-04 includes a real illustrative photo feature and all three service descriptions');
+
+ await page.goto(base+'previews/FORM-01/?mobile=M-FRM-01',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#f1-name').getAttribute('autocomplete')==='name'
+  &&await page.locator('#f1-email').getAttribute('type')==='email','M-FRM-01 maintains labeled native input types');
+ await page.locator('#f1-form button[type=submit]').click();
+ assert(await page.locator('#f1-name').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#f1-preview').isHidden(),'M-FRM-01 retains required-field validation instead of falsely sending an empty form');
+ await page.locator('#f1-name').fill('Illustrative Client');
+ await page.locator('#f1-email').fill('example@example.com');
+ await page.locator('#f1-message').fill('Sample local inquiry only.');
+ await page.locator('#f1-form button[type=submit]').click();
+ assert(await page.locator('#f1-preview').isVisible()
+  &&(await page.locator('#f1-output').textContent()).includes('Sample local inquiry only.'),'M-FRM-01 creates the same local-only honest inquiry summary');
+
+ await page.goto(base+'previews/TRUST-02/?mobile=M-STORY-04',{waitUntil:'domcontentloaded'});
+ const trustGrid=await page.locator('.t2-strip').evaluate(el=>{const items=[...el.querySelectorAll('li')].map(x=>x.getBoundingClientRect());return {length:items.length,firstTop:items[0].top,secondTop:items[1].top,thirdTop:items[2].top}});
+ assert(trustGrid.length===4&&Math.abs(trustGrid.firstTop-trustGrid.secondTop)<4
+  &&trustGrid.thirdTop>trustGrid.firstTop+60
+  &&(await page.locator('.t2-footnote').textContent()).includes('genuine credentials'),'M-STORY-04 wraps explicitly fictional credential badges in two phone columns');
+
+ await page.goto(base+'previews/CONTACT-01/?mobile=M-CTA-03',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.ct-quick a').count()===2
+  &&await page.locator('.ct-quick a[href="tel:+14165550118"]').isVisible()
+  &&await page.locator('.ct-quick a[href="mailto:hello@example.com"]').isVisible()
+  &&(await page.locator('.ct-quick-caption').textContent()).includes('FICTIONAL'),'M-CTA-03 shows real contact URL schemes but never implies a live business number');
+
+ await page.goto(base+'previews/GAL-06/?mobile=M-UTIL-02',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-photo="1"]').click();
+ assert(await page.locator('#g6-dialog').evaluate(el=>el.open)
+  &&await page.locator('.g6-detail-copy').isVisible()
+  &&(await page.locator('.g6-detail-copy p').first().textContent()).includes('Editorial portrait'),'M-UTIL-02 opens a real full-height native information sheet');
+ await page.locator('#g6-next').click();
+ await page.waitForFunction(()=>document.querySelector('.g6-detail-copy h2')?.textContent==='Study 03');
+ assert((await page.locator('#g6-position').textContent()).includes('03 / 04'),'M-UTIL-02 sheet updates description with original gallery navigation');
+ await page.keyboard.press('Escape');
+ await page.waitForFunction(()=>!document.querySelector('#g6-dialog').open
+  &&document.activeElement===document.querySelector('[data-photo="1"]'));
+ assert(await page.locator('#g6-dialog').isHidden(),'M-UTIL-02 Escape closes the native sheet and restores gallery focus');
+
+ await page.goto(base+'previews/MEDIA-01/?mobile=M-MEDIA-01',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#m1-activate').isVisible()
+  &&await page.locator('#m1-video').getAttribute('src')===null
+  &&(await page.locator('#m1-status').textContent()).includes('Poster-first'),'M-MEDIA-01 keeps the video network request behind explicit user action');
+ await page.locator('#m1-activate').click();
+ assert((await page.locator('#m1-video').getAttribute('src')).includes('videos.pexels.com'),'M-MEDIA-01 loads the actual declared sample video only after play was requested');
+
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto(base+'previews/MEDIA-01/?mobile=M-MEDIA-02',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#m1-video').getAttribute('src')===null
+  &&(await page.locator('#m1-status').textContent()).includes('Reduced motion'),'M-MEDIA-02 stays on the image poster when reduced motion is enabled');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+
+ await page.goto(base+'previews/MEDIA-01/?mobile=M-MEDIA-03',{waitUntil:'domcontentloaded'});
+ const portraitFilm=await page.locator('#m1-stage').evaluate(el=>{const r=el.getBoundingClientRect();return {height:r.height,width:r.width}});
+ assert(portraitFilm.height>portraitFilm.width*1.2
+  &&await page.locator('#m1-video').getAttribute('src')===null,'M-MEDIA-03 truly art-directs a portrait crop of a wide video without autoplay');
+
+ for(const [parent,mode] of [
+  ['NAV-02','M-NAV-03'],['HERO-04','M-HERO-04'],['SRV-01','M-SRV-04'],
+  ['FORM-01','M-FRM-01'],['TRUST-02','M-STORY-04'],['CONTACT-01','M-CTA-03'],
+  ['GAL-06','M-UTIL-02'],['MEDIA-01','M-MEDIA-01'],['MEDIA-01','M-MEDIA-02'],['MEDIA-01','M-MEDIA-03']
+ ]){
+  await page.goto(base+'previews/'+parent+'/?mobile='+mode,{waitUntil:'domcontentloaded'});
+  const dimensions=await page.evaluate(()=>({mode:document.body.dataset.mobileTreatment,inner:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(dimensions.mode===mode&&dimensions.document<=dimensions.inner+2,mode+' is linked to its real parent without phone horizontal overflow');
+ }
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
