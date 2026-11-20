@@ -2585,16 +2585,44 @@
     "id": "ANIM-02",
     "category": "animations",
     "title": "Kinetic headline entrance",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Independent creative studio: two-line campaign statement",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "replay-button",
+      "headline-enter",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Measured line timing, no ornamental per-character effects."
+    "designTags": [
+      "motion",
+      "non-photographic",
+      "responsive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working interactive motion example. Real-device and client visual review outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Two-line kinetic title",
+      "summary": "Focus on the heading entrance—not the fictional agency around it.",
+      "desktop": "Press Replay headline to animate the two lines.",
+      "mobile": "The headline preserves complete legible lines on a narrow screen.",
+      "lookFor": [
+        "Staggered headline timing",
+        "No motion when reduced motion is active"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "This option animates whole headline lines without fragmenting each letter.",
+      "bestFor": [
+        "Creative studios and expressive brands",
+        "Campaign and event landing pages"
+      ],
+      "fitReason": "Use when one short statement is the hero of a page."
+    }
   },
   {
     "id": "ANIM-03",
@@ -2630,16 +2658,44 @@
     "id": "ANIM-05",
     "category": "animations",
     "title": "Content transition",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Professional design studio switching two material stories",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-05/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "accessible-toggle",
+      "content-crossfade",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Accessible, user-triggered crossfade between real content."
+    "designTags": [
+      "motion",
+      "non-photographic",
+      "responsive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working interactive motion example. Real-device and client visual review outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-05",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Material content transition",
+      "summary": "Focus on the accessible selection-to-content transition.",
+      "desktop": "Select oak or stone and watch the visible narrative change.",
+      "mobile": "The material switch and content panel stack for comfortable touch.",
+      "lookFor": [
+        "Content matches the selected material",
+        "Buttons work with touch and keyboard"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A controlled transition lets visitors compare meaningful content without navigating elsewhere.",
+      "bestFor": [
+        "Product and material collections",
+        "Service and package comparisons"
+      ],
+      "fitReason": "Useful for comparing two kinds of detail in the same space."
+    }
   },
   {
     "id": "ANIM-06",
@@ -2660,16 +2716,44 @@
     "id": "ANIM-07",
     "category": "animations",
     "title": "Timeline progress motion",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Builder's four-step project process",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-07/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "step-selector",
+      "timeline-progress",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "User-led progress with no invented real completion status."
+    "designTags": [
+      "motion",
+      "non-photographic",
+      "responsive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Working interactive motion example. Real-device and client visual review outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-07",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Interactive process progress",
+      "summary": "Focus on the selectable four-stage timeline and the bar that responds.",
+      "desktop": "Choose different stages and see the label, story and progress respond.",
+      "mobile": "The stage buttons use a two-column arrangement with accessible labels.",
+      "lookFor": [
+        "Visible progress tied to selected step",
+        "The narrative remains truthful and readable"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A timeline that visually responds to choices can explain a process.",
+      "bestFor": [
+        "Trades and builders",
+        "Step-by-step services"
+      ],
+      "fitReason": "Useful when the process itself benefits from interaction."
+    }
   },
   {
     "id": "ANIM-08",
