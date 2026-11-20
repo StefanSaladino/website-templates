@@ -1,7 +1,7 @@
 try {
 const [components, treatments] = await Promise.all([
-  fetch('./data/components.json?v20261120g',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
-  fetch('./data/mobile-treatments.json?v20261120g',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
+  fetch('./data/components.json?v20261120h',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load designs'); return response.json(); }),
+  fetch('./data/mobile-treatments.json?v20261120h',{cache:'no-store'}).then(response => { if(!response.ok) throw new Error('Could not load phone layouts'); return response.json(); })
 ]);
 const treatmentMap = new Map(treatments.map(item => [item.id,item]));
 const examples = new Map(components.filter(item => item.previewRoute && item.status !== 'draft').map(item => [item.id,item]));
@@ -38,7 +38,7 @@ const focusId = focus.focusAnchor || null;
 // Never add section hashes to iframe URLs: lazy iframe fragment navigation can
 // unexpectedly scroll the containing showroom as several examples load.
 const failureLink = document.querySelector('#review-error a');
-if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120g';
+if(failureLink) failureLink.href = './review.html?id='+encodeURIComponent(design.id)+'&v20261120h';
 title.textContent = focus.focus || design.title;
 document.title = (focus.focus || design.title) + ' — Explore design';
 document.querySelector('#review-id').textContent = 'Example '+design.id+' · Still in development';

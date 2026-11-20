@@ -158,6 +158,56 @@ try{
  await page.waitForTimeout(1200);
  const after=await page.evaluate(()=>scrollY);
  assert(Math.abs(after-before)<30,'catalogue scroll stays steady while previews initialize');
+
+ // Real controls in newly built Phase 3 examples and optional motion specimens.
+ // Images remain network-blocked here; this suite checks interaction truthfulness,
+ // not photography rights or final client image crops.
+ await page.setViewportSize({width:390,height:844});
+ const openSpecimen=async id=>page.goto(base+'previews/'+id+'/index.html',{waitUntil:'domcontentloaded'});
+ await openSpecimen('NAV-02');
+ await page.locator('.v-mobile summary').click();
+ assert(await page.locator('.v-mobile').evaluate(el=>el.open),'NAV-02 mobile menu opens using native details');
+ await openSpecimen('BAR-01');
+ await page.locator('#bar-dismiss').click();
+ assert(await page.locator('#bar-showcase').isHidden(),'BAR-01 announcement dismisses without a dead action');
+ await openSpecimen('HERO-05');
+ await page.locator('#h5-next').click();
+ assert((await page.locator('#h5-count').textContent()).includes('02')&&await page.locator('[data-slide="1"]').isVisible(),'HERO-05 slideshow advances via its own control');
+ await openSpecimen('GAL-05');
+ await page.locator('[data-filter="mono"]').click();
+ assert(await page.locator('[data-category]:visible').count()===1&&await page.locator('[data-filter="mono"]').getAttribute('aria-pressed')==='true','GAL-05 category filter changes the displayed set and selection state');
+ await openSpecimen('GAL-06');
+ await page.locator('[data-photo="1"]').click();
+ assert(await page.locator('#g6-dialog').evaluate(el=>el.open),'GAL-06 native dialog opens');
+ await page.locator('#g6-next').click();
+ assert((await page.locator('#g6-position').textContent()).includes('03'),'GAL-06 next image control updates position');
+ await page.locator('#g6-close').click();
+ assert(!await page.locator('#g6-dialog').evaluate(el=>el.open)&&await page.locator('[data-photo="1"]').evaluate(el=>document.activeElement===el),'GAL-06 dialog closes and restores focus');
+ await openSpecimen('COMP-01');
+ await page.locator('#comp-range').fill('78');
+ assert((await page.locator('#comp-stage').evaluate(el=>el.style.getPropertyValue('--reveal')))==='78%'&&(await page.locator('#comp-value').textContent())==='78%','COMP-01 slider updates both the image reveal and percentage');
+ await openSpecimen('FORM-02');
+ await page.locator('#f2-form button[type=submit]').click();
+ assert(await page.locator('#f2-output-label').isHidden(),'FORM-02 required fields prevent generating an empty summary');
+ await page.locator('select[name=type]').selectOption({label:'Renovation'});
+ await page.locator('input[name=name]').fill('Demo Customer');
+ await page.locator('input[name=email]').fill('demo@example.com');
+ await page.locator('select[name=timeline]').selectOption({label:'3–6 months'});
+ await page.locator('textarea[name=details]').fill('Renovation of an illustrative kitchen.');
+ await page.locator('#f2-form button[type=submit]').click();
+ assert(await page.locator('#f2-output-label').isVisible()&&(await page.locator('#f2-output').inputValue()).includes('NOT SENT'),'FORM-02 generates an honest local-only enquiry preview');
+ await openSpecimen('ANIM-05');
+ await page.locator('[data-material="stone"]').click();
+ assert(await page.locator('#a5-stone').isVisible()&&await page.locator('#a5-oak').isHidden(),'ANIM-05 content selection changes the correct material panel');
+ await openSpecimen('ANIM-07');
+ await page.locator('[data-step="3"]').click();
+ assert((await page.locator('#a7-progress').getAttribute('style')).includes('100%')&&(await page.locator('#a7-stage').textContent()).includes('04 OF 04'),'ANIM-07 fourth process step moves progress to 100%');
+ await openSpecimen('ANIM-01');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('#a1-play').click();
+ assert((await page.locator('#a1-status').textContent()).includes('Reduced motion'),'ANIM-01 honours reduced-motion playback preference');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ 
  assert(errors.length===0,'no uncaught browser script errors');
  console.log('RESULT: '+cases.length+' responsive highlight scenarios, '+checks.length+' checks passed');
  writeFileSync(path.join(evidence,'results.json'),JSON.stringify({caseCount:cases.length,checks:checks.length,cases,errors},null,2));
