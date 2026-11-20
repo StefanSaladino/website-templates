@@ -3383,16 +3383,42 @@
     "id": "FORM-04",
     "category": "forms",
     "title": "Appointment inquiry",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Vehicle service date and contact",
-    "previewRoute": null,
+    "previewRoute": "./previews/FORM-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "service-choice",
+      "future-date-validation",
+      "time-preference",
+      "unsent-draft"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "forms",
+      "vehicle-service",
+      "appointment",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real working frontend, responsive design and explicit fictional/demo disclosures; no live form, uploaded files, business schedule, tracking vendors or published compliance. Browser/device QA and final review remain open.",
+    "reviewRoute": "./review.html?id=FORM-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Forms",
+      "focus": "Vehicle service appointment-preference form",
+      "summary": "A service-category, date, time and contact preference form prevents past-date choices and generates a plainly NOT BOOKED local summary.",
+      "desktop": "Automotive-inspired original CSS scene supports a detailed inquiry sheet with distinctly grouped service and contact fields.",
+      "mobile": "An editorial introduction and small vehicle illustration precede a single-column touch-friendly form and honest non-booking result.",
+      "lookFor": [
+        "Date field has a browser-local minimum and rejects invalid/past choices",
+        "Valid fields produce only a locally prepared note without reserving a slot"
+      ],
+      "focusAnchor": "form-showcase",
+      "explain": "A service scheduling intake interface deliberately separate from real appointment availability and provider booking.",
+      "fitReason": "Needs accurate business identity, service categories, actual availability and explicit confirmation workflow."
+    }
   },
   {
     "id": "FORM-05",
@@ -3413,16 +3439,42 @@
     "id": "FORM-06",
     "category": "forms",
     "title": "Upload inquiry",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Portfolio attachment selector demo with upload backend requirement",
-    "previewRoute": null,
+    "previewRoute": "./previews/FORM-06/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-file-picker",
+      "file-type-and-size-validation",
+      "clear-file",
+      "metadata-only-summary"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "forms",
+      "file-upload-demo",
+      "privacy",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real working frontend, responsive design and explicit fictional/demo disclosures; no live form, uploaded files, business schedule, tracking vendors or published compliance. Browser/device QA and final review remain open.",
+    "reviewRoute": "./review.html?id=FORM-06",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Forms",
+      "focus": "File-selection intake without uploading",
+      "summary": "A local-only portfolio attachment chooser checks PDF/JPG/PNG type and 8 MB limit, shows basic filename and size, and never reads or uploads content.",
+      "desktop": "A graphic document study supports an attachment intake card with explicit local-only state, limits and upload-policy disclosures.",
+      "mobile": "Original paper illustration sits above a vertically composed file chooser, clear/reset controls and a readable local summary.",
+      "lookFor": [
+        "File type and size conditions really reject bad inputs",
+        "No file reader, network upload, storage claim or application intake is performed"
+      ],
+      "focusAnchor": "form-showcase",
+      "explain": "A useful front-end attachment intake preview with the security and privacy boundary made explicit.",
+      "fitReason": "Requires secure server-side verification, malware scanning, access control and approved storage before actual upload."
+    }
   },
   {
     "id": "CONTACT-01",
@@ -3625,31 +3677,82 @@
     "id": "LOC-03",
     "category": "locations",
     "title": "Multiple branches",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Salon cities and location chooser",
-    "previewRoute": null,
+    "previewRoute": "./previews/LOC-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "branch-picker",
+      "aria-pressed",
+      "branch-description-switch"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "locations",
+      "salon",
+      "multi-branch",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real working frontend, responsive design and explicit fictional/demo disclosures; no live form, uploaded files, business schedule, tracking vendors or published compliance. Browser/device QA and final review remain open.",
+    "reviewRoute": "./review.html?id=LOC-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Locations and service areas",
+      "focus": "Three-branch salon chooser",
+      "summary": "A real fictional branch switcher updates sample hours and location-related descriptions beside an original architectural illustration.",
+      "desktop": "Abstract three-bay studio artwork, tactile branch selection controls and a changing contextual information panel.",
+      "mobile": "The original venue illustration leads a stacked branch directory with large buttons and live details.",
+      "lookFor": [
+        "Selection changes the branch heading, sample hours and pressed state",
+        "No invented maps, actual business addresses or appointment availability"
+      ],
+      "focusAnchor": "location-showcase",
+      "explain": "A functional multi-location chooser that can be paired with approved store records and truthful branch-specific links.",
+      "fitReason": "Real deployments need branch identities, exact locations, contact details and live hours."
+    }
   },
   {
     "id": "LOC-04",
     "category": "locations",
     "title": "Directions panel",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Venue visit details and accessible map link",
-    "previewRoute": null,
+    "previewRoute": "./previews/LOC-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "travel-mode-topics",
+      "aria-pressed",
+      "verified-maps-link",
+      "official-venue-info"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "locations",
+      "directions",
+      "public-example",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real working frontend, responsive design and explicit fictional/demo disclosures; no live form, uploaded files, business schedule, tracking vendors or published compliance. Browser/device QA and final review remain open.",
+    "reviewRoute": "./review.html?id=LOC-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Locations and service areas",
+      "focus": "Real landmark directions and arrival topics",
+      "summary": "Uses Toronto City Hall's publicly documented address to provide actual working map and official-information links, while a travel-topic selector changes contextual copy.",
+      "desktop": "Abstract non-scaled route drawing beside real address, mode controls and external link actions.",
+      "mobile": "A map-like concept sketch becomes an accessible stacked address and route-information panel.",
+      "lookFor": [
+        "Google Maps directions target a genuine public landmark rather than a fake demo address",
+        "Original illustration and example operator have no implied city-government affiliation"
+      ],
+      "focusAnchor": "location-showcase",
+      "explain": "A functional directions-panel pattern anchored to a real public landmark with clearly disclosed demo branding and independent map support.",
+      "fitReason": "Only use actual venue locations, verified access instructions and permitted maps/directions links in production."
+    }
   },
   {
     "id": "NEWS-01",
@@ -3781,31 +3884,83 @@
     "id": "UI-02",
     "category": "interface",
     "title": "Tabs",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Portfolio categories or offerings",
-    "previewRoute": null,
+    "previewRoute": "./previews/UI-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "aria-tabs",
+      "arrow-key-tabs",
+      "home-end-tabs",
+      "tabpanel-toggle"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "interface",
+      "tabs",
+      "portfolio",
+      "keyboard"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real working frontend, responsive design and explicit fictional/demo disclosures; no live form, uploaded files, business schedule, tracking vendors or published compliance. Browser/device QA and final review remain open.",
+    "reviewRoute": "./review.html?id=UI-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Interface and utilities",
+      "focus": "Accessible services tabs with distinct artwork",
+      "summary": "Three actual role=tab panels have original CSS illustrations, click selection and complete Left/Right/Home/End keyboard navigation.",
+      "desktop": "Three strong service labels sit over a wide two-column original artwork and text panel that swaps with selection.",
+      "mobile": "Compact tab bar remains fully operable above large artwork and vertically composed content.",
+      "lookFor": [
+        "Arrow Left/Right and Home/End select panels and update focus",
+        "Unselected tabpanels are genuinely hidden and unrelated sample work is labeled fictional"
+      ],
+      "focusAnchor": "interface-showcase",
+      "explain": "A keyboard-first tabs component with roving focus, distinct original illustrated panels and truthful fictional context.",
+      "fitReason": "Use with genuine services; avoid hiding essential material from search or assistive access."
+    }
   },
   {
     "id": "UI-03",
     "category": "interface",
     "title": "Modal/dialog",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Project inquiry pop-up with focus trap",
-    "previewRoute": null,
+    "previewRoute": "./previews/UI-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-modal",
+      "focus-restore",
+      "escape-to-close",
+      "local-draft-validation"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "interface",
+      "dialog",
+      "interactive",
+      "accessible"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real working frontend, responsive design and explicit fictional/demo disclosures; no live form, uploaded files, business schedule, tracking vendors or published compliance. Browser/device QA and final review remain open.",
+    "reviewRoute": "./review.html?id=UI-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Interface and utilities",
+      "focus": "Native inquiry dialog with honest local draft",
+      "summary": "An original graphic-led inquiry opens a real native modal, manages keyboard focus and validates a local-only note.",
+      "desktop": "Editorial project invitation beside an abstract architectural composition; centered native dialog presents its own inquiry form.",
+      "mobile": "Shorter drawing and a full-height safe-area-aware native modal with legible form controls and Close button.",
+      "lookFor": [
+        "Escape closes and restores focus to the original trigger",
+        "Required project category and note validate without transmitting a lead"
+      ],
+      "focusAnchor": "interface-showcase",
+      "explain": "A real modal interaction with substantive keyboard behavior, focus restoration and non-sending demo outcome.",
+      "fitReason": "Needs a real, privacy-reviewed submission service before it could accept client messages."
+    }
   },
   {
     "id": "UI-04",
@@ -3841,16 +3996,42 @@
     "id": "UI-06",
     "category": "interface",
     "title": "Toast/feedback",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Copied email confirmation and dismiss",
-    "previewRoute": null,
+    "previewRoute": "./previews/UI-06/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "clipboard-copy",
+      "real-result-toast",
+      "dismissible-toast",
+      "persistent-status"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "interface",
+      "toast",
+      "feedback",
+      "clipboard"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real working frontend, responsive design and explicit fictional/demo disclosures; no live form, uploaded files, business schedule, tracking vendors or published compliance. Browser/device QA and final review remain open.",
+    "reviewRoute": "./review.html?id=UI-06",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Interface and utilities",
+      "focus": "Truthful copy feedback and dismissible toast",
+      "summary": "A copy-control demo reports actual clipboard success or failure and shows a dismissible feedback message with persistent accessible status.",
+      "desktop": "Large typographic editorial email specimen with separated actions and a lower-corner success/error message.",
+      "mobile": "Wide high-contrast card, full-width actions, and a safe-area toast with visible Dismiss button.",
+      "lookFor": [
+        "A blocked clipboard never produces a false success report",
+        "Information and copy toasts can be dismissed and remain summarized for accessibility"
+      ],
+      "focusAnchor": "interface-showcase",
+      "explain": "An honest toast/feedback specimen using a reserved email address, without sending or falsely claiming a successful copy.",
+      "fitReason": "Only useful if it reflects the real underlying operation and leaves accessible status feedback."
+    }
   },
   {
     "id": "UI-07",
@@ -3871,16 +4052,43 @@
     "id": "LEGAL-01",
     "category": "legal",
     "title": "Cookie consent banner",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Privacy controls with functional preference toggles",
-    "previewRoute": null,
+    "previewRoute": "./previews/LEGAL-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "optional-consent-toggle",
+      "accept-reject",
+      "persisted-preferences",
+      "reopen-reset",
+      "native-dialog"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "legal",
+      "cookie-preferences",
+      "privacy",
+      "interactive"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Real working frontend, responsive design and explicit fictional/demo disclosures; no live form, uploaded files, business schedule, tracking vendors or published compliance. Browser/device QA and final review remain open.",
+    "reviewRoute": "./review.html?id=LEGAL-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Legal and privacy",
+      "focus": "Working demonstrative cookie preference center",
+      "summary": "A realistic first-level consent banner offers equal Accept/Reject, granular optional toggles, browser-local preference retention, reopening and reset.",
+      "desktop": "Dark editorial privacy explainer is paired with a functional bottom consent banner and native preferences dialog.",
+      "mobile": "The privacy choices stack into high-contrast safe-area controls and a compact, readable preferences modal.",
+      "lookFor": [
+        "Optional purposes default off and both first-level options work",
+        "Preferences can be changed or reset without tracking scripts or unsupported compliance claims"
+      ],
+      "focusAnchor": "legal-showcase",
+      "explain": "An actual working user-interface consent pattern storing demo preferences only; no analytics, ad pixels, consent management provider or verified legal compliance.",
+      "fitReason": "Before deploying, audit all site technologies and connect purpose-specific gating, accurate policies and jurisdictional legal review."
+    }
   },
   {
     "id": "LEGAL-02",
