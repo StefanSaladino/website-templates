@@ -44,3 +44,19 @@ Four previously draft core specimens were built as usable, explicitly fictional 
 ## Multiple mobile styles + component cleanup — November 20, 2026
 
 Five genuinely different phone compositions added: M-NAV-02, M-GAL-04, M-COM-02, M-HERO-05 and M-STORY-01. The **same parent** NAV-04, GAL-02 and PROD-01 now each offers a default phone design and **two different alternates**. The showroom selection UI and browser regression suite now support arbitrary built mobile alternatives per component. Mobile coverage **27/44 in review**; **60/157** core specimens in review, **20/20** animations built. CTA-03's arrow glyph removed from its primary action, preserving the actual destination link. Physical-phone visual and accessibility review remain pending.
+
+## Seven more responsive phone alternatives — November 20, 2026
+
+The optional mobile-design inventory reaches **34 / 44 in review** (**10 drafts remain**). Core catalogue remains **60 / 157 in review**; the animation inventory remains **20 / 20 built and integrated**. These are new responsive compositions, not separate core components or superficial colour changes:
+
+| Phone ID | Parent | Actual phone experience |
+|---|---|---|
+| M-HERO-01 | HERO-01 | Immersive shoreline photography, small in-image editorial copy and a genuine full-width on-page CTA |
+| M-GAL-01 | GAL-03 | Full-width vertical photography with high-contrast caption overlays inside each photo chapter |
+| M-SRV-01 | SRV-03 | Edge-to-edge renovation photos and overlapping service description cards; original native details preserved |
+| M-CTA-02 | CTA-02 | Separate photo and text panels with an accessible full-width anchor action |
+| M-CTA-04 | FOOT-02 | Compact responsive footer with exactly one native disclosure open at a time; all destination links retained |
+| M-UTIL-01 | GAL-05 | Touch/keyboard-accessible scroll-snap filter rail; existing live photo filtering retained |
+| M-UTIL-05 | PRJ-03 | Return-to-projects control appears after scrolling and links to the real index; respects phone safe area |
+
+The original default compositions, existing phone styles and wide-screen versions remain intact. The reviewer dynamically exposes the additional named Style choices for each parent and the new modes use the same source content. The existing Chromium smoke suite has explicit assertions for these layouts, disclosure/filter/back-to-top interactions and absence of page-level horizontal overflow. **These checks are committed, not newly reported as passed here.** Media-rights acceptance, image-loaded screenshots, physical-device Safari/Android testing, accessibility/performance and final visual approval remain outstanding. Do not promote these options to live or merge to main.
