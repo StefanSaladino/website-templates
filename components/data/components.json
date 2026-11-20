@@ -3107,7 +3107,9 @@
         "Short project or process introductions"
       ],
       "fitReason": "A thoughtful motion cue can guide a reader through a hierarchy, but the static content should remain just as usable."
-    }
+    },
+    "fullTemplateRoute": "../templates/quiet-saas/index.html#top",
+    "fullTemplateName": "Arc / Quiet SaaS"
   },
   {
     "id": "ANIM-02",
@@ -3150,22 +3152,55 @@
         "Campaign and event landing pages"
       ],
       "fitReason": "Use when one short statement is the hero of a page."
-    }
+    },
+    "fullTemplateRoute": "../templates/creative-agency/index.html#top",
+    "fullTemplateName": "OFFCUT / Creative Agency"
   },
   {
     "id": "ANIM-03",
     "category": "animations",
     "title": "Image mask disclosure",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architecture practice: project photograph with a simple horizontal reveal",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-03/",
     "thumbnail": null,
-    "stockAssetIds": [],
-    "interactions": [],
+    "stockAssetIds": [
+      "STOCK-007"
+    ],
+    "interactions": [
+      "replay-image-mask",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Purposeful photo disclosure; readable without motion."
+    "designTags": [
+      "image-led",
+      "motion",
+      "architecture"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review photographic reveal. Current image remains an unapproved development stock candidate.",
+    "reviewRoute": "./review.html?id=ANIM-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Image mask disclosure",
+      "summary": "A photographic section reveals its image with a simple user-replayable horizontal mask.",
+      "desktop": "Replay the full photograph reveal in the editorial project frame.",
+      "mobile": "Image and copy stack vertically; the reveal remains clipped to the visible photo.",
+      "lookFor": [
+        "The photograph is fully visible after the reveal",
+        "Reduced motion shows the full image immediately"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A restrained image disclosure draws attention to meaningful photography without altering the surrounding layout.",
+      "bestFor": [
+        "Architectural portfolios",
+        "Project features and material-focused studios"
+      ],
+      "fitReason": "Use this when strong project photography deserves a deliberate entrance."
+    },
+    "fullTemplateRoute": "../templates/architecture/index.html#top",
+    "fullTemplateName": "Morrow / Architecture"
   },
   {
     "id": "ANIM-04",
@@ -3223,22 +3258,55 @@
         "Service and package comparisons"
       ],
       "fitReason": "Useful for comparing two kinds of detail in the same space."
-    }
+    },
+    "fullTemplateRoute": "../templates/storefront/index.html#shop",
+    "fullTemplateName": "MORA / Storefront"
   },
   {
     "id": "ANIM-06",
     "category": "animations",
     "title": "Controlled editorial ticker",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Local events studio advancing workshop announcements",
-    "previewRoute": null,
+    "previewRoute": "./previews/ANIM-06/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
+    "interactions": [
+      "manual-prev-next",
+      "opt-in-rotation",
+      "pause",
+      "reduced-motion"
+    ],
     "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Finite, accessible previous/next controls; pause if autoplay."
+    "designTags": [
+      "typography",
+      "interactive",
+      "motion"
+    ],
+    "hasMobileLayout": true,
+    "notes": "In-review finite opt-in ticker demo; automatic rotation is disabled with reduced motion.",
+    "reviewRoute": "./review.html?id=ANIM-06",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Motion and animation",
+      "focus": "Pauseable editorial ticker",
+      "summary": "Event updates advance on demand, with optional autoplay and clear pause controls.",
+      "desktop": "Inspect the changing title and visible Previous / Next / Play controls.",
+      "mobile": "The controls wrap cleanly with tap-sized targets and no clipped text.",
+      "lookFor": [
+        "The visitor controls movement",
+        "Updates remain usable without animation"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "A finite, user-controllable ticker gives rotating announcements a clear purpose.",
+      "bestFor": [
+        "Event venues and studios",
+        "Retail or campaign announcements"
+      ],
+      "fitReason": "Use it for short finite messages; avoid nonstop motion when the message can simply be a list."
+    },
+    "fullTemplateRoute": "../templates/interactive-playground/index.html#top",
+    "fullTemplateName": "WOBBLEWORKS / Interactive Playground"
   },
   {
     "id": "ANIM-07",
@@ -3281,7 +3349,9 @@
         "Step-by-step services"
       ],
       "fitReason": "Useful when the process itself benefits from interaction."
-    }
+    },
+    "fullTemplateRoute": "../templates/contractor/index.html#process",
+    "fullTemplateName": "LINE + LEVEL / Contractor"
   },
   {
     "id": "ANIM-08",
