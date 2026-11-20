@@ -129,9 +129,9 @@ try{
  // Confirm the preview catalogue doesn't load fragment URLs that scroll the parent.
  await page.setViewportSize({width:390,height:900});
  await page.goto(base+'index.html',{waitUntil:'domcontentloaded'});
- await page.waitForFunction(()=>document.querySelectorAll('.cs-item--preview').length===10,{timeout:12000});
+ await page.waitForFunction(count=>document.querySelectorAll('.cs-item--preview').length===count,components.length,{timeout:12000});
  const urls=await page.locator('.cs-preview-window iframe').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('src')));
- assert(urls.length===10&&urls.every(src=>src&&!src.includes('#')),'all 10 catalogue iframe URLs are fragment-free');
+ assert(urls.length===components.length&&urls.every(src=>src&&!src.includes('#')),'all '+components.length+' catalogue iframe URLs are fragment-free');
  await page.evaluate(()=>scrollTo(0,1200));
  await page.waitForTimeout(250);
  const before=await page.evaluate(()=>scrollY);
