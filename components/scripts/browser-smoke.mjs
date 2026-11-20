@@ -86,6 +86,26 @@ async function runCase(item, device, hostWidth, alt=null, shot=false){
  await page.locator('#review-highlight').click();
  hasPulse=await page.locator('#review-iframe').evaluate((iframe,id)=>iframe.contentDocument.getElementById(id).classList.contains('ba-showcase-pulse'),item.showcase.focusAnchor);
  assert(hasPulse,item.id+' '+device+': replay button highlights correct section');
+ const overlay=await page.locator('#review-spotlight').evaluate(box=>{
+   const r=box.getBoundingClientRect();
+   const view=document.querySelector('#review-viewport').getBoundingClientRect();
+   const stage=document.querySelector('.review-stage').getBoundingClientRect();
+   const css=getComputedStyle(box);
+   return {
+     hidden:box.hidden,
+     className:box.className,
+     label:box.textContent.trim(),
+     left:r.left,top:r.top,right:r.right,bottom:r.bottom,
+     width:r.width,height:r.height,
+     border:css.borderTopWidth,
+     viewLeft:view.left,viewRight:view.right,viewTop:view.top,viewBottom:view.bottom,
+     stageLeft:stage.left,stageRight:stage.right
+   };
+ });
+ assert(!overlay.hidden && overlay.className.includes('review-spotlight--active'),item.id+' '+device+': unscaled spotlight overlay active');
+ assert(overlay.width>=14 && overlay.height>=12,item.id+' '+device+': spotlight draws a real box in screen pixels');
+ assert(overlay.left>=overlay.viewLeft-3 && overlay.right<=overlay.viewRight+3 && overlay.top>=overlay.viewTop-3 && overlay.bottom<=overlay.viewBottom+3,item.id+' '+device+': spotlight stays inside the visible preview');
+ assert(overlay.border==='6px' && overlay.label==='THIS IS THE SECTION',item.id+' '+device+': thick visible outline and plain-language label');
  await page.waitForTimeout(500);
  const activeShot=await stage.screenshot();
  const changedPixels=await visiblePixelChanges(unhighlighted,activeShot);
@@ -101,7 +121,7 @@ async function runCase(item, device, hostWidth, alt=null, shot=false){
  const after=await page.evaluate(()=>scrollY);
  assert(Math.abs(after-before)<24,item.id+' '+device+': main page does not jump during highlight');
  if(shot)await stage.screenshot({path:path.join(evidence,item.id+'-'+device+(alt?'-'+alt.id:'')+'-spotlight.png')});
- cases.push({id:item.id,device,hostWidth,altId:alt?.id||null,target:info.id,tag:info.tag,width:info.width,targetRect:info.rect,innerScroll:info.scrollY,changedPixels,painted});
+ cases.push({id:item.id,device,hostWidth,altId:alt?.id||null,target:info.id,tag:info.tag,width:info.width,targetRect:info.rect,innerScroll:info.scrollY,changedPixels,overlay,painted});
 }
 try{
  await waitForServer();
