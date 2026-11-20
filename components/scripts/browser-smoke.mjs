@@ -968,6 +968,85 @@ try{
   assert(dimensions.mode===mode&&dimensions.document<=dimensions.inner+2,mode+' is linked to its real parent without phone horizontal overflow');
  }
 
+
+ // Seven distinct core catalogue families: actual previews, demo honesty and native interactions.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/TEAM-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.t1-person').count()===3
+  &&await page.locator('.t1-person figcaption').count()===3
+  &&(await page.locator('.t1-person figcaption').first().textContent()).includes('NOT STAFF'),
+  'TEAM-01 has three real portrait images labeled as unrelated stock, not fictional employees');
+ assert(await page.locator('.t1-person').first().evaluate(el=>getComputedStyle(el).display==='grid'),
+  'TEAM-01 retains a deliberately featured first staff-role composition on phone');
+
+ await page.goto(base+'previews/TEAM-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.t2-photo-note').isVisible()
+  &&(await page.locator('.t2-photo-note').textContent()).includes('NOT THE FOUNDER')
+  &&await page.locator('.t2-link').getAttribute('href')==='#philosophy',
+  'TEAM-02 is a distinct founder-first composition without pretending the portrait is the real owner');
+
+ await page.goto(base+'previews/TRUST-01/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.mark-list li').count()===5
+  &&await page.locator('.mark-list small').count()===5
+  &&(await page.locator('.mark-proofline').textContent()).includes('No implied client endorsements'),
+  'TRUST-01 shows five fictional-only text marks and plainly denies real endorsements');
+
+ await page.goto(base+'previews/TRUST-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.press-entry').count()===3
+  &&(await page.locator('.press-footnote').textContent()).includes('No real publication'),
+  'TRUST-03 press and awards examples are explicitly fictional');
+ await page.locator('.press-entry').first().locator('summary').click();
+ assert(await page.locator('.press-entry').first().evaluate(el=>el.open)
+  &&await page.locator('.press-entry .press-body').first().isVisible(),
+  'TRUST-03 native disclosure opens to explain evidence requirements');
+ await page.locator('.press-entry').first().locator('summary').focus();
+ await page.keyboard.press('Enter');
+ assert(!await page.locator('.press-entry').first().evaluate(el=>el.open),
+  'TRUST-03 keyboard Enter closes the same native disclosure');
+
+ await page.goto(base+'previews/ABOUT-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.w-about img').count()===2
+  &&await page.locator('.w-studies figcaption').isVisible()
+  &&await page.locator('.w-method details').count()===2,
+  'ABOUT-02 includes two genuine workshop image slots, credits and native method descriptions');
+ await page.locator('.w-method details').first().locator('summary').click();
+ assert(await page.locator('.w-method details').first().evaluate(el=>el.open),
+  'ABOUT-02 process details open on demand without a fake interaction');
+
+ await page.goto(base+'previews/CONTACT-02/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('.c2-map').getAttribute('aria-label')).includes('not a geographic map')
+  &&(await page.locator('.c2-location').textContent()).includes('NOT NAVIGABLE')
+  &&await page.locator('a[href="../../review.html?id=FORM-01"]').count()===1,
+  'CONTACT-02 never presents a fabricated address or abstract sketch as a live map');
+ await page.locator('.c2-details details').first().locator('summary').click();
+ assert(await page.locator('.c2-details details').first().evaluate(el=>el.open),
+  'CONTACT-02 gives real accessible arrival-information disclosures');
+
+ await page.goto(base+'previews/MEDIA-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#r-toggle').isVisible()
+  &&await page.locator('#r-video').getAttribute('src')===null
+  &&(await page.locator('#r-status').textContent()).includes('not loaded'),
+  'MEDIA-02 loads no video until explicitly activated by the viewer');
+ await page.locator('#r-toggle').click();
+ assert((await page.locator('#r-video').getAttribute('src')).includes('videos.pexels.com'),
+  'MEDIA-02 requests the declared sample video only after a real click');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto(base+'previews/MEDIA-02/',{waitUntil:'domcontentloaded'});
+ await page.locator('#r-toggle').click();
+ assert(await page.locator('#r-video').getAttribute('src')===null
+  &&(await page.locator('#r-status').textContent()).includes('Reduced motion'),
+  'MEDIA-02 reduced-motion mode stays on the poster without starting video traffic');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+
+ // Keep 320px as a separately checked composition, not just a scaled 390px screenshot.
+ for(const id of ['TEAM-01','TEAM-02','TRUST-01','TRUST-03','ABOUT-02','CONTACT-02','MEDIA-02']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const viewport=await page.evaluate(()=>({width:innerWidth,body:document.documentElement.scrollWidth}));
+  assert(viewport.body<=viewport.width+2,id+' core example avoids horizontal overflow at 320px ('+viewport.body+'/'+viewport.width+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
