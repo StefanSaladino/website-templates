@@ -15,6 +15,8 @@ for(const id of ids){
  if(!html.includes('<main')||!html.includes('<h1'))errors.push(id+' missing main/h1');
  for(const img of html.matchAll(/<img\b[^>]*>/g))if(!/\balt="[^"]*"/.test(img[0]))errors.push(id+' image missing alt');
  if(record.previewRoute!=='./previews/'+id+'/')errors.push(id+' wrong preview route');
+ if(!record.showcase?.focus||!record.showcase?.summary||!record.showcase?.label||!record.showcase?.desktop||!record.showcase?.mobile||record.showcase?.lookFor?.length!==2)errors.push(id+' missing clear showroom focus guidance');
+ if(!record.showcase?.focusAnchor||!idsInPage.has(record.showcase.focusAnchor))errors.push(id+' missing showcase focus anchor');
  try{execFileSync(process.execPath,['--check',path.join(dir,'script.js')],{stdio:'pipe'})}catch{errors.push(id+' JavaScript syntax failure')}
  for(const asset of record.stockAssetIds||[])if(!stock.assets.some(x=>x.id===asset))errors.push(id+' unregistered stock asset: '+asset);
 }

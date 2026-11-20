@@ -5,19 +5,27 @@ const [items,mobile] = await Promise.all([
 const mobileById=new Map(mobile.map(x=>[x.id,x]));
 const entries=Object.fromEntries(items.filter(x=>x.status!=='draft').map(x=>{
  const alternative=(x.mobileTreatmentIds||[]).find(id=>mobileById.has(id)&&mobileById.get(id).status!=='draft')||null;
- return [x.id,{name:x.title,alternative,label:alternative?mobileById.get(alternative).title:''}];
+ return [x.id,{name:x.title,alternative,label:alternative?mobileById.get(alternative).title:'',showcase:x.showcase,previewRoute:x.previewRoute}];
 }));
 const params=new URLSearchParams(location.search),requested=params.get('id')||'NAV-03',id=Object.hasOwn(entries,requested)?requested:Object.keys(entries)[0],spec=entries[id];
 const iframe=document.querySelector('#review-iframe'),frame=document.querySelector('#review-frame'),open=document.querySelector('#review-open'),alternate=document.querySelector('#review-alt-choice');
 document.querySelector('#review-title').textContent=id+' / '+spec.name;
-document.querySelector('#review-meta').textContent='In-review specimen · stock assets and device QA incomplete';
+document.querySelector('#review-meta').textContent='Design example · in review; visual sign-off pending';
+const focus=spec.showcase||{};
+document.querySelector('#review-component-label').textContent=focus.label||'Component section';
+document.querySelector('#review-focus-title').textContent=focus.focus||spec.name;
+document.querySelector('#review-focus-summary').textContent=focus.summary||'Explore the section in its sample page.';
+document.querySelector('#review-focus-desktop').textContent=focus.desktop||'Explore the desktop layout.';
+document.querySelector('#review-focus-mobile').textContent=focus.mobile||'Switch to phone to view the mobile layout.';
+const focusAnchor=focus.focusAnchor?'#'+encodeURIComponent(focus.focusAnchor):'';
+document.querySelector('#review-focus-link').href='./previews/'+id+'/'+focusAnchor;
 if(spec.alternative){alternate.hidden=false;document.querySelector('#review-alt-name').textContent=spec.alternative+' · '+spec.label;}
 const render=()=>{
 const device=document.querySelector('input[name=device]:checked').value;
 let mobile=document.querySelector('input[name=mobile]:checked').value;
 if(device!=='phone')mobile='default';
 frame.dataset.device=device;
-const url='./previews/'+id+'/index.html'+(mobile==='alternate'&&spec.alternative?'?mobile='+encodeURIComponent(spec.alternative):'');
+const url='./previews/'+id+'/index.html'+(mobile==='alternate'&&spec.alternative?'?mobile='+encodeURIComponent(spec.alternative):'')+focusAnchor;
 if(iframe.getAttribute('src')!==url)iframe.src=url;
 open.href=url;
 document.querySelector('#review-mobile-choices').hidden=device!=='phone';

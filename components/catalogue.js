@@ -62,7 +62,7 @@ try{
     const query=state.query.toLocaleLowerCase();
     const matches=visible.filter(item=>{
       const byCategory=state.category==='all'||item.category===state.category;
-      const haystack=[item.id,item.title,item.exampleContext,labelById.get(item.category),...(item.designTags||[])].join(' ').toLocaleLowerCase();
+      const haystack=[item.id,item.title,item.exampleContext,item.showcase?.focus,item.showcase?.summary,item.showcase?.label,labelById.get(item.category),...(item.designTags||[])].join(' ').toLocaleLowerCase();
       return byCategory&&haystack.includes(query);
     });
     elements.resultsHeading.textContent=state.category==='all'?(planningMode?'All planned components':'Explore working designs'):labelById.get(state.category);
@@ -75,13 +75,19 @@ try{
       const previewRoute=working?item.previewRoute:'';
       const reviewRoute=working?(item.reviewRoute||item.previewRoute):'';
       const stateLabel=item.status==='live'?'Ready':item.status==='in-review'?'In review':item.status==='approved'?'Awaiting release':'Planned';
+      const focus=item.showcase;
+      const targetUrl=previewRoute+(focus?.focusAnchor?'#'+encodeURIComponent(focus.focusAnchor):'');
+      const categoryLabel=focus?.label||labelById.get(item.category)||'Component';
       const frame=working
-        ? '<div class="cs-preview-window"><iframe title="Visual preview of '+escapeText(item.id)+' '+escapeText(item.title)+'" src="'+escapeText(previewRoute)+'" loading="lazy" tabindex="-1" aria-hidden="true"></iframe><a class="cs-preview-cover" href="'+escapeText(previewRoute)+'" aria-label="Open full-page design preview of '+escapeText(item.id)+'"></a></div>'
+        ? '<div class="cs-preview-window"><iframe title="Preview of '+escapeText(item.id)+' focusing on '+escapeText(categoryLabel)+'" src="'+escapeText(targetUrl)+'" loading="lazy" tabindex="-1" aria-hidden="true"></iframe><a class="cs-preview-cover" href="'+escapeText(targetUrl)+'" aria-label="View showcased '+escapeText(categoryLabel)+' in '+escapeText(item.id)+'"></a></div>'
         : '';
       const actions=working
-        ? '<div class="cs-item-actions"><a class="cs-action-primary" href="'+escapeText(previewRoute)+'">Open design</a><a href="'+escapeText(reviewRoute)+'">Compare desktop and mobile</a></div>'
+        ? '<div class="cs-item-actions"><a class="cs-action-primary" href="'+escapeText(targetUrl)+'">View showcased section</a><a href="'+escapeText(reviewRoute)+'">Desktop & mobile details</a></div>'
         : '';
-      article.innerHTML=frame+'<div class="cs-item-top"><span>'+escapeText(item.id)+'</span><span class="cs-item-status">'+stateLabel+'</span></div><h4>'+escapeText(item.title)+'</h4><p>'+escapeText(item.exampleContext)+'</p>'+actions;
+      const focusContent=focus
+        ? '<div class="cs-focus-info"><span class="cs-focus-label">WHAT THIS SHOWCASES</span><strong>'+escapeText(focus.focus)+'</strong><p>'+escapeText(focus.summary)+'</p><div class="cs-focus-cues"><span>'+escapeText(focus.lookFor[0])+'</span><span>'+escapeText(focus.lookFor[1])+'</span></div></div>'
+        : '<p class="cs-example-context">'+escapeText(item.exampleContext)+'</p>';
+      article.innerHTML='<p class="cs-card-category">'+escapeText(categoryLabel)+'</p>'+frame+'<div class="cs-item-top"><span>'+escapeText(item.id)+'</span><span class="cs-item-status">'+stateLabel+'</span></div><h4>'+escapeText(item.title)+'</h4>'+focusContent+actions;
       elements.grid.append(article);
     }
     fitPreviewFrames();

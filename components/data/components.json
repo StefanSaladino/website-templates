@@ -25,7 +25,19 @@
     "hasMobileLayout": true,
     "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
     "reviewRoute": "./review.html?id=NAV-01",
-    "mobileTreatmentIds": []
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Header & navigation",
+      "focus": "Minimal sticky header",
+      "summary": "This example showcases the navigation bar—not the studio's photography or hero section.",
+      "desktop": "A restrained wordmark, simple page links and an enquiry action stay visible above the content.",
+      "mobile": "The links become a compact, keyboard-accessible menu.",
+      "lookFor": [
+        "Wordmark and link spacing",
+        "Sticky behavior and mobile menu"
+      ],
+      "focusAnchor": "top"
+    }
   },
   {
     "id": "NAV-02",
@@ -70,7 +82,19 @@
     "reviewRoute": "./review.html?id=NAV-03",
     "mobileTreatmentIds": [
       "M-NAV-04"
-    ]
+    ],
+    "showcase": {
+      "label": "Header & navigation",
+      "focus": "Transparent image-overlay header",
+      "summary": "Look at how the navigation sits over the hotel photo, then gains a solid background when scrolling.",
+      "desktop": "Transparent navigation overlays the first photograph while keeping links readable.",
+      "mobile": "A compact menu button opens a drawer; an alternative full-screen menu is available.",
+      "lookFor": [
+        "Transparent-to-solid header transition",
+        "Full-screen mobile menu alternative"
+      ],
+      "focusAnchor": "head"
+    }
   },
   {
     "id": "NAV-04",
@@ -257,7 +281,7 @@
     "category": "calls-to-action",
     "title": "Compact band",
     "status": "in-review",
-    "exampleContext": "Contractor book-consultation strip",
+    "exampleContext": "Compact consultation strip on a fictional contractor website",
     "previewRoute": "./previews/CTA-01/",
     "thumbnail": null,
     "stockAssetIds": [],
@@ -273,7 +297,19 @@
     "hasMobileLayout": true,
     "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
     "reviewRoute": "./review.html?id=CTA-01",
-    "mobileTreatmentIds": []
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Call to action",
+      "focus": "Compact consultation band",
+      "summary": "The narrow consultation prompt is the component—not the example contractor's entire page.",
+      "desktop": "A short message and one prominent enquiry action share a compact horizontal band.",
+      "mobile": "The message and action stack without covering the page.",
+      "lookFor": [
+        "Single clear enquiry action",
+        "Compact layout at phone width"
+      ],
+      "focusAnchor": "invitation"
+    }
   },
   {
     "id": "CTA-02",
@@ -298,7 +334,19 @@
     "hasMobileLayout": true,
     "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
     "reviewRoute": "./review.html?id=CTA-02",
-    "mobileTreatmentIds": []
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Call to action",
+      "focus": "Photographic call to action",
+      "summary": "The image-backed invitation and its single button are the component being showcased.",
+      "desktop": "A large photograph supports a short message and one main action.",
+      "mobile": "The action stays visible and easy to reach over a phone-sized image crop.",
+      "lookFor": [
+        "Image contrast behind the message",
+        "Dominant action and responsive crop"
+      ],
+      "focusAnchor": "scene"
+    }
   },
   {
     "id": "CTA-03",
@@ -370,14 +418,26 @@
     "reviewRoute": "./review.html?id=HERO-01",
     "mobileTreatmentIds": [
       "M-HERO-02"
-    ]
+    ],
+    "showcase": {
+      "label": "Hero section",
+      "focus": "Full-bleed photographic opening",
+      "summary": "The hero—the large first-screen photograph, headline and primary action—is the component being showcased.",
+      "desktop": "The image fills the opening screen with readable type layered over it.",
+      "mobile": "Try the alternative that moves the photograph above the headline and action.",
+      "lookFor": [
+        "Image composition and text placement",
+        "Photo-first mobile option"
+      ],
+      "focusAnchor": "top"
+    }
   },
   {
     "id": "HERO-02",
     "category": "heroes",
     "title": "Split image and copy",
     "status": "in-review",
-    "exampleContext": "Renovator portrait-or-work photo beside concise promise",
+    "exampleContext": "Fictional interior studio with a text-and-photo opening",
     "previewRoute": "./previews/HERO-02/",
     "thumbnail": null,
     "stockAssetIds": [
@@ -395,7 +455,19 @@
     "hasMobileLayout": true,
     "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
     "reviewRoute": "./review.html?id=HERO-02",
-    "mobileTreatmentIds": []
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Hero section",
+      "focus": "Split image and headline",
+      "summary": "Compare this two-part hero: a clear text panel beside one substantial photograph.",
+      "desktop": "The message and image share the opening section side by side.",
+      "mobile": "The message and photograph form a deliberate vertical layout.",
+      "lookFor": [
+        "Text-to-photo proportion",
+        "Mobile reading order"
+      ],
+      "focusAnchor": "top"
+    }
   },
   {
     "id": "HERO-03",
@@ -552,7 +624,7 @@
     "category": "galleries",
     "title": "Uniform grid",
     "status": "in-review",
-    "exampleContext": "Landscape portfolio image tiles",
+    "exampleContext": "Fictional portrait gallery with evenly sized image tiles",
     "previewRoute": "./previews/GAL-01/",
     "thumbnail": null,
     "stockAssetIds": [
@@ -576,7 +648,19 @@
     "hasMobileLayout": true,
     "notes": "New working example. Stock URLs are documented development references; visual sign-off is deferred until the overall showroom review.",
     "reviewRoute": "./review.html?id=GAL-01",
-    "mobileTreatmentIds": []
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Gallery",
+      "focus": "Uniform photo grid",
+      "summary": "The component is the consistent image grid and its full-screen photo viewer.",
+      "desktop": "Four identically proportioned image tiles display as a tidy grid.",
+      "mobile": "Tiles reflow into two columns; tap any photo to enlarge it.",
+      "lookFor": [
+        "Even tile sizes and captions",
+        "Click-to-expand lightbox"
+      ],
+      "focusAnchor": "gallery"
+    }
   },
   {
     "id": "GAL-02",
@@ -610,7 +694,19 @@
     "reviewRoute": "./review.html?id=GAL-02",
     "mobileTreatmentIds": [
       "M-GAL-02"
-    ]
+    ],
+    "showcase": {
+      "label": "Gallery",
+      "focus": "Asymmetric masonry gallery",
+      "summary": "Focus on the staggered image layout and photo-browsing interactions, not the portfolio's introductory text.",
+      "desktop": "Images form a staggered editorial composition with collection filters and a viewer.",
+      "mobile": "Compare the default grid with the swipeable photo-rail option.",
+      "lookFor": [
+        "Asymmetric image arrangement",
+        "Filter, enlarge and mobile rail"
+      ],
+      "focusAnchor": "gallery"
+    }
   },
   {
     "id": "GAL-03",
@@ -954,7 +1050,19 @@
     "reviewRoute": "./review.html?id=SRV-03",
     "mobileTreatmentIds": [
       "M-SRV-03"
-    ]
+    ],
+    "showcase": {
+      "label": "Services section",
+      "focus": "Alternating image-and-text rows",
+      "summary": "This showcases how multiple services are introduced: image beside text, alternating from one row to the next.",
+      "desktop": "Large imagery and service descriptions switch sides down the page.",
+      "mobile": "Compare the stacked service stories with a compact expandable index.",
+      "lookFor": [
+        "Alternating section rhythm",
+        "Expandable mobile service option"
+      ],
+      "focusAnchor": "services"
+    }
   },
   {
     "id": "SRV-04",
@@ -1804,7 +1912,19 @@
     "hasMobileLayout": true,
     "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
     "reviewRoute": "./review.html?id=FORM-01",
-    "mobileTreatmentIds": []
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Contact form",
+      "focus": "Minimal three-field contact form",
+      "summary": "The focus is the form: name, email, message, validation and a clear next step.",
+      "desktop": "A simple contact layout prioritizes readable labels and the three fields.",
+      "mobile": "Fields become one comfortable column with accessible input types.",
+      "lookFor": [
+        "Inline error feedback",
+        "Demo enquiry summary (not sent)"
+      ],
+      "focusAnchor": "form"
+    }
   },
   {
     "id": "FORM-02",
