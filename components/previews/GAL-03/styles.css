@@ -19,3 +19,11 @@ body{background:#edeae3;color:#2e332b}.g3-head{display:flex;justify-content:spac
 }
 @media(max-width:350px){body[data-mobile-treatment="M-GAL-03"] .g3-chapters{gap:5px 9px}body[data-mobile-treatment="M-GAL-03"] .g3-chapter figcaption h2{font-size:23px}}
 
+
+/* Keep nested grid items from imposing intrinsic min-content widths on the phone. */
+@media(max-width:760px){
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapters{width:100%;max-width:100%;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-mobile-treatment="M-GAL-03"] .g3-chapter:first-of-type{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr)}
+ body[data-mobile-treatment="M-GAL-03"] :is(.g3-intro,.g3-chapter,.g3-image,.g3-chapter figcaption){min-width:0;max-width:100%}
+ body[data-mobile-treatment="M-GAL-03"] :is(.g3-intro h1,.g3-chapter figcaption h2,.g3-chapter figcaption p){overflow-wrap:anywhere}
+}

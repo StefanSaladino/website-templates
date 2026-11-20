@@ -499,7 +499,7 @@ try{
   await page.goto(base+'previews/'+parent+'/?mobile='+altId,{waitUntil:'domcontentloaded'});
   assert(await page.locator('body').getAttribute('data-mobile-treatment')===altId,altId+' preview is routable by mobile treatment query');
   const bounds=await page.evaluate(()=>({w:innerWidth,scroll:document.documentElement.scrollWidth}));
-  assert(bounds.scroll<=bounds.w+2,altId+' does not force horizontal page overflow at 390px');
+  assert(bounds.scroll<=bounds.w+2,altId+' does not force horizontal page overflow at 390px (scroll width '+bounds.scroll+'px, viewport '+bounds.w+'px)');
  }
 
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
