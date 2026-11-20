@@ -2017,6 +2017,94 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Seven new working testimonial and restaurant menu previews.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/TEST-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#count').textContent()==='01 / 03'
+  &&await page.locator('#previous').isDisabled()
+  &&(await page.locator('#quote-caption').textContent()).includes('invented'),'TEST-02 quote-carousel starts on an explicitly fictional example with bounded controls');
+ await page.locator('#next').click();
+ assert(await page.locator('#count').textContent()==='02 / 03'
+  &&(await page.locator('#quote-caption').textContent()).includes('No real person')
+  &&await page.locator('[data-slide="1"]').getAttribute('aria-pressed')==='true','TEST-02 actually advances the statement, description and active dot');
+ await page.locator('[data-slide="2"]').click();
+ assert(await page.locator('#next').isDisabled(),'TEST-02 numbered direct selection bounds the final fictional quote');
+
+ await page.goto(base+'previews/TEST-03/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('.aside>p').textContent()).includes('NOT A PERSON')
+  &&(await page.locator('#quote').textContent()).includes('useful project story'),'TEST-03 uses original illustrated non-person art and clearly invented sample quote');
+ await page.locator('[data-angle=collaboration]').click();
+ assert((await page.locator('#quote').textContent()).includes('authentic collaborator')
+  &&(await page.locator('#attribution').textContent()).includes('No client')
+  &&await page.locator('[data-angle=collaboration]').getAttribute('aria-pressed')==='true','TEST-03 actually changes the hypothetical quote, non-attribution and selected state');
+
+ await page.goto(base+'previews/TEST-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.feed article:visible').count()===5,'TEST-04 five fictional feedback examples render as real cards');
+ await page.locator('[data-filter=communication]').click();
+ assert(await page.locator('.feed article:visible').count()===2
+  &&(await page.locator('#count').textContent()).includes('2 invented communication')
+  &&await page.locator('[data-filter=communication]').getAttribute('aria-pressed')==='true','TEST-04 topic filter genuinely hides unselected rows and announces the result count');
+ await page.locator('#reset').click();
+ assert(await page.locator('.feed article:visible').count()===5
+  &&await page.locator('#reset').isDisabled(),'TEST-04 reset restores all visible imaginary feedback');
+
+ await page.goto(base+'previews/TEST-05/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#screen').isVisible()
+  &&await page.locator('#clip').isHidden()
+  &&(await page.locator('#status').textContent()).includes('Ready'),'TEST-05 has a real still canvas, no preloaded customer footage and a complete text transcript');
+ assert(await page.locator('#transcript').evaluate(el=>el.open)
+  &&(await page.locator('.transcript-body').textContent()).includes('no speaker'),'TEST-05 readable transcript explicitly discloses fictional silent clip');
+ await page.locator('#play').click();
+ await page.waitForFunction(()=>document.querySelector('#play').textContent.includes('Pause'),null,{timeout:10000});
+ assert((await page.locator('#status').textContent()).includes('silent')
+  &&await page.locator('#restart').isEnabled(),'TEST-05 play triggers an actual local canvas-or-video motion sequence, with restart enabled');
+ await page.locator('#play').click();
+ assert((await page.locator('#status').textContent()).includes('paused'),'TEST-05 playback can be genuinely paused');
+ await page.locator('#restart').click();
+ assert(await page.locator('#play').textContent()==='Pause original motion study','TEST-05 Restart really resumes from the original frame');
+
+ await page.goto(base+'previews/MENU-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.food article').count()===3
+  &&await page.locator('.food .photo img[alt]').count()===3
+  &&(await page.locator('.intro').textContent()).includes('unrelated fictional dishes'),'MENU-02 image-led menu includes three independent photographic sources and truthful sample-food disclaimer');
+ await page.locator('[data-category=sea]').click();
+ assert(await page.locator('.food article:visible').count()===1
+  &&(await page.locator('#count').textContent()).includes('1 fictional sea')
+  &&await page.locator('[data-category=sea]').getAttribute('aria-pressed')==='true','MENU-02 meal category filter displays only a matching fictional dish');
+ await page.locator('#reset').click();
+ assert(await page.locator('.food article:visible').count()===3,'MENU-02 Reset displays every photo menu card again');
+
+ await page.goto(base+'previews/MENU-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[role=tab]').count()===3
+  &&await page.locator('#dishes article').count()===3,'MENU-03 has three actual meal-period tabs and three initial dishes');
+ await page.locator('#tab-lunch').focus();
+ await page.keyboard.press('ArrowRight');
+ assert(await page.locator('#tab-dinner').getAttribute('aria-selected')==='true'
+  &&(await page.locator('#meal-title').textContent()).includes('evening')
+  &&(await page.locator('#dishes').textContent()).includes('risotto'),'MENU-03 keyboard changes actual evening dishes and ARIA tab selection');
+ await page.keyboard.press('End');
+ assert(await page.locator('#tab-late').getAttribute('aria-selected')==='true'
+  &&await page.locator('#dishes article').count()===2
+  &&(await page.locator('#meal-count').textContent()).includes('2 fictional late'),'MENU-03 End selects actual late-night items and updates count');
+
+ await page.goto(base+'previews/MENU-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#printed-menu .dish').count()===3
+  &&(await page.locator('.legal').textContent()).includes('not verified'),'MENU-04 menu HTML remains accessible alongside the real PDF download');
+ const downloadPromise=page.waitForEvent('download',{timeout:10000});
+ await page.locator('#download-pdf').click();
+ const menuDownload=await downloadPromise;
+ assert(menuDownload.suggestedFilename()==='atelier-table-fictional-sample-menu.pdf'
+  &&(await page.locator('#download-status').textContent()).includes('Generated'),'MENU-04 Download produces a genuine PDF with an explicit fictional filename and local status');
+
+ for(const id of ['TEST-02','TEST-03','TEST-04','TEST-05','MENU-02','MENU-03','MENU-04']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const sizes=await page.evaluate(()=>({viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
+  assert(sizes.scrollWidth<=sizes.viewport+2,id+' avoids horizontal page overflow at 320px ('+sizes.scrollWidth+'/'+sizes.viewport+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
