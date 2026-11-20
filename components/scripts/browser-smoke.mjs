@@ -1466,6 +1466,141 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Nine completed footer, CTA and booking variants: actual controls and explicit non-transactional behavior.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/FOOT-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('footer#footer-showcase .foot-col').count()===3
+  &&await page.locator('footer a[href="#approach"]').count()===1
+  &&(await page.locator('#sample-address').textContent())==='hello@example.com','FOOT-03 has an actual giant-footer navigation and reserved sample contact');
+ await page.locator('#copy-address').click();
+ assert((await page.locator('#copy-status').textContent())!=='No address copied yet.','FOOT-03 reports a real clipboard outcome');
+
+ await page.goto(base+'previews/FOOT-04/',{waitUntil:'domcontentloaded'});
+ await page.locator('#project-form button[type=submit]').click();
+ assert((await page.locator('#form-error').textContent()).includes('Choose an example service')
+  &&await page.locator('#outcome').isHidden(),'FOOT-04 prevents an empty trade inquiry draft');
+ await page.locator('#service').selectOption('Carpentry');
+ await page.locator('#region').fill('An illustrative service region');
+ await page.locator('#project-form button[type=submit]').click();
+ assert(await page.locator('#outcome').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT SENT')
+  &&(await page.locator('#output').textContent()).includes('Carpentry'),'FOOT-04 generates actual local scope output without claiming submission');
+ await page.locator('#copy-contact').click();
+ assert((await page.locator('#copy-state').textContent())!=='Not copied.','FOOT-04 contact copy reports success or failure accurately');
+
+ await page.goto(base+'previews/FOOT-05/',{waitUntil:'domcontentloaded'});
+ await page.locator('#email').fill('reader@example.com');
+ await page.locator('#newsletter-form button[type=submit]').click();
+ assert(await page.locator('#result').isHidden()
+  &&(await page.locator('#consent-error').textContent()).includes('Acknowledge'),'FOOT-05 newsletter cannot pass without consent');
+ await page.locator('#consent').check();
+ await page.locator('#newsletter-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#result strong').textContent()).includes('NOT SUBSCRIBED'),'FOOT-05 displays an honest local preview, never subscribed');
+ await page.locator('#reset').click();
+ assert(await page.locator('#result').isHidden()&&!await page.locator('#consent').isChecked(),'FOOT-05 demo preference reset really clears state');
+
+ await page.goto(base+'previews/BOOK-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#guests').textContent()==='2'
+  &&(await page.locator('.photo-label').textContent()).includes('NOT A REAL RETREAT'),'BOOK-02 starts with bounded guests and candid unrelated landscape photography');
+ await page.locator('#plus').click();
+ assert(await page.locator('#guests').textContent()==='3','BOOK-02 increment truly changes guest count');
+ await page.locator('#stay-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('arrival')
+  &&await page.locator('#result').isHidden(),'BOOK-02 does not book without valid dates');
+ const arrivalDate=await page.locator('#arrival').getAttribute('min');
+ const departureDate=new Date(Date.parse(arrivalDate+'T00:00:00Z')+86400000).toISOString().slice(0,10);
+ await page.locator('#arrival').fill(arrivalDate);
+ await page.locator('#departure').fill(departureDate);
+ await page.locator('#stay-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT BOOKED')
+  &&(await page.locator('#output').textContent()).includes('Guests: 3'),'BOOK-02 computes a local stay preference, not inventory or booking');
+
+ await page.goto(base+'previews/BOOK-03/',{waitUntil:'domcontentloaded'});
+ await page.locator('#quote-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('project category'),'BOOK-03 requires a real selected job type');
+ await page.locator('[name=kind][value=Renovation]').check();
+ await page.locator('#timeline').selectOption('3–6 months');
+ await page.locator('#range').selectOption('Not yet established');
+ await page.locator('#quote-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT A QUOTE OR SENT'),'BOOK-03 prepares an honest unsent, unpriced project brief');
+
+ await page.goto(base+'previews/BOOK-04/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('#date-a').textContent()).includes('example only'),'BOOK-04 labels dynamically generated sessions as fictitious examples');
+ await page.locator('#plus').click();
+ await page.locator('#plus').click();
+ assert(await page.locator('#seats').textContent()==='3','BOOK-04 sample seats increment with actual state');
+ await page.locator('#rsvp-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('illustrative workshop session'),'BOOK-04 rejects an empty session choice');
+ await page.locator('[name=session][value=b]').check();
+ await page.locator('#contact').fill('Fictional Participant');
+ await page.locator('#rsvp-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT REGISTERED')
+  &&(await page.locator('#output').textContent()).includes('Seats: 3'),'BOOK-04 creates a truthful local interest summary, not real tickets');
+
+ await page.goto(base+'previews/BOOK-05/',{waitUntil:'domcontentloaded'});
+ await page.locator('[name=provider][value=resy]').check();
+ await page.locator('#provider-form button[type=submit]').click();
+ assert(await page.locator('#destination').isHidden()
+  &&(await page.locator('#error').textContent()).includes('not a restaurant booking page'),'BOOK-05 requires explicit acknowledgement before linking to another service');
+ await page.locator('#ack').check();
+ await page.locator('#provider-form button[type=submit]').click();
+ assert(await page.locator('#destination').isVisible()
+  &&await page.locator('#destination-link').getAttribute('href')==='https://resy.com/'
+  &&(await page.locator('#destination-label').textContent()).includes('NO RESERVATION'),'BOOK-05 opens only a verified Resy homepage, not an invented reservation link');
+ await page.locator('#change').click();
+ await page.locator('[name=provider][value=opentable]').check();
+ await page.locator('#provider-form button[type=submit]').click();
+ assert(await page.locator('#destination-link').getAttribute('href')==='https://www.opentable.com/','BOOK-05 switches to the genuine OpenTable homepage link');
+
+ await page.goto(base+'previews/CTA-04/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('.image>span').textContent()).includes('NOT A VERIFIED PROJECT'),'CTA-04 architecture photography discloses unrelated stock');
+ await page.locator('#open-inquiry').click();
+ assert(await page.locator('#inquiry').evaluate(el=>el.open)
+  &&await page.locator('#close-inquiry').evaluate(el=>document.activeElement===el),'CTA-04 opens a real native dialog and focuses its close control');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#inquiry').evaluate(el=>!el.open)
+  &&await page.locator('#open-inquiry').evaluate(el=>document.activeElement===el),'CTA-04 Escape restores focus to the actual opener');
+ await page.locator('#open-inquiry').click();
+ await page.locator('#request-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('Choose'),'CTA-04 prevents an empty local enquiry');
+ await page.locator('#project').selectOption('Interior redesign');
+ await page.locator('#details').fill('An illustrative architecture project idea.');
+ await page.locator('#request-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT SENT'),'CTA-04 produces only a local draft, without contacting an architect');
+ await page.locator('#close-inquiry').click();
+
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto(base+'previews/CTA-05/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#mobile-rail').isVisible()
+  &&await page.locator('#mobile-rail a').count()===2
+  &&await page.locator('#mobile-rail a[href="#hours"]').count()===1
+  &&await page.locator('#mobile-rail a[href="#quote"]').count()===1,'CTA-05 is a true dual-action phone rail with meaningful linked destinations');
+ await page.locator('#mobile-rail a[href="#quote"]').click();
+ await page.waitForFunction(()=>document.querySelector('#mobile-rail').hidden);
+ assert(await page.locator('#mobile-rail').isHidden(),'CTA-05 sticky rail hides near its actual inquiry form');
+ await page.locator('#quote-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('Choose'),'CTA-05 enforces local service-type validation');
+ await page.locator('#work').selectOption('Maintenance');
+ await page.locator('#location').fill('Sample region');
+ await page.locator('#quote-form button[type=submit]').click();
+ assert(await page.locator('#outcome').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT SENT'),'CTA-05 local quote inquiry really generates a non-sending draft');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+
+ for(const id of ['FOOT-03','FOOT-04','FOOT-05','BOOK-02','BOOK-03','BOOK-04','BOOK-05','CTA-04','CTA-05']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const widths=await page.evaluate(()=>({screen:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(widths.document<=widths.screen+2,id+' avoids horizontal page overflow at 320px ('+widths.document+'/'+widths.screen+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
