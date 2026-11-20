@@ -182,10 +182,12 @@ try{
  await page.locator('#g6-next').click();
  assert((await page.locator('#g6-position').textContent()).includes('03'),'GAL-06 next image control updates position');
  await page.locator('#g6-close').click();
- assert(!await page.locator('#g6-dialog').evaluate(el=>el.open)&&await page.locator('[data-photo="1"]').evaluate(el=>document.activeElement===el),'GAL-06 dialog closes and restores focus');
+ await page.waitForFunction(()=>!document.querySelector('#g6-dialog').open && document.activeElement===document.querySelector('[data-photo="1"]'));
+ assert(await page.locator('[data-photo="1"]').evaluate(el=>document.activeElement===el),'GAL-06 dialog closes and restores focus');
  await openSpecimen('COMP-01');
- await page.locator('#comp-range').fill('78');
- assert((await page.locator('#comp-stage').evaluate(el=>el.style.getPropertyValue('--reveal')))==='78%'&&(await page.locator('#comp-value').textContent())==='78%','COMP-01 slider updates both the image reveal and percentage');
+ await page.locator('#comp-range').focus();
+ await page.locator('#comp-range').press('End');
+ assert((await page.locator('#comp-stage').evaluate(el=>el.style.getPropertyValue('--reveal')))==='100%'&&(await page.locator('#comp-value').textContent())==='100%','COMP-01 keyboard slider updates both the image reveal and percentage');
  await openSpecimen('FORM-02');
  await page.locator('#f2-form button[type=submit]').click();
  assert(await page.locator('#f2-output-label').isHidden(),'FORM-02 required fields prevent generating an empty summary');
