@@ -1911,6 +1911,112 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Eight new complete comparison, service and process designs: verify genuine interactions.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/COMP-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.pair figure').count()===2
+  &&await page.locator('#highlight').getAttribute('aria-pressed')==='false'
+  &&(await page.locator('.scene.after').getAttribute('aria-label')).includes('same fictional garden'),'COMP-02 has two independent original matched garden scenes and an inactive real inspection control');
+ await page.locator('#highlight').click();
+ assert(await page.locator('.pair').evaluate(el=>el.classList.contains('is-highlighted'))
+  &&await page.locator('#highlight').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#inspection-copy').textContent()).includes('curved pathway'),'COMP-02 Highlight changes actual scene emphasis and live description');
+ await page.locator('#highlight').click();
+ assert(!await page.locator('.pair').evaluate(el=>el.classList.contains('is-highlighted')),'COMP-02 highlight can be genuinely reversed');
+
+ await page.goto(base+'previews/COMP-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#panel-art').getAttribute('data-state')==='before','COMP-03 starts in original matte car-panel concept');
+ await page.locator('button[data-state=after]').click();
+ assert(await page.locator('#panel-art').getAttribute('data-state')==='after'
+  &&(await page.locator('#panel-art').getAttribute('aria-label')).includes('glossy slate')
+  &&await page.locator('button[data-state=after]').getAttribute('aria-pressed')==='true','COMP-03 genuinely changes CSS reflection, accessible surface description and selected state');
+ await page.locator('button[data-state=before]').click();
+ assert(await page.locator('#panel-art').getAttribute('data-state')==='before','COMP-03 can restore the original illustrated finish');
+
+ await page.goto(base+'previews/SRV-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[role=tab]').count()===3
+  &&await page.locator('#visual').getAttribute('data-kind')==='exterior','SRV-04 has three genuine service tabs and a CSS exterior graphic');
+ await page.locator('#tab-exterior').focus();
+ await page.keyboard.press('ArrowDown');
+ assert(await page.locator('#tab-interior').getAttribute('aria-selected')==='true'
+  &&await page.locator('#visual').getAttribute('data-kind')==='interior'
+  &&(await page.locator('#detail-title').textContent()).includes('cabin'),'SRV-04 arrow keyboard navigation updates actual visual and service content');
+ await page.keyboard.press('End');
+ assert(await page.locator('#tab-finish').getAttribute('aria-selected')==='true'
+  &&(await page.locator('#detail-list').textContent()).includes('Paint history'),'SRV-04 End switches the ARIA tab and unique technical questions');
+
+ await page.goto(base+'previews/SRV-05/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.accordion details').count()===3
+  &&await page.locator('#collapse-all').isDisabled(),'SRV-05 technical services begin closed and Collapse All accurately disabled');
+ await page.locator('#expand-all').click();
+ await page.waitForFunction(()=>document.querySelectorAll('.accordion details[open]').length===3);
+ assert((await page.locator('#open-count').textContent()).includes('3 of 3')
+  &&await page.locator('#expand-all').isDisabled(),'SRV-05 Expand All genuinely opens three separate native details');
+ await page.locator('#collapse-all').click();
+ await page.waitForFunction(()=>document.querySelectorAll('.accordion details[open]').length===0);
+ assert((await page.locator('#open-count').textContent()).includes('0 of 3'),'SRV-05 Collapse All really shuts the disclosures and updates the count');
+
+ await page.goto(base+'previews/SRV-06/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#matrix').getAttribute('data-audience')==='all','SRV-06 starts in a real three-audience comparison');
+ await page.locator('button[data-audience=teams]').click();
+ assert(await page.locator('#matrix').getAttribute('data-audience')==='teams'
+  &&await page.locator('button[data-audience=teams]').getAttribute('aria-pressed')==='true'
+  &&(await page.locator('#audience-title').textContent()).includes('Operating teams'),'SRV-06 selecting a B2B audience changes table filters, active button and description');
+ assert(await page.locator('#matrix td[data-audience-col=founders]:visible').count()===0
+  &&await page.locator('#matrix td[data-audience-col=teams]:visible').count()>0,'SRV-06 audience selection genuinely hides unselected comparison columns');
+ await page.locator('button[data-audience=all]').click();
+ assert(await page.locator('#matrix td[data-audience-col=founders]:visible').count()>0,'SRV-06 Show All restores the matrix comparison');
+
+ await page.goto(base+'previews/PROC-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.step').count()===3
+  &&await page.locator('#assess .art').count()===1
+  &&await page.locator('#plan .art').count()===1,'PROC-03 uses three distinct conceptual graphic steps');
+ await page.locator('#assess summary').click();
+ assert(await page.locator('#assess details').evaluate(el=>el.open),'PROC-03 first process detail opens genuinely');
+ await page.locator('#plan summary').click();
+ await page.waitForFunction(()=>document.querySelector('#plan details').open&&!document.querySelector('#assess details').open);
+ assert(await page.locator('#plan details').evaluate(el=>el.open),'PROC-03 alternative chapter opens while former detail closes');
+ await page.locator('#assess a[href="#plan"]').click();
+ assert(await page.evaluate(()=>location.hash)==='#plan','PROC-03 next-step link points to a real chapter section');
+
+ await page.goto(base+'previews/PROC-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[role=tab]').count()===5
+  &&await page.locator('#previous').isDisabled()
+  &&await page.locator('#progress-fill').evaluate(el=>parseFloat(el.style.width)===0),'PROC-04 five-stage timeline starts on first bounded milestone');
+ await page.locator('#next').click();
+ assert(await page.locator('#number').textContent()==='02 OF 05'
+  &&await page.locator('#art').getAttribute('data-milestone')==='scope'
+  &&await page.locator('#progress-fill').evaluate(el=>parseFloat(el.style.width)===25),'PROC-04 Next updates actual stage art, title and 25 percent progress');
+ await page.locator('#tab-scope').focus();
+ await page.keyboard.press('End');
+ assert(await page.locator('#tab-deliver').getAttribute('aria-selected')==='true'
+  &&await page.locator('#next').isDisabled()
+  &&await page.locator('#progress-fill').evaluate(el=>parseFloat(el.style.width)===100),'PROC-04 keyboard End selects final stage and bounds navigation at 100 percent');
+
+ await page.goto(base+'previews/PROC-05/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-reviewed]').count()===4
+  &&await page.locator('#reviewed-count').textContent()==='0 / 4'
+  &&await page.locator('#reset').isDisabled(),'PROC-05 starts with zero local reading marks and a disabled reset');
+ await page.locator('#open-first').click();
+ assert(await page.locator('.steps article').first().locator('details').evaluate(el=>el.open),'PROC-05 Open First actually expands and focuses its first disclosure');
+ await page.locator('[data-reviewed="1"]').check();
+ await page.locator('[data-reviewed="3"]').check();
+ assert(await page.locator('#reviewed-count').textContent()==='2 / 4'
+  &&await page.locator('#meter-fill').evaluate(el=>parseFloat(el.style.width)===50),'PROC-05 reading checkboxes genuinely update local counter and halfway meter');
+ await page.locator('#reset').click();
+ assert(await page.locator('#reviewed-count').textContent()==='0 / 4'
+  &&await page.locator('[data-reviewed]:checked').count()===0
+  &&await page.locator('.steps details[open]').count()===0,'PROC-05 Reset clears actual reading marks and disclosures without submitting data');
+
+ for(const id of ['COMP-02','COMP-03','SRV-04','SRV-05','SRV-06','PROC-03','PROC-04','PROC-05']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const widths=await page.evaluate(()=>({screen:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(widths.document<=widths.screen+2,id+' avoids horizontal page overflow at 320px ('+widths.document+'/'+widths.screen+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
