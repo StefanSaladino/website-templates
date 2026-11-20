@@ -3,6 +3,7 @@ import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync,existsSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import sharp from 'sharp';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const output=path.resolve(root,'../dist');
@@ -13,6 +14,16 @@ const alternatives=JSON.parse((await import('node:fs')).readFileSync(path.join(r
 const base='http://127.0.0.1:4199/components/';
 const server=spawn('python3',['-m','http.server','4199','--bind','127.0.0.1'],{cwd:output,stdio:'ignore'});
 const errors=[],checks=[],cases=[];
+async function visiblePixelChanges(before,after){
+ const a=await sharp(before).removeAlpha().raw().toBuffer({resolveWithObject:true});
+ const b=await sharp(after).removeAlpha().raw().toBuffer({resolveWithObject:true});
+ if(a.info.width!==b.info.width||a.info.height!==b.info.height)throw Error('Stage screenshot dimensions changed during highlight');
+ let changed=0;
+ for(let i=0;i<a.data.length;i+=3){
+  if(Math.abs(a.data[i]-b.data[i])+Math.abs(a.data[i+1]-b.data[i+1])+Math.abs(a.data[i+2]-b.data[i+2])>80)changed++;
+ }
+ return changed;
+}
 let browser,page;
 function assert(value,message){
  if(!value)throw Error('FAIL: '+message);
@@ -38,6 +49,8 @@ async function runCase(item, device, hostWidth, alt=null, shot=false){
   await page.locator('input[name=mobile][value=alternate]').check({force:true});
   await page.waitForFunction(()=>document.querySelector('#review-highlight')?.disabled===false,{timeout:10000});
  }
+ // Allow selected iframe width and responsive layout to settle for two frames.
+ await page.waitForTimeout(220);
  const info=await page.locator('#review-iframe').evaluate((iframe,ref)=>{
   const doc=iframe.contentDocument,win=iframe.contentWindow;
   const target=doc?.getElementById(ref.anchor);
@@ -49,9 +62,12 @@ async function runCase(item, device, hostWidth, alt=null, shot=false){
  const expectedTag={headers:'header',heroes:'section',galleries:'section',services:'section','calls-to-action':'section',forms:'section'}[item.category];
  assert(info.tag===expectedTag,item.id+' '+device+': highlight targets '+expectedTag+' not page wrapper');
  assert(info.width===expectedWidth,item.id+' '+device+': real CSS viewport '+expectedWidth+'px');
- assert(info.rect?.width>100&&info.rect?.height>20&&info.rect.top<({desktop:900,tablet:900,phone:780}[device])&&info.rect.bottom>0,item.id+' '+device+': target visible inside selected preview');
+ assert(info.rect?.width>100&&info.rect?.height>20&&info.rect.top>=-4&&info.rect.top<170&&info.rect.bottom>0,item.id+' '+device+': highlighted section starts visibly near top of preview');
  assert(!info.src.includes('#'),item.id+' '+device+': no fragment jump');
  if(alt)assert(info.alt===alt.id,item.id+' '+alt.id+': alternative phone treatment active');
+ // Capture the preview area, rather than the review page header.
+ const stage=page.locator('.review-stage');
+ const unhighlighted=await stage.screenshot({animations:'disabled'});
  // First interaction is an ordinary pointer action inside the sample.
  await page.locator('#review-iframe').evaluate((iframe,id)=>{
   const t=iframe.contentDocument.getElementById(id);
@@ -63,6 +79,9 @@ async function runCase(item, device, hostWidth, alt=null, shot=false){
  hasPulse=await page.locator('#review-iframe').evaluate((iframe,id)=>iframe.contentDocument.getElementById(id).classList.contains('ba-showcase-pulse'),item.showcase.focusAnchor);
  assert(hasPulse,item.id+' '+device+': replay button highlights correct section');
  await page.waitForTimeout(500);
+ const activeShot=await stage.screenshot();
+ const changedPixels=await visiblePixelChanges(unhighlighted,activeShot);
+ assert(changedPixels>=60,item.id+' '+device+': visible change from outline/highlight ('+changedPixels+' pixels)');
  const painted=await page.locator('#review-iframe').evaluate((iframe,id)=>{
   const target=iframe.contentDocument.getElementById(id);
   const css=iframe.contentWindow.getComputedStyle(target);
@@ -73,8 +92,8 @@ async function runCase(item, device, hostWidth, alt=null, shot=false){
  await page.waitForTimeout(850);
  const after=await page.evaluate(()=>scrollY);
  assert(Math.abs(after-before)<24,item.id+' '+device+': main page does not jump during highlight');
- if(shot)await page.screenshot({path:path.join(evidence,item.id+'-'+device+(alt?'-'+alt.id:'')+'.png'),fullPage:false});
- cases.push({id:item.id,device,hostWidth,altId:alt?.id||null,target:info.id,tag:info.tag,width:info.width,targetRect:info.rect,innerScroll:info.scrollY,painted});
+ if(shot)await stage.screenshot({path:path.join(evidence,item.id+'-'+device+(alt?'-'+alt.id:'')+'-spotlight.png')});
+ cases.push({id:item.id,device,hostWidth,altId:alt?.id||null,target:info.id,tag:info.tag,width:info.width,targetRect:info.rect,innerScroll:info.scrollY,changedPixels,painted});
 }
 try{
  await waitForServer();
