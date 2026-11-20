@@ -1353,6 +1353,119 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Seven more real responsive core examples; verify operating controls, truthful boundaries, and small screens.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/UI-04/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.slide:visible').count()===1
+  &&await page.locator('#counter').textContent()==='01 / 03'
+  &&await page.locator('#prev').isDisabled(),'UI-04 starts on one real artwork with a bounded previous control');
+ await page.locator('#next').click();
+ assert(await page.locator('.slide[data-slide="1"]').isVisible()
+  &&await page.locator('#counter').textContent()==='02 / 03'
+  &&(await page.locator('#art-title').textContent()).includes('Contrast'),'UI-04 Next changes the actual illustration, title and count');
+ await page.locator('.stage').focus();
+ await page.keyboard.press('End');
+ assert(await page.locator('.slide[data-slide="2"]').isVisible()
+  &&await page.locator('#next').isDisabled(),'UI-04 focused gallery supports End navigation to last bounded slide');
+ await page.keyboard.press('Home');
+ assert(await page.locator('.slide[data-slide="0"]').isVisible(),'UI-04 Home keyboard navigation restores first slide');
+
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.goto(base+'previews/UI-05/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#mobile-bar').isVisible()
+  &&await page.locator('#mobile-bar a').getAttribute('href')==='#request','UI-05 displays a meaningful safe-area sticky mobile action linked to the real form');
+ await page.locator('#mobile-bar a').click();
+ await page.waitForFunction(()=>document.querySelector('#mobile-bar').hidden);
+ assert(await page.locator('#mobile-bar').isHidden(),'UI-05 sticky action hides when the actual contact form enters view');
+ await page.locator('#request-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('Choose'),'UI-05 rejects an empty fake enquiry');
+ await page.locator('#type').selectOption('Finish work');
+ await page.locator('#message').fill('An illustrative finishing job.');
+ await page.locator('#request-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT SENT'),'UI-05 produces a genuine unsent local scope draft');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+
+ await page.goto(base+'previews/UI-07/',{waitUntil:'domcontentloaded'});
+ await page.locator('#help-fab').click();
+ assert(await page.locator('#help-sheet').evaluate(el=>el.open)
+  &&await page.locator('#help-close').evaluate(el=>document.activeElement===el),'UI-07 floating help opens native modal with focus in sheet');
+ await page.locator('#help-query').fill('pricing');
+ assert(await page.locator('#help-topics details:visible').count()===1
+  &&(await page.locator('#help-count').textContent()).includes('1 matching'),'UI-07 search filters actual FAQ disclosures');
+ await page.locator('#help-query').fill('xyz-invalid-nomatch-test');
+ assert(await page.locator('#help-empty').isVisible()
+  &&await page.locator('#help-topics details:visible').count()===0,'UI-07 provides a real empty search state');
+ await page.locator('#help-reset').click();
+ assert(await page.locator('#help-topics details:visible').count()===3,'UI-07 Reset clears search and restores all help topics');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#help-sheet').evaluate(el=>!el.open)
+  &&await page.locator('#help-fab').evaluate(el=>document.activeElement===el),'UI-07 Escape restores focus to its actual floating help trigger');
+
+ await page.goto(base+'previews/FORM-05/',{waitUntil:'domcontentloaded'});
+ await page.locator('#newsletter-form button[type=submit]').click();
+ assert((await page.locator('#email-error').textContent()).includes('Enter')
+  &&await page.locator('#outcome').isHidden(),'FORM-05 empty fields cannot produce newsletter confirmation');
+ await page.locator('#email').fill('reader@example.com');
+ await page.locator('[name=frequency][value=Monthly]').check();
+ await page.locator('#newsletter-form button[type=submit]').click();
+ assert((await page.locator('#consent-error').textContent()).includes('non-subscription')
+  &&await page.locator('#outcome').isHidden(),'FORM-05 requires explicit unselected consent');
+ await page.locator('#consent').check();
+ await page.locator('#newsletter-form button[type=submit]').click();
+ assert(await page.locator('#outcome').isVisible()
+  &&(await page.locator('#outcome-title').textContent()).includes('NOT SUBSCRIBED')
+  &&(await page.locator('#outcome-text').textContent()).includes('Monthly'),'FORM-05 validates frequency/consent and accurately reports no subscription');
+
+ await page.goto(base+'previews/LEGAL-02/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.policy').count()===3
+  &&await page.locator('footer nav a[href="#privacy"]').count()===1
+  &&(await page.locator('#privacy .warning').textContent()).includes('NOT A PRIVACY POLICY'),'LEGAL-02 contains actual linked policy sections and labels its text as nonbinding');
+ await page.locator('footer nav a[href="#terms"]').click();
+ assert(await page.evaluate(()=>location.hash)==='#terms','LEGAL-02 footer policy navigation reaches the real terms section');
+ await page.locator('[data-copy-section="terms"]').click();
+ assert((await page.locator('#copy-status').textContent())!=='No section link copied.'
+  &&(await page.locator('[data-copy-section="terms"]').textContent())!=='Copy link to section','LEGAL-02 copy-link reports actual success or failure without fake confirmation');
+
+ await page.goto(base+'previews/LEGAL-03/',{waitUntil:'domcontentloaded'});
+ await page.locator('#large-text').click();
+ assert(await page.locator('#large-text').getAttribute('aria-pressed')==='true'
+  &&await page.locator('body').evaluate(el=>el.classList.contains('large')),'LEGAL-03 larger-text option truly changes local page rendering');
+ await page.locator('#high-contrast').click();
+ assert(await page.locator('body').evaluate(el=>el.classList.contains('contrast')),'LEGAL-03 higher-contrast option applies to sample');
+ await page.locator('#reset-reading').click();
+ assert(await page.locator('#large-text').getAttribute('aria-pressed')==='false'
+  &&await page.locator('#high-contrast').getAttribute('aria-pressed')==='false','LEGAL-03 reset restores both reading preferences');
+ await page.locator('#feedback-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('Choose'),'LEGAL-03 empty accessibility feedback is rejected');
+ await page.locator('#barrier').selectOption('Keyboard navigation');
+ await page.locator('#details').fill('A sample navigation barrier.');
+ await page.locator('#feedback-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT SENT'),'LEGAL-03 generates a genuine local accessibility feedback draft rather than a support ticket');
+
+ await page.goto(base+'previews/CAREER-02/',{waitUntil:'domcontentloaded'});
+ assert((await page.locator('.portrait>span').textContent()).includes('NOT A TEAM MEMBER')
+  &&await page.locator('.portrait img').count()===1,'CAREER-02 has a real portrait frame clearly labeled as non-staff');
+ await page.locator('#interest-form button[type=submit]').click();
+ assert((await page.locator('#error').textContent()).includes('Choose'),'CAREER-02 cannot accept empty fictional recruitment interest');
+ await page.locator('#role').selectOption('Engineering');
+ await page.locator('#note').fill('An illustrative candidate interest note.');
+ await page.locator('#interest-form button[type=submit]').click();
+ assert(await page.locator('#summary').isVisible()
+  &&(await page.locator('#output').textContent()).includes('NOT SENT'),'CAREER-02 only prepares unsent role-interest draft');
+ await page.locator('#copy-email').click();
+ assert((await page.locator('#copy-status').textContent())!=='No address copied.','CAREER-02 clipboard action reports its actual copy success or failure');
+
+ for(const id of ['UI-04','UI-05','UI-07','FORM-05','LEGAL-02','LEGAL-03','CAREER-02']){
+  await page.setViewportSize({width:320,height:790});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const widths=await page.evaluate(()=>({screen:innerWidth,document:document.documentElement.scrollWidth}));
+  assert(widths.document<=widths.screen+2,id+' avoids horizontal page overflow at 320px ('+widths.document+'/'+widths.screen+')');
+ }
+ await page.setViewportSize({width:390,height:844});
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
