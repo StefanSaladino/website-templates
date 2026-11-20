@@ -820,3 +820,19 @@ Mobile treatments in review: **22 / 44** (six newly added), with 22 still draft.
 All are optional composition choices, not mobile compatibility patches. The original desktop, tablet, mobile layouts and review URLs remain valid. The new review selector exposes as many numbered phone styles as a component actually has, with proper selected-state, device switching and active-iframe routes. Automated browser tests check both mobile alternatives on each reused parent and their unchanged original interfaces.
 
 **Requested CTA refinement:** removed arrow glyph from CTA-03's main link and removed unused arrow styling. The text-only anchor remains functional. Manual browser/device, media rights and design approval gates remain open.
+
+## Seven more responsive phone alternatives — November 20, 2026
+
+The optional mobile-design inventory reaches **34 / 44 in review** (**10 drafts remain**). Core catalogue remains **60 / 157 in review**; the animation inventory remains **20 / 20 built and integrated**. These are new responsive compositions, not separate core components or superficial colour changes:
+
+| Phone ID | Parent | Actual phone experience |
+|---|---|---|
+| M-HERO-01 | HERO-01 | Immersive shoreline photography, small in-image editorial copy and a genuine full-width on-page CTA |
+| M-GAL-01 | GAL-03 | Full-width vertical photography with high-contrast caption overlays inside each photo chapter |
+| M-SRV-01 | SRV-03 | Edge-to-edge renovation photos and overlapping service description cards; original native details preserved |
+| M-CTA-02 | CTA-02 | Separate photo and text panels with an accessible full-width anchor action |
+| M-CTA-04 | FOOT-02 | Compact responsive footer with exactly one native disclosure open at a time; all destination links retained |
+| M-UTIL-01 | GAL-05 | Touch/keyboard-accessible scroll-snap filter rail; existing live photo filtering retained |
+| M-UTIL-05 | PRJ-03 | Return-to-projects control appears after scrolling and links to the real index; respects phone safe area |
+
+The original default compositions, existing phone styles and wide-screen versions remain intact. The reviewer dynamically exposes the additional named Style choices for each parent and the new modes use the same source content. The existing Chromium smoke suite has explicit assertions for these layouts, disclosure/filter/back-to-top interactions and absence of page-level horizontal overflow. **These checks are committed, not newly reported as passed here.** Media-rights acceptance, image-loaded screenshots, physical-device Safari/Android testing, accessibility/performance and final visual approval remain outstanding. Do not promote these options to live or merge to main.
