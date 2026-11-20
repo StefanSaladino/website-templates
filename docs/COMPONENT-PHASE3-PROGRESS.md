@@ -40,3 +40,7 @@ Six more phone alternatives are implemented: M-NAV-05, M-NAV-06, M-GAL-05, M-FRM
 ## Commerce, story and booking milestone — November 20, 2026
 
 Four previously draft core specimens were built as usable, explicitly fictional demos: PROD-01, PRICE-01, MENU-01 and BOOK-01. The core catalogue now has **60 of 157 in review**. Six mobile treatments are now linked and implemented: M-COM-01, M-COM-03, M-COM-04, M-FRM-03, M-STORY-02 and M-STORY-03, bringing the phone alternative count to **22 of 44 in review**, with **22 drafts remaining**. The animation catalogue remains **20/20 built**. All user-facing commerce and appointment examples are local demonstrations: no real goods, customer reviews, prices, booking or availability assertions. Responsive browser QA has dedicated functional assertions. Photography licensing, actual mobile hardware validation and final accessibility approval remain open.
+
+## Multiple mobile styles + component cleanup — November 20, 2026
+
+Five genuinely different phone compositions added: M-NAV-02, M-GAL-04, M-COM-02, M-HERO-05 and M-STORY-01. The **same parent** NAV-04, GAL-02 and PROD-01 now each offers a default phone design and **two different alternates**. The showroom selection UI and browser regression suite now support arbitrary built mobile alternatives per component. Mobile coverage **27/44 in review**; **60/157** core specimens in review, **20/20** animations built. CTA-03's arrow glyph removed from its primary action, preserving the actual destination link. Physical-phone visual and accessibility review remain pending.

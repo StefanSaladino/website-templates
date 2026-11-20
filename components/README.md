@@ -89,3 +89,7 @@ New selectable phone modes: M-NAV-05 on NAV-02, M-NAV-06 on NAV-04, M-GAL-05 on 
 ## Commerce + mobile storytelling expansion
 
 New live-working but **not production-approved** core previews: PROD-01 (CSS product illustrations), PRICE-01 (fictional pricing), MENU-01 (illustrative restaurant menu), BOOK-01 (local appointment preferences, no actual booking). They add mobile alternatives M-COM-01, M-COM-04, M-COM-03, M-FRM-03 respectively. TEST-01 gains M-STORY-02 manual fictional quote navigation, and PROC-01 gains M-STORY-03 connected vertical timeline. **22/44 mobile alternatives**, **60/157 core examples** and **20/20 animations** built, all under review. Review each parent via Phone → Alternate; `main` remains untouched.
+
+## Multiple phone layout options for one component
+
+The showroom now allows Style 1 (the existing responsive default) and Style 2, Style 3, etc. for any component with several built phone variants. New in-review treatments: M-NAV-02, M-GAL-04, M-COM-02, M-HERO-05, M-STORY-01. NAV-04, GAL-02 and PROD-01 each have at least two mobile alternatives. Review selector shows all available named options on the same phone preview. Total **27 / 44** mobile layouts in review; **17 remain drafts**. CTA-03's main CTA no longer uses an arrow glyph. No main merge or production approval is implied.

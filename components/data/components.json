@@ -162,7 +162,8 @@
     "notes": "Working demo with real responsive layout; final client visual approval deferred. All example branding is fictional.",
     "reviewRoute": "./review.html?id=NAV-04",
     "mobileTreatmentIds": [
-      "M-NAV-06"
+      "M-NAV-06",
+      "M-NAV-02"
     ],
     "showcase": {
       "label": "Header & navigation",
@@ -786,7 +787,9 @@
     "hasMobileLayout": true,
     "notes": "Working stock-backed in-review example. Images and crops are temporary development references, not approved.",
     "reviewRoute": "./review.html?id=HERO-05",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-HERO-05"
+    ],
     "showcase": {
       "label": "Hero sections",
       "focus": "Manual photographic slideshow",
@@ -1048,7 +1051,8 @@
     "notes": "Working in-review demo. Licensed photo source pages have been identified where possible, but local approved assets, crops, thumbnails, and physical-device QA remain incomplete.",
     "reviewRoute": "./review.html?id=GAL-02",
     "mobileTreatmentIds": [
-      "M-GAL-02"
+      "M-GAL-02",
+      "M-GAL-04"
     ],
     "showcase": {
       "label": "Gallery",
@@ -1753,7 +1757,9 @@
     "hasMobileLayout": true,
     "notes": "In review: stock photo rights, captions and crops require approval.",
     "reviewRoute": "./review.html?id=ABOUT-01",
-    "mobileTreatmentIds": [],
+    "mobileTreatmentIds": [
+      "M-STORY-01"
+    ],
     "showcase": {
       "label": "About and studio introductions",
       "focus": "Founder introduction",
@@ -2301,7 +2307,8 @@
     "notes": "Working fictional interactive specimen; no real sales, live inventory, restaurant availability or bookings. Release needs human review.",
     "reviewRoute": "./review.html?id=PROD-01",
     "mobileTreatmentIds": [
-      "M-COM-01"
+      "M-COM-01",
+      "M-COM-02"
     ],
     "showcase": {
       "label": "Commerce and merchandise",

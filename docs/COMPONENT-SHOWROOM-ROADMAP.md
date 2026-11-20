@@ -804,3 +804,19 @@ Mobile treatments in review: **22 / 44** (six newly added), with 22 still draft.
 **Release integrity:** Example ceramic objects are original CSS studies, not real inventory. Sample restaurant dishes, prices and client quotes are explicitly illustrative. Appointment selections never check availability, collect user data, reserve slots or send requests. All remain `in-review` pending visual, real-phone, accessibility, content and legal/media review.
 
 **QA:** original parent functionality, native form validation, reduced-motion fallback, focus management, touch/navigation state, mobile overflow and base-mode regression tests.
+
+## Multiple optional phone styles per component — November 20, 2026
+
+**27 / 44** mobile treatments in review (**17 drafts**). Core previews remain **60 / 157**, animations **20 / 20**. The showroom now supports *all* built alternate phone styles for each component rather than silently selecting just the first one. Every component maintains its original responsive phone layout as Style 1, with distinct additional phone choices alongside:
+
+| Parent | Default | Additional mobile layouts |
+|---|---|---|
+| NAV-04 | Responsive dropdown | M-NAV-06 edge drawer; M-NAV-02 persistent enquiry + dropdown |
+| GAL-02 | Two-column responsive gallery | M-GAL-02 touch photo rail; M-GAL-04 compact featured-photo mosaic |
+| PROD-01 | Vertical product list | M-COM-01 swipeable merchandise rail; M-COM-02 feature + two-column merchandise |
+| HERO-05 | Responsive slideshow | M-HERO-05 mobile art-direction with touch gestures and slide selectors |
+| ABOUT-01 | Responsive portrait and copy | M-STORY-01 photo-cover editorial introduction |
+
+All are optional composition choices, not mobile compatibility patches. The original desktop, tablet, mobile layouts and review URLs remain valid. The new review selector exposes as many numbered phone styles as a component actually has, with proper selected-state, device switching and active-iframe routes. Automated browser tests check both mobile alternatives on each reused parent and their unchanged original interfaces.
+
+**Requested CTA refinement:** removed arrow glyph from CTA-03's main link and removed unused arrow styling. The text-only anchor remains functional. Manual browser/device, media rights and design approval gates remain open.

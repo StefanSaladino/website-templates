@@ -19,13 +19,15 @@
     "category": "Navigation and sticky chrome",
     "title": "Logo plus persistent inquiry",
     "exampleContext": "Local contractor header with compact branding and a single reachable quote action",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "NAV-04"
+    ],
+    "previewRoute": "./previews/NAV-04/?mobile=M-NAV-02",
+    "reviewRoute": "./review.html?id=NAV-04",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working optional phone-only composition. Compact wordmark and persistent in-page enquiry alongside the original independently operable menu. Contrasts with the existing safe-area side drawer. Still requires visual, physical-device and accessibility approval."
   },
   {
     "id": "M-NAV-03",
@@ -146,13 +148,15 @@
     "category": "Hero compositions",
     "title": "Touch-controlled slides",
     "exampleContext": "Boutique accommodation hero with explicit next/previous and slide position",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "HERO-05"
+    ],
+    "previewRoute": "./previews/HERO-05/?mobile=M-HERO-05",
+    "reviewRoute": "./review.html?id=HERO-05",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working optional phone-only composition. Photographic portrait-first phone hero with labelled slide-dot buttons and directional touch gestures; original next/previous controls remain available. Still requires visual, physical-device and accessibility approval."
   },
   {
     "id": "M-GAL-01",
@@ -202,13 +206,15 @@
     "category": "Galleries and project imagery",
     "title": "Compact masonry reflow",
     "exampleContext": "Portrait portfolio with variable heights but a stable reading order",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "GAL-02"
+    ],
+    "previewRoute": "./previews/GAL-02/?mobile=M-GAL-04",
+    "reviewRoute": "./review.html?id=GAL-02",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working optional phone-only composition. Compact photo mosaic with first and last images spanning two columns; keeps real category filtering and keyboard-accessible lightbox. Contrasts with the existing swipe rail. Still requires visual, physical-device and accessibility approval."
   },
   {
     "id": "M-GAL-05",
@@ -301,13 +307,15 @@
     "category": "Products, menus, and pricing",
     "title": "Adaptive merchandise grid",
     "exampleContext": "Homewares catalogue using one column on narrow devices, two when readable",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "PROD-01"
+    ],
+    "previewRoute": "./previews/PROD-01/?mobile=M-COM-02",
+    "reviewRoute": "./review.html?id=PROD-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working optional phone-only composition. Featured full-width object beside details followed by a dense two-column merchandise grid; material inspection still works. Contrasts with the existing swipe carousel. Still requires visual, physical-device and accessibility approval."
   },
   {
     "id": "M-COM-03",
@@ -402,13 +410,15 @@
     "category": "About, trust, and process",
     "title": "Portrait and brief introduction",
     "exampleContext": "Founder story with legible caption and high-quality phone crop",
-    "status": "draft",
-    "compatibleComponentIds": [],
-    "previewRoute": null,
-    "reviewRoute": null,
+    "status": "in-review",
+    "compatibleComponentIds": [
+      "ABOUT-01"
+    ],
+    "previewRoute": "./previews/ABOUT-01/?mobile=M-STORY-01",
+    "reviewRoute": "./review.html?id=ABOUT-01",
     "thumbnail": null,
-    "hasMobileLayout": false,
-    "notes": "Planned phone treatment; no interactive preview yet."
+    "hasMobileLayout": true,
+    "notes": "Working optional phone-only composition. Photo-cover founder introduction with a caption, text-first reading hierarchy, visible quotation and full-width editorial treatment. Still requires visual, physical-device and accessibility approval."
   },
   {
     "id": "M-STORY-02",

@@ -732,6 +732,96 @@ try{
  await page.goto(base+'previews/MENU-01/',{waitUntil:'domcontentloaded'});
  assert(await page.locator('.menu-mobile-details').count()===0,'MENU-01 default keeps the complete menu visible');
 
+
+ // Multi-style component selection is intentional: default mobile is always usable; Style 2/3 are distinct alternatives.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'review.html?id=NAV-04',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>document.querySelector('#review-highlight')?.disabled===false);
+ const choices=page.locator('#review-mobile-choices input[name=mobile]');
+ assert(await choices.count()===3,'NAV-04 exposes its default mobile layout and two independently selectable alternative styles');
+ assert((await page.locator('#review-mobile-choices').textContent()).includes('Style 3'),'NAV-04 review shows a visible third phone style');
+ await page.locator('input[name=mobile][value=M-NAV-02]').check({force:true});
+ await page.waitForFunction(()=>document.querySelector('#review-iframe')?.contentDocument?.body?.dataset?.mobileTreatment==='M-NAV-02');
+ assert((await page.locator('#review-iframe').getAttribute('src')).includes('M-NAV-02'),'Review selector loads the exact inquiry-layout variant');
+ await page.locator('input[name=mobile][value=M-NAV-06]').check({force:true});
+ await page.waitForFunction(()=>document.querySelector('#review-iframe')?.contentDocument?.body?.dataset?.mobileTreatment==='M-NAV-06');
+ assert((await page.locator('#review-iframe').getAttribute('src')).includes('M-NAV-06'),'Review selector switches directly from one optional mobile style to another');
+ await page.locator('input[name=device][value=tablet]').check({force:true});
+ assert(await page.locator('#review-mobile-choices').isHidden()
+  &&!(await page.locator('#review-iframe').getAttribute('src')).includes('?mobile='),'Tablet mode uses baseline responsiveness without adding phone variants');
+ await page.locator('input[name=device][value=phone]').check({force:true});
+ assert((await page.locator('#review-iframe').getAttribute('src')).includes('M-NAV-06'),'Return to phone restores chosen phone style');
+ await page.goto(base+'review.html?id=PROD-01',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>document.querySelector('#review-highlight')?.disabled===false);
+ assert(await page.locator('input[name=mobile]').count()===3,'PROD-01 shows default merchandise grid, swipe rail and compact adaptive grid');
+ await page.goto(base+'review.html?id=GAL-02',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>document.querySelector('#review-highlight')?.disabled===false);
+ assert(await page.locator('input[name=mobile]').count()===3,'GAL-02 exposes default grid, swipe rail and compact mosaic as three separate choices');
+
+ await page.goto(base+'previews/NAV-04/?mobile=M-NAV-02',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.n4-phone-inquiry').isVisible()
+  &&await page.locator('#n4-toggle').isVisible(),'M-NAV-02 displays a persistent enquiry action beside the original menu button');
+ await page.locator('.n4-phone-inquiry').click();
+ assert(await page.evaluate(()=>location.hash)==='#contact','M-NAV-02 enquiry link reaches a real section');
+ await page.locator('#n4-toggle').click();
+ assert(await page.locator('#n4-toggle').getAttribute('aria-expanded')==='true'
+  &&await page.locator('#n4-links').isVisible(),'M-NAV-02 retains working original dropdown navigation');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#n4-toggle').getAttribute('aria-expanded')==='false','M-NAV-02 menu closes via Escape');
+
+ await page.goto(base+'previews/GAL-02/?mobile=M-GAL-04',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.g2-grid').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length===2)
+  &&await page.locator('.g2-photo').first().evaluate(el=>getComputedStyle(el).gridColumnEnd==='-1'),'M-GAL-04 leads with a full-width editorial photograph then a compact mosaic');
+ await page.locator('.g2-tabs [data-filter=mono]').click();
+ assert(await page.locator('.g2-photo:visible').count()===2
+  &&(await page.locator('.g2-count').textContent()).includes('2 images'),'M-GAL-04 preserves live photo filtering');
+ await page.locator('.g2-photo:visible').first().click();
+ assert(await page.locator('.g2-dialog').isVisible(),'M-GAL-04 preserves the keyboard-accessible full-size photo viewer');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('.g2-dialog').isHidden(),'M-GAL-04 Escape closes original lightbox');
+
+ await page.goto(base+'previews/PROD-01/?mobile=M-COM-02',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.p1-grid').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length===2)
+  &&await page.locator('.p1-item').first().evaluate(el=>getComputedStyle(el).gridColumnEnd==='-1'),'M-COM-02 features the first object above a two-column phone merchandise layout');
+ assert(await page.locator('.p1-mobile-nav').count()===0,'M-COM-02 is a true grid alternative, not the existing swipe rail');
+ await page.locator('[data-inspect=chalk]').click();
+ assert(await page.locator('#p1-detail').isVisible()
+  &&(await page.locator('[data-detail-name]').textContent())==='Chalk Bowl','M-COM-02 preserves usable, accurate object details');
+
+ await page.goto(base+'previews/HERO-05/?mobile=M-HERO-05',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('[data-hero-dot]').count()===3
+  &&await page.locator('[data-hero-dot="0"]').getAttribute('aria-pressed')==='true','M-HERO-05 exposes three labelled image selectors');
+ await page.locator('[data-hero-dot="1"]').click();
+ assert((await page.locator('#h5-count').textContent()).includes('02 / 03')
+  &&await page.locator('[data-hero-dot="1"]').getAttribute('aria-pressed')==='true','M-HERO-05 direct dot selection updates actual slide and selected state');
+ const swipeHero=await page.locator('.h5-visual').evaluate(el=>{
+ const touch=(x,y)=>new Touch({identifier:3,target:el,clientX:x,clientY:y});
+ el.dispatchEvent(new TouchEvent('touchstart',{touches:[touch(320,200)],changedTouches:[touch(320,200)],bubbles:true}));
+ el.dispatchEvent(new TouchEvent('touchend',{touches:[],changedTouches:[touch(80,209)],bubbles:true}));
+ return document.querySelector('#h5-count').textContent;
+ });
+ assert(swipeHero.includes('03 / 03'),'M-HERO-05 swipe moves to the next photo and updates the caption');
+ await page.locator('#h5-prev').click();
+ assert((await page.locator('#h5-count').textContent()).includes('02 / 03'),'M-HERO-05 preserves original previous/next keyboard controls');
+
+ await page.goto(base+'previews/ABOUT-01/?mobile=M-STORY-01',{waitUntil:'domcontentloaded'});
+ const ordering=await page.locator('.ab-scene').evaluate(el=>{const a=el.querySelector('.ab-portrait').getBoundingClientRect(),b=el.querySelector('.ab-copy').getBoundingClientRect();return {portraitFirst:b.top>=a.bottom-2,caption:el.querySelector('.ab-portrait span')?.textContent}});
+ assert(ordering.portraitFirst&&ordering.caption.includes('NOT THE FOUNDER'),'M-STORY-01 displays a photo-first composition with transparent sample-photo labeling');
+ assert(await page.locator('.ab-copy blockquote').isVisible(),'M-STORY-01 retains visible founder-introduction copy');
+
+ await page.goto(base+'previews/CTA-03/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.c3-action').textContent()==='Start a conversation'
+  &&await page.locator('.c3-action b').count()===0,'CTA-03 has the requested arrow glyph removed without breaking its action');
+ await page.locator('.c3-action').click();
+ assert(await page.evaluate(()=>location.hash)==='#brief','CTA-03 text-only call to action still navigates to its section');
+
+ for(const [parent,id] of [['NAV-04','M-NAV-02'],['GAL-02','M-GAL-04'],['PROD-01','M-COM-02'],['HERO-05','M-HERO-05'],['ABOUT-01','M-STORY-01']]){
+  await page.goto(base+'previews/'+parent+'/?mobile='+id,{waitUntil:'domcontentloaded'});
+  assert(await page.locator('body').getAttribute('data-mobile-treatment')===id,id+' activates on its original working parent specimen');
+  const width=await page.evaluate(()=>({screen:innerWidth,page:document.documentElement.scrollWidth}));
+  assert(width.page<=width.screen+2,id+' has no page-level horizontal overflow at 390px ('+width.page+'/'+width.screen+')');
+ }
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
