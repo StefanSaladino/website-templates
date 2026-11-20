@@ -1,0 +1,1 @@
+const controls=[...document.querySelectorAll('[data-filter]')];const photos=[...document.querySelectorAll('[data-category]')];controls.forEach(button=>button.addEventListener('click',()=>{const selected=button.dataset.filter;controls.forEach(x=>x.setAttribute('aria-pressed',String(x===button)));photos.forEach(x=>x.hidden=selected!=='all'&&x.dataset.category!==selected);}));
