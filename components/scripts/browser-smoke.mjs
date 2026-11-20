@@ -822,6 +822,67 @@ try{
   assert(width.page<=width.screen+2,id+' has no page-level horizontal overflow at 390px ('+width.page+'/'+width.screen+')');
  }
 
+
+ // Seven additional optional phone compositions must alter real structure or retain functional controls.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/HERO-01/?mobile=M-HERO-01',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('body').getAttribute('data-mobile-treatment')==='M-HERO-01','M-HERO-01 is recognized by the original lodge hero');
+ const h1Mobile=await page.locator('.h1-copy a').evaluate(el=>({w:el.getBoundingClientRect().width,href:el.getAttribute('href')}));
+ assert(h1Mobile.w>310&&h1Mobile.href==='#cabins','M-HERO-01 provides a real, full-width in-image CTA');
+
+ await page.goto(base+'previews/GAL-03/?mobile=M-GAL-01',{waitUntil:'domcontentloaded'});
+ const g1Composition=await page.locator('.g3-chapter').first().evaluate(el=>{
+   const image=el.querySelector('.g3-image').getBoundingClientRect();
+   const caption=el.querySelector('figcaption').getBoundingClientRect();
+   return {absolute:getComputedStyle(el.querySelector('figcaption')).position==='absolute',top:caption.top,bottom:caption.bottom,imageBottom:image.bottom};
+ });
+ assert(g1Composition.absolute&&g1Composition.top<g1Composition.imageBottom-40&&g1Composition.bottom<=g1Composition.imageBottom+2,'M-GAL-01 captions are visibly integrated into edge-to-edge photo chapters');
+
+ await page.goto(base+'previews/SRV-03/?mobile=M-SRV-01',{waitUntil:'domcontentloaded'});
+ const srvPhotoCard=await page.locator('.s3-row').first().evaluate(el=>{
+  const image=el.querySelector('.s3-media').getBoundingClientRect(),card=el.querySelector('.s3-detail').getBoundingClientRect();
+  return {overlaps:card.top<image.bottom-30&&card.top>image.top,details:!!card.height};
+ });
+ assert(srvPhotoCard.overlaps&&srvPhotoCard.details&&await page.locator('.s3-row details').count()===3,'M-SRV-01 uses real overlapping image-story cards with intact service details');
+
+ await page.goto(base+'previews/CTA-02/?mobile=M-CTA-02',{waitUntil:'domcontentloaded'});
+ const ctaInline=await page.locator('.c2-scene').evaluate(el=>{
+  const image=el.querySelector('img').getBoundingClientRect(),panel=el.querySelector('.c2-text').getBoundingClientRect(),button=el.querySelector('.c2-cta');
+  return {stacked:panel.top>=image.bottom-3,width:button.getBoundingClientRect().width,href:button.getAttribute('href')};
+ });
+ assert(ctaInline.stacked&&ctaInline.width>310&&ctaInline.href==='#stays','M-CTA-02 places a real full-width action in its own text panel');
+
+ await page.goto(base+'previews/FOOT-02/?mobile=M-CTA-04',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.f2-group').first().evaluate(el=>el.open)
+  &&!await page.locator('.f2-group').nth(1).evaluate(el=>el.open),'M-CTA-04 starts with one compact native disclosure expanded');
+ await page.locator('.f2-group').nth(1).locator('summary').click();
+ await page.waitForFunction(()=>document.querySelectorAll('.f2-group')[1].open&&!document.querySelectorAll('.f2-group')[0].open);
+ assert(await page.locator('.f2-group').nth(1).locator('nav a').count()===2,'M-CTA-04 retains actual contact links and allows one open group at a time');
+
+ await page.goto(base+'previews/GAL-05/?mobile=M-UTIL-01',{waitUntil:'domcontentloaded'});
+ const rail=await page.locator('.g5-filters').evaluate(el=>({scroll:el.scrollWidth,client:el.clientWidth}));
+ assert(rail.scroll>rail.client+50,'M-UTIL-01 has a genuinely horizontally scrollable filter rail');
+ await page.locator('[data-filter=mono]').click();
+ assert(await page.locator('[data-category]:visible').count()===1
+  &&await page.locator('[data-filter=mono]').getAttribute('aria-pressed')==='true','M-UTIL-01 scroll rail retains real category filtering');
+
+ await page.goto(base+'previews/PRJ-03/?mobile=M-UTIL-05',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('.p3-back-top').isHidden(),'M-UTIL-05 does not obscure the first screen');
+ await page.evaluate(()=>scrollTo(0,document.documentElement.scrollHeight));
+ await page.waitForFunction(()=>document.querySelector('.p3-back-top')?.hidden===false);
+ assert(await page.locator('.p3-back-top').isVisible(),'M-UTIL-05 appears only once the project index has been scrolled');
+ await page.locator('.p3-back-top').click();
+ assert(await page.evaluate(()=>location.hash)==='#projects-showcase','M-UTIL-05 returns to the real project index anchor');
+
+ for(const [parent,phoneId] of [
+  ['HERO-01','M-HERO-01'],['GAL-03','M-GAL-01'],['SRV-03','M-SRV-01'],
+  ['CTA-02','M-CTA-02'],['FOOT-02','M-CTA-04'],['GAL-05','M-UTIL-01'],['PRJ-03','M-UTIL-05']
+ ]){
+  await page.goto(base+'previews/'+parent+'/?mobile='+phoneId,{waitUntil:'domcontentloaded'});
+  const state=await page.evaluate(()=>({active:document.body.dataset.mobileTreatment,screen:innerWidth,width:document.documentElement.scrollWidth}));
+  assert(state.active===phoneId&&state.width<=state.screen+2,phoneId+' is active and has no page-wide horizontal overflow');
+ }
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);
