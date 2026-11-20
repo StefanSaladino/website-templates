@@ -4534,121 +4534,369 @@
     "id": "POST-01",
     "category": "articles",
     "title": "Editorial article index",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Architecture journal photography and titles",
-    "previewRoute": null,
+    "previewRoute": "./previews/POST-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "topic-filter",
+      "real-article-hide-show",
+      "aria-pressed",
+      "live-count",
+      "actual-chapter-links"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "articles",
+      "editorial-index",
+      "filter",
+      "original-art"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=POST-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Articles and editorial",
+      "focus": "Architecture editorial index with real topic filters and original reading chapters",
+      "summary": "Three completely original CSS architecture essay cards filter by Space, Materials and Process. Every card links to a real on-page writing section; none represents reporting or a real commissioned design.",
+      "desktop": "Large serif journal masthead above three richly illustrated editorial columns and topic filtering.",
+      "mobile": "Each illustrated story becomes a wide sequential image-and-summary card with reachable topic buttons.",
+      "lookFor": [
+        "Changing topic hides unmatched cards, updates selection/count and keeps working chapter links",
+        "No invented published dates, author credentials, actual architecture projects or copyrighted project photography"
+      ],
+      "focusAnchor": "articles-showcase",
+      "explain": "An operative magazine-style front page with genuine categorization and original article excerpts.",
+      "bestFor": [
+        "Architecture practices with verified authored journal content",
+        "Design publications with accurate editorial metadata"
+      ],
+      "fitReason": "Use real authored articles, source attribution, dates, accessibility and image licensing before public release."
+    }
   },
   {
     "id": "POST-02",
     "category": "articles",
     "title": "Featured story",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Creative studio full-width image and excerpt",
-    "previewRoute": null,
+    "previewRoute": "./previews/POST-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "real-chapter-anchor-navigation",
+      "active-chapter-indicator",
+      "print-action",
+      "original-css-illustration"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "articles",
+      "featured-story",
+      "editorial",
+      "print"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=POST-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Articles and editorial",
+      "focus": "Expressive featured editorial essay with chapter tracking and actual browser Print",
+      "summary": "A vibrant fictional design feature combines original abstract art, three real reading sections, an active chapter index and an operative browser-print action; print CSS excludes unrelated interface.",
+      "desktop": "Bold cobalt/coral masthead and artwork give way to long editorial columns with a sticky chapter ledger.",
+      "mobile": "Artwork stacks beneath editorial introduction; chapter index becomes three legible direct-route controls.",
+      "lookFor": [
+        "Real chapter links and print button work, including a print-specific document layout and status",
+        "All essays and artwork are original hypothetical examples, not attributed real reported stories"
+      ],
+      "focusAnchor": "articles-showcase",
+      "explain": "A full editorial feature experience with meaningful in-page access rather than an inert hero and dummy Read More link.",
+      "bestFor": [
+        "Creative publications presenting real commissioned writing",
+        "Studios with verified long-form editorial features"
+      ],
+      "fitReason": "Add real bylines, editorial sources, accurate dates and permissioned photography before publication."
+    }
   },
   {
     "id": "POST-03",
     "category": "articles",
     "title": "Compact updates",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Business news simple list",
-    "previewRoute": null,
+    "previewRoute": "./previews/POST-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "live-headline-search",
+      "topic-filter",
+      "newest-oldest-issue-order",
+      "clear-reset",
+      "matching-count"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "articles",
+      "updates",
+      "search",
+      "sort"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=POST-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Articles and editorial",
+      "focus": "Compact searchable, sortable fictional business updates with actual reading anchors",
+      "summary": "Five fully invented issue-numbered notes offer real text search, topic filtering, issue-order reversal, clear-state reset, accurate result count and links to existing article excerpts.",
+      "desktop": "Compact sans-serif masthead, multi-control utility bar and clean structured news ledger.",
+      "mobile": "Controls reflow vertically; each update becomes an accessible single-column title/excerpt and real anchor.",
+      "lookFor": [
+        "Typing search, changing topic and flipping order update actually shown posts and count",
+        "Issue numbers are examples, not fabricated dated corporate announcements, real news or sourced journalism"
+      ],
+      "focusAnchor": "articles-showcase",
+      "explain": "A genuinely functional small-business news feed with useful discovery controls and honest editorial placeholders.",
+      "bestFor": [
+        "Organizations with actual news and dated company updates",
+        "Knowledge bases with verified, searchable announcements"
+      ],
+      "fitReason": "Production requires genuine publication records, corrected dates, maintained content and accurate authorship."
+    }
   },
   {
     "id": "POST-04",
     "category": "articles",
     "title": "Article detail layout",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Case study reading view with images",
-    "previewRoute": null,
+    "previewRoute": "./previews/POST-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "readable-article-width-toggle",
+      "text-size-range",
+      "real-scroll-progress",
+      "toc-current-section",
+      "real-article-anchors"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "articles",
+      "long-read",
+      "reading-tools",
+      "progress"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=POST-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Articles and editorial",
+      "focus": "Long-form reading view with functional type size, width, progress and section navigation",
+      "summary": "A three-chapter original speculative essay provides actual comfortable/wide reading widths, live 16–22px type sizing, scroll progress and section-aware table of contents, using only original illustrations.",
+      "desktop": "Restrained warm architectural composition transitions to sticky readability tools and side-mounted chapter navigator.",
+      "mobile": "Chapter index and controls reflow above a comfortable single reading column and full-width illustration.",
+      "lookFor": [
+        "Reading width/type controls alter the article, and actual scrolling updates the progress indicator",
+        "The essay does not claim real project data, sourced architecture journalism or outside photo credits"
+      ],
+      "focusAnchor": "articles-showcase",
+      "explain": "A substantial article-detail system that makes reading preferences and progress functional rather than ornamental.",
+      "bestFor": [
+        "Publishers prioritizing readable real editorial content",
+        "Design businesses presenting documented projects as long-form articles"
+      ],
+      "fitReason": "Use real source material, reliable authors, usable headings and reviewed content before public publishing."
+    }
   },
   {
     "id": "EVENT-01",
     "category": "events",
     "title": "Event cards",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Gallery exhibition dates and imagery",
-    "previewRoute": null,
+    "previewRoute": "./previews/EVENT-01/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "category-event-filter",
+      "real-card-hide-show",
+      "native-programme-disclosures",
+      "aria-pressed",
+      "matching-count"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "events",
+      "exhibitions",
+      "filter",
+      "original-art"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=EVENT-01",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Events and schedules",
+      "focus": "Art-forward fictional exhibition listings with genuine category filters and information panels",
+      "summary": "Three distinct original-art hypothetical exhibition, talk and workshop cards filter by category and expand honest programme-disclosure notes, using sample 2027 dates without alleging actual events.",
+      "desktop": "Three-column gallery-style exhibition cards follow a spacious exhibition headline and category selector.",
+      "mobile": "Illustrated programmes stack into readable event cards with touch-sized filters and native detail disclosure.",
+      "lookFor": [
+        "Exhibition/Talk/Workshop controls change actually visible card counts and native details expand",
+        "All dates, venues, speakers, tickets and programmes are explicitly unconfirmed examples"
+      ],
+      "focusAnchor": "events-showcase",
+      "explain": "A working event-discovery grid that makes no fictional ticketing or calendar promises.",
+      "bestFor": [
+        "Cultural organizations with confirmed real programmes",
+        "Galleries presenting accurately dated exhibitions"
+      ],
+      "fitReason": "Replace with verified schedules, artists, locations, accessibility and actual registration URLs."
+    }
   },
   {
     "id": "EVENT-02",
     "category": "events",
     "title": "Calendar/list schedule",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Fitness upcoming classes",
-    "previewRoute": null,
+    "previewRoute": "./previews/EVENT-02/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "list-calendar-toggle",
+      "day-of-week-filter",
+      "calendar-generated-from-same-data",
+      "reset",
+      "aria-pressed"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "events",
+      "fitness",
+      "calendar",
+      "schedule"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=EVENT-02",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Events and schedules",
+      "focus": "Genuine weekly list/calendar fitness schedule with filters, no invented booking availability",
+      "summary": "Five fictional studio classes drive real chronological-list and seven-column calendar representations. Weekday filters apply to both formats, selection state is accessible, and reset returns to the complete sample week.",
+      "desktop": "Bright utilitarian weekly schedule with view and weekday controls, compact list rows and a full-width calendar.",
+      "mobile": "The default vertical class list is directly readable; calendar grid scrolls only inside its own container.",
+      "lookFor": [
+        "List/Calendar switch changes actual representations and day filters/counts update both",
+        "All class hours, instructors, availability and studio details remain fictional, with no reservation flow"
+      ],
+      "focusAnchor": "events-showcase",
+      "explain": "A genuinely switchable fitness schedule UI backed by a single consistent in-page class dataset.",
+      "bestFor": [
+        "Studios with real timetables and booking provider integration",
+        "Service venues with updated schedules"
+      ],
+      "fitReason": "Real implementation needs dates, times, timezone, instructors, accessibility, cancellations and genuine reservation links."
+    }
   },
   {
     "id": "EVENT-03",
     "category": "events",
     "title": "Event detail",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Studio open house location and RSVP",
-    "previewRoute": null,
+    "previewRoute": "./previews/EVENT-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-agenda-disclosures",
+      "required-rsvp-fields",
+      "local-only-rsvp-preview",
+      "editable-party-size",
+      "preview-clear-reset"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "events",
+      "detail",
+      "rsvp-draft",
+      "validation"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=EVENT-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Events and schedules",
+      "focus": "Fictional open-house detail with real validated, unsent RSVP preview",
+      "summary": "The sample open house contains a clearly fake date, nonexistent venue, original wayfinding diagram, expandable sample agenda and a validated RSVP form whose result is shown locally only, never emailed or registered.",
+      "desktop": "Editorial event introduction balances a tall original plan graphic; subsequent agenda and RSVP use split columns.",
+      "mobile": "Event details, agenda and meaningful form stack into one coherent touch-friendly flow.",
+      "lookFor": [
+        "Required name/email/acknowledgement validate and submit reveals an actual local preview that Clear resets",
+        "No real address, active venue, confirmed guest registration, invitation, capacity or backend is implied"
+      ],
+      "focusAnchor": "events-showcase",
+      "explain": "An honest event detail and local draft-flow example with real form semantics rather than pretend booking success.",
+      "bestFor": [
+        "Event organizers with an actual confirmed venue and RSVP platform",
+        "Studio open-house announcements with verified event facts"
+      ],
+      "fitReason": "Replace sample values and use approved registration, privacy and attendee-confirmation services for production."
+    }
   },
   {
     "id": "EVENT-04",
     "category": "events",
     "title": "Countdown launch",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Event launch countdown with reduced motion",
-    "previewRoute": null,
+    "previewRoute": "./previews/EVENT-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "real-time-arithmetic",
+      "two-example-targets",
+      "freeze-resume-display",
+      "reduced-motion-cadence",
+      "visibility-pause",
+      "aria-pressed"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "events",
+      "countdown",
+      "reduced-motion",
+      "time"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=EVENT-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Events and schedules",
+      "focus": "Real countdown arithmetic with two fictional targets, freeze/resume and reduced-motion cadence",
+      "summary": "An animated-looking but motion-conscious timer computes actual remaining calendar time to April and July 2027 demonstration targets, switches dates, pauses visual updates and automatically handles expiry and background visibility.",
+      "desktop": "Oversized brutalist numerals and high-contrast lavender/coral graphic presentation with four large time units.",
+      "mobile": "Two-by-two countdown blocks and stacked controls preserve legibility rather than forcing four narrow desktop columns.",
+      "lookFor": [
+        "Changing date updates true countdown values and labels, Freeze stops redraws while Resume catches up",
+        "Both target dates are explicitly fictional; reduced-motion users receive minute-level updates and no changing seconds"
+      ],
+      "focusAnchor": "events-showcase",
+      "explain": "A functioning countdown interface without false release or ticket-sale claims and with meaningful cadence controls.",
+      "bestFor": [
+        "Events with an officially confirmed future date",
+        "Launch pages with accurate targets and user-sensitive updates"
+      ],
+      "fitReason": "Replace with approved date/timezone and verified event information; confirm motion/accessibility policies before deployment."
+    }
   },
   {
     "id": "CAREER-01",
@@ -5128,31 +5376,93 @@
     "id": "CONTACT-03",
     "category": "contact",
     "title": "Split form and details",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Service company inquiry plus location",
-    "previewRoute": null,
+    "previewRoute": "./previews/CONTACT-03/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "native-field-validation",
+      "service-selector",
+      "local-unsent-draft",
+      "clear-and-reset",
+      "illustrative-location-diagram"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "contact",
+      "service-inquiry",
+      "form",
+      "local-only"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=CONTACT-03",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Contact and inquiries",
+      "focus": "Split contact form and location concept with a real unsent local inquiry preview",
+      "summary": "A complete responsive fictional service-business inquiry includes required contact fields, type/email/length validation, topic selector and acknowledgement. Submission displays a real local draft with reset, never an invented sent lead.",
+      "desktop": "Tall typographic contact information, original service-area diagram and dark split form panel establish visual distinction.",
+      "mobile": "The business information, diagram and accessible form stack naturally with full-width controls and status feedback.",
+      "lookFor": [
+        "Submitting valid fields produces a visible unsent local draft and Reset genuinely clears data; no network submission is claimed",
+        "No fabricated operating address, legitimate inbox, service territory or response time appears"
+      ],
+      "focusAnchor": "contact-showcase",
+      "explain": "A ready-to-review split inquiry pattern whose interaction explicitly stops at frontend preview until a real backend is connected.",
+      "bestFor": [
+        "Real service companies with verified details and compliant lead processing",
+        "Contact-page design reviews before secure form integration"
+      ],
+      "fitReason": "Needs verified service regions, recipient, secure provider, spam controls, consent and actual delivery confirmation."
+    }
   },
   {
     "id": "CONTACT-04",
     "category": "contact",
     "title": "Large editorial contact",
-    "status": "draft",
+    "status": "in-review",
     "exampleContext": "Creative agency prominent email headline",
-    "previewRoute": null,
+    "previewRoute": "./previews/CONTACT-04/",
     "thumbnail": null,
     "stockAssetIds": [],
-    "interactions": [],
-    "integrationLevel": "static",
-    "designTags": [],
-    "hasMobileLayout": false,
-    "notes": "Planned example only — not yet built, reviewed, or selectable."
+    "interactions": [
+      "topic-specific-draft-composer",
+      "reserved-example-mailto-link",
+      "clipboard-copy",
+      "manual-copy-fallback",
+      "aria-pressed"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "contact",
+      "editorial",
+      "mailto",
+      "clipboard"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Complete responsive functioning review-only preview with original CSS illustrations and fictional writing, schedules or contact details. No published reporting, actual events, reservations, real client enquiries, sending or data persistence implied. Browser and real-device QA not yet verified.",
+    "reviewRoute": "./review.html?id=CONTACT-04",
+    "mobileTreatmentIds": [],
+    "showcase": {
+      "label": "Contact and inquiries",
+      "focus": "Large editorial contact page with working subject-specific mail drafts and clipboard fallback",
+      "summary": "Three creative topic buttons update an actual mailto draft addressed to reserved hello@example.com, while a Copy Example Brief control uses the Clipboard API or exposes selectable fallback text—without pretending the fictional inbox accepts mail.",
+      "desktop": "Massive bold typographic contact headline sits over a direct-response topic ledger and second original geometric block.",
+      "mobile": "Oversized identity becomes touch-sized topic buttons, a readable email address and stacked copy/draft actions.",
+      "lookFor": [
+        "Topic selection changes draft subject/body and active states; Copy performs real clipboard access or manual selection fallback",
+        "example.com is a reserved undeliverable address, not a monitored inbox or active agency contact"
+      ],
+      "focusAnchor": "contact-showcase",
+      "explain": "A functioning mailto/clipboard contact-pattern showcase with truthful reserved-address boundaries.",
+      "bestFor": [
+        "Creative studios with approved monitored email addresses",
+        "Agencies presenting a simple email-first contact pathway"
+      ],
+      "fitReason": "Replace example address with working inbox and confirm accurate privacy, spam and response expectations."
+    }
   },
   {
     "id": "LOC-01",
