@@ -2091,10 +2091,10 @@ try{
  assert(await page.locator('.food article').count()===3
   &&await page.locator('.food .photo img[alt]').count()===3
   &&(await page.locator('.intro').textContent()).includes('unrelated fictional dishes'),'MENU-02 image-led menu includes three independent photographic sources and truthful sample-food disclaimer');
- await page.locator('[data-category=sea]').click();
+ await page.locator('button[data-category=sea]').click();
  assert(await page.locator('.food article:visible').count()===1
   &&(await page.locator('#count').textContent()).includes('1 fictional sea')
-  &&await page.locator('[data-category=sea]').getAttribute('aria-pressed')==='true','MENU-02 meal category filter displays only a matching fictional dish');
+  &&await page.locator('button[data-category=sea]').getAttribute('aria-pressed')==='true','MENU-02 meal category filter displays only a matching fictional dish');
  await page.locator('#reset').click();
  assert(await page.locator('.food article:visible').count()===3,'MENU-02 Reset displays every photo menu card again');
 
