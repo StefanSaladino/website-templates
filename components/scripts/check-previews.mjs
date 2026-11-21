@@ -10,7 +10,19 @@ for(const id of ids){
  for(const file of ['index.html','styles.css','script.js'])if(!existsSync(path.join(dir,file)))errors.push(id+'/'+file+' missing');
  if(!existsSync(path.join(dir,'index.html')))continue;
  const html=readFileSync(path.join(dir,'index.html'),'utf8');
- const idsInPage=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
+ const idValues=[...html.matchAll(/\bid=["']([^"']+)["']/g)].map(m=>m[1]);
+ const idsInPage=new Set(idValues);
+ // Source-level ARIA guardrail. All internal relationships must point to a
+ // unique static element. Runtime announcements still need browser/AT tests.
+ if(idsInPage.size!==idValues.length){
+  const seen=new Set();
+  for(const item of idValues){if(seen.has(item))errors.push(id+' duplicate DOM id: '+item);seen.add(item);}
+ }
+ for(const ref of html.matchAll(/\b(aria-labelledby|aria-describedby|aria-controls)=["']([^"']+)["']/g)){
+  for(const target of ref[2].trim().split(/\s+/)){
+   if(target&&!idsInPage.has(target))errors.push(id+' broken '+ref[1]+' target: '+target);
+  }
+ }
  for(const match of html.matchAll(/href="#([^"]+)"/g))if(!idsInPage.has(match[1]))errors.push(id+' dead anchor: #'+match[1]);
  if(!html.includes('<main')||!html.includes('<h1'))errors.push(id+' missing main/h1');
  for(const img of html.matchAll(/<img\b[^>]*>/g))if(!/\balt="[^"]*"/.test(img[0]))errors.push(id+' image missing alt');

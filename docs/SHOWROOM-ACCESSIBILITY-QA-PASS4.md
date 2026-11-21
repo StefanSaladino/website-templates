@@ -19,6 +19,10 @@ Added Chromium regressions to `components/scripts/browser-smoke.mjs` for: catego
 
 These new tests are **pending final CI verification**. The previous production-build and responsive browser baseline passed ([CI](https://github.com/StefanSaladino/website-templates/actions/runs/44859525421), [review QA](https://github.com/StefanSaladino/website-templates/actions/runs/44859525399)) but does not prove this new pass or cover screen-reader experience.
 
+### Static ARIA and ID integrity
+
+The component preview source check now rejects repeated DOM IDs and invalid static `aria-labelledby`, `aria-describedby` or `aria-controls` references for every non-draft component. A local scan of the existing 157 built preview files found no duplicates, invalid ARIA references, unlabelled inputs or unnamed buttons in that snapshot; the new CI gate specifically enforces duplicate-ID and ARIA-reference integrity. This is a source-only regression guard, not an automated screen-reader certification.
+
 ### Still open for accessibility release
 
 - Audit modal focus containment, form error announcements, language changes, menu controls and accessible naming across the 157 individual examples and 44 alternatives; check real assistive technologies.
