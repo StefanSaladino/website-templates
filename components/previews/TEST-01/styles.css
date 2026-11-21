@@ -23,3 +23,14 @@
  body[data-mobile-treatment="M-STORY-02"] .t1-credit{margin-top:27px}
 }
 
+/* M-STORY-02 must replace dark-template text colours on the warm paper surface. */
+@media(max-width:620px){
+ body[data-mobile-treatment="M-STORY-02"] .t1-testimonial{color:#2c302a}
+ body[data-mobile-treatment="M-STORY-02"] .t1-meta{color:#4a5647}
+ body[data-mobile-treatment="M-STORY-02"] .t1-demo{color:#314b3b;border-color:#6a806c}
+ body[data-mobile-treatment="M-STORY-02"] .t1-quote-mark{color:#506044;opacity:1}
+ body[data-mobile-treatment="M-STORY-02"] .t1-body h2 em{color:#854a31}
+ body[data-mobile-treatment="M-STORY-02"] .t1-body blockquote p{color:#3c493c}
+ body[data-mobile-treatment="M-STORY-02"] .t1-credit span{color:#4c5549}
+ body[data-mobile-treatment="M-STORY-02"] .t1-mobile-controls>span{color:#2c302a}
+}
