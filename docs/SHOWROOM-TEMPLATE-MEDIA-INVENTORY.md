@@ -88,6 +88,8 @@ The script writes `stock-candidates/template-review/index.html`, `review.css`, a
 
 For each successfully downloaded image the report captures **actual width, height, bytes and SHA-256**. A download is marked `downloaded-for-review`, **never** `approved`. A screenshot or crop can't establish a person, place, trademark, artwork, release or creator's identity. Download errors remain visible in the report and cause a nonzero exit status. The script has CDN host checks, a 25-second request deadline and a 16 MB per-image candidate cap. The folder is ignored by Git.
 
+A separate GitHub Actions workflow, `.github/workflows/component-template-media-candidates.yml`, can be launched manually with an allowed template and batch size. Its initial branch workflow addition also runs a **five-image frame-portfolio pilot**. It uploads private **7-day review artifacts** with the local HTML sheet, source byte hashes, crop previews, and any download failures. This workflow is **not** part of production build validation and must never mark an image licensed or ready for a customer site. Downloads may fail or remain blocked by the CDN, in which case the report retains the failure instead of substituting a misleading picture.
+
 The deterministic offline smoke test `components/scripts/test-template-media-review.mjs` runs as part of `npm run check` and production build QA. It verifies that the review output is generated with the expected warnings and **no** network requests, unapproved imagery or downloaded assets. CI does **not** fetch photos. This test proves review-tool generation, not actual photography quality or licensing.
 
 **Review order and specific risks:**
