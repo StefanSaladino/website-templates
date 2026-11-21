@@ -13,11 +13,20 @@ on:
           - muskoka-retreat
           - creative-agency
       limit:
-        description: "Maximum candidate identities to inspect (1-10)"
+        description: "Maximum candidate identities for other templates"
         required: true
         default: "5"
         type: choice
         options: ["1", "3", "5", "10"]
+      frame_batch:
+        description: "FRAME photo batch (ignored for other templates)"
+        required: true
+        default: "remaining-six"
+        type: choice
+        options:
+          - first-five
+          - remaining-six
+          - all-eleven
   push:
     branches:
       - feature/component-showroom
@@ -50,14 +59,41 @@ jobs:
         env:
           TEMPLATE_NAME: ${{ inputs.template || 'frame-portfolio' }}
           CANDIDATE_LIMIT: ${{ inputs.limit || '5' }}
-        run: npm run review:template-media -- --templates="$TEMPLATE_NAME" --limit="$CANDIDATE_LIMIT"
+          FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
+        run: |
+          if [ "$TEMPLATE_NAME" = "frame-portfolio" ]; then
+            case "$FRAME_BATCH" in
+              first-five)
+                npm run review:template-media -- --ids=TM-002,TM-003,TM-004,TM-007,TM-009 --limit=5
+                ;;
+              remaining-six)
+                npm run review:template-media -- --ids=TM-012,TM-013,TM-014,TM-015,TM-016,TM-017 --limit=6
+                ;;
+              all-eleven)
+                npm run review:template-media -- --templates=frame-portfolio --limit=11
+                ;;
+              *)
+                echo "Unsupported FRAME batch: $FRAME_BATCH" >&2
+                exit 1
+                ;;
+            esac
+          else
+            npm run review:template-media -- --templates="$TEMPLATE_NAME" --limit="$CANDIDATE_LIMIT"
+          fi
       - name: Verify all generated crop alternatives
         if: success()
+        env:
+          TEMPLATE_NAME: ${{ inputs.template || 'frame-portfolio' }}
+          FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
           node --input-type=module -e '
           import {readFileSync,existsSync} from "node:fs";
           import assert from "node:assert/strict";
           const report=JSON.parse(readFileSync("../stock-candidates/template-review/results.json","utf8"));
+          if(process.env.TEMPLATE_NAME==="frame-portfolio" && process.env.FRAME_BATCH==="remaining-six"){
+            assert.deepEqual(report.assets.map(x=>x.id),["TM-012","TM-013","TM-014","TM-015","TM-016","TM-017"],"Wrong FRAME follow-up batch");
+            assert.equal(report.downloaded,6);
+          }
           for(const item of report.assets.filter(x=>x.kind==="image")){
             assert.equal(item.candidateStatus,"downloaded-for-review");
             for(const field of ["original","wide","phoneCenter","phoneAttention","phoneFull"])
