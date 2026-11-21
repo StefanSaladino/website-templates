@@ -47,5 +47,15 @@ try{
  assert.equal(editorial.errors,0);
  assert(editorial.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: editorial-commerce batch targets exactly nine registered, unapproved photographs.');
+ const retreatIds=['TM-021','TM-031','TM-036','TM-061','TM-070'];
+ const retreat=spawnSync(process.execPath,[script,'--offline','--templates=muskoka-retreat','--limit=5','--output='+path.join(directory,'muskoka-retreat')],{encoding:'utf8',timeout:20000});
+ if(retreat.status!==0)throw Error('Muskoka review batch failed: '+retreat.stderr+'\\n'+retreat.stdout);
+ const cabin=JSON.parse(readFileSync(path.join(directory,'muskoka-retreat/results.json'),'utf8'));
+ assert.deepEqual(cabin.assets.map(item=>item.id),retreatIds);
+ assert.equal(cabin.total,5);
+ assert.equal(cabin.downloaded,0);
+ assert.equal(cabin.errors,0);
+ assert(cabin.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: Muskoka batch targets exactly five unapproved images without download.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
