@@ -11,8 +11,7 @@
         {
           "templateId": "creative-agency",
           "files": [
-            "index.html",
-            "styles.css"
+            "index.html"
           ]
         }
       ],

@@ -34,7 +34,7 @@ async function probeVideoHeaders(asset){
   if(final.protocol!=='https:'||final.hostname!=='videos.pexels.com')throw Error('Unexpected HEAD redirect host');
   const contentType=res.headers.get('content-type')||null;
   const rawLength=res.headers.get('content-length');
-  const bytes=rawLength&&/^\\d+$/.test(rawLength)?Number(rawLength):null;
+  const bytes=rawLength&&/^[0-9]+$/.test(rawLength)?Number(rawLength):null;
   return{status:'headers-only',httpStatus:res.status,contentType,contentLengthBytes:Number.isSafeInteger(bytes)?bytes:null,acceptRanges:res.headers.get('accept-ranges')||null,downloadedMediaBytes:0};
  }finally{clearTimeout(timer)}
 }

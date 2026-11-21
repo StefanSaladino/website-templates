@@ -153,6 +153,29 @@ try{
  assert(!await page.locator('[data-motion-pattern="ANIM-01"]').evaluate(el=>el.classList.contains('arc-motion-playing')),'Arc motion stops for reduced-motion preference');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('creative-agency');
+ // The remote 4096x2160 source is never attached on initial page load.
+ // An explicit Play interaction can attach it; no large video bytes are fetched by this test.
+ assert(await page.locator('#hero-film').getAttribute('preload')==='none','OFFCUT hero film does not preload');
+ assert(await page.locator('#hero-film').getAttribute('autoplay')===null,'OFFCUT never autoplays the remote 4K video');
+ assert(await page.locator('#hero-film source').getAttribute('src')===null,'OFFCUT video URL is not attached until opt-in');
+ assert(await page.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT opt-in film control defaults to off');
+ assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT film control is accessible');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ assert(await page.locator('#hero-film source').getAttribute('src')===null,'OFFCUT reduced-motion user never loads the video automatically');
+ assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT explicit play remains available under reduced motion');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.evaluate(() => {
+   const video=document.querySelector('#hero-film');
+   video.load=()=>{};
+   video.play=()=>Promise.resolve();
+   video.pause=()=>{};
+ });
+ await page.locator('[data-film-toggle]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-film-toggle]')?.getAttribute('aria-pressed')==='true');
+ assert((await page.locator('#hero-film source').getAttribute('src'))?.startsWith('https://videos.pexels.com/'),'OFFCUT attaches source only on click');
+ assert((await page.locator('[data-film-toggle] span').textContent())==='Pause film','OFFCUT control enters playing state after explicit opt-in');
+ await page.locator('[data-film-toggle]').click();
+ assert(await page.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT visitor can pause the background film');
  await page.waitForSelector('.offcut-motion-ready');
  await page.locator('[data-replay-motion="ANIM-02"]').click();
  assert(await page.locator('[data-motion-pattern="ANIM-02"]').evaluate(el=>el.classList.contains('offcut-motion-playing')),'OFFCUT ANIM-02 replays a line-wise title');

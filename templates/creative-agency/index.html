@@ -32,15 +32,14 @@
       <video
         class="hero-film"
         id="hero-film"
-        autoplay
         muted
         loop
         playsinline
-        preload="metadata"
+        preload="none"
         poster="https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg?auto=compress&amp;dpr=1&amp;w=1800"
         aria-hidden="true"
       >
-        <source src="https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4" type="video/mp4" />
+        <source data-src="https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4" type="video/mp4" />
       </video>
       <div class="hero-shade"></div>
       <div class="hero-grid">
@@ -53,7 +52,7 @@
       </div>
       <div class="hero-foot">
         <a href="#work">Selected work ↓</a>
-        <div class="offcut-motion-actions"><button class="offcut-replay" type="button" data-replay-motion="ANIM-02" aria-label="Replay the hero headline animation">Replay title</button><button class="film-toggle" type="button" aria-pressed="false" data-film-toggle><span>Pause film</span><i></i></button></div>
+        <div class="offcut-motion-actions"><button class="offcut-replay" type="button" data-replay-motion="ANIM-02" aria-label="Replay the hero headline animation">Replay title</button><span class="film-hint">4K preview · opt-in</span><button class="film-toggle" type="button" aria-pressed="false" data-film-toggle><span>Play film</span><i aria-hidden="true"></i></button></div>
       </div>
     </section>
 
@@ -138,7 +137,7 @@
   <footer class="footer">
     <a class="wordmark" href="#top">OFFCUT<span>/</span></a>
     <p>Fictional creative office template.</p>
-    <p>Hero film: cottonbro studio via Pexels. · <a href="../../index.html">Back to templates ↖</a></p>
+    <p>Pexels poster and optional film preview · individual creator and commercial media rights unverified. · <a href="../../index.html">Back to templates ↖</a></p>
   </footer>
 
   <script src="script.js"></script>

@@ -2,6 +2,7 @@ const header = document.querySelector('[data-header]');
 const menuButton = document.querySelector('.menu-toggle');
 const menu = document.querySelector('#mobile-menu');
 const film = document.querySelector('#hero-film');
+const filmSource = film?.querySelector('source[data-src]');
 const filmToggle = document.querySelector('[data-film-toggle]');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -27,17 +28,61 @@ function updateHeader() {
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive: true });
 
-function setFilmPaused(paused) {
-  if (!film || !filmToggle) return;
-  if (paused) film.pause(); else film.play().catch(() => {});
-  filmToggle.setAttribute('aria-pressed', String(paused));
+// Fail closed: the remote 4K asset is never assigned to <source> on page entry.
+// Poster and title animation work with JS disabled, reduced motion and Save-Data.
+let filmState = 'idle';
+let filmTicket = 0;
+function showFilmState(state) {
+  filmState = state;
+  if (!filmToggle) return;
+  filmToggle.setAttribute('aria-pressed', String(state === 'playing'));
   const label = filmToggle.querySelector('span');
-  if (label) label.textContent = paused ? 'Play film' : 'Pause film';
+  if (label) label.textContent = state === 'playing' ? 'Pause film' : state === 'loading' ? 'Cancel film' : 'Play film';
 }
-
-if (reduceMotion.matches) setFilmPaused(true);
-filmToggle?.addEventListener('click', () => setFilmPaused(!film?.paused));
-reduceMotion.addEventListener?.('change', (event) => setFilmPaused(event.matches));
+async function playFilm() {
+  if (!film || !filmSource || !filmToggle) return;
+  const url = filmSource.dataset.src || '';
+  if (!url.startsWith('https://videos.pexels.com/')) return;
+  const ticket = ++filmTicket;
+  if (!filmSource.getAttribute('src')) {
+    filmSource.setAttribute('src', url);
+    film.load();
+  }
+  showFilmState('loading');
+  try {
+    await film.play();
+    if (ticket === filmTicket) showFilmState('playing');
+  } catch {
+    if (ticket === filmTicket) pauseFilm();
+  }
+}
+function pauseFilm() {
+  const loading = filmState === 'loading';
+  ++filmTicket;
+  film?.pause();
+  // Cancel a pending 4K request if the visitor changes their mind mid-load.
+  if (loading && filmSource) {
+    filmSource.removeAttribute('src');
+    film?.load();
+  }
+  showFilmState('idle');
+}
+filmToggle?.addEventListener('click', () => {
+  if (filmState === 'playing' || filmState === 'loading') pauseFilm();
+  else void playFilm();
+});
+film?.addEventListener('pause', () => {
+  if (filmState === 'playing') showFilmState('idle');
+});
+film?.addEventListener('error', () => {
+  if (filmState === 'loading' || filmState === 'playing') pauseFilm();
+});
+reduceMotion.addEventListener?.('change', event => {
+  if (event.matches) pauseFilm();
+});
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) pauseFilm();
+});
 
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window && !reduceMotion.matches) {
