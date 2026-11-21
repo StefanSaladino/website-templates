@@ -2337,6 +2337,79 @@ try{
  }
  await page.setViewportSize({width:390,height:844});
 
+
+ // Pass 4 colour and focus-visibility gate on sampled forms and dark/light
+ // overlays. This computes actual CSS foreground, background and outline colours
+ // from Chromium, avoiding colour-token-only tests that miss overrides.
+ const parseColor=raw=>{
+  const values=String(raw).match(/[\d.]+/g)?.slice(0,3).map(Number);
+  if(!values||values.length!==3||values.some(v=>!Number.isFinite(v)))throw Error('Unparseable CSS colour: '+raw);
+  return values;
+ };
+ const relativeLuminance=rgb=>{
+  const v=rgb.map(channel=>{const s=channel/255;return s<=.04045?s/12.92:Math.pow((s+.055)/1.055,2.4);});
+  return .2126*v[0]+.7152*v[1]+.0722*v[2];
+ };
+ const wcagContrast=(foreground,background)=>{
+  const f=relativeLuminance(parseColor(foreground)),b=relativeLuminance(parseColor(background));
+  return (Math.max(f,b)+.05)/(Math.min(f,b)+.05);
+ };
+ const contrastOf=async(selector,backgroundSelector,property='color')=>page.locator(selector).first().evaluate((el,props)=>{
+  const surface=document.querySelector(props.backgroundSelector);
+  if(!surface)throw Error('Missing WCAG test backdrop '+props.backgroundSelector);
+  const style=getComputedStyle(el),backdrop=getComputedStyle(surface);
+  return{front:style[props.property],back:backdrop.backgroundColor,
+   outlineWidth:style.outlineWidth,outlineStyle:style.outlineStyle,
+   focusVisible:el.matches(':focus-visible')};
+ },{backgroundSelector,property});
+ for(const width of [390,1280]){
+  await page.setViewportSize({width,height:900});
+  await page.goto(base+'previews/BOOK-02/',{waitUntil:'domcontentloaded'});
+  for(const selector of ['.selector>p','.guest-row span','.small']){
+   const colors=await contrastOf(selector,'body');
+   assert(wcagContrast(colors.front,colors.back)>=4.5,
+    'BOOK-02 '+width+'px '+selector+' maintains >=4.5:1 actual text contrast');
+  }
+  await page.locator('#arrival').focus();
+  const fieldFocus=await contrastOf('#arrival','body','outlineColor');
+  assert(fieldFocus.focusVisible&&fieldFocus.outlineStyle==='solid'&&parseFloat(fieldFocus.outlineWidth)>=3
+   &&wcagContrast(fieldFocus.front,fieldFocus.back)>=3,
+    'BOOK-02 '+width+'px date input has a visible >=3:1 keyboard focus ring');
+  await page.locator('.guide a').scrollIntoViewIfNeeded();
+  await page.locator('.guide a').focus();
+  const darkFocus=await contrastOf('.guide a','.guide','outlineColor');
+  assert(darkFocus.focusVisible&&wcagContrast(darkFocus.front,darkFocus.back)>=3,
+    'BOOK-02 '+width+'px dark section link retains a visible focus ring');
+ }
+ for(const mode of ['', '?mobile=M-FRM-01']){
+  await page.setViewportSize({width:390,height:900});
+  await page.goto(base+'previews/FORM-01/'+mode,{waitUntil:'domcontentloaded'});
+  await page.locator('#f1-name').focus();
+  const colors=await contrastOf('#f1-name','body','outlineColor');
+  assert(colors.focusVisible&&colors.outlineStyle==='solid'&&parseFloat(colors.outlineWidth)>=3
+    &&wcagContrast(colors.front,colors.back)>=3,
+    'FORM-01 '+(mode||'standard')+' full keyboard input outline is visible at >=3:1');
+ }
+ await page.goto(base+'previews/GAL-06/',{waitUntil:'domcontentloaded'});
+ await page.locator('.g6-head a').focus();
+ await page.keyboard.press('Tab');
+ assert(await page.locator('[data-photo="0"]').evaluate(el=>document.activeElement===el),
+  'GAL-06 keyboard navigation reaches the first gallery thumbnail');
+ const galFocus=await contrastOf('[data-photo="0"]','body','outlineColor');
+ assert(galFocus.focusVisible&&galFocus.outlineStyle==='solid'
+   &&wcagContrast(galFocus.front,galFocus.back)>=3,
+    'GAL-06 dark gallery thumbnail has an accessible contrasting focus ring');
+ await page.goto(base+'previews/GAL-06/?mobile=M-UTIL-02',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-photo="1"]').click();
+ await page.locator('#g6-close').focus();
+ await page.keyboard.press('Tab');
+ assert(await page.locator('#g6-prev').evaluate(el=>document.activeElement===el),
+  'M-UTIL-02 focus stays in native modal when navigating its controls');
+ const lightModalFocus=await contrastOf('#g6-prev','#g6-dialog','outlineColor');
+ assert(lightModalFocus.focusVisible&&wcagContrast(lightModalFocus.front,lightModalFocus.back)>=3,
+  'M-UTIL-02 light reading sheet uses a contrasting keyboard focus ring');
+ await page.keyboard.press('Escape');
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);

@@ -30,6 +30,16 @@ The component preview source check now rejects repeated DOM IDs and invalid stat
 - **GAL-06:** native modal already handled Escape and trigger restoration. Its image-position counter now uses a small atomic polite live status to announce keyboard Next/Previous updates.
 - Added keyboard-driven Chromium regressions for the two NAV-04 modes, both date-error pathways, successful recovery and gallery status semantics. This pass remains **pending the newest CI workflow results** and is not a screen-reader certification.
 
+### Contrast and focus-visible pass (targeted)
+
+A source/CSS audit identified the following specific issues and fixes, with tests using computed styles in Chromium rather than only colour-token comparisons:
+
+- **BOOK-02:** the small explanatory text (`#607366`), guest hint (`#617466`), and booking disclaimer (`#6a7d6a`) against `#ecede5` each fell below WCAG's **4.5:1** text threshold (approximately **4.30:1**, **4.24:1**, and **3.75:1**). All now use `#465a4c` (approximately **6.30:1** against that background). The original warm input focus outline (`#be8151`) measured only **2.76:1** against the booking page; changed to `#7b3d25` (approximately **7.02:1**). Links inside the dark guidance section get a distinct light focus ring.
+- **FORM-01:** input and textarea `:focus` previously removed the 3px outline, leaving only a thin underline to indicate keyboard focus. That override was removed and an explicit 3px `:focus-visible` outline set for the default and optional mobile form.
+- **GAL-06:** focus rings now use pale `#f5d682` against the dark gallery (over **10:1**) and `#7b3d25` against the pale `M-UTIL-02` reading sheet (over **7:1**). Visible links receive the same dark-gallery focus treatment.
+
+Added Chromium computed-style regressions at phone and desktop breakpoints, with **4.5:1** for ordinary text and **3:1** for focus indicators. These specific measured pairings do not constitute a full-colour or WCAG 2.2 AA audit of all 157 examples, and the **latest CI results remain pending**.
+
 ### Still open for accessibility release
 
 - Audit modal focus containment, form error announcements, language changes, menu controls and accessible naming across the 157 individual examples and 44 alternatives; check real assistive technologies.
