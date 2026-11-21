@@ -5,14 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "check": "node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs && node scripts/check-template-media.mjs && npm run check:review",
+    "check": "node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs && node scripts/check-template-media.mjs && node scripts/test-template-media-review.mjs && npm run check:review",
     "build": "npm run check && vite build && node scripts/postbuild.mjs && node scripts/check-dist.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "optimize:stock": "node scripts/optimize-stock.mjs",
     "acquire:stock": "node scripts/acquire-stock.mjs",
     "check:review": "node scripts/check-review-contract.mjs",
     "check:browser": "node scripts/browser-smoke.mjs",
-    "check:template-media": "node scripts/check-template-media.mjs"
+    "check:template-media": "node scripts/check-template-media.mjs",
+    "review:template-media": "node scripts/prepare-template-media-review.mjs",
+    "check:template-media-review": "node scripts/test-template-media-review.mjs"
   },
   "devDependencies": {
     "vite": "^6.3.0",

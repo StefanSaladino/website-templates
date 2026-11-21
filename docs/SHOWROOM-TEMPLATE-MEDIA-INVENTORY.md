@@ -58,6 +58,47 @@ The gate:
 
 The gate catches metadata and drift; it cannot determine copyright ownership, model/property release requirements, photographic relevance, actual visual quality or final redistribution permission.
 
+
+## Candidate image QA workflow (local-only tooling)
+
+The `components/scripts/prepare-template-media-review.mjs` script creates a **private, ignored review folder**, separate from the application and from production media. The output is not committed to GitHub.
+
+From the repository:
+
+```bash
+cd components
+npm install --no-audit --no-fund
+
+# Inspect a small, high-impact group. Downloads are permitted only from
+# the existing Unsplash / Pexels image CDN identities in the inventory.
+npm run review:template-media -- --templates=frame-portfolio --limit=5
+
+# Other useful review batches:
+npm run review:template-media -- --templates=editorial-commerce --limit=9
+npm run review:template-media -- --templates=muskoka-retreat --limit=5
+
+# Fully offline metadata-only run, with no external requests:
+npm run review:template-media -- --offline --limit=5
+
+# Select particular registered identities:
+npm run review:template-media -- --ids=TM-002,TM-003
+```
+
+The script writes `stock-candidates/template-review/index.html`, `review.css`, and `results.json`; when online candidate downloads succeed, it also writes the original candidate bytes and a **16:9 desktop** and **3:4 phone** WebP comparison crop for each image. The contact sheet uses rows and side-by-side crop comparisons, not a generic card layout. Video is intentionally **not downloaded**; its original identity is instead flagged for manual film/performance review.
+
+For each successfully downloaded image the report captures **actual width, height, bytes and SHA-256**. A download is marked `downloaded-for-review`, **never** `approved`. A screenshot or crop can't establish a person, place, trademark, artwork, release or creator's identity. Download errors remain visible in the report and cause a nonzero exit status. The script has CDN host checks, a 25-second request deadline and a 16 MB per-image candidate cap. The folder is ignored by Git.
+
+The deterministic offline smoke test `components/scripts/test-template-media-review.mjs` runs as part of `npm run check` and production build QA. It verifies that the review output is generated with the expected warnings and **no** network requests, unapproved imagery or downloaded assets. CI does **not** fetch photos. This test proves review-tool generation, not actual photography quality or licensing.
+
+**Review order and specific risks:**
+
+1. `frame-portfolio` — **11 images**, including close-up and fashion portraits. Prioritize identifiable people, apparent model releases, whether a stock face implies endorsement, and portrait cropping across devices.
+2. `editorial-commerce` — **9 images**, including clothing, backpacks, camping equipment and a hiker. Check visible product brands/marks and whether images could incorrectly suggest real inventory or a tested product.
+3. `muskoka-retreat` — **5 images**, including cabin interiors/exteriors and a lake. Ensure no stock image is presented as a fictional property's actual accommodation or location.
+4. `creative-agency` — a **Pexels poster and 4096×2160 video**. Confirm the exact source page, creator, film rights, duration/bytes, mobile performance, motion accessibility and the non-endorsement context separately before migration.
+
+The automated review generator intentionally does **not** guess source pages, creators, model/property permissions, crop acceptance or commercial distribution rights. Those decisions require manual evidence. Platform rules can allow commercial image use while still restricting implied endorsement and other depicted rights: [Unsplash terms](https://unsplash.com/terms), [Unsplash depicted rights guidance](https://help.unsplash.com/en/articles/2612329-releases-and-trademarks), [Pexels licence](https://www.pexels.com/license/), and [Pexels commercial guidance](https://help.pexels.com/hc/en-us/articles/360042295214-Can-I-use-the-photos-and-videos-for-a-commercial-project).
+
 ## Manual clearance procedure
 
 For each `TM-###` entry, resolve and save the **actual provider photo/video page**, named creator and license evidence. Check any identifiable people, interiors, business signage, logos, recognizable artwork, location claims and context-of-use restrictions. A venue, home or person pictured in stock must not appear to be a real customer, employee, completed project or endorsed client merely because the template presents that story.
