@@ -2090,6 +2090,8 @@ try{
  await page.locator('#play').click();
  assert((await page.locator('#status').textContent()).includes('paused'),'TEST-05 playback can be genuinely paused');
  await page.locator('#restart').click();
+ // The browser may take a moment to resume the generated MediaStream.
+ await page.waitForFunction(()=>document.querySelector('#play')?.textContent==='Pause original motion study',null,{timeout:10000});
  assert(await page.locator('#play').textContent()==='Pause original motion study','TEST-05 Restart really resumes from the original frame');
 
  await page.goto(base+'previews/MENU-02/',{waitUntil:'domcontentloaded'});
