@@ -2562,6 +2562,141 @@ try{
  assert(darkRing.focusVisible&&wcagContrast(darkRing.front,darkRing.back)>=3,
   'FORM-04 dark notes section retains a bright keyboard focus ring');
 
+
+ // Pass 4: navigation that closes must never strand keyboard focus in a hidden
+ // menu; modal fields and illustrative booking/upload forms expose recoverable
+ // invalid states with descriptions tied to the affected control.
+ await page.setViewportSize({width:390,height:844});
+ for(const mode of ['', '?mobile=M-NAV-01']){
+  await page.goto(base+'previews/NAV-01/'+mode,{waitUntil:'domcontentloaded'});
+  await page.locator('.n1-toggle').click();
+  await page.locator('.n1-menu a[href="#studio"]').press('Enter');
+  assert(await page.locator('.n1-menu').isHidden()
+   &&await page.locator('#studio').evaluate(el=>document.activeElement===el)
+   &&await page.locator('main').evaluate(el=>!el.inert),
+   'NAV-01 '+(mode||'standard')+' menu link closes and focuses its visible section');
+  await page.locator('.n1-toggle').click();
+  await page.setViewportSize({width:1100,height:900});
+  await page.waitForFunction(()=>document.querySelector('.n1-menu')?.hidden
+   &&document.activeElement===document.querySelector('.n1-nav a'));
+  assert(await page.locator('.n1-menu').isHidden()
+   &&await page.locator('.n1-nav a').first().evaluate(el=>document.activeElement===el),
+   'NAV-01 '+(mode||'standard')+' breakpoint closure moves focus to desktop navigation');
+  await page.setViewportSize({width:390,height:844});
+ }
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto(base+'previews/NAV-07/',{waitUntil:'domcontentloaded'});
+ await page.locator('#hero-toggle').click();
+ assert(await page.locator('#hero-toggle').getAttribute('aria-expanded')==='true'
+  &&await page.locator('#hero-toggle').getAttribute('aria-controls')==='mega-menu'
+  &&await page.locator('#services-toggle').getAttribute('aria-expanded')==='true',
+  'NAV-07 hero opener and header trigger both describe the expanded services panel');
+ await page.locator('#group-work').click();
+ assert(await page.locator('#group-work').getAttribute('aria-controls')==='panel-work'
+  &&await page.locator('#panel-work').getAttribute('aria-labelledby')==='group-work'
+  &&await page.locator('#panel-work').isVisible(),
+  'NAV-07 switches to a named, correctly controlled service region');
+ await page.locator('#panel-work a[href="#work"]').press('Enter');
+ assert(await page.locator('#mega-menu').isHidden()
+  &&await page.locator('#work').evaluate(el=>document.activeElement===el)
+  &&await page.locator('#hero-toggle').getAttribute('aria-expanded')==='false',
+  'NAV-07 menu link closes the popover and transfers focus to its destination');
+
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/UI-03/',{waitUntil:'domcontentloaded'});
+ await page.locator('#open-dialog').click();
+ await page.locator('#dialog-form button[type=submit]').click();
+ assert(await page.locator('#idea-type').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#idea-type').getAttribute('aria-describedby')==='form-error'
+  &&await page.locator('#idea-type').evaluate(el=>document.activeElement===el),
+  'UI-03 modal category error is linked to, and focuses, the invalid control');
+ await page.locator('#idea-type').selectOption('Interior update');
+ assert(await page.locator('#idea-type').getAttribute('aria-invalid')==='false'
+  &&(await page.locator('#form-error').textContent())==='',
+  'UI-03 changing the category clears its stale validation warning');
+ await page.locator('#dialog-form button[type=submit]').click();
+ assert(await page.locator('#idea-desc').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#idea-desc').evaluate(el=>document.activeElement===el),
+  'UI-03 missing description is announced at its own text area');
+ await page.locator('#idea-desc').fill('Small fictional design study.');
+ await page.locator('#dialog-form button[type=submit]').click();
+ assert(await page.locator('#draft').isVisible()
+  &&await page.locator('#idea-desc').getAttribute('aria-invalid')==='false',
+  'UI-03 corrected description produces only an unsent local note');
+ await page.keyboard.press('Escape');
+ assert(await page.locator('#open-dialog').evaluate(el=>document.activeElement===el),
+  'UI-03 modal Escape returns focus to its opener after validation');
+
+ await page.goto(base+'previews/FORM-06/',{waitUntil:'domcontentloaded'});
+ await page.locator('#file-form button[type=submit]').click();
+ assert(await page.locator('#file-name').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#file-name').getAttribute('aria-describedby')==='file-error'
+  &&await page.locator('#file-name').evaluate(el=>document.activeElement===el),
+  'FORM-06 missing project label exposes a descriptive keyboard error');
+ await page.locator('#file-name').fill('Illustrative boards');
+ await page.locator('#file-form button[type=submit]').click();
+ assert(await page.locator('#file').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#file').getAttribute('aria-describedby')==='file-error',
+  'FORM-06 missing file exposes a descriptive required-file error');
+ await page.locator('#file').setInputFiles({name:'example.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.7\nLocal component QA')});
+ assert(await page.locator('#file').getAttribute('aria-invalid')==='false'
+  &&(await page.locator('#file-error').textContent())==='',
+  'FORM-06 selecting a valid file clears the stale error');
+ await page.locator('#file-form button[type=submit]').click();
+ assert(await page.locator('#file-summary').isVisible()
+  &&(await page.locator('#file-output').textContent()).includes('NOT UPLOADED'),
+  'FORM-06 recovers to a local-only metadata preview without uploading files');
+
+ await page.goto(base+'previews/BOOK-03/',{waitUntil:'domcontentloaded'});
+ await page.locator('#quote-form button[type=submit]').click();
+ assert(await page.locator('.choice').getAttribute('aria-invalid')==='true'
+  &&await page.locator('.choice').getAttribute('aria-describedby')==='error'
+  &&await page.locator('[name=kind]').first().evaluate(el=>document.activeElement===el),
+  'BOOK-03 missing project category is linked to its shared error and focused');
+ await page.locator('[name=kind]').first().check();
+ await page.locator('#quote-form button[type=submit]').click();
+ assert(await page.locator('#timeline').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#timeline').getAttribute('aria-describedby')==='error',
+  'BOOK-03 timeline selector identifies its missing value');
+ await page.locator('#timeline').selectOption('Still exploring');
+ await page.locator('#range').selectOption('Not yet established');
+ await page.locator('#quote-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&await page.locator('#range').getAttribute('aria-invalid')==='false',
+  'BOOK-03 valid selections recover to an unpriced local project brief');
+
+ await page.goto(base+'previews/BOOK-04/',{waitUntil:'domcontentloaded'});
+ await page.locator('#rsvp-form button[type=submit]').click();
+ assert(await page.locator('#session-choice').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#session-choice').getAttribute('aria-describedby')==='error',
+  'BOOK-04 missing sample session is announced at its group');
+ await page.locator('[name=session][value=a]').check();
+ await page.locator('#rsvp-form button[type=submit]').click();
+ assert(await page.locator('#contact').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#contact').getAttribute('aria-describedby')==='error',
+  'BOOK-04 absent example attendee name exposes an associated error');
+ await page.locator('#contact').fill('Sample Attendee');
+ await page.locator('#rsvp-form button[type=submit]').click();
+ assert(await page.locator('#result').isVisible()
+  &&await page.locator('#contact').getAttribute('aria-invalid')==='false',
+  'BOOK-04 valid sample choices recover without pretending to register seats');
+
+ await page.goto(base+'previews/BOOK-05/',{waitUntil:'domcontentloaded'});
+ await page.locator('#provider-form button[type=submit]').click();
+ assert(await page.locator('#provider-choice').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#provider-choice').getAttribute('aria-describedby')==='error',
+  'BOOK-05 missing provider homepage is associated with the platform group');
+ await page.locator('[name=provider][value=resy]').check();
+ await page.locator('#provider-form button[type=submit]').click();
+ assert(await page.locator('#ack').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#ack').getAttribute('aria-describedby')==='error',
+  'BOOK-05 unacknowledged disclaimer is announced at its own checkbox');
+ await page.locator('#ack').check();
+ await page.locator('#provider-form button[type=submit]').click();
+ assert(await page.locator('#destination').isVisible()
+  &&(await page.locator('#destination-label').textContent()).includes('NO RESERVATION'),
+  'BOOK-05 corrected consent reveals only the external provider homepage, not availability');
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);

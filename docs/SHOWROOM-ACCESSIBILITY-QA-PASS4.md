@@ -70,6 +70,22 @@ Chromium regression tests cover Enter/Escape focus in both NAV-03 phone modes, s
 
 These are **targeted design fixes, not a claim of complete WCAG certification**: colour measurements do not establish correct contrast for overlays on loaded imagery, visual states not sampled, browser zoom, or every component family. Screen-reader tests with VoiceOver/NVDA and real iOS/Android keyboard/assistive technology remain open.
 
+### Further interaction fixes — modal, menus, file intake and booking families
+
+The preceding 18-file accessibility batch (`f9ccbb5`) completed with **green GitHub CI and Chromium review QA** ([CI](https://github.com/StefanSaladino/website-templates/actions/runs/44864625868), [review QA](https://github.com/StefanSaladino/website-templates/actions/runs/44864625887)). The following changes are a **new, separately tested pass**, pending its own CI completion.
+
+**Confirmed defects addressed:**
+
+- **NAV-01, including M-NAV-01:** in-page links previously closed the phone menu without moving focus out of the now-hidden navigation. Link activation moves focus to its target section; resizing to a wide layout while the menu is open restores focus to visible desktop navigation. The existing Escape and focus-containment behaviour remains.
+- **NAV-07:** service links in the mega-menu previously closed their containing panel while leaving keyboard focus behind. Links now move focus to their destination section. The hero opener now exposes `aria-controls` and `aria-expanded`, synchronized with the header trigger. All three service-family buttons and panels have explicit `aria-controls`/`aria-labelledby` relationships and named regions.
+- **UI-03:** select and textarea validation errors inside the native modal were visible but not associated with their respective fields. They now reference the existing alert, expose `aria-invalid`, and clear stale errors after input corrections; native Escape and focus return are preserved.
+- **FORM-06:** the local file-selection demonstration now links name/file errors to their controls, marks the specific invalid control and removes its error state after corrections or clearing. The demo still reads **file metadata only**, never uploads or stores file contents.
+- **BOOK-03 / BOOK-04 / BOOK-05:** sample category, session, date/timeline and acknowledgement errors are now linked to the correct native fieldsets, radiogroups, selects or checkbox. Invalid states clear when changed; focus still moves to the first failing control. The demos remain explicitly non-booking, non-registration and non-sending.
+
+**Regression coverage:** added 23 Chromium assertions covering keyboard Enter on navigation links, desktop resize focus recovery, mega-menu region and trigger semantics, modal error recovery, metadata-only file validation, three booking-form error paths and valid local-only results. A passing source parse alone is insufficient; browser QA must complete for sign-off.
+
+**Known limits:** automated ARIA and focus checks do not replace VoiceOver/NVDA testing. Colour contrast over real loaded imagery, browser magnification, mobile browser chrome and physical assistive-technology testing remain open; stock rights remain unverified.
+
 ### Still open for accessibility release
 
 - Audit modal focus containment, form error announcements, language changes, menu controls and accessible naming across the 157 individual examples and 44 alternatives; check real assistive technologies.
