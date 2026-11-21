@@ -57,8 +57,8 @@ jobs:
         run: npm run check:template-media && npm run check:template-media-review
       - name: Generate candidate images (unapproved, not for redistribution)
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'frame-portfolio' }}
-          CANDIDATE_LIMIT: ${{ inputs.limit || '5' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'editorial-commerce' }}
+          CANDIDATE_LIMIT: ${{ inputs.limit || '10' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
           if [ "$TEMPLATE_NAME" = "frame-portfolio" ]; then
@@ -83,13 +83,17 @@ jobs:
       - name: Verify all generated crop alternatives
         if: success()
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'frame-portfolio' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'editorial-commerce' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
           node --input-type=module -e '
           import {readFileSync,existsSync} from "node:fs";
           import assert from "node:assert/strict";
           const report=JSON.parse(readFileSync("../stock-candidates/template-review/results.json","utf8"));
+          if(process.env.TEMPLATE_NAME==="editorial-commerce"){
+            assert.deepEqual(report.assets.map(x=>x.id),["TM-005","TM-008","TM-026","TM-027","TM-028","TM-032","TM-039","TM-044","TM-065"],"Wrong editorial-commerce batch");
+            assert.equal(report.downloaded,9);
+          }
           if(process.env.TEMPLATE_NAME==="frame-portfolio" && process.env.FRAME_BATCH==="remaining-six"){
             assert.deepEqual(report.assets.map(x=>x.id),["TM-012","TM-013","TM-014","TM-015","TM-016","TM-017"],"Wrong FRAME follow-up batch");
             assert.equal(report.downloaded,6);

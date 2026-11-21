@@ -37,5 +37,15 @@ try{
  assert.equal(rest.errors,0);
  assert(rest.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: six remaining FRAME IDs selected without fetching or approving assets.');
+ const commerceIds=['TM-005','TM-008','TM-026','TM-027','TM-028','TM-032','TM-039','TM-044','TM-065'];
+ const commerce=spawnSync(process.execPath,[script,'--offline','--templates=editorial-commerce','--limit=10','--output='+path.join(directory,'editorial-commerce')],{encoding:'utf8',timeout:20000});
+ if(commerce.status!==0)throw Error('Editorial review selection failed: '+commerce.stderr+'\\n'+commerce.stdout);
+ const editorial=JSON.parse(readFileSync(path.join(directory,'editorial-commerce/results.json'),'utf8'));
+ assert.deepEqual(editorial.assets.map(item=>item.id),commerceIds);
+ assert.equal(editorial.total,9);
+ assert.equal(editorial.downloaded,0);
+ assert.equal(editorial.errors,0);
+ assert(editorial.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: editorial-commerce batch targets exactly nine registered, unapproved photographs.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
