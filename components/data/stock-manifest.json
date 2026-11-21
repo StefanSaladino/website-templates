@@ -403,7 +403,8 @@
       "reviewStatus": "needs-review",
       "rightsNotes": "Reuses remote Unsplash image already displayed in templates/woodworker/index.html. Exact Unsplash source page, creator attribution, property/model permissions and suitability for redistribution were NOT verified. Review-only until source mapping and rights/crop checks are completed. This image is NOT actual work of the fictional studio.",
       "usageIds": [
-        "ABOUT-02"
+        "ABOUT-02",
+        "ANIM-20"
       ],
       "altText": "Woodworker cutting timber in a workshop; illustrative stock",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1760939858984-5dc76f0ea34a?auto=format&fit=crop&fm=jpg&q=78&w=1400",
@@ -502,6 +503,276 @@
         "sample-menu-not-depicted",
         "photo-crop-approval-pending",
         "not-cleared-for-template-redistribution"
+      ]
+    },
+    {
+      "id": "STOCK-017",
+      "sourceUrl": "https://images.unsplash.com/photo-1722103155234-5e83b3effe03",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-04 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-04"
+      ],
+      "altText": "Residential garden with flowering plants and a stone patio",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1722103155234-5e83b3effe03",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-018",
+      "sourceUrl": "https://images.unsplash.com/photo-1496080174650-637e3f22fa03",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-09 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-09"
+      ],
+      "altText": "Illuminated tent in a forest after dark",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1496080174650-637e3f22fa03",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-019",
+      "sourceUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-12 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-12"
+      ],
+      "altText": "Portrait against a softly blurred dark background",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-020",
+      "sourceUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-12 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-12"
+      ],
+      "altText": "Fashion editorial photograph of styled clothing",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-021",
+      "sourceUrl": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-12 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-12"
+      ],
+      "altText": "Minimal still life with fruit",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-022",
+      "sourceUrl": "https://images.unsplash.com/photo-1503686982867-43fb1b9fb691",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-13 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-13"
+      ],
+      "altText": "Modern waterfront home overlooking calm water",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1503686982867-43fb1b9fb691",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-023",
+      "sourceUrl": "https://images.unsplash.com/photo-1774516534119-7324f9948176",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-13 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-13"
+      ],
+      "altText": "Contemporary lake-facing interior and tall windows",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1774516534119-7324f9948176",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-024",
+      "sourceUrl": "https://images.unsplash.com/photo-1772411650649-f88111bcb8a5",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-13 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-13"
+      ],
+      "altText": "Living room looking out toward a lake at dusk",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1772411650649-f88111bcb8a5",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-025",
+      "sourceUrl": "https://images.unsplash.com/photo-1756666915060-c4dbf6a03aad",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-20 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-20"
+      ],
+      "altText": "Wooden planter against a stone wall",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1756666915060-c4dbf6a03aad",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
+      ]
+    },
+    {
+      "id": "STOCK-026",
+      "sourceUrl": "https://images.unsplash.com/photo-1771818385091-ba8c4d3164b8",
+      "photographer": "Unverified — exact creator and Unsplash source page not established",
+      "platform": "Unsplash CDN (source identity unverified)",
+      "licenseUrl": "https://unsplash.com/license",
+      "licenseReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Found in ANIM-20 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "usageIds": [
+        "ANIM-20"
+      ],
+      "altText": "Shelving with wooden objects and artwork",
+      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1771818385091-ba8c4d3164b8",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": null,
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "cdn-only-source",
+        "creator-unverified",
+        "license-and-third-party-rights-unverified",
+        "visual-crop-pending",
+        "template-redistribution-not-cleared"
       ]
     }
   ]

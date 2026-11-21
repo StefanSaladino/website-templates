@@ -6289,7 +6289,9 @@
     "exampleContext": "Landscape design feature with small photographic depth",
     "previewRoute": "./previews/ANIM-04/",
     "thumbnail": null,
-    "stockAssetIds": [],
+    "stockAssetIds": [
+      "STOCK-017"
+    ],
     "interactions": [
       "scroll-depth",
       "pause-resume",
@@ -6516,7 +6518,9 @@
     "exampleContext": "Independent furniture studio: a clipped transition between two editorial panels",
     "previewRoute": "./previews/ANIM-09/",
     "thumbnail": null,
-    "stockAssetIds": [],
+    "stockAssetIds": [
+      "STOCK-018"
+    ],
     "interactions": [
       "replay",
       "intersection-trigger",
@@ -6655,7 +6659,11 @@
     "exampleContext": "Interior designer: switching project photography by focus or click",
     "previewRoute": "./previews/ANIM-12/",
     "thumbnail": null,
-    "stockAssetIds": [],
+    "stockAssetIds": [
+      "STOCK-019",
+      "STOCK-020",
+      "STOCK-021"
+    ],
     "interactions": [
       "image-selection",
       "keyboard-touch",
@@ -6701,7 +6709,11 @@
     "exampleContext": "Photographic journal: scroll-snap story frames with keyboard controls",
     "previewRoute": "./previews/ANIM-13/",
     "thumbnail": null,
-    "stockAssetIds": [],
+    "stockAssetIds": [
+      "STOCK-022",
+      "STOCK-023",
+      "STOCK-024"
+    ],
     "interactions": [
       "horizontal-scroll",
       "previous-next",
@@ -7024,7 +7036,11 @@
     "exampleContext": "Product craft portfolio: navigating a finite sequence of still images",
     "previewRoute": "./previews/ANIM-20/",
     "thumbnail": null,
-    "stockAssetIds": [],
+    "stockAssetIds": [
+      "STOCK-013",
+      "STOCK-025",
+      "STOCK-026"
+    ],
     "interactions": [
       "previous-next",
       "step-jump",

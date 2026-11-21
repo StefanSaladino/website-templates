@@ -22,6 +22,25 @@ for(const asset of manifest.assets){
     }
   }else warnings.push(asset.id+' requires manual asset/crop/release review');
 }
+// Require every externally hosted stock image/poster shown in a built preview to
+// have a traceable asset entry and a reciprocal component association.
+// This is a provenance inventory check, NOT a license or visual approval.
+const normaliseMediaUrl=value=>{
+  if(!value)return null;
+  try{
+    const url=new URL(String(value).replace(/&amp;/g,'&'));
+    return (url.protocol==='https:'||url.protocol==='http:')?url.origin+url.pathname:null;
+  }catch{return null;}
+};
+const mediaByUrl=new Map();
+for(const asset of manifest.assets){
+  for(const field of ['temporaryPreviewUrl','temporaryVideoUrl','productionUrl']){
+    const key=normaliseMediaUrl(asset[field]);
+    if(!key)continue;
+    if(mediaByUrl.has(key)&&mediaByUrl.get(key)!==asset.id)addError('Multiple assets claim remote media '+key);
+    mediaByUrl.set(key,asset.id);
+  }
+}
 let inReview=0,live=0,remote=0;
 for(const component of components){
   if(!['in-review','approved','live'].includes(component.status))continue;
@@ -29,6 +48,17 @@ for(const component of components){
   else inReview++;
   const file=path.join(here,'previews',component.id,'index.html');
   const html=existsSync(file)?readFileSync(file,'utf8'):'';
+  // Include poster images as well as src. Scan in-review previews, not just live ones:
+  // otherwise remote assets could silently bypass review metadata until launch.
+  for(const tag of html.match(/<(?:img|video|source)\b[^>]*>/gi)||[]){
+    for(const match of tag.matchAll(/\b(?:src|poster)\s*=\s*(["'])(.*?)\1/gi)){
+      const mediaUrl=match[2];
+      if(!/^https?:\/\//i.test(mediaUrl))continue;
+      const key=normaliseMediaUrl(mediaUrl), assetId=mediaByUrl.get(key);
+      if(!assetId)addError(component.id+' uses unregistered external preview media '+key);
+      else if(!component.stockAssetIds?.includes(assetId))addError(component.id+' uses '+assetId+' without component stockAssetIds link');
+    }
+  }
   const remoteUrls=[...html.matchAll(/<(?:img|video|source)\b[^>]*\bsrc=["'](https?:\/\/[^"']+)/gi)].map(m=>m[1]);
   const remoteSources=remoteUrls.filter(url=>/^(?:https?:)?\/\/(?:images\.unsplash\.com|images\.pexels\.com|videos\.pexels\.com)/.test(url));
   remote+=remoteSources.length;
