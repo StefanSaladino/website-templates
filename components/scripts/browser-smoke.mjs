@@ -700,7 +700,7 @@ try{
  assert((await page.locator('[data-story-status]').textContent()).includes('1 of 3')
    &&await page.locator('[data-story-previous]').isDisabled(),'M-STORY-02 starts with one clearly marked fictional testimonial');
  const storyContrast=await page.locator('.t1-testimonial').evaluate(section=>{
-  const rgb=value=>value.match(/[\\d.]+/g).slice(0,3).map(Number);
+  const rgb=value=>value.match(/[\d.]+/g).slice(0,3).map(Number);
   const luminance=value=>rgb(value).map(v=>{const s=v/255;return s<=0.04045?s/12.92:((s+0.055)/1.055)**2.4;}).reduce((n,v,i)=>n+v*[0.2126,0.7152,0.0722][i],0);
   const bg=luminance(getComputedStyle(section).backgroundColor);
   return ['.t1-meta','.t1-demo','.t1-body h2','.t1-body h2 em','.t1-body blockquote p','.t1-credit strong','.t1-credit span','.t1-mobile-controls>span'].map(selector=>{
