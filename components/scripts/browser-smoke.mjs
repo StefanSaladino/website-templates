@@ -127,7 +127,7 @@ try{
  await waitForServer();
  browser=await chromium.launch({executablePath:chrome,headless:true,args:['--no-sandbox']});
  page=await browser.newPage({viewport:{width:390,height:900},deviceScaleFactor:1});
- page.on('pageerror',e=>errors.push(String(e)));
+ page.on('pageerror',e=>{const entry=e?.stack||String(e);errors.push(entry);console.error('BROWSER PAGE ERROR:',entry);});
  await page.route(/^https:\/\/images\.unsplash\.com\//,route=>route.abort());
  // Integrated motion: the animated components must also be real and interactive
  // on complete existing templates, not only isolated showroom specimens.
