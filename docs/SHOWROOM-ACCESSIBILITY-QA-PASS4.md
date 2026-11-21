@@ -40,6 +40,36 @@ A source/CSS audit identified the following specific issues and fixes, with test
 
 Added Chromium computed-style regressions at phone and desktop breakpoints, with **4.5:1** for ordinary text and **3:1** for focus indicators. These specific measured pairings do not constitute a full-colour or WCAG 2.2 AA audit of all 157 examples, and the **latest CI results remain pending**.
 
+### Extended form, newsletter and mobile menu audit
+
+The following source issues were independently identified and addressed on `feature/component-showroom`; all remain subject to the new full browser/CI results.
+
+- **FORM-03 (three-step questionnaire):** the project-choice radiogroup, required budget/timeline selects, and name/email fields now reference their own step-level error text and expose `aria-invalid`. Progression announces the active step in a concise visually-hidden live region. Errors clear after the corresponding answers become valid, without moving focus unexpectedly.
+- **FORM-04 (service preferences):** the service group and date/time/name/email inputs now reference the form error message. The form tracks invalid state for the service group and clears stale error flags when the person edits a control. Its existing first-invalid-focus behaviour and unsent local draft remain intact.
+- **FORM-05 (newsletter consent):** a missing frequency receives group-level `aria-describedby` and `aria-invalid`; the consent checkbox references its error directly. After an attempted submission, edits refresh the announced validity state.
+- **NEWS-01 / NEWS-02 (newsletter examples):** individual email/consent errors and the topic-choice group are now programmatically associated with the fields they describe. NEWS-02 refreshes errors after the initial attempted submission, so corrected preferences no longer remain marked invalid. Both still prepare local-only, non-sending previews.
+- **NAV-03 (including M-NAV-04):** activating a mobile link now closes the menu and moves keyboard focus to the chosen destination, rather than leaving it in hidden navigation. When the menu disappears on desktop resizing, focus shifts to a visible desktop navigation link if it was previously inside the menu. Escape continues to restore opener focus.
+
+**Additional computed colour findings** (contrast ratios rounded; normal text target **4.5:1**, large text/focus target **3:1**):
+
+| Design | Before | Adjusted result |
+| --- | --- | --- |
+| FORM-03 non-current progress labels | #69796d on #e7e9e2 = **3.76:1** | #465a4c = **6.07:1** |
+| FORM-03 large accent heading | #72917c on #e7e9e2 = **2.83:1** | #607968 = **3.87:1** |
+| FORM-04 intro paragraph | #61716a on #e4e6e2 = **4.10:1** | #465a4c (above 4.5:1) |
+| FORM-04 small form hint | #67766a on #f3f4ed = **4.34:1** | #455a4e = **6.72:1** |
+| FORM-04 focus outline | #ca7b4c on page #e4e6e2 = **2.59:1** | dark #7b3d25 (above 3:1), light ring on the dark section |
+| FORM-05 small caption | #7c6b60 on #f1ece5 = **4.33:1** | #69554d (above 4.5:1) |
+| FORM-05 large accent heading | #efe4d2 on #a88b7b = **2.51:1** | #fffaf2 = **3.04:1** |
+| NEWS-01 large accent heading | #83927a on #d2d9ca = **2.28:1** | #455b48 = **5.11:1** |
+| NEWS-01 explanatory paragraph | #536450 on #d2d9ca = **4.39:1** | #455a4a (above 4.5:1) |
+| NEWS-02 large accent heading | #97806e on #e8e4dc = **2.94:1** | #8a715f = **3.59:1** |
+| NEWS-02 small safety note | #627065 on #e8e4dc = **4.11:1** | #536454 = **4.99:1** |
+
+Chromium regression tests cover Enter/Escape focus in both NAV-03 phone modes, step-by-step error semantics and recovery in FORM-03/04, newsletter checkbox/radio error associations and recovery, representative computed WCAG contrast pairs, and focus indicators against both light/dark surfaces.
+
+These are **targeted design fixes, not a claim of complete WCAG certification**: colour measurements do not establish correct contrast for overlays on loaded imagery, visual states not sampled, browser zoom, or every component family. Screen-reader tests with VoiceOver/NVDA and real iOS/Android keyboard/assistive technology remain open.
+
 ### Still open for accessibility release
 
 - Audit modal focus containment, form error announcements, language changes, menu controls and accessible naming across the 157 individual examples and 44 alternatives; check real assistive technologies.

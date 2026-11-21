@@ -2410,6 +2410,158 @@ try{
   'M-UTIL-02 light reading sheet uses a contrasting keyboard focus ring');
  await page.keyboard.press('Escape');
 
+
+ // Pass 4: form error relationships, corrected-state announcements and mobile
+ // focus recovery, all exercised through real keyboard and input events.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'previews/FORM-03/',{waitUntil:'domcontentloaded'});
+ await page.locator('[data-next="1"]').click();
+ assert(await page.locator('.f3-options').getAttribute('aria-invalid')==='true'
+  &&await page.locator('.f3-options').getAttribute('aria-describedby')==='f3-step1-error'
+  &&await page.locator('[name=project]').first().evaluate(el=>el===document.activeElement),
+  'FORM-03 missing radio choice is announced by its group and receives keyboard focus');
+ await page.locator('[name=project]').first().check();
+ assert(await page.locator('.f3-options').getAttribute('aria-invalid')==='false'
+  &&(await page.locator('#f3-step1-error').textContent())==='',
+  'FORM-03 clears the project-group error after the choice is corrected');
+ await page.locator('[data-next="1"]').click();
+ assert((await page.locator('#f3-step-status').textContent()).includes('Step 2 of 3')
+  &&await page.locator('[data-progress="2"]').getAttribute('aria-current')==='step',
+  'FORM-03 politely announces the newly opened questionnaire stage');
+ await page.locator('[data-next="2"]').click();
+ assert(await page.locator('#f3-budget').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#f3-budget').getAttribute('aria-describedby')==='f3-step2-error'
+  &&await page.locator('#f3-timeline').getAttribute('aria-invalid')==='true',
+  'FORM-03 required scope selections are associated with their shared error');
+ await page.locator('#f3-budget').selectOption({label:'Not yet decided'});
+ await page.locator('#f3-timeline').selectOption({label:'Still exploring'});
+ assert((await page.locator('#f3-step2-error').textContent())===''
+  &&await page.locator('#f3-budget').getAttribute('aria-invalid')==='false'
+  &&await page.locator('#f3-timeline').getAttribute('aria-invalid')==='false',
+  'FORM-03 clears corrected scope errors before moving forward');
+
+ await page.goto(base+'previews/FORM-04/',{waitUntil:'domcontentloaded'});
+ await page.locator('#service-form button[type=submit]').click();
+ assert(await page.locator('#service-choice').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#service-choice').getAttribute('aria-describedby')==='error'
+  &&await page.locator('[name=service]').first().evaluate(el=>el===document.activeElement),
+  'FORM-04 missing service selection is identified and focused');
+ await page.locator('[name=service]').first().check();
+ assert(await page.locator('#service-choice').getAttribute('aria-invalid')==='false'
+  &&(await page.locator('#error').textContent())==='',
+  'FORM-04 editing a choice clears the stale error announcement');
+ await page.locator('#service-form button[type=submit]').click();
+ assert(await page.locator('#date').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#date').getAttribute('aria-describedby')==='error',
+  'FORM-04 date field exposes its validation error to assistive technology');
+ await page.locator('#date').fill(await page.locator('#date').getAttribute('min'));
+ await page.locator('#date').dispatchEvent('change');
+ assert(await page.locator('#date').getAttribute('aria-invalid')==='false',
+  'FORM-04 corrected date clears the invalid state');
+
+ for(const mobile of ['', '?mobile=M-NAV-04']){
+  await page.goto(base+'previews/NAV-03/'+mobile,{waitUntil:'domcontentloaded'});
+  await page.locator('.n3-toggle').click();
+  assert(await page.locator('#n3-menu').isVisible()
+   &&await page.locator('.n3-toggle').getAttribute('aria-expanded')==='true',
+   'NAV-03 '+(mobile||'standard')+' menu opens with truthful expanded state');
+  await page.locator('#n3-menu a[href="#setting"]').press('Enter');
+  assert(await page.locator('#n3-menu').isHidden()
+   &&await page.locator('#setting').evaluate(el=>el===document.activeElement)
+   &&await page.locator('main').evaluate(el=>!el.inert),
+   'NAV-03 '+(mobile||'standard')+' menu selection closes and moves focus to destination');
+  await page.locator('.n3-toggle').click();
+  await page.keyboard.press('Escape');
+  assert(await page.locator('.n3-toggle').evaluate(el=>el===document.activeElement)
+   &&await page.locator('#n3-menu').isHidden(),
+   'NAV-03 '+(mobile||'standard')+' Escape restores the opener');
+ }
+
+ await page.goto(base+'previews/NEWS-02/',{waitUntil:'domcontentloaded'});
+ await page.locator('.n2-topics input[type=checkbox]').first().uncheck();
+ await page.locator('#n2-form button[type=submit]').click();
+ assert(await page.locator('.n2-topics').getAttribute('aria-invalid')==='true'
+  &&await page.locator('.n2-topics').getAttribute('aria-describedby')==='n2-topic-error'
+  &&await page.locator('#n2-email').getAttribute('aria-describedby')==='n2-email-error',
+  'NEWS-02 names missing topics and email using their own accessible error descriptions');
+ await page.locator('.n2-topics input[type=checkbox]').first().check();
+ await page.locator('#n2-email').fill('reader@example.com');
+ await page.locator('#n2-consent').check();
+ assert(await page.locator('.n2-topics').getAttribute('aria-invalid')==='false'
+  &&await page.locator('#n2-email').getAttribute('aria-invalid')==='false'
+  &&await page.locator('#n2-consent').getAttribute('aria-invalid')==='false',
+  'NEWS-02 invalid states recover live as the preference form is corrected');
+ await page.locator('#n2-form button[type=submit]').click();
+ assert(await page.locator('#n2-result').isVisible(),
+  'NEWS-02 remains a functioning local-only preference preview');
+
+ await page.goto(base+'previews/FORM-05/',{waitUntil:'domcontentloaded'});
+ await page.locator('#newsletter-form button[type=submit]').click();
+ assert(await page.locator('#frequency-group').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#frequency-group').getAttribute('aria-describedby')==='frequency-error'
+  &&await page.locator('#consent').getAttribute('aria-describedby')==='consent-error',
+  'FORM-05 frequency and consent errors are described by their controls');
+ await page.locator('#email').fill('reader@example.com');
+ await page.locator('[name=frequency]').first().check();
+ await page.locator('#consent').check();
+ assert(await page.locator('#frequency-group').getAttribute('aria-invalid')==='false'
+  &&(await page.locator('#frequency-error').textContent())===''
+  &&await page.locator('#consent').getAttribute('aria-invalid')==='false',
+  'FORM-05 clears the frequency and consent errors after correction');
+
+ await page.goto(base+'previews/NEWS-01/',{waitUntil:'domcontentloaded'});
+ await page.locator('#n1-form button[type=submit]').click();
+ assert(await page.locator('#n1-email').getAttribute('aria-describedby')==='n1-email-error'
+  &&await page.locator('#n1-consent').getAttribute('aria-describedby')==='n1-consent-error',
+  'NEWS-01 associates both newsletter input errors with their labels');
+ await page.locator('#n1-email').fill('reader@example.com');
+ await page.locator('#n1-consent').check();
+ await page.locator('#n1-form button[type=submit]').click();
+ assert(await page.locator('#n1-result').isVisible(),
+  'NEWS-01 remains usable after its error descriptions are linked');
+
+ // Contrasts measured against the true section surfaces, rather than body
+ // backgrounds alone; headings require >=3:1 and small copy >=4.5:1.
+ for(const [id,entries] of [
+  ['FORM-03',[
+   ['.f3-progress span:not([aria-current])','body',4.5],
+   ['.f3-intro h1 em','body',3]
+  ]],
+  ['FORM-04',[
+   ['.intro>p','body',4.5],
+   ['.hint','#service-form',4.5]
+  ]],
+  ['FORM-05',[
+   ['.title h1 em','.title',3],
+   ['.caption','.sign',4.5]
+  ]],
+  ['NEWS-01',[
+   ['.n1-edition em','.n1-edition',3],
+   ['.n1-edition p','.n1-edition',4.5]
+  ]],
+  ['NEWS-02',[
+   ['.n2-story h1 em','body',3],
+   ['.n2-safety','body',4.5]
+  ]]
+ ]){
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  for(const [selector,surface,minimum] of entries){
+   const colors=await contrastOf(selector,surface);
+   assert(wcagContrast(colors.front,colors.back)>=minimum,
+    id+' '+selector+' meets measured '+minimum+':1 colour contrast');
+  }
+ }
+ await page.goto(base+'previews/FORM-04/',{waitUntil:'domcontentloaded'});
+ await page.locator('#date').focus();
+ const lightRing=await contrastOf('#date','#service-form','outlineColor');
+ assert(lightRing.focusVisible&&wcagContrast(lightRing.front,lightRing.back)>=3,
+  'FORM-04 focus ring meets 3:1 on the light form');
+ await page.locator('.notes a').scrollIntoViewIfNeeded();
+ await page.locator('.notes a').focus();
+ const darkRing=await contrastOf('.notes a','.notes','outlineColor');
+ assert(darkRing.focusVisible&&wcagContrast(darkRing.front,darkRing.back)>=3,
+  'FORM-04 dark notes section retains a bright keyboard focus ring');
+
  // Test every built component on actual phone and desktop breakpoints, with host phone-sized.
  for(const item of components)await runCase(item,'phone',390,null,true);
  for(const item of components)await runCase(item,'desktop',390,null,true);

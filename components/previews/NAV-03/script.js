@@ -2,7 +2,7 @@ const toggle=document.querySelector('.n3-toggle'),menu=document.getElementById('
 const close=()=>{toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open menu');menu.hidden=true;document.body.classList.remove('menu-open');head.classList.remove('menu-open');disableOutside(false);};
 const open=()=>{previousFocus=document.activeElement;toggle.setAttribute('aria-expanded','true');toggle.setAttribute('aria-label','Close menu');menu.hidden=false;document.body.classList.add('menu-open');head.classList.add('menu-open');disableOutside(true);menu.querySelector('a')?.focus();};
 toggle.addEventListener('click',()=>{if(menu.hidden)open();else{close();toggle.focus();}});
-menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{close();const target=document.getElementById(a.hash.slice(1));if(!target)return;if(!target.hasAttribute('tabindex')){target.setAttribute('tabindex','-1');target.addEventListener('blur',()=>target.removeAttribute('tabindex'),{once:true})}target.focus({preventScroll:true})}));
 document.addEventListener('keydown',event=>{
  if(menu.hidden)return;
  if(event.key==='Escape'){event.preventDefault();close();(previousFocus||toggle).focus();return;}
@@ -13,7 +13,7 @@ document.addEventListener('keydown',event=>{
  else if(!event.shiftKey && active===last){event.preventDefault();toggle.focus();}
  else if(!event.shiftKey && active===toggle){event.preventDefault();first.focus();}
 });
-const sync=()=>{head.classList.toggle('scrolled',window.scrollY>45);if(window.innerWidth>850&&!menu.hidden)close();};addEventListener('scroll',sync,{passive:true});addEventListener('resize',sync);sync();
+const sync=()=>{head.classList.toggle('scrolled',window.scrollY>45);if(window.innerWidth>850&&!menu.hidden){const wasInside=menu.contains(document.activeElement);close();if(wasInside)(document.querySelector('.n3-nav a')||brand)?.focus();}};addEventListener('scroll',sync,{passive:true});addEventListener('resize',sync);sync();
 
 
 /* Phase 2 preview-mode selection */
