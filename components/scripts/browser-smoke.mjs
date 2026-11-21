@@ -2363,6 +2363,34 @@ try{
  await page.locator('textarea[name=details]').fill('Renovation of an illustrative kitchen.');
  await page.locator('#f2-form button[type=submit]').click();
  assert(await page.locator('#f2-output-label').isVisible()&&(await page.locator('#f2-output').inputValue()).includes('NOT SENT'),'FORM-02 generates an honest local-only enquiry preview');
+ // CDN photos are intentionally blocked during Chromium QA. The fallback must
+ // be legible, explicit and leave each selector operational.
+ await openSpecimen('ANIM-12');
+ await page.locator('[data-a12-frame="0"] img').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('[data-a12-frame="0"] .a12-photo-fallback')?.hidden===false);
+ assert(await page.locator('[data-a12-frame="0"] img').evaluate(img=>img.hidden),
+  'ANIM-12 presents an honest photo-unavailable state instead of broken image chrome');
+ await page.locator('[data-a12-select="1"]').click();
+ await page.locator('[data-a12-frame="1"] img').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('[data-a12-frame="1"] .a12-photo-fallback')?.hidden===false);
+ assert((await page.locator('#a12-status').textContent()).includes('Off duty'),
+  'ANIM-12 photo selector remains operational with remote media unavailable');
+ await openSpecimen('HERO-09');
+ await page.locator('#main-image').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('#main-image-fallback')?.hidden===false);
+ assert(await page.locator('#main-image').evaluate(img=>img.hidden)
+  &&(await page.locator('#selected-description').textContent()).includes('unavailable'),
+  'HERO-09 explains failed media without exposing a broken image');
+ await page.locator('[data-study="1"]').click();
+ await page.waitForFunction(()=>document.querySelector('#main-image-fallback')?.hidden===false);
+ assert((await page.locator('#main-caption').textContent()).includes('A PLACE TO GATHER'),
+  'HERO-09 preserves live image-index captions when a photo fails');
+ await openSpecimen('NAV-05');
+ await page.locator('#landscape .image img').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('#landscape .photo-fallback')?.hidden===false);
+ assert(await page.locator('#landscape .image img').evaluate(img=>img.hidden)
+  &&await page.locator('#landscape .image .photo-fallback').isVisible(),
+  'NAV-05 landscape gracefully presents unavailable independent stock photography');
  await openSpecimen('ANIM-05');
  await page.locator('[data-material="stone"]').click();
  assert(await page.locator('#a5-stone').isVisible()&&await page.locator('#a5-oak').isHidden(),'ANIM-05 content selection changes the correct material panel');
