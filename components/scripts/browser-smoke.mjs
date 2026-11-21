@@ -1862,8 +1862,8 @@ try{
 
  await page.goto(base+'previews/HERO-08/',{waitUntil:'domcontentloaded'});
  assert(await page.locator('#stage').getAttribute('data-finish')==='sand'
-  &&await page.locator('[data-finish=sand]').getAttribute('aria-pressed')==='true','HERO-08 starts in original Sand illustrated state');
- await page.locator('[data-finish=oxide]').click();
+  &&await page.locator('button[data-finish=sand]').getAttribute('aria-pressed')==='true','HERO-08 starts in original Sand illustrated state');
+ await page.locator('button[data-finish=oxide]').click();
  assert(await page.locator('#stage').getAttribute('data-finish')==='oxide'
   &&(await page.locator('#stage').getAttribute('aria-label')).includes('rust-toned')
   &&(await page.locator('#selected').textContent()).includes('Oxide'),'HERO-08 controls update the original ceramic illustration, accessible description and selection');
@@ -1897,11 +1897,11 @@ try{
 
  await page.goto(base+'previews/PRJ-04/',{waitUntil:'domcontentloaded'});
  assert(await page.locator('#scene').getAttribute('data-phase')==='before'
-  &&await page.locator('[data-phase=before]').getAttribute('aria-pressed')==='true','PRJ-04 starts with the actual conceptual room before state');
- await page.locator('[data-phase=process]').click();
+  &&await page.locator('button[data-phase=before]').getAttribute('aria-pressed')==='true','PRJ-04 starts with the actual conceptual room before state');
+ await page.locator('button[data-phase=process]').click();
  assert(await page.locator('#scene').getAttribute('data-phase')==='process'
   &&(await page.locator('#step-title').textContent()).includes('thinking'),'PRJ-04 process control changes CSS conceptual room and narrative');
- await page.locator('[data-phase=after]').click();
+ await page.locator('button[data-phase=after]').click();
  assert(await page.locator('#scene').getAttribute('data-phase')==='after'
   &&(await page.locator('#scene').getAttribute('aria-label')).includes('not a real renovation'),'PRJ-04 after is a genuinely different illustrated room, without claiming a completed job');
 
