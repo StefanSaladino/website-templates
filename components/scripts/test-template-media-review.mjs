@@ -86,5 +86,14 @@ try{
  assert.equal(homes.errors,0);
  assert(homes.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: real-estate selects four unapproved image identities without fetching photos.');
+ const monolith=spawnSync(process.execPath,[script,'--offline','--templates=monolith-architecture','--limit=5','--output='+path.join(directory,'monolith-architecture')],{encoding:'utf8',timeout:20000});
+ if(monolith.status!==0)throw Error('Monolith image review batch failed: '+monolith.stderr+'\\n'+monolith.stdout);
+ const architecture=JSON.parse(readFileSync(path.join(directory,'monolith-architecture/results.json'),'utf8'));
+ assert.deepEqual(architecture.assets.map(item=>item.id),['TM-022','TM-023','TM-024','TM-025']);
+ assert.equal(architecture.total,4);
+ assert.equal(architecture.downloaded,0);
+ assert.equal(architecture.errors,0);
+ assert(architecture.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: monolith-architecture selects four unapproved images without downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
