@@ -1892,6 +1892,11 @@ try{
  await page.locator('.accordions details').nth(0).locator('summary').click();
  assert(await page.locator('.accordions details').nth(0).evaluate(el=>el.open),'INTRO-03 native principle disclosure opens');
  await page.locator('.accordions details').nth(1).locator('summary').click();
+ // Native details toggle events are queued: wait for the exclusive-close handler.
+ await page.waitForFunction(()=>{
+  const entries=[...document.querySelectorAll('.accordions details')];
+  return entries[1]?.open&&!entries[0]?.open;
+ },null,{timeout:10000});
  assert(await page.locator('.accordions details').nth(1).evaluate(el=>el.open)
   &&!await page.locator('.accordions details').nth(0).evaluate(el=>el.open),'INTRO-03 keeps just one original manifesto principle open');
 
