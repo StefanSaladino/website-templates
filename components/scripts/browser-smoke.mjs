@@ -699,6 +699,17 @@ try{
  await page.goto(base+'previews/TEST-01/?mobile=M-STORY-02',{waitUntil:'domcontentloaded'});
  assert((await page.locator('[data-story-status]').textContent()).includes('1 of 3')
    &&await page.locator('[data-story-previous]').isDisabled(),'M-STORY-02 starts with one clearly marked fictional testimonial');
+ const storyContrast=await page.locator('.t1-testimonial').evaluate(section=>{
+  const rgb=value=>value.match(/[\\d.]+/g).slice(0,3).map(Number);
+  const luminance=value=>rgb(value).map(v=>{const s=v/255;return s<=0.04045?s/12.92:((s+0.055)/1.055)**2.4;}).reduce((n,v,i)=>n+v*[0.2126,0.7152,0.0722][i],0);
+  const bg=luminance(getComputedStyle(section).backgroundColor);
+  return ['.t1-meta','.t1-demo','.t1-body h2','.t1-body h2 em','.t1-body blockquote p','.t1-credit strong','.t1-credit span','.t1-mobile-controls>span'].map(selector=>{
+   const el=section.querySelector(selector);if(!el)return {selector,ratio:0};
+   const fg=luminance(getComputedStyle(el).color);
+   return {selector,ratio:(Math.max(fg,bg)+0.05)/(Math.min(fg,bg)+0.05)};
+  });
+ });
+ assert(storyContrast.every(x=>x.ratio>=4.5),'M-STORY-02 light mobile treatment keeps quote, metadata, controls and attribution contrast at least 4.5:1 ('+JSON.stringify(storyContrast)+')');
  await page.locator('[data-story-next]').click();
  assert((await page.locator('[data-story-status]').textContent()).includes('2 of 3')
    &&(await page.locator('.t1-body h2').textContent()).includes('Every corner'),'M-STORY-02 manual next genuinely changes the quoted sample');
