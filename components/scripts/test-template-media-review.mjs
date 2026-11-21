@@ -22,6 +22,8 @@ try{
  assert(html.includes('No creator, model/property, licensing or commercial-use approval granted.'));
  assert(!html.includes('<img src='));
  assert(css.includes('@media(max-width:760px)'));
+ assert(css.includes('grid-template-columns:repeat(4,minmax(0,1fr))'));
+ assert(!report.assets.some(item=>item.desktopPortrait||item.phoneTall));
  assert(existsSync(path.join(directory,'index.html')));
  // Ensure the follow-up batch reviews all six remaining FRAME photographs,
  // rather than accidentally re-running the original first-five pilot.

@@ -96,7 +96,7 @@ jobs:
           }
           for(const item of report.assets.filter(x=>x.kind==="image")){
             assert.equal(item.candidateStatus,"downloaded-for-review");
-            for(const field of ["original","wide","phoneCenter","phoneAttention","phoneFull"])
+            for(const field of ["original","wide","desktopPortrait","desktopLandscape","phoneCenter","phoneAttention","phoneFull","phoneTall"])
               assert(existsSync("../stock-candidates/template-review/"+item[field]),item.id+" missing "+field);
           }
           console.log("Verified "+report.downloaded+" unapproved candidate photos with all phone crop alternatives");
