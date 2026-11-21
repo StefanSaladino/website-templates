@@ -1432,6 +1432,10 @@ try{
  await page.locator('footer nav a[href="#terms"]').click();
  assert(await page.evaluate(()=>location.hash)==='#terms','LEGAL-02 footer policy navigation reaches the real terms section');
  await page.locator('[data-copy-section="terms"]').click();
+ await page.waitForFunction(()=>{
+  const status=document.querySelector('#copy-status')?.textContent.trim()||'';
+  return status.startsWith('Link copied for ')||status.startsWith('Copy unavailable.');
+ },null,{timeout:10000});
  assert((await page.locator('#copy-status').textContent())!=='No section link copied.'
   &&(await page.locator('[data-copy-section="terms"]').textContent())!=='Copy link to section','LEGAL-02 copy-link reports actual success or failure without fake confirmation');
 
@@ -1463,6 +1467,10 @@ try{
  assert(await page.locator('#summary').isVisible()
   &&(await page.locator('#output').textContent()).includes('NOT SENT'),'CAREER-02 only prepares unsent role-interest draft');
  await page.locator('#copy-email').click();
+ await page.waitForFunction(()=>{
+  const status=document.querySelector('#copy-status')?.textContent.trim()||'';
+  return status.startsWith('Example address copied.')||status.startsWith('Copy unavailable.');
+ },null,{timeout:10000});
  assert((await page.locator('#copy-status').textContent())!=='No address copied.','CAREER-02 clipboard action reports its actual copy success or failure');
 
  for(const id of ['UI-04','UI-05','UI-07','FORM-05','LEGAL-02','LEGAL-03','CAREER-02']){
@@ -1481,6 +1489,10 @@ try{
   &&await page.locator('footer a[href="#approach"]').count()===1
   &&(await page.locator('#sample-address').textContent())==='hello@example.com','FOOT-03 has an actual giant-footer navigation and reserved sample contact');
  await page.locator('#copy-address').click();
+ await page.waitForFunction(()=>{
+  const status=document.querySelector('#copy-status')?.textContent.trim()||'';
+  return status.startsWith('Reserved example address copied.')||status.startsWith('Clipboard unavailable;');
+ },null,{timeout:10000});
  assert((await page.locator('#copy-status').textContent())!=='No address copied yet.','FOOT-03 reports a real clipboard outcome');
 
  await page.goto(base+'previews/FOOT-04/',{waitUntil:'domcontentloaded'});
@@ -1494,6 +1506,10 @@ try{
   &&(await page.locator('#output').textContent()).includes('NOT SENT')
   &&(await page.locator('#output').textContent()).includes('Carpentry'),'FOOT-04 generates actual local scope output without claiming submission');
  await page.locator('#copy-contact').click();
+ await page.waitForFunction(()=>{
+  const status=document.querySelector('#copy-state')?.textContent.trim()||'';
+  return status.startsWith('Reserved sample address copied;')||status.startsWith('Copy unavailable.');
+ },null,{timeout:10000});
  assert((await page.locator('#copy-state').textContent())!=='Not copied.','FOOT-04 contact copy reports success or failure accurately');
 
  await page.goto(base+'previews/FOOT-05/',{waitUntil:'domcontentloaded'});
