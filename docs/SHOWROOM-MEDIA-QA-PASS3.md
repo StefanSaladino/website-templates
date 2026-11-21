@@ -60,6 +60,19 @@ A new browser QA section captures actual, **unscaled** 1440×900 previews for **
 
 These browser captures keep external media requests blocked for reproducibility. They **do not replace** loaded-image crop QA, phone hardware checks, color/contrast audit across every component, document review or real-world accessibility testing.
 
+## Native desktop evidence review and missing-photo resilience
+
+The completed Chromium review QA artifact for commit `7027de4` ([passing run](https://github.com/StefanSaladino/website-templates/actions/runs/44859525399)) contains **15 unscaled captures** and `desktop-native/measurements.json` confirming the intended widths, visible first-level headings at 1440px and **zero document-level horizontal overflow** in the sampled captures. The accompanying main CI also passed ([run 44859525421](https://github.com/StefanSaladino/website-templates/actions/runs/44859525421)). Desktop screenshots were visually inspected: composition was preserved; no obvious headline truncation, column collision or background gap was visible in those 15 frames.
+
+Because CI intentionally aborts external Unsplash images, `ANIM-12`, `HERO-09` and `NAV-05` displayed native browser broken-image glyphs and raw image alt text inside otherwise deliberate compositions. This defect was reproduced by the captured images and corrected:
+
+- **ANIM-12** — three stateful image frames now expose an intentional photographic-preview-unavailable placeholder; selected captions, button states and reduced-motion behaviour remain independent of image loading.
+- **HERO-09** — photo index now shows a branded fallback instead of broken image chrome, while updating the image caption, selection state and live-region description.
+- **NAV-05** — each editorial chapter has a full-surface fallback if its independent stock image does not load; original attribution disclaimers remain visible.
+- Chromium regression assertions now deliberately block remote images and verify all three fallbacks plus subsequent image-selection interactions. **The newest browser runs are pending and must pass before these changes are considered QA-verified.**
+
+The above fixes improve **failure appearance only**. They do not validate, acquire, redistribute or approve stock media, or replace a loaded-image cropping and device review.
+
 ## Remaining gates
 
 - Confirm green **source/build and browser** CI on the newest combined QA pass, then inspect desktop-native screenshots before accepting any specific layout.
