@@ -22,6 +22,22 @@ const selected=inventory.assets.filter(asset=>flag('all')||ids.includes(asset.id
 if(!selected.length)throw Error('No matching original-template media records');
 mkdirSync(output,{recursive:true});
 const results=[];
+async function probeVideoHeaders(asset){
+ // HEAD only. Never fetch the 4K stream or treat headers as proof of visual, codec or rights.
+ const url=new URL(asset.urlIdentity);
+ if(url.protocol!=='https:' || url.hostname!=='videos.pexels.com')throw Error('Unexpected video probe host');
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
+ try{
+  const res=await fetch(url,{method:'HEAD',signal:controller.signal,headers:{Accept:'video/mp4','User-Agent':'BoomerTemplateReview/1.0'}});
+  if(!res.ok)throw Error('HEAD HTTP '+res.status);
+  const final=new URL(res.url);
+  if(final.protocol!=='https:'||final.hostname!=='videos.pexels.com')throw Error('Unexpected HEAD redirect host');
+  const contentType=res.headers.get('content-type')||null;
+  const rawLength=res.headers.get('content-length');
+  const bytes=rawLength&&/^\\d+$/.test(rawLength)?Number(rawLength):null;
+  return{status:'headers-only',httpStatus:res.status,contentType,contentLengthBytes:Number.isSafeInteger(bytes)?bytes:null,acceptRanges:res.headers.get('accept-ranges')||null,downloadedMediaBytes:0};
+ }finally{clearTimeout(timer)}
+}
 async function acquire(asset){
  const url=new URL(asset.urlIdentity);
  if(url.protocol!=='https:'||!allowed.has(url.hostname))throw Error('Unexpected acquisition host');
@@ -65,7 +81,12 @@ for(const asset of selected){
   sourcePageUrl:asset.sourcePageUrl||null,creator:asset.creator||null,
   rightsReviewedAt:asset.rightsReviewedAt||null,reviewStatus:'needs-review',
   componentStockId:asset.linkedComponentStockId||null,pilotVisualReview:asset.pilotVisualReview||null,candidateStatus:'not-downloaded'};
- if(asset.kind==='video')item.candidateStatus='video-manual-review';
+ if(asset.kind==='video'){
+  item.candidateStatus='video-manual-review';
+  if(offline)item.videoProbe={status:'offline-not-probed',downloadedMediaBytes:0};
+  else try{item.videoProbe=await probeVideoHeaders(asset)}
+  catch(error){item.videoProbe={status:'headers-unavailable',reason:String(error?.message||error),downloadedMediaBytes:0};console.warn('VIDEO HEAD PENDING '+asset.id+': '+item.videoProbe.reason)}
+ }
  else if(offline)item.candidateStatus='offline-no-image-inspection';
  else try{Object.assign(item,await acquire(asset));console.log('CANDIDATE '+asset.id+' '+item.width+'×'+item.height);}
  catch(error){item.candidateStatus='download-failed';item.error=String(error?.message||error);console.error('FAIL CANDIDATE '+asset.id+': '+item.error);}
@@ -90,6 +111,7 @@ const rows=results.map(item=>{
  return '<article><h2>'+esc(item.id)+' <small>'+esc(item.candidateStatus)+'</small></h2>'+preview+
  '<div class="detail"><p><b>Usage:</b> '+uses+'</p><p><b>Dimensions:</b> '+esc(item.width?item.width+' × '+item.height:'Not measured')+'</p><p><b>Source:</b> <a href="'+esc(item.urlIdentity)+'" target="_blank" rel="noreferrer">CDN file identity</a> · '+(item.sourcePageUrl?'<a href="'+esc(item.sourcePageUrl)+'" target="_blank" rel="noreferrer">Creator source page</a>':'<em>Source page unverified</em>')+'</p>'+
  '<p><b>Creator:</b> '+esc(item.creator||'Unverified')+'</p><p><b>Source hash:</b> <code>'+esc(item.sourceSHA256||'Not captured')+'</code></p>'+ (item.pilotVisualReview?'<p><b>Prior visual QA — NOT APPROVED:</b> '+esc(item.pilotVisualReview.notes)+'</p>':'')+
+ (item.videoProbe?'<p><b>Video HEAD only (no playback / no download):</b> '+esc(item.videoProbe.status)+' · '+esc(item.videoProbe.contentLengthBytes??'unverified bytes')+' · '+esc(item.videoProbe.contentType||'unverified MIME')+'</p>':'')+
  (item.error?'<p class="issue">Capture error: '+esc(item.error)+'</p>':'')+
  '<p class="review">Still required: rights, people/brands/property, image accuracy, desktop and phone crops, alt text, source licence.</p></div></article>';
 }).join('\n');

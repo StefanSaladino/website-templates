@@ -57,7 +57,7 @@ jobs:
         run: npm run check:template-media && npm run check:template-media-review
       - name: Generate candidate images (unapproved, not for redistribution)
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'muskoka-retreat' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'creative-agency' }}
           CANDIDATE_LIMIT: ${{ inputs.limit || '5' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
@@ -83,13 +83,19 @@ jobs:
       - name: Verify all generated crop alternatives
         if: success()
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'muskoka-retreat' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'creative-agency' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
           node --input-type=module -e '
           import {readFileSync,existsSync} from "node:fs";
           import assert from "node:assert/strict";
           const report=JSON.parse(readFileSync("../stock-candidates/template-review/results.json","utf8"));
+          if(process.env.TEMPLATE_NAME==="creative-agency"){
+            assert.deepEqual(report.assets.map(x=>x.id),["TM-001","TM-071"],"Wrong creative agency media identities");
+            assert.equal(report.downloaded,1,"Expected poster only, never full video download");
+            assert.equal(report.assets[1].candidateStatus,"video-manual-review");
+            assert(report.assets[1].videoProbe,"Expected non-streaming video HEAD probe status");
+          }
           if(process.env.TEMPLATE_NAME==="muskoka-retreat"){
             assert.deepEqual(report.assets.map(x=>x.id),["TM-021","TM-031","TM-036","TM-061","TM-070"],"Wrong Muskoka batch");
             assert.equal(report.downloaded,5);
