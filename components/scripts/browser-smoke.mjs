@@ -1986,7 +1986,10 @@ try{
  assert((await page.locator('#open-count').textContent()).includes('0 of 3'),'SRV-05 Collapse All really shuts the disclosures and updates the count');
 
  await page.goto(base+'previews/SRV-06/',{waitUntil:'domcontentloaded'});
- assert(await page.locator('#matrix').getAttribute('data-audience')==='all','SRV-06 starts in a real three-audience comparison');
+ assert(await page.locator('#matrix').getAttribute('data-audience')==='founders'
+  &&await page.locator('button[data-audience=founders]').getAttribute('aria-pressed')==='true'
+  &&await page.locator('#matrix td[data-audience-col=teams]:visible').count()===0,
+  'SRV-06 phone starts with a legible selected-audience table instead of clipping three columns');
  await page.locator('button[data-audience=teams]').click();
  assert(await page.locator('#matrix').getAttribute('data-audience')==='teams'
   &&await page.locator('button[data-audience=teams]').getAttribute('aria-pressed')==='true'
@@ -1995,6 +1998,12 @@ try{
   &&await page.locator('#matrix td[data-audience-col=teams]:visible').count()>0,'SRV-06 audience selection genuinely hides unselected comparison columns');
  await page.locator('button[data-audience=all]').click();
  assert(await page.locator('#matrix td[data-audience-col=founders]:visible').count()>0,'SRV-06 Show All restores the matrix comparison');
+ await page.setViewportSize({width:1280,height:850});
+ await page.goto(base+'previews/SRV-06/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#matrix').getAttribute('data-audience')==='all'
+  &&await page.locator('#matrix td[data-audience-col=teams]:visible').count()>0,
+  'SRV-06 desktop starts with the full three-audience matrix');
+ await page.setViewportSize({width:390,height:844});
 
  await page.goto(base+'previews/PROC-03/',{waitUntil:'domcontentloaded'});
  assert(await page.locator('.step').count()===3
