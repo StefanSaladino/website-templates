@@ -68,5 +68,14 @@ try{
  assert.equal(film.assets[1].videoProbe.status,'offline-not-probed');
  assert(!film.assets[1].sourceSHA256 && !film.assets[1].videoProbe.contentLengthBytes);
  console.log('PASS: OFFCUT preview records both Pexels identities, never downloads or incorrectly approves the 4K video.');
+ const garage=spawnSync(process.execPath,[script,'--offline','--templates=garage-detailing','--limit=5','--output='+path.join(directory,'garage-detailing')],{encoding:'utf8',timeout:20000});
+ if(garage.status!==0)throw Error('Garage visual-review batch failed: '+garage.stderr+'\\n'+garage.stdout);
+ const auto=JSON.parse(readFileSync(path.join(directory,'garage-detailing/results.json'),'utf8'));
+ assert.deepEqual(auto.assets.map(item=>item.id),['TM-006','TM-019','TM-020','TM-033']);
+ assert.equal(auto.total,4);
+ assert.equal(auto.downloaded,0);
+ assert.equal(auto.errors,0);
+ assert(auto.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: garage-detailing selects exactly four image identities without downloads or licensing approval.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
