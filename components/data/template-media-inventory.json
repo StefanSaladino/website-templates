@@ -1,0 +1,1357 @@
+{
+  "schemaVersion": 1,
+  "scope": "24 original complete-site templates (separate from 157 showroom components)",
+  "rightsPolicy": "Every remote asset remains unapproved pending verified source/creator/license/depictee-property rights and validated local derivatives. Matching component stock references does NOT confer approval.",
+  "assets": [
+    {
+      "id": "TM-001",
+      "urlIdentity": "https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "creative-agency",
+          "files": [
+            "index.html",
+            "styles.css"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-011",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-002",
+      "urlIdentity": "https://images.unsplash.com/photo-1441986300917-64674bd600d8",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-003",
+      "urlIdentity": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-021",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-004",
+      "urlIdentity": "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-020",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-005",
+      "urlIdentity": "https://images.unsplash.com/photo-1485809052957-5113b0ff51af",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-006",
+      "urlIdentity": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "garage-detailing",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-007",
+      "urlIdentity": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-008",
+      "urlIdentity": "https://images.unsplash.com/photo-1496080174650-637e3f22fa03",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-018",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-009",
+      "urlIdentity": "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-010",
+      "urlIdentity": "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "law-firm",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-011",
+      "urlIdentity": "https://images.unsplash.com/photo-1503686982867-43fb1b9fb691",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "real-estate",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-022",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-012",
+      "urlIdentity": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-013",
+      "urlIdentity": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-014",
+      "urlIdentity": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-015",
+      "urlIdentity": "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-016",
+      "urlIdentity": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-017",
+      "urlIdentity": "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-019",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-018",
+      "urlIdentity": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "fitness-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-019",
+      "urlIdentity": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "garage-detailing",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-020",
+      "urlIdentity": "https://images.unsplash.com/photo-1580273916550-e323be2ae537",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "garage-detailing",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-021",
+      "urlIdentity": "https://images.unsplash.com/photo-1583509208810-f57bef92d0a0",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-022",
+      "urlIdentity": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "monolith-architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-023",
+      "urlIdentity": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "monolith-architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-024",
+      "urlIdentity": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "monolith-architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-025",
+      "urlIdentity": "https://images.unsplash.com/photo-1613490493576-7fde63acd811",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "monolith-architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-026",
+      "urlIdentity": "https://images.unsplash.com/photo-1619035226152-81e29823b8d9",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-027",
+      "urlIdentity": "https://images.unsplash.com/photo-1622260614298-449a6f9f14fb",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-028",
+      "urlIdentity": "https://images.unsplash.com/photo-1627328187791-bb98dfe09ace",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-029",
+      "urlIdentity": "https://images.unsplash.com/photo-1673874500167-17ca5ed1cf17",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "custom-bakes",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-030",
+      "urlIdentity": "https://images.unsplash.com/photo-1679585651020-9ae0653c84ad",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "tattoo-studio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-031",
+      "urlIdentity": "https://images.unsplash.com/photo-1702936425973-8ca360714a97",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-032",
+      "urlIdentity": "https://images.unsplash.com/photo-1708105252198-4f5fbf2c0884",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-033",
+      "urlIdentity": "https://images.unsplash.com/photo-1708805282706-f44730b7e527",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "garage-detailing",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-034",
+      "urlIdentity": "https://images.unsplash.com/photo-1714399417136-d328f3ea14c7",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "storefront",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-035",
+      "urlIdentity": "https://images.unsplash.com/photo-1722103155234-5e83b3effe03",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "landscaping",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-017",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-036",
+      "urlIdentity": "https://images.unsplash.com/photo-1727270921836-3d51d25d9e33",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-037",
+      "urlIdentity": "https://images.unsplash.com/photo-1739901798963-52aa95b1f83e",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "custom-bakes",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-038",
+      "urlIdentity": "https://images.unsplash.com/photo-1739980213756-753aea153bb8",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "storefront",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-039",
+      "urlIdentity": "https://images.unsplash.com/photo-1742799050770-8073eac5304a",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-040",
+      "urlIdentity": "https://images.unsplash.com/photo-1745777761096-081db6e036e7",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "tattoo-studio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-041",
+      "urlIdentity": "https://images.unsplash.com/photo-1756227356398-aea8ee98cdc6",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "real-estate",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-042",
+      "urlIdentity": "https://images.unsplash.com/photo-1756435292384-1bf32eff7baf",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-043",
+      "urlIdentity": "https://images.unsplash.com/photo-1756666915060-c4dbf6a03aad",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "woodworker",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-025",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-044",
+      "urlIdentity": "https://images.unsplash.com/photo-1759304426524-382146fa97a7",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-045",
+      "urlIdentity": "https://images.unsplash.com/photo-1760092189903-dce3e898dacf",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "event-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-046",
+      "urlIdentity": "https://images.unsplash.com/photo-1760545813135-fbda9423e448",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "contractor",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-047",
+      "urlIdentity": "https://images.unsplash.com/photo-1760662435569-84a4fb1fa407",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "restaurant",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-048",
+      "urlIdentity": "https://images.unsplash.com/photo-1760939858984-5dc76f0ea34a",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "woodworker",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-013",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-049",
+      "urlIdentity": "https://images.unsplash.com/photo-1760965825135-e94f4e34494b",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "event-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-050",
+      "urlIdentity": "https://images.unsplash.com/photo-1761637823276-7d714eb45cb1",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "landscaping",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-051",
+      "urlIdentity": "https://images.unsplash.com/photo-1761637823941-0ffae96ec487",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "landscaping",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-052",
+      "urlIdentity": "https://images.unsplash.com/photo-1766471870102-dcb1fe88e8cc",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "event-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-053",
+      "urlIdentity": "https://images.unsplash.com/photo-1768321916886-30dc323bddf7",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "contractor",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-054",
+      "urlIdentity": "https://images.unsplash.com/photo-1769353086138-19ee65291a04",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "woodworker",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-012",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-055",
+      "urlIdentity": "https://images.unsplash.com/photo-1771818385091-ba8c4d3164b8",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "woodworker",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-026",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-056",
+      "urlIdentity": "https://images.unsplash.com/photo-1771959453981-b5417268a034",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "event-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-057",
+      "urlIdentity": "https://images.unsplash.com/photo-1772411650649-f88111bcb8a5",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "real-estate",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-024",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-058",
+      "urlIdentity": "https://images.unsplash.com/photo-1772708526829-f76d06679c6c",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-059",
+      "urlIdentity": "https://images.unsplash.com/photo-1773100699991-b7e6bf89a6a1",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "restaurant",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-060",
+      "urlIdentity": "https://images.unsplash.com/photo-1773366906258-d657466ad76c",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "custom-bakes",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-061",
+      "urlIdentity": "https://images.unsplash.com/photo-1773423389979-b28b469967f8",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-062",
+      "urlIdentity": "https://images.unsplash.com/photo-1774516534119-7324f9948176",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "real-estate",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-023",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-063",
+      "urlIdentity": "https://images.unsplash.com/photo-1774989423979-6a7bf5add3f0",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "restaurant",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-064",
+      "urlIdentity": "https://images.unsplash.com/photo-1775476794218-39effb7db2d1",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "pools",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-065",
+      "urlIdentity": "https://images.unsplash.com/photo-1776725121337-48de2c501672",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-066",
+      "urlIdentity": "https://images.unsplash.com/photo-1777919541982-dcb34c146a2d",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "pools",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-067",
+      "urlIdentity": "https://images.unsplash.com/photo-1778373620793-a369943bf9b3",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "storefront",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-068",
+      "urlIdentity": "https://images.unsplash.com/photo-1782849206257-c1bf78721837",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "fitness-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-069",
+      "urlIdentity": "https://images.unsplash.com/photo-1783125127199-860da9744dcc",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "pools",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-070",
+      "urlIdentity": "https://images.unsplash.com/photo-1783716149654-5f3e7012ef45",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    },
+    {
+      "id": "TM-071",
+      "urlIdentity": "https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4",
+      "kind": "video",
+      "usages": [
+        {
+          "templateId": "creative-agency",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-011",
+      "sourcePageUrl": null,
+      "creator": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null
+    }
+  ]
+}

@@ -29,7 +29,7 @@ Separately audited the 24 original full-page templates (HTML/JS/CSS). **19 templ
 | storefront | 3 |
 | custom-bakes | 3 |
 | restaurant | 3 |
-| creative-agency | 3 |
+| creative-agency | 2 |
 | landscaping | 3 |
 | pools | 3 |
 | contractor | 2 |
