@@ -73,6 +73,13 @@ for(const item of inventory.assets||[]){
   if(item.reviewStatus!=='needs-review'||v.status!=='preliminary-observations-only-not-approved')fail('Visual pilot may never imply media approval '+item.id);
   if(!/^[0-9a-f]{64}$/.test(v.downloadSHA256||'')||!v.notes||!Array.isArray(v.flags)||!v.flags.length)fail('Incomplete preliminary visual evidence '+item.id);
  }
+ if(item.pilotVideoReview){
+  const v=item.pilotVideoReview;
+  if(item.kind!=='video'||item.reviewStatus!=='needs-review'||v.status!=='headers-only-not-approved')fail('Video HEAD report may not grant media approval '+item.id);
+  if(v.probeMethod!=='HEAD'||v.downloadedMediaBytes!==0||v.httpStatus!==200||v.contentType!=='video/mp4'||!Array.isArray(v.flags)||!v.flags.length||!v.notes)fail('Invalid video-only technical evidence '+item.id);
+  if(v.contentLengthBytes!==null && (!Number.isSafeInteger(v.contentLengthBytes)||v.contentLengthBytes<0))fail('Invalid video header length '+item.id);
+  if(v.durationSeconds!==undefined || v.videoSHA256!==undefined)fail('Header-only evidence cannot claim decoded video facts '+item.id);
+ }
  if(item.reviewStatus==='approved'){
   // A remote URL is never proof that its license or derivative was reviewed.
   // Production migration must replace the remote usage and retire this record.

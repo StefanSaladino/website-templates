@@ -20,7 +20,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "b4f2d264fd6e518dd7497b5ad683b5b6a9174866401b1224305e561f144064be",
+        "notes": "Poster depicts a person in flowing green studio fashion clothing with a green backdrop, visible white tracking crosses, and white geometric platforms. The 3:5 portrait crop keeps the subject and platforms while trimming outer set pieces. Need actual OFFCUT title contrast/crop acceptance on phone; source photographer, depicted-person release and commercial redistribution remain unverified.",
+        "flags": [
+          "depicted-person",
+          "source-creator-unverified",
+          "visible-studio-tracking-markers",
+          "phone-hero-crop-needs-browser-acceptance",
+          "commercial-redistribution-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-CREATIVE-AGENCY-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-002",
@@ -1652,7 +1666,29 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVideoReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "headers-only-not-approved",
+        "probeMethod": "HEAD",
+        "httpStatus": 200,
+        "contentType": "video/mp4",
+        "contentLengthBytes": null,
+        "acceptRanges": "bytes",
+        "downloadedMediaBytes": 0,
+        "fileResolutionFromFilename": "4096×2160 25fps (filename only; not validated via decoding)",
+        "notes": "HEAD succeeded but did not return Content-Length. Playback frames, duration, codec, exact file size, creator and depicted-person releases were not inspected. The optional remote video is now opt-in, preload none and has no source URL assigned until click. A 1080p-or-smaller rights-cleared rendition is still required before production.",
+        "flags": [
+          "no-content-length",
+          "duration-unverified",
+          "codec-unverified",
+          "creator-unverified",
+          "model-rights-unverified",
+          "high-bandwidth-4k-reference",
+          "no-production-derivative"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-CREATIVE-AGENCY-MEDIA-PILOT.md"
+      }
     }
   ]
 }

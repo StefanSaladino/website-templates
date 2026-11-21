@@ -340,7 +340,7 @@
       "licenseUrl": "https://www.pexels.com/license/",
       "licenseReviewedAt": null,
       "reviewStatus": "needs-review",
-      "rightsNotes": "Existing OFFCUT full-page template already references Pexels video ID 9489382. The linked Pexels source-page identity and contributor have NOT been verified, and no representation is made of approved commercial redistribution. The same review-only video and poster are used by MEDIA-01. Require source validation, license/likeness/property review, a smaller encoded video and handset crop tests.",
+      "rightsNotes": "Existing OFFCUT full-page template already references Pexels video ID 9489382. The linked Pexels source-page identity and contributor have NOT been verified, and no representation is made of approved commercial redistribution. The same review-only video and poster are used by MEDIA-01. The full template now loads only the Pexels poster until an explicit Play click, avoiding automatic 4K delivery; this is a performance guard, not a rights decision. Require source validation, license/likeness/property review, a smaller encoded video and handset crop tests.",
       "usageIds": [
         "MEDIA-01",
         "MEDIA-02",
