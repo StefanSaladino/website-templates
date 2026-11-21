@@ -77,5 +77,14 @@ try{
  assert.equal(auto.errors,0);
  assert(auto.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: garage-detailing selects exactly four image identities without downloads or licensing approval.');
+ const estate=spawnSync(process.execPath,[script,'--offline','--templates=real-estate','--limit=5','--output='+path.join(directory,'real-estate')],{encoding:'utf8',timeout:20000});
+ if(estate.status!==0)throw Error('Real estate photo review batch failed: '+estate.stderr+'\\n'+estate.stdout);
+ const homes=JSON.parse(readFileSync(path.join(directory,'real-estate/results.json'),'utf8'));
+ assert.deepEqual(homes.assets.map(item=>item.id),['TM-011','TM-041','TM-057','TM-062']);
+ assert.equal(homes.total,4);
+ assert.equal(homes.downloaded,0);
+ assert.equal(homes.errors,0);
+ assert(homes.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: real-estate selects four unapproved image identities without fetching photos.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
