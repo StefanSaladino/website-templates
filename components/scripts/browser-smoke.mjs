@@ -2376,6 +2376,39 @@ try{
  await page.emulateMedia({reducedMotion:'no-preference'});
  
 
+
+ // True unscaled desktop captures, separate from the 390px review-host screenshots.
+ // Remote third-party photos are blocked for deterministic CI: this is a layout
+ // and fallback audit only, NOT a photographic crop or rights approval.
+ const desktopDir=path.join(evidence,'desktop-native');
+ mkdirSync(desktopDir,{recursive:true});
+ const desktopMetrics=[];
+ for(const id of ['NAV-05','HERO-09','GAL-07','GAL-08','PRICE-02','SRV-06','TEST-01','POST-02','EVENT-03','CONTACT-03','ANIM-12']){
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  await page.waitForTimeout(80);
+  const dimensions=await page.evaluate(()=>({
+   width:innerWidth,
+   documentWidth:document.documentElement.scrollWidth,
+   headingCount:document.querySelectorAll('h1').length,
+   visibleHeading:[...document.querySelectorAll('h1')].some(h=>{const r=h.getBoundingClientRect();return r.width>60&&r.height>20&&r.top<900&&r.bottom>0;})
+  }));
+  assert(dimensions.width===1440&&dimensions.documentWidth<=1442,
+   id+' native 1440px desktop has no page-wide horizontal overflow');
+  assert(dimensions.visibleHeading,id+' native 1440px desktop has a visible page heading');
+  await page.screenshot({path:path.join(desktopDir,id+'-1440.png'),animations:'disabled'});
+  desktopMetrics.push({id,...dimensions});
+ }
+ for(const id of ['NAV-05','SRV-06','POST-02','EVENT-03']){
+  await page.setViewportSize({width:1280,height:800});
+  await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
+  const dimensions=await page.evaluate(()=>({width:innerWidth,documentWidth:document.documentElement.scrollWidth}));
+  assert(dimensions.width===1280&&dimensions.documentWidth<=1282,id+' native 1280px desktop has no page-wide overflow');
+  await page.screenshot({path:path.join(desktopDir,id+'-1280.png'),animations:'disabled'});
+  desktopMetrics.push({id,...dimensions});
+ }
+ writeFileSync(path.join(desktopDir,'measurements.json'),JSON.stringify(desktopMetrics,null,2));
+
  assert(errors.length===0,'no uncaught browser script errors');
  console.log('RESULT: '+cases.length+' responsive highlight scenarios, '+checks.length+' checks passed');
  writeFileSync(path.join(evidence,'results.json'),JSON.stringify({caseCount:cases.length,checks:checks.length,cases,errors},null,2));
