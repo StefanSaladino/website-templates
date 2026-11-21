@@ -1,0 +1,46 @@
+# CURRENT — property photo and fictional listing audit
+
+_21 November 2026 · `feature/component-showroom` · four-photo visual screen only, zero rights approvals._
+
+## Evidence
+
+- [Four-photo private review run](https://github.com/StefanSaladino/website-templates/actions/runs/44946822298) acquired 4/4 transformed Unsplash JPEG candidates with 0 errors.
+- Seven comparative crops per photo (desktop 16:9, 3:4, 5:4 and phone center/attention/contain 3:4 plus tall 3:5) are included in the seven-day `original-template-media-candidates` artifact. Crops are stress tests rather than real browser CSS previews.
+- Source locations and ownership, addresses, agent/brokerage representation, genuine listing availability, asking prices, bedrooms, frontage, photographer identity and commercial redistribution permissions are **not verified**. All property names and details are fictional.
+
+## Media review
+
+| ID | CDN sample dimensions | Finding |
+| --- | --- | --- |
+| **TM-011** | 1800 × 2397 | Beachfront homes on supports above a sandy coastal shore with visible surf, not a verified Georgian Bay waterfront residence and not the photo used for the 'Drift House' hero. Narrow phone crops focus on the elevated decks; 16:9 stress crop loses much of the upper architecture. |
+| **TM-041** | 1800 × 1350 | Modern waterfront house with orange roof/trim accents, timber/stone cladding, landscaping and a small dock visible. The photo is not known to show the fictional Drift House or Thornbury. The landscape original is reasonably framed in 16:9; narrow phone crops remove some shore and building facade. |
+| **TM-057** | 1800 × 1200 | Dark living area silhouettes furniture in front of large windows overlooking water and vivid sunset clouds. This supports a lake-view interior photo description, but not the fictional Tiny Township listing, bed count or shoreline footage. Portrait crop keeps the central water view and loses side furnishings. |
+| **TM-062** | 1800 × 1350 | Unfurnished concrete room with full-height glazing overlooking a valley, broad water and prominent mountain peaks. Mountain scenery contradicts the implied Georgian Bay setting; should be replaced with appropriate setting before commercial use. Centered 3:5 phone crop preserves most glazing but loses outer edges and adjacent context. |
+
+## Sample JPEG byte fingerprints (not licensed original file hashes)
+
+| ID | SHA-256 |
+| --- | --- |
+| TM-011 | `07cea211f714d7516bf5093544fef42a7839eb2ce2a82d52477293554b64e64f` |
+| TM-041 | `bf472c6416de6db5da1bc455c915e1044e570aa168ef0e4e50f4f9c0d60db71a` |
+| TM-057 | `09cfcc656ceda5ec3f7c6fc87cdd0ce43ed0403c54597afe0f523086f93cc8b2` |
+| TM-062 | `7919dcf7c03bf58edbd792add411b59651e06de395786be223434923fd61dc56` |
+
+## Development-template changes
+
+- **Hero TM-041:** removed the false association between the unsourced house photo and a Thornbury-priced 'Drift House' property. The photo label now says `Stock photo study · Waterside architecture · Not a listing`.
+- **TM-011:** corrected the original Georgian Bay waterfront description to the observed buildings above coastal beach/surf and flagged it for replacement before publication as a Georgian Bay sample. Narrow phone crops obscure the larger architecture.
+- **TM-062:** corrected minimal interior descriptions to disclose a mountain/water outlook, not a confirmed Meaford property; flagged for replacement. Real wide/phone layout must still be reviewed.
+- **TM-057:** described the visible dark living room and calm lake under pink sunset clouds without asserting a genuine Georgian Bay listing.
+- All three real-estate narratives, map/regional associations, prices, bedrooms and shoreline dimensions are explicitly labeled fictional examples in a visible notice immediately before the homes, with example price metrics. The interactive `ANIM-13` rail now says its story photos are illustrative; the existing keyboard-accessible finite navigation remains.
+- Removed unsupported individual photographer attribution. The footer identifies Unsplash examples with rights and creator still under review.
+- The sample contact form displays an on-page status that **no brief was sent or stored**. Submission is suppressed, with a browser test verifying that claim and the listing disclosures.
+
+## Remaining release blockers
+
+1. Replace misleading coastal/mountain imagery with appropriate original Georgian Bay-style images where permitted; do not claim the replacement depicts any actual property until source and permissions are documented.
+2. Verify the exact creator photo pages, copyright/license, third-party property/brand, ownership and consent implications of redistribution or implied agency representation.
+3. Validate actual loaded templates at 320px, 390px, 768px and desktop. In particular test the hero overlay and photo-tag, coastal house 3:5 crop, mountain interior pan, carousel rail and responsiveness with photos loaded.
+4. Preserve `needs-review` for all four images. No fake prices or listing representations should be promoted to public sales material. User approval and accessibility/device QA are pending.
+
+**Next batch candidate:** `monolith-architecture` — four photographs, design attribution and completed-project misrepresentation risk.

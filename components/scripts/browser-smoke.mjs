@@ -376,6 +376,13 @@ try{
  assert(await page.locator('[data-garden-depth]').isHidden()&&
    !await page.locator('[data-motion-pattern="ANIM-04"]').evaluate(el=>el.classList.contains('garden-depth-on')),'ANIM-04 phone layout uses the still photo');
  await openTemplate('real-estate');
+ assert(await page.locator('.listing-notice').isVisible(),'CURRENT clearly discloses fictional listings above property rows');
+ assert((await page.locator('.listing-notice').textContent()).includes('nothing shown is available to purchase'),'CURRENT must not imply properties are currently for sale');
+ assert((await page.locator('.home-row').first().locator('img').getAttribute('alt')).includes('sandy coastal shore'),'CURRENT coastal stock photograph is not falsely described as Georgian Bay');
+ assert((await page.locator('.home-row').nth(1).locator('img').getAttribute('alt')).includes('mountains'),'CURRENT mountain image has a truthful description');
+ assert((await page.locator('.photo-tag').textContent()).includes('Not a listing'),'CURRENT photo-tag is labeled as non-listing stock');
+ await page.locator('[data-sample-contact] button').click();
+ assert((await page.locator('[data-sample-response]').textContent()).includes('no brief was sent'),'CURRENT demo form confirms no agent request was submitted');
  await page.waitForSelector('[data-shore-next]:visible');
  assert(await page.locator('[data-shore-prev]').isDisabled(),'ANIM-13 story rail begins at its first frame');
  await page.locator('[data-shore-next]').click();

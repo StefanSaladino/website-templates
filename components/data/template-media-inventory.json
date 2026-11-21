@@ -319,7 +319,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "07cea211f714d7516bf5093544fef42a7839eb2ce2a82d52477293554b64e64f",
+        "notes": "Beachfront homes on supports above a sandy coastal shore with visible surf, not a verified Georgian Bay waterfront residence and not the photo used for the 'Drift House' hero. Narrow phone crops focus on the elevated decks; 16:9 stress crop loses much of the upper architecture.",
+        "flags": [
+          "coastal-not-georgian-bay",
+          "fictional-property-mismatch",
+          "not-an-actual-listing",
+          "phone-crop-loses-architecture",
+          "replacement-priority"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-012",
@@ -1099,7 +1113,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "bf472c6416de6db5da1bc455c915e1044e570aa168ef0e4e50f4f9c0d60db71a",
+        "notes": "Modern waterfront house with orange roof/trim accents, timber/stone cladding, landscaping and a small dock visible. The photo is not known to show the fictional Drift House or Thornbury. The landscape original is reasonably framed in 16:9; narrow phone crops remove some shore and building facade.",
+        "flags": [
+          "property-location-unverified",
+          "fake-hero-listing-association",
+          "phone-cover-clips-building",
+          "rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-042",
@@ -1415,7 +1442,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "09cfcc656ceda5ec3f7c6fc87cdd0ce43ed0403c54597afe0f523086f93cc8b2",
+        "notes": "Dark living area silhouettes furniture in front of large windows overlooking water and vivid sunset clouds. This supports a lake-view interior photo description, but not the fictional Tiny Township listing, bed count or shoreline footage. Portrait crop keeps the central water view and loses side furnishings.",
+        "flags": [
+          "property-location-unverified",
+          "fictitious-listing-details",
+          "mobile-room-framing-review"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-058",
@@ -1522,7 +1561,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "7919dcf7c03bf58edbd792add411b59651e06de395786be223434923fd61dc56",
+        "notes": "Unfurnished concrete room with full-height glazing overlooking a valley, broad water and prominent mountain peaks. Mountain scenery contradicts the implied Georgian Bay setting; should be replaced with appropriate setting before commercial use. Centered 3:5 phone crop preserves most glazing but loses outer edges and adjacent context.",
+        "flags": [
+          "mountain-scenery-location-mismatch",
+          "fictional-property-mismatch",
+          "replacement-priority",
+          "mobile-crop-review-needed"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-063",
