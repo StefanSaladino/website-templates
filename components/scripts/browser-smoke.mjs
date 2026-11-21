@@ -1278,8 +1278,15 @@ try{
  await page.locator('#toast-dismiss').click();
  assert(await page.locator('#toast').isHidden(),'UI-06 toast can be actively dismissed');
  await page.locator('#copy-button').click();
- assert((await page.locator('#persistent-status').textContent())!=='Nothing copied yet.'
-  &&await page.locator('#toast').isVisible(),'UI-06 reports the actual clipboard outcome instead of leaving inert feedback');
+ // Clipboard writes can resolve asynchronously after the click event returns.
+ // Verify the real final outcome rather than reading the stale initial status.
+ await page.waitForFunction(()=>{
+  const message=document.querySelector('#persistent-status')?.textContent.trim()||'';
+  return message.startsWith('Copied the example email address') || message.startsWith('Clipboard copy failed or was blocked.');
+ },null,{timeout:10000});
+ assert(await page.locator('#toast').isVisible()
+  &&(await page.locator('#toast-text').textContent())===(await page.locator('#persistent-status').textContent()),
+  'UI-06 reports the actual clipboard outcome instead of leaving inert feedback');
 
  await page.goto(base+'previews/LOC-03/',{waitUntil:'domcontentloaded'});
  assert(await page.locator('[data-branch=centre]').getAttribute('aria-pressed')==='true'
