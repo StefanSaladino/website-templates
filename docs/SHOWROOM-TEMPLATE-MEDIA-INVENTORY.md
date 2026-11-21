@@ -84,7 +84,7 @@ npm run review:template-media -- --offline --limit=5
 npm run review:template-media -- --ids=TM-002,TM-003
 ```
 
-The script writes `stock-candidates/template-review/index.html`, `review.css`, and `results.json`; when online candidate downloads succeed, it also writes the original candidate bytes and a **16:9 desktop** and **3:4 phone** WebP comparison crop for each image. The contact sheet uses rows and side-by-side crop comparisons, not a generic card layout. Video is intentionally **not downloaded**; its original identity is instead flagged for manual film/performance review.
+The script writes `stock-candidates/template-review/index.html`, `review.css`, and `results.json`; when online candidate downloads succeed, it also writes the original candidate bytes and a **16:9 desktop** preview and **three different 3:4 phone compositions** (centered, attention-based and full-frame contain) for each image. The extra compositions are review alternatives, not production selections. The contact sheet uses rows and side-by-side crop comparisons, not a generic card layout. Video is intentionally **not downloaded**; its original identity is instead flagged for manual film/performance review.
 
 For each successfully downloaded image the report captures **actual width, height, bytes and SHA-256**. A download is marked `downloaded-for-review`, **never** `approved`. A screenshot or crop can't establish a person, place, trademark, artwork, release or creator's identity. Download errors remain visible in the report and cause a nonzero exit status. The script has CDN host checks, a 25-second request deadline and a 16 MB per-image candidate cap. The folder is ignored by Git.
 
@@ -94,7 +94,7 @@ The deterministic offline smoke test `components/scripts/test-template-media-rev
 
 **Review order and specific risks:**
 
-1. `frame-portfolio` — **11 images**, including close-up and fashion portraits. Prioritize identifiable people, apparent model releases, whether a stock face implies endorsement, and portrait cropping across devices.
+1. `frame-portfolio` — **11 images**, including close-up and fashion portraits. [The first five candidate visual findings](./SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md) show that attention-based phone crops can sever subjects; no rights have been approved. Prioritize identifiable people, apparent model releases, whether a stock face implies endorsement, and portrait cropping across devices.
 2. `editorial-commerce` — **9 images**, including clothing, backpacks, camping equipment and a hiker. Check visible product brands/marks and whether images could incorrectly suggest real inventory or a tested product.
 3. `muskoka-retreat` — **5 images**, including cabin interiors/exteriors and a lake. Ensure no stock image is presented as a fictional property's actual accommodation or location.
 4. `creative-agency` — a **Pexels poster and 4096×2160 video**. Confirm the exact source page, creator, film rights, duration/bytes, mobile performance, motion accessibility and the non-endorsement context separately before migration.

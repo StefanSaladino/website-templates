@@ -40,7 +40,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "ddf549cc4270e474cc57449929d89b4e3c51a0e04706e9bae5ca5c5835fc4810",
+        "notes": "Retail interior shows visible U.S. Navy branding; person/property/brand use context remains unverified. Phone crops retain displays, but not approved.",
+        "flags": [
+          "visible-brand",
+          "property-rights-unverified",
+          "model-context-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-003",
@@ -59,7 +71,18 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "6b0fd3c58afb5256f7d8aa60c84bc3bc4e46922e0443ca9a48cbe5e8c2c9beb4",
+        "notes": "Banana still-life is truncated by phone center and attention cover crops; full-frame contain with matching background is a safer preliminary candidate.",
+        "flags": [
+          "phone-cover-crops-subject",
+          "full-frame-candidate-only"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-004",
@@ -78,7 +101,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "83926a85328b45a66c6f2d2f4605dbaf45261b95fd525b0f4d718b0e26126da1",
+        "notes": "Photo shows person with sunglasses/shopping bags. Attention phone crop nearly excludes the person; center composition retains their upper body. Model/brand rights unverified.",
+        "flags": [
+          "depicted-person",
+          "model-rights-unverified",
+          "attention-phone-crop-poor"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-005",
@@ -135,7 +170,18 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "0743a0bad33e0f936b1f2b4c260d8770dff2a650dc53c8ecc9e6be6a21a80f0d",
+        "notes": "Lamp against green wall; original alt claiming desk objects was inaccurate and corrected. Attention phone crop better retains lamp; rights still unverified.",
+        "flags": [
+          "alt-text-corrected",
+          "phone-focus-needs-review"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-008",
@@ -173,7 +219,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "e4146862c25bcdb92c8b7f8500e1817f38ef27e1faec8194195842fb11607e3f",
+        "notes": "Person in floral summer dress near coast; phone cover crops lose much of wider composition. A replacement may be preferable if face-forward portrait required; model rights unverified.",
+        "flags": [
+          "depicted-person",
+          "model-rights-unverified",
+          "mobile-crop-loses-context"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-010",

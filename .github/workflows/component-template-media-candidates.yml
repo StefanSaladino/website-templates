@@ -51,6 +51,20 @@ jobs:
           TEMPLATE_NAME: ${{ inputs.template || 'frame-portfolio' }}
           CANDIDATE_LIMIT: ${{ inputs.limit || '5' }}
         run: npm run review:template-media -- --templates="$TEMPLATE_NAME" --limit="$CANDIDATE_LIMIT"
+      - name: Verify all generated crop alternatives
+        if: success()
+        run: |
+          node --input-type=module -e '
+          import {readFileSync,existsSync} from "node:fs";
+          import assert from "node:assert/strict";
+          const report=JSON.parse(readFileSync("../stock-candidates/template-review/results.json","utf8"));
+          for(const item of report.assets.filter(x=>x.kind==="image")){
+            assert.equal(item.candidateStatus,"downloaded-for-review");
+            for(const field of ["original","wide","phoneCenter","phoneAttention","phoneFull"])
+              assert(existsSync("../stock-candidates/template-review/"+item[field]),item.id+" missing "+field);
+          }
+          console.log("Verified "+report.downloaded+" unapproved candidate photos with all phone crop alternatives");
+          '
       - name: Preserve candidate contact sheet, crops and review ledger
         if: always()
         uses: actions/upload-artifact@v4

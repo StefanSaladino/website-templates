@@ -68,6 +68,11 @@ for(const item of inventory.assets||[]){
  if(item.kind!==kind)fail('Incorrect image/video kind '+item.id);
  const actualStock=knownStock.get(item.urlIdentity)||null;
  if(item.linkedComponentStockId!==actualStock)fail('Stale component cross-reference '+item.id+' (expected '+actualStock+')');
+ if(item.pilotVisualReview){
+  const v=item.pilotVisualReview;
+  if(item.reviewStatus!=='needs-review'||v.status!=='preliminary-observations-only-not-approved')fail('Visual pilot may never imply media approval '+item.id);
+  if(!/^[0-9a-f]{64}$/.test(v.downloadSHA256||'')||!v.notes||!Array.isArray(v.flags)||!v.flags.length)fail('Incomplete preliminary visual evidence '+item.id);
+ }
  if(item.reviewStatus==='approved'){
   // A remote URL is never proof that its license or derivative was reviewed.
   // Production migration must replace the remote usage and retire this record.
