@@ -657,7 +657,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "7fa8a6c7ca559fbaa5685bc46869f27068d49c4744b1bac1fa6fe05e6a0a5925",
+        "notes": "Sunlit contemporary living room with upholstered armchairs, leather sofa, indoor plants, tall windows and grid of framed art. Tall phone crop cuts edge of sofa, but keeps wall gallery. No verified studio commission or location.",
+        "flags": [
+          "studio-attribution-unverified",
+          "geography-unverified",
+          "mobile-crop-cuts-sofa"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-MONOLITH-ARCHITECTURE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-023",
@@ -676,7 +688,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "7daf520b793f4123c510588807c40a1d09bbdb81d4dbad1845f4c8f4ff49e708",
+        "notes": "Geometric contemporary house EXTERIOR from driveway, clad in timber and pale stone/concrete surfaces. Original alt falsely described an interior. Narrow 3:5 phone crop removes building wings.",
+        "flags": [
+          "false-interior-alt",
+          "project-attribution-unverified",
+          "mobile-crop-truncates-building"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-MONOLITH-ARCHITECTURE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-024",
@@ -695,7 +719,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "23806d8ff2bcc2de30fc91671cabf59cee7162c67dcc55d9ee2a629c736ac518",
+        "notes": "Dusk view of broad glazed angular residence with glowing interior behind a large foreground tree. Original hero alt underdescribed low-light setting. Tall mobile crop loses parts of building facade.",
+        "flags": [
+          "image-description-corrected",
+          "attribution-unverified",
+          "mobile-crop-truncates-exterior"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-MONOLITH-ARCHITECTURE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-025",
@@ -714,7 +750,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "d436e06eb60569465b2fb93c540d1dd8dc53ea5fdd3eda00db0cab0fe9207b90",
+        "notes": "White two-storey geometric modern house beside clear blue pool with broad glazing, wood soffit and midday sky. Ontario project location and designer unknown; phone crop loses the right-hand structure.",
+        "flags": [
+          "location-unverified",
+          "design-credit-unverified",
+          "pool-crop-context-review"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-MONOLITH-ARCHITECTURE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-026",

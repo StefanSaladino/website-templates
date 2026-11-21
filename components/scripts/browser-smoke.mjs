@@ -299,6 +299,10 @@ try{
    !await page.locator('[data-feature-image="1"]').evaluate(el=>el.classList.contains('is-arriving')),'ANIM-12 remains selectable without motion');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('monolith-architecture');
+ assert(await page.locator('.architecture-disclaimer').isVisible(),'MONOLITH stock and fictional project disclosure is visible');
+ assert((await page.locator('.architecture-disclaimer').textContent()).includes('does not claim to have designed'),'MONOLITH cannot claim third-party work');
+ assert((await page.locator('#limestone-house img').getAttribute('alt')).includes('house exterior'),'MONOLITH TM-023 is exterior architecture');
+ assert((await page.locator('#limestone-house figcaption').textContent()).includes('EXTERIOR STUDY'),'MONOLITH fourth study type matches its photograph');
  assert(await page.locator('[data-monolith-card]').count()===3,'ANIM-17 MONOLITH contains three real story chapters');
  assert(await page.locator('[data-monolith-card="0"]').evaluate(el=>getComputedStyle(el).position==='relative'),'ANIM-17 mobile chapters remain in normal document flow');
  await page.locator('[data-monolith-link="2"]').click();
