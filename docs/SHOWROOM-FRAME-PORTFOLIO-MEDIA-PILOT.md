@@ -28,3 +28,22 @@ The review compared the original candidate samples, 16:9 desktop crop and first 
 
 Inspect additional `frame-portfolio` photos, then `editorial-commerce` (nine identities), `muskoka-retreat` (five identities), and the `creative-agency` Pexels video. Before production, link each approved image to its authentic source/creator and rights evidence, validate the actual CSS image-fit and desktop/phone breakpoints, and use optimized locally hosted derivatives only when explicitly approved.
 
+## Second FRAME visual pilot — six remaining identities (21 November 2026)
+
+[The successful six-image review workflow](https://github.com/StefanSaladino/website-templates/actions/runs/44943057000) produced six actual JPEG candidate downloads, their measured dimensions and SHA-256 fingerprints, a 16:9 wide stress-test crop, and three 3:4 phone comparisons (center, attention, full-frame). The private 7-day artifact is named `original-template-media-candidates`.
+
+| ID | Candidate dimensions | Finding and next action |
+| --- | --- | --- |
+| **TM-012** | 1800 × 2700 | Dark-sweater portrait; 16:9 cuts face; vertical framing better. |
+| **TM-013** | 1800 × 2492 | Yellow outfit and basketball court; 16:9 loses person's head and legs. |
+| **TM-014** | 1800 × 2700 | Charcoal studio portrait; corrected misleading natural-light alt; opening-left 3:4 / 3:5 crop pending. |
+| **TM-015** | 1800 × 2700 | Sunglasses, red lettered shirt under sky; wide crops cut face; garment lettering and 5:4 / 3:4 crop review pending. |
+| **TM-016** | 1800 × 2700 | Patterned jacket and white collar; attention phone crop shifts face toward edge; corrected alt. |
+| **TM-017** | 1800 × 2251 | Blue-lit lilac-background portrait; corrected two alts; feature and gallery need separate fit checks. |
+
+The 16:9 crop is an **illustrative stress test**, not the actual template placement. Several of these portraits are visibly damaged in that aspect ratio. Inspect real loaded-image rendering at the exact gallery/hero ratios, 320/390/768px and wide desktop; do not pick one crop formula for all photography.
+
+All six depict recognizable people; source photo pages, named creators, licensing, commercial redistribution, likeness/model releases, trademarks and genuine design context are **unverified**. Downloaded-candidate hashes (not hashes of rights-cleared originals) and flags are saved per item in `components/data/template-media-inventory.json`. Candidate downloads were **not** moved to production.
+
+**Combined FRAME outcome:** 11/11 candidates have preliminary visual observations; 0/11 have media approval. Corrected five inaccurate/overly generic alt text phrases in the original template, including both occurrences for TM-017. Continue with truthful source-page/rights review and loaded CSS crops; then audit `editorial-commerce` (9 identities), `muskoka-retreat` (5), and the `creative-agency` video.
+

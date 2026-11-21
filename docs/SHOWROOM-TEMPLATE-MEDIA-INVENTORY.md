@@ -92,9 +92,11 @@ A separate GitHub Actions workflow, `.github/workflows/component-template-media-
 
 The deterministic offline smoke test `components/scripts/test-template-media-review.mjs` runs as part of `npm run check` and production build QA. It verifies that the review output is generated with the expected warnings and **no** network requests, unapproved imagery or downloaded assets. CI does **not** fetch photos. This test proves review-tool generation, not actual photography quality or licensing.
 
+**FRAME visual screening: 11/11 candidate photographs observed, zero licensed/rights-approved.** Both five-photo and six-photo QA sheets remain private; actual CSS crop acceptance and source-page/creator proof remain open.
+
 **Review order and specific risks:**
 
-1. `frame-portfolio` — **11 images**, including close-up and fashion portraits. [The first five candidate visual findings](./SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md) show that attention-based phone crops can sever subjects; no rights have been approved. Prioritize identifiable people, apparent model releases, whether a stock face implies endorsement, and portrait cropping across devices.
+1. `frame-portfolio` — **11 images**, including close-up and fashion portraits. [The visual findings for all 11 FRAME photographs](./SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md) show that wide crops can cut faces and attention-based phone crops can misframe subjects; no rights have been approved. Prioritize identifiable people, apparent model releases, whether a stock face implies endorsement, and portrait cropping across devices.
 2. `editorial-commerce` — **9 images**, including clothing, backpacks, camping equipment and a hiker. Check visible product brands/marks and whether images could incorrectly suggest real inventory or a tested product.
 3. `muskoka-retreat` — **5 images**, including cabin interiors/exteriors and a lake. Ensure no stock image is presented as a fictional property's actual accommodation or location.
 4. `creative-agency` — a **Pexels poster and 4096×2160 video**. Confirm the exact source page, creator, film rights, duration/bytes, mobile performance, motion accessibility and the non-endorsement context separately before migration.

@@ -288,7 +288,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "81e53cca6e5070ce650c019c5cb7a36f1892306262e0eb71a797e69449304cee",
+        "notes": "Man in dark sweater against black; 16:9 desktop crop cuts his face. Vertical phone framing preserves portrait better.",
+        "flags": [
+          "depicted-person",
+          "wide-crop-cuts-face",
+          "model-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-013",
@@ -307,7 +319,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "2cc21e6668bb0c1706b51108c9c663b5c74ff88d4afadd4c7ecc93dc7b8db7e4",
+        "notes": "Person in yellow outfit on basketball court; 16:9 wide crop removes head and legs. Phone vertical preserves scene.",
+        "flags": [
+          "depicted-person",
+          "wide-crop-loses-subject",
+          "model-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-014",
@@ -326,7 +350,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "061cbefa79c5a9e550cb9dcb79db078f07f151bc351c823fd2b8828f6ff087fb",
+        "notes": "Woman in dark clothing against charcoal studio backdrop; old natural-light alt inaccurate. Wide crop cuts face; opening-left 3:4 desktop and 3:5 phone need CSS review.",
+        "flags": [
+          "depicted-person",
+          "alt-text-corrected",
+          "wide-crop-cuts-face",
+          "model-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-015",
@@ -345,7 +382,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "25b839be68bedf62027395725c8261662c43fd87dbc934e4203c615f75ade435",
+        "notes": "Person in sunglasses, red lettered shirt and jacket under blue sky; 16:9 wide crop cuts eyewear/face. Opening-right 5:4 desktop and 3:4 phone need review; garment logo/lettering rights unresolved.",
+        "flags": [
+          "depicted-person",
+          "alt-text-corrected",
+          "visible-lettering",
+          "wide-crop-cuts-face",
+          "model-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-016",
@@ -364,7 +415,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "835b3100c9b9e18355ca87fe7030cd5dd12db5ac44cf92816858553418e1d3b6",
+        "notes": "Woman in patterned jacket and white collar against rust red wall; phone attention crop shifts face toward edge; centered crop initially preferable. Old generic alt clarified.",
+        "flags": [
+          "depicted-person",
+          "alt-text-corrected",
+          "phone-attention-crop-poor",
+          "model-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-017",
@@ -383,7 +447,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "b4ecec43c054f002958e15f408e8a15facac85c7778bf0855b58650a4fb6751e",
+        "notes": "Blue-lit portrait against lilac background, not dark blurred as previously described. Both image alts corrected. Feature and gallery placements need separate fit review.",
+        "flags": [
+          "depicted-person",
+          "alt-text-corrected",
+          "multiple-placements",
+          "model-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-018",
