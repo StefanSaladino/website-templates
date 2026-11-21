@@ -23,6 +23,7 @@ on:
       - feature/component-showroom
     paths:
       - '.github/workflows/component-template-media-candidates.yml'
+      - 'components/scripts/prepare-template-media-review.mjs'
 
 permissions:
   contents: read

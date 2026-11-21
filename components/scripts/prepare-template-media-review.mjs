@@ -25,11 +25,11 @@ const results=[];
 async function acquire(asset){
  const url=new URL(asset.urlIdentity);
  if(url.protocol!=='https:'||!allowed.has(url.hostname))throw Error('Unexpected acquisition host');
- if(url.hostname==='images.unsplash.com'){url.searchParams.set('auto','format');url.searchParams.set('fit','max');url.searchParams.set('w','1800');url.searchParams.set('q','82');}
+ if(url.hostname==='images.unsplash.com'){url.searchParams.set('fm','jpg');url.searchParams.set('fit','max');url.searchParams.set('w','1800');url.searchParams.set('q','82');}
  else{url.searchParams.set('auto','compress');url.searchParams.set('w','1800');}
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);
  try{
-  const response=await fetch(url,{signal:controller.signal,headers:{Accept:'image/webp,image/jpeg,image/png,image/avif','User-Agent':'BoomerTemplateReview/1.0'}});
+  const response=await fetch(url,{signal:controller.signal,headers:{Accept:'image/jpeg,image/png;q=0.9,image/webp;q=0.7','User-Agent':'BoomerTemplateReview/1.0'}});
   if(!response.ok)throw Error('HTTP '+response.status);
   const actual=new URL(response.url);
   if(actual.protocol!=='https:'||!allowed.has(actual.hostname))throw Error('External redirect not permitted');
@@ -40,7 +40,7 @@ async function acquire(asset){
   const raw=Buffer.concat(parts,size);
   const metadata=await sharp(raw).metadata();
   if((metadata.width||0)<800||(metadata.height||0)<600)throw Error('Image smaller than 800×600 candidate floor');
-  const ext={jpeg:'jpg',png:'png',webp:'webp',avif:'avif'}[metadata.format];
+  const ext={jpeg:'jpg',png:'png',webp:'webp',avif:'avif',heif:'avif'}[metadata.format];
   if(!ext)throw Error('Unsupported image format '+metadata.format);
   const original=asset.id+'-candidate.'+ext,wide=asset.id+'-desktop.webp',phone=asset.id+'-phone.webp';
   writeFileSync(path.join(output,original),raw);
