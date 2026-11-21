@@ -531,6 +531,49 @@ try{
  await page.locator('.n4-drawer-backdrop').click({position:{x:20,y:340}});
  assert(await page.locator('#n4-links').isHidden(),'M-NAV-06 backdrop click closes the drawer');
 
+
+ // Pass 4 focused accessibility regression: closed menus must never leave
+ // keyboard focus stranded in a hidden navigation region.
+ await page.goto(base+'previews/NAV-04/',{waitUntil:'domcontentloaded'});
+ await page.locator('#n4-toggle').click();
+ await page.locator('#n4-links a[href="#services"]').press('Enter');
+ assert(await page.locator('#n4-links').isHidden()
+  &&await page.locator('#services').evaluate(el=>document.activeElement===el),
+  'NAV-04 default dropdown moves keyboard focus to the selected page section');
+ await page.goto(base+'previews/NAV-04/?mobile=M-NAV-06',{waitUntil:'domcontentloaded'});
+ await page.locator('#n4-toggle').click();
+ await page.locator('#n4-links a[href="#work"]').press('Enter');
+ assert(await page.locator('#n4-links').isHidden()
+  &&await page.locator('main').evaluate(el=>!el.inert)
+  &&await page.locator('#work').evaluate(el=>document.activeElement===el),
+  'M-NAV-06 drawer link closes the modal, restores the page and focuses its destination');
+ await page.goto(base+'previews/BOOK-02/',{waitUntil:'domcontentloaded'});
+ await page.locator('#stay-form button[type=submit]').click();
+ assert(await page.locator('#arrival').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#arrival').getAttribute('aria-describedby')==='error'
+  &&await page.locator('#arrival').evaluate(el=>document.activeElement===el),
+  'BOOK-02 links an invalid arrival field to the visible spoken error and focuses it');
+ const validArrival=await page.locator('#arrival').getAttribute('min');
+ await page.locator('#arrival').fill(validArrival);
+ await page.locator('#arrival').dispatchEvent('change');
+ assert(await page.locator('#arrival').getAttribute('aria-invalid')==='false'
+  &&(await page.locator('#error').textContent())==='',
+  'BOOK-02 clears the arrival error after date correction');
+ await page.locator('#stay-form button[type=submit]').click();
+ assert(await page.locator('#departure').getAttribute('aria-invalid')==='true'
+  &&await page.locator('#departure').evaluate(el=>document.activeElement===el),
+  'BOOK-02 identifies and focuses an invalid departure date');
+ const followingDay=new Date(Date.parse(validArrival+'T00:00:00Z')+86400000).toISOString().slice(0,10);
+ await page.locator('#departure').fill(followingDay);
+ await page.locator('#departure').dispatchEvent('change');
+ await page.locator('#stay-form button[type=submit]').click();
+ assert((await page.locator('#output').textContent()).includes('NOT BOOKED')
+  &&await page.locator('#departure').getAttribute('aria-invalid')==='false',
+  'BOOK-02 valid local stay draft clears error states without implying a reservation');
+ await page.goto(base+'previews/GAL-06/',{waitUntil:'domcontentloaded'});
+ assert(await page.locator('#g6-position').getAttribute('role')==='status'
+  &&await page.locator('#g6-position').getAttribute('aria-atomic')==='true',
+  'GAL-06 modal pagination exposes a concise screen-reader status');
  await page.goto(base+'previews/GAL-06/?mobile=M-GAL-05',{waitUntil:'domcontentloaded'});
  const thumbs=await page.locator('.g6-photos').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
  assert(thumbs===3,'M-GAL-05 shows a three-track thumbnail gallery');

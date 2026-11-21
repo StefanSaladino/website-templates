@@ -23,6 +23,13 @@ These new tests are **pending final CI verification**. The previous production-b
 
 The component preview source check now rejects repeated DOM IDs and invalid static `aria-labelledby`, `aria-describedby` or `aria-controls` references for every non-draft component. A local scan of the existing 157 built preview files found no duplicates, invalid ARIA references, unlabelled inputs or unnamed buttons in that snapshot; the new CI gate specifically enforces duplicate-ID and ARIA-reference integrity. This is a source-only regression guard, not an automated screen-reader certification.
 
+### Individual-component keyboard and form pass
+
+- **NAV-04 default and M-NAV-06 drawer:** activating an in-page menu link previously closed the menu but could leave keyboard focus inside a hidden region. On activation the target section is now given a temporary programmatic focus target (removed on blur), while the native fragment link continues to navigate. The M-NAV-06 drawer clears inert background state before focusing the destination. Escape-to-trigger and existing focus containment remain intact.
+- **BOOK-02:** date error text already used a live alert, but it was not linked to the date inputs and did not expose `aria-invalid`. Both date inputs now reference the error and set validity state on failed submission; changing a date clears stale error status. This remains an unsent local planning tool, not a booking.
+- **GAL-06:** native modal already handled Escape and trigger restoration. Its image-position counter now uses a small atomic polite live status to announce keyboard Next/Previous updates.
+- Added keyboard-driven Chromium regressions for the two NAV-04 modes, both date-error pathways, successful recovery and gallery status semantics. This pass remains **pending the newest CI workflow results** and is not a screen-reader certification.
+
 ### Still open for accessibility release
 
 - Audit modal focus containment, form error announcements, language changes, menu controls and accessible naming across the 157 individual examples and 44 alternatives; check real assistive technologies.
