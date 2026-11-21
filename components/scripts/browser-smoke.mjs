@@ -152,6 +152,11 @@ try{
  await page.locator('[data-replay-motion="ANIM-01"]').click();
  assert(!await page.locator('[data-motion-pattern="ANIM-01"]').evaluate(el=>el.classList.contains('arc-motion-playing')),'Arc motion stops for reduced-motion preference');
  await page.emulateMedia({reducedMotion:'no-preference'});
+ await openTemplate('garage-detailing');
+ assert(await page.locator('.gallery-disclaimer').isVisible(),'GARAGE stock-image context is visible before the showcase');
+ assert((await page.locator('.gallery-disclaimer').textContent()).includes('not verified GARAGE clients'),'GARAGE must not imply real client work');
+ assert((await page.locator('.work-main img').getAttribute('alt')).includes('Blue performance coupe'),'GARAGE work image matches the photographed blue vehicle');
+ assert((await page.locator('.feature-image img').getAttribute('alt')).includes('White performance coupe'),'GARAGE feature image matches the photographed white vehicle');
  await openTemplate('creative-agency');
  // The remote 4096x2160 source is never attached on initial page load.
  // An explicit Play interaction can attach it; no large video bytes are fetched by this test.

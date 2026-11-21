@@ -177,7 +177,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "2aa4ce1f0b38232a6f1c777d6b69b9c20222933c72c2a713b9986d5d8800984e",
+        "notes": "White performance coupe parked in a dim multi-car indoor storage area, not a silver sports car. Centered 3:5 phone cover clips much of the foreground vehicle; attention crop retains its front but loses setting.",
+        "flags": [
+          "inaccurate-old-alt",
+          "visible-vehicle-brand",
+          "phone-cover-crop-clips-subject",
+          "not-verified-client-work"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-GARAGE-DETAILING-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-007",
@@ -535,7 +548,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "8840572553c89a383eaa3a0798dce8114550cad4ce6c2f353f34a4d169e8a5db",
+        "notes": "Bright blue performance coupe parked outdoors on desert ground at sunset, not a red vehicle or post-detailing job. Narrow centered 3:5 crops cut away much of the vehicle.",
+        "flags": [
+          "inaccurate-old-alt",
+          "visible-vehicle-brand",
+          "wide-vs-phone-crop-needs-review",
+          "not-verified-client-work"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-GARAGE-DETAILING-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-020",
@@ -554,7 +580,19 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "0ea3772f4aa603c580e5ca233f6fc4941dfaa91875719b0e633b3277fabc42c8",
+        "notes": "Silver-gray BMW performance sedan parked on a road at dusk with hills behind, not a close-up of freshly detailed bodywork. Portrait crops keep the car; trade dress and client context remain unverified.",
+        "flags": [
+          "inaccurate-old-alt",
+          "recognizable-brand-trade-dress",
+          "not-verified-client-work"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-GARAGE-DETAILING-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-021",
@@ -873,7 +911,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-21",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "3f5006a6b91a784b08a264bd88a1553159a98685ce2ece2b89a67095e08158d7",
+        "notes": "Person wearing a cap and gloves machine-polishing a black vehicle panel near the side mirror. A 16:9 stress crop excludes the worker's face; tall portrait shows person and panel. Model and workplace rights remain unverified.",
+        "flags": [
+          "depicted-person",
+          "16-9-crop-excludes-face",
+          "model-rights-unverified",
+          "not-verified-employee"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-GARAGE-DETAILING-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-034",
