@@ -42,6 +42,11 @@ try{
       windows.forEach(el=>el.style.setProperty('--cs-preview-scale',String(Math.max(.12,el.getBoundingClientRect().width/1280))));
     }
   }
+  const updateCategorySelection=()=>{
+    for(const button of elements.categories.querySelectorAll('button[data-category]')){
+      button.setAttribute('aria-pressed',String(state.category===button.dataset.category));
+    }
+  };
   const showCategories=()=>{
     elements.categories.replaceChildren();
     const options=[{id:'all',title:'All sections',plannedCount:components.length},...categories.filter(c=>planningMode||built.some(item=>item.category===c.id))];
@@ -53,7 +58,8 @@ try{
       const count=visible.filter(item=>category.id==='all'||item.category===category.id).length;
       button.innerHTML=escapeText(category.title)+' <small>'+count+'</small>';
       button.addEventListener('click',()=>{
-        state.category=category.id;showCategories();render();
+        // Do not replace the active filter button: doing so loses keyboard focus.
+        state.category=category.id;updateCategorySelection();render();
       });
       elements.categories.append(button);
     }

@@ -87,7 +87,20 @@ function sizeFrame(){
   shell.style.width = (preset.width*scale)+'px';
   shell.style.height = (preset.height*scale)+'px';
   const requiresPan = zoom === 'actual' && preset.width > available + 3;
-  viewStatus.textContent = 'Showing the '+preset.name+' version';
+  // Keep static fitted previews out of the tab order. Restore keyboard focusability
+  // when the preview can actually pan at full size.
+  viewport.tabIndex=requiresPan?0:-1;
+  viewport.setAttribute('aria-label',requiresPan
+    ? 'Website design preview. Scroll sideways with arrow keys, or use the Move left and Move right buttons.'
+    : 'Website design preview');
+  const chosenPhoneStyle=device==='phone'&&alternatives.length
+    ? alternatives.find(item=>item.id===selectedValue('mobile'))
+    : null;
+  const phoneStyleLabel=device==='phone'&&alternatives.length
+    ? (chosenPhoneStyle?'Style '+(alternatives.indexOf(chosenPhoneStyle)+2)+' · '+chosenPhoneStyle.title:'Style 1 · Standard responsive')
+    : '';
+  viewStatus.textContent='Showing the '+preset.name+' version'+(phoneStyleLabel?', '+phoneStyleLabel:'');
+  iframe.title='Website design '+design.id+' at '+preset.name+' size'+(phoneStyleLabel?', '+phoneStyleLabel:'');
   viewTip.textContent = (requiresPan
     ? 'You are looking at a close-up. Use the buttons below or swipe left and right to see more.'
     : zoom === 'actual'
@@ -125,6 +138,16 @@ function render(){
 [...deviceControls, ...document.querySelectorAll('input[name=mobile]'), ...zoomControls].forEach(input => input.addEventListener('change',render));
 panLeft.addEventListener('click',()=>viewport.scrollBy({left:-Math.max(180,viewport.clientWidth*.75),behavior:prefersReducedMotion.matches?'instant':'smooth'}));
 panRight.addEventListener('click',()=>viewport.scrollBy({left:Math.max(180,viewport.clientWidth*.75),behavior:prefersReducedMotion.matches?'instant':'smooth'}));
+viewport.addEventListener('keydown',event=>{
+  // The horizontally scrollable preview needs an explicit keyboard affordance.
+  // Do not intercept key events for native controls or the embedded iframe.
+  if(event.target!==viewport||viewport.tabIndex!==0||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+  event.preventDefault();
+  const step=Math.max(180,viewport.clientWidth*.75);
+  const next=event.key==='Home'?0:event.key==='End'?viewport.scrollWidth:
+    viewport.scrollLeft+(event.key==='ArrowLeft'?-step:step);
+  viewport.scrollTo({left:next,behavior:prefersReducedMotion.matches?'instant':'smooth'});
+});
 viewport.addEventListener('scroll',()=>{
   updatePanButtons();
   if(!spotlight.hidden)updateSpotlightGeometry();

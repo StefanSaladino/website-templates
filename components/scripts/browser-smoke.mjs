@@ -2311,6 +2311,52 @@ try{
   const item=components.find(x=>x.id===id);
   await runCase(item,'phone',1280,null,false);
  }
+ // Accessibility gate: filter controls must preserve focus and announce only
+ // concise result counts, never re-announce the entire rebuilt 157-card grid.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto(base+'index.html',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(expected=>document.querySelectorAll('.cs-item--preview').length===expected,components.length);
+ const headerFilter=page.locator('#cs-categories button[data-category="headers"]');
+ await headerFilter.focus();
+ await headerFilter.press('Enter');
+ assert(await page.evaluate(()=>document.activeElement?.dataset.category==='headers')
+   &&await headerFilter.getAttribute('aria-pressed')==='true',
+   'catalogue category activation retains keyboard focus and pressed state');
+ assert(await page.locator('#cs-result-count').getAttribute('role')==='status'
+   &&await page.locator('#cs-result-count').getAttribute('aria-atomic')==='true'
+   &&await page.locator('#cs-grid').getAttribute('aria-live')===null,
+   'catalogue announces concise result counts rather than an entire live card grid');
+ await page.locator('#cs-search').fill('no-such-component-aaa999');
+ assert(await page.locator('#cs-empty').isVisible()
+   &&(await page.locator('#cs-result-count').textContent()).startsWith('0 '),
+   'catalogue search announces zero results with a visible empty state');
+ await page.locator('#cs-search').fill('');
+ const allFilter=page.locator('#cs-categories button[data-category="all"]');
+ await allFilter.focus();
+ await allFilter.press('Space');
+ assert(await page.evaluate(()=>document.activeElement?.dataset.category==='all')
+   &&await page.locator('.cs-item--preview').count()===components.length,
+   'catalogue keyboard-filter reset preserves focus and restores all 157 designs');
+ // Review status names the selected optional phone layout to assist screen readers.
+ await page.goto(base+'review.html?id=NAV-03',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>document.querySelector('#review-highlight')?.disabled===false,{timeout:12000});
+ await page.locator('input[name=device][value=phone]').check({force:true});
+ await page.locator('input[name=mobile][value=M-NAV-04]').check({force:true});
+ assert((await page.locator('#review-view-status').textContent()).includes('Style 2')
+   &&(await page.locator('#review-iframe').getAttribute('title')).includes('Style 2'),
+   'review announces the chosen independent phone layout and describes its embedded preview');
+ await page.locator('input[name=zoom][value=actual]').check({force:true});
+ assert(await page.locator('#review-viewport').getAttribute('tabindex')==='0',
+   'zoomed preview is keyboard-focusable when horizontal panning is required');
+ await page.locator('#review-viewport').focus();
+ await page.locator('#review-viewport').press('End');
+ await page.waitForTimeout(120);
+ assert(await page.locator('#review-viewport').evaluate(v=>v.scrollLeft>0),
+   'review preview pans horizontally using the keyboard End key');
+ await page.locator('input[name=zoom][value=fit]').check({force:true});
+ assert(await page.locator('#review-viewport').getAttribute('tabindex')==='-1',
+   'fitted preview does not add a redundant keyboard tab stop');
+
  // Confirm the preview catalogue doesn't load fragment URLs that scroll the parent.
  await page.setViewportSize({width:390,height:900});
  await page.goto(base+'index.html',{waitUntil:'domcontentloaded'});
