@@ -227,3 +227,8 @@ These templates are already live and represented by finished gallery previews. T
 - Mobile baseline: sticky header, scroll-locking menu, hero order becomes copy → cake image → order ticket, CTA becomes full-width on narrow phones, service rows recompose without horizontal overflow, form becomes one column
 - Motion: restrained reveals and very light desktop-only image drift; all removed under `prefers-reduced-motion`
 - Gallery preview: synced to the actual hero palette, split composition, cake photography and order-ticket motif
+
+
+## Review-branch accessibility milestone — 22 November 2026
+
+The component showroom is still **in review**. Full-template keyboard focus behavior has been corrected and regression-tested for seven of 24 template designs: creative agency, editorial commerce, Muskoka retreat, contractor, woodworking, restaurant and law firm. A dedicated GitHub Actions run passed **22/22 keyboard checks** across phone/tablet widths including the law-firm animated drawer. This does not complete Step 19; the remaining 17 templates, screen readers, real-device responsive acceptance, document accessibility certification, rights-cleared media and film optimization remain outstanding.

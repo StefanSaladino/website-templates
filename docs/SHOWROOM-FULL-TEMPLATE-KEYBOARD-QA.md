@@ -41,3 +41,13 @@ The dedicated browser workflow now covers **six full templates × three phone/ta
 NORTHLINE LAW already had a skip link, but its `main#main` was not explicitly focusable and the animated navigation drawer could retain a keyboard focus target while closing. The drawer now controls main/footer `inert` state, sends focus to a visible Close button when opened, cycles Tab/Shift+Tab inside the open drawer, restores focus to the opener for Escape/Close/backdrop, and moves focus into an in-page destination after selecting a link. The closing drawer becomes inert immediately even when its 460ms visual transition continues; reduced-motion users get immediate hiding. A desktop resize transfers focus to a visible desktop-nav link. The bypass link's destination is focusable and focus indicators are strengthened.
 
 The follow-on targeted test `components/scripts/test-law-firm-menu-keyboard.mjs` runs in the same CI workflow after the six-template keyboard suite, covering three phone/tablet widths with reduced motion plus a normal-motion closing test. The legal demo still does not transmit client intake data. Media rights, real Safari/Android and assistive-technology testing remain open.
+
+## Verified seven-template checkpoint — 22 November 2026
+
+The expanded keyboard suite passed in [GitHub Actions run 45072657451](https://github.com/StefanSaladino/website-templates/actions/runs/45072657451) on the corrected legal-drawer test commit `e5a55a8`.
+
+- **18/18 standard keyboard cases passed** for OFFCUT, RANGE/FOUND, Morrow House, LINE + LEVEL, GRAIN & GABLE and SERA, at 320/390/768 CSS pixels.
+- **4/4 NORTHLINE LAW cases passed** for the animated navigation drawer, covering reduced motion at 320/390/768 and normal motion at 390. Test assertions verify skip link, focus containment, page inertness, tab wrapping, link-to-destination focus, Escape and button/backdrop restoration, delayed close, and desktop-breakpoint focus.
+- **22/22 targeted browser cases passed**, zero failures. The earlier legal drawer test briefly failed on two breakpoint assertions because CSS hid the drawer before a subsequent JavaScript resize callback could update `aria-expanded`. The corrected test awaits both the ARIA state and visual hiding; no user-facing functionality was disabled.
+
+This is a focused keyboard navigation regression pass across **7 of the 24** full templates. It does not imply full accessible navigation or WCAG compliance across the remaining 17 templates, independent mobile alternatives, or all interaction types. Real Safari, Android Chrome, VoiceOver, NVDA, contrast-on-photography and client acceptance still remain to be completed.
