@@ -14,6 +14,12 @@ on:
       - 'templates/**'
       - 'docs/COMPONENT-**'
       - '.github/workflows/component-showroom-ci.yml'
+# Keep one current branch/PR run per workflow. Old full-browser jobs should not
+# consume minutes after a newer source revision supersedes their evidence.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 jobs:
