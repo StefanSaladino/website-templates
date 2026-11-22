@@ -53,6 +53,7 @@ try{
    await page.waitForFunction(()=>document.querySelector('.site-nav')?.inert===false,undefined,{timeout:1600});
    check(await toggle.getAttribute('aria-expanded')==='false','Desktop nav no longer marked expanded');
    check(await nav.getAttribute('aria-hidden')==='false','Desktop nav appears in accessibility tree');
+   await page.waitForFunction(()=>document.activeElement===document.querySelector('.site-nav a'),undefined,{timeout:1800});
    check(await first.evaluate(el=>document.activeElement===el),'Desktop focus remains on visible primary navigation');
    check(await first.isVisible(),'Desktop primary nav must remain visible');
    await page.setViewportSize({width,height:900});

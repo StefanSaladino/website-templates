@@ -67,6 +67,7 @@ try{
    await page.setViewportSize({width:1280,height:850});
    await page.waitForFunction(selector=>document.querySelector(selector)?.getAttribute('aria-expanded')==='false',t.toggle,{timeout:1800});
    await closed();
+   await page.waitForFunction(()=>document.activeElement===document.querySelector('.desktop-nav a'),undefined,{timeout:1800});
    check(await page.locator('.desktop-nav a').first().evaluate(el=>document.activeElement===el),'Breakpoint moves focus to visible desktop navigation');
    check(!errors.length,'No uncaught browser exceptions: '+errors.join(' / '));
    report.cases.push({template:t.name,width,skip:true,focusLoop:true,linkDestination:true,escape:true,breakpoint:true});
