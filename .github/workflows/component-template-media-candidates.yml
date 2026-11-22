@@ -72,7 +72,7 @@ jobs:
         run: npm run check:template-media && npm run check:template-media-review
       - name: Generate candidate images (unapproved, not for redistribution)
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'tattoo-studio' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'architecture' }}
           CANDIDATE_LIMIT: ${{ inputs.limit || '5' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
@@ -98,13 +98,17 @@ jobs:
       - name: Verify all generated crop alternatives
         if: success()
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'tattoo-studio' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'architecture' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
           node --input-type=module -e '
           import {readFileSync,existsSync} from "node:fs";
           import assert from "node:assert/strict";
           const report=JSON.parse(readFileSync("../stock-candidates/template-review/results.json","utf8"));
+          if(process.env.TEMPLATE_NAME==="architecture"){
+            assert.deepEqual(report.assets.map(x=>x.id),["TM-042","TM-058"],"Wrong MORROW architecture photo identities");
+            assert.equal(report.downloaded,2);
+          }
           if(process.env.TEMPLATE_NAME==="tattoo-studio"){
             assert.deepEqual(report.assets.map(x=>x.id),["TM-030","TM-040"],"Wrong BLACKLINE tattoo photo identities");
             assert.equal(report.downloaded,2);
