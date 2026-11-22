@@ -269,3 +269,9 @@ The previously unchecked Step 18 now has a deterministic preflight: `components/
 The public gallery no longer labels in-review demos `Live` or `Live now`; the visual badges now read **Preview** and the introduction accurately discloses fictional designs without production approval. Source class names `.is-live`, `.live-badge` and `.card-live-link` remain internally for CSS/DOM compatibility and do not themselves convey public clearance. The gallery's old 16-template README has been corrected to list all 24 previews.
 
 **Step 18 is not yet complete:** the source-integrity check is not a visual screenshot review at phone/tablet/desktop, remote-thumbnail decoded-load pass, or formal signoff of image crop, overlaid text/contrast, latency and rights. Step 19 likewise remains open. No deployment/merge to `main` is authorized solely on these preflight results.
+
+## Gallery thumbnail browser evidence automation — 22 November 2026
+
+New `components/scripts/audit-gallery-browser.mjs` and the standalone `.github/workflows/gallery-thumbnail-review.yml` extend Step 18 beyond offline manifest checks. The Chromium runner measures the original root gallery at 320/390/768/1440px, verifies all 24 thumbnails and their route/badge labels, checks page/card clipping and JavaScript errors, and attempts to decode all **22 external still-image placements**. It preserves up to **96 real thumbnail screenshots** plus a structured ledger. It blocks any remote 4K film request. Source/photo provenance and human crop/contrast verdicts remain separate manual gates.
+
+This is a **new automation**, not a claim it has passed. Once its current-commit run succeeds, visually inspect the gallery card crops and readability before considering Step 18 complete. Media licenses, device accessibility and Step 19 remain open. No promotion to `main`.

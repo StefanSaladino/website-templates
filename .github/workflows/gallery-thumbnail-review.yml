@@ -1,0 +1,53 @@
+name: Original gallery thumbnail browser review
+on:
+  push:
+    branches:
+      - feature/component-showroom
+    paths:
+      - 'index.html'
+      - 'script.js'
+      - 'styles.css'
+      - 'custom-bakes-gallery.css'
+      - 'components/scripts/audit-gallery-browser.mjs'
+      - 'components/scripts/check-gallery-integrity.mjs'
+      - 'components/data/template-media-inventory.json'
+      - '.github/workflows/gallery-thumbnail-review.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  gallery-thumbnails:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser dependencies
+        working-directory: components
+        run: npm install --no-audit --no-fund
+      - name: Preflight 24 gallery routes, badge states, and source identities
+        working-directory: components
+        run: npm run check:gallery
+      - name: Confirm system Chrome and Python
+        run: |
+          command -v google-chrome || command -v chromium
+          python3 --version
+      - name: Render actual loaded thumbnail images at four widths
+        working-directory: components
+        run: npm run review:gallery-browser
+      - name: Preserve screenshots and media/geometry evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-gallery-thumbnail-evidence
+          path: components/gallery-thumbnail-evidence/
+          if-no-files-found: warn
+          retention-days: 14
