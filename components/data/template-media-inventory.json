@@ -1212,7 +1212,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "6b24a8160ca78add5cc06d54fae4ee2a3c3542fc8b7bfefbe548d3e301d1dd23",
+        "notes": "Vertical dark-stained tiered wooden planter troughs against masonry block wall, with dry plants. No evidence for cedar species, hidden liner, actual maker or dimensions. 16:9 wide crops lose most tiers; tall portrait retains the subject.",
+        "flags": [
+          "species-unverified",
+          "single-planter-alt-wrong",
+          "not-a-studio-commission",
+          "wide-crop-clips-tiers"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-044",
@@ -1319,7 +1332,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "b43abfde8668b5fd631e0c5dd9547d9366e2737b716c21f0a7206ab4c0428dd0",
+        "notes": "Barefoot person in hat and green trousers operating a powered circular saw while crouched beside timber at a workshop bench. Unsafe professional-workshop example, urgent replacement required. Person and context not linked to fictional studio; portrait crop highlights saw and bare feet.",
+        "flags": [
+          "urgent-replacement-barefoot-operator-and-circular-saw",
+          "depicted-person",
+          "no-studio-employee-proof",
+          "person-rights-unverified",
+          "unsafe-practice-not-for-promotion"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-049",
@@ -1433,7 +1460,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "ee7f6819036c7c09bf2b3a693565a0b328c41cca99f80d84f072eb0e10d2a9d4",
+        "notes": "Person in a wide-brim hat working timber with a hand tool at a dim workshop bench. Existing 36-inch white oak shelf caption not established. 16:9 crop cuts person's lower body and wider shop; portrait retains process context.",
+        "flags": [
+          "unsupported-white-oak-caption",
+          "wood-species-and-size-unverified",
+          "depicted-person",
+          "not-studio-worker",
+          "wide-crop-truncates-workshop"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-055",
@@ -1452,7 +1493,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "200834c400ee54f7ff317b591f7524d6213223853186faf13e6dc936e105ab89",
+        "notes": "Two narrow wall-mounted white display ledges holding framed artwork and wood cutting boards. Does not prove species, front-rail design, exact sizes or studio commission. Wide crop clips high shelf; tall portrait shows both.",
+        "flags": [
+          "wood-species-unverified",
+          "fictional-product-not-verified",
+          "wide-crop-loses-upper-shelf",
+          "property-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-056",

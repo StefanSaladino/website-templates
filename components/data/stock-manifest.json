@@ -401,12 +401,12 @@
       "licenseUrl": "https://unsplash.com/license",
       "licenseReviewedAt": null,
       "reviewStatus": "needs-review",
-      "rightsNotes": "Reuses remote Unsplash image already displayed in templates/woodworker/index.html. Exact Unsplash source page, creator attribution, property/model permissions and suitability for redistribution were NOT verified. Review-only until source mapping and rights/crop checks are completed. This image is NOT actual work of the fictional studio.",
+      "rightsNotes": "Reuses remote Unsplash image already displayed in templates/woodworker/index.html. Exact Unsplash source page, creator attribution, property/model permissions and suitability for redistribution were NOT verified. Review-only until source mapping and rights/crop checks are completed. This image is NOT actual work of the fictional studio. Visual screening 22 November 2026 shows barefoot person using a circular saw close to feet. Unsuitable as a professional workshop safety reference. Urgent replacement before release; no source/model/safety approval.",
       "usageIds": [
         "ABOUT-02",
         "ANIM-20"
       ],
-      "altText": "Woodworker cutting timber in a workshop; illustrative stock",
+      "altText": "Barefoot person using a powered circular saw at a timber bench; unsafe image pending replacement",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1760939858984-5dc76f0ea34a?auto=format&fit=crop&fm=jpg&q=78&w=1400",
       "originalFilename": null,
       "fileHashSHA256": null,
@@ -418,7 +418,10 @@
         "creator-unverified",
         "property-and-model-rights-unverified",
         "photo-crop-approval-pending",
-        "not-cleared-for-template-redistribution"
+        "not-cleared-for-template-redistribution",
+        "urgent-replacement-barefoot-saw-operator",
+        "unsafe-work-practice-not-a-studio-example",
+        "person-and-workshop-unverified"
       ]
     },
     {
@@ -733,7 +736,7 @@
       "usageIds": [
         "ANIM-20"
       ],
-      "altText": "Wooden planter against a stone wall",
+      "altText": "Tiered wooden planter troughs with dry vegetation against a masonry block wall; stock reference",
       "temporaryPreviewUrl": "https://images.unsplash.com/photo-1756666915060-c4dbf6a03aad",
       "originalFilename": null,
       "fileHashSHA256": null,
