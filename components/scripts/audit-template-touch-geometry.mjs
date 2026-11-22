@@ -44,7 +44,13 @@ try{
     const clipped=[...document.querySelectorAll('h1,h2')].filter(visible).filter(el=>{
      const css=getComputedStyle(el);return css.overflowX!=='visible'&&el.scrollWidth>el.clientWidth+3;
     }).map(el=>(el.textContent||'').trim().replace(/\s+/g,' ').slice(0,85));
-    const overflowing=[...document.querySelectorAll('body *')].filter(visible).map(el=>{
+    // Invisible-on-entry reveal elements still contribute to intrinsic widths.
+    // Include opacity:0 nodes here; only actual display:none/hidden nodes are skipped.
+    const overflowing=[...document.querySelectorAll('body *')].filter(el=>{
+      const css=getComputedStyle(el),r=el.getBoundingClientRect();
+      return css.display!=='none'&&css.visibility!=='hidden'&&r.width>0&&r.height>0
+        &&!el.closest('[hidden],[inert]');
+    }).map(el=>{
       const rect=el.getBoundingClientRect();
       const chain=[];for(let parent=el.parentElement;parent&&parent!==document.body;parent=parent.parentElement){
         const overflow=getComputedStyle(parent).overflowX;
