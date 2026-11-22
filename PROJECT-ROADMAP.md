@@ -239,3 +239,10 @@ The component showroom is still **in review**. Full-template keyboard focus beha
 The keyboard focus and responsive-navigation pass covers **11 of the 24 full templates**, including the MORA demo shopping-bag dialog and NORTHLINE animated menu. The targeted Chromium run passed **38/38** cases after correcting an intermediate script error. A new JavaScript syntax scanner has been added to `npm run check` for all original templates.
 
 **Still required before marking Step 19 complete:** 13 more full-template keyboard passes, native iOS Safari/Android interaction checks, real VoiceOver/NVDA trials, loaded-photo contrast and crop signoff, media/source licenses, OFFCUT 4K film review and optimization, tagged-PDF independent accessibility certification and final design approval. Keep all components `in-review` and do not merge the feature branch solely on these automated passes.
+
+
+## Full-template accessibility checkpoint — 22 November 2026
+
+The developer keyboard-navigation pass now covers **15 of the 24** full website templates. YARD, BLACKLINE SOCIAL CLUB and CURRENT were added to the standard responsive navigation suite, while AFTER DARK received a separate regression for its focus-trapping, reduced-motion-aware animated menu. **51/51** targeted Chromium keyboard tests passed in [run 45076502960](https://github.com/StefanSaladino/website-templates/actions/runs/45076502960). All 157 components remain in review.
+
+**Next:** audit the remaining **nine** full templates, followed by real device/screen reader review, photo contrast, cleared image/video licenses and optimized film delivery. This checkpoint is not approval to promote any component or merge the branch.

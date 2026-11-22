@@ -89,3 +89,14 @@ The standard browser suite now includes **13 of 24 full templates × 320/390/768
 The AFTER DARK event template's mobile nav remained keyboard-interactive during its 390ms exit transition, and the skip link and focusable main landmark were missing. An event menu link could also leave focus stranded inside the closing drawer. Its full-screen menu now makes the header/main/footer inert while expanded, moves focus to the first visible link, loops Tab and Shift+Tab through nav links, and immediately makes the drawer inert while closing. Escape returns focus to the opener; selecting a section transfers focus to that destination; resizing to desktop restores focus to visible desktop navigation. Reduced-motion mode hides the drawer immediately rather than waiting for an exit effect. The design/lineup animations and strictly fictional ticket notice were preserved.
 
 A dedicated `test-event-launch-keyboard.mjs` browser check is attached to the existing keyboard workflow, including reduced motion at 320/390/768px and normal exit animation at 390px. It tests keyboard control and lifecycle only, not ticket payments, legal licenses or real event availability. The remaining full templates and stakeholder accessibility approvals remain pending.
+
+## Verified 15-template keyboard checkpoint — 22 November 2026
+
+The [dedicated keyboard regression run 45076502960](https://github.com/StefanSaladino/website-templates/actions/runs/45076502960) passed **51 of 51 isolated browser cases** on source commit `e666fe8b`, without fetching remote third-party stills or the 4K OFFCUT film:
+
+- **39/39** standard menu keyboard cases covering 13 full templates at 320, 390 and 768px. The newly added YARD, BLACKLINE and CURRENT cases confirm skip-to-main, Enter, destination focus, Escape-to-toggle and desktop breakpoint focus recovery.
+- **4/4** NORTHLINE LAW animated legal drawer cases (including reduced-motion vs ordinary close).
+- **4/4** MORA storefront demo-bag cases (including desktop, inert hidden controls, focus trapping, remove-item focus and fictional checkout).
+- **4/4** AFTER DARK full-screen animated menu cases at 320/390/768 reduced motion and 390 normal motion. These assert the skip link, focus containment, background inertness, destination focus, immediate inertness during delayed close, Escape restoration and responsive focus recovery.
+
+This is **15 of 24 full site templates** with explicit keyboard tests (13 standard + 2 separately tested animated/special dialogs). **9 full templates remain** beyond this targeted keyboard pass. That count does not establish that every tested template meets WCAG, has legally usable photographs, or works identically in native Safari, TalkBack, VoiceOver or NVDA. Other component-level mobile alternatives and full-site responsive signoff remain separate.
