@@ -104,5 +104,14 @@ try{
  assert.equal(woodImages.errors,0);
  assert(woodImages.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: woodworker selects four unapproved photographs with no offline downloads.');
+ const event=spawnSync(process.execPath,[script,'--offline','--templates=event-launch','--limit=5','--output='+path.join(directory,'event-launch')],{encoding:'utf8',timeout:20000});
+ if(event.status!==0)throw Error('AFTER DARK media selection failed: '+event.stderr+'\\n'+event.stdout);
+ const eventImages=JSON.parse(readFileSync(path.join(directory,'event-launch/results.json'),'utf8'));
+ assert.deepEqual(eventImages.assets.map(item=>item.id),['TM-045','TM-049','TM-052','TM-056']);
+ assert.equal(eventImages.total,4);
+ assert.equal(eventImages.downloaded,0);
+ assert.equal(eventImages.errors,0);
+ assert(eventImages.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: event-launch selects four unapproved photographs without offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
