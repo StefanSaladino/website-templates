@@ -490,3 +490,14 @@ dd { margin: 0; }
 @keyframes morrowImageMask{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .hero-media.morrow-mask-playing{animation:morrowImageMask 1.05s cubic-bezier(.35,.08,.2,1) both}
 @media(prefers-reduced-motion:reduce){.hero-media.morrow-mask-playing{animation:none!important;clip-path:none!important}}
+
+/* Architectural integrity: source attribution and clearly fictional portfolio. */
+.morrow-demo-banner{position:absolute;z-index:5;top:98px;left:clamp(24px,4vw,72px);right:clamp(24px,4vw,72px);max-width:1080px;padding:10px 14px;border-left:3px solid #f07a5d;background:rgba(19,19,17,.87);color:#fff;font-size:11px;line-height:1.55}
+.morrow-demo-banner strong{font-size:10px;letter-spacing:.04em;margin-right:8px}
+.hero-index{top:190px}
+.morrow-hero-stock{position:absolute;z-index:3;top:229px;right:clamp(24px,4vw,72px);max-width:44%;padding:8px 11px;background:rgba(19,19,17,.78);color:#fff;font-size:9px;letter-spacing:.06em;line-height:1.5;font-weight:700}
+.morrow-project-stock{position:absolute;z-index:2;left:18px;bottom:18px;max-width:calc(100% - 36px);padding:9px 12px;background:rgba(19,19,17,.85);color:#fff;font-size:9px;letter-spacing:.07em;line-height:1.5;font-weight:700}
+.contact-cta{background:transparent;color:inherit;font-family:inherit;cursor:pointer;text-align:left;border:0;border-bottom:1px solid currentColor}
+.morrow-contact-status{margin-top:18px;max-width:480px;color:inherit;font-size:12px;line-height:1.7;opacity:.83}
+@media(max-width:900px){.morrow-demo-banner{top:78px;left:18px;right:18px;padding:10px 12px;font-size:10px}.morrow-demo-banner strong{display:block;margin-bottom:4px}.hero-index{top:198px}.morrow-hero-stock{top:242px;right:18px;left:18px;max-width:none;font-size:8px}.morrow-project-stock{left:12px;bottom:12px;max-width:calc(100% - 24px);font-size:8px}}
+@media(max-width:390px){.hero-index{top:209px}.morrow-hero-stock{top:252px}}

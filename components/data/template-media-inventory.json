@@ -1303,7 +1303,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "8e210e1b646ebcd83f0beb9deab6c1dc42bec549effbb67cb6d4a17982c2eb65",
+        "notes": "Sunset photo of a large multi-wing white residential building with mixed stone-clad lower sections, grey roofs and tower-like upper sections; sweeping wet-looking broad light-grey concrete driveway, low stone wall and planted bed in foreground. No evidence the home is in Georgian Bay, dates to 2026, is called Field House, or was designed by MORROW. Narrow phone crop cuts off house wings and changes building scale. Landscape crop retains wider front and more of the driveway.",
+        "flags": [
+          "false-Georgian-Bay-project-credit",
+          "residential-property-location-unverified",
+          "architect-designer-attribution-unverified",
+          "phone-crop-removes-house-wings",
+          "building-property-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-ARCHITECTURE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-043",
@@ -1776,7 +1790,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "02ea72a08ff5ac9359783e2a36309db2d9875153a7734f5e7cd04c8000ef37e3",
+        "notes": "Monumental upward-looking black-and-white architectural photo from a tall rough concrete space/void; several heavy geometric rectangular beams interrupt an intensely bright angular ceiling aperture and light enters from above. No furniture, oak, linen, planted courtyard, residential rooms or identifiable skylight glazing shown. Cannot infer Toronto address, 3400 sq ft, 2025 completion, residential program or affiliation with MORROW. Wide crop omits bright opening, making the space read as abstract concrete rather than an architectural shaft; tall crop preserves aperture context.",
+        "flags": [
+          "unverified-Toronto-project-history",
+          "program-area-completion-unverified",
+          "oak-linen-courtyard-inventions",
+          "unverified-owner-architect",
+          "wide-crop-removes-daylight-aperture"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-ARCHITECTURE-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-059",

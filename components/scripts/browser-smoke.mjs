@@ -188,6 +188,16 @@ try{
  await page.waitForSelector('.morrow-mask-ready');
  await page.locator('[data-replay-motion="ANIM-03"]').click();
  assert(await page.locator('[data-motion-pattern="ANIM-03"]').evaluate(el=>el.classList.contains('morrow-mask-playing')),'Morrow ANIM-03 reveals its actual hero image');
+ assert(await page.locator('.morrow-demo-banner').isVisible(),'MORROW clearly discloses fictional architectural practice');
+ assert((await page.locator('.morrow-demo-banner').textContent()).includes('unrelated architecture'),'MORROW cannot attribute outside projects to itself');
+ assert((await page.locator('.hero-image').getAttribute('alt')).includes('stone-clad sections'),'MORROW hero matches the suburban residence, not Georgian Bay construction');
+ assert((await page.locator('.morrow-hero-stock').textContent()).includes('NOT DESIGNED BY MORROW'),'MORROW hero photo is unrelated residential property');
+ assert((await page.locator('.morrow-project-stock').textContent()).includes('UNRELATED'),'MORROW concrete shaft is a stock architectural reference');
+ assert((await page.locator('.project-copy').textContent()).includes('Not MORROW work'),'MORROW must not invent completed architecture work');
+ assert(!((await page.locator('.project-copy').textContent()).includes('3,400 sq ft')),'MORROW cannot claim unverified floor area');
+ assert(!((await page.locator('.contact-meta').textContent()).includes('Spring 2027')),'MORROW cannot invent future commissions');
+ await page.locator('[data-morrow-contact-preview]').click();
+ assert((await page.locator('[data-morrow-contact-status]').textContent()).includes('no architectural commission was requested'),'MORROW concept contact confirms no external request');
  await openTemplate('storefront');
  await page.locator('[data-product="Counter Wash"] .swatches button').nth(1).click();
  const finish=await page.locator('[data-product="Counter Wash"]').evaluate(el=>({

@@ -70,3 +70,10 @@
   window.addEventListener('scroll', requestUpdate, { passive: true });
   window.addEventListener('resize', requestUpdate);
 })();
+
+/* Contact preview: deliberately no mailto, network request or data retention. */
+const morrowContactButton=document.querySelector('[data-morrow-contact-preview]');
+morrowContactButton?.addEventListener('click',()=>{
+  const status=document.querySelector('[data-morrow-contact-status]');
+  if(status)status.textContent='Preview only: no architectural commission was requested, no correspondence was sent, and no booking or personal information was created.';
+});
