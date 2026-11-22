@@ -50,7 +50,12 @@ try{
    check(await nav.evaluate(el=>el.inert),'Escape inerts menu');
    await toggle.focus();await page.keyboard.press('Enter');
    await page.setViewportSize({width:1280,height:900});
-   await page.waitForFunction(()=>document.querySelector('.site-nav')?.inert===false,undefined,{timeout:1600});
+   await page.waitForFunction(()=>{
+    const nav=document.querySelector('.site-nav');
+    const toggle=document.querySelector('.menu-toggle');
+    return nav?.inert===false && toggle?.getAttribute('aria-expanded')==='false'
+      &&nav?.getAttribute('aria-hidden')==='false';
+   },undefined,{timeout:1800});
    check(await toggle.getAttribute('aria-expanded')==='false','Desktop nav no longer marked expanded');
    check(await nav.getAttribute('aria-hidden')==='false','Desktop nav appears in accessibility tree');
    await page.waitForFunction(()=>document.activeElement===document.querySelector('.site-nav a'),undefined,{timeout:1800});
