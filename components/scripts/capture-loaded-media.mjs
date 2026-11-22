@@ -47,7 +47,12 @@ async function loadImageMedia(page){
       const cropFraction=canMeasure
         ?Math.min(1,Math.max(0,((bounds.width/scale)*(bounds.height/scale))/(img.naturalWidth*img.naturalHeight)))
         :null;
-      return {src:img.currentSrc||img.src,alt:img.alt,
+      const container=img.closest('figure,section,header,main,[class*="hero"],[class*="gallery"]');
+      const context=container?(container.id?'#'+container.id:
+        container.tagName.toLowerCase()+'.'+String(container.className||'').trim().split(/\s+/)[0]):'body';
+      const selector=img.id?'#'+img.id:img.tagName.toLowerCase()+
+        (typeof img.className==='string'&&img.className.trim()?'.'+img.className.trim().split(/\s+/).slice(0,2).join('.'):'');
+      return {src:img.currentSrc||img.src,alt:img.alt,selector,context,
         naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,
         renderedWidth:Math.round(bounds.width),renderedHeight:Math.round(bounds.height),
         objectFit:css.objectFit,objectPosition:css.objectPosition,
@@ -140,8 +145,10 @@ try{
         // Only a review flag: 60%+ of the source cropped may be intentional.
         if(img.ok&&img.visibleSourceFraction!==null&&img.visibleSourceFraction<0.4){
           report.cropReviewCandidates.push({
-            template:entry.name,width,src:img.src,alt:img.alt,
-            visibleSourceFraction:img.visibleSourceFraction,objectPosition:img.objectPosition
+            template:entry.name,width,src:img.src,alt:img.alt,selector:img.selector,context:img.context,
+            renderedWidth:img.renderedWidth,renderedHeight:img.renderedHeight,
+            visibleSourceFraction:img.visibleSourceFraction,objectPosition:img.objectPosition,
+            screenshotPrefix:entry.name+'-'+width+'-'
           });
         }
       }
@@ -178,6 +185,13 @@ try{
   server.kill('SIGTERM');
   writeFileSync(path.join(evidence,'results.json'),JSON.stringify(report,null,2));
   console.log('Loaded image review ('+batch+'): '+report.cases.length+' viewport cases, '+report.screenshots.length+' screenshots, '+report.cropReviewCandidates.length+' manual crop flags, '+report.errors.length+' hard errors.');
+  for(const flag of report.cropReviewCandidates){
+    console.log('CROP-REVIEW',JSON.stringify({
+      template:flag.template,width:flag.width,selector:flag.selector,context:flag.context,
+      alt:flag.alt,visibleSourceFraction:flag.visibleSourceFraction,
+      objectPosition:flag.objectPosition,rendered:flag.renderedWidth+'x'+flag.renderedHeight,
+      screenshotPrefix:flag.screenshotPrefix,src:flag.src}));
+  }
   if(report.errors.length){for(const issue of report.errors)console.error('REVIEW-FAIL:',issue);process.exitCode=1;}
   else console.log('PASS: '+batch+' decoded remote and local stills at 320/390/768/1440, without 4K requests. Crop flags are manual review prompts, not verified defects. Licensing and human crop/contrast sign-off remain open.');
 }
