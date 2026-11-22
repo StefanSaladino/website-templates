@@ -32,7 +32,7 @@ Record reviewer initials, device/OS/browser version, date, exact commit and pass
 
 ## Media provenance and rights — release blocker
 
-Track each exact image/poster and video by source URL, creator, license terms and suitability for redistribution in a publicly shared template. A screenshot or successful remote image response does **not** authorize reuse. No media licenses have been marked approved. The woodworker unsafe-saw replacement and all original/source asset restrictions must remain visible in the inventory. **OFFCUT's opt-in 4K video remains unapproved** until source/license, footage content, duration, bitrate, device download cost, and fallback performance have been independently assessed. Do not flip the consent gate or autoplay flags for convenience.
+Track each exact image/poster and video by source URL, creator, license terms and suitability for redistribution in a publicly shared template. A screenshot or successful remote image response does **not** authorize reuse. No media licenses have been marked approved. The retired barefoot-saw stock image must remain excluded from active media; original joinery illustrations replaced it, but all surviving third-party assets still require rights approval. **OFFCUT's opt-in 4K video remains unapproved** until source/license, footage content, duration, bitrate, device download cost, and fallback performance have been independently assessed. Do not flip the consent gate or autoplay flags for convenience.
 
 ## Per-template log
 
