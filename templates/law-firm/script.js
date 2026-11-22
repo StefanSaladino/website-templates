@@ -41,3 +41,11 @@ if (reducedMotion || !('IntersectionObserver' in window)) {
 /* ANIM-14: details remain fully functional without scripts. */
 const intakeList=document.querySelector('[data-motion-pattern="ANIM-14"]');
 if(intakeList){const questions=[...intakeList.querySelectorAll('details')];questions.forEach(d=>d.addEventListener('toggle',()=>{if(d.open)questions.filter(x=>x!==d&&x.open).forEach(x=>x.open=false)}))}
+
+/* Never collect, navigate with, or transmit demo legal intake details. */
+const lawContactForm=document.querySelector('.contact-form');
+lawContactForm?.addEventListener('submit',(event)=>{
+  event.preventDefault();
+  const status=lawContactForm.querySelector('[data-law-contact-status]');
+  if(status)status.textContent='Preview only — no legal consultation was requested, and no information was sent or saved.';
+});

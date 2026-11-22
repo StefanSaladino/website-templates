@@ -169,3 +169,10 @@ button, input, select, textarea { font: inherit; }
 .client-questions-list{border-top:2px solid var(--ink)}.client-questions-list details{border-bottom:1px solid var(--line)}.client-questions-list summary{list-style:none;cursor:pointer;padding:25px 35px 25px 0;font-size:17px;font-weight:800;line-height:1.4;position:relative;min-height:64px}.client-questions-list summary::-webkit-details-marker{display:none}.client-questions-list summary:after{content:"+";position:absolute;right:0;top:18px;font-size:28px;font-weight:400}.client-questions-list details[open] summary:after{content:"−"}.client-questions-list details>div{padding:0 25px 25px 0;color:var(--muted)}.client-questions-list details>div p{margin:0}.client-questions-list details[open]>div{animation:lawFaqOpen .3s ease-out both}@keyframes lawFaqOpen{from{opacity:.4;transform:translateY(-9px)}to{opacity:1;transform:none}}
 @media(max-width:900px){.client-questions{display:block;padding:75px 22px}.client-questions-list{margin-top:40px}}
 @media(prefers-reduced-motion:reduce){.client-questions-list details[open]>div{animation:none!important}}
+
+/* Studio-identification and fictional-profile boundaries for the law concept. */
+.hero-media{position:relative}
+.office-stock-note{position:absolute;left:22px;right:22px;bottom:20px;width:max-content;max-width:calc(100% - 44px);padding:10px 12px;background:#181817;color:white;font-size:9px;font-weight:800;letter-spacing:.08em;line-height:1.5}
+.counsel-demo-note{max-width:750px;color:var(--muted);font-size:13px;line-height:1.65;margin:25px 0 -25px}
+.contact-form [role="status"]{font-size:11px;line-height:1.6}
+@media(max-width:430px){.office-stock-note{left:12px;right:12px;bottom:10px;max-width:calc(100% - 24px);font-size:8px}.counsel-demo-note{margin:22px 0 -15px}}

@@ -88,3 +88,11 @@ if(contractorProcess){
   });
   selectStage(0);
 }
+
+/* A fictional template must never navigate with entered contact details or report a real booking. */
+const contractorVisitForm=document.querySelector('.visit-form');
+contractorVisitForm?.addEventListener('submit',(event)=>{
+  event.preventDefault();
+  const status=contractorVisitForm.querySelector('[data-visit-status]');
+  if(status)status.textContent='Preview only — no site visit was requested, and no details were sent or saved.';
+});

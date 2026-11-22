@@ -213,6 +213,13 @@ try{
  await page.locator('[data-ticker-control]').click();
  assert(!await page.locator('[data-motion-pattern="ANIM-06"]').evaluate(el=>el.classList.contains('is-paused')),'WOBBLEWORKS ticker can resume');
  await openTemplate('contractor');
+ assert((await page.locator('.hero .eyebrow').textContent()).includes('FICTIONAL'),'LINE + LEVEL is identified as a hypothetical company');
+ assert((await page.locator('.hero-media-label').textContent()).includes('UNRELATED STOCK'),'LINE + LEVEL framing photo cannot imply a real work site');
+ assert((await page.locator('.project-stock-note').textContent()).includes('NOT COMPLETED'),'LINE + LEVEL kitchen is not presented as a completed job');
+ assert(!(await page.locator('.project-copy').textContent()).includes('11 weeks'),'LINE + LEVEL removes unverified construction duration');
+ await page.locator('.visit-form button[type="submit"]').click();
+ assert((await page.locator('[data-visit-status]').textContent()).includes('no site visit was requested'),'LINE + LEVEL demo form cannot claim a booking');
+ assert(!(await page.url()).includes('postal='),'LINE + LEVEL cannot leak contact details into URL');
  await page.locator('[data-motion-stage="4"]').click();
  assert(await page.locator('#process-current-stage').textContent()==='Stage 4 of 4'
    && await page.locator('.process-motion-meter span').evaluate(el=>el.style.width==='100%'),'LINE + LEVEL ANIM-07 responds to a selected stage');
@@ -340,6 +347,12 @@ try{
  assert(!await page.locator('[data-motion-pattern="ANIM-11"]').evaluate(el=>el.classList.contains('detail-is-zoomed')),'ANIM-11 zoom disabled for reduced motion');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('law-firm');
+ assert((await page.locator('.hero .eyebrow').textContent()).includes('NOT A LAW FIRM'),'NORTHLINE cannot impersonate a licensed practice');
+ assert((await page.locator('.office-stock-note').textContent()).includes('NOT NORTHLINE PREMISES'),'NORTHLINE office image is unrelated stock');
+ assert((await page.locator('.counsel-demo-note').textContent()).includes('invented characters'),'NORTHLINE counsel profiles disclose their fictional nature');
+ await page.locator('.contact-form button[type="submit"]').click();
+ assert((await page.locator('[data-law-contact-status]').textContent()).includes('no legal consultation was requested'),'NORTHLINE demo cannot claim client intake');
+ assert(!(await page.url()).includes('matter='),'NORTHLINE cannot leak legal query details into URL');
  await page.locator('#questions details').nth(1).locator('summary').click();
  assert(await page.locator('#questions details').nth(1).evaluate(el=>el.open),'ANIM-14 law firm FAQ opens natively');
  await page.locator('#questions details').nth(2).locator('summary').click();

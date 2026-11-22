@@ -92,7 +92,7 @@ A separate GitHub Actions workflow, `.github/workflows/component-template-media-
 
 The deterministic offline smoke test `components/scripts/test-template-media-review.mjs` runs as part of `npm run check` and production build QA. It verifies that the review output is generated with the expected warnings and **no** network requests, unapproved imagery or downloaded assets. CI does **not** fetch photos. This test proves review-tool generation, not actual photography quality or licensing.
 
-**Visual screening: FRAME 11/11, editorial-commerce 9/9, muskoka-retreat 5/5, creative-agency poster 1/1, garage-detailing 4/4, real-estate 4/4, and monolith-architecture 4/4, woodworker 4/4, event-launch 4/4, custom-bakes 3/3, storefront 3/3, landscaping 3/3, restaurant 3/3, pools 3/3, fitness-launch 2/2, tattoo-studio 2/2, and architecture 2/2 = 67 distinct images inspected; creative-agency video has HEAD-only evidence, not decoded visual review. Zero licensed/rights-approved.** Review artifacts are private; actual browser crops and source-page/creator proof remain open.
+**Visual screening: 70/70 original-template still/poster identities have undergone preliminary candidate-image inspection**, including contractor 2/2 and law-firm 1/1 in the final pass. Creative-agency video is still HEAD-only and has **not** been visually decoded. **0/71 media identities approved for rights, attribution, redistribution or production.** Review artifacts are private; actual browser crops and source-page/creator proof remain open.
 
 **Review order and specific risks:**
 
@@ -141,3 +141,8 @@ Prioritize **frame-portfolio (11)**, **editorial-commerce (9)**, **muskoka-retre
 
 This work is a **provenance control**, not a visual redesign or commercial-media approval. Until the 71 source rights decisions are resolved, the templates must remain development demonstrations with fictional claims clearly labelled. Do not merge the feature branch, mark components live, or distribute sample photography as licensed production content without explicit user authorization.
 
+
+18. `contractor` — **2/2 preliminary image inspections** in [LINE + LEVEL pilot](./SHOWROOM-CONTRACTOR-MEDIA-PILOT.md). TM-053 is a tall photo of metal-stud work with a visible worker, while TM-046 is a finished white kitchen. Neither demonstrates a LINE + LEVEL client project. The photo captions and project story now explicitly distinguish unrelated stock from fictional scope, location, duration and structural changes. Model/worker release, source-page, creator and redistribution rights remain open.
+19. `law-firm` — **1/1 preliminary image inspection** in [NORTHLINE pilot](./SHOWROOM-LAW-FIRM-MEDIA-PILOT.md). TM-010 shows a generic glass-partitioned office corridor, credited from published Unsplash metadata to Nastuh Abootalebi, but is not NORTHLINE's premises. Fictional lawyer identities and non-submitting consultation are now prominent; image-property and actual production-use rights remain open.
+
+**Completion of preliminary image screening is not release clearance.** The 71-item rights backlog is unchanged; no approval can be inferred from a generated crop or a publicly visible creator/source page.
