@@ -167,5 +167,14 @@ try{
  assert.equal(fitnessAssets.errors,0);
  assert(fitnessAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: fitness-launch selects two unapproved images without offline downloads.');
+ const tattoos=spawnSync(process.execPath,[script,'--offline','--templates=tattoo-studio','--limit=5','--output='+path.join(directory,'tattoo-studio')],{encoding:'utf8',timeout:20000});
+ if(tattoos.status!==0)throw Error('BLACKLINE media selection failed: '+tattoos.stderr+'\\n'+tattoos.stdout);
+ const tattooAssets=JSON.parse(readFileSync(path.join(directory,'tattoo-studio/results.json'),'utf8'));
+ assert.deepEqual(tattooAssets.assets.map(item=>item.id),['TM-030','TM-040']);
+ assert.equal(tattooAssets.total,2);
+ assert.equal(tattooAssets.downloaded,0);
+ assert.equal(tattooAssets.errors,0);
+ assert(tattooAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: tattoo-studio selects two unapproved images with zero offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
