@@ -37,3 +37,14 @@ Human inspection of the 320px and 390px OFFCUT hero screenshots nevertheless fou
 The earlier 390px Morrow House room-strip screenshot also contained large empty blocks because Playwright screenshotted a multi-viewport section after only one scroll-revealed room had entered view. The capture procedure now deliberately scrolls each `.reveal` child into view before taking a tall section screenshot and flags any remaining opacity-zero children; this gives reviewers an accurate post-scroll view rather than a misleading incomplete transition.
 
 The earlier screenshot artifact is preserved for comparison. Both fixes require rerunning the actual loaded-image workflow and inspecting its regenerated output before human acceptance.
+
+## Verified follow-up run — mobile warning and scroll-reveal correction (22 November 2026)
+
+The revised review passed at [GitHub Actions run 45069865089](https://github.com/StefanSaladino/website-templates/actions/runs/45069865089), on source commit `38787acad6fc8450e702b0c02f84d68f5c14182d`. The private short-lived artifact `loaded-still-media-evidence` includes **36 regenerated screenshots** and `results.json` for **12 template × viewport combinations**.
+
+- **OFFCUT:** the Pexels poster decoded at 320/390/768/1440. No source was attached to the 4K video, no video request occurred, and the title/CTA remained visible. At **320px**, the 4K status bounds were x=18–302px, y=790–837px, with the CTA ending at y=720px. At **390px**, the status bounds were x=18–372px, y=804.5–837px, with the CTA ending at y=726px. Both clear the new no-clipping and minimum-gap checks; the regenerated screenshot also shows full readable warning text.
+- **RANGE/FOUND:** seven external `img` references decoded at every viewport. The gallery and product rail retain their intended horizontal-scrolling design, with no root horizontal overflow detected.
+- **Morrow House:** five external `img` references decoded at each viewport. The corrected 390px room-strip screenshot now captures the Hearth Room, Pine Room and illustrated Lake Suite after all reveal children enter the viewport, instead of recording blank regions mid-transition.
+- Across all 12 cases, there were **zero image/poster decode failures, zero root horizontal overflow reports, zero attempted 4K requests and zero recorded test errors**. GitHub Pages and the source/build steps also passed on the tested commit.
+
+The reviewer manually inspected OFFCUT's regenerated 320px and 390px hero screenshots and Morrow House's regenerated 390px room strip. **This is a targeted visual QA improvement, not full 36-screenshot stakeholder signoff or accessibility certification.** Rights, actual film content/codec/duration/size, approved optimized media, iOS Safari/Android device testing, screen readers and final photography context review are still pending.
