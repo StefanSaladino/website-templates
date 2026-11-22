@@ -344,6 +344,17 @@ try{
   (await page.locator('[data-yard-status]').textContent()).includes('Reduced motion'),'ANIM-15 numbers remain intact for reduced motion');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('tattoo-studio');
+ assert(await page.locator('.blackline-demo-banner').isVisible(),'BLACKLINE discloses fictional studio before any work or artist claims');
+ assert((await page.locator('.blackline-demo-banner').textContent()).includes('no operating studio'),'BLACKLINE must not imply a real tattoo business');
+ assert((await page.locator('.blackline-hero-stock').textContent()).includes('NOT BLACKLINE'),'BLACKLINE hero photo is a reference, not studio work');
+ assert((await page.locator('.work-piece--large img').getAttribute('alt')).includes('tattooed skin'),'BLACKLINE TM-030 cannot invent which body part is being tattooed');
+ assert((await page.locator('.work-piece--tall img').getAttribute('alt')).includes('ring light'),'BLACKLINE TM-040 accurately describes visible setting');
+ assert((await page.locator('.blackline-artists-notice').textContent()).includes('invented example profiles'),'BLACKLINE names cannot imply real available artists');
+ assert((await page.locator('.flash-card b').textContent()).includes('NOT BOOKABLE'),'BLACKLINE SVG flash design is not available to reserve');
+ await page.locator('[data-blackline-demo-form] input[name=name]').fill('Preview Visitor');
+ await page.locator('[data-blackline-demo-form] input[name=email]').fill('preview@example.com');
+ await page.locator('[data-blackline-demo-form] button[type=submit]').click();
+ assert((await page.locator('[data-blackline-demo-status]').textContent()).includes('no tattoo appointment was booked'),'BLACKLINE form must confirm no booking or data sent');
  await page.locator('[data-rhythm-piece]').first().scrollIntoViewIfNeeded();
  await page.waitForFunction(()=>document.querySelector('[data-motion-pattern="ANIM-18"]')?.classList.contains('is-rhythm-playing'));
  assert(await page.locator('[data-motion-pattern="ANIM-18"]').evaluate(el=>el.classList.contains('is-rhythm-playing')),'ANIM-18 starts when the first gallery photo becomes visible');

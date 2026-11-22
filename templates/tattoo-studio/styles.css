@@ -5,3 +5,11 @@
 @keyframes tattooRhythm{from{opacity:.35;clip-path:inset(0 0 20% 0);transform:translateY(15px)}to{opacity:1;clip-path:inset(0 0 0 0);transform:none}}
 .work.is-rhythm-playing [data-rhythm-piece]{animation:tattooRhythm .75s ease both;animation-delay:calc(var(--rhythm-order)*190ms)}
 @media(prefers-reduced-motion:reduce){.work.is-rhythm-playing [data-rhythm-piece]{animation:none!important}}
+
+/* BLACKLINE fiction, stock, art and booking disclosures without changing the tattoo-grid composition. */
+.blackline-demo-banner{margin:0;padding:calc(72px + 13px) clamp(18px,4vw,58px) 13px;border-bottom:2px solid var(--red);background:#161616;color:var(--ivory);font-size:12px;line-height:1.55}
+.blackline-demo-banner strong{margin-right:13px;font-size:10px;letter-spacing:.09em}
+.blackline-hero-stock{position:absolute;top:24px;left:clamp(18px,4vw,58px);z-index:4;max-width:60%;padding:9px 12px;background:rgba(12,12,12,.85);color:#fff;font-size:9px;line-height:1.5;letter-spacing:.07em;font-weight:850}
+.blackline-work-notice,.blackline-artists-notice{width:var(--page);margin:-36px auto 36px;padding:14px 18px;border-left:3px solid var(--red);font-size:12px;line-height:1.65}
+.blackline-work-notice{background:#262321;color:var(--ivory)}.blackline-artists-notice{background:#dad0c1;color:var(--ink)}
+@media(max-width:620px){.blackline-demo-banner{padding:calc(72px + 10px) 18px 12px;font-size:11px}.blackline-demo-banner strong{display:block;margin-bottom:4px}.blackline-hero-stock{top:16px;left:18px;right:18px;max-width:calc(100% - 36px);font-size:8px}.blackline-work-notice,.blackline-artists-notice{margin:-22px auto 25px;padding:11px 14px;font-size:11px}}

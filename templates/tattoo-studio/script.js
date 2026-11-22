@@ -4,3 +4,11 @@ const tattooGallery=document.querySelector('[data-motion-pattern="ANIM-18"]'),ta
 function stopTattooRhythm(){clearTimeout(tattooTimer);tattooGallery?.classList.remove('is-rhythm-playing')}
 function playTattooRhythm(){stopTattooRhythm();if(!tattooGallery||tattooReduced.matches||document.hidden)return;void tattooGallery.offsetWidth;tattooGallery.classList.add('is-rhythm-playing');tattooTimer=setTimeout(stopTattooRhythm,1550)}
 if(tattooGallery&&tattooReplay){document.body.classList.add('work-rhythm-ready');tattooReplay.addEventListener('click',playTattooRhythm);tattooReduced.addEventListener('change',e=>{if(e.matches)stopTattooRhythm()});document.addEventListener('visibilitychange',()=>{if(document.hidden)stopTattooRhythm()});if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){playTattooRhythm();observer.disconnect()}}},{threshold:.15});observer.observe(tattooGallery.querySelector('[data-rhythm-piece]')||tattooGallery)}}
+
+/* Example inquiry only: no customer data is saved or sent and no appointment is created. */
+const blacklineForm=document.querySelector('[data-blackline-demo-form]');
+blacklineForm?.addEventListener('submit',event=>{
+  event.preventDefault();
+  const status=blacklineForm.querySelector('[data-blackline-demo-status]');
+  if(status)status.textContent='Preview only: no tattoo appointment was booked, no deposit was taken and no personal information was sent or stored.';
+});

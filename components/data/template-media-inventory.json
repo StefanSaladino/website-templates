@@ -919,7 +919,22 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "a26e8dd802ced6762be098f2d3a774139135e570adf2420fd259e83a978ed9aa",
+        "notes": "Close, over-the-shoulder view of a black-clad tattoo artist with dark hair wearing black gloves and using a dark wrapped tattoo machine against a client's already tattooed skin; some purple stencil marks visible at the right edge. The precise anatomical location cannot be determined from the photograph; original alt 'client's arm' unsupported. The device carries small visible product markings. The image cannot substantiate any BLACKLINE artwork, studio, equipment standards, identity or working relationship. Wide crop isolates machine, gloved hands and ink; tall phone crop retains some artist silhouette.",
+        "flags": [
+          "artist-client-consent-unverified",
+          "tattoo-artwork-rights-unverified",
+          "machine-branding-unverified",
+          "anatomical-location-not-established",
+          "false-recent-work-attribution",
+          "wide-crop-hides-context"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-TATTOO-STUDIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-031",
@@ -1221,7 +1236,23 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "ee207750480b7c2d67cdcdd21517e40aa8264f0479e75fb7124b2adc829ec457",
+        "notes": "A visibly tattooed bearded adult wearing glasses and a backwards grey cap tattoos the arm of a seated person with extensive existing ink. Black gloves, green-wrapped tattoo machine, a bright circular lamp, partial orange lettering and several background people are visible. Scene resembles a busy public tattoo setting but precise event/location and artist identity are unverified. Wide crop cuts upper lamp and parts of seated client's body; phone crops preserve artist and client's arm but cannot establish ownership of the tattoo artwork.",
+        "flags": [
+          "identifiable-artist-face-and-body-art",
+          "client-and-bystander-consent-unverified",
+          "existing-tattoo-copyright-unverified",
+          "partial-venue-signage",
+          "unverified-convention-location",
+          "fictional-studio-affiliation",
+          "wide-crop-hides-setting"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-TATTOO-STUDIO-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-041",
