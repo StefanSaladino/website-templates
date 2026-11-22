@@ -72,3 +72,11 @@ if(retreatNav){
  if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)current(ids.indexOf(e.target.id))})},{rootMargin:'-20% 0px -60% 0px'});ids.map(id=>document.getElementById(id)).filter(Boolean).forEach(x=>observer.observe(x))}
  current(0);
 }
+
+/* Example date controls never create a booking, persist personal details or navigate with a query string. */
+const demoAvailability=document.querySelector('.availability-form');
+demoAvailability?.addEventListener('submit',event=>{
+ event.preventDefault();
+ const status=document.querySelector('[data-retreat-booking-status]');
+ if(status)status.textContent='Preview only — no dates were checked, no room was reserved, and no information was sent or saved.';
+});

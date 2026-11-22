@@ -63,3 +63,16 @@
 .sample-photo-note{position:absolute;left:16px;bottom:16px;max-width:calc(100% - 32px);padding:9px 12px;background:rgba(15,29,26,.92);color:#fff;font:800 9px/1.45 Arial,sans-serif;letter-spacing:.06em;box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .guide-map__note{position:absolute;left:20px;bottom:15px;z-index:2;background:rgba(250,247,239,.94);padding:8px 10px;color:#3f514b;font:800 9px/1.4 Arial,sans-serif;letter-spacing:.06em}
 @media(max-width:620px){.sample-photo-note{left:10px;bottom:10px;max-width:calc(100% - 20px);font-size:8px}.guide-map__note{left:12px;bottom:12px;font-size:8px}}
+
+
+/* Distinctive inline SVG concept art replaces misleading alpine house and frozen-hut stock. */
+.retreat-art{height:100%;min-height:100%;width:100%;position:relative;overflow:hidden;isolation:isolate;background:#a7ad9a}
+.retreat-art svg{display:block;width:100%;height:100%;object-fit:cover}
+.retreat-art--house{min-height:680px;background:#718b84}.retreat-art--suite{background:#ded7c5}.retreat-art--winter{background:#879f9b}
+.retreat-art__folio{position:absolute;left:17px;bottom:17px;max-width:calc(100% - 34px);padding:9px 12px;background:#203a33;color:#f0eee4;font:800 9px/1.4 Arial,sans-serif;letter-spacing:.12em}
+.house-spread__image .retreat-art__folio,.room-media--winter .retreat-art__folio{bottom:66px}
+.room-media--winter .retreat-art{height:100%}
+.season-bg--illustrated .retreat-art{height:100%;min-height:0}
+.availability [data-retreat-booking-status]{line-height:1.65}
+@media(max-width:980px){.retreat-art--house{min-height:60svh}}
+@media(max-width:620px){.retreat-art--house{min-height:55svh}.retreat-art__folio{left:10px;bottom:10px;font-size:8px}.room-media--winter .retreat-art__folio,.house-spread__image .retreat-art__folio{bottom:53px}}
