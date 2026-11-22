@@ -3,7 +3,7 @@
  */
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -14,23 +14,7 @@ const sizes=[320,390,768,1440];
 // These counts are *third-party HTML img elements* after replacing unsupported
 // product/unsafe-work images with original local illustrations. Local images
 // are decoded separately; they are NOT external stock assets.
-const batches={
-  baseline:[
-    {name:'creative-agency',sections:['.hero','.work'],required:0,poster:true},
-    {name:'editorial-commerce',sections:['.hero','.collection','.journal'],required:6,poster:false},
-    {name:'muskoka-retreat',sections:['.hero','.house-spread','.room-strip','.seasons'],required:3,poster:false}
-  ],
-  portfolio:[
-    {name:'woodworker',sections:['.hero','.pieces','.craft-showcase'],required:3,poster:false},
-    {name:'garage-detailing',sections:['.hero','.work-gallery','.services'],required:4,poster:false},
-    {name:'frame-portfolio',sections:['.opening','.frame-feature','.gallery-grid'],required:11,poster:false}
-  ],
-  services:[
-    {name:'restaurant',sections:['.hero','.menu-section','.room'],required:3,poster:false},
-    {name:'real-estate',sections:['.hero','.homes','.shore-rail-section'],required:4,poster:false},
-    {name:'custom-bakes',sections:['.hero','.bakes'],required:3,poster:false}
-  ]
-};
+const batches=JSON.parse(readFileSync(new URL('../data/loaded-media-review-batches.json',import.meta.url),'utf8'));
 const batch=process.env.MEDIA_BATCH||'baseline';
 if(!Object.hasOwn(batches,batch))throw Error('Unknown still-media QA batch '+JSON.stringify(batch));
 const templates=batches[batch],evidence=path.join(here,'loaded-media-evidence',batch);

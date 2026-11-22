@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "check": "node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs && node scripts/check-template-media.mjs && node scripts/test-template-media-review.mjs && npm run check:review",
+    "check": "node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs && node scripts/check-template-media.mjs && node scripts/check-loaded-media-batches.mjs && node scripts/test-template-media-review.mjs && npm run check:review",
     "build": "npm run check && vite build && node scripts/postbuild.mjs && node scripts/check-dist.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "optimize:stock": "node scripts/optimize-stock.mjs",
@@ -15,7 +15,8 @@
     "check:template-media": "node scripts/check-template-media.mjs",
     "review:template-media": "node scripts/prepare-template-media-review.mjs",
     "check:template-media-review": "node scripts/test-template-media-review.mjs",
-    "check:template-a11y": "node scripts/check-template-a11y.mjs"
+    "check:template-a11y": "node scripts/check-template-a11y.mjs",
+    "check:loaded-media-batches": "node scripts/check-loaded-media-batches.mjs"
   },
   "devDependencies": {
     "vite": "^6.3.0",

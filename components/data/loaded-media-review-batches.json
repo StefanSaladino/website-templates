@@ -1,0 +1,97 @@
+{
+  "baseline": [
+    {
+      "name": "creative-agency",
+      "sections": [
+        ".hero",
+        ".work"
+      ],
+      "required": 0,
+      "poster": true
+    },
+    {
+      "name": "editorial-commerce",
+      "sections": [
+        ".hero",
+        ".collection",
+        ".journal"
+      ],
+      "required": 6,
+      "poster": false
+    },
+    {
+      "name": "muskoka-retreat",
+      "sections": [
+        ".hero",
+        ".house-spread",
+        ".room-strip",
+        ".seasons"
+      ],
+      "required": 3,
+      "poster": false
+    }
+  ],
+  "portfolio": [
+    {
+      "name": "woodworker",
+      "sections": [
+        ".hero",
+        ".pieces",
+        ".craft-showcase"
+      ],
+      "required": 3,
+      "poster": false
+    },
+    {
+      "name": "garage-detailing",
+      "sections": [
+        ".hero",
+        ".work-gallery",
+        ".services"
+      ],
+      "required": 4,
+      "poster": false
+    },
+    {
+      "name": "frame-portfolio",
+      "sections": [
+        ".opening",
+        ".frame-feature",
+        ".gallery-grid"
+      ],
+      "required": 11,
+      "poster": false
+    }
+  ],
+  "services": [
+    {
+      "name": "restaurant",
+      "sections": [
+        ".hero",
+        ".menu-section",
+        ".room"
+      ],
+      "required": 3,
+      "poster": false
+    },
+    {
+      "name": "real-estate",
+      "sections": [
+        ".hero",
+        ".homes",
+        ".shore-rail-section"
+      ],
+      "required": 4,
+      "poster": false
+    },
+    {
+      "name": "custom-bakes",
+      "sections": [
+        ".hero",
+        ".bakes"
+      ],
+      "required": 3,
+      "poster": false
+    }
+  ]
+}
