@@ -1,0 +1,49 @@
+# Boomer Automation showroom — manual release acceptance
+
+**Branch:** `feature/component-showroom`  
+**Status:** **NOT APPROVED** · 22 November 2026  
+**Scope:** 24 original full website templates; 157 review-only components; 44 independent mobile alternatives and 20 integrated animation patterns.
+
+## Automated evidence, separate from human approval
+
+- Focused keyboard test: **78/78** on all 24 templates at [GitHub Actions 45077876064](https://github.com/StefanSaladino/website-templates/actions/runs/45077876064). Its scope is skip links, navigation focus, dialogs, mock form feedback and selected interactions.
+- Offline static reference check: 24/24 template HTML pages were preflighted with no duplicate IDs, missing main landmark or skip destination, invalid static ARIA references, broken label targets or fragment URLs. **An independent `npm run check` gate now enforces this.**
+- Tagged MENU-04 PDF: one-page text extraction/render QA passed, but no PDF/UA certification.
+- Full interactive gallery and Chromium review runs on **the final release SHA** are separately required and should not be inferred from older passes.
+
+## Human and device acceptance — all items still pending
+
+Record reviewer initials, device/OS/browser version, date, exact commit and pass/fail evidence. Do not check off by assuming a browser automation pass covers assistive technology.
+
+| Review | Exact acceptance action | Status |
+|---|---|---|
+| iPhone Safari / VoiceOver | At 320 and 390 CSS px, swipe through the skip link, hero headings, menus, and conversion controls; open and close drawers, activate anchors, check announcements and restored focus | **Not tested** |
+| Android Chrome / TalkBack | Repeat phone keyboard and touch flows; check gesture and focus order, drag alternatives, form labels and live-region feedback | **Not tested** |
+| Windows NVDA / Chrome and Firefox | Traverse landmarks/headings, role/name/state for menus, native lightbox, form errors, mobile switch at browser zoom, and interactive showcase controls | **Not tested** |
+| macOS Safari / VoiceOver | Repeat with keyboard only and full keyboard access enabled, checking native dialog Escape and dismiss focus | **Not tested** |
+| Zoom and text spacing | Reflow at 200%/400%; increased font and spacing; inspect truncated text, lost controls and fixed-position overlays | **Not tested** |
+| Responsive visuals | Verify actual **320, 390, 768, 1280 and 1440px** screenshots for all 24 full templates; screenshot with images loaded and any failed-image fallback separately | **Not signed off** |
+| Interaction targets | Use real touch to check menu/button hitboxes, forms, swatches, carousel/rail controls and links close to viewport edges | **Not tested** |
+| Reduced motion | Test each of 20 integrated animation patterns under `prefers-reduced-motion: reduce`; essential content remains readable and no autoplay/nonconsensual 4K video | **Not approved** |
+| Component mobile alternatives | Inspect **all 44 independent layout alternatives**, verify correct style selection, names, touch/keyboard navigation and responsive overflow | **Not signed off** |
+| Visual contrast | Measure text and focus cues over **actual loaded photographs**, overlays, light/dark variants, states and disabled controls; remediate deficits | **Not approved** |
+| Sample documents | Open the MENU-04 tagged PDF and HTML version in a real screen reader, check headings/reading order and independent PDF accessibility; update metadata if necessary | **Not certified** |
+| Real-world claims | Ensure fictional dates, service locations, staff, pricing, booking and signup controls never imply real availability or a completed transaction | **Not signed off** |
+
+## Media provenance and rights — release blocker
+
+Track each exact image/poster and video by source URL, creator, license terms and suitability for redistribution in a publicly shared template. A screenshot or successful remote image response does **not** authorize reuse. No media licenses have been marked approved. The woodworker unsafe-saw replacement and all original/source asset restrictions must remain visible in the inventory. **OFFCUT's opt-in 4K video remains unapproved** until source/license, footage content, duration, bitrate, device download cost, and fallback performance have been independently assessed. Do not flip the consent gate or autoplay flags for convenience.
+
+## Per-template log
+
+The following design families are included in the 78-case **automated** milestone, not in a manual acceptance result:
+
+- App launch / Tide; architecture / MORROW; contractor / LINE + LEVEL; creative agency / OFFCUT; custom bakes / DOT + CRUMB; dark tech / KERN; editorial commerce / RANGE/FOUND; event launch / AFTER DARK.
+- Fitness launch / YARD; frame portfolio / FRAME; garage detailing / GARAGE; interactive playground / WOBBLEWORKS; landscaping / BED & BORDER; law firm / NORTHLINE LAW; monolith architecture / MONOLITH; Muskoka retreat / Morrow House.
+- Pools / TIDEFORM; quiet SaaS / Arc; real estate / CURRENT; restaurant / SERA; storefront / MORA; tattoo studio / BLACKLINE SOCIAL CLUB; waitlist / STILL; woodworker / GRAIN & GABLE.
+
+Record failed screens, reproduction steps, accessibility tree/contrast observations, and fixes against each template family separately. Do not mark a family accepted on the strength of a different family's tests.
+
+## Publication decision
+
+No branch merge, `live` metadata promotion, rights approval, commercial form connection or removal of sample disclaimers happens automatically. Require the **final SHA** to pass all CI, manual accessible-device/visual checks, media rights review and named stakeholder approval. **Step 19 of the project roadmap stays open** until then.

@@ -185,7 +185,7 @@ The gallery and every live template treat mobile as a first-class layout. Mobile
 - Fictional brand: STILL / Private Beta
 - Industry: consumer personal finance
 - Audience: people who want a calm weekly spending check-in rather than a finance dashboard
-- Primary CTA: Join private beta
+- Primary CTA: Preview signup (fictional demo only; no email transmission or registration)
 - Length: one-screen / very short
 - Visual concept: warm-grey typographic poster with black structural rail and a single signal-orange accent
 - Hero composition: oversized editorial headline, one supporting paragraph, one email field and a narrow beta-edition rail
@@ -195,9 +195,9 @@ The gallery and every live template treat mobile as a first-class layout. Mobile
 
 Template 10 refinement: STILL now uses a softer modern-minimal composition with floating rounded surfaces, open whitespace, and restrained corner radii while preserving its one-action waitlist concept.
 
-## Templates 11–15 — Live collection expansion
+## Templates 11–15 — In-review collection expansion
 
-The live gallery also includes:
+The in-review gallery also includes:
 
 - `templates/editorial-commerce/` — RANGE/FOUND / Editorial Commerce
 - `templates/event-launch/` — AFTER DARK / Event Launch
@@ -205,7 +205,7 @@ The live gallery also includes:
 - `templates/storefront/` — MORA / Storefront
 - `templates/interactive-playground/` — WOBBLEWORKS / Interactive Playground
 
-These templates are already live and represented by finished gallery previews. Their inclusion is reflected in the current 16-template gallery count.
+These templates have implemented gallery previews but remain **in review**, not production-approved. Their inclusion was reflected in the historical 16-template gallery milestone; the current catalogue contains 24 full templates.
 
 ## Template 16 — Custom Bakes
 
@@ -246,3 +246,11 @@ The keyboard focus and responsive-navigation pass covers **11 of the 24 full tem
 The developer keyboard-navigation pass now covers **15 of the 24** full website templates. YARD, BLACKLINE SOCIAL CLUB and CURRENT were added to the standard responsive navigation suite, while AFTER DARK received a separate regression for its focus-trapping, reduced-motion-aware animated menu. **51/51** targeted Chromium keyboard tests passed in [run 45076502960](https://github.com/StefanSaladino/website-templates/actions/runs/45076502960). All 157 components remain in review.
 
 **Next:** audit the remaining **nine** full templates, followed by real device/screen reader review, photo contrast, cleared image/video licenses and optimized film delivery. This checkpoint is not approval to promote any component or merge the branch.
+
+## Authoritative review milestone — 22 November 2026 (supersedes earlier keyboard counts)
+
+The **targeted all-template keyboard regression is complete: 78/78 browser cases passed** across the current **24/24 full website designs** in [dedicated GitHub Actions run 45077876064](https://github.com/StefanSaladino/website-templates/actions/runs/45077876064). The separate build pipeline at commit `cae93b8` passed after incorporating an offline static accessibility-reference gate: all 24 templates have one main landmark, skip navigation with a valid destination, unique IDs and resolvable static ARIA/label/fragment references. The component catalogue remains at **157/157 in-review components**, with **44 mobile alternatives** and **20 actual animation patterns**.
+
+CI governance has been updated to cancel superseded review-branch jobs on future pushes, rather than filling the queue with older browser suites. Older runs created before that workflow change are historical and may still appear in GitHub Actions.
+
+**Step 19 remains unchecked.** Remaining release blockers are independent screen-reader verification (VoiceOver/NVDA/TalkBack), physical-device responsive and touch testing, photo-loaded crop/contrast checks, legal/source rights for all reused media, OFFCUT video verification/optimization, independent PDF accessibility assurance, real service integrations where applicable, and explicit stakeholder approval. Fictional demos cannot be promoted as real transactions or services. No merge to `main`.

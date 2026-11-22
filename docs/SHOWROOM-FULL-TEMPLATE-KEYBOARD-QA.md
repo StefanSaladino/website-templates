@@ -126,3 +126,21 @@ The targeted `test-app-launch-nav.mjs` checks closed mobile inertness, open link
 **MORROW architecture**, **KERN tech** and **FRAME photography** do not require mobile drawer modifications. Their existing first-Tab skip links now point to explicitly focusable section/main landmarks, with stronger visible focus outlines in each visual system. The specialized checks cover MORROW's illustration-replay and inquiry-preview buttons; KERN's spotlight emphasis toggle and its `aria-pressed` state; and FRAME's gallery filter and native `<dialog>` lightbox, including arrow-key navigation, Escape and restoring focus to its gallery trigger. All remote portfolio photos are blocked from the keyboard tests, and the fictional no-inquiry/no-signup assurances are left intact.
 
 The dedicated `test-nonmenu-template-keyboard.mjs` checks these interactions at 320, 390 and 768px. Once combined with the generic and special navigation checks, the dedicated keyboard *coverage* will span **all 24 full templates**, but that means scoped keyboard functionality only, **not WCAG conformance, physical-device or screen-reader certification**. Completion must be claimed only after the combined test run is green. Third-party media rights, contrast/crops, film, visual review and stakeholders remain separate release gates.
+
+## All 24 original full-site designs — passing focused regression
+
+**Pass recorded 22 November 2026:** [Full-template keyboard navigation QA run 45077876064](https://github.com/StefanSaladino/website-templates/actions/runs/45077876064) completed with **78/78 checks passing**:
+
+| Isolated browser scope | Pass count |
+|---|---:|
+| Fifteen standard navigation templates × three narrow viewports | 45/45 |
+| NORTHLINE LAW, MORA demo bag and AFTER DARK animated menus | 12/12 |
+| STILL mock beta form | 3/3 |
+| GARAGE and MONOLITH focus-contained overlays | 6/6 |
+| Tide mobile/desktop shared off-canvas navigation | 3/3 |
+| MORROW, KERN and FRAME controls without mobile drawers | 9/9 |
+| **All targeted checks** | **78/78** |
+
+This covers **all 24 unique template families**. A separate offline source audit of every original HTML page found **24/24 with unique IDs, one `main` landmark, valid static ID references and valid skip-to-content destinations**; `npm run check` now runs `components/scripts/check-template-a11y.mjs` on each build. The build/deployment on [commit `cae93b8`](https://github.com/StefanSaladino/website-templates/commit/cae93b8dd404d7374eba6158f7e222e93023dfed) passed the new gate.
+
+These are **browser keyboard and source-reference tests**, not a WCAG 2.2 conformance claim or substitute for users of assistive technology. The complete local/human signoff matrix is in `docs/SHOWROOM-MANUAL-RELEASE-ACCEPTANCE.md`. The longer full showroom Chromium workflows are independent and must report green on the eventual release SHA.
