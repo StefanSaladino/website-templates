@@ -29,3 +29,9 @@ This automated test **does not substitute** for testing with VoiceOver, NVDA, Ta
 The first dedicated run exposed a breakpoint race in three of nine cases where focus was lost while the page switched from mobile to desktop navigation. The resize handoff now checks the prior expanded-menu state and defers focusing a visible desktop link until the next animation frame, after responsive styles settle.
 
 The corrected [full-template keyboard regression run 45071383861](https://github.com/StefanSaladino/website-templates/actions/runs/45071383861) **passed all nine combinations** (three full site templates × 320, 390 and 768px). Skip-link first focus, Enter navigation, target focus after menu link activation, Escape-to-opener, breakpoint focus, absence of script errors and absence of 4K video requests were verified by Chromium. VoiceOver/NVDA, real Safari/Android, keyboard zoom and all 24 templates remain outside this pass.
+
+## Follow-up: contractor, woodworker and restaurant menu-accessibility remediation
+
+The source review found the same hidden-focused-menu issue in LINE + LEVEL, GRAIN & GABLE and SERA. Menu-link activation now transfers keyboard focus to a visible on-page destination. Escape closes an open drawer and restores focus to its opener, and breakpoint changes with an expanded drawer transfer focus to visible desktop navigation on the next animation frame. Each template also gains a skip link, a focusable main landmark and stronger representative focus outlines.
+
+The dedicated browser workflow now covers **six full templates × three phone/tablet widths (18 cases)**, including the contractor's distinct `.menu-button` control. This change is developer regression work, not WCAG certification or a physical-device audit. Previous 9/9 results are historical and do not apply to this commit without new green browser evidence.

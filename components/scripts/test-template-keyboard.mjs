@@ -15,7 +15,10 @@ const server=spawn('python3',['-m','http.server','4201','--bind','127.0.0.1'],{c
 const entries=[
  {folder:'creative-agency',menuFirst:'#work',breakpoint:900},
  {folder:'editorial-commerce',menuFirst:'#field-kit',breakpoint:980},
- {folder:'muskoka-retreat',menuFirst:'#stay',breakpoint:980}
+ {folder:'muskoka-retreat',menuFirst:'#stay',breakpoint:980},
+ {folder:'contractor',menuFirst:'#work',breakpoint:960,toggle:'.menu-button'},
+ {folder:'woodworker',menuFirst:'#pieces',breakpoint:980},
+ {folder:'restaurant',menuFirst:'#menu',breakpoint:820}
 ];
 const report={type:'full-site keyboard regression',timestamp:new Date().toISOString(),cases:[],errors:[],
  mediaRightsApproved:false,screenReaderCertified:false,physicalDeviceCertified:false};
@@ -46,29 +49,30 @@ try{
    try{
     const response=await page.goto(base+entry.folder+'/index.html',{waitUntil:'domcontentloaded',timeout:16000});
     ok(response?.status()===200,entry.folder+': HTTP success');
-    await page.keyboard.press('Tab');
+    const toggleSelector=entry.toggle||'.menu-toggle';
+   await page.keyboard.press('Tab');
     const skip=page.locator('.skip-to-main');
     ok(await skip.evaluate(el=>document.activeElement===el),entry.folder+': skip link is first keyboard stop');
     ok(await skip.evaluate(el=>el.getBoundingClientRect().top>=0),entry.folder+': focused skip link is on-screen');
     await page.keyboard.press('Enter');
     ok(await page.evaluate(()=>document.activeElement?.id==='top'),entry.folder+': skip link transfers focus to main');
-    await page.locator('.menu-toggle').focus();
+    await page.locator(toggleSelector).focus();
     await page.keyboard.press('Enter');
-    ok(await page.locator('.menu-toggle').getAttribute('aria-expanded')==='true'
+    ok(await page.locator(toggleSelector).getAttribute('aria-expanded')==='true'
       &&await page.locator('.mobile-menu').isVisible(),entry.folder+': keyboard Enter opens menu');
     const first=page.locator('.mobile-menu a').first();
     ok(await first.getAttribute('href')===entry.menuFirst,entry.folder+': expected menu target');
     await first.focus();
     await page.keyboard.press('Enter');
-    ok(await page.locator('.menu-toggle').getAttribute('aria-expanded')==='false',entry.folder+': selecting destination closes menu');
+    ok(await page.locator(toggleSelector).getAttribute('aria-expanded')==='false',entry.folder+': selecting destination closes menu');
     ok(await page.locator('.mobile-menu').isHidden(),entry.folder+': mobile menu hidden after link');
     ok(await page.evaluate(id=>document.activeElement?.id===id,entry.menuFirst.slice(1)),entry.folder+': focus handed to visible destination');
     ok(!(await page.evaluate(()=>document.querySelector('.mobile-menu')?.contains(document.activeElement))),entry.folder+': focus not stranded in hidden menu');
-    await page.locator('.menu-toggle').focus();
+    await page.locator(toggleSelector).focus();
     await page.keyboard.press('Enter');
     await page.keyboard.press('Escape');
-    ok(await page.locator('.menu-toggle').getAttribute('aria-expanded')==='false'
-      &&await page.locator('.menu-toggle').evaluate(el=>document.activeElement===el),entry.folder+': Escape closes menu and returns focus to opener');
+    ok(await page.locator(toggleSelector).getAttribute('aria-expanded')==='false'
+      &&await page.locator(toggleSelector).evaluate(el=>document.activeElement===el),entry.folder+': Escape closes menu and returns focus to opener');
     await page.keyboard.press('Enter');
     await page.locator('.mobile-menu a').first().focus();
     await page.setViewportSize({width:1280,height:900});

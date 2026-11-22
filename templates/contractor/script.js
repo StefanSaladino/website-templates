@@ -4,6 +4,7 @@ const mobileMenu = document.querySelector('.mobile-menu');
 function closeMenu() {
   if (!menuButton || !mobileMenu) return;
   menuButton.setAttribute('aria-expanded', 'false');
+  menuButton.setAttribute('aria-label','Open navigation');
   mobileMenu.hidden = true;
   document.body.classList.remove('menu-open');
 }
@@ -12,12 +13,37 @@ if (menuButton && mobileMenu) {
   menuButton.addEventListener('click', () => {
     const open = menuButton.getAttribute('aria-expanded') === 'true';
     menuButton.setAttribute('aria-expanded', String(!open));
+    menuButton.setAttribute('aria-label',open?'Open navigation':'Close navigation');
     mobileMenu.hidden = open;
     document.body.classList.toggle('menu-open', !open);
   });
-  mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-  window.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
-  window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
+
+function focusMenuDestination(link){
+ const href=link.getAttribute('href')||'';
+ if(!href.startsWith('#'))return false;
+ const target=document.getElementById(decodeURIComponent(href.slice(1)));
+ if(!target)return false;
+ const temp=!target.hasAttribute('tabindex');
+ if(temp)target.tabIndex=-1;
+ target.focus({preventScroll:true});
+ if(temp)target.addEventListener('blur',()=>target.removeAttribute('tabindex'),{once:true});
+ return true;
+}
+
+  mobileMenu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+    closeMenu();if(!focusMenuDestination(link))menuButton.focus();
+  }));
+  window.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&menuButton.getAttribute('aria-expanded')==='true'){
+      closeMenu();menuButton.focus();
+    }
+  });
+  window.addEventListener('resize',()=>{
+    if(window.innerWidth<=960)return;
+    const wasOpen=menuButton.getAttribute('aria-expanded')==='true';
+    closeMenu();
+    if(wasOpen)requestAnimationFrame(()=>document.querySelector('.desktop-nav a')?.focus());
+  });
 }
 
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
