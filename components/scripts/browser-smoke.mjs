@@ -351,10 +351,6 @@ try{
  assert((await page.locator('.work-piece--tall img').getAttribute('alt')).includes('ring light'),'BLACKLINE TM-040 accurately describes visible setting');
  assert((await page.locator('.blackline-artists-notice').textContent()).includes('invented example profiles'),'BLACKLINE names cannot imply real available artists');
  assert((await page.locator('.flash-card b').textContent()).includes('NOT BOOKABLE'),'BLACKLINE SVG flash design is not available to reserve');
- await page.locator('[data-blackline-demo-form] input[name=name]').fill('Preview Visitor');
- await page.locator('[data-blackline-demo-form] input[name=email]').fill('preview@example.com');
- await page.locator('[data-blackline-demo-form] button[type=submit]').click();
- assert((await page.locator('[data-blackline-demo-status]').textContent()).includes('no tattoo appointment was booked'),'BLACKLINE form must confirm no booking or data sent');
  await page.locator('[data-rhythm-piece]').first().scrollIntoViewIfNeeded();
  await page.waitForFunction(()=>document.querySelector('[data-motion-pattern="ANIM-18"]')?.classList.contains('is-rhythm-playing'));
  assert(await page.locator('[data-motion-pattern="ANIM-18"]').evaluate(el=>el.classList.contains('is-rhythm-playing')),'ANIM-18 starts when the first gallery photo becomes visible');
@@ -364,6 +360,10 @@ try{
  await page.locator('[data-rhythm-replay]').click();
  assert(!await page.locator('[data-motion-pattern="ANIM-18"]').evaluate(el=>el.classList.contains('is-rhythm-playing')),'ANIM-18 respects reduced motion');
  await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.locator('[data-blackline-demo-form] input[name=name]').fill('Preview Visitor');
+ await page.locator('[data-blackline-demo-form] input[name=email]').fill('preview@example.com');
+ await page.locator('[data-blackline-demo-form] button[type=submit]').click();
+ assert((await page.locator('[data-blackline-demo-status]').textContent()).includes('no tattoo appointment was booked'),'BLACKLINE form must confirm no booking or data sent');
  for(const [id,control] of [['ANIM-08','#p8-replay'],['ANIM-10','[data-p10-go="2"]'],['ANIM-11','#p11-toggle'],['ANIM-14','.a14-questions details:nth-child(2) summary'],['ANIM-15','#a15-play'],['ANIM-18','#a18-replay']]){
   await page.goto(base+'previews/'+id+'/index.html',{waitUntil:'domcontentloaded'});
   await page.locator(control).click();
