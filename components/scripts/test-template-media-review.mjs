@@ -131,5 +131,14 @@ try{
  assert.equal(storeAssets.errors,0);
  assert(storeAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: storefront selects three unapproved photos with zero offline downloads.');
+ const garden=spawnSync(process.execPath,[script,'--offline','--templates=landscaping','--limit=5','--output='+path.join(directory,'landscaping')],{encoding:'utf8',timeout:20000});
+ if(garden.status!==0)throw Error('BED & BORDER media selection failed: '+garden.stderr+'\\n'+garden.stdout);
+ const gardenAssets=JSON.parse(readFileSync(path.join(directory,'landscaping/results.json'),'utf8'));
+ assert.deepEqual(gardenAssets.assets.map(item=>item.id),['TM-035','TM-050','TM-051']);
+ assert.equal(gardenAssets.total,3);
+ assert.equal(gardenAssets.downloaded,0);
+ assert.equal(gardenAssets.errors,0);
+ assert(gardenAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: landscaping selects three unapproved photographs without offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
