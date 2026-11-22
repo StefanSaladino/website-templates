@@ -87,13 +87,18 @@ try{
    if(geometry.smallControls)report.warnings.push({template,width,type:'target-size-review',count:geometry.smallControls});
    // Keep CSS hitbox regressions for confirmed isolated controls separate from
    // general 24px candidate warnings (inline-link spacing exceptions need human review).
-   if(template==='storefront'){
-     // Explicit query covers unnamed swatches even when their accessible name is aria-label.
-     const smallSwatches=await page.locator('.swatches button').evaluateAll(elements=>elements.filter(el=>{
+   const targetedHitboxes={
+     storefront:['.swatches button','.cart-action','.under-add','.cart-line button'],
+     'muskoka-retreat':['.availability-form input[type="date"]','.availability-form select'],
+     'interactive-playground':['.lab-bottom button','.type-lab input[type="range"]']
+   };
+   for(const selector of targetedHitboxes[template]||[]){
+     const small=await page.locator(selector).evaluateAll(elements=>elements.filter(el=>{
        const css=getComputedStyle(el),r=el.getBoundingClientRect();
        return css.display!=='none'&&css.visibility!=='hidden'&&r.width>0&&r.height>0&&(r.width<24||r.height<24);
-     }).map(el=>({label:el.getAttribute('aria-label')||'',width:Math.round(el.getBoundingClientRect().width),height:Math.round(el.getBoundingClientRect().height)})));
-     if(smallSwatches.length)report.errors.push({template,width,type:'small-swatch-hitbox-regression',controls:smallSwatches});
+     }).map(el=>({label:el.getAttribute('aria-label')||el.textContent?.trim().slice(0,50)||'',
+       width:Math.round(el.getBoundingClientRect().width),height:Math.round(el.getBoundingClientRect().height)})));
+     if(small.length)report.errors.push({template,width,type:'small-targeted-hitbox-regression',selector,controls:small});
    }
    if(geometry.clippedHeadings.length)report.warnings.push({template,width,type:'possible-clipping',headings:geometry.clippedHeadings});
    if(geometry.unnamedButtons.length)report.warnings.push({template,width,type:'unnamed-buttons',controls:geometry.unnamedButtons});
