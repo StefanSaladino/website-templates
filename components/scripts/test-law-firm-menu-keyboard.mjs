@@ -42,6 +42,12 @@ try{
     assert(await close.evaluate(el=>document.activeElement===el),'Close button must receive first drawer focus');
   };
   const closed=async()=>{
+    // At a CSS breakpoint the drawer can become display:none before the
+    // resize handler's state update. Observe the final JS ARIA state too.
+    await page.waitForFunction(
+      ()=>document.querySelector('.menu-toggle')?.getAttribute('aria-expanded')==='false',
+      undefined,{timeout:2400}
+    );
     await nav.waitFor({state:'hidden',timeout:2400});
     assert(await opener.getAttribute('aria-expanded')==='false','Close state not announced');
     assert(!(await page.locator('main').evaluate(el=>el.inert)),'Page main must return to keyboard access');
