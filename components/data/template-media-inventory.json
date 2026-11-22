@@ -304,9 +304,16 @@
       "pilotVisualReview": {
         "reviewedAt": "2026-11-22",
         "status": "preliminary-observations-only-not-approved",
-        "sourceSHA256": "76093f7c04984ac37900d54dea1d10926a387a96ebc463f0eaeb8c256e81df91",
         "previewDimensions": "1800x1202",
-        "notes": "Photograph depicts a long office corridor with black metal-framed glass partitions and doors, pale smooth floor and ceiling lights. It is NOT a verified legal office, firm premises, or law-professional setting; phone center crop hides much of the full corridor. Photographer/source identified from an independent published Unsplash metadata record, but reuse and property rights still require review."
+        "notes": "Photograph depicts a long office corridor with black metal-framed glass partitions and doors, pale smooth floor and ceiling lights. It is NOT a verified legal office, firm premises, or law-professional setting; phone center crop hides much of the full corridor. Photographer/source identified from an independent published Unsplash metadata record, but reuse and property rights still require review.",
+        "downloadSHA256": "76093f7c04984ac37900d54dea1d10926a387a96ebc463f0eaeb8c256e81df91",
+        "flags": [
+          "unrelated-office-stock",
+          "fictional-firm-and-lawyer-attribution",
+          "phone-crop-removes-office-context",
+          "property-rights-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-LAW-FIRM-MEDIA-PILOT.md"
       }
     },
     {
@@ -1441,9 +1448,16 @@
       "pilotVisualReview": {
         "reviewedAt": "2026-11-22",
         "status": "preliminary-observations-only-not-approved",
-        "sourceSHA256": "d476051e063e7d9232865c65f48c4c80b88a8c3c43392c14e7970cbf4920d22d",
         "previewDimensions": "1800x1198",
-        "notes": "Bright finished white kitchen: white tiled floor, central white island, white wall cabinets, window, and adjoining dining area. No construction stage, before photo or evidence of a LINE + LEVEL renovation, Vaughan location, 11-week timeline, wall removal or client ownership. Phone center crop trims the broader room context."
+        "notes": "Bright finished white kitchen: white tiled floor, central white island, white wall cabinets, window, and adjoining dining area. No construction stage, before photo or evidence of a LINE + LEVEL renovation, Vaughan location, 11-week timeline, wall removal or client ownership. Phone center crop trims the broader room context.",
+        "downloadSHA256": "d476051e063e7d9232865c65f48c4c80b88a8c3c43392c14e7970cbf4920d22d",
+        "flags": [
+          "fictional-Vaughan-job-claim",
+          "unverified-structural-work-and-timeline",
+          "not-a-before-after",
+          "phone-crop-trims-room"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-CONTRACTOR-MEDIA-PILOT.md"
       }
     },
     {
@@ -1661,9 +1675,16 @@
       "pilotVisualReview": {
         "reviewedAt": "2026-11-22",
         "status": "preliminary-observations-only-not-approved",
-        "sourceSHA256": "d5156d942a94d7daf58617f0851e7692b1209c9a8b6dbeebdf3cd3543f037f63",
         "previewDimensions": "1800x2400",
-        "notes": "Tall unfinished interior with exposed light-gauge metal studs and ceiling framing, construction materials and at least one visibly identifiable worker in the distance. Not proof of Toronto, project ownership, safety compliance or a LINE + LEVEL job site. The portrait/phone crop preserves framing better than the wide desktop crop; depicted-person rights require evaluation."
+        "notes": "Tall unfinished interior with exposed light-gauge metal studs and ceiling framing, construction materials and at least one visibly identifiable worker in the distance. Not proof of Toronto, project ownership, safety compliance or a LINE + LEVEL job site. The portrait/phone crop preserves framing better than the wide desktop crop; depicted-person rights require evaluation.",
+        "downloadSHA256": "d5156d942a94d7daf58617f0851e7692b1209c9a8b6dbeebdf3cd3543f037f63",
+        "flags": [
+          "fictional-Toronto-job-site",
+          "visible-worker-model-rights-open",
+          "source-photographer-unverified",
+          "desktop-crop-loses-vertical-context"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-CONTRACTOR-MEDIA-PILOT.md"
       }
     },
     {
