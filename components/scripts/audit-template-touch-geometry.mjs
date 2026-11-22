@@ -33,7 +33,7 @@ try{
      const css=getComputedStyle(el),r=el.getBoundingClientRect();
      return css.display!=='none'&&css.visibility==='visible'&&Number(css.opacity)>0&&r.width>0&&r.height>0;
     };
-    const interactive=[...document.querySelectorAll('a[href],button,input,select,textarea,summary,[role="button"],[role="link"]')].filter(visible);
+    const interactive=[...document.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]):not([type="hidden"]),select:not([disabled]),textarea:not([disabled]),summary,[role="button"]:not([aria-disabled="true"]),[role="link"]')].filter(visible);
     const dimensions=interactive.map(el=>{
      const r=el.getBoundingClientRect();
      const tag=el.tagName.toLowerCase();
@@ -75,7 +75,7 @@ try{
       client:el.clientWidth,scroll:el.scrollWidth,excess:el.scrollWidth-el.clientWidth}))
       .sort((a,b)=>b.excess-a.excess).slice(0,12);
     return {documentWidth:document.documentElement.scrollWidth,controls:dimensions.length,
-      smallControls:small.length,examples:small.slice(0,30),clippedHeadings:clipped,
+      smallControls:small.length,examples:small,clippedHeadings:clipped,
       unnamedButtons:dimensions.filter(x=>x.tag==='button'&&!x.label).slice(0,8),
       overflowCandidates:overflowing,intrinsicOverflow};
    });
@@ -90,7 +90,8 @@ try{
    const targetedHitboxes={
      storefront:['.swatches button','.cart-action','.under-add','.cart-line button'],
      'muskoka-retreat':['.availability-form input[type="date"]','.availability-form select'],
-     'interactive-playground':['.lab-bottom button','.type-lab input[type="range"]']
+     'interactive-playground':['.lab-bottom button','.type-lab input[type="range"]'],
+     landscaping:['.site-footer .credits a']
    };
    for(const selector of targetedHitboxes[template]||[]){
      const small=await page.locator(selector).evaluateAll(elements=>elements.filter(el=>{
@@ -102,9 +103,10 @@ try{
    }
    if(geometry.clippedHeadings.length)report.warnings.push({template,width,type:'possible-clipping',headings:geometry.clippedHeadings});
    if(geometry.unnamedButtons.length)report.warnings.push({template,width,type:'unnamed-buttons',controls:geometry.unnamedButtons});
-   // Fix regression gate: YARD and KERN must not grow the document wider
-    // than the viewport at phone, tablet or unscaled desktop widths.
-    if(['fitness-launch','dark-tech'].includes(template)&&geometry.documentWidth>width+4){
+   // Every template now has a hard root-overflow gate at all five audited
+   // widths. Previous 120-case browser evidence showed zero root overflows;
+   // preserve that invariant across all 24 designs, not only YARD/KERN.
+   if(geometry.documentWidth>width+4){
       report.errors.push({template,width,type:'responsive-overflow-regression',
         viewport:width,scrollWidth:geometry.documentWidth,offenders:geometry.overflowCandidates,
         intrinsic:geometry.intrinsicOverflow});

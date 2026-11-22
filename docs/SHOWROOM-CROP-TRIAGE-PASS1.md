@@ -25,3 +25,7 @@ MORA's prior 320/390 crop flags are **retired sources**, not a crop adjustment: 
 ## Next acceptance actions
 
 Review the latest still-image artifacts after these source changes, including the resulting MORROW and GRAIN section screenshots. Reinspect remaining flagged source identities individually with actual subject/framing and text contrast. Consult the media-provenance ledger for photographer, license, property/model rights and replacement needs; **zero external assets are rights-approved**. Native Safari/VoiceOver, Chrome/TalkBack, NVDA and other human checks remain open. This triage does not change any `in-review` catalogue status or authorize release.
+
+## Follow-on touch-target QA
+
+A separate static-layout inspection at 320, 390, 768 and 1440px found BED & BORDER's footer reference and library-return links had 10px-high click regions. The new footer styles provide 32px and 40px hit areas respectively; full-source regression is included in the existing template geometry runner. These are implementation and controlled-layout checks only, not a blanket accessibility pass. See `SHOWROOM-MANUAL-RELEASE-ACCEPTANCE.md` for pending human/device acceptance.

@@ -30,3 +30,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .site-header a:focus-visible,.site-header button:focus-visible,.mobile-menu a:focus-visible{
   outline:3px solid #fff0a9;outline-offset:3px}
 .mobile-menu a:focus-visible{outline-color:#263f37}
+
+/* BED & BORDER: footer source credits and return link need real touch hitboxes. */
+.site-footer .credits a{display:inline-flex;align-items:center;min-height:32px;padding:5px 4px;font-size:11px;text-underline-offset:3px}
+.site-footer .credits>a:last-child{min-height:40px;padding:8px 4px}
