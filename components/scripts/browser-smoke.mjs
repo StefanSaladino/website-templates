@@ -275,6 +275,16 @@ try{
  assert(await page.locator('[data-retreat-chapter="2"]').getAttribute('aria-current')==='step'&&
   await page.locator('.retreat-chapter-meter span').evaluate(el=>el.style.width==='100%'),'ANIM-10 retreat chapter navigation is interactive');
  await openTemplate('landscaping');
+ assert(await page.locator('.landscape-demo-banner').isVisible(),'BED & BORDER shows a clear fictional studio notice');
+ assert((await page.locator('.landscape-demo-banner').textContent()).includes('unrelated stock'),'BED & BORDER cannot attribute unrelated garden photos to its business');
+ assert((await page.locator('.project-stock-disclosure').textContent()).includes('not before/after'),'BED & BORDER does not imply stock photos are project evidence');
+ assert((await page.locator('.project-main figcaption').textContent()).includes('STOCK'),'BED & BORDER terrace is a stock reference, not an after image');
+ assert((await page.locator('.project-detail img').getAttribute('alt')).includes('masonry'),'BED & BORDER wall photo description matches actual subject');
+ assert((await page.locator('.project-detail-disclosure').textContent()).includes('not confirmed'),'BED & BORDER does not invent shared site history between images');
+ await page.locator('[data-landscape-form] input[name=name]').fill('Sample Visitor');
+ await page.locator('[data-landscape-form] input[name=email]').fill('preview@example.com');
+ await page.locator('[data-landscape-form] button[type=submit]').click();
+ assert((await page.locator('[data-landscape-form-status]').textContent()).includes('no site walk was booked'),'BED & BORDER demo form cannot imply an actual booking');
  await page.locator('[data-detail-zoom]').click();
  assert(await page.locator('[data-motion-pattern="ANIM-11"]').evaluate(el=>el.classList.contains('detail-is-zoomed')),'ANIM-11 garden photograph zooms on demand');
  await page.emulateMedia({reducedMotion:'reduce'});

@@ -1051,7 +1051,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "ce04357f4e7d167ab5396b1822132befa04e9a9126f6dcab143291f2231a1b70",
+        "notes": "Portrait garden scene with broad vivid green foliage in foreground, low pink/white flowers, stone paving and steps, a dark raised horizontal railing or structure and dense trees beyond. Does not identify a constructed patio or BED & BORDER property. 16:9 stress crop cuts most stone steps and flower beds in favour of big foreground leaves; narrow phone crop preserves tall garden but not complete site.",
+        "flags": [
+          "studio-project-attribution-unverified",
+          "stone-patio-not-established",
+          "wide-crop-hides-steps-and-flowers",
+          "property-location-unknown"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-LANDSCAPING-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-036",
@@ -1461,7 +1474,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "acf1c659e382c29ba275a8e6fd4ef24bbea7ebfb0f14ac7eabc8d976a29f9af2",
+        "notes": "Autumn scene showing leafless tree in front of a raised grey stone-paved terrace with short broad angular steps, a backdrop of dark hedge, yellow and orange foliage, and low shrubs. Photo is not evidence of mature maple retention, improved drainage, new materials, construction design, a precise Ontario address, or a finished project by BED & BORDER. Wide crop loses most terrace steps and ground plane; tall crop preserves tree and overall terrace context.",
+        "flags": [
+          "fictitious-before-after-attribution",
+          "plant-species-unverified",
+          "drainage-work-unverified",
+          "wide-crop-loses-steps",
+          "site-and-timeline-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-LANDSCAPING-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-051",
@@ -1480,7 +1507,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "81c5ecdd81d765b31a74cea047aa26a99371e77c3eb3f79f6bd278c5c807722a",
+        "notes": "Close-up of a stacked rectangular pale grey masonry retaining/garden wall with coping stones. A few small plants at its base and soft blurred flowers or shrubs behind. Not evidence it is the detailed stonework of TM-050's terrace or a BED & BORDER installation. Tall crop discards much of the left/right stone coursing and wall context.",
+        "flags": [
+          "separate-property-not-ruled-out",
+          "wall-not-garden-planting-feature",
+          "false-project-continuity-risk",
+          "phone-crop-cuts-masonry"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-LANDSCAPING-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-052",

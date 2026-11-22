@@ -47,3 +47,11 @@ if(gardenZoom){let selected=false;function render(){const active=selected&&!gard
 /* ANIM-04: scroll depth is clamped to 24 px and disabled on phones or reduced motion. */
 const gardenHero=document.querySelector('[data-motion-pattern="ANIM-04"]'),gardenDepthButton=gardenHero?.querySelector('[data-garden-depth]'),gardenDepthMedia=matchMedia('(min-width: 900px) and (prefers-reduced-motion: no-preference)');
 if(gardenHero&&gardenDepthButton){let enabled=true,frame=null;function paint(){frame=null;const active=enabled&&gardenDepthMedia.matches&&!document.hidden;gardenHero.classList.toggle('garden-depth-on',active);const rect=gardenHero.getBoundingClientRect(),offset=active?Math.max(-24,Math.min(24,(innerHeight/2-(rect.top+rect.height/2))*.055)):0;gardenHero.style.setProperty('--garden-depth-y',offset.toFixed(1)+'px');gardenDepthButton.hidden=!gardenDepthMedia.matches;gardenDepthButton.setAttribute('aria-pressed',String(enabled));gardenDepthButton.textContent=enabled?'Pause image depth':'Resume image depth'}function requestPaint(){if(frame===null)frame=requestAnimationFrame(paint)}gardenDepthButton.addEventListener('click',()=>{enabled=!enabled;requestPaint()});addEventListener('scroll',requestPaint,{passive:true});addEventListener('resize',requestPaint);document.addEventListener('visibilitychange',requestPaint);gardenDepthMedia.addEventListener('change',requestPaint);requestPaint()}
+
+/* Example-only form: provide feedback without retaining, sending or booking. */
+const landscapeForm=document.querySelector('[data-landscape-form]');
+landscapeForm?.addEventListener('submit',event=>{
+  event.preventDefault();
+  const status=landscapeForm.querySelector('[data-landscape-form-status]');
+  if(status)status.textContent='Preview only: no site walk was booked, no message was sent and no personal information was stored.';
+});

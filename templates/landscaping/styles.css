@@ -12,3 +12,10 @@
 .hero-photo[data-motion-pattern="ANIM-04"]{overflow:hidden}.hero-photo[data-motion-pattern="ANIM-04"]>img{transform:none}.hero-photo.garden-depth-on>img{transform:translate3d(0,var(--garden-depth-y,0px),0) scale(1.08);will-change:transform}
 .garden-depth-control{min-height:44px;padding:10px 13px;border:1px solid currentColor;background:#f1ebd7;color:#283e30;cursor:pointer;font:700 11px Arial,sans-serif}.garden-depth-control[hidden]{display:none!important}
 @media(max-width:899px),(prefers-reduced-motion:reduce){.hero-photo.garden-depth-on>img{transform:none!important;will-change:auto}.garden-depth-control{display:none!important}}
+
+/* Clear boundaries for fictional services and unrelated sample-garden photographs. */
+.landscape-demo-banner{margin:0;padding:12px clamp(18px,4vw,56px);border-bottom:2px solid var(--moss);background:var(--cream);color:var(--ink);font-size:12px;line-height:1.55}
+.landscape-demo-banner strong{margin-right:14px;font-size:10px;letter-spacing:.1em}
+.project-stock-disclosure{margin:-30px auto 42px;padding:12px 18px;border-left:3px solid var(--clay);background:var(--cream);color:var(--ink-soft);font:400 13px/1.65 Georgia,serif}
+.project-detail-disclosure{max-width:600px;margin:12px 20px;padding:12px 16px;border-top:1px solid var(--line);color:var(--ink-soft);background:var(--cream);font-size:12px;line-height:1.6}
+@media(max-width:700px){.landscape-demo-banner{padding:11px 16px;font-size:11px}.landscape-demo-banner strong{display:block;margin-bottom:5px}.project-stock-disclosure{margin:0 auto 28px;padding:12px 14px;font-size:12px}.project-detail-disclosure{margin:12px 16px;font-size:11px}}
