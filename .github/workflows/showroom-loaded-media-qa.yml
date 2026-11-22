@@ -1,0 +1,42 @@
+name: Showroom loaded still-image review
+on:
+  push:
+    branches:
+      - feature/component-showroom
+    paths:
+      - 'components/scripts/capture-loaded-media.mjs'
+      - '.github/workflows/showroom-loaded-media-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  still-media-browser:
+    name: Real loaded still-image crop evidence
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated showroom dependencies
+        working-directory: components
+        run: npm install --no-audit --no-fund
+      - name: Validate and build review pages
+        working-directory: components
+        run: npm run build
+      - name: Confirm system Chrome
+        run: command -v google-chrome || command -v chromium
+      - name: Decode actual remote stills at four viewport widths without streaming film
+        working-directory: components
+        run: node scripts/capture-loaded-media.mjs
+      - name: Preserve loaded image screenshots and evidence ledger
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: loaded-still-media-evidence
+          path: components/loaded-media-evidence/
+          if-no-files-found: warn
+          retention-days: 7
