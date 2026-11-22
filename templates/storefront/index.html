@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a class="skip-to-main" href="#top">Skip to main content</a>
   <div class="announcement">Fictional MORA storefront <span>·</span> No orders or shipping available</div>
   <header class="site-header" data-header>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span></button>
@@ -30,7 +31,7 @@
 
   <p class="storefront-demo-banner" role="note"><strong>FICTIONAL STOREFRONT / DESIGN PREVIEW</strong> MORA is not a verified brand or operating shop. Products, ingredients, material claims, prices, shipping and customer feedback are illustrative. Photos show unrelated third-party brands. No payments, orders or email subscriptions are accepted.</p>
 
-  <main id="top">
+  <main id="top" tabindex="-1">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy reveal is-visible">
         <p class="eyebrow">HOME / BATH / DAILY USE</p>
@@ -93,7 +94,7 @@
 
   <footer class="site-footer"><a class="footer-brand" href="#top">MORA°</a><div><a href="#shop">Shop</a><a href="#story">Materials</a><a href="#journal">Journal</a></div><p>Fictional storefront concept · Template 14</p><a href="../../">← Back to templates</a></footer>
 
-  <aside class="cart-drawer" data-cart aria-label="Shopping bag" aria-hidden="true"><div class="cart-head"><strong>Demo bag</strong><button type="button" data-cart-close aria-label="Close bag">×</button></div><div class="cart-items" data-cart-items><p class="cart-empty">Your bag is empty.</p></div><div class="cart-foot"><p><span>Sample subtotal</span><strong data-cart-total>$0</strong></p><button type="button" data-demo-checkout>Preview checkout</button><small data-checkout-note role="status" aria-live="polite">Demo only: no checkout, payment or order submission is connected.</small></div></aside><div class="cart-backdrop" data-cart-backdrop></div>
+  <aside class="cart-drawer" data-cart role="dialog" aria-modal="true" aria-labelledby="cart-heading" aria-hidden="true" inert><div class="cart-head"><strong id="cart-heading">Demo bag</strong><button type="button" data-cart-close aria-label="Close bag">×</button></div><div class="cart-items" data-cart-items><p class="cart-empty">Your bag is empty.</p></div><div class="cart-foot"><p><span>Sample subtotal</span><strong data-cart-total>$0</strong></p><button type="button" data-demo-checkout>Preview checkout</button><small data-checkout-note role="status" aria-live="polite">Demo only: no checkout, payment or order submission is connected.</small></div></aside><div class="cart-backdrop" data-cart-backdrop aria-hidden="true"></div>
 
   <script src="script.js"></script>
 </body>

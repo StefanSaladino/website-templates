@@ -14,6 +14,8 @@ on:
       - 'templates/custom-bakes/**'
       - 'templates/landscaping/**'
       - 'templates/pools/**'
+      - 'templates/storefront/**'
+      - 'components/scripts/test-storefront-cart-keyboard.mjs'
       - 'components/scripts/test-law-firm-menu-keyboard.mjs'
       - 'components/scripts/test-template-keyboard.mjs'
       - '.github/workflows/full-template-keyboard-qa.yml'
@@ -44,6 +46,9 @@ jobs:
       - name: Test NORTHLINE animated drawer focus containment and reduced-motion exit
         working-directory: components
         run: node scripts/test-law-firm-menu-keyboard.mjs
+      - name: Test MORA demo bag modal focus and local-only purchase feedback
+        working-directory: components
+        run: node scripts/test-storefront-cart-keyboard.mjs
       - name: Store keyboard regression evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -52,5 +57,6 @@ jobs:
           path: |
             components/template-keyboard-evidence/
             components/law-firm-keyboard-evidence/
+            components/storefront-cart-keyboard-evidence/
           if-no-files-found: warn
           retention-days: 14

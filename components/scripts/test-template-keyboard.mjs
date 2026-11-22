@@ -21,7 +21,8 @@ const entries=[
  {folder:'restaurant',menuFirst:'#menu',breakpoint:820},
  {folder:'custom-bakes',menuFirst:'#bakes',breakpoint:980},
  {folder:'landscaping',menuFirst:'#work',breakpoint:980},
- {folder:'pools',menuFirst:'#shapes',breakpoint:980}
+ {folder:'pools',menuFirst:'#shapes',breakpoint:980},
+ {folder:'storefront',menuFirst:'#shop',breakpoint:900}
 ];
 const report={type:'full-site keyboard regression',timestamp:new Date().toISOString(),cases:[],errors:[],
  mediaRightsApproved:false,screenReaderCertified:false,physicalDeviceCertified:false};

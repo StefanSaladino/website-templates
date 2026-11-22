@@ -57,3 +57,11 @@ This is a focused keyboard navigation regression pass across **7 of the 24** ful
 DOT + CRUMB, BED & BORDER and TIDEFORM previously closed mobile menus without moving keyboard focus to the visible destination. Escape closed without returning focus to the toggle, and breakpoint resizing could hide a focused navigation item. Each now includes a skip-to-main link, a focusable main target, focus handoff on menu link activation, Escape return, desktop focus recovery and distinct keyboard focus outlines. The bakery's dynamic menu-height and native iOS date-input sizing logic were retained.
 
 The standard isolated full-template keyboard suite now covers **nine of 24 templates** with **27 responsive Chromium cases** at 320/390/768px, plus NORTHLINE LAW's four separate drawer cases (31 total scoped browser cases). All other templates, actual screen readers, photo contrast, real iOS/Android and media-rights clearance remain release blockers. New source requires fresh passing CI; the prior 22-case run does not verify the new three templates.
+
+## MORA storefront: non-commercial bag dialog and navigation
+
+MORA's demo bag originally used only `aria-hidden` and an off-screen transform: keyboard tabbing could reach its buttons when closed, and opening it neither moved focus to the bag nor prevented background interaction. Escape and close did not restore focus to the initiating Add/Bag button. Re-rendering a removed line also destroyed the focused button.
+
+The bag is now marked as a dialog with a named heading, modal state, and `inert` while closed. Opening the bag temporarily makes the page header, main and footer inert, moves focus to Close, loops Tab/Shift+Tab through bag controls and restores focus to the exact opener when dismissed. Removing a line shifts focus to the next available Remove button or Close; the existing bag counter, subtotal and fake checkout remain functional and explicitly non-transacting. Its mobile menu gets the standard skip link, link-to-target focus, Escape and breakpoint recovery.
+
+The shared keyboard matrix expands to **ten of 24 templates** (30 viewport cases). A dedicated storefront-cart regression checks modal focus, close behavior, line removal, hidden inertness and false-purchase safeguards. Neither automated path constitutes real accessibility certification or approval to sell fictional merchandise.
