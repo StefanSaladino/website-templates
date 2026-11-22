@@ -176,8 +176,8 @@ try{
  assert.equal(tattooAssets.errors,0);
  assert(tattooAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: tattoo-studio selects two unapproved images with zero offline downloads.');
- const architecture=spawnSync(process.execPath,[script,'--offline','--templates=architecture','--limit=5','--output='+path.join(directory,'architecture')],{encoding:'utf8',timeout:20000});
- if(architecture.status!==0)throw Error('MORROW media selection failed: '+architecture.stderr+'\\n'+architecture.stdout);
+ const morrowSelection=spawnSync(process.execPath,[script,'--offline','--templates=architecture','--limit=5','--output='+path.join(directory,'architecture')],{encoding:'utf8',timeout:20000});
+ if(morrowSelection.status!==0)throw Error('MORROW media selection failed: '+morrowSelection.stderr+'\\n'+morrowSelection.stdout);
  const architectureAssets=JSON.parse(readFileSync(path.join(directory,'architecture/results.json'),'utf8'));
  assert.deepEqual(architectureAssets.assets.map(item=>item.id),['TM-042','TM-058']);
  assert.equal(architectureAssets.total,2);
