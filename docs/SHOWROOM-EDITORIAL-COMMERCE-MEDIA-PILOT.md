@@ -55,3 +55,9 @@ Nine of nine transformed Unsplash JPEG candidates downloaded at up to 1800 pixel
 5. Continue next with muskoka-retreat (five photo identities), then creative-agency's film/poster.
 
 Media approval: 0/9. Component/template release approval: unchanged. Do not merge or mark live on the strength of this audit.
+
+## Remediation — branded product mismatches retired (22 November 2026)
+
+The original nine-photo audit and sample SHA-256 records above remain historical evidence. **TM-005, TM-044 and TM-065** have been removed from active RANGE/FOUND source and the original-template media inventory. The Route Kit, Field Repair Roll and Ridge Boot cards now use original inline SVG product-concept drawings, not branded third-party photographs, and display **NOT A PRODUCT PHOTO** labels.
+
+All eight sample product cards and the journal's ANIM-09 remain present. The fictional concept has no actual ordering or repair service: its CTAs now invite reviewing the sample kit and its repair copy is explicitly hypothetical. Six other unique remote photo identities remain to be cleared for rights, source-page, image-context accuracy and mobile crops. **Current RANGE/FOUND media identities: 6, down from 9; none approved.** The build checks prevent reintroduction of these retired identities.

@@ -175,8 +175,8 @@ jobs:
             assert.equal(report.downloaded,5);
           }
           if(process.env.TEMPLATE_NAME==="editorial-commerce"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-005","TM-008","TM-026","TM-027","TM-028","TM-032","TM-039","TM-044","TM-065"],"Wrong editorial-commerce batch");
-            assert.equal(report.downloaded,9);
+            assert.deepEqual(report.assets.map(x=>x.id),["TM-008","TM-026","TM-027","TM-028","TM-032","TM-039"],"Wrong remaining editorial-commerce batch");
+            assert.equal(report.downloaded,6);
           }
           if(process.env.TEMPLATE_NAME==="frame-portfolio" && process.env.FRAME_BATCH==="remaining-six"){
             assert.deepEqual(report.assets.map(x=>x.id),["TM-012","TM-013","TM-014","TM-015","TM-016","TM-017"],"Wrong FRAME follow-up batch");

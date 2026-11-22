@@ -129,38 +129,6 @@
       }
     },
     {
-      "id": "TM-005",
-      "urlIdentity": "https://images.unsplash.com/photo-1485809052957-5113b0ff51af",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "babe6d8a42b5bee62cd86070de4606c6c1bda58c20af08fc49253eb6652e658e",
-        "notes": "Branded outdoor gear flat lay on wooden boards over a map. Narrow cover crop cuts peripheral boots and pack; not a photographed Route Kit. Replace with brand-neutral relevant navigation kit.",
-        "flags": [
-          "visible-third-party-brands",
-          "fictional-product-mismatch",
-          "mobile-cover-clips-gear",
-          "replacement-priority"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-006",
       "urlIdentity": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7",
       "kind": "image",
@@ -1366,37 +1334,6 @@
       }
     },
     {
-      "id": "TM-044",
-      "urlIdentity": "https://images.unsplash.com/photo-1759304426524-382146fa97a7",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "c7c19fde65f6418055f323958aa1065d8a66acf1c41a0760e884800732062c0c",
-        "notes": "The North Face-marked stuff sack and Hydro Flask-marked bottle beside orange fabric. Does not depict a repair roll; replace rather than imply the pictured branded products are fictional RANGE/FOUND goods.",
-        "flags": [
-          "visible-third-party-brands",
-          "fictional-product-mismatch",
-          "replacement-priority"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-045",
       "urlIdentity": "https://images.unsplash.com/photo-1760092189903-dce3e898dacf",
       "kind": "image",
@@ -2005,37 +1942,6 @@
           "wide-crop-changes-scale"
         ],
         "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-065",
-      "urlIdentity": "https://images.unsplash.com/photo-1776725121337-48de2c501672",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "d3fe57ebad44f0964df4c955bcfe9ffe177d3f328c94915f2e2f5ec2df0370e9",
-        "notes": "Blue-grey HOKA-branded high-top trail footwear with Vibram marking on bare ground under open sky. Not leather rebuildable Ridge Boot; replace before commercial presentation.",
-        "flags": [
-          "visible-third-party-brands",
-          "fictional-product-mismatch",
-          "replacement-priority"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
       }
     },
     {

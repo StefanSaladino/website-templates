@@ -401,7 +401,12 @@ try{
 
  // Third motion integration batch: every new pattern runs inside a real, complete template.
  await openTemplate('editorial-commerce');
- await page.locator('[data-journal-replay]').click();
+ assert(await page.locator('.product-rail .product').count()===8,'RANGE/FOUND retains eight product cards');
+  assert(await page.locator('.product-image--illustrated .range-art[role="img"]').count()===3,'RANGE/FOUND uses three original illustrations instead of branded product stock');
+  assert(await page.locator('.product-rail .product-image img').count()===5,'RANGE/FOUND retains five other development-stock image cards');
+  assert((await page.locator('.stock-disclaimer').textContent()).includes('fictional'),'RANGE/FOUND makes product fiction explicit');
+  assert(!(await page.content()).includes('photo-1776725121337-48de2c501672'),'RANGE/FOUND retired third-party boot stock');
+  await page.locator('[data-journal-replay]').click();
  assert(await page.locator('[data-motion-pattern="ANIM-09"]').evaluate(el=>el.classList.contains('journal-motion-playing')),'ANIM-09 diagonal panel reveal actually replays in RANGE/FOUND');
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.locator('[data-journal-replay]').click();

@@ -47,6 +47,7 @@ for(const templateId of templates){
  for(const filename of files){
   const source=readFileSync(path.join(dir,filename),'utf8').replace(/&amp;/g,'&');
   if(source.includes('photo-1760939858984-5dc76f0ea34a'))fail('Retired unsafe saw photo is forbidden in '+templateId+'/'+filename);
+  for(const key of ['photo-1776725121337-48de2c501672','photo-1485809052957-5113b0ff51af','photo-1759304426524-382146fa97a7'])if(source.includes(key))fail('Retired branded product photo '+key+' in '+templateId+'/'+filename);
   for(const match of source.matchAll(cdnRegex))add(match[0],templateId,filename);
   // Unknown third-party media in HTML must not evade the tracked-CDN scanner.
   for(const tag of source.match(/<(?:img|video|source|audio)\b[^>]*>/gi)||[]){
@@ -61,7 +62,7 @@ if(!Array.isArray(inventory.assets))fail('Missing assets array in original-templ
 const registered=new Map();
 for(const item of inventory.assets||[]){
  if(!/^TM-\d{3}$/.test(item.id))fail('Invalid original-template asset ID '+item.id);
- if(item.id==='TM-048')fail('Retired unsafe photo TM-048 must not be active');
+ if(['TM-048','TM-005','TM-044','TM-065'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
  if(!normalize(item.urlIdentity)||normalize(item.urlIdentity)!==item.urlIdentity)fail('Noncanonical tracked remote media '+item.id);
  if(registered.has(item.urlIdentity))fail('Duplicate original-template URL record: '+item.urlIdentity);
  registered.set(item.urlIdentity,item);

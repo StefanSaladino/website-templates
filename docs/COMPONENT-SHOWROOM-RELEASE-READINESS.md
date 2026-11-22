@@ -61,3 +61,7 @@ The `contractor` and `law-firm` candidate workflow inspected the three remaining
 An unsuitable stock image showing a barefoot circular-saw operator has been retired as **TM-048 / STOCK-013**, and all three source appearances have been replaced by original joinery illustrations. The original photo evidence remains in `SHOWROOM-WOODWORKER-MEDIA-PILOT.md`. The active inventories now list **70** original-template remote media identities (69 stills/posters and the undownloaded OFFCUT video) and **25** component stock records. **Zero media records are rights-approved.** The completed still-image visual screening now covers all 69 currently active still/poster identities.
 
 The `main` branch remains unchanged. These editorial design fixes do not establish external-image rights, loaded-photo crop quality, real-device usability, accessibility certification or client approval. Both Chromium workflows for the remediation commit must pass before this source-level milestone is considered regression-verified.
+
+## Editorial-commerce product-reference retirement (22 November 2026)
+
+Branded/mismatched sample photos TM-005, TM-044 and TM-065 were replaced with original SVG product studies. Eight product cards and integrated ANIM-09 remain functional at source level. **Active original-template media now 67** (66 still/poster, one film), **active component stock 25** (unchanged), none approved for redistribution. Source/build and current browser QA must still pass; real-device, loaded-image and accessibility review remain unsatisfied.
