@@ -89,3 +89,9 @@ The loaded-media test inventory now enumerates **all 19 original templates with 
 The loaded-media runner now prints **each specific crop candidate** (template, width, image alt, DOM context, cover-visible fraction, object position and screenshot prefix). The touch geometry runner also groups repeated small-target flags across viewport widths and includes a hard check for undersized MORA colour swatches.
 
 **Evidence status:** configuration and regression gates updated on the review branch; **the seven new remote-media jobs, actual crops and responsive appearance still require successful GitHub Actions runs and human inspection**. A pass means decoded images and screenshots, not that crops are aesthetically acceptable, source identities are truthful, legal rights are cleared, or assistive-technology/real-device testing passed. Keep every component `in-review`, and Step 19 open.
+
+## MORA brand-integrity fix and 18-template photo scope (22 November 2026)
+
+The expanded seven-batch image-review suite initially covered 19 third-party-media templates. MORA subsequently retired its **three** brand-mismatched external photos in favour of original labelled illustrations, so the active source inventory is now **62 original-template remote media identities across 18 remaining third-party-media templates** (including the unapproved OFFCUT film). The offline batch synchronizer now expects 18. The original three-product stock entries TM-034/TM-038/TM-067 must never be re-added.
+
+The initial 19-template image-capture run is historical evidence; after this replacement the seven-batch suite and full showroom/browser checks need a fresh successful result on the final SHA. This change removes three attribution risks but does **not** clear remaining photo rights, approve the new visual design, verify assistive technologies, or close release Step 19.

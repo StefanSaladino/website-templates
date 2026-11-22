@@ -41,3 +41,9 @@ _22 November 2026 · `feature/component-showroom` · media screening, **not lice
 4. Keep media licensing and property/model releases unresolved. Candidate photos have not been approved for redistribution; don't promote to `main` or production-ready.
 
 **Next three-photo family:** `landscaping`.
+
+## Remediation: all three branded stock photos retired (22 November 2026)
+
+MORA now uses **three original CSS-rendered concept illustrations** rather than TM-034 (other-brand bathroom products), TM-038 (ENDLESS PURE hero) or TM-067 (NORDIC material display). The new hero arrangement, sink/still-life study and material study have descriptive `role="img"` labels. The fictional local bag, newsletter/checkout safeguards and ANIM-05 colour selections remain. The historical findings above remain as the reason for removal, **not as active media**.
+
+The three retired IDs have been removed from the active original-template media inventory and added to the forbidden-retirement regression list. The loaded-image browser batch no longer expects external MORA `<img>` tags, and the offline review test checks all three images remain absent. The page and demo controls still require real-browser, phone and screen-reader/visual acceptance; these source changes are **not** a claim of licensing approval for any other media.

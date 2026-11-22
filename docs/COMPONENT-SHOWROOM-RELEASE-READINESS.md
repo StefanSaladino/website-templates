@@ -117,3 +117,9 @@ CI workflow definitions for full showroom CI, review QA and full-template keyboa
 - **Real CSS repairs:** the automated viewport gate found intrinsic text-width overflow in YARD's image/copy and method headings and a mispositioned KERN tablet release number. The fixes have a dedicated regression requiring no page-level overflow at all five widths in either design, verified green at `db21c25`.
 - **Existing keyboard behaviour:** focused [keyboard QA](https://github.com/StefanSaladino/website-templates/actions/runs/45080948995) remains green on the repaired code. Pages build deployed successfully; wider showroom browser workflows are separately tracked.
 - **Still pending:** the remaining third-party photo templates require actual loaded-asset capture and human cropping/contrast approval; the exact creator/license/likeness consent for all active stock assets, OFFCUT film technical review and locally optimized version, real Safari/Android, VoiceOver/TalkBack/NVDA, and explicit design signoff. All 157 components stay `in-review`.
+
+## MORA media retirement and review inventory reduction — 22 November 2026
+
+After the expanded image QA surfaced the unrelated ENDLESS PURE hero brand again, the MORA source, its storefront stock image and NORDIC-branded story image were all replaced with distinct original CSS art. Active original-template external-media identities decrease from **65 to 62**, and the image-dependent template count from **19 to 18**. The media manifest, offline review-test expectations, loaded-photo batches, browser smoke assertions and forbidden retirement IDs have been updated together. Historical candidate evidence remains in `SHOWROOM-STOREFRONT-MEDIA-PILOT.md`.
+
+No component is promoted to `live`, remaining media rights approvals are still zero, and visual/device/accessibility approval remains pending. Treat automated runs from before this change as historical, not as certification of the current code.

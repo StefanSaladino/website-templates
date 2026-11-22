@@ -264,7 +264,7 @@ try{
 
  // Full-page animation tests for the six newly built patterns.
  await openTemplate('storefront');
- assert(await page.locator('.storefront-demo-banner').isVisible(),'MORA must visibly identify fictional products and unrelated branded stock photos');
+ assert(await page.locator('.storefront-demo-banner').isVisible(),'MORA must visibly identify fictional, non-purchasable product concepts');
  assert((await page.locator('.storefront-demo-banner').textContent()).includes('No payments, orders or email subscriptions'),'MORA no-sale disclosure is explicit');
  assert(await page.locator('.mora-art--hero[role="img"]').count()===1,'MORA hero uses original labelled product art');
  assert(await page.locator('.mora-art--materials[role="img"]').count()===1,'MORA material story uses original illustrative art');
