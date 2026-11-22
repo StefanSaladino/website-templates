@@ -53,7 +53,7 @@ try{
       return {tag:el.tagName.toLowerCase(),className:typeof el.className==='string'?el.className.slice(0,65):'',
         right:Math.round(rect.right),left:Math.round(rect.left),width:Math.round(rect.width),
         text:(el.textContent||'').trim().replace(/\\s+/g,' ').slice(0,45),clippedBy:chain.slice(0,3)};
-     }).filter(x=>x.right>width+4&&x.width>0)
+     }).filter(x=>x.right>innerWidth+4&&x.width>0)
       .sort((a,b)=>(a.clippedBy.length-b.clippedBy.length)||(b.right-a.right)).slice(0,15);
     return {documentWidth:document.documentElement.scrollWidth,controls:dimensions.length,
       smallControls:small.length,examples:small.slice(0,30),clippedHeadings:clipped,
