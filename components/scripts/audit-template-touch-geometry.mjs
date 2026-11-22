@@ -8,7 +8,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const directory=path.join(root,'components','touch-geometry-evidence');
 mkdirSync(directory,{recursive:true});
 const templates=readdirSync(path.join(root,'templates'),{withFileTypes:true}).filter(e=>e.isDirectory()&&existsSync(path.join(root,'templates',e.name,'index.html'))).map(e=>e.name).sort();
-const sizes=[320,390,768,1280],origin='http://127.0.0.1:4221/templates/';
+const sizes=[320,390,768,1280,1440],origin='http://127.0.0.1:4221/templates/';
 const server=spawn('python3',['-m','http.server','4221','--bind','127.0.0.1'],{cwd:path.join(root,'dist'),stdio:'ignore'});
 const report={date:new Date().toISOString(),automatedTouchAcceptance:false,physicalDeviceTest:false,mediaRightsApproved:false,cases:[],warnings:[],errors:[],screenshots:[]};
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
@@ -61,15 +61,23 @@ try{
         text:(el.textContent||'').trim().replace(/\\s+/g,' ').slice(0,45),clippedBy:chain.slice(0,3)};
      }).filter(x=>x.right>innerWidth+4&&x.width>0)
       .sort((a,b)=>(a.clippedBy.length-b.clippedBy.length)||(b.right-a.right)).slice(0,15);
+    const intrinsicOverflow=[...document.querySelectorAll('body *')].filter(el=>{
+      const css=getComputedStyle(el);
+      return css.display!=='none'&&css.visibility!=='hidden'
+        &&el.clientWidth>0&&el.scrollWidth>el.clientWidth+8;
+    }).map(el=>({tag:el.tagName.toLowerCase(),
+      cls:typeof el.className==='string'?el.className.slice(0,70):'',
+      client:el.clientWidth,scroll:el.scrollWidth,excess:el.scrollWidth-el.clientWidth}))
+      .sort((a,b)=>b.excess-a.excess).slice(0,12);
     return {documentWidth:document.documentElement.scrollWidth,controls:dimensions.length,
       smallControls:small.length,examples:small.slice(0,30),clippedHeadings:clipped,
       unnamedButtons:dimensions.filter(x=>x.tag==='button'&&!x.label).slice(0,8),
-      overflowCandidates:overflowing};
+      overflowCandidates:overflowing,intrinsicOverflow};
    });
    report.cases.push({template,width,...geometry});
    if(geometry.documentWidth>width+4){
       report.warnings.push({template,width,type:'horizontal-overflow',actual:geometry.documentWidth,offenders:geometry.overflowCandidates});
-      console.log('OVERFLOW-DIAG',template,width+'px',JSON.stringify(geometry.overflowCandidates.slice(0,7)));
+      console.log('OVERFLOW-DIAG',template,width+'px',JSON.stringify({rect:geometry.overflowCandidates.slice(0,7),intrinsic:geometry.intrinsicOverflow.slice(0,8)}));
     }
    if(geometry.smallControls)report.warnings.push({template,width,type:'target-size-review',count:geometry.smallControls});
    if(geometry.clippedHeadings.length)report.warnings.push({template,width,type:'possible-clipping',headings:geometry.clippedHeadings});
