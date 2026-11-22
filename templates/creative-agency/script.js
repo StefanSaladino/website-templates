@@ -67,7 +67,17 @@ async function playFilm() {
     return;
   }
   const url = filmSource.dataset.src || '';
-  if (!url.startsWith('https://videos.pexels.com/video-files/9489382/')) {
+  let exactApprovedPreviewIdentity = false;
+  try {
+    const parsed = new URL(url);
+    exactApprovedPreviewIdentity = parsed.protocol === 'https:'
+      && parsed.hostname === 'videos.pexels.com'
+      && parsed.pathname === '/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4'
+      && !parsed.search && !parsed.hash;
+  } catch {
+    // An invalid URL must never be assigned to a media element.
+  }
+  if (!exactApprovedPreviewIdentity) {
     stopFilm('Sample film unavailable. The still poster remains.');
     return;
   }
