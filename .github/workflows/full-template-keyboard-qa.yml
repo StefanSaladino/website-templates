@@ -24,6 +24,8 @@ on:
       - 'templates/waitlist/**'
       - 'templates/garage-detailing/**'
       - 'templates/monolith-architecture/**'
+      - 'templates/app-launch/**'
+      - 'components/scripts/test-app-launch-nav.mjs'
       - 'components/scripts/test-overlay-menu-keyboard.mjs'
       - 'components/scripts/test-waitlist-preview.mjs'
       - 'components/scripts/test-event-launch-keyboard.mjs'
@@ -70,6 +72,9 @@ jobs:
       - name: Verify GARAGE and MONOLITH focus-contained mobile overlays
         working-directory: components
         run: node scripts/test-overlay-menu-keyboard.mjs
+      - name: Check Tide off-canvas menu is inert only on narrow screens
+        working-directory: components
+        run: node scripts/test-app-launch-nav.mjs
       - name: Store keyboard regression evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -82,5 +87,6 @@ jobs:
             components/event-launch-keyboard-evidence/
             components/waitlist-preview-evidence/
             components/overlay-menu-keyboard-evidence/
+            components/app-launch-nav-evidence/
           if-no-files-found: warn
           retention-days: 14
