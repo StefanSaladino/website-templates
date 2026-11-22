@@ -1,4 +1,5 @@
 name: Original template photo candidate review
+# Push-triggered visual evidence batch: MORROW architecture (TM-042, TM-058).
 on:
   workflow_dispatch:
     inputs:
