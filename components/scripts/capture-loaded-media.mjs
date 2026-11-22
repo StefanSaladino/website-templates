@@ -166,6 +166,33 @@ try{
         if(!warning||!cta||warning.left<-2||warning.right>width+2||warning.top<cta.bottom+8)
           report.errors.push('OFFCUT '+width+' warning is clipped or overlaps the primary CTA');
       }
+      // Source-specific geometry gates from human review of the actual screenshots.
+      // These protect observed defects, not arbitrary crop-ratio thresholds.
+      if(entry.name==='architecture'&&width===320){
+        const overlay=await page.evaluate(()=>{
+          const bounds=selector=>{
+            const r=document.querySelector(selector)?.getBoundingClientRect();
+            return r?{top:r.top,bottom:r.bottom,height:r.height}:null;
+          };
+          return {disclosure:bounds('.morrow-demo-banner'),
+            index:bounds('.hero-index'),sourceNote:bounds('.morrow-hero-stock')};
+        });
+        result.architectureHeroCopyLayout=overlay;
+        if(!overlay.disclosure||!overlay.index||!overlay.sourceNote||
+            overlay.disclosure.bottom+8>overlay.index.top||
+            overlay.index.bottom+8>overlay.sourceNote.top){
+          report.errors.push('MORROW 320px required attribution, index and source label overlap: '+JSON.stringify(overlay));
+        }
+      }
+      if(entry.name==='woodworker'&&width===1440){
+        const planter=result.remoteImages.find(img=>img.alt?.startsWith('Tiered stained-wood planter troughs'));
+        if(!planter||!planter.ok||planter.visibleSourceFraction===null||
+           planter.visibleSourceFraction<0.5){
+          report.errors.push('GRAIN & GABLE 1440px portrait planter crop hides too much source: '+
+            JSON.stringify(planter?{fraction:planter.visibleSourceFraction,
+              rendered:[planter.renderedWidth,planter.renderedHeight]}:{missing:true}));
+        }
+      }
       report.cases.push(result);
       if(response?.status()!==200)report.errors.push(entry.name+' '+width+' HTTP '+response?.status());
       if(layout.scrollWidth>width+4)report.errors.push(entry.name+' '+width+' horizontal overflow '+layout.scrollWidth+'px');

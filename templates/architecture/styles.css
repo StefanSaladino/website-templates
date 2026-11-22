@@ -506,3 +506,6 @@ dd { margin: 0; }
 .skip-link:focus-visible{outline:3px solid #f6dc9f;outline-offset:4px}
 .site-header a:focus-visible,.hero button:focus-visible,.contact button:focus-visible{
  outline:3px solid #f6dc9f;outline-offset:4px}
+
+/* 320px capture: keep the required fictional-practice note clear of hero index. */
+@media(max-width:350px){.hero-index{top:239px}.morrow-hero-stock{top:279px}}

@@ -270,3 +270,6 @@ button,a { -webkit-tap-highlight-color: transparent; }
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
  outline:3px solid #34322d;outline-offset:4px}
 .mobile-menu a:focus-visible,.request-form :focus-visible,.workshop a:focus-visible{outline:3px solid #f2d59c;outline-offset:3px}
+
+/* Portrait planter source: retain enough vertical detail in the desktop piece study. */
+@media(min-width:981px){.piece-photo--portrait{height:560px}}
