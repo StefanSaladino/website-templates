@@ -65,3 +65,15 @@ MORA's demo bag originally used only `aria-hidden` and an off-screen transform: 
 The bag is now marked as a dialog with a named heading, modal state, and `inert` while closed. Opening the bag temporarily makes the page header, main and footer inert, moves focus to Close, loops Tab/Shift+Tab through bag controls and restores focus to the exact opener when dismissed. Removing a line shifts focus to the next available Remove button or Close; the existing bag counter, subtotal and fake checkout remain functional and explicitly non-transacting. Its mobile menu gets the standard skip link, link-to-target focus, Escape and breakpoint recovery.
 
 The shared keyboard matrix expands to **ten of 24 templates** (30 viewport cases). A dedicated storefront-cart regression checks modal focus, close behavior, line removal, hidden inertness and false-purchase safeguards. Neither automated path constitutes real accessibility certification or approval to sell fictional merchandise.
+
+## Eleven-template QA checkpoint — 22 November 2026
+
+**DOT + CRUMB, BED & BORDER and TIDEFORM** now have keyboard-visible skip links, focusable main content, Escape-to-opener behavior, meaningful destination focus and correct desktop-breakpoint focus. The bakery's native date control/mobile menu height adaptations and all three templates' animations remain intact.
+
+**MORA** now has the same mobile navigation behavior and a fully keyboard-contained demonstration shopping-bag dialog. Previously, the off-screen bag allowed keyboard access while closed and opening it did not move or contain focus. The dialog now declares a name, modal role and inert closed state; opening it inerts header/main/footer, focuses Close, loops Tab/Shift+Tab through its actions, restores the initiating Add or Bag control, and maintains focus after removing an example product. No purchase or email subscription can be made through the demo.
+
+The first MORA script replacement accidentally produced malformed JavaScript in source. The implementation was rebuilt from the last syntactically valid ANIM-05 script and explicitly parsed before recommit. To prevent recurrence, `components/scripts/check-template-scripts.mjs` now runs before the standard build and checks JavaScript syntax for every full template.
+
+[Dedicated keyboard QA run 45075392398](https://github.com/StefanSaladino/website-templates/actions/runs/45075392398) **passed all 38 focused cases on corrected commit `d25fd38`**: 30 standard cases across 10 full templates at 320/390/768px, four NORTHLINE LAW drawer cases, and four MORA bag cases (320/390/768/1280px). **11 of 24** full templates are now included when counting the independently tested law-firm drawer. The additional syntax gate and later full CI are evaluated on subsequent SHA `d87e364`, not on the broken interim commits.
+
+This establishes specific keyboard/browser regressions only—not a WCAG 2.2 audit or physical Safari/Android, VoiceOver/NVDA, real image contrast, media licensing or stakeholder acceptance.

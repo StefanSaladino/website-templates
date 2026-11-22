@@ -232,3 +232,10 @@ These templates are already live and represented by finished gallery previews. T
 ## Review-branch accessibility milestone — 22 November 2026
 
 The component showroom is still **in review**. Full-template keyboard focus behavior has been corrected and regression-tested for seven of 24 template designs: creative agency, editorial commerce, Muskoka retreat, contractor, woodworking, restaurant and law firm. A dedicated GitHub Actions run passed **22/22 keyboard checks** across phone/tablet widths including the law-firm animated drawer. This does not complete Step 19; the remaining 17 templates, screen readers, real-device responsive acceptance, document accessibility certification, rights-cleared media and film optimization remain outstanding.
+
+
+## Full-template accessibility rollout update — 22 November 2026
+
+The keyboard focus and responsive-navigation pass covers **11 of the 24 full templates**, including the MORA demo shopping-bag dialog and NORTHLINE animated menu. The targeted Chromium run passed **38/38** cases after correcting an intermediate script error. A new JavaScript syntax scanner has been added to `npm run check` for all original templates.
+
+**Still required before marking Step 19 complete:** 13 more full-template keyboard passes, native iOS Safari/Android interaction checks, real VoiceOver/NVDA trials, loaded-photo contrast and crop signoff, media/source licenses, OFFCUT 4K film review and optimization, tagged-PDF independent accessibility certification and final design approval. Keep all components `in-review` and do not merge the feature branch solely on these automated passes.
