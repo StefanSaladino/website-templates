@@ -18,6 +18,8 @@ on:
       - 'templates/fitness-launch/**'
       - 'templates/tattoo-studio/**'
       - 'templates/real-estate/**'
+      - 'templates/event-launch/**'
+      - 'components/scripts/test-event-launch-keyboard.mjs'
       - 'components/scripts/test-storefront-cart-keyboard.mjs'
       - 'components/scripts/test-law-firm-menu-keyboard.mjs'
       - 'components/scripts/test-template-keyboard.mjs'
@@ -52,6 +54,9 @@ jobs:
       - name: Test MORA demo bag modal focus and local-only purchase feedback
         working-directory: components
         run: node scripts/test-storefront-cart-keyboard.mjs
+      - name: Test AFTER DARK animated full-screen navigation and keyboard focus
+        working-directory: components
+        run: node scripts/test-event-launch-keyboard.mjs
       - name: Store keyboard regression evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -61,5 +66,6 @@ jobs:
             components/template-keyboard-evidence/
             components/law-firm-keyboard-evidence/
             components/storefront-cart-keyboard-evidence/
+            components/event-launch-keyboard-evidence/
           if-no-files-found: warn
           retention-days: 14
