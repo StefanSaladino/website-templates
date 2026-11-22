@@ -55,3 +55,9 @@ Do not merge, mark entries `live`, publish client-facing claims, or remove sampl
 ## November 22 follow-up — final original-template still-image screening
 
 The `contractor` and `law-firm` candidate workflow inspected the three remaining original-template still identities (`TM-010`, `TM-046`, `TM-053`) at 1800px source-preview widths with 16:9, portrait and phone crops. **70/70 still/poster identities now have preliminary visual observations; the OFFCUT video remains unviewed apart from headers.** The audit corrects fictional project attributions, nonexistent lawyer profiles and no-submit form claims without marking media as licensed. See the dedicated contractor and law-firm pilots. The GitHub candidate evidence run passed: https://github.com/StefanSaladino/website-templates/actions/runs/45066123356 . This is candidate capture, not a successful release QA or rights clearance; current implementation-commit CI must be verified separately.
+
+## Woodworker remediation checkpoint — source work complete, release still blocked
+
+An unsuitable stock image showing a barefoot circular-saw operator has been retired as **TM-048 / STOCK-013**, and all three source appearances have been replaced by original joinery illustrations. The original photo evidence remains in `SHOWROOM-WOODWORKER-MEDIA-PILOT.md`. The active inventories now list **70** original-template remote media identities (69 stills/posters and the undownloaded OFFCUT video) and **25** component stock records. **Zero media records are rights-approved.** The completed still-image visual screening now covers all 69 currently active still/poster identities.
+
+The `main` branch remains unchanged. These editorial design fixes do not establish external-image rights, loaded-photo crop quality, real-device usability, accessibility certification or client approval. Both Chromium workflows for the remediation commit must pass before this source-level milestone is considered regression-verified.

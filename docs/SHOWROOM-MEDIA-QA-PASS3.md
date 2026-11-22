@@ -80,3 +80,7 @@ The above fixes improve **failure appearance only**. They do not validate, acqui
 - Close **26 component media approvals** and, if included in release, account for **58 additional original-template URLs**.
 - Complete physical iOS/Android tests, keyboard/screen-reader pass, sample-menu PDF accessibility check and stakeholder signoff.
 - Keep all 157 core components `in-review`; do not merge the review branch to `main` without explicit release authorization.
+
+## Active-scope update (22 November 2026)
+
+Since the original Pass 3 audit, `TM-048 / STOCK-013` has been removed from all active imagery and replaced by original CSS joinery studies in the woodworker full-page template and affected standalone previews. Historical Pass 3 findings about 71 full-template and 26 component media records refer to the **pre-remediation** snapshot. The active inventories now total **70 full-template remote references** and **25 component stock records**; no approvals were granted. Media scanning, current Chromium smoke tests and the woodworker media pilot document the retirement and ban reintroduction.

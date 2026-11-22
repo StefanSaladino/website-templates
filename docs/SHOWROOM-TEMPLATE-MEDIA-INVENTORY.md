@@ -146,3 +146,9 @@ This work is a **provenance control**, not a visual redesign or commercial-media
 19. `law-firm` — **1/1 preliminary image inspection** in [NORTHLINE pilot](./SHOWROOM-LAW-FIRM-MEDIA-PILOT.md). TM-010 shows a generic glass-partitioned office corridor, credited from published Unsplash metadata to Nastuh Abootalebi, but is not NORTHLINE's premises. Fictional lawyer identities and non-submitting consultation are now prominent; image-property and actual production-use rights remain open.
 
 **Completion of preliminary image screening is not release clearance.** The 71-item rights backlog is unchanged; no approval can be inferred from a generated crop or a publicly visible creator/source page.
+
+## Active inventory amendment — unsafe woodworking photo retired
+
+The original 71-identity inventory above records the initial screening set. On **22 November 2026**, the unsuitable saw-operation image **TM-048** and linked **STOCK-013** were removed from all active source and metadata. The woodworker template now has **three** remaining unapproved remote image identities rather than four. Its workshop visual and carousel's third stage, plus the two affected isolated previews, now use original CSS joinery illustrations.
+
+**Current active totals are 70 original-template identities (69 still images/posters, one unreviewed video) and 25 component stock records, none approved for redistribution.** All 69 remaining original-template still images/posters have preliminary visual review; the separate film has only header evidence. Source evidence and unsafe-image observations were retained in the [woodworker remediation report](./SHOWROOM-WOODWORKER-MEDIA-PILOT.md), rather than keeping a rejected file in a production-facing asset registry. This changes only media-count tracking, not the release gates.

@@ -44,3 +44,13 @@ _22 November 2026 · `feature/component-showroom` · preliminary review only. No
 5. Leave all assets marked `needs-review` and do not promote components or merge `main` before the release gates are met.
 
 **Next batch:** `event-launch`, the four identity records TM-045, TM-049, TM-052 and TM-056, to review performer imagery, event attribution and ticketing claims.
+
+## Follow-up remediation — unsafe photo retired (22 November 2026)
+
+**TM-048** and the linked **STOCK-013** have been retired from active source and media registers. Their original SHA-256 fingerprint and safety observations remain above as historical evidence, not an approval or an active media asset.
+
+The original GRAIN & GABLE template no longer displays the barefoot powered-saw operator in its workshop section or its ANIM-20 carousel. Those two placements now use separate original CSS joinery drawings. The ABOUT-02 and isolated ANIM-20 previews also replace that unsafe photograph with original image-free illustrations. The three-step carousel remains interactive, keyboard-operable and subject to reduced-motion preferences. The remaining external woodworker photographs are still review-only.
+
+**Active register after remediation:** 25 component stock records (formerly 26) and 70 original-template remote identities (formerly 71: 69 still image/poster references plus one Pexels video). Rights approvals remain **zero**. Media validators now explicitly reject the retired URL identity or reintroduction of either obsolete asset ID. Browser regression checks assert the new illustrated positions.
+
+The source-pilot table above intentionally documents four originally screened photographs, including the retired fourth image. Do not use its historical counts as the current live-URL inventory. Any future real business deployment needs verified work, appropriate safety context and authorized imagery, not just a replacement illustration.
