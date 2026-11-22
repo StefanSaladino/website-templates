@@ -2,6 +2,8 @@
 
 _Development only · `feature/component-showroom` · 20–21 November 2026 · **no rights approval**_
 
+> **Current inventory update (22 November 2026):** This document preserves the original 20–21 November snapshot (71 remote identities and 19 image-dependent templates). After replacing unsuitable/branded sources, the **current** machine-checked source has **62 remote identities across 18 templates**, all `needs-review`; the current release-blocking investigation list is [`TEMPLATE-MEDIA-CLEARANCE-QUEUE.md`](TEMPLATE-MEDIA-CLEARANCE-QUEUE.md). Historical figures below are not current production counts.
+
 ## What this covers
 
 The original **24 complete site templates** under `templates/` are a separate distribution surface from the **157 standalone component examples**. Their remote stock imagery cannot be considered cleared just because some URLs happen to overlap the component inventory.
