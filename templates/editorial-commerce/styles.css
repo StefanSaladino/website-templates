@@ -508,3 +508,14 @@ h1,h2,h3,p,blockquote,dd,dt,strong,span,a { overflow-wrap: break-word; }
 @keyframes journalDiagonalPanel{from{clip-path:polygon(0 0,6% 0,0 100%,0 100%)}to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
 .journal.journal-motion-playing>.journal-copy{animation:journalDiagonalPanel .88s cubic-bezier(.22,.73,.2,1) both}
 @media(prefers-reduced-motion:reduce){.journal.journal-motion-playing>.journal-copy{animation:none!important}}
+
+/* Original unbranded product diagrams; no external assets or claimed product photography. */
+.product-image--illustrated{position:relative;background:#c6c3b4}
+.range-art{position:relative;width:100%;height:100%;overflow:hidden;isolation:isolate;background:radial-gradient(circle at 60% 34%,#eee7d5,#b6b19e 74%);color:#293b34}
+.range-art--boot{background:radial-gradient(circle at 49% 37%,#e3e4d8,#a8b5a9 80%)}.range-art--repair{background:radial-gradient(circle at 52% 41%,#ead8c3,#b89879 84%)}
+.range-art svg{display:block;width:100%;height:100%;padding:8% 7% 5%;filter:drop-shadow(0 12px 9px rgba(32,34,25,.1))}
+.ra-ghost{fill:rgba(255,255,255,.13);stroke:rgba(34,48,40,.16);stroke-width:2}.ra-fill{fill:#c3a277;stroke:#28382f;stroke-width:5;stroke-linejoin:round}.ra-line{fill:none;stroke:#24392f;stroke-width:4.5;stroke-linejoin:round;stroke-linecap:round}.ra-dot{fill:#e7dbc0;stroke:#24392f;stroke-width:4}.ra-stitch{fill:none;stroke:#ece1ca;stroke-width:3;stroke-dasharray:9 10}
+.range-art__top,.range-art__bottom{position:absolute;z-index:1;left:6%;right:6%;font:800 9px/1.45 Arial,sans-serif;letter-spacing:.13em}
+.range-art__top{top:5%;border-top:1px solid currentColor;padding-top:8px}.range-art__bottom{bottom:5%;border-bottom:1px solid currentColor;padding-bottom:10px;font-size:11px}
+.range-art__bottom small{display:block;margin-top:4px;font-size:8px;font-weight:600;letter-spacing:.09em}
+@media(max-width:620px){.range-art__top{font-size:8px}.range-art__bottom{font-size:10px}}
