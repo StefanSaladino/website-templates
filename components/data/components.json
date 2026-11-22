@@ -2753,8 +2753,7 @@
     "previewRoute": "./previews/ABOUT-02/",
     "thumbnail": null,
     "stockAssetIds": [
-      "STOCK-012",
-      "STOCK-013"
+      "STOCK-012"
     ],
     "interactions": [
       "native-details",
@@ -2768,18 +2767,18 @@
       "editorial"
     ],
     "hasMobileLayout": true,
-    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied.",
+    "notes": "Working contextual preview with responsive phone composition. All content and example people are fictional; photography attribution/crops, real-device QA and client acceptance are deferred. No approval or publication implied. Retired unsafe stock photo STOCK-013; original joinery illustration now occupies the second visual.",
     "reviewRoute": "./review.html?id=ABOUT-02",
     "mobileTreatmentIds": [],
     "showcase": {
       "label": "About and studio introductions",
       "focus": "Photo-led workshop narrative",
-      "summary": "An introductory workshop portrait, a cutting-timber photograph and a process essay create a material-first studio story.",
-      "desktop": "A split photographic title section followed by editorial copy, a second workshop image and process disclosures.",
+      "summary": "A real stock-photo reference, an original joinery drawing, and a process essay create a material-first studio narrative; the photo is unapproved.",
+      "desktop": "A split photographic title section followed by editorial copy, an original joinery diagram and native process disclosures.",
       "mobile": "Wide workshop images and independently tuned typography become a deliberate vertical narrative, not compressed desktop columns.",
       "lookFor": [
-        "Actual image blocks illustrate real intended workshop storytelling",
-        "Native process disclosures and transparent third-party-photo notes"
+        "Stock photography is labelled honestly; original joinery drawing replaces unsafe process photo",
+        "Native process disclosures and photo-rights note"
       ],
       "focusAnchor": "about-showcase",
       "explain": "An immersive workshop introduction for a fictional woodworker; photographs are development stock from an existing template and not client work.",
@@ -7037,7 +7036,6 @@
     "previewRoute": "./previews/ANIM-20/",
     "thumbnail": null,
     "stockAssetIds": [
-      "STOCK-013",
       "STOCK-025",
       "STOCK-026"
     ],
@@ -7054,7 +7052,7 @@
       "template-integrated"
     ],
     "hasMobileLayout": true,
-    "notes": "Working isolated preview and matching full-page template; media rights and physical-device visual QA required.",
+    "notes": "Working isolated preview and matching full-page template; media rights and physical-device visual QA required. Retired unsafe stock photo STOCK-013; third step is now an original joinery illustration.",
     "reviewRoute": "./review.html?id=ANIM-20",
     "mobileTreatmentIds": [],
     "fullTemplateRoute": "../templates/woodworker/index.html#craft-showcase",
@@ -7062,7 +7060,7 @@
     "showcase": {
       "label": "Animation and interaction",
       "focus": "Finite step-controlled portfolio carousel",
-      "summary": "Three still photographs advance only on button presses, with finite bounds, a visible step index, and reduced-motion handling.",
+      "summary": "Two stock photo references and an original joinery illustration advance only on button presses, with finite bounds, a visible step index, and reduced-motion handling.",
       "desktop": "Scroll or use the controls; then inspect the genuine full-page template integration.",
       "mobile": "Linear document structure or finite touch controls stay available without forced movement.",
       "lookFor": [
@@ -7070,7 +7068,7 @@
         "Accessible controls and reduced-motion fallback"
       ],
       "focusAnchor": "motion-showcase",
-      "explain": "Three still photographs advance only on button presses, with finite bounds, a visible step index, and reduced-motion handling.",
+      "explain": "Two stock photo references and an original joinery illustration advance only on button presses, with finite bounds, a visible step index, and reduced-motion handling.",
       "bestFor": [
         "Architectural storytelling",
         "Portfolio work and craft-based products"

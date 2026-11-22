@@ -438,8 +438,10 @@ try{
  assert(await page.locator('.photo-disclaimer').isVisible(),'GRAIN & GABLE stock and fictional project warning is visible');
  assert((await page.locator('.photo-disclaimer').textContent()).includes('unrelated stock photographs'),'GRAIN & GABLE must not imply completed client work');
  assert((await page.locator('.piece-photo--portrait img').getAttribute('alt')).includes('Tiered'),'GRAIN & GABLE planter alt reflects tiered photo');
- assert((await page.locator('[data-craft-slide="2"] figcaption').textContent()).includes('circular saw barefoot'),'GRAIN & GABLE carousel warns of unsafe stock scene');
- assert((await page.locator('.workshop-warning').textContent()).includes('barefoot person'),'GRAIN & GABLE worksite image requires replacement');
+ assert((await page.locator('[data-craft-slide="2"] .wood-study').getAttribute('role'))==='img'
+   &&(await page.locator('[data-craft-slide="2"] figcaption').textContent()).includes('Original joinery concept'),'GRAIN & GABLE third slide is an original diagram rather than unsafe imagery');
+ assert(await page.locator('.workshop-photo--illustrated .wood-study').count()===1
+    &&(await page.locator('.workshop-note').textContent()).includes('Original joinery drawing'),'GRAIN & GABLE workshop illustration replaces unsafe saw photograph');
  await page.locator('.request-form input[name="name"]').fill('Example Visitor');
  await page.locator('.request-form input[name="email"]').fill('demo@example.com');
  await page.locator('.request-form button[type="submit"]').click();
@@ -449,7 +451,8 @@ try{
  assert(await page.locator('[data-craft-slide="1"]').isVisible()&&
    await page.locator('[data-craft-jump="1"]').getAttribute('aria-pressed')==='true','ANIM-20 next moves the real craft photograph and selected step');
  await page.locator('[data-craft-next]').click();
- assert(await page.locator('[data-craft-next]').isDisabled()&&(await page.locator('[data-craft-status]').textContent()).includes('3 of 3'),'ANIM-20 finite carousel stops at the third slide');
+ assert(await page.locator('[data-craft-next]').isDisabled()&&(await page.locator('[data-craft-status]').textContent()).includes('3 of 3')
+    &&(await page.locator('[data-craft-slide="2"] img').count())===0,'ANIM-20 full-template final slide is a bounded, image-free illustration');
  await page.locator('[data-craft-prev]').focus();
  await page.locator('[data-craft-prev]').press('Enter');
  assert((await page.locator('[data-craft-status]').textContent()).includes('2 of 3'),'ANIM-20 carousel responds to keyboard input');
@@ -475,6 +478,9 @@ try{
  await page.goto(base+'previews/ANIM-20/index.html',{waitUntil:'domcontentloaded'});
  await page.locator('[data-a20-next]').click();
  assert(await page.locator('[data-a20-slide="1"]').isVisible(),'ANIM-20 isolated carousel advances by an explicit action');
+  await page.locator('[data-a20-next]').click();
+  assert(await page.locator('[data-a20-slide="2"] .wood-study').isVisible() &&
+    (await page.locator('[data-a20-slide="2"] img').count())===0,'ANIM-20 isolated final illustration replaces unsafe stock');
  // Review links must point directly at the real full-page examples.
  for(const [id,route] of [['ANIM-09','../templates/editorial-commerce/index.html#journal'],['ANIM-12','../templates/frame-portfolio/index.html#frame-feature'],['ANIM-17','../templates/monolith-architecture/index.html#chapters'],['ANIM-20','../templates/woodworker/index.html#craft-showcase']]){
    await page.goto(base+'review.html?id='+id,{waitUntil:'domcontentloaded'});
@@ -1226,10 +1232,11 @@ try{
   'TRUST-03 keyboard Enter closes the same native disclosure');
 
  await page.goto(base+'previews/ABOUT-02/',{waitUntil:'domcontentloaded'});
- assert(await page.locator('.w-about img').count()===2
-  &&await page.locator('.w-studies figcaption').isVisible()
+ assert(await page.locator('.w-about img').count()===1
+  &&await page.locator('.w-studies .wood-study[role="img"]').count()===1
+   &&await page.locator('.w-studies figcaption').isVisible()
   &&await page.locator('.w-method details').count()===2,
-  'ABOUT-02 includes two genuine workshop image slots, credits and native method descriptions');
+  'ABOUT-02 retains a labelled workshop photo and a new image-free joinery illustration plus native method details');
  await page.locator('.w-method details').first().locator('summary').click();
  assert(await page.locator('.w-method details').first().evaluate(el=>el.open),
   'ABOUT-02 process details open on demand without a fake interaction');

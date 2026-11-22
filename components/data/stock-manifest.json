@@ -394,37 +394,6 @@
       ]
     },
     {
-      "id": "STOCK-013",
-      "sourceUrl": "https://images.unsplash.com/photo-1760939858984-5dc76f0ea34a?auto=format&fit=crop&fm=jpg&q=78&w=1400",
-      "photographer": "Unverified — source credit in existing GRAIN & GABLE template needs matching to individual asset",
-      "platform": "Unsplash (as credited by existing template)",
-      "licenseUrl": "https://unsplash.com/license",
-      "licenseReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "rightsNotes": "Reuses remote Unsplash image already displayed in templates/woodworker/index.html. Exact Unsplash source page, creator attribution, property/model permissions and suitability for redistribution were NOT verified. Review-only until source mapping and rights/crop checks are completed. This image is NOT actual work of the fictional studio. Visual screening 22 November 2026 shows barefoot person using a circular saw close to feet. Unsuitable as a professional workshop safety reference. Urgent replacement before release; no source/model/safety approval.",
-      "usageIds": [
-        "ABOUT-02",
-        "ANIM-20"
-      ],
-      "altText": "Barefoot person using a powered circular saw at a timber bench; unsafe image pending replacement",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1760939858984-5dc76f0ea34a?auto=format&fit=crop&fm=jpg&q=78&w=1400",
-      "originalFilename": null,
-      "fileHashSHA256": null,
-      "derived": [],
-      "sourcePageVerifiedAt": null,
-      "assetAcquisitionStatus": "not-downloaded",
-      "reviewFlags": [
-        "exact-source-page-pending",
-        "creator-unverified",
-        "property-and-model-rights-unverified",
-        "photo-crop-approval-pending",
-        "not-cleared-for-template-redistribution",
-        "urgent-replacement-barefoot-saw-operator",
-        "unsafe-work-practice-not-a-studio-example",
-        "person-and-workshop-unverified"
-      ]
-    },
-    {
       "id": "STOCK-014",
       "sourceUrl": "https://unsplash.com/photos/flat-lay-photography-of-cooked-food-cVmNIJCa1XA",
       "photographer": "Maddi Bazzocco",

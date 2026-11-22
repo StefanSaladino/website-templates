@@ -12,6 +12,7 @@ for(const asset of manifest.assets){
   if(stockById.has(asset.id))addError('Duplicate stock ID '+asset.id);
   stockById.set(asset.id,asset);
   if(!/^STOCK-\d{3}$/.test(asset.id))addError('Invalid stock ID '+asset.id);
+  if(asset.id==='STOCK-013')addError('Retired unsafe image STOCK-013 is not allowed');
   if(!asset.sourceUrl?.startsWith('https://')||!asset.licenseUrl?.startsWith('https://')||!asset.photographer||!asset.platform) addError('Missing source/rights metadata '+asset.id);
   if(!Array.isArray(asset.usageIds))addError('Missing usage IDs '+asset.id);
   if(!['approved','needs-review','rejected'].includes(asset.reviewStatus))addError('Bad stock review status '+asset.id);
@@ -48,6 +49,7 @@ for(const component of components){
   else inReview++;
   const file=path.join(here,'previews',component.id,'index.html');
   const html=existsSync(file)?readFileSync(file,'utf8'):'';
+  if(html.includes('photo-1760939858984-5dc76f0ea34a'))addError(component.id+' has forbidden saw photo');
   // Include poster images as well as src. Scan in-review previews, not just live ones:
   // otherwise remote assets could silently bypass review metadata until launch.
   for(const tag of html.match(/<(?:img|video|source)\b[^>]*>/gi)||[]){

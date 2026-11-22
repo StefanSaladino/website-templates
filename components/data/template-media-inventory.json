@@ -1493,39 +1493,6 @@
       }
     },
     {
-      "id": "TM-048",
-      "urlIdentity": "https://images.unsplash.com/photo-1760939858984-5dc76f0ea34a",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "woodworker",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-013",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "b43abfde8668b5fd631e0c5dd9547d9366e2737b716c21f0a7206ab4c0428dd0",
-        "notes": "Barefoot person in hat and green trousers operating a powered circular saw while crouched beside timber at a workshop bench. Unsafe professional-workshop example, urgent replacement required. Person and context not linked to fictional studio; portrait crop highlights saw and bare feet.",
-        "flags": [
-          "urgent-replacement-barefoot-operator-and-circular-saw",
-          "depicted-person",
-          "no-studio-employee-proof",
-          "person-rights-unverified",
-          "unsafe-practice-not-for-promotion"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-049",
       "urlIdentity": "https://images.unsplash.com/photo-1760965825135-e94f4e34494b",
       "kind": "image",
