@@ -25,5 +25,10 @@ document.querySelectorAll('.swatches').forEach(group=>{
   choose(buttons.find(b=>b.classList.contains('active'))||buttons[0]);
 });
 
-const newsletter=document.querySelector('[data-newsletter]');newsletter?.addEventListener('submit',e=>{e.preventDefault();const note=document.querySelector('[data-newsletter-note]');if(note)note.textContent='You’re on the list. Demo only — no email was sent.'});
+const newsletter=document.querySelector('[data-newsletter]');newsletter?.addEventListener('submit',e=>{e.preventDefault();const note=document.querySelector('[data-newsletter-note]');if(note)note.textContent='Preview only — no email was sent, stored or added to a mailing list.'});
+const fakeCheckout=document.querySelector('[data-demo-checkout]');
+fakeCheckout?.addEventListener('click',()=>{
+ const note=document.querySelector('[data-checkout-note]');
+ if(note)note.textContent='Preview only: no payment was taken, no order was placed and no customer data was sent.';
+});
 const reveals=document.querySelectorAll('.reveal');if(reduced||!('IntersectionObserver'in window)){reveals.forEach(el=>el.classList.add('is-visible'))}else{const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');io.unobserve(entry.target)}}),{threshold:.12});reveals.forEach(el=>io.observe(el))}renderBag();

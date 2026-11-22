@@ -226,6 +226,21 @@ try{
 
 
  // Full-page animation tests for the six newly built patterns.
+ await openTemplate('storefront');
+ assert(await page.locator('.storefront-demo-banner').isVisible(),'MORA must visibly identify fictional products and unrelated branded stock photos');
+ assert((await page.locator('.storefront-demo-banner').textContent()).includes('No payments, orders or email subscriptions'),'MORA no-sale disclosure is explicit');
+ assert((await page.locator('.hero-media img').getAttribute('alt')).includes('ENDLESS PURE'),'MORA hero photo is not misrepresented as MORA-branded');
+ assert((await page.locator('.story-image img').getAttribute('alt')).includes('NORDIC'),'MORA material-story image identifies the unrelated brand');
+ assert((await page.locator('.image-label').textContent()).includes('UNRELATED'),'MORA bathroom photo is not falsely a product shoot');
+ assert((await page.locator('.quote-band').textContent()).includes('NOT A CUSTOMER TESTIMONIAL'),'MORA cannot invent a customer review');
+ await page.locator('[data-quick-add="Daily Set"]').click();
+ assert((await page.locator('[data-cart-count]').textContent())==='1','MORA local demo bag retains interactive add');
+ await page.locator('[data-demo-checkout]').click();
+ assert((await page.locator('[data-checkout-note]').textContent()).includes('no payment was taken'),'MORA checkout cannot imply actual purchase');
+ await page.locator('[data-cart-close]').click();
+ await page.locator('[data-newsletter] input[type=email]').fill('demo@example.com');
+ await page.locator('[data-newsletter] button[type=submit]').click();
+ assert((await page.locator('[data-newsletter-note]').textContent()).includes('no email was sent'),'MORA demo newsletter never claims a subscription');
  await openTemplate('event-launch');
  assert(await page.locator('.event-demo-banner').isVisible(),'AFTER DARK fictional event disclaimer is visible before the poster');
  assert((await page.locator('.event-demo-banner').textContent()).includes('No event or ticket sales'),'AFTER DARK does not advertise a real event');
