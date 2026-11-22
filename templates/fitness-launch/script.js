@@ -43,18 +43,46 @@ const menu = document.querySelector('.mobile-menu');
 if (toggle && menu) {
   const closeMenu = () => {
     toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label','Open navigation');
     menu.hidden = true;
     document.body.classList.remove('menu-open');
   };
   toggle.addEventListener('click', () => {
     const opening = toggle.getAttribute('aria-expanded') !== 'true';
     toggle.setAttribute('aria-expanded', String(opening));
+    toggle.setAttribute('aria-label',opening?'Close navigation':'Open navigation');
     menu.hidden = !opening;
     document.body.classList.toggle('menu-open', opening);
   });
-  menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
-  window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
+
+function focusMenuDestination(link){
+  const href=link.getAttribute('href')||'';
+  if(!href.startsWith('#'))return false;
+  const target=document.getElementById(decodeURIComponent(href.slice(1)));
+  if(!target)return false;
+  const temporary=!target.hasAttribute('tabindex');
+  if(temporary)target.tabIndex=-1;
+  target.focus({preventScroll:true});
+  if(temporary)target.addEventListener('blur',()=>target.removeAttribute('tabindex'),{once:true});
+  return true;
+}
+
+  menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+    closeMenu();
+    if(!focusMenuDestination(link))toggle.focus();
+  }));
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){
+      closeMenu();
+      toggle.focus();
+    }
+  });
+  window.addEventListener('resize',()=>{
+    if(window.innerWidth<=900)return;
+    const wasOpen=toggle.getAttribute('aria-expanded')==='true';
+    closeMenu();
+    if(wasOpen)requestAnimationFrame(()=>document.querySelector('.desktop-nav a')?.focus());
+  });
 }
 
 const form = document.querySelector('.trial-form');

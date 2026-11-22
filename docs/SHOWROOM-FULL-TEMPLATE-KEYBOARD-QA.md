@@ -77,3 +77,9 @@ The first MORA script replacement accidentally produced malformed JavaScript in 
 [Dedicated keyboard QA run 45075392398](https://github.com/StefanSaladino/website-templates/actions/runs/45075392398) **passed all 38 focused cases on corrected commit `d25fd38`**: 30 standard cases across 10 full templates at 320/390/768px, four NORTHLINE LAW drawer cases, and four MORA bag cases (320/390/768/1280px). **11 of 24** full templates are now included when counting the independently tested law-firm drawer. The additional syntax gate and later full CI are evaluated on subsequent SHA `d87e364`, not on the broken interim commits.
 
 This establishes specific keyboard/browser regressions only—not a WCAG 2.2 audit or physical Safari/Android, VoiceOver/NVDA, real image contrast, media licensing or stakeholder acceptance.
+
+## Next review batch: YARD, BLACKLINE and CURRENT — 22 November 2026
+
+The three additional full-template navigation patterns previously closed mobile links without moving keyboard focus to their destinations, closed on Escape without restoring focus, and risked stranding focus at a responsive breakpoint. **YARD** (fitness), **BLACKLINE SOCIAL CLUB** (tattoo) and **CURRENT** (realty) now each have skip-to-main links, focusable main landmarks, keyboard-visible outlines, destination focus, Escape-to-toggle and desktop focus recovery. The tattoo/gallery and realty/rail animations and fictional-form safeguards were left intact.
+
+The standard browser suite now includes **13 of 24 full templates × 320/390/768px** (39 regular keyboard cases), plus four independently scripted NORTHLINE LAW drawer cases and four MORA demo-bag cases (47 targeted keyboard checks total). All new work remains in review, with no media approval or production merge. Independent mobile Safari, Android, assistive-technology, colour-contrast-on-imagery and loaded-photo crop review remain outstanding.
