@@ -22,3 +22,10 @@ All three templates now provide:
 \`node components/scripts/test-template-keyboard.mjs\` requires a built \`dist\` tree and Playwright/system Chromium. [The dedicated workflow](../.github/workflows/full-template-keyboard-qa.yml) runs on changes to these templates or the test script and saves a \`results.json\` report for each **320px, 390px and 768px** mobile/tablet viewport (nine total). Every case checks: keyboard-first skip link, Enter navigation, menu link destination focus, no stranded hidden focus, Escape opener focus, desktop resize, browser exceptions, and absence of 4K video fetch attempts. Remote third-party photos are blocked in this test to make keyboard outcomes deterministic.
 
 This automated test **does not substitute** for testing with VoiceOver, NVDA, TalkBack, real touch screen, or operating-system high-contrast settings. It also does not approve any of the remaining 65 external media identities, repair untagged sample PDFs, or change the in-review status of components.
+
+
+## Verification checkpoint — all nine native keyboard cases passed
+
+The first dedicated run exposed a breakpoint race in three of nine cases where focus was lost while the page switched from mobile to desktop navigation. The resize handoff now checks the prior expanded-menu state and defers focusing a visible desktop link until the next animation frame, after responsive styles settle.
+
+The corrected [full-template keyboard regression run 45071383861](https://github.com/StefanSaladino/website-templates/actions/runs/45071383861) **passed all nine combinations** (three full site templates × 320, 390 and 768px). Skip-link first focus, Enter navigation, target focus after menu link activation, Escape-to-opener, breakpoint focus, absence of script errors and absence of 4K video requests were verified by Chromium. VoiceOver/NVDA, real Safari/Android, keyboard zoom and all 24 templates remain outside this pass.
