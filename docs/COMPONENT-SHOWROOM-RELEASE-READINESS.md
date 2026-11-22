@@ -65,3 +65,7 @@ The `main` branch remains unchanged. These editorial design fixes do not establi
 ## Editorial-commerce product-reference retirement (22 November 2026)
 
 Branded/mismatched sample photos TM-005, TM-044 and TM-065 were replaced with original SVG product studies. Eight product cards and integrated ANIM-09 remain functional at source level. **Active original-template media now 67** (66 still/poster, one film), **active component stock 25** (unchanged), none approved for redistribution. Source/build and current browser QA must still pass; real-device, loaded-image and accessibility review remain unsatisfied.
+
+## Muskoka accommodation imagery remediation — 22 November 2026
+
+Two unsuitable stock photographs **TM-031** (alpine cabin) and **TM-021** (winter hut misrepresented as suite) are now retired from Morrow House; an original fictional setting illustration, suite floor-plan study and winter scene replace the three prior placements. Booking/date CTAs are explicitly non-operational. **Active original-template media: 65 identities (64 still/poster and one video), all unapproved; active component stock: 25, all unapproved.** The remaining three Morrow House stock sources are not evidence of actual accommodation. Full Chromium QA, rendered-device crop checks, media licences, accessible product/booking feedback and stakeholder review remain required before release.

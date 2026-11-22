@@ -46,3 +46,14 @@ None of the five sources was replaced, migrated to a local public derivative, so
 4. Validate reduced-motion/keyboard/accessibility flows and complete mobile Safari / Android Chrome tests independently. Current automated candidate review does **not** cover these.
 
 **Next:** `creative-agency` has a separate Pexels poster plus 4K video requiring creator, playback, data-saver and licensing review. The original-component inventory remains `needs-review`; `main` remains outside this audit.
+
+## Remediation — inaccurate property and suite photographs retired (22 November 2026)
+
+The five original candidate photos, identities and hashes above remain historical audit evidence. Two mismatch assets have now been **removed from active original-template HTML and media inventory**:
+
+- **TM-031** — the alpine cabin and turquoise mountain lake did not depict a credible Muskoka property. Its full-width house composition now uses an original inline SVG lakeside architecture illustration clearly labelled as a fictional setting.
+- **TM-021** — the white winter hut did not depict an actual lake suite. The suite card now uses an original illustrative floor plan, and its second reuse in the winter seasonal panel has been replaced by a separate original, stylized snow-and-lake drawing.
+
+Morrow House remains a fictional, non-operating accommodation concept. Copy now emphasizes proposed rooms, hypothetical features and no verified physical address. Date controls are explicitly non-booking; form submission is prevented in script and no-JavaScript fallback, with accessible feedback saying no reservation or information was sent. The existing chapter navigation and mobile templates remain in place.
+
+**Current Morrow House remote media: 3 (TM-036, TM-061, TM-070), all `needs-review`.** No new stock images or unverified property photos were introduced, and no rights approval was granted. Browser regression and asset-scan checks reject the retired identities; real-device visual, accessibility and remaining photo licensing remain release blockers.

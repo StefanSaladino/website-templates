@@ -605,38 +605,6 @@
       }
     },
     {
-      "id": "TM-021",
-      "urlIdentity": "https://images.unsplash.com/photo-1583509208810-f57bef92d0a0",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "muskoka-retreat",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "2cfac688e65f186ba2e15881536fe2219704b45fca28d15b663c12fba4a10908",
-        "notes": "Small white hut on a snow-covered frozen lake in bright low winter light; not a photograph of the advertised Lake Suite or verifiably a Muskoka rental. Wide crop retains hut; narrow 3:4 crops cut some shoreline but remain readable. Replace suite image before publication.",
-        "flags": [
-          "not-suite-interior",
-          "fictional-property-mismatch",
-          "geographic-location-unverified",
-          "replacement-priority"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-MUSKOKA-RETREAT-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-022",
       "urlIdentity": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0",
       "kind": "image",
@@ -916,38 +884,6 @@
           "wide-crop-hides-context"
         ],
         "evidenceDocument": "docs/SHOWROOM-TATTOO-STUDIO-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-031",
-      "urlIdentity": "https://images.unsplash.com/photo-1702936425973-8ca360714a97",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "muskoka-retreat",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "88e691ebe5e4791dc1cedbca1aafbc1b649d2043122cec17020509a51837debd",
-        "notes": "Small cabin on vivid turquoise lake with steep pine-covered mountains behind; an alpine scene that does not credibly depict the claimed Lake Rosseau/Muskoka house. Wide crop loses mountain context, portrait retains it. Replace as featured property photograph.",
-        "flags": [
-          "alpine-not-muskoka",
-          "fictional-property-mismatch",
-          "replacement-priority",
-          "portrait-source-needs-css-crop-review"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-MUSKOKA-RETREAT-MEDIA-PILOT.md"
       }
     },
     {

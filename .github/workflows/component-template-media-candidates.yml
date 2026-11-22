@@ -171,8 +171,8 @@ jobs:
             assert(report.assets[1].videoProbe,"Expected non-streaming video HEAD probe status");
           }
           if(process.env.TEMPLATE_NAME==="muskoka-retreat"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-021","TM-031","TM-036","TM-061","TM-070"],"Wrong Muskoka batch");
-            assert.equal(report.downloaded,5);
+            assert.deepEqual(report.assets.map(x=>x.id),["TM-036","TM-061","TM-070"],"Wrong remaining Muskoka batch");
+            assert.equal(report.downloaded,3);
           }
           if(process.env.TEMPLATE_NAME==="editorial-commerce"){
             assert.deepEqual(report.assets.map(x=>x.id),["TM-008","TM-026","TM-027","TM-028","TM-032","TM-039"],"Wrong remaining editorial-commerce batch");
