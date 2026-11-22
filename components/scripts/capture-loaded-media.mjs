@@ -83,8 +83,19 @@ const sectionsToCapture=async(page,entry,width)=>{
         await reveal.scrollIntoViewIfNeeded({timeout:8000});
         await timeout(140);
       }
-      const hiddenCount=await reveals.evaluateAll(elements=>elements.filter(el=>getComputedStyle(el).opacity==='0').length);
-      if(hiddenCount>0)report.errors.push(entry.name+' '+width+' '+selector+' has '+hiddenCount+' unrevealed children in captured evidence');
+      // Some reveal styles have 700ms transitions and 100ms delays. Wait for
+      // settled visual opacity, not merely a single scroll animation frame.
+      let hidden=await reveals.evaluateAll(elements=>elements.filter(el=>getComputedStyle(el).opacity==='0'));
+      if(hidden.length){
+        await timeout(900);
+        hidden=await reveals.evaluateAll(elements=>elements.filter(el=>getComputedStyle(el).opacity==='0'));
+      }
+      if(hidden.length){
+        const descriptions=await reveals.evaluateAll(elements=>elements.filter(el=>getComputedStyle(el).opacity==='0')
+          .map(el=>({classes:el.className,text:(el.textContent||'').trim().replace(/\s+/g,' ').slice(0,80),
+            top:Math.round(el.getBoundingClientRect().top),height:Math.round(el.getBoundingClientRect().height)})));
+        report.errors.push(entry.name+' '+width+' '+selector+' has '+hidden.length+' unrevealed children after scroll/settle: '+JSON.stringify(descriptions));
+      }
       await locator.scrollIntoViewIfNeeded({timeout:8000});
       await timeout(140);
       const name=entry.name+'-'+width+'-'+selector.replace(/[^a-z0-9]/gi,'')+'.png';
