@@ -27,3 +27,13 @@ Each template is captured at **320, 390, 768, 1440 CSS pixels**, with reduced-mo
 ## Acceptance review
 
 Reviewers should mark each screenshot accepted, rejected, or requiring adjustment after examining actual loaded-media focal point, headline/CTA contrast, overlay truncation, branded logos, misleading stock-to-brand association, and tablet/phone art direction. Any failed decoding or missing remote images should be investigated before considering a template for release.
+
+## Findings from first successful loaded-image run and screenshot hardening
+
+The first actual-loaded-image GitHub run ([45069527697](https://github.com/StefanSaladino/website-templates/actions/runs/45069527697)) succeeded and captured **36 image-loaded screenshots across 12 viewport/template cases**, with all 7 RANGE/FOUND `img` elements and all 5 Morrow House `img` elements decoding successfully at every width, the OFFCUT poster decoding successfully, no root horizontal overflow, and **zero 4K video requests**.
+
+Human inspection of the 320px and 390px OFFCUT hero screenshots nevertheless found the 4K consent status text clipped/overlaid near the primary CTA. This illustrates why decoding and screenshot generation are not equivalent to visual acceptance. The OFFCUT mobile film status was revised to flow above the film controls and below the hero CTA. A new geometric browser assertion checks warning containment and minimum separation from the CTA at both phone widths.
+
+The earlier 390px Morrow House room-strip screenshot also contained large empty blocks because Playwright screenshotted a multi-viewport section after only one scroll-revealed room had entered view. The capture procedure now deliberately scrolls each `.reveal` child into view before taking a tall section screenshot and flags any remaining opacity-zero children; this gives reviewers an accurate post-scroll view rather than a misleading incomplete transition.
+
+The earlier screenshot artifact is preserved for comparison. Both fixes require rerunning the actual loaded-image workflow and inspecting its regenerated output before human acceptance.

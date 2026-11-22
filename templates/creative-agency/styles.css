@@ -72,3 +72,16 @@ button{font:inherit}
 .portfolio-demo-note{margin:-36px 0 50px;max-width:800px;padding:14px 18px;border-left:3px solid var(--acid);background:#e8e4db;font-size:12px;line-height:1.65}
 @media(max-width:900px){.film-detail{bottom:calc(100% + 6px);right:0;max-width:calc(100vw - 36px);width:310px;font-size:9px}.portfolio-demo-note{margin:-22px 0 35px}}
 @media(max-width:360px){.film-detail{width:260px;font-size:9px;padding:8px}}
+
+/* Loaded-poster QA: on narrow devices keep the 4K consent message in flow,
+   with room below the primary CTA, rather than clipping its first line. */
+@media(max-width:620px){
+  .hero-grid{padding-bottom:174px}
+  .hero-foot{bottom:12px}
+  .offcut-motion-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px 12px;align-items:center}
+  .offcut-motion-actions .film-detail{position:static;grid-column:1/-1;right:auto;bottom:auto;width:100%;max-width:none;
+    min-height:32px;padding:9px 10px;font-size:10px;line-height:1.45;overflow-wrap:anywhere}
+  .offcut-replay{justify-self:start}
+  .film-toggle{justify-self:end}
+}
+@media(max-width:360px){.hero-grid{padding-bottom:180px}}

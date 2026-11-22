@@ -67,6 +67,16 @@ const sectionsToCapture=async(page,entry,width)=>{
     const locator=page.locator(selector).first();
     if(await locator.count()===0){report.errors.push(entry.name+' missing screenshot section '+selector);continue;}
     try{
+      // An element taller than the viewport can be screenshot before its
+      // children intersect the viewport. Exercise the normal user scroll
+      // sequence first so all one-way reveal animations have entered.
+      const reveals=locator.locator('.reveal');
+      for(const reveal of await reveals.all()){
+        await reveal.scrollIntoViewIfNeeded({timeout:8000});
+        await timeout(140);
+      }
+      const hiddenCount=await reveals.evaluateAll(elements=>elements.filter(el=>getComputedStyle(el).opacity==='0').length);
+      if(hiddenCount>0)report.errors.push(entry.name+' '+width+' '+selector+' has '+hiddenCount+' unrevealed children in captured evidence');
       await locator.scrollIntoViewIfNeeded({timeout:8000});
       await timeout(140);
       const name=entry.name+'-'+width+'-'+selector.replace(/[^a-z0-9]/gi,'')+'.png';
@@ -106,6 +116,20 @@ try{
       const result={template:entry.name,width,httpStatus:response?.status()??null,
         rendered:layout,remoteImages:media.images.filter(x=>x.src.startsWith('http')),
         poster:media.poster,videoRequests};
+      if(entry.name==='creative-agency'&&width<=390){
+        const regions=await page.evaluate(()=>{
+          const bounds=selector=>{
+            const rect=document.querySelector(selector)?.getBoundingClientRect();
+            return rect?{left:rect.left,top:rect.top,right:rect.right,bottom:rect.bottom,width:rect.width,height:rect.height}:null;
+          };
+          return {warning:bounds('.film-detail'),cta:bounds('.hero-bottom .primary-action'),
+            controls:bounds('.offcut-motion-actions'),hero:bounds('.hero')};
+        });
+        result.filmWarningLayout=regions;
+        const warning=regions.warning,cta=regions.cta;
+        if(!warning||!cta||warning.left<-2||warning.right>width+2||warning.top<cta.bottom+8)
+          report.errors.push('OFFCUT '+width+' warning is clipped or overlaps the primary CTA');
+      }
       report.cases.push(result);
       if(response?.status()!==200)report.errors.push(entry.name+' '+width+' HTTP '+response?.status());
       if(layout.scrollWidth>width+4)report.errors.push(entry.name+' '+width+' horizontal overflow '+layout.scrollWidth+'px');
