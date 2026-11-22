@@ -2396,6 +2396,20 @@ try{
  assert(menuDownload.suggestedFilename()==='atelier-table-fictional-sample-menu.pdf'
   &&(await page.locator('#download-status').textContent()).includes('Generated'),'MENU-04 Download produces a genuine PDF with an explicit fictional filename and local status');
 
+ const samplePDF=await (await import('node:fs/promises')).readFile(await menuDownload.path());
+ const taggedText=samplePDF.toString('latin1');
+ assert(taggedText.startsWith('%PDF-1.7')
+  &&taggedText.includes('/StructTreeRoot')
+  &&taggedText.includes('/ParentTree')
+  &&taggedText.includes('/StructParents 0')
+  &&taggedText.includes('/MarkInfo << /Marked true >>')
+  &&taggedText.includes('/Lang (en-CA)')
+  &&taggedText.includes('/ToUnicode')
+  &&taggedText.includes('/S /H1')&&taggedText.includes('/S /H2')
+  &&taggedText.includes('No ingredients, allergens, kitchen or venue are verified.'),
+  'MENU-04 downloadable sample has PDF structural tags, heading roles, language, Unicode mapping and complete fictional disclaimers');
+ writeFileSync(path.join(evidence,'MENU-04-tagged-sample.pdf'),samplePDF);
+
  for(const id of ['TEST-02','TEST-03','TEST-04','TEST-05','MENU-02','MENU-03','MENU-04']){
   await page.setViewportSize({width:320,height:790});
   await page.goto(base+'previews/'+id+'/',{waitUntil:'domcontentloaded'});
