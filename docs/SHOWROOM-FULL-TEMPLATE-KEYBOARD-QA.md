@@ -51,3 +51,9 @@ The expanded keyboard suite passed in [GitHub Actions run 45072657451](https://g
 - **22/22 targeted browser cases passed**, zero failures. The earlier legal drawer test briefly failed on two breakpoint assertions because CSS hid the drawer before a subsequent JavaScript resize callback could update `aria-expanded`. The corrected test awaits both the ARIA state and visual hiding; no user-facing functionality was disabled.
 
 This is a focused keyboard navigation regression pass across **7 of the 24** full templates. It does not imply full accessible navigation or WCAG compliance across the remaining 17 templates, independent mobile alternatives, or all interaction types. Real Safari, Android Chrome, VoiceOver, NVDA, contrast-on-photography and client acceptance still remain to be completed.
+
+## Next three: bakery, landscapes and pool design (22 November 2026)
+
+DOT + CRUMB, BED & BORDER and TIDEFORM previously closed mobile menus without moving keyboard focus to the visible destination. Escape closed without returning focus to the toggle, and breakpoint resizing could hide a focused navigation item. Each now includes a skip-to-main link, a focusable main target, focus handoff on menu link activation, Escape return, desktop focus recovery and distinct keyboard focus outlines. The bakery's dynamic menu-height and native iOS date-input sizing logic were retained.
+
+The standard isolated full-template keyboard suite now covers **nine of 24 templates** with **27 responsive Chromium cases** at 320/390/768px, plus NORTHLINE LAW's four separate drawer cases (31 total scoped browser cases). All other templates, actual screen readers, photo contrast, real iOS/Android and media-rights clearance remain release blockers. New source requires fresh passing CI; the prior 22-case run does not verify the new three templates.

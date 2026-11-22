@@ -18,7 +18,10 @@ const entries=[
  {folder:'muskoka-retreat',menuFirst:'#stay',breakpoint:980},
  {folder:'contractor',menuFirst:'#work',breakpoint:960,toggle:'.menu-button'},
  {folder:'woodworker',menuFirst:'#pieces',breakpoint:980},
- {folder:'restaurant',menuFirst:'#menu',breakpoint:820}
+ {folder:'restaurant',menuFirst:'#menu',breakpoint:820},
+ {folder:'custom-bakes',menuFirst:'#bakes',breakpoint:980},
+ {folder:'landscaping',menuFirst:'#work',breakpoint:980},
+ {folder:'pools',menuFirst:'#shapes',breakpoint:980}
 ];
 const report={type:'full-site keyboard regression',timestamp:new Date().toISOString(),cases:[],errors:[],
  mediaRightsApproved:false,screenReaderCertified:false,physicalDeviceCertified:false};
