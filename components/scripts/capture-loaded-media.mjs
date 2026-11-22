@@ -9,16 +9,34 @@ import path from 'node:path';
 
 const here=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dist=path.resolve(here,'../dist');
-const evidence=path.join(here,'loaded-media-evidence');
 const origin='http://127.0.0.1:4198/templates/';
 const sizes=[320,390,768,1440];
-const templates=[
-  {name:'creative-agency',sections:['.hero','.work'],required:0,poster:true},
-  {name:'editorial-commerce',sections:['.hero','.collection','.journal'],required:7,poster:false},
-  {name:'muskoka-retreat',sections:['.hero','.house-spread','.room-strip','.seasons'],required:5,poster:false}
-];
-const report={mode:'review-only',date:new Date().toISOString(),videoDownloadedBytes:0,
-  licenseApproval:false,physicalDeviceTest:false,accessibilityCertification:false,screenshots:[],cases:[],errors:[]};
+// These counts are *third-party HTML img elements* after replacing unsupported
+// product/unsafe-work images with original local illustrations. Local images
+// are decoded separately; they are NOT external stock assets.
+const batches={
+  baseline:[
+    {name:'creative-agency',sections:['.hero','.work'],required:0,poster:true},
+    {name:'editorial-commerce',sections:['.hero','.collection','.journal'],required:6,poster:false},
+    {name:'muskoka-retreat',sections:['.hero','.house-spread','.room-strip','.seasons'],required:3,poster:false}
+  ],
+  portfolio:[
+    {name:'woodworker',sections:['.hero','.pieces','.craft-showcase'],required:3,poster:false},
+    {name:'garage-detailing',sections:['.hero','.work-gallery','.services'],required:4,poster:false},
+    {name:'frame-portfolio',sections:['.opening','.frame-feature','.gallery-grid'],required:11,poster:false}
+  ],
+  services:[
+    {name:'restaurant',sections:['.hero','.menu-section','.room'],required:3,poster:false},
+    {name:'real-estate',sections:['.hero','.homes','.shore-rail-section'],required:4,poster:false},
+    {name:'custom-bakes',sections:['.hero','.bakes'],required:3,poster:false}
+  ]
+};
+const batch=process.env.MEDIA_BATCH||'baseline';
+if(!Object.hasOwn(batches,batch))throw Error('Unknown still-media QA batch '+JSON.stringify(batch));
+const templates=batches[batch],evidence=path.join(here,'loaded-media-evidence',batch);
+const report={mode:'review-only',batch,date:new Date().toISOString(),videoDownloadedBytes:0,
+  licenseApproval:false,physicalDeviceTest:false,accessibilityCertification:false,
+  screenshots:[],cases:[],cropReviewCandidates:[],errors:[]};
 mkdirSync(evidence,{recursive:true});
 const server=spawn('python3',['-m','http.server','4198','--bind','127.0.0.1'],{cwd:dist,stdio:'ignore'});
 let browser;
@@ -40,10 +58,16 @@ async function loadImageMedia(page){
       ]);
       const bounds=img.getBoundingClientRect();
       const css=getComputedStyle(img);
+      const cropFraction=img.naturalWidth>0&&img.naturalHeight>0&&bounds.width>0&&bounds.height>0&&css.objectFit==='cover'
+        ?Math.min(1,(bounds.width/Math.max(bounds.width/img.naturalWidth,bounds.height/img.naturalHeight))
+          *(bounds.height/Math.max(bounds.width/img.naturalWidth,bounds.height/img.naturalHeight)))
+          /(img.naturalWidth*img.naturalHeight))
+        :null;
       return {src:img.currentSrc||img.src,alt:img.alt,
         naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,
         renderedWidth:Math.round(bounds.width),renderedHeight:Math.round(bounds.height),
-        objectFit:css.objectFit,objectPosition:css.objectPosition,...result};
+        objectFit:css.objectFit,objectPosition:css.objectPosition,
+        visibleSourceFraction:cropFraction===null?null:Number(cropFraction.toFixed(3)),...result};
     };
     const images=[...document.images];
     const loaded=await Promise.all(images.map(decode));
@@ -113,9 +137,19 @@ try{
         autoplay:document.querySelector('#hero-film')?.autoplay||false,
         activeElement:document.activeElement?.tagName||null
       }));
+      const remoteImages=media.images.filter(x=>/^https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\//.test(x.src));
+      const localImages=media.images.filter(x=>!remoteImages.includes(x));
       const result={template:entry.name,width,httpStatus:response?.status()??null,
-        rendered:layout,remoteImages:media.images.filter(x=>x.src.startsWith('http')),
-        poster:media.poster,videoRequests};
+        rendered:layout,remoteImages,localImages,poster:media.poster,videoRequests};
+      for(const img of media.images){
+        // Only a review flag: 60%+ of the source cropped may be intentional.
+        if(img.ok&&img.visibleSourceFraction!==null&&img.visibleSourceFraction<0.4){
+          report.cropReviewCandidates.push({
+            template:entry.name,width,src:img.src,alt:img.alt,
+            visibleSourceFraction:img.visibleSourceFraction,objectPosition:img.objectPosition
+          });
+        }
+      }
       if(entry.name==='creative-agency'&&width<=390){
         const regions=await page.evaluate(()=>{
           const bounds=selector=>{
@@ -134,7 +168,7 @@ try{
       if(response?.status()!==200)report.errors.push(entry.name+' '+width+' HTTP '+response?.status());
       if(layout.scrollWidth>width+4)report.errors.push(entry.name+' '+width+' horizontal overflow '+layout.scrollWidth+'px');
       if(result.remoteImages.length!==entry.required)report.errors.push(entry.name+' '+width+' expected '+entry.required+' remote img elements, saw '+result.remoteImages.length);
-      for(const img of result.remoteImages)if(!img.ok||img.naturalWidth<1)report.errors.push(entry.name+' '+width+' image failed: '+img.src+' '+(img.error||''));
+      for(const img of media.images)if(!img.ok||img.naturalWidth<1)report.errors.push(entry.name+' '+width+' image failed: '+img.src+' '+(img.error||''));
       if(entry.poster&&(!media.poster?.ok||media.poster.naturalWidth<1))report.errors.push(entry.name+' '+width+' poster did not decode: '+(media.poster?.error||'unknown'));
       if(videoRequests>0||layout.sourceAttached||layout.autoplay)report.errors.push(entry.name+' '+width+' unexpected 4K video network/activation');
       await sectionsToCapture(page,entry,width);
@@ -148,7 +182,7 @@ try{
   await browser?.close().catch(()=>{});
   server.kill('SIGTERM');
   writeFileSync(path.join(evidence,'results.json'),JSON.stringify(report,null,2));
-  console.log('Loaded image review: '+report.cases.length+' viewport cases, '+report.screenshots.length+' screenshots, '+report.errors.length+' issues.');
+  console.log('Loaded image review ('+batch+'): '+report.cases.length+' viewport cases, '+report.screenshots.length+' screenshots, '+report.cropReviewCandidates.length+' manual crop flags, '+report.errors.length+' hard errors.');
   if(report.errors.length){for(const issue of report.errors)console.error('REVIEW-FAIL:',issue);process.exitCode=1;}
-  else console.log('PASS: decoded remote still images and OFFCUT poster at 320/390/768/1440; no 4K video requests. Media permissions and human crop/contrast sign-off remain open.');
+  else console.log('PASS: '+batch+' decoded remote and local stills at 320/390/768/1440, without 4K requests. Crop flags are manual review prompts, not verified defects. Licensing and human crop/contrast sign-off remain open.');
 }

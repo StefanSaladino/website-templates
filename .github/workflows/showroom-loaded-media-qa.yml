@@ -8,14 +8,22 @@ on:
       - '.github/workflows/showroom-loaded-media-qa.yml'
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   still-media-browser:
-    name: Real loaded still-image crop evidence
+    name: Real still-image crop evidence (${{ matrix.batch }})
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: [baseline, portfolio, services]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,14 +37,16 @@ jobs:
         run: npm run build
       - name: Confirm system Chrome
         run: command -v google-chrome || command -v chromium
-      - name: Decode actual remote stills at four viewport widths without streaming film
+      - name: Decode actual remote and local stills without streaming film
         working-directory: components
+        env:
+          MEDIA_BATCH: ${{ matrix.batch }}
         run: node scripts/capture-loaded-media.mjs
       - name: Preserve loaded image screenshots and evidence ledger
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: loaded-still-media-evidence
-          path: components/loaded-media-evidence/
+          name: loaded-still-media-evidence-${{ matrix.batch }}
+          path: components/loaded-media-evidence/${{ matrix.batch }}/
           if-no-files-found: warn
           retention-days: 7

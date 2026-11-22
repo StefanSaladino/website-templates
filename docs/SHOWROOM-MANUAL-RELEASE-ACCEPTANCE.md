@@ -47,3 +47,10 @@ Record failed screens, reproduction steps, accessibility tree/contrast observati
 ## Publication decision
 
 No branch merge, `live` metadata promotion, rights approval, commercial form connection or removal of sample disclaimers happens automatically. Require the **final SHA** to pass all CI, manual accessible-device/visual checks, media rights review and named stakeholder approval. **Step 19 of the project roadmap stays open** until then.
+
+
+## Loaded-image capture expansion — 22 November 2026
+
+The existing opt-in/triggered still-media workflow used pre-replacement expectations (7 editorial-commerce and 5 Muskoka images) and incorrectly identified local illustrations as “remote” because browser URLs start with `http://127.0.0.1`. The capture script now distinguishes **actual third-party Unsplash/Pexels stills** from **local original illustrations**, and checks both decoded sources. It runs three independent evidence batches: baseline (OFFCUT poster, RANGE/FOUND, Morrow House), portfolio (GRAIN & GABLE, GARAGE, FRAME), and services (SERA, CURRENT, DOT + CRUMB), each at **320/390/768/1440px**.
+
+For each rendered image the evidence ledger retains dimensions, `object-fit`, `object-position` and an estimated fraction of the original frame visible with `object-fit: cover`. Images with under 40% source area visible are **flagged for human crop review**, not automatically rejected. Screenshots remain downloadable for inspection only, and the browser blocks any attempt to request OFFCUT's 4K movie. A decoded photo is **not proof of color contrast, subject-safe crop, or license**. The workflow should be considered a technical evidence batch, with every run's result checked before acceptance.
