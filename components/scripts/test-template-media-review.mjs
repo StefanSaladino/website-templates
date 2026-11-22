@@ -158,5 +158,14 @@ try{
  assert.equal(poolAssets.errors,0);
  assert(poolAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: pools selects three unapproved images without offline downloads.');
+ const fitness=spawnSync(process.execPath,[script,'--offline','--templates=fitness-launch','--limit=5','--output='+path.join(directory,'fitness-launch')],{encoding:'utf8',timeout:20000});
+ if(fitness.status!==0)throw Error('YARD media selection failed: '+fitness.stderr+'\\n'+fitness.stdout);
+ const fitnessAssets=JSON.parse(readFileSync(path.join(directory,'fitness-launch/results.json'),'utf8'));
+ assert.deepEqual(fitnessAssets.assets.map(item=>item.id),['TM-018','TM-068']);
+ assert.equal(fitnessAssets.total,2);
+ assert.equal(fitnessAssets.downloaded,0);
+ assert.equal(fitnessAssets.errors,0);
+ assert(fitnessAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: fitness-launch selects two unapproved images without offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
