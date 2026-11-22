@@ -113,5 +113,14 @@ try{
  assert.equal(eventImages.errors,0);
  assert(eventImages.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: event-launch selects four unapproved photographs without offline downloads.');
+ const bake=spawnSync(process.execPath,[script,'--offline','--templates=custom-bakes','--limit=5','--output='+path.join(directory,'custom-bakes')],{encoding:'utf8',timeout:20000});
+ if(bake.status!==0)throw Error('DOT + CRUMB media selection failed: '+bake.stderr+'\\n'+bake.stdout);
+ const bakeAssets=JSON.parse(readFileSync(path.join(directory,'custom-bakes/results.json'),'utf8'));
+ assert.deepEqual(bakeAssets.assets.map(item=>item.id),['TM-029','TM-037','TM-060']);
+ assert.equal(bakeAssets.total,3);
+ assert.equal(bakeAssets.downloaded,0);
+ assert.equal(bakeAssets.errors,0);
+ assert(bakeAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: custom-bakes selects three unapproved photographs without offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}

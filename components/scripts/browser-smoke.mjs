@@ -2805,7 +2805,11 @@ try{
  assert((await page.locator('#review-view-status').textContent()).includes('Style 2')
    &&(await page.locator('#review-iframe').getAttribute('title')).includes('Style 2'),
    'review announces the chosen independent phone layout and describes its embedded preview');
- await page.locator('input[name=zoom][value=actual]').check({force:true});
+ // Click the visible label a person actually operates. The 1px visually-hidden
+ // radio input must not be force-clicked after keyboard panning.
+ await page.locator('.review-zoom-controls label:has(input[value="actual"])').click();
+ assert(await page.locator('input[name=zoom][value=actual]').isChecked(),
+  'Look closer label activates its accessible radio input');
  assert(await page.locator('#review-viewport').getAttribute('tabindex')==='0',
    'zoomed preview is keyboard-focusable when horizontal panning is required');
  await page.locator('#review-viewport').focus();
@@ -2813,7 +2817,9 @@ try{
  await page.waitForTimeout(120);
  assert(await page.locator('#review-viewport').evaluate(v=>v.scrollLeft>0),
    'review preview pans horizontally using the keyboard End key');
- await page.locator('input[name=zoom][value=fit]').check({force:true});
+ await page.locator('.review-zoom-controls label:has(input[value="fit"])').click();
+ assert(await page.locator('input[name=zoom][value=fit]').isChecked(),
+  'Whole design label activates its accessible radio input');
  assert(await page.locator('#review-viewport').getAttribute('tabindex')==='-1',
    'fitted preview does not add a redundant keyboard tab stop');
 

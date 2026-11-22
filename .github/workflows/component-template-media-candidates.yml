@@ -72,7 +72,7 @@ jobs:
         run: npm run check:template-media && npm run check:template-media-review
       - name: Generate candidate images (unapproved, not for redistribution)
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'event-launch' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'custom-bakes' }}
           CANDIDATE_LIMIT: ${{ inputs.limit || '5' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
@@ -98,13 +98,17 @@ jobs:
       - name: Verify all generated crop alternatives
         if: success()
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'event-launch' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'custom-bakes' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
           node --input-type=module -e '
           import {readFileSync,existsSync} from "node:fs";
           import assert from "node:assert/strict";
           const report=JSON.parse(readFileSync("../stock-candidates/template-review/results.json","utf8"));
+          if(process.env.TEMPLATE_NAME==="custom-bakes"){
+            assert.deepEqual(report.assets.map(x=>x.id),["TM-029","TM-037","TM-060"],"Wrong DOT + CRUMB photo identities");
+            assert.equal(report.downloaded,3);
+          }
           if(process.env.TEMPLATE_NAME==="event-launch"){
             assert.deepEqual(report.assets.map(x=>x.id),["TM-045","TM-049","TM-052","TM-056"],"Wrong AFTER DARK photo identities");
             assert.equal(report.downloaded,4);
