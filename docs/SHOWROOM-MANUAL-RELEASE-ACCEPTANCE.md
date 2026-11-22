@@ -59,3 +59,5 @@ For each rendered image the evidence ledger retains dimensions, `object-fit`, `o
 ## Offline image-review batch synchronization gate
 
 `components/data/loaded-media-review-batches.json` now holds the three still-image evidence batches and their screenshot sections. Before `npm run build`, `check-loaded-media-batches.mjs` verifies that each of nine unique template pages exists, its actual `<img>` third-party source count matches the configured expectation, the required sections exist and OFFCUT still has its video-poster declaration. This **offline check cannot establish that a CDN returns a usable photo**, that a photograph is appropriately cropped or that any rights are cleared. Its purpose is preventing stale capture scripts after image-source replacements.
+
+**Source synchronization note:** The browser validates each rendered third-party `<img>` placement, including repeated appearances of one underlying Unsplash identity. This is different from counting normalized media IDs (TM-###), so batch counts must use HTML image elements. Empty inactive dialog images are excluded from initial decode rather than treated as failed photos.

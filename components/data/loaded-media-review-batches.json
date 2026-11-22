@@ -16,7 +16,7 @@
         ".collection",
         ".journal"
       ],
-      "required": 6,
+      "required": 7,
       "poster": false
     },
     {
@@ -27,7 +27,7 @@
         ".room-strip",
         ".seasons"
       ],
-      "required": 3,
+      "required": 5,
       "poster": false
     }
   ],
@@ -39,7 +39,7 @@
         ".pieces",
         ".craft-showcase"
       ],
-      "required": 3,
+      "required": 5,
       "poster": false
     },
     {
@@ -49,7 +49,7 @@
         ".work-gallery",
         ".services"
       ],
-      "required": 4,
+      "required": 5,
       "poster": false
     },
     {
@@ -59,7 +59,7 @@
         ".frame-feature",
         ".gallery-grid"
       ],
-      "required": 11,
+      "required": 14,
       "poster": false
     }
   ],
@@ -81,7 +81,7 @@
         ".homes",
         ".shore-rail-section"
       ],
-      "required": 4,
+      "required": 7,
       "poster": false
     },
     {
@@ -90,7 +90,7 @@
         ".hero",
         ".bakes"
       ],
-      "required": 3,
+      "required": 5,
       "poster": false
     }
   ]

@@ -11,7 +11,7 @@ const here=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dist=path.resolve(here,'../dist');
 const origin='http://127.0.0.1:4198/templates/';
 const sizes=[320,390,768,1440];
-// These counts are *third-party HTML img elements* after replacing unsupported
+// These counts are *third-party HTML img placements* (not distinct photo identities) after replacing unsupported
 // product/unsafe-work images with original local illustrations. Local images
 // are decoded separately; they are NOT external stock assets.
 const batches=JSON.parse(readFileSync(new URL('../data/loaded-media-review-batches.json',import.meta.url),'utf8'));
@@ -53,7 +53,7 @@ async function loadImageMedia(page){
         objectFit:css.objectFit,objectPosition:css.objectPosition,
         visibleSourceFraction:cropFraction===null?null:Number(cropFraction.toFixed(3)),...result};
     };
-    const images=[...document.images];
+    const images=[...document.images].filter(img=>img.hasAttribute('src')||img.hasAttribute('srcset')||Boolean(img.currentSrc));
     const loaded=await Promise.all(images.map(decode));
     const film=document.querySelector('#hero-film');
     let poster=null;
