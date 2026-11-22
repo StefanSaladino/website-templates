@@ -107,3 +107,7 @@ These are **not cleared or low-risk**. No special flags in the preliminary pilot
 ## What this queue does not close
 
 Native Safari/Android, VoiceOver/TalkBack/NVDA, independent document accessibility, 200%–400% zoom and text spacing, all 44 alternate mobile variants, all 20 reduced-motion patterns, final photo overlay contrast, and stakeholder acceptance remain pending in Step 19.
+
+## License interpretation checkpoint
+
+Official platform-license distinctions and the current unresolved redistribution/model/brand assessment are recorded in [`STOCK-PLATFORM-POLICY-REVIEW.md`](STOCK-PLATFORM-POLICY-REVIEW.md). No photographer assignment was inferred from third-party reposts or CDN-only filenames.

@@ -135,3 +135,7 @@ This is a **new automation**, not a claim it has passed. Once its current-commit
 ## Asset rights review workload
 
 The current manually investigated backlog is organized in [`docs/TEMPLATE-MEDIA-CLEARANCE-QUEUE.md`](TEMPLATE-MEDIA-CLEARANCE-QUEUE.md). It prioritizes 29 flagged/person/brand/film candidates and lists all 62 current assets with observed provenance gaps. None is legally cleared. All 59 missing source-page and creator entries must receive appropriate verification or an asset replacement before original-template commercialization. Unrelated remote pictures cannot be treated as owned creative merely because they render correctly.
+
+## Integrated reduced-motion audit — 22 November 2026
+
+A dedicated GitHub Actions workflow `integrated-reduced-motion-qa.yml` and isolated browser runner `components/scripts/audit-reduced-motion.mjs` now check **all 20 ANIM patterns in their actual full-page source templates**, not standalone proxy previews, at 390px and 1440px. It emulates `prefers-reduced-motion: reduce`, scrolls to each real pattern, checks visible headings/sections and target anchors, detects long-running Web Animations in the affected subtree, verifies no root overflow or unexpected film request, and captures **40 actual source screenshots**. This new check requires a successful run on the latest source SHA and manual visual/assistive-technology acceptance; it cannot certify motion sensitivity or screen reader outcomes. Keep Step 19 open.

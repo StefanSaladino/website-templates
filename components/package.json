@@ -18,7 +18,8 @@
     "check:template-a11y": "node scripts/check-template-a11y.mjs",
     "check:loaded-media-batches": "node scripts/check-loaded-media-batches.mjs",
     "check:gallery": "node scripts/check-gallery-integrity.mjs",
-    "review:gallery-browser": "node scripts/audit-gallery-browser.mjs"
+    "review:gallery-browser": "node scripts/audit-gallery-browser.mjs",
+    "review:reduced-motion": "node scripts/audit-reduced-motion.mjs"
   },
   "devDependencies": {
     "vite": "^6.3.0",

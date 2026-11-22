@@ -1,0 +1,43 @@
+name: Integrated reduced-motion animation review
+on:
+  push:
+    branches:
+      - feature/component-showroom
+    paths:
+      - 'templates/**'
+      - 'components/data/components.json'
+      - 'components/scripts/audit-reduced-motion.mjs'
+      - '.github/workflows/integrated-reduced-motion-qa.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  motion:
+    name: 20 animations at phone and desktop with reduced motion
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser dependencies
+        working-directory: components
+        run: npm install --no-audit --no-fund
+      - name: Check 20 actual reduced-motion template animations
+        working-directory: components
+        run: npm run review:reduced-motion
+      - name: Preserve animation screenshots and preference ledger
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integrated-reduced-motion-evidence
+          path: components/reduced-motion-evidence/
+          if-no-files-found: warn
+          retention-days: 14
