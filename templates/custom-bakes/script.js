@@ -103,3 +103,12 @@ if ('IntersectionObserver' in window && !reduceMotion) {
 } else {
   reveals.forEach((item) => item.classList.add('is-visible'));
 }
+
+/* This template does not have a receiving bakery or booking API. Confirm the
+ * demonstration without saving, sending or retaining form fields. */
+const sampleBakeForm=document.querySelector('[data-sample-bake-form]');
+sampleBakeForm?.addEventListener('submit',event=>{
+  event.preventDefault();
+  const status=sampleBakeForm.querySelector('[data-bake-form-response]');
+  if(status)status.textContent='Preview only: no order inquiry was sent, no deposit was collected and no date was reserved.';
+});

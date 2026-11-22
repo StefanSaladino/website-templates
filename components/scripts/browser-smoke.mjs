@@ -242,6 +242,19 @@ try{
  await page.locator('[data-replay-motion="ANIM-08"]').click();
  assert(!await page.locator('[data-motion-pattern="ANIM-08"]').evaluate(el=>el.classList.contains('event-line-playing')),'ANIM-08 reduced-motion fallback');
  await page.emulateMedia({reducedMotion:'no-preference'});
+ await openTemplate('custom-bakes');
+ assert(await page.locator('.bake-demo-banner').isVisible(),'DOT + CRUMB visibly discloses its fictional business and unverified bakery photographs');
+ assert((await page.locator('.bake-demo-banner').textContent()).includes('no orders or date reservations'),'DOT + CRUMB cannot accept real orders');
+ assert((await page.locator('.hero-window img').getAttribute('alt')).includes('Extreme close-up'),'DOT + CRUMB frosting macro is not described as an entire cake');
+ assert((await page.locator('.bake-item--cookies img').getAttribute('alt')).includes('unicorns'),'DOT + CRUMB sugar cookie subject truthfully described');
+ assert((await page.locator('.bake-item--wedding img').getAttribute('alt')).includes('Nutella-branded'),'DOT + CRUMB branded chocolate dessert disclosed');
+ assert((await page.locator('.bake-product-disclaimer').textContent()).includes('not a wedding-cake example'),'DOT + CRUMB stock dessert not misrepresented as the wedding item');
+ await page.locator('[data-sample-bake-form] input[name=date]').fill('2027-03-01');
+ await page.locator('[data-sample-bake-form] select[name=type]').selectOption({label:'Celebration cake'});
+ await page.locator('[data-sample-bake-form] input[name=name]').fill('Preview Guest');
+ await page.locator('[data-sample-bake-form] input[name=email]').fill('preview@example.com');
+ await page.locator('[data-sample-bake-form] button[type=submit]').click();
+ assert((await page.locator('[data-bake-form-response]').textContent()).includes('no order inquiry was sent'),'DOT + CRUMB demo form confirms no booking or submission');
  await openTemplate('muskoka-retreat');
  await page.locator('[data-retreat-chapter="2"]').click();
  assert(await page.locator('[data-retreat-chapter="2"]').getAttribute('aria-current')==='step'&&
