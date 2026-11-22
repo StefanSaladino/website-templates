@@ -95,5 +95,14 @@ try{
  assert.equal(architecture.errors,0);
  assert(architecture.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: monolith-architecture selects four unapproved images without downloads.');
+ const woodwork=spawnSync(process.execPath,[script,'--offline','--templates=woodworker','--limit=5','--output='+path.join(directory,'woodworker')],{encoding:'utf8',timeout:20000});
+ if(woodwork.status!==0)throw Error('Woodworker media selection failed: '+woodwork.stderr+'\\n'+woodwork.stdout);
+ const woodImages=JSON.parse(readFileSync(path.join(directory,'woodworker/results.json'),'utf8'));
+ assert.deepEqual(woodImages.assets.map(item=>item.id),['TM-043','TM-048','TM-054','TM-055']);
+ assert.equal(woodImages.total,4);
+ assert.equal(woodImages.downloaded,0);
+ assert.equal(woodImages.errors,0);
+ assert(woodImages.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: woodworker selects four unapproved photographs with no offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
