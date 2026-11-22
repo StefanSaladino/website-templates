@@ -50,9 +50,9 @@ window.addEventListener('keydown',event=>{
 });
 window.addEventListener('resize',()=>{
   if(window.innerWidth<=980)return;
-  const focusWasHidden=mobileMenu?.contains(document.activeElement);
+  const wasOpen=toggle?.getAttribute('aria-expanded')==='true';
   closeMenu();
-  if(focusWasHidden)document.querySelector('.desktop-nav a')?.focus();
+  if(wasOpen)requestAnimationFrame(()=>document.querySelector('.desktop-nav a')?.focus());
 });
 window.addEventListener('scroll',syncHeader,{passive:true});
 syncHeader();

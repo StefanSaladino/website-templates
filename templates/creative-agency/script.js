@@ -43,9 +43,11 @@ window.addEventListener('keydown',event=>{
 });
 window.addEventListener('resize',()=>{
   if(window.innerWidth<=900)return;
-  const focusWasHidden=menu?.contains(document.activeElement);
+  const wasOpen=menuButton?.getAttribute('aria-expanded')==='true';
   setMenu(false);
-  if(focusWasHidden)document.querySelector('.desktop-nav a')?.focus();
+  // The browser can blur a disappearing mobile link before resize handlers run.
+  // Move focus once desktop styles have settled, rather than reading a stale activeElement.
+  if(wasOpen)requestAnimationFrame(()=>document.querySelector('.desktop-nav a')?.focus());
 });
 
 function updateHeader() {

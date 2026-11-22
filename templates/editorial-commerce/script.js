@@ -48,9 +48,9 @@ function focusMenuDestination(link) {
   });
   window.addEventListener('resize',()=>{
     if(window.innerWidth<=980)return;
-    const focusWasHidden=mobileMenu.contains(document.activeElement);
+    const wasOpen=menuToggle.getAttribute('aria-expanded')==='true';
     closeMenu();
-    if(focusWasHidden)document.querySelector('.desktop-nav a')?.focus();
+    if(wasOpen)requestAnimationFrame(()=>document.querySelector('.desktop-nav a')?.focus());
   });
 }
 
