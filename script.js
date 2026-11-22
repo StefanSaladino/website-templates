@@ -8,7 +8,7 @@ if (templateGrid && !document.querySelector('[data-template="woodworker"]')) {
           <div class="woodworker-thumb-rail" aria-hidden="true"><span>0</span><i></i><i></i><i></i><span>12</span><i></i><i></i><i></i><span>24</span></div>
           <div class="woodworker-thumb-copy"><div class="woodworker-thumb-brand"><span aria-hidden="true"></span><div><b>GRAIN &amp; GABLE</b><small>WOODWORKING</small></div></div><p>SMALL-BATCH WOODWORK · SOUTHERN ONTARIO</p><strong>Built one<br/><em>at a time.</em></strong><i>Request a build</i></div>
           <div class="woodworker-thumb-media"><img alt="" src="https://images.unsplash.com/photo-1769353086138-19ee65291a04?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=76&amp;w=1200"/><div><small>ON THE BENCH</small><b>White oak wall shelf · 36 in.</b></div></div>
-          <div class="woodworker-thumb-note"><small>SHOP NOTE / 017</small><b>Measure twice.</b></div><span class="live-badge">Live</span>
+          <div class="woodworker-thumb-note"><small>SHOP NOTE / 017</small><b>Measure twice.</b></div><span class="live-badge">Preview</span>
         </div>
       </a>
       <div class="card-copy"><div><h3>Woodworker</h3></div><p>Business · Creative</p><a class="card-live-link" href="templates/woodworker/">View template ↗</a></div>
@@ -22,7 +22,7 @@ if (templateGrid && !document.querySelector('[data-template="landscaping"]')) {
         <div class="thumb thumb--landscape-sync">
           <div class="landscape-thumb-plan" aria-hidden="true"><span class="landscape-thumb-lot"></span><span class="landscape-thumb-house"></span><span class="landscape-thumb-bed landscape-thumb-bed--one"></span><span class="landscape-thumb-bed landscape-thumb-bed--two"></span><i></i><i></i><i></i></div>
           <div class="landscape-thumb-copy"><div class="landscape-thumb-brand"><span></span><div><b>BED &amp; BORDER</b><small>LANDSCAPES</small></div></div><p>RESIDENTIAL LANDSCAPING · HALTON + HAMILTON</p><strong>A yard should<br/>feel <em>settled in.</em></strong><i>Book a site walk</i></div>
-          <div class="landscape-thumb-media"><img alt="" src="https://images.unsplash.com/photo-1722103155234-5e83b3effe03?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=78&amp;w=1200"/><div><small>GARDEN 024</small><b>Stone underfoot. Green at the edges.</b></div></div><span class="live-badge">Live</span>
+          <div class="landscape-thumb-media"><img alt="" src="https://images.unsplash.com/photo-1722103155234-5e83b3effe03?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=78&amp;w=1200"/><div><small>GARDEN 024</small><b>Stone underfoot. Green at the edges.</b></div></div><span class="live-badge">Preview</span>
         </div>
       </a>
       <div class="card-copy"><div><h3>Landscaping</h3></div><p>Business · Creative</p><a class="card-live-link" href="templates/landscaping/">View template ↗</a></div>
@@ -33,7 +33,7 @@ if (templateGrid && !document.querySelector('[data-template="pools"]')) {
   templateGrid.insertAdjacentHTML('beforeend', `
     <article class="template-card is-live" data-category="business creative" data-template="pools">
       <a aria-label="Open Pool Company template" class="thumb-link" href="templates/pools/">
-        <div class="thumb thumb--tideform-sync"><img class="tideform-thumb-bg" alt="" src="https://images.unsplash.com/photo-1783125127199-860da9744dcc?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=78&amp;w=1200"/><div class="tideform-thumb-shade"></div><div class="tideform-thumb-caustics" aria-hidden="true"></div><div class="tideform-thumb-brand"><span><i></i><i></i></span><b>TIDEFORM</b><small>POOLS</small></div><div class="tideform-thumb-copy"><small>CUSTOM POOLS · HALTON + WEST GTA</small><strong>Where the yard<br/><em>turns to water.</em></strong><i>Plan your pool</i></div><div class="tideform-thumb-depth"><span>3′6″</span><b></b><span>5′0″</span><b></b><span>7′0″</span></div><div class="tideform-thumb-wave" aria-hidden="true"><svg viewBox="0 0 500 75" preserveAspectRatio="none"><path d="M0 31 C58 7 101 53 161 31 C222 8 260 50 319 28 C382 6 423 50 500 22 L500 75 L0 75 Z"></path></svg></div><span class="live-badge">Live</span></div>
+        <div class="thumb thumb--tideform-sync"><img class="tideform-thumb-bg" alt="" src="https://images.unsplash.com/photo-1783125127199-860da9744dcc?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=78&amp;w=1200"/><div class="tideform-thumb-shade"></div><div class="tideform-thumb-caustics" aria-hidden="true"></div><div class="tideform-thumb-brand"><span><i></i><i></i></span><b>TIDEFORM</b><small>POOLS</small></div><div class="tideform-thumb-copy"><small>CUSTOM POOLS · HALTON + WEST GTA</small><strong>Where the yard<br/><em>turns to water.</em></strong><i>Plan your pool</i></div><div class="tideform-thumb-depth"><span>3′6″</span><b></b><span>5′0″</span><b></b><span>7′0″</span></div><div class="tideform-thumb-wave" aria-hidden="true"><svg viewBox="0 0 500 75" preserveAspectRatio="none"><path d="M0 31 C58 7 101 53 161 31 C222 8 260 50 319 28 C382 6 423 50 500 22 L500 75 L0 75 Z"></path></svg></div><span class="live-badge">Preview</span></div>
       </a>
       <div class="card-copy"><div><h3>Pool Company</h3></div><p>Business · Creative</p><a class="card-live-link" href="templates/pools/">View template ↗</a></div>
     </article>`);
@@ -48,7 +48,7 @@ if (templateGrid && !document.querySelector('[data-template="tattoo-studio"]')) 
           <div class="blackline-thumb-shade"></div><div class="blackline-thumb-noise"></div>
           <div class="blackline-thumb-brand"><b>BLACKLINE</b><small>SOCIAL CLUB</small></div>
           <div class="blackline-thumb-copy"><small>APPOINTMENT-ONLY · TORONTO</small><strong>GOOD WORK.<br/><em>NO RUSH.</em></strong><i>Request an appointment ↗</i></div>
-          <div class="blackline-thumb-stamp"><span>TORONTO</span><b>INK</b></div><span class="live-badge">Live</span>
+          <div class="blackline-thumb-stamp"><span>TORONTO</span><b>INK</b></div><span class="live-badge">Preview</span>
         </div>
       </a>
       <div class="card-copy"><div><h3>Tattoo Studio</h3></div><p>Business · Creative</p><a class="card-live-link" href="templates/tattoo-studio/">View template ↗</a></div>
@@ -68,11 +68,11 @@ document.head.appendChild(galleryStyle);
 /* Image-led additions: three distinct previews, inserted before filters initialize. */
 const imageFirstCatalog = [
  {id:'monolith-architecture',cat:'business creative',title:'Architecture Studio',label:'Business · Creative',
-  inner:'<div class="thumb thumb--monolith-photo"><div class="mono-images"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=700&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;w=420&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&amp;fit=crop&amp;w=420&amp;q=76" alt="" loading="lazy"></div><div class="mono-caption"><b>MONOLITH</b><span>ARCHITECTURE / SELECTED WORK</span></div><span class="live-badge">Live</span></div>'},
+  inner:'<div class="thumb thumb--monolith-photo"><div class="mono-images"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=700&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;w=420&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&amp;fit=crop&amp;w=420&amp;q=76" alt="" loading="lazy"></div><div class="mono-caption"><b>MONOLITH</b><span>ARCHITECTURE / SELECTED WORK</span></div><span class="live-badge">Preview</span></div>'},
  {id:'frame-portfolio',cat:'minimal creative',title:'Photography Portfolio',label:'Minimal · Creative',
-  inner:'<div class="thumb thumb--frame-photo"><div class="frame-image-grid"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"></div><div class="frame-letter"><b>FRAME.</b><span>SELECTED IMAGES</span></div><span class="live-badge">Live</span></div>'},
+  inner:'<div class="thumb thumb--frame-photo"><div class="frame-image-grid"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"></div><div class="frame-letter"><b>FRAME.</b><span>SELECTED IMAGES</span></div><span class="live-badge">Preview</span></div>'},
  {id:'garage-detailing',cat:'business creative',title:'Automotive Detailing',label:'Business · Creative',
-  inner:'<div class="thumb thumb--garage-photo"><img class="garage-image" src="https://images.unsplash.com/photo-1708805282706-f44730b7e527?auto=format&amp;fit=crop&amp;w=1100&amp;q=78" alt="" loading="lazy"><div class="garage-shade"></div><div class="garage-logo"><b>GARAGE</b><small>DETAILING STUDIO</small></div><div class="garage-tag">DETAIL / CORRECT / PROTECT</div><span class="live-badge">Live</span></div>'}
+  inner:'<div class="thumb thumb--garage-photo"><img class="garage-image" src="https://images.unsplash.com/photo-1708805282706-f44730b7e527?auto=format&amp;fit=crop&amp;w=1100&amp;q=78" alt="" loading="lazy"><div class="garage-shade"></div><div class="garage-logo"><b>GARAGE</b><small>DETAILING STUDIO</small></div><div class="garage-tag">DETAIL / CORRECT / PROTECT</div><span class="live-badge">Preview</span></div>'}
 ];
 if(templateGrid){
   for(const item of imageFirstCatalog){
@@ -98,7 +98,7 @@ function applyGalleryCounts(){
  if(stats[0])stats[0].textContent=String(cards.length+featured);
  if(stats[1])stats[1].textContent=String(cards.length+featured);
  const head=document.querySelector('.library-head > p');
- if(head)head.textContent='The remaining '+cards.length+' templates live here. Use the filters to browse by direction without repeating the featured picks above.';
+ if(head)head.textContent='The remaining '+cards.length+' design previews are shown here. Use the filters to browse by direction without repeating the featured picks above.';
  const note=document.querySelector('.library-note strong');
  if(note)note.textContent=cards.length+' more templates';
  document.querySelectorAll('.filter').forEach(button=>{

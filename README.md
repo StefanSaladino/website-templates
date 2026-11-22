@@ -4,7 +4,7 @@ A standalone gallery of landing-page concepts. The gallery uses Boomer Automatio
 
 ## Current milestone
 
-Sixteen templates are live:
+Twenty-four fully previewable website templates are available for **design review**; none is approved for commercial production:
 
 1. **Quiet SaaS / Arc** — `templates/quiet-saas/`
 2. **Dark Tech / KERN** — `templates/dark-tech/`
@@ -22,12 +22,20 @@ Sixteen templates are live:
 14. **Storefront / MORA** — `templates/storefront/`
 15. **Interactive Playground / WOBBLEWORKS** — `templates/interactive-playground/`
 16. **Custom Bakes / DOT + CRUMB** — `templates/custom-bakes/`
+17. **Woodworker / GRAIN & GABLE** — `templates/woodworker/`
+18. **Landscaping / BED & BORDER** — `templates/landscaping/`
+19. **Pool Company / TIDEFORM** — `templates/pools/`
+20. **Tattoo Studio / BLACKLINE SOCIAL CLUB** — `templates/tattoo-studio/`
+21. **Architecture Studio / MONOLITH** — `templates/monolith-architecture/`
+22. **Photography Portfolio / FRAME.** — `templates/frame-portfolio/`
+23. **Automotive Detailing / GARAGE** — `templates/garage-detailing/`
+24. **Muskoka Retreat / MORROW HOUSE** — `templates/muskoka-retreat/`
 
-Open `index.html` with Live Server and click any live template preview.
+Open `index.html` with Live Server and click a template preview. Each template is a fictional concept, not an operating business or approved production deployment.
 
 ## Mobile-first baseline
 
-The main gallery and every live template receive a dedicated mobile composition. Mobile headers remain accessible while scrolling, 320px layouts are treated as their own compositions, touch targets are enlarged, hero typography/media are independently tuned, and sticky headers do not cover anchored content.
+The main gallery and every in-review template receive a dedicated mobile composition. Mobile headers remain accessible while scrolling, 320px layouts are treated as their own compositions, touch targets are enlarged, hero typography/media are independently tuned, and sticky headers do not cover anchored content.
 
 ## Motion direction
 
