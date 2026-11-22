@@ -1390,7 +1390,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "063864bad53e82cc7817efef46302e90db21737250bc655a8ca157f99d2f6016",
+        "notes": "Dark plum and black paneled wall with a tall thin shaded lamp; a corner of a set table, drinking glass and folded linen appear near the lower edge. Existing lamp/table description is broadly consistent, though visible glass is not confirmed as wine. Stock photo cannot document SERA or its claimed seat count, layout or location. Wide crop reduces the already-limited lower table context; tall phone retains wall and lamp.",
+        "flags": [
+          "other-venue-identity-unverified",
+          "wine-type-unverified",
+          "venue-layout-claims-unverified",
+          "wide-crop-cuts-table"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-RESTAURANT-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-048",
@@ -1737,7 +1750,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "343f6a4ff7a55eec0b3c853e23abc4e1ebddfb296e412bf69e2fa44b8b4b3343",
+        "notes": "Dim furnished dining interior with wood-topped round tables laid with cutlery, glassware and napkins, dark chairs, and a large semicircular arched window in the background. Description of an arched-window restaurant is supported; fictional SERA ownership, service, neighborhood and room dimensions are not. Wide crop mostly shows foreground table setting and loses the arch; tall crop keeps window/table relationship.",
+        "flags": [
+          "other-venue-photo",
+          "restaurant-attribution-unverified",
+          "wide-crop-removes-distinctive-arch",
+          "capacity-unverified"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-RESTAURANT-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-060",
@@ -1851,7 +1877,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "651154e2c7537c87c907b610a96ffa23921b84e550992bde4415333b3ed370af",
+        "notes": "Opulent interior with many bright golden orb/pendant lights, curved tan upholstered banquette or booth seating, round set tables and lush center greenery. Existing hero alt incorrectly emphasized dark wood tables rather than the bright golden pendants and upholstery. Photo is not evidence of SERA's imaginary open kitchen, 38 seats or Queen West setting; wide crop removes portions of room ceiling and floor.",
+        "flags": [
+          "hero-alt-underdescribes-visible-interior",
+          "unrelated-dining-venue",
+          "seat-count-and-kitchen-not-shown",
+          "wide-crop-loses-room-context"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-RESTAURANT-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-064",

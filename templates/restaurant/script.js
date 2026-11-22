@@ -67,3 +67,11 @@ if (!reduceMotion) {
   requestTick();
 }
 
+
+/* A fictional venue must not imply real reservation availability or collect data. */
+const seraDemoForm=document.querySelector('[data-sera-demo-form]');
+seraDemoForm?.addEventListener('submit',event=>{
+  event.preventDefault();
+  const note=seraDemoForm.querySelector('[data-sera-form-note]');
+  if(note)note.textContent='Preview only: no table was reserved, no booking availability was checked and no personal information was sent or stored.';
+});
