@@ -316,6 +316,15 @@ try{
  await page.emulateMedia({reducedMotion:'no-preference'});
  await page.setViewportSize({width:390,height:900});
  await openTemplate('woodworker');
+ assert(await page.locator('.photo-disclaimer').isVisible(),'GRAIN & GABLE stock and fictional project warning is visible');
+ assert((await page.locator('.photo-disclaimer').textContent()).includes('unrelated stock photographs'),'GRAIN & GABLE must not imply completed client work');
+ assert((await page.locator('.piece-photo--portrait img').getAttribute('alt')).includes('Tiered'),'GRAIN & GABLE planter alt reflects tiered photo');
+ assert((await page.locator('[data-craft-slide="2"] figcaption').textContent()).includes('circular saw barefoot'),'GRAIN & GABLE carousel warns of unsafe stock scene');
+ assert((await page.locator('.workshop-warning').textContent()).includes('barefoot person'),'GRAIN & GABLE worksite image requires replacement');
+ await page.locator('.request-form input[name="name"]').fill('Example Visitor');
+ await page.locator('.request-form input[name="email"]').fill('demo@example.com');
+ await page.locator('.request-form button[type="submit"]').click();
+ assert((await page.locator('[data-demo-request-status]').textContent()).includes('No request was sent'),'GRAIN & GABLE sample form confirms no message is sent');
  assert(await page.locator('[data-craft-prev]').isDisabled(),'ANIM-20 craft carousel cannot move before first image');
  await page.locator('[data-craft-next]').click();
  assert(await page.locator('[data-craft-slide="1"]').isVisible()&&
