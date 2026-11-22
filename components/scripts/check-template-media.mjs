@@ -62,7 +62,7 @@ if(!Array.isArray(inventory.assets))fail('Missing assets array in original-templ
 const registered=new Map();
 for(const item of inventory.assets||[]){
  if(!/^TM-\d{3}$/.test(item.id))fail('Invalid original-template asset ID '+item.id);
- if(['TM-048','TM-005','TM-044','TM-065','TM-021','TM-031'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
+ if(['TM-048','TM-005','TM-044','TM-065','TM-021','TM-031','TM-034','TM-038','TM-067'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
  if(!normalize(item.urlIdentity)||normalize(item.urlIdentity)!==item.urlIdentity)fail('Noncanonical tracked remote media '+item.id);
  if(registered.has(item.urlIdentity))fail('Duplicate original-template URL record: '+item.urlIdentity);
  registered.set(item.urlIdentity,item);

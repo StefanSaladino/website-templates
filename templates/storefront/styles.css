@@ -26,3 +26,38 @@
 a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #273e36;outline-offset:4px}
 .mobile-menu a:focus-visible,.cart-drawer button:focus-visible{outline:3px solid #273e36;outline-offset:4px}
 .cart-drawer[inert]{pointer-events:none}
+
+
+/* Original MORA still-life product drawings replace unrelated branded stock. */
+.hero-media{isolation:isolate}
+.mora-art{position:absolute;inset:0;overflow:hidden}
+.mora-art--hero{background:#c8c4b9}
+.mora-art--hero::before{content:"";position:absolute;inset:7% 8% 13%;background:#d9d4c9;transform:rotate(-5deg)}
+.mora-plinth{position:absolute;left:6%;right:4%;bottom:13%;height:24%;background:#9e9a90;transform:skewY(-3deg);box-shadow:0 26px 35px rgba(36,38,33,.18)}
+.mora-objects{position:absolute;left:12%;right:12%;top:12%;bottom:35%;display:flex;align-items:flex-end;justify-content:center;gap:clamp(11px,2.5vw,28px)}
+.mora-vessel{position:relative;flex:1;min-width:0;max-width:170px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;text-align:center;box-shadow:11px 14px 21px rgba(35,38,34,.15)}
+.mora-vessel b{font:500 clamp(12px,1.7vw,21px) "Newsreader",Georgia,serif;letter-spacing:.08em}
+.mora-vessel small{font:700 clamp(7px,.65vw,9px) "DM Sans",Arial,sans-serif;letter-spacing:.08em}
+.mora-vessel--pump{height:72%;border-radius:13px 13px 6px 6px;background:#dbe2d6;color:#354239}
+.mora-vessel--pump::before{content:"";position:absolute;left:43%;top:-22px;width:14%;height:22px;background:#50564e}
+.mora-vessel--pump::after{content:"";position:absolute;left:50%;top:-22px;width:34%;height:5px;background:#50564e}
+.mora-vessel--oil{height:87%;border-radius:8px 8px 12px 12px;background:#f1e7d6;color:#514b42}
+.mora-vessel--oil::before{content:"";position:absolute;left:34%;top:-23px;width:32%;height:23px;background:#939082}
+.mora-vessel--balm{height:43%;border-radius:36% 36% 11px 11px;background:#b17c69;color:#fff5ec}
+.mora-vessel--balm::before{content:"";position:absolute;left:0;right:0;top:0;height:20%;border-radius:50% 50% 4px 4px;background:#80574b}
+.mora-art--sink{background:#d6d2c8}
+.mora-sink-mirror{position:absolute;left:18%;top:9%;width:64%;height:46%;border:9px solid #e4ded2;border-radius:46% 46% 8% 8%;background:#b4c3bc}
+.mora-sink-counter{position:absolute;left:0;right:0;bottom:12%;height:24%;background:#eee8dd;border-top:10px solid #b8b4aa}
+.mora-sink-bottle{position:absolute;z-index:1;left:23%;bottom:27%;width:20%;height:33%;display:grid;place-items:center;border-radius:5px 5px 10px 10px;background:#829488;color:#fff;font:500 15px "Newsreader",Georgia,serif;letter-spacing:.08em}
+.mora-sink-bottle::before{content:"";position:absolute;left:42%;top:-17px;width:16%;height:17px;background:#4f574e}
+.mora-sink-bottle::after{content:"";position:absolute;left:50%;top:-17px;width:35%;height:4px;background:#4f574e}
+.mora-sink-basin{position:absolute;z-index:1;right:9%;bottom:22%;width:44%;height:14%;border-radius:50%;background:#e9e4db;box-shadow:inset 0 11px 0 #bab8ae,0 8px 11px rgba(35,37,32,.1)}
+.mora-art--materials{background:#a09181}
+.mora-art--materials::before{content:"";position:absolute;inset:9% 11% 15% 17%;background:#bbaa98;transform:rotate(6deg)}
+.mora-textile{position:absolute;left:10%;top:25%;width:55%;height:37%;background:repeating-linear-gradient(0deg,#d9d1c2 0 4px,#e6decc 4px 8px);transform:rotate(-12deg);box-shadow:12px 15px 20px rgba(39,36,31,.15)}
+.mora-material-tray{position:absolute;right:8%;bottom:18%;width:51%;height:28%;border-radius:50% 50% 14% 14%;background:#e4dcce;box-shadow:0 20px 27px rgba(40,36,31,.16)}
+.mora-material-jar{position:absolute;right:22%;bottom:30%;width:27%;height:28%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border-radius:35% 35% 10px 10px;background:#ba826d;color:#fff5ea}
+.mora-material-jar::before{content:"";position:absolute;left:0;right:0;top:0;height:18%;border-radius:50% 50% 4px 4px;background:#815c50}
+.mora-material-jar b{font:500 clamp(12px,1.7vw,19px) "Newsreader",serif;letter-spacing:.1em}
+.mora-material-jar small{font:700 8px "DM Sans",Arial,sans-serif}
+@media(max-width:560px){.mora-objects{left:9%;right:9%;gap:10px}.mora-vessel small{font-size:7px}.mora-material-jar small{font-size:7px}}

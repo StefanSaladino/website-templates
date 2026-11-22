@@ -190,16 +190,6 @@
       ],
       "required": 3,
       "poster": false
-    },
-    {
-      "name": "storefront",
-      "sections": [
-        ".hero",
-        ".collection",
-        ".story"
-      ],
-      "required": 3,
-      "poster": false
     }
   ]
 }

@@ -40,7 +40,7 @@ for(const [batch,entries] of Object.entries(data)){
   console.log('PASS:',id,thirdParty.length+' remote img tags, '+entry.sections.length+' screenshot sections');
  }
 }
-if(seen.size!==19)errors.push('Expected 19 unique loaded-photo templates, found '+seen.size);
+if(seen.size!==18)errors.push('Expected 18 unique loaded-photo templates after MORA retirement, found '+seen.size);
 if(errors.length){
  for(const error of errors)console.error('MEDIA-BATCH-ERROR:',error);
  console.error('FAIL:',errors.length+' still-media batch source errors');

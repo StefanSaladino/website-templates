@@ -951,38 +951,6 @@
       }
     },
     {
-      "id": "TM-034",
-      "urlIdentity": "https://images.unsplash.com/photo-1714399417136-d328f3ea14c7",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "storefront",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "556012e416f65f1aef52fc4575e54a2fc236bd001687a1524868fdcd3b742a1f",
-        "notes": "Bright white sink, steel faucet, round wall mirror, three transparent cotton/accessory containers on a wooden tray and a black pump bottle with visible other-brand lettering. Not a MORA bathroom install or verified MORA Sink Set. Portrait crop cuts right-hand black bottle and part of mirror; bath props should not imply a real kit for sale.",
-        "flags": [
-          "third-party-product-label",
-          "not-MORA-sink-set",
-          "portrait-crop-cuts-bottle",
-          "purchase-claim-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-STOREFRONT-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-035",
       "urlIdentity": "https://images.unsplash.com/photo-1722103155234-5e83b3effe03",
       "kind": "image",
@@ -1074,38 +1042,6 @@
           "wide-crop-truncates-cookies"
         ],
         "evidenceDocument": "docs/SHOWROOM-CUSTOM-BAKES-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-038",
-      "urlIdentity": "https://images.unsplash.com/photo-1739980213756-753aea153bb8",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "storefront",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "e34ba4129ae17ed8f7ffad3d78609e8cde1ccf0e982c5f0f54b201f16b3a3d85",
-        "notes": "Three pale skincare products on a stone plinth amid dried plants; the bottle labels visibly read ENDLESS PURE and include small printed product claims. MORA's hero presents a separate imaginary four-piece Daily Set with sample pricing; the photo is neither that kit nor MORA-branded. Tall crop captures all three containers but trims floral/stone context.",
-        "flags": [
-          "visible-third-party-ENDLESS-PURE-brand",
-          "hero-product-not-pictured",
-          "misleading-trademark-endorsement",
-          "crop-excludes-styling"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-STOREFRONT-MEDIA-PILOT.md"
       }
     },
     {
@@ -1912,38 +1848,6 @@
           "wide-crop-horizon-composition"
         ],
         "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-067",
-      "urlIdentity": "https://images.unsplash.com/photo-1778373620793-a369943bf9b3",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "storefront",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "720511ab913866aa27472e4d9166542c3f1215e6e9970ab62e0703e0c0c3b799",
-        "notes": "Square warm interior photo: three red/burgundy skincare containers with legible branding staged on a white plinth bearing NORDIC in uppercase, above dark brown tiled display; overhead hanging pendant lamp and a plant. Clearly not MORA products and not evidence of its refills, sustainable packaging or manufacturing. Desktop wide crop loses much pendant lamp while retaining brand display; tall crop trims lateral plant context.",
-        "flags": [
-          "visible-third-party-NORDIC-brand",
-          "not-MORA-products",
-          "unverified-refill-sustainability-claims",
-          "wide-crop-loses-lamp"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-STOREFRONT-MEDIA-PILOT.md"
       }
     },
     {
