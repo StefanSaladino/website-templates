@@ -501,3 +501,8 @@ dd { margin: 0; }
 .morrow-contact-status{margin-top:18px;max-width:480px;color:inherit;font-size:12px;line-height:1.7;opacity:.83}
 @media(max-width:900px){.morrow-demo-banner{top:78px;left:18px;right:18px;padding:10px 12px;font-size:10px}.morrow-demo-banner strong{display:block;margin-bottom:4px}.hero-index{top:198px}.morrow-hero-stock{top:242px;right:18px;left:18px;max-width:none;font-size:8px}.morrow-project-stock{left:12px;bottom:12px;max-width:calc(100% - 24px);font-size:8px}}
 @media(max-width:390px){.hero-index{top:209px}.morrow-hero-stock{top:252px}}
+
+/* Make focused bypass and animation/reply controls visible on architectural imagery. */
+.skip-link:focus-visible{outline:3px solid #f6dc9f;outline-offset:4px}
+.site-header a:focus-visible,.hero button:focus-visible,.contact button:focus-visible{
+ outline:3px solid #f6dc9f;outline-offset:4px}

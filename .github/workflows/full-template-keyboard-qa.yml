@@ -25,6 +25,10 @@ on:
       - 'templates/garage-detailing/**'
       - 'templates/monolith-architecture/**'
       - 'templates/app-launch/**'
+      - 'templates/architecture/**'
+      - 'templates/dark-tech/**'
+      - 'templates/frame-portfolio/**'
+      - 'components/scripts/test-nonmenu-template-keyboard.mjs'
       - 'components/scripts/test-app-launch-nav.mjs'
       - 'components/scripts/test-overlay-menu-keyboard.mjs'
       - 'components/scripts/test-waitlist-preview.mjs'
@@ -75,6 +79,9 @@ jobs:
       - name: Check Tide off-canvas menu is inert only on narrow screens
         working-directory: components
         run: node scripts/test-app-launch-nav.mjs
+      - name: Verify keyboard-first bypass and controls on architecture, tech and photography sites
+        working-directory: components
+        run: node scripts/test-nonmenu-template-keyboard.mjs
       - name: Store keyboard regression evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -88,5 +95,6 @@ jobs:
             components/waitlist-preview-evidence/
             components/overlay-menu-keyboard-evidence/
             components/app-launch-nav-evidence/
+            components/nonmenu-keyboard-evidence/
           if-no-files-found: warn
           retention-days: 14

@@ -50,3 +50,8 @@ footer a{min-height:44px;display:flex;align-items:center}
 @media(prefers-reduced-motion:reduce){.frame-feature-image.is-arriving{animation:none!important}}
 
 /* No dead selectors without scripts. */ .frame-feature-buttons{display:none}.frame-feature.is-motion-ready .frame-feature-buttons{display:block}
+
+/* The filtered gallery target is focusable after the first-tab skip link. */
+.skip-link:focus-visible{outline:3px solid #111;outline-offset:4px}
+.frame:focus-visible,.gallery-filter button:focus-visible{outline:3px solid #111;outline-offset:4px}
+.lightbox button:focus-visible{outline:3px solid #fff;outline-offset:4px}
