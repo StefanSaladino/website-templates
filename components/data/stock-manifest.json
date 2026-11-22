@@ -334,13 +334,13 @@
     },
     {
       "id": "STOCK-011",
-      "sourceUrl": "https://www.pexels.com/video/9489382/",
-      "photographer": "Pexels contributor — exact creator not yet verified",
+      "sourceUrl": "https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/",
+      "photographer": "cottonbro studio",
       "platform": "Pexels",
       "licenseUrl": "https://www.pexels.com/license/",
       "licenseReviewedAt": null,
       "reviewStatus": "needs-review",
-      "rightsNotes": "Existing OFFCUT full-page template already references Pexels video ID 9489382. The linked Pexels source-page identity and contributor have NOT been verified, and no representation is made of approved commercial redistribution. The same review-only video and poster are used by MEDIA-01. The full template now loads only the Pexels poster until an explicit Play click, avoiding automatic 4K delivery; this is a performance guard, not a rights decision. Require source validation, license/likeness/property review, a smaller encoded video and handset crop tests.",
+      "rightsNotes": "Verified original Pexels video 9489382 page credited to cottonbro studio (2026-11-22). Pexels public license allows website and template usage with limitations including no implied endorsement; this is not a model/property release, final redistribution signoff or approval for all contexts. OFFCUT now requires two explicit clicks before attaching the unoptimized 4K MP4 and detaches it on stop, tab hiding, offscreen movement or Save-Data. Other in-review components using the same sample require independent release/media QA. Source still has no confirmed file size, decoded frames, codec, duration or approved local 1080p derivative.",
       "usageIds": [
         "MEDIA-01",
         "MEDIA-02",
@@ -355,14 +355,17 @@
       "fileHashSHA256": null,
       "derived": [],
       "assetAcquisitionStatus": "not-downloaded",
-      "sourcePageVerifiedAt": null,
+      "sourcePageVerifiedAt": "2026-11-22",
       "reviewFlags": [
-        "creator-unverified",
-        "source-url-unverified",
         "full-license-review-pending",
         "high-bandwidth-4k-only-reference",
         "mobile-video-crop-review-pending",
-        "redistribution-not-approved"
+        "redistribution-not-approved",
+        "source-and-contributor-confirmed",
+        "license-conditions-need-final-signoff",
+        "model-and-endorsement-context-unverified",
+        "unoptimized-4k-transfer-size-unknown",
+        "smaller-local-derivative-pending"
       ]
     },
     {

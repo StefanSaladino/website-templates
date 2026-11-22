@@ -160,3 +160,7 @@ The editorial-commerce nine-image line in the initial audit table is historical.
 ## Morrow House property-photo remediation (22 November 2026)
 
 The original five-photo Muskoka screening count above is historical. The alpine cabin **TM-031** and frozen-lake hut **TM-021**, both unsuitable as real property/suite evidence, have been retired from the template and inventory. Three original inline SVG illustrations now occupy the house, suite and winter-season positions. The **current active original-template remote media inventory is 65 identities: 64 still/poster and one unapproved video**; Morrow House has three remote stock identities, all still `needs-review`. The separate component manifest remains **25** `needs-review` identities. See the [Morrow House audit](./SHOWROOM-MUSKOKA-RETREAT-MEDIA-PILOT.md) for original evidence and exact limitations.
+
+## OFFCUT poster and 4K video provenance — 22 November 2026
+
+Both TM-001 (Pexels poster) and TM-071 (4K MP4) now link to the verified [Pexels original video page](https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/) by cottonbro studio. The full clip has **not** been downloaded, decoded or approved; its full bytes, codec and duration are still unverified, and neither source nor depicted-person context has been cleared for release. Two-step opt-in and stream-detachment now protect visitors while the poster continues to load. **No media IDs were added, removed or marked approved in this pass; original-template count is 65, component stock count is 25.**

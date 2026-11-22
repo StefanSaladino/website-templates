@@ -46,3 +46,23 @@ _21 November 2026 · `feature/component-showroom` · one poster visually observe
 5. Keep video poster/film media **needs-review**, template in development, and release approvals unchanged until all source/QA signoffs.
 
 **Status:** poster visual screening complete; MP4 endpoint metadata only; 0/2 rights-approved. Other pending media identities remain in the 71-entry inventory.
+
+## Follow-up: original source verified and 4K streaming controlled (22 November 2026)
+
+The exact public [Pexels video page](https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/) now identifies **cottonbro studio** as the contributor. The [current Pexels license](https://www.pexels.com/license/) expressly allows media use in websites and templates, including templates sold to customers, subject to its prohibited uses. Notably, it forbids implying endorsement by depicted people/brands and certain independent redistribution. Attribution was voluntarily restored to the OFFCUT footer. The source-page identification is now recorded in both TM-001/TM-071 and STOCK-011.
+
+**This does not grant automatic production approval.** The original 4K MP4 has only been checked via HEAD: no full bytes, duration, codec, actual resolution, decoded frames, local derivative, model permission or final licensed context were inspected. Both original-template identities and the shared component stock record remain `needs-review`.
+
+### Improved film interaction
+
+The OFFCUT template now shows a visible, accessible status disclosing that the source is an **unoptimized 4K MP4 of unknown transfer size**. The first click changes the control to “Confirm 4K stream” with **no source attached or network video request**. Only a second click attaches the original MP4 and attempts playback. The user can cancel loading; after stopping, the source is **removed**, rather than merely pausing while bandwidth remains in use. The stream is also stopped when the tab is hidden, video is scrolled offscreen, reduced motion is enabled during playback, or browser Save-Data becomes active. A Save-Data visitor cannot stream even if clicking the control. The poster and separate ANIM-02 replay remain available.
+
+The rest of the template now identifies its agency and three portfolio cases as **fictional**, and does not offer a misleading `mailto:studio@example.com` destination. Browser tests cover two-step consent, source removal, Save-Data without transferring film bytes and the existing title motion.
+
+### Release gates still open
+
+- Obtain and inspect an authorized full video; record actual dimensions, codec, duration, bytes, mobile crop and file hash. Filename and HEAD alone are not proof.
+- Choose and encode a genuine rights-cleared mobile-friendly 1080p-or-smaller rendition with tested byte budget and poster; never construct an unverified Pexels rendition URL.
+- Confirm the person and scene are presented without implying a real client, employee or endorsement; observe actual Pexels terms and any additional rights.
+- Run loaded-poster contrast/crop QA, full Chromium suites, mobile Safari/Android testing and accessibility review separately.
+- Keep original media, all component stock and the template in review until explicitly accepted.

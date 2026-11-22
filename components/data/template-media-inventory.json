@@ -16,8 +16,8 @@
         }
       ],
       "linkedComponentStockId": "STOCK-011",
-      "sourcePageUrl": null,
-      "creator": null,
+      "sourcePageUrl": "https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/",
+      "creator": "cottonbro studio",
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
       "localDerivative": null,
@@ -25,16 +25,17 @@
         "reviewedAt": "2026-11-21",
         "status": "preliminary-observations-only-not-approved",
         "downloadSHA256": "b4f2d264fd6e518dd7497b5ad683b5b6a9174866401b1224305e561f144064be",
-        "notes": "Poster depicts a person in flowing green studio fashion clothing with a green backdrop, visible white tracking crosses, and white geometric platforms. The 3:5 portrait crop keeps the subject and platforms while trimming outer set pieces. Need actual OFFCUT title contrast/crop acceptance on phone; source photographer, depicted-person release and commercial redistribution remain unverified.",
+        "notes": "Poster depicts a person in flowing green studio fashion clothing with a green backdrop, visible white tracking crosses, and white geometric platforms. The 3:5 portrait crop keeps the subject and platforms while trimming outer set pieces. Need actual OFFCUT title contrast/crop acceptance on phone; source photographer, depicted-person release and commercial redistribution remain unverified. Public Pexels page for video 9489382 names cottonbro studio. Individual subject consent, final template context and redistributed derivative rights are not approved.",
         "flags": [
           "depicted-person",
-          "source-creator-unverified",
           "visible-studio-tracking-markers",
           "phone-hero-crop-needs-browser-acceptance",
-          "commercial-redistribution-unverified"
+          "commercial-redistribution-unverified",
+          "source-creator-verified-release-clearance-open"
         ],
         "evidenceDocument": "docs/SHOWROOM-CREATIVE-AGENCY-MEDIA-PILOT.md"
-      }
+      },
+      "sourcePageVerifiedAt": "2026-11-22"
     },
     {
       "id": "TM-002",
@@ -2054,8 +2055,8 @@
         }
       ],
       "linkedComponentStockId": "STOCK-011",
-      "sourcePageUrl": null,
-      "creator": null,
+      "sourcePageUrl": "https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/",
+      "creator": "cottonbro studio",
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
       "localDerivative": null,
@@ -2069,18 +2070,19 @@
         "acceptRanges": "bytes",
         "downloadedMediaBytes": 0,
         "fileResolutionFromFilename": "4096×2160 25fps (filename only; not validated via decoding)",
-        "notes": "HEAD succeeded but did not return Content-Length. Playback frames, duration, codec, exact file size, creator and depicted-person releases were not inspected. The optional remote video is now opt-in, preload none and has no source URL assigned until click. A 1080p-or-smaller rights-cleared rendition is still required before production.",
+        "notes": "HEAD succeeded but did not return Content-Length. Playback frames, duration, codec, exact file size, creator and depicted-person releases were not inspected. The optional remote video is now opt-in, preload none and has no source URL assigned until click. A 1080p-or-smaller rights-cleared rendition is still required before production. Verified Pexels source and contributor: cottonbro studio. Pexels license permits website and template uses with restrictions, including no implied endorsement. No MP4 frames, transfer size, codec or duration have been verified; release remains blocked.",
         "flags": [
           "no-content-length",
           "duration-unverified",
           "codec-unverified",
-          "creator-unverified",
           "model-rights-unverified",
           "high-bandwidth-4k-reference",
-          "no-production-derivative"
+          "no-production-derivative",
+          "source-and-creator-verified-but-approval-open"
         ],
         "evidenceDocument": "docs/SHOWROOM-CREATIVE-AGENCY-MEDIA-PILOT.md"
-      }
+      },
+      "sourcePageVerifiedAt": "2026-11-22"
     }
   ]
 }

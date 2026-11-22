@@ -67,6 +67,9 @@ for(const item of inventory.assets||[]){
  if(registered.has(item.urlIdentity))fail('Duplicate original-template URL record: '+item.urlIdentity);
  registered.set(item.urlIdentity,item);
  if(!['needs-review','rejected','approved'].includes(item.reviewStatus))fail('Invalid media review status '+item.id);
+ if(['TM-001','TM-071'].includes(item.id) && (item.sourcePageUrl!=='https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/' || item.creator!=='cottonbro studio' || item.reviewStatus!=='needs-review')){
+  fail('OFFCUT media must retain verified Pexels origin while release approval remains open: '+item.id);
+ }
  const kind=item.urlIdentity.startsWith('https://videos.pexels.com/')?'video':'image';
  if(item.kind!==kind)fail('Incorrect image/video kind '+item.id);
  const actualStock=knownStock.get(item.urlIdentity)||null;
