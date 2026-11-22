@@ -72,7 +72,7 @@ jobs:
         run: npm run check:template-media && npm run check:template-media-review
       - name: Generate candidate images (unapproved, not for redistribution)
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'landscaping' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'restaurant' }}
           CANDIDATE_LIMIT: ${{ inputs.limit || '5' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
@@ -98,13 +98,17 @@ jobs:
       - name: Verify all generated crop alternatives
         if: success()
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'landscaping' }}
+          TEMPLATE_NAME: ${{ inputs.template || 'restaurant' }}
           FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
         run: |
           node --input-type=module -e '
           import {readFileSync,existsSync} from "node:fs";
           import assert from "node:assert/strict";
           const report=JSON.parse(readFileSync("../stock-candidates/template-review/results.json","utf8"));
+          if(process.env.TEMPLATE_NAME==="restaurant"){
+            assert.deepEqual(report.assets.map(x=>x.id),["TM-047","TM-059","TM-063"],"Wrong SERA restaurant photo identities");
+            assert.equal(report.downloaded,3);
+          }
           if(process.env.TEMPLATE_NAME==="landscaping"){
             assert.deepEqual(report.assets.map(x=>x.id),["TM-035","TM-050","TM-051"],"Wrong BED & BORDER photo identities");
             assert.equal(report.downloaded,3);

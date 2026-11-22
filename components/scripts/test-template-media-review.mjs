@@ -140,5 +140,14 @@ try{
  assert.equal(gardenAssets.errors,0);
  assert(gardenAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: landscaping selects three unapproved photographs without offline downloads.');
+ const supper=spawnSync(process.execPath,[script,'--offline','--templates=restaurant','--limit=5','--output='+path.join(directory,'restaurant')],{encoding:'utf8',timeout:20000});
+ if(supper.status!==0)throw Error('SERA media selection failed: '+supper.stderr+'\\n'+supper.stdout);
+ const restaurantAssets=JSON.parse(readFileSync(path.join(directory,'restaurant/results.json'),'utf8'));
+ assert.deepEqual(restaurantAssets.assets.map(item=>item.id),['TM-047','TM-059','TM-063']);
+ assert.equal(restaurantAssets.total,3);
+ assert.equal(restaurantAssets.downloaded,0);
+ assert.equal(restaurantAssets.errors,0);
+ assert(restaurantAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: restaurant selects three unapproved photos with no offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
