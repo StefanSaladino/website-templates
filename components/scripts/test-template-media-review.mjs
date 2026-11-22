@@ -149,5 +149,14 @@ try{
  assert.equal(restaurantAssets.errors,0);
  assert(restaurantAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: restaurant selects three unapproved photos with no offline downloads.');
+ const pools=spawnSync(process.execPath,[script,'--offline','--templates=pools','--limit=5','--output='+path.join(directory,'pools')],{encoding:'utf8',timeout:20000});
+ if(pools.status!==0)throw Error('TIDEFORM media selection failed: '+pools.stderr+'\\n'+pools.stdout);
+ const poolAssets=JSON.parse(readFileSync(path.join(directory,'pools/results.json'),'utf8'));
+ assert.deepEqual(poolAssets.assets.map(item=>item.id),['TM-064','TM-066','TM-069']);
+ assert.equal(poolAssets.total,3);
+ assert.equal(poolAssets.downloaded,0);
+ assert.equal(poolAssets.errors,0);
+ assert(poolAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: pools selects three unapproved images without offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
