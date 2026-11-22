@@ -1,0 +1,45 @@
+# AFTER DARK — fictional event media and ticketing integrity audit
+
+_22 November 2026 · `feature/component-showroom` · image preview only; 0 rights approvals._
+
+## Evidence
+
+- [Isolated four-photo capture](https://github.com/StefanSaladino/website-templates/actions/runs/45033830833) downloaded 4/4 transformed Unsplash 1,800px JPEGs with zero errors. Temporary private seven-day review artifact includes seven candidate crops per photo.
+- The comparison images are geometric stress-test crops, not screenshots of actual loaded desktop/phone layout. Photographer identity, source-page rights, model/event/venue permissions, branded signage and redistribution scope remain unknown.
+- **October 17, 2026 is in the past** on the review date; there is no verified AFTER DARK performance, booked Hamilton venue, artist appearances, admission policy, public street address or ticketing inventory.
+
+## Per-photo findings
+
+| ID | Temporary sample dimensions | Observed content and risk |
+| --- | --- | --- |
+| **TM-045** | 1800×1200 | Black-and-white music venue view across audience silhouettes toward an unoccupied-looking stage with drum kit, microphones and spotlights; no performing band clearly visible. Hero/venue usage would falsely locate it at fictional harbour warehouse. Portrait phone crops lose some stage equipment and crowd context. |
+| **TM-049** | 1800×2700 | Vertical crowd-and-stage photograph with saturated red lights, a lit stage backdrop and illuminated script-like signage near the top. Branding/location and depicted performance are not linked to the fictitious AFTER DARK lineup. Wide crop cuts much of venue crowd/vertical setting; phone crop resembles full portrait but excludes surrounding stage edges. |
+| **TM-052** | 1800×1016 | Wide-angle photograph of enormous indoor arena concert with extended runway, pyro flame jets, smoke and audience throughout large stands; a clear mismatch to small two-room harbour warehouse and the invented MAIN ROOM 00:42 caption. Tall phone stress crop cuts grandstand scale and side stage. |
+| **TM-056** | 1800×1201 | Elevated view of enormous dense outdoor music crowd toward brightly lit stage and advertising signage. Not a SIDE ROOM 01:17 shot or proof of this event; vertical crops discard much of crowd width. Venue and identity/trademark evidence unverified. |
+
+## Candidate JPEG SHA-256 (not licensed originals)
+
+| ID | SHA-256 |
+| --- | --- |
+| TM-045 | `f5ab0f3f23641cbb1da517190c344d78bfbc33bb1fee58a0cef6120bf503bd34` |
+| TM-049 | `76bb59b143d70d7a540191431fa7fa96ebf0d3115268d329d8517c6fd6e50e65` |
+| TM-052 | `4f524ca63298f707e67d90125727e22c4e5dc773fe8947bb0e0abd78746942fe` |
+| TM-056 | `d8ac63bd47fa165d4f42180492b49267dcccaaa1ea09481a6cf1a8fad98ce4b6` |
+
+## Template and QA changes
+
+- Clearly labels the whole page as a fictional template and the past October 17, 2026 date as an example, visible before the poster. Eight invented artist names, running order, room plan and ticket tiers are placeholders.
+- Renamed all 'Get tickets' prompts to sample-ticket navigation and disabled any implication of real admission or checkout. Ticket status text is `Sample only`, and the demo button explicitly reports that no tickets are sold or bookings made.
+- Removed fictional exact street-address and unsupported twelve-minute transit claims; explains the harbour venue is an unbooked design concept, with entry-time and 19+ labels only examples.
+- Replaced TM-052's fabricated main-room timestamp and TM-056's side-room timestamp with unrelated arena/outdoor stock references. Revised alt text to truthfully describe the visuals, including the black-and-white drum stage of TM-045.
+- Added visible near-photo disclaimers and regression checks verifying the top-page note, fictional artists, truthful arena alt text, non-booked venue, missing fake street address and demonstrator-only ticket behavior.
+- Preserved 8-artist poster typography, responsive layout, and `ANIM-08` replayable headline; do not interpret design as a real event announcement.
+
+## Remaining blockers
+
+1. For all four exact identities, locate original Unsplash page/creator and document license, commercial distribution/derivatives, identifiable persons, logos, stage/show identifiers and event endorsement restrictions.
+2. Replace unrelated recognizable concert/arena photos with approved conceptual visuals or explicitly cleared event materials before production; do not imply another artist performed here.
+3. Test 320/390/768/1440px loaded-photo rendering in Chromium and on real devices. Arena crowd/context is lost in tall phone crops, and TM-049's wide hero crop discards much of the vertical scene. Check notice/venue caption contrast and mobile menu.
+4. Keep all four original photos `needs-review`, with zero media/venue/schedule approvals. No commercial ticket link, false sales scarcity or announcement until genuine event documentation and stakeholder release authorization.
+
+**Next batch:** `custom-bakes` — three photos and likely product/food claim accuracy.

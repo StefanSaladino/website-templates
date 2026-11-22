@@ -56,7 +56,7 @@ document.querySelectorAll('.reveal').forEach((element) => observer.observe(eleme
 const demoTicket = document.querySelector('[data-demo-ticket]');
 const ticketNote = document.querySelector('[data-ticket-note]');
 demoTicket?.addEventListener('click', () => {
-  ticketNote.textContent = 'Demo template only — ticket checkout is not connected.';
+  ticketNote.textContent = 'Fictional event preview: no tickets are for sale, no booking was made and no checkout is connected. October 17, 2026 is a past sample date.';
 });
 
 /* ANIM-08: replayable whole-line headline, no hidden text before JS. */

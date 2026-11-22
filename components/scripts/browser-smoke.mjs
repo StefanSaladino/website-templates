@@ -227,6 +227,15 @@ try{
 
  // Full-page animation tests for the six newly built patterns.
  await openTemplate('event-launch');
+ assert(await page.locator('.event-demo-banner').isVisible(),'AFTER DARK fictional event disclaimer is visible before the poster');
+ assert((await page.locator('.event-demo-banner').textContent()).includes('No event or ticket sales'),'AFTER DARK does not advertise a real event');
+ assert((await page.locator('.lineup-disclaimer').textContent()).includes('fictional placeholders'),'AFTER DARK artist appearances not claimed');
+ assert((await page.locator('.poster-photo--left img').getAttribute('alt')).includes('arena concert'),'AFTER DARK stadium photo not described as small main room');
+ assert((await page.locator('.poster-photo--right figcaption').textContent()).includes('STOCK PHOTO'),'AFTER DARK photo does not imply fictional side room');
+ assert((await page.locator('.venue-photo-note').textContent()).includes('NOT THE VENUE'),'AFTER DARK concert stock not represented as venue');
+ assert(!((await page.locator('.venue dl').textContent()).includes('47 Harbour East')),'AFTER DARK must not provide a fake street address');
+ await page.locator('[data-demo-ticket]').click();
+ assert((await page.locator('[data-ticket-note]').textContent()).includes('no tickets are for sale'),'AFTER DARK fake checkout explains no sale');
  await page.locator('[data-replay-motion="ANIM-08"]').click();
  assert(await page.locator('[data-motion-pattern="ANIM-08"]').evaluate(el=>el.classList.contains('event-line-playing')),'ANIM-08 headline wipe appears on AFTER DARK');
  await page.emulateMedia({reducedMotion:'reduce'});
