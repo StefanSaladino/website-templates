@@ -10,6 +10,8 @@ on:
       - 'templates/contractor/**'
       - 'templates/woodworker/**'
       - 'templates/restaurant/**'
+      - 'templates/law-firm/**'
+      - 'components/scripts/test-law-firm-menu-keyboard.mjs'
       - 'components/scripts/test-template-keyboard.mjs'
       - '.github/workflows/full-template-keyboard-qa.yml'
   workflow_dispatch:
@@ -36,11 +38,16 @@ jobs:
       - name: Run keyboard and focus navigation check without remote media
         working-directory: components
         run: node scripts/test-template-keyboard.mjs
+      - name: Test NORTHLINE animated drawer focus containment and reduced-motion exit
+        working-directory: components
+        run: node scripts/test-law-firm-menu-keyboard.mjs
       - name: Store keyboard regression evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: full-template-keyboard-evidence
-          path: components/template-keyboard-evidence/
+          path: |
+            components/template-keyboard-evidence/
+            components/law-firm-keyboard-evidence/
           if-no-files-found: warn
           retention-days: 14
