@@ -379,3 +379,11 @@ if ('IntersectionObserver' in window && !reduceMotion) {
 } else {
   reveals.forEach((item) => item.classList.add('is-visible'));
 }
+
+/* TIDEFORM is an illustrative template: never transmit or retain form data. */
+const poolsDemoForm=document.querySelector('[data-pools-demo-form]');
+poolsDemoForm?.addEventListener('submit',event=>{
+  event.preventDefault();
+  const status=poolsDemoForm.querySelector('[data-pools-demo-status]');
+  if(status)status.textContent='Preview only: no pool estimate was requested, no site visit was booked, and no information was sent or stored.';
+});

@@ -1909,7 +1909,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "b08c041db467f36658b15ea808966264571d92ceecd1917d07ab5e599c7f12f6",
+        "notes": "Architectural pool or water feature beside a long tan-panelled modern building, a vertical dark line along the wall, metal handrails at the far edge, and dark trees. The water occupies the foreground and is bordered by pale coping. Not recognizably a residential Oakville pool; cannot confirm pool dimensions, structure, concrete, limestone, flush coping, dark tile, shallow steps, construction firm or occupancy. Landscape wide crop reduces the height of tan wall and water-plane, phone tall preserves perspective.",
+        "flags": [
+          "fictional-project-claim",
+          "actual-Oakville-location-unverified",
+          "pool-engineering-materials-unverified",
+          "owner-builder-not-established",
+          "wide-crop-changes-scale"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-065",
@@ -1959,7 +1973,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "2f22ca9132a97ee6cc8b8bb838fbdcfb24e18925c30ed0d718578073458721aa",
+        "notes": "Blue water occupies foreground, visually meeting a distant view near a low horizon; palm trees, lush tropical vegetation and modern white buildings under broad blue sky. Appears visually consistent with vanishing-edge effect, but overflow channels, catch basin, pool engineering, property rights, exact locale and connection to TIDEFORM are not shown. Wide crop discards much sky and top framing; phone tall preserves horizon and landscaping.",
+        "flags": [
+          "unrelated-tropical-setting",
+          "not-GTA-construction-evidence",
+          "overflow-system-not-visible",
+          "source-property-rights-unverified",
+          "wide-crop-horizon-composition"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-067",
@@ -2029,7 +2057,20 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "3e5c968bffdadde834b707b208ae852f6ee1955def32759905f2d092846cb9f0",
+        "notes": "Small rectangular outdoor courtyard swimming pool with dark blue water bordered by pale paving and bright green lawn, between white modern buildings with large glazed openings and flat projecting roofline. This is the hero background, not proof of the proposed custom concrete pool, any 3 ft 6 in to 7 ft depth, construction permit, installed equipment, pool safety or client site. Phone tall crops much of the wings and lawn; wide crop retains full architecture.",
+        "flags": [
+          "fictional-studio-attribution",
+          "pool-depth-and-dimensions-unverified",
+          "materials-and-equipment-not-proven",
+          "phone-crop-truncates-building-context"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-070",
