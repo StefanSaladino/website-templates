@@ -241,6 +241,17 @@ try{
  await page.locator('[data-newsletter] input[type=email]').fill('demo@example.com');
  await page.locator('[data-newsletter] button[type=submit]').click();
  assert((await page.locator('[data-newsletter-note]').textContent()).includes('no email was sent'),'MORA demo newsletter never claims a subscription');
+ await openTemplate('fitness-launch');
+ assert(await page.locator('.yard-demo-banner').isVisible(),'YARD visibly identifies its fictional training club and stock imagery');
+ assert((await page.locator('.yard-demo-banner').textContent()).includes('no verified physical gym'),'YARD cannot claim a real training facility or coaching');
+ assert((await page.locator('.hero-media img').getAttribute('alt')).includes('ROGUE'),'YARD hero describes the visible third-party branded rack');
+ assert((await page.locator('.yard-hero-stock').textContent()).includes('NOT YARD'),'YARD must not attribute athlete stock to its members');
+ assert((await page.locator('.image-frame img').getAttribute('alt')).includes('leaning over'),'YARD corrects inaccurate kettlebell-carry alt');
+ assert((await page.locator('.image-frame figcaption').textContent()).includes('not a carry'),'YARD crop is not labelled a loaded carry');
+ assert((await page.locator('.yard-schedule-disclaimer').textContent()).includes('No current classes'),'YARD sample timetable is not real');
+ await page.locator('[data-yard-demo-form] input[type=email]').fill('preview@example.com');
+ await page.locator('[data-yard-demo-form] button[type=submit]').click();
+ assert((await page.locator('[data-yard-demo-status]').textContent()).includes('no first session was booked'),'YARD demo inquiry cannot falsely confirm booking');
  await openTemplate('pools');
  assert(await page.locator('.pool-demo-banner').isVisible(),'TIDEFORM visibly discloses fictional builder and unrelated photos');
  assert((await page.locator('.pool-demo-banner').textContent()).includes('No construction inquiries'),'TIDEFORM template cannot accept real work');

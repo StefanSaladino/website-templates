@@ -543,7 +543,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "f4a9da3866226cb6195d8479ae4ac884cc20c538c54c9b657197a216479bfaa5",
+        "notes": "Rear view of a person with hair tied up, white athletic top and dark leggings, gripping a loaded barbell at head/overhead level inside a black metal squat/press rack against a grey brick wall. ROGUE logo visible on rack; clothing also has visible insignia. Not evidence of YARD facility, staff, equipment sponsorship or membership. 16:9 wide crop retains subject and bar but clips more of torso/equipment ends; narrow 3:5 phone crop may trim the plate/bar ends and centralize person.",
+        "flags": [
+          "recognizable-person-likeness-uncleared",
+          "visible-ROGUE-equipment-brand",
+          "clothing-brand-mark",
+          "fictional-gym-attribution",
+          "phone-crop-cuts-barbell-plates"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FITNESS-LAUNCH-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-019",
@@ -2038,7 +2052,21 @@
       "creator": null,
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
-      "localDerivative": null
+      "localDerivative": null,
+      "pilotVisualReview": {
+        "reviewedAt": "2026-11-22",
+        "status": "preliminary-observations-only-not-approved",
+        "downloadSHA256": "45f2bdcc843595381b3f30c727b5c0858bfb50f5182a258b0cc9240fdf6f3c71",
+        "notes": "Indoor gym with a muscular adult with dark tied-back hair, a navy/black graphic tank and dark shorts leaning forward with both hands resting on/gripping the handles of two large kettlebells on the floor. Not walking or carrying the weights, despite original alt text. Gym equipment and a wall-mounted heater or unit are visible behind. Landscape 16:9 crop cuts off athlete's head and lower kettlebell detail. Neither athlete nor location is verified as YARD staff/client.",
+        "flags": [
+          "recognizable-person-likeness-uncleared",
+          "misleading-carrying-alt",
+          "wide-crop-cuts-head",
+          "fictional-gym-and-coaching-attribution",
+          "printed-clothing-emblem-rights"
+        ],
+        "evidenceDocument": "docs/SHOWROOM-FITNESS-LAUNCH-MEDIA-PILOT.md"
+      }
     },
     {
       "id": "TM-069",

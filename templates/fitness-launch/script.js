@@ -59,7 +59,11 @@ if (toggle && menu) {
 
 const form = document.querySelector('.trial-form');
 if (form) {
-  form.addEventListener('submit', (event) => event.preventDefault());
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const status=form.querySelector('[data-yard-demo-status]');
+    if(status)status.textContent='Preview only: no first session was booked, no class availability was checked and no personal information was sent or stored.';
+  });
 }
 
 
