@@ -25,7 +25,9 @@ const entries=[
  {folder:'storefront',menuFirst:'#shop',breakpoint:900},
  {folder:'fitness-launch',menuFirst:'#training',breakpoint:900},
  {folder:'tattoo-studio',menuFirst:'#work',breakpoint:980},
- {folder:'real-estate',menuFirst:'#homes',breakpoint:980}
+ {folder:'real-estate',menuFirst:'#homes',breakpoint:980},
+ {folder:'quiet-saas',menuFirst:'#product',breakpoint:760,toggle:'.menu-button',menu:'.mobile-nav',skip:'.skip-link',skipTarget:'main',widths:[320,390,720]},
+ {folder:'interactive-playground',menuFirst:'#play',breakpoint:900}
 ];
 const report={type:'full-site keyboard regression',timestamp:new Date().toISOString(),cases:[],errors:[],
  mediaRightsApproved:false,screenReaderCertified:false,physicalDeviceCertified:false};
@@ -45,7 +47,7 @@ try{
  const executablePath=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(existsSync);
  browser=await chromium.launch({headless:true,executablePath,args:['--no-sandbox']});
  for(const entry of entries){
-  for(const width of [320,390,768]){
+  for(const width of (entry.widths||[320,390,768])){
    const context=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});
    const page=await context.newPage();
    const errors=[];
@@ -57,34 +59,35 @@ try{
     const response=await page.goto(base+entry.folder+'/index.html',{waitUntil:'domcontentloaded',timeout:16000});
     ok(response?.status()===200,entry.folder+': HTTP success');
     const toggleSelector=entry.toggle||'.menu-toggle';
+    const menuSelector=entry.menu||'.mobile-menu';
    await page.keyboard.press('Tab');
-    const skip=page.locator('.skip-to-main');
+    const skip=page.locator(entry.skip||'.skip-to-main');
     ok(await skip.evaluate(el=>document.activeElement===el),entry.folder+': skip link is first keyboard stop');
     ok(await skip.evaluate(el=>el.getBoundingClientRect().top>=0),entry.folder+': focused skip link is on-screen');
     await page.keyboard.press('Enter');
-    ok(await page.evaluate(()=>document.activeElement?.id==='top'),entry.folder+': skip link transfers focus to main');
+    ok(await page.evaluate(id=>document.activeElement?.id===id,entry.skipTarget||'top'),entry.folder+': skip link transfers focus to main');
     await page.locator(toggleSelector).focus();
     await page.keyboard.press('Enter');
     ok(await page.locator(toggleSelector).getAttribute('aria-expanded')==='true'
-      &&await page.locator('.mobile-menu').isVisible(),entry.folder+': keyboard Enter opens menu');
-    const first=page.locator('.mobile-menu a').first();
+      &&await page.locator(menuSelector).isVisible(),entry.folder+': keyboard Enter opens menu');
+    const first=page.locator(menuSelector+' a').first();
     ok(await first.getAttribute('href')===entry.menuFirst,entry.folder+': expected menu target');
     await first.focus();
     await page.keyboard.press('Enter');
     ok(await page.locator(toggleSelector).getAttribute('aria-expanded')==='false',entry.folder+': selecting destination closes menu');
-    ok(await page.locator('.mobile-menu').isHidden(),entry.folder+': mobile menu hidden after link');
+    ok(await page.locator(menuSelector).isHidden(),entry.folder+': mobile menu hidden after link');
     ok(await page.evaluate(id=>document.activeElement?.id===id,entry.menuFirst.slice(1)),entry.folder+': focus handed to visible destination');
-    ok(!(await page.evaluate(()=>document.querySelector('.mobile-menu')?.contains(document.activeElement))),entry.folder+': focus not stranded in hidden menu');
+    ok(!(await page.evaluate(selector=>document.querySelector(selector)?.contains(document.activeElement),menuSelector)),entry.folder+': focus not stranded in hidden menu');
     await page.locator(toggleSelector).focus();
     await page.keyboard.press('Enter');
     await page.keyboard.press('Escape');
     ok(await page.locator(toggleSelector).getAttribute('aria-expanded')==='false'
       &&await page.locator(toggleSelector).evaluate(el=>document.activeElement===el),entry.folder+': Escape closes menu and returns focus to opener');
     await page.keyboard.press('Enter');
-    await page.locator('.mobile-menu a').first().focus();
+    await page.locator(menuSelector+' a').first().focus();
     await page.setViewportSize({width:1280,height:900});
     await page.waitForTimeout(120);
-    ok(await page.locator('.mobile-menu').isHidden(),entry.folder+': resize closes mobile navigation');
+    ok(await page.locator(menuSelector).isHidden(),entry.folder+': resize closes mobile navigation');
     ok(await page.locator('.desktop-nav a').first().evaluate(el=>document.activeElement===el),entry.folder+': breakpoint focus moved to visible desktop navigation');
     ok(!errors.length,entry.folder+': no uncaught script errors '+errors.join('; '));
     ok(videoRequests===0,entry.folder+': no 4K streaming requests while navigating');

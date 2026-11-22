@@ -146,3 +146,8 @@ a{color:inherit;text-decoration:none}button{font:inherit}.skip-link{position:fix
 .hero-copy.arc-motion-playing>.hero-lede{animation-delay:.23s}
 .hero-copy.arc-motion-playing>.hero-actions{animation-delay:.34s}
 @media(prefers-reduced-motion:reduce){.hero-copy.arc-motion-playing>.eyebrow,.hero-copy.arc-motion-playing>h1,.hero-copy.arc-motion-playing>.hero-lede,.hero-copy.arc-motion-playing>.hero-actions{animation:none!important}}
+
+/* Accessible keyboard focus on both light Arc navigation surfaces. */
+.site-header a:focus-visible,.site-header button:focus-visible,.mobile-nav a:focus-visible{
+  outline:3px solid #203d2c;outline-offset:4px}
+.skip-link:focus-visible{outline:3px solid #ffe29c;outline-offset:3px}

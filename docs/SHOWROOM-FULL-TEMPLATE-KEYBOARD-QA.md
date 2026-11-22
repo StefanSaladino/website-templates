@@ -100,3 +100,11 @@ The [dedicated keyboard regression run 45076502960](https://github.com/StefanSal
 - **4/4** AFTER DARK full-screen animated menu cases at 320/390/768 reduced motion and 390 normal motion. These assert the skip link, focus containment, background inertness, destination focus, immediate inertness during delayed close, Escape restoration and responsive focus recovery.
 
 This is **15 of 24 full site templates** with explicit keyboard tests (13 standard + 2 separately tested animated/special dialogs). **9 full templates remain** beyond this targeted keyboard pass. That count does not establish that every tested template meets WCAG, has legally usable photographs, or works identically in native Safari, TalkBack, VoiceOver or NVDA. Other component-level mobile alternatives and full-site responsive signoff remain separate.
+
+## Arc, WOBBLEWORKS and STILL — 22 November 2026
+
+Arc's mobile navigation is now keyboard-safe at its **760px breakpoint**: it retains its existing skip link, adds focusable main target and link-to-section focus, Escape-to-toggle recovery and a desktop breakpoint handoff. WOBBLEWORKS gains a skip-to-main link and matching target, focus-visible styling, destination focus and Escape/resize restoration without altering its novelty controls or motion. Both are included in the browser matrix with a custom 720px third viewport for Arc.
+
+STILL has no mobile drawer; the accessibility concern was **false confirmation that a visitor had joined a beta**, despite the preview having no registration service. It now explicitly calls its form a fictional demo, labels the button Preview signup and reports that no email was sent, stored or registered after an example submission. A skip link and focusable main region are also added. A standalone browser test checks keyboard access, invalid input, the truthful status, and absence of network transmissions.
+
+The expanded standard keyboard matrix has **15 templates × three viewports** (45 cases), in addition to the four-case NORTHLINE, MORA and AFTER DARK special regressions (57 regular/special checks). STILL is a separate non-drawer form/skip-link case. This source change requires a new passing workflow before any acceptance claim.

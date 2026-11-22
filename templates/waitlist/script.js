@@ -6,11 +6,11 @@ form?.addEventListener('submit', (event) => {
   event.preventDefault();
 
   if (!email.value.trim() || !email.validity.valid) {
-    status.textContent = 'Enter a valid email address to join the beta.';
+    status.textContent = 'Enter a valid example email address to preview this form.';
     email.focus();
     return;
   }
 
-  status.textContent = 'You’re on the list. We’ll only email when an invite is ready.';
+  status.textContent = 'Preview only: no waitlist entry was created. Your email was not sent or stored.';
   form.reset();
 });

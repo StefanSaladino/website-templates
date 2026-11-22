@@ -1,4 +1,31 @@
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const coarse=matchMedia('(pointer: coarse)').matches;const root=document.documentElement;const menuButton=document.querySelector('.menu-toggle');const menu=document.querySelector('#mobile-menu');let palette=0;const palettes=[['#fff4c7','#141414','#ff3ea5','#244cff','#d9ff27','#ff6b21','#67f7c2','#8d51ff'],['#e8f7ff','#10223d','#ff5e3a','#713cff','#fff52d','#ff8ad8','#55e6a5','#1558ff'],['#fff0f2','#231128','#ff4f00','#00a8ff','#d6ff00','#ff63b8','#84ffd8','#7c43ff'],['#f7f0ff','#151219','#ff2f80','#004cff','#f4ff38','#ff7a18','#4fffc0','#a94cff']];function setPalette(i){palette=(i+palettes.length)%palettes.length;const p=palettes[palette];['--paper','--ink','--hot','--blue','--acid','--orange','--mint','--purple'].forEach((v,n)=>root.style.setProperty(v,p[n]));showToast(`PALETTE ${palette+1} DEPLOYED. TASTE REMAINS QUESTIONABLE.`)}function setMenu(open){if(!menuButton||!menu)return;menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Close menu':'Open menu');menu.hidden=!open;document.body.classList.toggle('menu-open',open)}menuButton?.addEventListener('click',()=>setMenu(menuButton.getAttribute('aria-expanded')!=='true'));menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));addEventListener('resize',()=>{if(innerWidth>900)setMenu(false)});addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});document.querySelectorAll('[data-randomize]').forEach(b=>b.addEventListener('click',()=>setPalette(palette+1)));const toast=document.querySelector('[data-toast]');let toastTimer;function showToast(text){if(!toast)return;toast.textContent=text;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),1900)}
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const coarse=matchMedia('(pointer: coarse)').matches;const root=document.documentElement;const menuButton=document.querySelector('.menu-toggle');const menu=document.querySelector('#mobile-menu');let palette=0;const palettes=[['#fff4c7','#141414','#ff3ea5','#244cff','#d9ff27','#ff6b21','#67f7c2','#8d51ff'],['#e8f7ff','#10223d','#ff5e3a','#713cff','#fff52d','#ff8ad8','#55e6a5','#1558ff'],['#fff0f2','#231128','#ff4f00','#00a8ff','#d6ff00','#ff63b8','#84ffd8','#7c43ff'],['#f7f0ff','#151219','#ff2f80','#004cff','#f4ff38','#ff7a18','#4fffc0','#a94cff']];function setPalette(i){palette=(i+palettes.length)%palettes.length;const p=palettes[palette];['--paper','--ink','--hot','--blue','--acid','--orange','--mint','--purple'].forEach((v,n)=>root.style.setProperty(v,p[n]));showToast(`PALETTE ${palette+1} DEPLOYED. TASTE REMAINS QUESTIONABLE.`)}function setMenu(open){if(!menuButton||!menu)return;menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Close menu':'Open menu');menu.hidden=!open;document.body.classList.toggle('menu-open',open)}menuButton?.addEventListener('click',()=>setMenu(menuButton.getAttribute('aria-expanded')!=='true'));
+function focusMenuDestination(link){
+ const href=link.getAttribute('href')||'';
+ if(!href.startsWith('#'))return false;
+ const target=document.getElementById(decodeURIComponent(href.slice(1)));
+ if(!target)return false;
+ const temporary=!target.hasAttribute('tabindex');
+ if(temporary)target.tabIndex=-1;
+ target.focus({preventScroll:true});
+ if(temporary)target.addEventListener('blur',()=>target.removeAttribute('tabindex'),{once:true});
+ return true;
+}
+
+menu?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+ setMenu(false);
+ if(!focusMenuDestination(link))menuButton?.focus();
+}));
+addEventListener('resize',()=>{
+ if(innerWidth<=900)return;
+ const wasOpen=menuButton?.getAttribute('aria-expanded')==='true';
+ setMenu(false);
+ if(wasOpen)requestAnimationFrame(()=>document.querySelector('.desktop-nav a')?.focus());
+});
+addEventListener('keydown',event=>{
+ if(event.key==='Escape'&&menuButton?.getAttribute('aria-expanded')==='true'){
+  setMenu(false);menuButton.focus();
+ }
+});document.querySelectorAll('[data-randomize]').forEach(b=>b.addEventListener('click',()=>setPalette(palette+1)));const toast=document.querySelector('[data-toast]');let toastTimer;function showToast(text){if(!toast)return;toast.textContent=text;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),1900)}
 const shapes=['62% 38% 47% 53%/41% 62% 38% 59%','37% 63% 28% 72%/66% 35% 65% 34%','72% 28% 61% 39%/31% 52% 48% 69%','44% 56% 69% 31%/64% 39% 61% 36%'];let shape=0;function morph(el){shape=(shape+1)%shapes.length;el.style.borderRadius=shapes[shape];el.style.transform=`rotate(${[-7,9,-12,5][shape]}deg) scale(${[.94,1.04,.98,1.07][shape]})`;el.style.background=`linear-gradient(${[120,220,35,300][shape]}deg,var(--${['mint','acid','hot','blue'][shape]}),var(--${['orange','purple','blue','mint'][shape]}))`}document.querySelector('[data-poke]')?.addEventListener('click',e=>{morph(e.currentTarget);showToast('THE BIG SHAPE HAS DEVELOPED AN OPINION.')});const labBlob=document.querySelector('[data-lab-blob]');const pokeLab=()=>{if(labBlob)morph(labBlob)};labBlob?.addEventListener('click',pokeLab);document.querySelector('[data-lab-poke]')?.addEventListener('click',pokeLab);
 const squish=document.querySelector('[data-squish]');const squishValue=document.querySelector('[data-squish-value]');function updateSquish(){if(!squish)return;const v=Number(squish.value);const scale=.35+v/100*1.45;root.style.setProperty('--squish',scale.toFixed(2));if(squishValue)squishValue.textContent=`${v}%`}squish?.addEventListener('input',updateSquish);updateSquish();
 const poster=document.querySelector('[data-poster]');const posterWord=document.querySelector('[data-poster-word]');const posterWords=['GOOD\nIDEA?','ABSOLUTELY\nNOT','MORE\nCOLOUR','TOO\nLATE'];let posterIndex=0;function posterText(){posterIndex=(posterIndex+1)%posterWords.length;if(posterWord)posterWord.innerHTML=posterWords[posterIndex].replace('\n','<br>')}poster?.addEventListener('click',posterText);const posterPalettes=[['var(--orange)','var(--ink)'],['var(--mint)','var(--blue)'],['var(--hot)','#fff']];document.querySelectorAll('[data-poster-palette]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const p=posterPalettes[Number(b.dataset.posterPalette)];poster?.style.setProperty('--poster-bg',p[0]);poster?.style.setProperty('--poster-ink',p[1])}));

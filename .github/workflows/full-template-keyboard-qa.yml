@@ -19,6 +19,10 @@ on:
       - 'templates/tattoo-studio/**'
       - 'templates/real-estate/**'
       - 'templates/event-launch/**'
+      - 'templates/quiet-saas/**'
+      - 'templates/interactive-playground/**'
+      - 'templates/waitlist/**'
+      - 'components/scripts/test-waitlist-preview.mjs'
       - 'components/scripts/test-event-launch-keyboard.mjs'
       - 'components/scripts/test-storefront-cart-keyboard.mjs'
       - 'components/scripts/test-law-firm-menu-keyboard.mjs'
@@ -57,6 +61,9 @@ jobs:
       - name: Test AFTER DARK animated full-screen navigation and keyboard focus
         working-directory: components
         run: node scripts/test-event-launch-keyboard.mjs
+      - name: Check STILL waitlist preview never claims a signup
+        working-directory: components
+        run: node scripts/test-waitlist-preview.mjs
       - name: Store keyboard regression evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -67,5 +74,6 @@ jobs:
             components/law-firm-keyboard-evidence/
             components/storefront-cart-keyboard-evidence/
             components/event-launch-keyboard-evidence/
+            components/waitlist-preview-evidence/
           if-no-files-found: warn
           retention-days: 14
