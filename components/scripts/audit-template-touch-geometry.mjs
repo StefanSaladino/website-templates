@@ -36,8 +36,13 @@ try{
     const interactive=[...document.querySelectorAll('a[href],button,input,select,textarea,summary,[role="button"],[role="link"]')].filter(visible);
     const dimensions=interactive.map(el=>{
      const r=el.getBoundingClientRect();
-     return {tag:el.tagName.toLowerCase(),label:(el.getAttribute('aria-label')||el.innerText||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,72),
-      width:Math.round(r.width),height:Math.round(r.height),top:Math.round(r.top),left:Math.round(r.left),
+     const tag=el.tagName.toLowerCase();
+     const scope=el.closest('main,section,header,footer,nav,[role="dialog"]');
+     const scopeName=scope?(scope.id?'#'+scope.id:scope.tagName.toLowerCase()+'.'+String(scope.className||'').trim().split(/\s+/)[0]):'body';
+     const selector=(el.id?'#'+el.id:tag+(typeof el.className==='string'&&el.className.trim()?'.'+el.className.trim().split(/\s+/).slice(0,2).join('.'):''));
+     return {tag,label:(el.getAttribute('aria-label')||el.innerText||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,72),
+      selector,scope:scopeName,width:Math.round(r.width),height:Math.round(r.height),
+      top:Math.round(r.top),left:Math.round(r.left),
       inline:el.matches('a')&&getComputedStyle(el).display==='inline'};
     });
     const small=dimensions.filter(x=>x.width<24||x.height<24);
@@ -80,6 +85,16 @@ try{
       console.log('OVERFLOW-DIAG',template,width+'px',JSON.stringify({rect:geometry.overflowCandidates.slice(0,7),intrinsic:geometry.intrinsicOverflow.slice(0,8)}));
     }
    if(geometry.smallControls)report.warnings.push({template,width,type:'target-size-review',count:geometry.smallControls});
+   // Keep CSS hitbox regressions for confirmed isolated controls separate from
+   // general 24px candidate warnings (inline-link spacing exceptions need human review).
+   if(template==='storefront'){
+     // Explicit query covers unnamed swatches even when their accessible name is aria-label.
+     const smallSwatches=await page.locator('.swatches button').evaluateAll(elements=>elements.filter(el=>{
+       const css=getComputedStyle(el),r=el.getBoundingClientRect();
+       return css.display!=='none'&&css.visibility!=='hidden'&&r.width>0&&r.height>0&&(r.width<24||r.height<24);
+     }).map(el=>({label:el.getAttribute('aria-label')||'',width:Math.round(el.getBoundingClientRect().width),height:Math.round(el.getBoundingClientRect().height)})));
+     if(smallSwatches.length)report.errors.push({template,width,type:'small-swatch-hitbox-regression',controls:smallSwatches});
+   }
    if(geometry.clippedHeadings.length)report.warnings.push({template,width,type:'possible-clipping',headings:geometry.clippedHeadings});
    if(geometry.unnamedButtons.length)report.warnings.push({template,width,type:'unnamed-buttons',controls:geometry.unnamedButtons});
    // Fix regression gate: YARD and KERN must not grow the document wider
@@ -100,6 +115,26 @@ try{
 finally{
  await browser?.close().catch(()=>{});
  server.kill('SIGTERM');
+ // Group identical target-size candidates across viewport widths rather than
+ // asking a reviewer to chase the same element five times. This is a triage
+ // index, NOT an accessibility pass or exemption determination.
+ const groups=new Map();
+ for(const item of report.cases)for(const control of item.examples){
+   const key=[item.template,control.scope,control.selector,control.label].join('|');
+   const group=groups.get(key)||{template:item.template,scope:control.scope,selector:control.selector,
+     label:control.label,inline:control.inline,widths:[],minWidth:Infinity,minHeight:Infinity};
+   group.widths.push(item.width);
+   group.minWidth=Math.min(group.minWidth,control.width);
+   group.minHeight=Math.min(group.minHeight,control.height);
+   groups.set(key,group);
+ }
+ const triage=[...groups.values()].sort((a,b)=>Number(a.inline)-Number(b.inline)||
+   a.template.localeCompare(b.template)||a.scope.localeCompare(b.scope)||a.label.localeCompare(b.label));
+ report.targetTriage={unique:triage.length,standalone:triage.filter(x=>!x.inline).length,
+   inlineCandidates:triage.filter(x=>x.inline).length,notes:'Geometry only. Spacing exceptions, obscured items, and real touch accessibility need human/device verification.',items:triage};
+ console.log('TARGET-TRIAGE:',triage.length+' unique element candidates; '+
+   report.targetTriage.standalone+' standalone and '+report.targetTriage.inlineCandidates+' inline link candidates.');
+ for(const item of triage)console.log('TARGET-REVIEW',JSON.stringify(item));
  writeFileSync(path.join(directory,'results.json'),JSON.stringify(report,null,2));
  console.log('Template geometry:',report.cases.length+' cases',report.screenshots.length+' screenshots',report.warnings.length+' manual flags',report.errors.length+' hard errors');
  if(report.errors.length)process.exitCode=1;
