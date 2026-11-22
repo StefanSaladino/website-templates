@@ -28,61 +28,104 @@ function updateHeader() {
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive: true });
 
-// Fail closed: the remote 4K asset is never assigned to <source> on page entry.
-// Poster and title animation work with JS disabled, reduced motion and Save-Data.
-let filmState = 'idle';
+// OFFCUT's unoptimized 4K review source is independent of the ANIM-02 title.
+const filmStatus = document.querySelector('[data-film-status]');
+const dataConnection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+let filmState = 'idle'; // idle | confirm | loading | playing
 let filmTicket = 0;
+const saveDataActive = () => dataConnection?.saveData === true;
+
+function setFilmStatus(message) {
+  if (filmStatus) filmStatus.textContent = message;
+}
 function showFilmState(state) {
   filmState = state;
   if (!filmToggle) return;
   filmToggle.setAttribute('aria-pressed', String(state === 'playing'));
   const label = filmToggle.querySelector('span');
-  if (label) label.textContent = state === 'playing' ? 'Pause film' : state === 'loading' ? 'Cancel film' : 'Play film';
+  if (label) label.textContent = {
+    idle: 'Preview film',
+    confirm: 'Confirm 4K stream',
+    loading: 'Cancel loading',
+    playing: 'Stop film'
+  }[state] || 'Preview film';
 }
-async function playFilm() {
-  if (!film || !filmSource || !filmToggle) return;
-  const url = filmSource.dataset.src || '';
-  if (!url.startsWith('https://videos.pexels.com/')) return;
-  const ticket = ++filmTicket;
-  if (!filmSource.getAttribute('src')) {
-    filmSource.setAttribute('src', url);
-    film.load();
-  }
-  showFilmState('loading');
-  try {
-    await film.play();
-    if (ticket === filmTicket) showFilmState('playing');
-  } catch {
-    if (ticket === filmTicket) pauseFilm();
-  }
-}
-function pauseFilm() {
-  const loading = filmState === 'loading';
+function stopFilm(message = 'Film stopped. The 4K source was detached; the still poster remains.') {
   ++filmTicket;
+  showFilmState('idle');
   film?.pause();
-  // Cancel a pending 4K request if the visitor changes their mind mid-load.
-  if (loading && filmSource) {
+  if (filmSource?.hasAttribute('src')) {
     filmSource.removeAttribute('src');
     film?.load();
   }
-  showFilmState('idle');
+  setFilmStatus(message);
+}
+async function playFilm() {
+  if (!film || !filmSource || !filmToggle) return;
+  if (saveDataActive()) {
+    stopFilm('Data Saver enabled. The 4K film was not loaded; the still poster remains.');
+    return;
+  }
+  const url = filmSource.dataset.src || '';
+  if (!url.startsWith('https://videos.pexels.com/video-files/9489382/')) {
+    stopFilm('Sample film unavailable. The still poster remains.');
+    return;
+  }
+  const ticket = ++filmTicket;
+  showFilmState('loading');
+  setFilmStatus('Loading the large 4K sample after your confirmation. Cancel at any time.');
+  try {
+    filmSource.setAttribute('src', url);
+    film.load();
+    await film.play();
+    if (ticket !== filmTicket) return;
+    showFilmState('playing');
+    setFilmStatus('Review-only film playing. Stop to disconnect the stream and return to the poster.');
+  } catch {
+    if (ticket === filmTicket) stopFilm('The sample film could not play. The still poster remains.');
+  }
 }
 filmToggle?.addEventListener('click', () => {
-  if (filmState === 'playing' || filmState === 'loading') pauseFilm();
-  else void playFilm();
+  if (filmState === 'loading' || filmState === 'playing') {
+    stopFilm();
+  } else if (saveDataActive()) {
+    stopFilm('Data Saver is enabled. No large video will stream; the poster and headline remain.');
+  } else if (filmState === 'idle') {
+    showFilmState('confirm');
+    setFilmStatus('The sample is an unoptimized 4K MP4 with unknown transfer size. Confirm 4K stream to use network data, or leave the poster in place.');
+  } else if (filmState === 'confirm') {
+    void playFilm();
+  }
 });
 film?.addEventListener('pause', () => {
-  if (filmState === 'playing') showFilmState('idle');
+  if (filmState === 'playing') stopFilm();
 });
 film?.addEventListener('error', () => {
-  if (filmState === 'loading' || filmState === 'playing') pauseFilm();
+  if (filmState === 'loading' || filmState === 'playing') stopFilm('Video could not load. The poster remains.');
+});
+filmSource?.addEventListener('error', () => {
+  if (filmState === 'loading' || filmState === 'playing') stopFilm('Video source unavailable. The poster remains.');
 });
 reduceMotion.addEventListener?.('change', event => {
-  if (event.matches) pauseFilm();
+  if (event.matches && (filmState === 'playing' || filmState === 'loading')) {
+    stopFilm('Reduced motion enabled. Film disconnected and poster restored.');
+  }
+});
+dataConnection?.addEventListener?.('change', () => {
+  if (saveDataActive()) stopFilm('Data Saver activated. Film disconnected and poster restored.');
 });
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) pauseFilm();
+  if (document.hidden && filmState !== 'idle') stopFilm('Film stopped when the tab was hidden. Poster restored.');
 });
+const heroForFilm = document.querySelector('.hero');
+if (heroForFilm && 'IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => {
+    if (!entries[0]?.isIntersecting && (filmState === 'playing' || filmState === 'loading')) {
+      stopFilm('Film stopped after scrolling away from the hero. Poster restored.');
+    }
+  }, { threshold: 0 });
+  observer.observe(heroForFilm);
+}
 
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window && !reduceMotion.matches) {
