@@ -8,7 +8,7 @@ const repo=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const data=JSON.parse(readFileSync(new URL('../data/loaded-media-review-batches.json',import.meta.url),'utf8'));
 const errors=[],reports=[],seen=new Set();
 const names=Object.keys(data);
-if(names.join('|')!=='baseline|portfolio|services')errors.push('Unexpected review batch configuration: '+names);
+if(names.join('|')!=='baseline|portfolio|services|professional|campaign|portfolio-extended|retail')errors.push('Unexpected review batch configuration: '+names);
 for(const [batch,entries] of Object.entries(data)){
  if(!Array.isArray(entries)||!entries.length){errors.push(batch+': empty batch');continue;}
  for(const entry of entries){
@@ -40,7 +40,7 @@ for(const [batch,entries] of Object.entries(data)){
   console.log('PASS:',id,thirdParty.length+' remote img tags, '+entry.sections.length+' screenshot sections');
  }
 }
-if(seen.size!==9)errors.push('Expected nine unique loaded-photo templates, found '+seen.size);
+if(seen.size!==19)errors.push('Expected 19 unique loaded-photo templates, found '+seen.size);
 if(errors.length){
  for(const error of errors)console.error('MEDIA-BATCH-ERROR:',error);
  console.error('FAIL:',errors.length+' still-media batch source errors');

@@ -93,5 +93,113 @@
       "required": 5,
       "poster": false
     }
+  ],
+  "professional": [
+    {
+      "name": "architecture",
+      "sections": [
+        ".hero",
+        ".project",
+        ".practice"
+      ],
+      "required": 2,
+      "poster": false
+    },
+    {
+      "name": "contractor",
+      "sections": [
+        ".hero",
+        ".project",
+        ".process"
+      ],
+      "required": 2,
+      "poster": false
+    },
+    {
+      "name": "law-firm",
+      "sections": [
+        ".hero",
+        ".practice",
+        ".counsel"
+      ],
+      "required": 1,
+      "poster": false
+    }
+  ],
+  "campaign": [
+    {
+      "name": "event-launch",
+      "sections": [
+        ".hero",
+        ".lineup",
+        ".venue"
+      ],
+      "required": 4,
+      "poster": false
+    },
+    {
+      "name": "fitness-launch",
+      "sections": [
+        ".hero",
+        ".image-band",
+        ".schedule"
+      ],
+      "required": 2,
+      "poster": false
+    },
+    {
+      "name": "tattoo-studio",
+      "sections": [
+        ".hero",
+        ".work",
+        ".artists"
+      ],
+      "required": 4,
+      "poster": false
+    }
+  ],
+  "portfolio-extended": [
+    {
+      "name": "monolith-architecture",
+      "sections": [
+        ".hero",
+        ".work",
+        ".project"
+      ],
+      "required": 7,
+      "poster": false
+    },
+    {
+      "name": "landscaping",
+      "sections": [
+        ".hero",
+        ".work",
+        ".seasons"
+      ],
+      "required": 3,
+      "poster": false
+    }
+  ],
+  "retail": [
+    {
+      "name": "pools",
+      "sections": [
+        ".hero",
+        ".shapes",
+        ".project"
+      ],
+      "required": 3,
+      "poster": false
+    },
+    {
+      "name": "storefront",
+      "sections": [
+        ".hero",
+        ".collection",
+        ".story"
+      ],
+      "required": 3,
+      "poster": false
+    }
   ]
 }
