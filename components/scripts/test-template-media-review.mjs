@@ -122,5 +122,14 @@ try{
  assert.equal(bakeAssets.errors,0);
  assert(bakeAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: custom-bakes selects three unapproved photographs without offline downloads.');
+ const store=spawnSync(process.execPath,[script,'--offline','--templates=storefront','--limit=5','--output='+path.join(directory,'storefront')],{encoding:'utf8',timeout:20000});
+ if(store.status!==0)throw Error('MORA media selection failed: '+store.stderr+'\\n'+store.stdout);
+ const storeAssets=JSON.parse(readFileSync(path.join(directory,'storefront/results.json'),'utf8'));
+ assert.deepEqual(storeAssets.assets.map(item=>item.id),['TM-034','TM-038','TM-067']);
+ assert.equal(storeAssets.total,3);
+ assert.equal(storeAssets.downloaded,0);
+ assert.equal(storeAssets.errors,0);
+ assert(storeAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
+ console.log('PASS: storefront selects three unapproved photos with zero offline downloads.');
  console.log('PASS: offline template media preview generation isolates evidence, keeps all candidate rights unapproved, and does not download or display unknown images.');
 }finally{rmSync(directory,{recursive:true,force:true});}
