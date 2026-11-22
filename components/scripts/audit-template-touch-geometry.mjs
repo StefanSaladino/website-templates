@@ -44,12 +44,27 @@ try{
     const clipped=[...document.querySelectorAll('h1,h2')].filter(visible).filter(el=>{
      const css=getComputedStyle(el);return css.overflowX!=='visible'&&el.scrollWidth>el.clientWidth+3;
     }).map(el=>(el.textContent||'').trim().replace(/\s+/g,' ').slice(0,85));
+    const overflowing=[...document.querySelectorAll('body *')].filter(visible).map(el=>{
+      const rect=el.getBoundingClientRect();
+      const chain=[];for(let parent=el.parentElement;parent&&parent!==document.body;parent=parent.parentElement){
+        const overflow=getComputedStyle(parent).overflowX;
+        if(['hidden','clip','auto','scroll'].includes(overflow))chain.push(parent.tagName.toLowerCase()+'.'+String(parent.className||'').split(' ')[0]);
+      }
+      return {tag:el.tagName.toLowerCase(),className:typeof el.className==='string'?el.className.slice(0,65):'',
+        right:Math.round(rect.right),left:Math.round(rect.left),width:Math.round(rect.width),
+        text:(el.textContent||'').trim().replace(/\\s+/g,' ').slice(0,45),clippedBy:chain.slice(0,3)};
+     }).filter(x=>x.right>width+4&&x.width>0)
+      .sort((a,b)=>(a.clippedBy.length-b.clippedBy.length)||(b.right-a.right)).slice(0,15);
     return {documentWidth:document.documentElement.scrollWidth,controls:dimensions.length,
       smallControls:small.length,examples:small.slice(0,30),clippedHeadings:clipped,
-      unnamedButtons:dimensions.filter(x=>x.tag==='button'&&!x.label).slice(0,8)};
+      unnamedButtons:dimensions.filter(x=>x.tag==='button'&&!x.label).slice(0,8),
+      overflowCandidates:overflowing};
    });
    report.cases.push({template,width,...geometry});
-   if(geometry.documentWidth>width+4)report.warnings.push({template,width,type:'horizontal-overflow',actual:geometry.documentWidth});
+   if(geometry.documentWidth>width+4){
+      report.warnings.push({template,width,type:'horizontal-overflow',actual:geometry.documentWidth,offenders:geometry.overflowCandidates});
+      console.log('OVERFLOW-DIAG',template,width+'px',JSON.stringify(geometry.overflowCandidates.slice(0,7)));
+    }
    if(geometry.smallControls)report.warnings.push({template,width,type:'target-size-review',count:geometry.smallControls});
    if(geometry.clippedHeadings.length)report.warnings.push({template,width,type:'possible-clipping',headings:geometry.clippedHeadings});
    if(geometry.unnamedButtons.length)report.warnings.push({template,width,type:'unnamed-buttons',controls:geometry.unnamedButtons});
