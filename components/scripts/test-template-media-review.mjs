@@ -100,7 +100,6 @@ try{
  const woodImages=JSON.parse(readFileSync(path.join(directory,'woodworker/results.json'),'utf8'));
  assert.deepEqual(woodImages.assets.map(item=>item.id),['TM-043','TM-054','TM-055']);
  assert.equal(woodImages.total,3);
- assert.equal(woodImages.total,4);
  assert.equal(woodImages.downloaded,0);
  assert.equal(woodImages.errors,0);
  assert(woodImages.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
