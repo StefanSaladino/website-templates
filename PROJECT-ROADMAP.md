@@ -254,3 +254,10 @@ The **targeted all-template keyboard regression is complete: 78/78 browser cases
 CI governance has been updated to cancel superseded review-branch jobs on future pushes, rather than filling the queue with older browser suites. Older runs created before that workflow change are historical and may still appear in GitHub Actions.
 
 **Step 19 remains unchecked.** Remaining release blockers are independent screen-reader verification (VoiceOver/NVDA/TalkBack), physical-device responsive and touch testing, photo-loaded crop/contrast checks, legal/source rights for all reused media, OFFCUT video verification/optimization, independent PDF accessibility assurance, real service integrations where applicable, and explicit stakeholder approval. Fictional demos cannot be promoted as real transactions or services. No merge to `main`.
+
+
+## Visual/layout validation — 22 November 2026
+
+The first automated **real loaded still-image** pass is green for nine high-priority original website templates: 36/36 four-width cases, 104 screenshots and 14 viewport-specific crop flags (all require manual signoff) in [run 45080095721](https://github.com/StefanSaladino/website-templates/actions/runs/45080095721). Separately, the **24-template touch/geometry audit** passed 120/120 cases at five actual CSS widths in [run 45080948999](https://github.com/StefanSaladino/website-templates/actions/runs/45080948999). The YARD and KERN horizontal-overflow bugs found by the first audit were fixed and added to a hard responsive regression gate. The keyboard suite and Pages build are green on the fixes.
+
+**Next action:** download and visually review the three still-image artifacts, beginning with the 14 crop flags, and prioritize touch-size candidates with real device checks. Expand decoded-photo review to the remaining original templates that actually contain third-party stills. Keep **zero rights approvals** and Step 19 open pending exact source licenses, OFFCUT film, assistive technology, and stakeholder decision.
