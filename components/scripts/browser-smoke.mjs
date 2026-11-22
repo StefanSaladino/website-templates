@@ -279,6 +279,15 @@ try{
  await page.locator('[data-newsletter] input[type=email]').fill('demo@example.com');
  await page.locator('[data-newsletter] button[type=submit]').click();
  assert((await page.locator('[data-newsletter-note]').textContent()).includes('no email was sent'),'MORA demo newsletter never claims a subscription');
+ const moraTouchPage=await browser.newPage({viewport:{width:768,height:900},isMobile:true,hasTouch:true});
+ await moraTouchPage.goto(templateBase+'storefront/index.html',{waitUntil:'domcontentloaded'});
+ assert(await moraTouchPage.evaluate(()=>matchMedia('(hover:none)').matches),'MORA touch-tablet QA uses a genuinely hoverless pointer');
+ const touchQuick=moraTouchPage.locator('.product-card .quick').first();
+ assert(await touchQuick.evaluate(el=>getComputedStyle(el).transform==='none'),'MORA quick-add buttons remain visually revealed without hover at 768px');
+ await touchQuick.click();
+ assert((await moraTouchPage.locator('[data-cart-count]').textContent())==='1',
+   'MORA touch tablet can add a product through the formerly hover-only quick action');
+ await moraTouchPage.close();
  await openTemplate('fitness-launch');
  assert(await page.locator('.yard-demo-banner').isVisible(),'YARD visibly identifies its fictional training club and stock imagery');
  assert((await page.locator('.yard-demo-banner').textContent()).includes('no verified physical gym'),'YARD cannot claim a real training facility or coaching');

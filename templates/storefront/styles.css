@@ -61,3 +61,6 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #273e
 .mora-material-jar b{font:500 clamp(12px,1.7vw,19px) "Newsreader",serif;letter-spacing:.1em}
 .mora-material-jar small{font:700 8px "DM Sans",Arial,sans-serif}
 @media(max-width:560px){.mora-objects{left:9%;right:9%;gap:10px}.mora-vessel small{font-size:7px}.mora-material-jar small{font-size:7px}}
+
+/* Tablet and touch-only pointers cannot reveal a hover-gated quick-add control. */
+@media (hover:none){.product-card .quick{transform:none}}
