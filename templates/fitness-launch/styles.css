@@ -159,3 +159,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media(min-width:901px) and (max-width:1500px){
   .trial-copy h2{font-size:clamp(58px,6.1vw,92px)}
 }
+
+/* The image-band and METHOD desktop headings were wider than their narrow
+   grid columns. Preserve the editorial size by giving copy proportional room. */
+@media(min-width:901px){
+  .method-title h2{font-size:clamp(52px,6vw,96px)}
+}
+@media(min-width:901px) and (max-width:1000px){
+  .image-band{grid-template-columns:minmax(0,1fr)}
+}
+@media(min-width:1001px){
+  .image-band{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+  .image-copy h2{font-size:clamp(52px,5.2vw,84px)}
+}

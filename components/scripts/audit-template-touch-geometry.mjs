@@ -82,7 +82,14 @@ try{
    if(geometry.smallControls)report.warnings.push({template,width,type:'target-size-review',count:geometry.smallControls});
    if(geometry.clippedHeadings.length)report.warnings.push({template,width,type:'possible-clipping',headings:geometry.clippedHeadings});
    if(geometry.unnamedButtons.length)report.warnings.push({template,width,type:'unnamed-buttons',controls:geometry.unnamedButtons});
-   if(errors.length)report.errors.push({template,width,type:'browser-errors',errors});
+   // Fix regression gate: YARD and KERN must not grow the document wider
+    // than the viewport at phone, tablet or unscaled desktop widths.
+    if(['fitness-launch','dark-tech'].includes(template)&&geometry.documentWidth>width+4){
+      report.errors.push({template,width,type:'responsive-overflow-regression',
+        viewport:width,scrollWidth:geometry.documentWidth,offenders:geometry.overflowCandidates,
+        intrinsic:geometry.intrinsicOverflow});
+    }
+    if(errors.length)report.errors.push({template,width,type:'browser-errors',errors});
    if(film.length)report.errors.push({template,width,type:'unexpected-video-attempt',urls:film});
    if(width===390){const file=template+'-390.png';await page.screenshot({path:path.join(directory,file),animations:'disabled',timeout:12000});report.screenshots.push(file);}
    console.log('GEOMETRY',template,width+'px',geometry.controls+' controls',geometry.smallControls+' size candidates',geometry.documentWidth+'px scroll width');
