@@ -58,10 +58,10 @@ async function loadImageMedia(page){
       ]);
       const bounds=img.getBoundingClientRect();
       const css=getComputedStyle(img);
-      const cropFraction=img.naturalWidth>0&&img.naturalHeight>0&&bounds.width>0&&bounds.height>0&&css.objectFit==='cover'
-        ?Math.min(1,(bounds.width/Math.max(bounds.width/img.naturalWidth,bounds.height/img.naturalHeight))
-          *(bounds.height/Math.max(bounds.width/img.naturalWidth,bounds.height/img.naturalHeight)))
-          /(img.naturalWidth*img.naturalHeight))
+      const canMeasure=img.naturalWidth>0&&img.naturalHeight>0&&bounds.width>0&&bounds.height>0&&css.objectFit==='cover';
+      const scale=canMeasure?Math.max(bounds.width/img.naturalWidth,bounds.height/img.naturalHeight):null;
+      const cropFraction=canMeasure
+        ?Math.min(1,Math.max(0,((bounds.width/scale)*(bounds.height/scale))/(img.naturalWidth*img.naturalHeight)))
         :null;
       return {src:img.currentSrc||img.src,alt:img.alt,
         naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,
