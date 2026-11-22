@@ -17,7 +17,23 @@ function openMenu(){
   mobileNav.querySelector('a')?.focus();
 }
 menuButton?.addEventListener('click',()=>menuButton.getAttribute('aria-expanded')==='true'?closeMenu(true):openMenu());
-mobileNav?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>closeMenu(false)));
+
+function focusMenuDestination(link){
+ const href=link.getAttribute('href')||'';
+ if(!href.startsWith('#'))return false;
+ const target=document.getElementById(decodeURIComponent(href.slice(1)));
+ if(!target)return false;
+ const temporary=!target.hasAttribute('tabindex');
+ if(temporary)target.tabIndex=-1;
+ target.focus({preventScroll:true});
+ if(temporary)target.addEventListener('blur',()=>target.removeAttribute('tabindex'),{once:true});
+ return true;
+}
+
+mobileNav?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+ closeMenu(false);
+ if(!focusMenuDestination(link))menuButton?.focus();
+}));
 window.addEventListener('keydown',event=>{
   if(menuButton?.getAttribute('aria-expanded')!=='true')return;
   if(event.key==='Escape'){event.preventDefault();closeMenu(true);return}
@@ -27,7 +43,12 @@ window.addEventListener('keydown',event=>{
   if(event.shiftKey&&(index<=0)){event.preventDefault();focusable[focusable.length-1].focus()}
   else if(!event.shiftKey&&index===focusable.length-1){event.preventDefault();focusable[0].focus()}
 });
-window.addEventListener('resize',()=>{if(window.innerWidth>780)closeMenu(false)});
+window.addEventListener('resize',()=>{
+ if(window.innerWidth<=780)return;
+ const wasOpen=menuButton?.getAttribute('aria-expanded')==='true';
+ closeMenu(false);
+ if(wasOpen)requestAnimationFrame(()=>document.querySelector('.desktop-nav a')?.focus());
+});
 // Remote demo images may not load in offline previews. Keep the layout legible.
 document.querySelectorAll('main img').forEach(img=>{
   const failed=()=>img.parentElement?.classList.add('media-failed');

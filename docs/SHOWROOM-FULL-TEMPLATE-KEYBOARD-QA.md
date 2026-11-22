@@ -108,3 +108,9 @@ Arc's mobile navigation is now keyboard-safe at its **760px breakpoint**: it ret
 STILL has no mobile drawer; the accessibility concern was **false confirmation that a visitor had joined a beta**, despite the preview having no registration service. It now explicitly calls its form a fictional demo, labels the button Preview signup and reports that no email was sent, stored or registered after an example submission. A skip link and focusable main region are also added. A standalone browser test checks keyboard access, invalid input, the truthful status, and absence of network transmissions.
 
 The expanded standard keyboard matrix has **15 templates × three viewports** (45 cases), in addition to the four-case NORTHLINE, MORA and AFTER DARK special regressions (57 regular/special checks). STILL is a separate non-drawer form/skip-link case. This source change requires a new passing workflow before any acceptance claim.
+
+## GARAGE and MONOLITH: focus-contained mobile navigation pilot
+
+GARAGE and MONOLITH already used explicit page inertness and keyboard Tab looping in their mobile overlays, but link selection closed the overlay without moving focus to its visible destination. Resizing from an expanded menu to the desktop layout could likewise leave keyboard focus in a hidden link. Both now focus the selected destination after closing, temporarily adding/removing `tabindex="-1"` where needed, and recover focus to visible desktop navigation after crossing their respective 980px/780px breakpoints. Existing skip links now land on explicitly focusable work sections. Animations, mock service/forms and photo-asset declarations were left intact.
+
+The new `test-overlay-menu-keyboard.mjs` checks entry/exit Tab cycling, destination focus, Escape return, skip links and breakpoint handoff at narrow widths for both full templates. No existing media or business claims were approved by this accessibility work.

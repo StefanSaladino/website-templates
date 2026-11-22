@@ -24,3 +24,8 @@
 .architecture-disclaimer{max-width:850px;margin:0 0 46px;padding:14px 18px;border-left:2px solid var(--ink);font-size:13px;line-height:1.6;color:var(--ink);background:rgba(255,255,255,.45)}
 @media(max-width:780px){.architecture-disclaimer{margin:0 0 26px;font-size:12px}}
 @media(max-width:560px){.architecture-disclaimer{padding:12px 14px;font-size:11px}}
+
+/* Keyboard focus is visible across the monochrome architectural image layout. */
+.site-header a:focus-visible,.site-header button:focus-visible,.mobile-nav a:focus-visible{
+ outline:3px solid #e5c98d;outline-offset:4px}
+.skip:focus-visible{outline:3px solid #141b1a;outline-offset:4px}

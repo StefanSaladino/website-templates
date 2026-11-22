@@ -22,6 +22,9 @@ on:
       - 'templates/quiet-saas/**'
       - 'templates/interactive-playground/**'
       - 'templates/waitlist/**'
+      - 'templates/garage-detailing/**'
+      - 'templates/monolith-architecture/**'
+      - 'components/scripts/test-overlay-menu-keyboard.mjs'
       - 'components/scripts/test-waitlist-preview.mjs'
       - 'components/scripts/test-event-launch-keyboard.mjs'
       - 'components/scripts/test-storefront-cart-keyboard.mjs'
@@ -64,6 +67,9 @@ jobs:
       - name: Check STILL waitlist preview never claims a signup
         working-directory: components
         run: node scripts/test-waitlist-preview.mjs
+      - name: Verify GARAGE and MONOLITH focus-contained mobile overlays
+        working-directory: components
+        run: node scripts/test-overlay-menu-keyboard.mjs
       - name: Store keyboard regression evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -75,5 +81,6 @@ jobs:
             components/storefront-cart-keyboard-evidence/
             components/event-launch-keyboard-evidence/
             components/waitlist-preview-evidence/
+            components/overlay-menu-keyboard-evidence/
           if-no-files-found: warn
           retention-days: 14
