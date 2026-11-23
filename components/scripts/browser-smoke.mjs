@@ -488,6 +488,8 @@ try{
   assert((await page.locator('.sheet-image--top img').getAttribute('src')).includes('/19836798/'),'MONOLITH interior uses source-attributed living room');
   assert((await page.locator('.sheet-image--bottom img').getAttribute('src')).includes('/25934928/'),'MONOLITH pool uses source-attributed architecture');
   assert((await page.locator('#limestone-house img').getAttribute('src')).includes('/4744622/'),'MONOLITH fourth project uses source-attributed modern residence');
+ assert((await page.locator('#north-house img').getAttribute('sizes')).includes('94vw'),'MONOLITH wide lead image must request full-size responsive sources');
+ assert((await page.locator('#limestone-house img').getAttribute('sizes')).includes('78vw'),'MONOLITH offset-wide exterior must request full-size responsive sources');
  assert((await page.locator('#limestone-house figcaption').textContent()).includes('EXTERIOR STUDY'),'MONOLITH fourth study type matches its photograph');
  assert(await page.locator('[data-monolith-card]').count()===3,'ANIM-17 MONOLITH contains three real story chapters');
  assert(await page.locator('[data-monolith-card="0"]').evaluate(el=>getComputedStyle(el).position==='relative'),'ANIM-17 mobile chapters remain in normal document flow');

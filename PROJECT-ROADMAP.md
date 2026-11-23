@@ -432,3 +432,7 @@ Retired six untraceable RANGE/FOUND Unsplash photos and synchronized the real Pe
 ## MONOLITH source photography update — 23 November 2026
 
 All four untraced MONOLITH Unsplash photo identities are retired and replaced with real Pexels publisher-attributed originals TM-109..112. All hero/project figure references and root gallery images are synchronized with new captions, alt text and provenance disclaimers. Original-template media source coverage rises to **49/74**, leaving **25 source identities unresolved**, with **0 rights-approved**. The 25 isolated component stock records remain review-only. Loaded-image crop acceptance, legal rights, native-device QA and human approval remain outstanding. Next high-yield work: AFTER DARK's four untraced media. Keep Steps 18 and 19 unchecked and `main` unchanged.
+
+## MONOLITH loaded-photo responsive source fix — 23 November 2026
+
+The real decoded-photo portfolio-extended CI batch exposed mismatched `sizes` metadata on MONOLITH full-width project images after the Pexels source replacements. All seven responsive image declarations now match their actual phone/tablet/desktop footprint, with portrait intrinsic dimensions corrected and regression assertions for the full-width and wide project placements. Browser loaded-photo recapture and manual visual review are still needed on the new SHA before final crop/performance acceptance. Rights approvals remain zero and Step 18/19 remain open.
