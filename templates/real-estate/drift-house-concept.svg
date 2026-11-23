@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 850" width="1280" height="850">
+<title>Drift House — fictional freshwater architecture study</title>
+<desc>Original flat-colour architectural illustration of a low cedar and glass house beside still Georgian Bay-inspired water with shoreline granite and pine trees. No actual property is represented.</desc>
+<rect width="1280" height="850" fill="#dce7e3"/>
+<path d="M0 0H1280V305C1150 298 1083 290 995 300C853 315 739 302 615 310C453 320 210 305 0 314Z" fill="#eef1e8"/>
+<circle cx="996" cy="134" r="65" fill="#f1d2a3" opacity=".82"/>
+<path d="M0 360L130 344L255 352L375 329L490 349L637 326L774 352L922 337L1118 350L1280 330V511H0Z" fill="#56736b"/>
+<path d="M0 424L143 417L257 435L378 415L511 428L640 401L783 428L929 405L1099 429L1280 411V519H0Z" fill="#34594f"/>
+<path d="M0 490Q208 456 412 490T822 479T1280 470V850H0Z" fill="#80aab0"/>
+<path d="M0 545Q262 530 507 543T1001 531T1280 538" stroke="#c2d9d3" stroke-width="5" fill="none" opacity=".8"/>
+<g fill="none" stroke="#cae0da" stroke-width="3" opacity=".76"><path d="M64 606h282M429 622h205M761 606h312M118 670h380M619 697h232M914 751h285"/></g>
+<!-- Sheltered stone shore and low terrace -->
+<path d="M0 634L160 611L349 637L506 608L665 632L793 598L945 634L1138 611L1280 635V850H0Z" fill="#b4b2a0"/>
+<path d="M0 734L116 699L250 721L354 687L482 724L666 690L819 735L1030 708L1188 740L1280 716V850H0Z" fill="#959b8b"/>
+<path d="M0 784L195 759L337 800L522 767L673 799L876 770L1059 800L1280 777V850H0Z" fill="#7a8881"/>
+<path d="M91 680l74 13 44-25-30-15zM865 654l110 16 65-17-110-25zM575 743l87-5 56-24-106-12z" fill="#d1c9b0"/>
+<!-- Perspective architecture: glass-facing waterfront home -->
+<path d="M276 346L952 338L1066 396L365 405Z" fill="#283e3b"/>
+<path d="M365 402L1067 395V593L365 602Z" fill="#796d5a"/>
+<path d="M378 423L960 419V578L378 588Z" fill="#e0c8a4"/>
+<path d="M429 434L934 431V567L429 576Z" fill="#1c4d4c"/>
+<path d="M443 447L921 443V561L443 568Z" fill="#407f7d"/>
+<path d="M443 503L921 493V561L443 568Z" fill="#275b58"/>
+<path d="M467 520l450-19v10l-450 21z" fill="#83b5b0" opacity=".6"/>
+<g stroke="#e0cbb1" stroke-width="11"><path d="M563 432v141M686 431v141M809 431v137"/></g>
+<path d="M363 598L1062 589L1126 617L428 631Z" fill="#4d4940"/>
+<path d="M386 635L1090 622L1125 638L419 655Z" fill="#d2bfa1"/>
+<g stroke="#52635b" stroke-width="7"><path d="M421 650v48M604 646v49M830 640v54M1081 638v49"/></g>
+<!-- Light cedar screen side -->
+<path d="M950 418L1063 410V589L950 582Z" fill="#9c8063"/>
+<g stroke="#d0ad84" stroke-width="5"><path d="M975 420v164M994 419v166M1013 418v167M1034 416v168M1052 414v170"/></g>
+<!-- Small pine stands preserve distinctly lake country rather than ocean/mountains -->
+<path d="M119 643V336M165 631V380M1132 610V324M1199 647V370" stroke="#544f44" stroke-width="16"/>
+<g fill="#2e5146"><path d="M119 163l-82 170h43l-60 94h194l-57-94h43z"/><path d="M165 239l-58 137h34l-49 73h146l-43-73h29z"/><path d="M1132 145l-91 187h46l-63 97h221l-66-97h54z"/><path d="M1199 231l-64 161h36l-50 85h157l-50-85h35z"/></g>
+<g fill="none" stroke="#53655b" stroke-width="4" opacity=".5"><path d="M54 812l144-21M837 827l180-20M319 767l90-15"/></g>
+</svg>

@@ -4,15 +4,15 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **62 active external media identities:** 61 still/poster images and 1 opt-in 4K video
-- **54 without verified/recorded source-page links** and **54 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
+- **60 active external media identities:** 59 still/poster images and 1 opt-in 4K video
+- **52 without verified/recorded source-page links** and **52 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 62 remain `needs-review`
-- **29 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
+- **27 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 29 active records
+## High-priority queue — 27 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -21,7 +21,6 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-004 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, attention-phone-crop-poor |
 | TM-006 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, visible-vehicle-brand, phone-cover-crop-clips-subject (+1 more in JSON) |
 | TM-009 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, mobile-crop-loses-context |
-| TM-011 | real-estate | Source page missing; Creator missing | coastal-not-georgian-bay, fictional-property-mismatch, not-an-actual-listing (+2 more in JSON) |
 | TM-012 | frame-portfolio | Source page missing; Creator missing | depicted-person, wide-crop-cuts-face, model-rights-unverified |
 | TM-013 | frame-portfolio | Source page missing; Creator missing | depicted-person, wide-crop-loses-subject, model-rights-unverified |
 | TM-014 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, wide-crop-cuts-face (+1 more in JSON) |
@@ -42,7 +41,6 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-053 | contractor | Source page missing; Creator missing | fictional-Toronto-job-site, visible-worker-model-rights-open, source-photographer-unverified (+1 more in JSON) |
 | TM-054 | woodworker | Source page missing; Creator missing | unsupported-white-oak-caption, wood-species-and-size-unverified, depicted-person (+2 more in JSON) |
 | TM-056 | event-launch | Source page missing; Creator missing | outdoor-event-not-side-room, fake-photo-timestamp, branding-visible (+1 more in JSON) |
-| TM-062 | real-estate | Source page missing; Creator missing | mountain-scenery-location-mismatch, fictional-property-mismatch, replacement-priority (+1 more in JSON) |
 | TM-068 | fitness-launch | Source page missing; Creator missing | recognizable-person-likeness-uncleared, misleading-carrying-alt, wide-crop-cuts-head (+2 more in JSON) |
 | TM-071 (film) | creative-agency | Recorded source page; cottonbro studio | No subject-specific review flags recorded |
 
@@ -119,3 +117,9 @@ Native Safari/VoiceOver, Android/TalkBack, NVDA, genuine browser zoom/text-only 
 ## Northline original source recheck — 22 November 2026
 
 **TM-010** was already credited to Nastuh Abootalebi. Following the [original Unsplash photo page](https://unsplash.com/photos/hallway-between-glass-panel-doors-yWwob8kwOCk) again and comparing its linked CDN image `photo-1497366754035-f200968a6e72` confirmed the existing source relationship and added the missing verification stamp. The original photo location is identified as the Sunday Digital office in **Munich, Germany**—not NORTHLINE's fictional legal premises. Property rights, endorsement, brand context and publication approval remain open. The image remains `needs-review`.
+
+## CURRENT original artwork conversion (22 November 2026)
+
+The geographically inaccurate coastal-surf **TM-011** and alpine-mountain **TM-062** images were retired from the CURRENT real-estate original template and replaced in **both** their main home spreads and the horizontal story rail with locally-authored, brand-specific architectural SVG drawings (`drift-house-concept.svg` and `glass-point-concept.svg`). They are **illustrations of invented buildings**, not photos, verified properties, real listings or approved design plans.
+
+The original-template third-party media queue is now **60 total**, **8 source/creator-verified**, **52 untraced**, **0 legally approved**. These two remote identities remain independently **in-review as STOCK-022/STOCK-023** in isolated `ANIM-13` component source; do not mistake the original-template retirement for site-wide licensing resolution. See `SHOWROOM-REAL-ESTATE-ILLUSTRATION-REMEDIATION.md` for exact changes.

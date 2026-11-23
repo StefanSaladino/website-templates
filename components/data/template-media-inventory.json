@@ -291,39 +291,6 @@
       "sourceVerificationNote": "Rechecked official Unsplash source page; its displayed image link normalizes to the active TM-010 CDN identity. Contributor Nastuh Abootalebi, office location Sunday Digital Munich. Still unrelated to fictional NORTHLINE legal practice; any property/commercial use and endorsement rights remain unapproved."
     },
     {
-      "id": "TM-011",
-      "urlIdentity": "https://images.unsplash.com/photo-1503686982867-43fb1b9fb691",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "real-estate",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-022",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "07cea211f714d7516bf5093544fef42a7839eb2ce2a82d52477293554b64e64f",
-        "notes": "Beachfront homes on supports above a sandy coastal shore with visible surf, not a verified Georgian Bay waterfront residence and not the photo used for the 'Drift House' hero. Narrow phone crops focus on the elevated decks; 16:9 stress crop loses much of the upper architecture.",
-        "flags": [
-          "coastal-not-georgian-bay",
-          "fictional-property-mismatch",
-          "not-an-actual-listing",
-          "phone-crop-loses-architecture",
-          "replacement-priority"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-012",
       "urlIdentity": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
       "kind": "image",
@@ -1731,38 +1698,6 @@
           "photo-not-actual-accommodation"
         ],
         "evidenceDocument": "docs/SHOWROOM-MUSKOKA-RETREAT-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-062",
-      "urlIdentity": "https://images.unsplash.com/photo-1774516534119-7324f9948176",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "real-estate",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-023",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "7919dcf7c03bf58edbd792add411b59651e06de395786be223434923fd61dc56",
-        "notes": "Unfurnished concrete room with full-height glazing overlooking a valley, broad water and prominent mountain peaks. Mountain scenery contradicts the implied Georgian Bay setting; should be replaced with appropriate setting before commercial use. Centered 3:5 phone crop preserves most glazing but loses outer edges and adjacent context.",
-        "flags": [
-          "mountain-scenery-location-mismatch",
-          "fictional-property-mismatch",
-          "replacement-priority",
-          "mobile-crop-review-needed"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
       }
     },
     {

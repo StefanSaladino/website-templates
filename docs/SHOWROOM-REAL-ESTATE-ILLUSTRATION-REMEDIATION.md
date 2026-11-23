@@ -1,0 +1,33 @@
+# CURRENT property-study illustration remediation
+
+_22 November 2026 · feature/component-showroom · original artwork, review-only_
+
+## Visual truth and scope
+
+Two existing CURRENT photos were geographically contradictory or unverified for the fictional Georgian Bay homes:
+
+- **TM-011** — elevated seaside homes, sand and visible surf, used twice for fictional Thornbury-inspired Drift House
+- **TM-062** — concrete room facing mountains across a valley/water view, used twice for fictional Meaford-inspired Glass Point
+
+Both are **retired from the full real-estate template**, and replaced in-place with original local SVG editorial architectural studies. Each has a distinct design treatment (freshwater, granite, pines and a low cedar/glass house; and a large-panel interior facing still water and treeline). Their image accessible names and source sections describe **invented concepts**, not photographs, available properties or verified buildings. Native `<img>` markup and existing parallax, rail, reduced-motion and keyboard functionality are preserved.
+
+## Active original-template media count
+
+| Before | After |
+| --- | --- |
+| 62 third-party media identities | **60** third-party identities |
+| 54 without exact original source/creator | **52** without exact original source/creator |
+| 8 traced, 0 approved | **8 traced, 0 approved** |
+| Four CURRENT remote identities (7 placements) | **Two CURRENT remote identities (3 placements)** plus four original SVG image placements |
+
+Both retired original-template records are no longer in `components/data/template-media-inventory.json`. The isolated animation **ANIM-13** still uses the old photos as STOCK-022 and STOCK-023 and those component asset records remain `needs-review`; this full-template remediation **does not** clear them. A full cross-surface cleanup can follow independently.
+
+## QA gates
+
+1. Both local SVG files must be valid XML, contain no external resources or scripts, retain semantic alt text and decode in all still-image screenshot viewport cases.
+2. Confirm both live home spreads and corresponding ANIM-13 horizontal story rail panels use their matching local illustration.
+3. The original-template scanner hard-fails if either retired CDN identity or TM-011/TM-062 reappears in any original full-page template.
+4. The offline media-selection regression now selects only TM-041 and TM-057 for CURRENT (both still unapproved).
+5. Verify loaded-media capture, keyboard, reduced-motion, text-spacing and full showroom browser QA on the final source SHA; source code alone is not proof of visual quality.
+
+Illustrations are fictional original concept art, **not** geographic evidence, construction documentation, an architect's credited work or property photography. Native phone, screen-reader, model/property/brand rights for remaining stock, and stakeholder design acceptance are not signed off. Steps 18 and 19 remain open.

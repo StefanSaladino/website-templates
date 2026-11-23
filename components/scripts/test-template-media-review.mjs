@@ -80,12 +80,12 @@ try{
  const estate=spawnSync(process.execPath,[script,'--offline','--templates=real-estate','--limit=5','--output='+path.join(directory,'real-estate')],{encoding:'utf8',timeout:20000});
  if(estate.status!==0)throw Error('Real estate photo review batch failed: '+estate.stderr+'\\n'+estate.stdout);
  const homes=JSON.parse(readFileSync(path.join(directory,'real-estate/results.json'),'utf8'));
- assert.deepEqual(homes.assets.map(item=>item.id),['TM-011','TM-041','TM-057','TM-062']);
- assert.equal(homes.total,4);
+ assert.deepEqual(homes.assets.map(item=>item.id),['TM-041','TM-057']);
+ assert.equal(homes.total,2);
  assert.equal(homes.downloaded,0);
  assert.equal(homes.errors,0);
  assert(homes.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: real-estate selects four unapproved image identities without fetching photos.');
+ console.log('PASS: real-estate selects two surviving unapproved photos and excludes two replaced concept-illustration identities.');
  const monolith=spawnSync(process.execPath,[script,'--offline','--templates=monolith-architecture','--limit=5','--output='+path.join(directory,'monolith-architecture')],{encoding:'utf8',timeout:20000});
  if(monolith.status!==0)throw Error('Monolith image review batch failed: '+monolith.stderr+'\\n'+monolith.stdout);
  const architecture=JSON.parse(readFileSync(path.join(directory,'monolith-architecture/results.json'),'utf8'));

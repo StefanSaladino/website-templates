@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 850" width="1280" height="850">
+<title>Glass Point — fictional Georgian Bay-inspired interior study</title>
+<desc>Original editorial interior drawing of broad concrete and timber frames, empty living space, freshwater horizon, distant pine shoreline, and exposed rock. Not a photograph or real listing.</desc>
+<rect width="1280" height="850" fill="#c6cec7"/>
+<!-- Outside view through full-height glazing -->
+<rect x="189" y="70" width="952" height="608" fill="#cadbd5"/>
+<path d="M189 294Q350 284 485 298T790 285T1141 302V460H189Z" fill="#78958c"/>
+<path d="M189 340L276 322L385 341L461 320L576 352L714 332L810 343L929 315L1060 338L1141 329V477H189Z" fill="#4e756c"/>
+<path d="M189 448Q455 427 696 452T1141 432V676H189Z" fill="#83aeb1"/>
+<g stroke="#c5dcd4" stroke-width="3" opacity=".76"><path d="M223 513h241M521 529h231M822 514h286M309 571h344M740 586h310M417 630h302"/></g>
+<path d="M189 653L310 627L388 644L488 615L587 658L707 632L806 648L954 620L1141 648V680H189Z" fill="#768f84"/>
+<!-- Floor-to-ceiling portal sections -->
+<path d="M0 0H1280V105L1130 98H200L0 119Z" fill="#9caaa2"/>
+<path d="M0 0L205 0L189 693L0 805Z" fill="#b3bdb5"/>
+<path d="M1141 95H1280V850L1134 680Z" fill="#7b8f85"/>
+<path d="M185 94h31v600h-31zM493 93h23v582h-23zM813 93h26v586h-26zM1126 93h26v589h-26z" fill="#405852"/>
+<path d="M189 95h956v28H189zM189 657h956v24H189z" fill="#405852"/>
+<path d="M197 115h942" stroke="#a1b5af" stroke-width="5"/>
+<!-- Rough stone wall and warm minimal interior -->
+<path d="M0 0L188 0L175 677L0 771Z" fill="#9d9d91"/>
+<path d="M10 75L160 69M19 164L155 154M8 283L158 274M7 392L158 380M0 509L156 484" stroke="#b5b1a4" stroke-width="6" opacity=".64"/>
+<path d="M0 756L196 670L1141 670L1280 775V850H0Z" fill="#a18e7c"/>
+<path d="M0 807L225 693L1134 694L1280 831V850H0Z" fill="#b0a18e"/>
+<path d="M224 692l-93 158M474 692l-44 158M738 692l31 158M968 692l111 158" stroke="#d0bfa7" stroke-width="4"/>
+<path d="M0 803h1280M0 841h1280" stroke="#877966" stroke-width="5"/>
+<!-- Bespoke low chaise and joinery, no invented stocked product -->
+<path d="M111 722L398 689L462 728L170 759Z" fill="#3c544c"/>
+<path d="M176 756L461 726V787L176 821Z" fill="#52675a"/>
+<path d="M121 723l44 1 26 26-37 4zM372 697l40-5 44 37-43 4z" fill="#d8c4a6"/>
+<path d="M556 724l127-2 58 33-151 7z" fill="#d0b9a0"/>
+<path d="M590 759h149v42H590z" fill="#62574b"/>
+<path d="M572 800h182" stroke="#b3a48f" stroke-width="8"/>
+<path d="M1036 680h85v93h-85z" fill="#877b68"/>
+<path d="M1034 681h89" stroke="#c2ae8d" stroke-width="11"/>
+<path d="M1075 678v-64" stroke="#536b5a" stroke-width="5"/>
+<path d="M1075 628l-24-35M1075 646l30-42" stroke="#536b5a" stroke-width="6"/>
+<path d="M1051 592q-23-29-31-6 18 25 31 6zM1105 607q18-24 27-5-11 21-27 5z" fill="#587867"/>
+<!-- Sunlight lines across wood floor -->
+<g stroke="#e5d6bd" stroke-width="5" opacity=".45"><path d="M289 813l267-74M766 825l216-87M902 844l244-99"/></g>
+</svg>
