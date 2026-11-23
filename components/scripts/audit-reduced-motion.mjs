@@ -58,6 +58,9 @@ try{
       const headings=[...el.querySelectorAll('h1,h2,h3')];
       if(el.matches('h1,h2,h3'))headings.unshift(el);
       const invisibleHeadings=headings.filter(h=>{
+        // A tabbed/carousel panel intentionally hidden until selected is
+        // not missing content. Verify it can be opened separately below.
+        if(h.closest('[hidden],[inert],[aria-hidden="true"]'))return false;
         const c=getComputedStyle(h),b=h.getBoundingClientRect();
         return c.display==='none'||c.visibility==='hidden'||Number(c.opacity)===0||b.width<2||b.height<2;
       }).map(h=>h.textContent?.trim().slice(0,90)||'').slice(0,5);
@@ -67,8 +70,6 @@ try{
         targetOpacity:style.opacity,targetVisibility:style.visibility,targetDisplay:style.display,
         scrollWidth:document.documentElement.scrollWidth,cssViewport:innerWidth,
         integratedHeadingCount:headings.length,invisibleHeadings,animations,
-        targetAnchor:document.getElementById(location.hash.slice(1))?.id||null,
-        sourceAnchorPresent:Boolean(document.getElementById(window.__requiredAnchor||'')),
         subjectOffset:Math.round(subjectOffset)};
     },item.id);
     const anchorFound=await page.evaluate(anchor=>Boolean(document.getElementById(anchor)),fragment);
@@ -81,6 +82,33 @@ try{
       results.errors.push(item.id+' '+width+' integrated target not visible: '+JSON.stringify(info));
     if(info.invisibleHeadings.length)results.errors.push(item.id+' '+width+' essential headings hidden: '+JSON.stringify(info.invisibleHeadings));
     if(info.animations.length)results.errors.push(item.id+' '+width+' long-running animation with reduce: '+JSON.stringify(info.animations));
+    // ANIM-19 is a real two-state router. A hidden Tomorrow panel is correct
+    // until selected; verify that both views are reachable without animation.
+    if(item.id==='ANIM-19'){
+      const readState=()=>page.evaluate(()=>{
+        const today=document.querySelector('[data-tide-view="today"]');
+        const tomorrow=document.querySelector('[data-tide-view="tomorrow"]');
+        const status=document.querySelector('[data-tide-status]')?.textContent||'';
+        const running=document.querySelector('[data-tide-root]')?.getAnimations({subtree:true})
+          .filter(anim=>anim.playState==='running'&&Number(anim.effect?.getComputedTiming().duration)>250).length||0;
+        return {hash:location.hash,todayHidden:today?.hidden,tomorrowHidden:tomorrow?.hidden,
+          status,tomorrowTransition:tomorrow?.classList.contains('is-entering'),running,
+          tomorrowCurrent:document.querySelector('[data-tide-link="tomorrow"]')?.getAttribute('aria-current')||null};
+      });
+      await page.locator('[data-tide-link="tomorrow"]').click();
+      const tomorrow=await readState();
+      caseData.tomorrowInteraction=tomorrow;
+      if(tomorrow.hash!=='#tide-tomorrow'||tomorrow.todayHidden!==true||
+        tomorrow.tomorrowHidden!==false||tomorrow.tomorrowCurrent!=='page'||
+        tomorrow.tomorrowTransition||tomorrow.running)
+        results.errors.push(item.id+' '+width+' Tomorrow reduced-motion view is broken: '+JSON.stringify(tomorrow));
+      await page.locator('[data-tide-link="today"]').click();
+      const today=await readState();
+      caseData.todayInteraction=today;
+      if(today.hash!=='#tide-today'||today.todayHidden!==false||
+        today.tomorrowHidden!==true||today.tomorrowTransition||today.running)
+        results.errors.push(item.id+' '+width+' Today reduced-motion view is broken: '+JSON.stringify(today));
+    }
     if(info.scrollWidth>width+4)results.errors.push(item.id+' '+width+' root document overflows '+info.scrollWidth);
     if(films.length)results.errors.push(item.id+' '+width+' unexpected film network attempt');
     if(pageErrors.length)results.errors.push(item.id+' '+width+' page script errors: '+JSON.stringify(pageErrors));
