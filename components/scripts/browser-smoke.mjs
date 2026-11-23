@@ -557,9 +557,20 @@ try{
    !await page.locator('[data-motion-pattern="ANIM-04"]').evaluate(el=>el.classList.contains('garden-depth-on')),'ANIM-04 phone layout uses the still photo');
  await openTemplate('real-estate');
  assert(await page.locator('.listing-notice').isVisible(),'CURRENT clearly discloses fictional listings above property rows');
- assert((await page.locator('.listing-notice').textContent()).includes('nothing shown is available to purchase'),'CURRENT must not imply properties are currently for sale');
- assert((await page.locator('.home-row').first().locator('img').getAttribute('alt')).includes('sandy coastal shore'),'CURRENT coastal stock photograph is not falsely described as Georgian Bay');
- assert((await page.locator('.home-row').nth(1).locator('img').getAttribute('alt')).includes('mountains'),'CURRENT mountain image has a truthful description');
+ assert((await page.locator('.listing-notice').textContent()).toLowerCase().includes('nothing shown is available to purchase'),'CURRENT must not imply properties are currently for sale');
+ assert((await page.locator('.home-row').first().locator('img').getAttribute('alt')).includes('Original architectural illustration'),'CURRENT Drift House is described as original conceptual artwork');
+ assert((await page.locator('.home-row').nth(1).locator('img').getAttribute('alt')).includes('Original interior illustration'),'CURRENT Glass Point is described as original conceptual artwork');
+ const originalConceptImages=['drift-house-concept.svg','glass-point-concept.svg'];
+ for(const name of originalConceptImages){
+   const occurrences=await page.locator('img[src="'+name+'"]').count();
+   assert(occurrences===2,'CURRENT '+name+' used in both property spread and ANIM-13 rail');
+   const decoded=await page.locator('img[src="'+name+'"]').first().evaluate(async img=>{
+     await img.decode();return img.naturalWidth>0&&img.naturalHeight>0;
+   });
+   assert(decoded,'CURRENT '+name+' original local SVG decodes in Chromium');
+ }
+ assert(!(await page.locator('.home-media img,.shore-slide img').evaluateAll(imgs=>imgs.some(img=>
+   /photo-1503686982867|photo-1774516534119/.test(img.currentSrc||img.src)))),'CURRENT retired geographic-mismatch photos cannot be displayed');
  assert((await page.locator('.photo-tag').textContent()).includes('Not a listing'),'CURRENT photo-tag is labeled as non-listing stock');
  await page.locator('[data-sample-contact] button').click();
  assert((await page.locator('[data-sample-response]').textContent()).includes('no brief was sent'),'CURRENT demo form confirms no agent request was submitted');

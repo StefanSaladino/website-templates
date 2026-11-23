@@ -6,7 +6,7 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 - **60 active external media identities:** 59 still/poster images and 1 opt-in 4K video
 - **52 without verified/recorded source-page links** and **52 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
-- **0 rights-approved assets.** All 62 remain `needs-review`
+- **0 rights-approved assets.** All 60 remain `needs-review`
 - **27 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 

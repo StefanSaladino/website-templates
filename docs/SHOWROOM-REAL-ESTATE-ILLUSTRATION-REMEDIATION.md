@@ -31,3 +31,7 @@ Both retired original-template records are no longer in `components/data/templat
 5. Verify loaded-media capture, keyboard, reduced-motion, text-spacing and full showroom browser QA on the final source SHA; source code alone is not proof of visual quality.
 
 Illustrations are fictional original concept art, **not** geographic evidence, construction documentation, an architect's credited work or property photography. Native phone, screen-reader, model/property/brand rights for remaining stock, and stakeholder design acceptance are not signed off. Steps 18 and 19 remain open.
+
+## Offline and browser regression reconciliation
+
+The loaded-media batch expects **three remote still-image elements** in CURRENT and four local SVG image placements (seven total), preserving the full image-decoding and screenshot scope rather than treating local illustrations as third-party stock. The gallery integrity check uses only its separately tracked gallery photos. The full browser-smoke suite now asserts both concept SVGs decode and appear in two positions each, their alternate text identifies original concept drawings, the old remote photographic identities are absent, and the sample listings remain explicitly fictional.
