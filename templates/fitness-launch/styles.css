@@ -172,3 +172,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .image-band{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
   .image-copy h2{font-size:clamp(52px,5.2vw,84px)}
 }
+
+/* Text-spacing reflow: preserve entire headings and minimum-size grid content at
+   effective 320/640 CSS px without globally clipping the document. Manual
+   typography/real 200%-400% browser-zoom acceptance still outstanding. */
+@media(max-width:430px){.image-frame,.image-band,.image-copy{min-width:0}.image-band{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:360px){.image-copy h2{font-size:36px}.statement-copy h2{font-size:38px}.hero-title{font-size:61px}}

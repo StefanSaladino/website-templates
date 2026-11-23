@@ -1,0 +1,29 @@
+# Original-template text spacing and narrow-reflow audit
+
+_22 November 2026 · feature/component-showroom · automated CSS-width emulation, not native zoom or human acceptance_
+
+## Scope
+
+24 original full-page templates at CSS effective widths 320 and 640, each in baseline and text-spacing challenge mode = **96 browser cases**. Text spacing challenge: line height 1.5, paragraph gap 2em, letter spacing .12em and word spacing .16em. Remote photos/fonts intentionally blocked, OFFCUT film must not download. Screenshots of text-spacing mode produced at each width (48 expected).
+
+## Initial failures, before this correction
+
+The first [run 45092655902](https://github.com/StefanSaladino/website-templates/actions/runs/45092655902) failed as designed: **10 document-wide horizontal overflows across nine templates**. No clipped-heading warnings were reported by the narrow predicate, but overflowing content was found by detailed browser instrumentation.
+
+| Template | Width and condition | Before measured CSS px | Cause / scoped fix |
+| --- | --- | ---: | --- |
+| contractor | 320 spaced | 337 | Mobile grid content used an intrinsic minimum; collapse to minmax(0,1fr) and allow hero-copy wrapping |
+| creative-agency | 320 spaced | 398 | Oversized approach and section display typography under .12em letter spacing; narrow-only heading reductions |
+| fitness-launch | 320 spaced | 365 | Oversized hero, statement and photo-side section typography; constrain min-width grid items and narrow-only type |
+| frame-portfolio | 640 spaced | 652 | Long word in large opening title; reduce title sizing in 621–720px crossover |
+| monolith-architecture | 320 spaced | 348 | Unbroken hero title; lower its <=360px display size |
+| pools | 320 spaced | 428 | Project grid min-content expansion and long study heading; minmax(0,1fr), min-width:0 and narrow-only typography |
+| quiet-saas | 640 baseline **and** spaced | 646 | Halo decoration extends six pixels past parent; pull the decorative right edge inward at 441–760px |
+| tattoo-studio | 320 spaced | 369 | Truth/manifesto min-content grids plus large display headings; minmax(0,1fr) and narrow-only typography |
+| woodworker | 320 spaced | 364 | Process grid intrinsic width and long heading; minimum-safe grid and narrow-only process type |
+
+An isolated Chromium inline-CSS source reproduction reduced **all ten** failing cases to no more than 324px at the 320px tests, or 644px at the 640px tests. The dedicated workflow rerun and updated screenshots are a separate evidence milestone and must not be inferred from this local measurement.
+
+## Boundaries
+
+CSS-pixel viewport reflow is a useful proxy for the **available content width** at high browser zoom, but it does not exercise actual Ctrl+/Ctrl- browser zoom or browser-specific text-only zoom and should never be labelled as certification. Crops/loading with real third-party assets, page-by-page visual assessment, screen readers, physical phone accessibility, and independent stakeholder acceptance remain open. No status promotions, media rights approvals, or main-branch merge are authorized by these results.

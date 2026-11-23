@@ -29,3 +29,8 @@
 .site-header a:focus-visible,.site-header button:focus-visible,.mobile-nav a:focus-visible{
  outline:3px solid #e5c98d;outline-offset:4px}
 .skip:focus-visible{outline:3px solid #141b1a;outline-offset:4px}
+
+/* Text-spacing reflow: preserve entire headings and minimum-size grid content at
+   effective 320/640 CSS px without globally clipping the document. Manual
+   typography/real 200%-400% browser-zoom acceptance still outstanding. */
+@media(max-width:360px){.hero h1{font-size:31px}}

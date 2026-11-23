@@ -151,3 +151,8 @@ a{color:inherit;text-decoration:none}button{font:inherit}.skip-link{position:fix
 .site-header a:focus-visible,.site-header button:focus-visible,.mobile-nav a:focus-visible{
   outline:3px solid #203d2c;outline-offset:4px}
 .skip-link:focus-visible{outline:3px solid #ffe29c;outline-offset:3px}
+
+/* Text-spacing reflow: preserve entire headings and minimum-size grid content at
+   effective 320/640 CSS px without globally clipping the document. Manual
+   typography/real 200%-400% browser-zoom acceptance still outstanding. */
+@media(min-width:441px) and (max-width:760px){.halo-one{right:0}}

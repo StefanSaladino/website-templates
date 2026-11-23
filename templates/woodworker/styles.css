@@ -273,3 +273,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* Portrait planter source: retain enough vertical detail in the desktop piece study. */
 @media(min-width:981px){.piece-photo--portrait{height:560px}}
+
+/* Text-spacing reflow: preserve entire headings and minimum-size grid content at
+   effective 320/640 CSS px without globally clipping the document. Manual
+   typography/real 200%-400% browser-zoom acceptance still outstanding. */
+@media(max-width:430px){.process-intro{grid-template-columns:minmax(0,1fr)}.process-intro>*{min-width:0}}
+@media(max-width:360px){.process h2{font-size:40px}}

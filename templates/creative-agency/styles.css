@@ -92,3 +92,8 @@ button{font:inherit}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #3b342b;outline-offset:4px}
 .site-header a:focus-visible,.site-header button:focus-visible,.mobile-menu a:focus-visible,.hero a:focus-visible,.hero button:focus-visible{outline:3px solid #f5e38d;outline-offset:4px}
 .approach a:focus-visible,.brief a:focus-visible,.footer a:focus-visible{outline:3px solid #f5e38d;outline-offset:4px}
+
+/* Text-spacing reflow: preserve entire headings and minimum-size grid content at
+   effective 320/640 CSS px without globally clipping the document. Manual
+   typography/real 200%-400% browser-zoom acceptance still outstanding. */
+@media(max-width:360px){.hero h1{font-size:40px}.hero h1 span,.hero h1 em{min-width:0}.approach-title h2{font-size:41px}.section-head h2,.brief h2{font-size:50px}}

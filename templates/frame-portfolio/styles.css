@@ -55,3 +55,8 @@ footer a{min-height:44px;display:flex;align-items:center}
 .skip-link:focus-visible{outline:3px solid #111;outline-offset:4px}
 .frame:focus-visible,.gallery-filter button:focus-visible{outline:3px solid #111;outline-offset:4px}
 .lightbox button:focus-visible{outline:3px solid #fff;outline-offset:4px}
+
+/* Text-spacing reflow: preserve entire headings and minimum-size grid content at
+   effective 320/640 CSS px without globally clipping the document. Manual
+   typography/real 200%-400% browser-zoom acceptance still outstanding. */
+@media(min-width:621px) and (max-width:720px){.opening h1{font-size:clamp(63px,11.4vw,83px)}}

@@ -19,3 +19,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   outline:3px solid #263f37;outline-offset:4px}
 .site-header a:focus-visible,.site-header button:focus-visible,.mobile-menu a:focus-visible{
   outline:3px solid #fff0a9;outline-offset:3px}
+
+/* Text-spacing reflow: preserve entire headings and minimum-size grid content at
+   effective 320/640 CSS px without globally clipping the document. Manual
+   typography/real 200%-400% browser-zoom acceptance still outstanding. */
+@media(max-width:620px){.project{grid-template-columns:minmax(0,1fr)}.project-image,.project-copy,.project-water-note{min-width:0}}
+@media(max-width:360px){.project h2{font-size:42px}}
