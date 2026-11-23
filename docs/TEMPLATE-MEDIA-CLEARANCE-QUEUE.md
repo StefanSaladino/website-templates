@@ -4,10 +4,10 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **69 active external media identities:** 68 still/poster images and 1 opt-in 4K video
+- **72 active external media identities:** 71 still/poster images and 1 opt-in 4K video
 - **52 without verified/recorded source-page links** and **52 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
-- **0 rights-approved assets.** All 69 remain `needs-review`
-- **32 first-priority review records** with people, branding, replacement or video-related flags; 37 follow-on records
+- **0 rights-approved assets.** All 72 remain `needs-review`
+- **32 first-priority review records** with people, branding, replacement or video-related flags; 40 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
@@ -49,7 +49,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 37 active records
+## Follow-on queue — 40 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -90,6 +90,9 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-078 | editorial-commerce | Pexels original; Nataliya Vaitkevich | map and compass not manufactured Route Kit, map copyright/context review pending |
 | TM-079 | editorial-commerce | Pexels original; Maxi Gagliano | sewing tools not actual Field Repair Roll, independent stock only |
 | TM-080 | woodworker | Pexels original; Anna Shvets | unrelated hand-plane workbench, not verified workshop work |
+| TM-081 | storefront | Pexels original; Angela Roma | Generic pump bottles are a product-styling reference, not actual MORA inventory |
+| TM-082 | storefront | Pexels original; Max Vakhtbovych | Unrelated bathroom photo, incidental items/brands not MORA products |
+| TM-083 | storefront | Pexels original; Polina | Independent serum/jar flatlay, not actual MORA packages or real brand claims |
 
 ## Recorded origin pages (not rights approval)
 
@@ -155,3 +158,8 @@ Current full-template remote media: **65 entries, 13 with photographer and sourc
 ## Further photographic stand-in replacement: RANGE/FOUND and GRAIN & GABLE
 
 Three RANGE/FOUND product illustrations were removed and replaced with authentic photography from Jonathan Cooper (TM-077 / Pexels 8868319), Nataliya Vaitkevich (TM-078 / 7235808), and Maxi Gagliano (TM-079 / 4610582). The GRAIN & GABLE workshop stand-in was replaced by a real photographed hand-plane workbench from Anna Shvets (TM-080 / 5711903). Authentic photographer/Free Pexels source records are stored in the canonical manifest. All product names/prices remain fictional, stock images never claim genuine brand merchandise, and GRAIN & GABLE's separate functional ANIM-20 illustration remains a diagram, not a photo substitute. Current full-template media count **69 (17 with publisher attribution, 52 not yet traced, 0 final rights approvals)**; component stock still **25** unapproved. Final loaded photo, property/brand/context and stakeholder review pending.
+
+
+## MORA original photostudies reinstated — 22 November 2026
+
+The three previously synthesized MORA still-life / sink / materials scene illustrations were replaced with independent real photographs under Pexels' Free license: Angela Roma (TM-081, photo 7318850), Max Vakhtbovych (TM-082, 7031908), and Polina (TM-083, 8101513). No Pexels scene is actual MORA merchandise or a true operating storefront. Four remaining product-type prototypes use plain CSS to demonstrate finish-swapping interactions; they are not photos, commercial inventory or AI-generated pictorial images. Current **72 active original-template media identities, 20 with original publisher provenance and creator, 52 remaining untraced, 0 final rights approvals**. Component asset stock remains 25, all in review; native-device, photo-loaded cropping, property/brand and legal distribution approval pending.

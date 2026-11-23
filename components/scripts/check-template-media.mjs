@@ -50,6 +50,7 @@ for(const templateId of templates){
   if(templateId==='muskoka-retreat'&&filename==='index.html'&&/retreat-art--(?:house|suite|winter)/.test(source))fail('Morrow House may not restore synthetic photo stand-ins');
   if(filename==='index.html'&&templateId==='editorial-commerce'&&/range-art--(?:boot|route|repair)/.test(source))fail('RANGE/FOUND generated image stand-ins cannot return');
   if(filename==='index.html'&&templateId==='woodworker'&&/workshop-photo--illustrated/.test(source))fail('Woodworker generated workshop image cannot return');
+  if(templateId==='storefront'&&filename==='index.html'&&/mora-art--(?:hero|sink|materials)/.test(source))fail('MORA synthetic scene illustration cannot return');
   if(source.includes('photo-1760939858984-5dc76f0ea34a'))fail('Retired unsafe saw photo is forbidden in '+templateId+'/'+filename);
   for(const removed of ['photo-1503686982867-43fb1b9fb691','photo-1774516534119-7324f9948176'])if(source.includes(removed))fail('Retired misleading property photo '+removed+' in '+templateId+'/'+filename);
   for(const key of ['photo-1776725121337-48de2c501672','photo-1485809052957-5113b0ff51af','photo-1759304426524-382146fa97a7','photo-1702936425973-8ca360714a97','photo-1583509208810-f57bef92d0a0'])if(source.includes(key))fail('Retired branded product photo '+key+' in '+templateId+'/'+filename);

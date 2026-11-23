@@ -2125,6 +2125,69 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Publisher lists Anna Shvets, Free Pexels license, Fujifilm X-T3 metadata, photo 5711903 of a hand plane on dusty woodworking bench. Independent photo is not a verified GRAIN & GABLE workshop, employee or project. Final affiliation/rights and crop approval pending. Exact publisher page contains direct original source image link. Pexels copyright license permits template use, not automatic property, model, trademark or derivative redistribution approval."
+    },
+    {
+      "id": "TM-081",
+      "urlIdentity": "https://images.pexels.com/photos/7318850/pexels-photo-7318850.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "storefront",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/bottles-of-cosmetic-product-on-wooden-table-7318850/",
+      "creator": "Angela Roma",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Actual photo by Angela Roma of three unlabelled white pump bottles on a timber shelf with sunlit wall. Verified by official Pexels photo page, Free license, Canon EOS 5D Mark IV EXIF. Not fictional MORA products or commissioned imagery. Publisher source image identity matches direct CDN photo ID. Pexels image licensing is eligible for website-template use, not final context/rights or client clearance."
+    },
+    {
+      "id": "TM-082",
+      "urlIdentity": "https://images.pexels.com/photos/7031908/pexels-photo-7031908.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "storefront",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/white-sink-and-mirror-with-towel-in-bathroom-7031908/",
+      "creator": "Max Vakhtbovych",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Actual photo by Max Vakhtbovych of bathroom basin/mirror/towel; official Pexels page identifies Nikon D800 EXIF and Free license. Any incidental third-party cosmetic item is unrelated; not MORA goods or a MORA installation. Publisher source image identity matches direct CDN photo ID. Pexels image licensing is eligible for website-template use, not final context/rights or client clearance."
+    },
+    {
+      "id": "TM-083",
+      "urlIdentity": "https://images.pexels.com/photos/8101513/pexels-photo-8101513.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "storefront",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/cosmetic-containers-on-a-gray-textile-8101513/",
+      "creator": "Polina",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Actual stock flat-lay of jars and serum bottles on linen by photographer listed as Polina on Pexels; DMC-GX80 metadata and Free license. Independent photographic material study, not fictional MORA inventory or packaging. Publisher source image identity matches direct CDN photo ID. Pexels image licensing is eligible for website-template use, not final context/rights or client clearance."
     }
   ]
 }

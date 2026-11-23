@@ -266,10 +266,10 @@ try{
  await openTemplate('storefront');
  assert(await page.locator('.storefront-demo-banner').isVisible(),'MORA must visibly identify fictional, non-purchasable product concepts');
  assert((await page.locator('.storefront-demo-banner').textContent()).includes('No payments, orders or email subscriptions'),'MORA no-sale disclosure is explicit');
- assert(await page.locator('.mora-art--hero[role="img"]').count()===1,'MORA hero uses original labelled product art');
- assert(await page.locator('.mora-art--materials[role="img"]').count()===1,'MORA material story uses original illustrative art');
- assert((await page.locator('.image-label').textContent()).includes('ORIGINAL'),'MORA sink concept uses original artwork');
- assert(await page.locator('img[src*="images.unsplash.com"],img[src*="images.pexels.com"]').count()===0,'MORA has no unrelated branded third-party product photos');
+ assert(await page.locator('.hero-media>.mora-photo-reference').count()===1,'MORA hero uses real-source bottle photography');
+ assert(await page.locator('.story-image>.mora-photo-reference').count()===1,'MORA material section uses real independent photo');
+ assert((await page.locator('.image-label').textContent()).includes('STOCK'),'MORA sink scene is independently sourced photography');
+ assert(await page.locator('img[src*="images.pexels.com"]').count()===3,'MORA three photographic scenes are original credited Pexels references');
  assert((await page.locator('.quote-band').textContent()).includes('NOT A CUSTOMER TESTIMONIAL'),'MORA cannot invent a customer review');
  await page.locator('[data-quick-add="Daily Set"]').click();
  assert((await page.locator('[data-cart-count]').textContent())==='1','MORA local demo bag retains interactive add');

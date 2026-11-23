@@ -124,10 +124,12 @@ try{
  console.log('PASS: custom-bakes selects three unapproved photographs without offline downloads.');
  const inventory=JSON.parse(readFileSync(path.join(path.dirname(script),'../data/template-media-inventory.json'),'utf8'));
  const moraHtml=readFileSync(path.join(path.dirname(script),'../../templates/storefront/index.html'),'utf8');
- assert(!inventory.assets.some(asset=>asset.usages?.some(use=>use.templateId==='storefront')),'Retired MORA photos must not remain in active media inventory');
- assert(!/https:\/\/images\.unsplash\.com|https:\/\/images\.pexels\.com/.test(moraHtml),'MORA may not reintroduce unrelated third-party product photography');
- assert(moraHtml.includes('mora-art--hero')&&moraHtml.includes('mora-art--sink')&&moraHtml.includes('mora-art--materials'),'All three original MORA art studies are required');
- console.log('PASS: storefront retired three brand-mismatched photos and uses original labelled artwork.');
+ const moraSource=inventory.assets.filter(asset=>asset.usages?.some(use=>use.templateId==='storefront'));
+ assert.deepEqual(moraSource.map(asset=>asset.id),['TM-081','TM-082','TM-083'],'Three Pexels-sourced MORA scenes are inventoried');
+ assert(moraSource.every(asset=>asset.reviewStatus==='needs-review'&&asset.sourcePageUrl&&asset.creator),'MORA photos have verified publishers but no final rights approval');
+ assert(!/mora-art--(?:hero|sink|materials)/.test(moraHtml),'The former synthetic MORA scenes cannot reappear in HTML');
+ assert((moraHtml.match(/https:\/\/images\.pexels\.com\/photos\//g)||[]).length===3,'All three MORA scene replacements are true stock photographs');
+ console.log('PASS: MORA has three source-traceable Pexels photo scenes; the CSS fiction-only product prototypes remain.');
  const garden=spawnSync(process.execPath,[script,'--offline','--templates=landscaping','--limit=5','--output='+path.join(directory,'landscaping')],{encoding:'utf8',timeout:20000});
  if(garden.status!==0)throw Error('BED & BORDER media selection failed: '+garden.stderr+'\\n'+garden.stdout);
  const gardenAssets=JSON.parse(readFileSync(path.join(directory,'landscaping/results.json'),'utf8'));
