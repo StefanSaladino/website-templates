@@ -99,3 +99,11 @@ a{color:inherit}img{display:block;width:100%;height:100%;object-fit:cover}button
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
   outline:3px solid #253c35;outline-offset:4px}
 .site-header a:focus-visible,.site-header button:focus-visible{outline:3px solid #f7e6a9;outline-offset:4px}
+
+/* The publisher-stock notice is editorial copy, not a compact two-column data bar on phones.
+   Keep both the independent-photo label and non-listing disclosure readable at 320px. */
+@media (max-width:430px){
+  .hero-photo .photo-tag{grid-template-columns:minmax(0,1fr);gap:7px;padding:14px 16px 18px}
+  .hero-photo .photo-tag strong{font-size:21px;line-height:1.16}
+  .hero-photo .photo-tag small{justify-self:start;font-size:11px;line-height:1.45}
+}

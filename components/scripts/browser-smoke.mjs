@@ -673,6 +673,15 @@ try{
  assert(!(await page.locator('.home-media img,.shore-slide img').evaluateAll(imgs=>imgs.some(img=>
    /photo-1503686982867|photo-1774516534119/.test(img.currentSrc||img.src)))),'CURRENT retired geographic-mismatch photos cannot be displayed');
  assert((await page.locator('.photo-tag').textContent()).includes('Not a listing'),'CURRENT photo-tag is labeled as non-listing stock');
+ await page.setViewportSize({width:320,height:900});
+ const currentPhotoTag=await page.locator('.hero-photo .photo-tag').evaluate(el=>{
+   const heading=el.querySelector('strong').getBoundingClientRect(),warning=el.querySelector('small').getBoundingClientRect(),container=el.getBoundingClientRect();
+   return {stacked:warning.top>=heading.bottom-2,inBounds:warning.left>=container.left-1&&warning.right<=container.right+1&&warning.bottom<=container.bottom+1,
+     headingInBounds:heading.right<=container.right+1};
+ });
+ assert(currentPhotoTag.stacked&&currentPhotoTag.inBounds&&currentPhotoTag.headingInBounds,
+   'CURRENT 320px publisher-stock and non-listing note stack without truncation');
+ await page.setViewportSize({width:390,height:900});
  assert((await page.locator('.hero-photo img').getAttribute('src')).includes('/15533042/'),'CURRENT hero must reference a real, publisher-attributed Meaford shore house');
  assert((await page.locator('.hero-photo img').getAttribute('srcset')).includes('1600w'),'CURRENT real-photo hero must supply phone/desktop responsive sources');
  assert((await page.locator('.home-row--blue img').getAttribute('src')).includes('/34701790/'),'CURRENT third home is unrelated credited lakeside timber cabin photography');
