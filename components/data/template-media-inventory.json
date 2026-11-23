@@ -1936,6 +1936,48 @@
       },
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Official Pexels video 9489382 source is by cottonbro studio. Only headers of opt-in 4K MP4 were checked; content, rights, bandwidth and optimized derivative unapproved."
+    },
+    {
+      "id": "TM-072",
+      "urlIdentity": "https://images.pexels.com/photos/37981442/pexels-photo-37981442.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "real-estate",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-027",
+      "sourcePageUrl": "https://www.pexels.com/photo/modern-house-by-tranquil-lake-surrounded-by-trees-37981442/",
+      "creator": "Peter Xie",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Pexels page identifies Peter Xie as photographer, free Pexels license and 4000x6000 Sony A7C June 2026 camera metadata. Direct free-download URL has the same 37981442 photo ID. Pexels publisher terms explicitly permit use in web templates, but this does not establish depicted-property, non-endorsement, or final redistribution clearance."
+    },
+    {
+      "id": "TM-073",
+      "urlIdentity": "https://images.pexels.com/photos/6580232/pexels-photo-6580232.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "real-estate",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-028",
+      "sourcePageUrl": "https://www.pexels.com/photo/cozy-apartament-on-water-with-floor-to-ceiling-windows-6580232/",
+      "creator": "Max Vakhtbovych",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Pexels page identifies Max Vakhtbovych as photographer, free Pexels license and Nikon D810 camera metadata. Direct free-download URL has the same 6580232 photo ID. Pexels publisher terms explicitly permit use in web templates, but this does not establish depicted-property, non-endorsement, or final redistribution clearance."
     }
   ]
 }

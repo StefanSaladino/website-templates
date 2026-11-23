@@ -4,15 +4,15 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **60 active external media identities:** 59 still/poster images and 1 opt-in 4K video
+- **62 active external media identities:** 61 still/poster images and 1 opt-in 4K video
 - **52 without verified/recorded source-page links** and **52 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 60 remain `needs-review`
-- **27 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
+- **29 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 27 active records
+## High-priority queue — 29 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -43,6 +43,8 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-056 | event-launch | Source page missing; Creator missing | outdoor-event-not-side-room, fake-photo-timestamp, branding-visible (+1 more in JSON) |
 | TM-068 | fitness-launch | Source page missing; Creator missing | recognizable-person-likeness-uncleared, misleading-carrying-alt, wide-crop-cuts-head (+2 more in JSON) |
 | TM-071 (film) | creative-agency | Recorded source page; cottonbro studio | No subject-specific review flags recorded |
+| TM-072 | real-estate | Pexels publisher page; Peter Xie | Unrelated photographed home; private-property and listing-affiliation review still open |
+| TM-073 | real-estate | Pexels publisher page; Max Vakhtbovych | Unrelated photographed lake-facing interior; property context and redistribution review open |
 
 ## Follow-on queue — 33 active records
 
@@ -122,8 +124,15 @@ Native Safari/VoiceOver, Android/TalkBack, NVDA, genuine browser zoom/text-only 
 
 The geographically inaccurate coastal-surf **TM-011** and alpine-mountain **TM-062** images were retired from the CURRENT real-estate original template and replaced in **both** their main home spreads and the horizontal story rail with locally-authored, brand-specific architectural SVG drawings (`drift-house-concept.svg` and `glass-point-concept.svg`). They are **illustrations of invented buildings**, not photos, verified properties, real listings or approved design plans.
 
-The original-template third-party media queue is now **60 total**, **8 source/creator-verified**, **52 untraced**, **0 legally approved**. A follow-on component pass also retired STOCK-022/STOCK-023 from isolated `ANIM-13`; the third illustrated-story stock identity STOCK-024 remains unapproved, as do the other 22 active isolated component stock records. See `SHOWROOM-REAL-ESTATE-ILLUSTRATION-REMEDIATION.md` for exact changes.
+At the earlier illustration checkpoint the template queue was **60 total**, **8 source/creator-verified**, **52 untraced**, **0 legally approved**. A follow-on component pass also retired STOCK-022/STOCK-023 from isolated `ANIM-13`; the third illustrated-story stock identity STOCK-024 remains unapproved, as do the other 22 active isolated component stock records. See `SHOWROOM-REAL-ESTATE-ILLUSTRATION-REMEDIATION.md` for exact changes.
 
 ## Standalone component reconciliation
 
 ANIM-13 now reuses the two original CURRENT SVG assets rather than separately showing the retired coastal and mountain photography. The isolated component stock manifest is **23 active remote identities, zero approved**; the original full-template queue remains **60 active identities, eight attributed, 52 untraced and zero approved**. The two different distribution surfaces have separate inventories: do not add the 23 and 60 counts as if they were disjoint unique photos.
+
+
+## Latest source photo restoration — 22 November 2026
+
+CURRENT and the isolated ANIM-13 no longer use the two generated SVG images. TM-072 / STOCK-027 is a photo by Peter Xie (https://www.pexels.com/photo/modern-house-by-tranquil-lake-surrounded-by-trees-37981442/) and TM-073 / STOCK-028 is by Max Vakhtbovych (https://www.pexels.com/photo/cozy-apartament-on-water-with-floor-to-ceiling-windows-6580232/). Original publisher pages identify creators, actual image links, camera metadata and Free/Pexels License. The license (https://www.pexels.com/license/) permits website template use, but that is NOT a final property/context/redistribution release approval. Both photos are clearly described as unrelated illustrative references, not CURRENT listings.
+
+Current inventory: **62 original-template media identities (10 source/creator recorded; 52 untraced)**; **25 component stock identities**; **zero finally release-approved**. Crops, performance, subject/property rights and stakeholder acceptance remain outstanding.

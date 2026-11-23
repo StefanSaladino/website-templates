@@ -6705,11 +6705,13 @@
     "category": "animations",
     "title": "Horizontal story rail",
     "status": "in-review",
-    "exampleContext": "Waterfront concept journal: two original architectural illustrations and one review-only stock photograph",
+    "exampleContext": "Photographic waterfront journal: three independent stock references, none a real listing",
     "previewRoute": "./previews/ANIM-13/",
     "thumbnail": null,
     "stockAssetIds": [
-      "STOCK-024"
+      "STOCK-024",
+      "STOCK-027",
+      "STOCK-028"
     ],
     "interactions": [
       "horizontal-scroll",
@@ -6725,7 +6727,7 @@
       "template-integrated"
     ],
     "hasMobileLayout": true,
-    "notes": "Working isolated preview and full-page template integration; imagery rights and physical-device QA still needed.",
+    "notes": "The two Pexels photo pages, creators and standard license are documented; property/context rights, image cropping, local optimization and human release review remain open.",
     "reviewRoute": "./review.html?id=ANIM-13",
     "mobileTreatmentIds": [],
     "fullTemplateRoute": "../templates/real-estate/index.html#shore-stories",

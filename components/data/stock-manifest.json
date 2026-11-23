@@ -695,6 +695,60 @@
         "visual-crop-pending",
         "template-redistribution-not-cleared"
       ]
+    },
+    {
+      "id": "STOCK-027",
+      "sourceUrl": "https://www.pexels.com/photo/modern-house-by-tranquil-lake-surrounded-by-trees-37981442/",
+      "photographer": "Peter Xie",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "licenseReviewedAt": "2026-11-22",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Official Pexels page identifies Peter Xie as photographer, free Pexels license and 4000x6000 Sony A7C June 2026 camera metadata. Direct free-download URL has the same 37981442 photo ID. Photo is NOT the named fictional CURRENT home or a verified Georgian Bay property. Template-redistribution context, potential property rights, cropping and stakeholder acceptance require final approval.",
+      "usageIds": [
+        "ANIM-13"
+      ],
+      "altText": "Modern lakeside home screened by leafy trees",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/37981442/pexels-photo-37981442.jpeg",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourcePageLicenseLabel": "Free, Pexels License",
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "unrelated-stock-not-real-listing",
+        "property-context-open",
+        "cropping-open",
+        "final-redistribution-review-open"
+      ]
+    },
+    {
+      "id": "STOCK-028",
+      "sourceUrl": "https://www.pexels.com/photo/cozy-apartament-on-water-with-floor-to-ceiling-windows-6580232/",
+      "photographer": "Max Vakhtbovych",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "licenseReviewedAt": "2026-11-22",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Official Pexels page identifies Max Vakhtbovych as photographer, free Pexels license and Nikon D810 camera metadata. Direct free-download URL has the same 6580232 photo ID. Photo is NOT the named fictional CURRENT home or a verified Georgian Bay property. Template-redistribution context, potential property rights, cropping and stakeholder acceptance require final approval.",
+      "usageIds": [
+        "ANIM-13"
+      ],
+      "altText": "Lake-facing living room with grey sofa and bookcases",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/6580232/pexels-photo-6580232.jpeg",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourcePageLicenseLabel": "Free, Pexels License",
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "unrelated-stock-not-real-listing",
+        "property-context-open",
+        "cropping-open",
+        "final-redistribution-review-open"
+      ]
     }
   ]
 }
