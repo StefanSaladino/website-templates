@@ -27,3 +27,9 @@ An isolated Chromium inline-CSS source reproduction reduced **all ten** failing 
 ## Boundaries
 
 CSS-pixel viewport reflow is a useful proxy for the **available content width** at high browser zoom, but it does not exercise actual Ctrl+/Ctrl- browser zoom or browser-specific text-only zoom and should never be labelled as certification. Crops/loading with real third-party assets, page-by-page visual assessment, screen readers, physical phone accessibility, and independent stakeholder acceptance remain open. No status promotions, media rights approvals, or main-branch merge are authorized by these results.
+
+## Screenshot-driven improvement after green reflow matrix — 22 November 2026
+
+[Run 45093222619](https://github.com/StefanSaladino/website-templates/actions/runs/45093222619) **passed all 96/96 cases** on `f9c0c03`, with 48 screenshots and zero automated clipping flags or hard errors. Inspection of the nine previously failing template captures found one non-overflow visual issue: LINE + LEVEL's 320px enlarged-spacing hero split the single word **"renovation"** across lines as "renovatio" + "n". That was caused by the temporary `overflow-wrap:break-word` fallback in the hero copy.
+
+The hero now retains natural whole-word line breaks, with a narrower 39px headline only at <=380px and a minimum-safe grid. A direct Chromium DOM Range test confirmed the **ten letters of "renovation" occupy one single line box**, while root content width remains 321px at a 320px viewport. The 96-case runner now hard-fails if that word splits in the 320px spacing challenge. This is a screenshot-driven polish correction and **requires a fresh green run on the newest SHA** before marking it verified remotely; it does not alter media/real-device/assistive technology rights and approval gates.

@@ -41,4 +41,4 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* Text-spacing reflow: preserve entire headings and minimum-size grid content at
    effective 320/640 CSS px without globally clipping the document. Manual
    typography/real 200%-400% browser-zoom acceptance still outstanding. */
-@media(max-width:380px){.hero{grid-template-columns:minmax(0,1fr)}.hero-copy,.hero-media{min-width:0}.hero-copy{overflow-wrap:break-word}}
+@media(max-width:380px){.hero{grid-template-columns:minmax(0,1fr)}.hero-copy,.hero-media{min-width:0}.hero h1{font-size:39px}}

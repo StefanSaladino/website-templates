@@ -77,6 +77,21 @@ try{
        reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches};
    });
    const row={template,width,mode,...detail,scriptErrors:pageErrors,videoRequests:film.length};
+   // Pure scroll-width checks can pass while a headline breaks a single word
+   // into two letter fragments. Lock the visual correction to an actual text
+   // range in the 320px enlarged-spacing contractor hero.
+   if(template==='contractor'&&width===320&&mode==='spacing'){
+     const wordLines=await page.locator('#hero-title').evaluate(el=>{
+       const node=[...el.childNodes].find(n=>n.nodeType===Node.TEXT_NODE&&
+         n.textContent.includes('renovation'));
+       if(!node)return -1;
+       const start=node.textContent.indexOf('renovation'),range=document.createRange();
+       range.setStart(node,start);range.setEnd(node,start+'renovation'.length);
+       return range.getClientRects().length;
+     });
+     row.renovationWordLines=wordLines;
+     if(wordLines!==1)result.errors.push('contractor 320 spacing hero splits "renovation" across lines: '+wordLines+' fragments');
+   }
    result.cases.push(row);
    if(detail.documentWidth>width+4)
     result.errors.push(template+' '+width+' '+mode+' page-wide horizontal overflow '+detail.documentWidth);
