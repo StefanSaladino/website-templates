@@ -1,27 +1,23 @@
 # Original-template media clearance queue
 
-_22 November 2026 · `feature/component-showroom` · current JSON-derived working snapshot, **not a license or release approval**_
+_23 November 2026 · `feature/component-showroom` · current JSON-derived working snapshot, **not a license or release approval**_
 
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **41 without verified/recorded source-page links** and **41 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **35 without verified/recorded source-page links** and **35 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
-- **21 first-priority review records** with people, branding, replacement or video-related flags; 53 follow-on records
+- **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 21 active records
+## High-priority queue — 17 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
 | TM-001 | creative-agency | Recorded source page; cottonbro studio | depicted-person, visible-studio-tracking-markers, phone-hero-crop-needs-browser-acceptance (+2 more in JSON) |
 | TM-002 | frame-portfolio | Recorded source page; Clark Street Mercantile | visible-brand, property-rights-unverified, model-context-unverified |
-| TM-004 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, attention-phone-crop-poor |
-| TM-009 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, mobile-crop-loses-context |
-| TM-016 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, phone-attention-crop-poor (+1 more in JSON) |
-| TM-017 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, multiple-placements (+1 more in JSON) |
 | TM-018 | fitness-launch | Recorded source page; John Arano | recognizable-person-likeness-uncleared, visible-ROGUE-equipment-brand, clothing-brand-mark (+2 more in JSON) |
 | TM-028 | editorial-commerce | Source page missing; Creator missing | depicted-person, hero-caption-corrected, hero-mobile-crop-needs-css-review |
 | TM-032 | editorial-commerce | Source page missing; Creator missing | depicted-person, fictional-product-mismatch, model-rights-unverified |
@@ -38,12 +34,10 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 53 active records
+## Follow-on queue — 57 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
-| TM-003 | frame-portfolio | Source page missing; Creator missing | phone-cover-crops-subject, full-frame-candidate-only |
-| TM-007 | frame-portfolio | Source page missing; Creator missing | alt-text-corrected, phone-focus-needs-review |
 | TM-008 | editorial-commerce | Source page missing; Creator missing | fictional-product-mismatch, source-rights-unverified |
 | TM-010 | law-firm | Recorded source page; Nastuh Abootalebi | unrelated-office-stock, fictional-firm-and-lawyer-attribution, phone-crop-removes-office-context (+1 more in JSON) |
 | TM-022 | monolith-architecture | Source page missing; Creator missing | studio-attribution-unverified, geography-unverified, mobile-crop-cuts-sofa |
@@ -95,6 +89,12 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-094 | frame-portfolio | Pexels; Aliyu jooney | Red-background editorial portrait, independent stock and model rights unapproved |
 | TM-095 | frame-portfolio | Pexels; Sandro Tavares | Dark studio portrait of man, model consent and final reuse unapproved |
 | TM-096 | frame-portfolio | Pexels; Linneas Boland-Godbey | Yellow fence fashion portrait, possible clothing artwork and model rights unapproved |
+| TM-097 | frame-portfolio | Pexels original; Deon Black | Real independent stock, source and photographer verified; model/brand/crop and final commercial use not cleared |
+| TM-098 | frame-portfolio | Pexels original; Gustavo Fring | Real independent stock, source and photographer verified; model/brand/crop and final commercial use not cleared |
+| TM-099 | frame-portfolio | Pexels original; Emre Kocdemir | Real independent stock, source and photographer verified; model/brand/crop and final commercial use not cleared |
+| TM-100 | frame-portfolio | Pexels original; Connor Scott McManus | Real independent stock, source and photographer verified; model/brand/crop and final commercial use not cleared |
+| TM-101 | frame-portfolio | Pexels original; Gin | Real independent stock, source and photographer verified; model/brand/crop and final commercial use not cleared |
+| TM-102 | frame-portfolio | Pexels original; Jimmy Elizarraras | Real independent stock, source and photographer verified; model/brand/crop and final commercial use not cleared |
 
 ## Recorded origin pages (not rights approval)
 
@@ -196,3 +196,8 @@ This changes original-template provenance from 25/74 to **29/74 sourced and attr
 ## FRAME source-attributed photography replacements — 23 November 2026
 
 Retired four untraced original FRAME media IDs TM-014, TM-015, TM-012 and TM-013 (including all associated responsive source-set URLs). Their placements now use independent Pexels originals with exact photo download identities and publisher-listed photographer credits: TM-093 [Brayan Chul black-hoodie purple studio portrait](https://www.pexels.com/photo/beautiful-woman-in-black-hoodie-12919049/), TM-094 [Aliyu jooney red-background fashion portrait](https://www.pexels.com/photo/elegant-woman-posing-in-stylish-skirt-on-red-background-32174987/), TM-095 [Sandro Tavares dark male portrait](https://www.pexels.com/photo/portrait-of-a-man-on-a-black-background-17594379/), and TM-096 [Linneas Boland-Godbey yellow-fence fashion portrait](https://www.pexels.com/photo/a-woman-in-yellow-shirt-and-denim-shorts-9591740/). These are authentic stock photographs, **not AI-generated imagery**, and no person/photographer/photographic portfolio is genuinely affiliated with the invented FRAME studio. A visible, accessible notice and footer provenance caveat establish that. Model releases, fashion/text artwork, downstream redistribution rights, actual zoom/crops and stakeholder visual acceptance remain **unapproved**. Original 24-template manifest remains **74 media identities; 33 with source page and creator, 41 unsourced; zero final approvals**. Six more original FRAME IDs need follow-on work (TM-003, TM-004, TM-007, TM-009, TM-016, TM-017), with shared isolated ANIM-12 stock requiring coordination.
+
+
+## FRAME complete original and ANIM-12 shared media sourcing — 23 November 2026
+
+Retired FRAME TM-003/004/007/009/016/017, along with all their responsive and three matching isolated ANIM-12 uses. Original Pexels photographs verified at their exact image-download links: TM-097 [Deon Black, banana on pink](https://www.pexels.com/photo/yellow-banana-on-pink-background-5750431/), TM-098 [Gustavo Fring, shopping bags fashion study](https://www.pexels.com/photo/content-woman-in-stylish-outfit-with-shopping-bags-4127628/), TM-099 [Emre Kocdemir, wall-mounted lamp](https://www.pexels.com/photo/low-angle-view-of-a-lamp-on-a-wall-15500246/), TM-100 [Connor Scott McManus, floral dress on beach](https://www.pexels.com/photo/woman-in-dress-on-beach-12182965/), TM-101 [Gin, patterned jacket against brick](https://www.pexels.com/photo/young-woman-in-a-patterned-jacket-standing-against-a-brick-wall-22816074/), and TM-102 [Jimmy Elizarraras, blue/purple studio portrait](https://www.pexels.com/photo/confident-woman-posing-in-studio-with-bold-lighting-30231500/). These are real unrelated images, not AI-generated and not original work by the invented FRAME photographer. All publisher Free labels, named photographers and actual image downloads were checked. The standalone ANIM-12 now uses STOCK-029/030/031 corresponding to TM-102/098/097 with reciprocal component cross-links, and the FRAME root gallery uses TM-102. Full original media inventory: **74 entries, 39 with source and creator, 35 missing, 0 approved**. FRAME alone is **11/11 fully source-attributed**; component stock remains **25, 0 approved**. Human review of likeness, brands/artwork, frame crops, commercial redistribution and final licensing/optimization remains open; no live release or main merge.

@@ -461,7 +461,14 @@ try{
  assert((await page.locator('.opening-right img').getAttribute('src')).includes('/32174987/'),'FRAME opening-right references sourced Aliyu jooney fashion portrait');
  assert((await page.locator('.frame--four img').getAttribute('src')).includes('/17594379/'),'FRAME sitter image references sourced Sandro Tavares portrait');
  assert((await page.locator('.frame--eight img').getAttribute('src')).includes('/9591740/'),'FRAME street fashion image references sourced Linneas Boland-Godbey portrait');
- assert(!/photo-1524504388940|photo-1529139574466|photo-1506794778202|photo-1515886657613/.test(await page.content()),'FRAME retired unsourced portrait images cannot be reintroduced');
+ assert(!/photo-1524504388940|photo-1529139574466|photo-1506794778202|photo-1515886657613|photo-148134951877|photo-148398598835|photo-149443863994|photo-149674761117|photo-153112389772|photo-153452874177/.test(await page.content()),'All retired FRAME media identities excluded');
+ for(const [i,card,id] of [['0','.frame--one','30231500'],['1','.frame--two','4127628'],['2','.frame--three','5750431']]){
+  assert((await page.locator(card+' img').getAttribute('src')).includes('/'+id+'/'),'FRAME source matches selected animation photo '+i);
+  assert((await page.locator('[data-feature-image="'+i+'"] img').getAttribute('src')).includes('/'+id+'/'),'FRAME animation stage and gallery use same sourced photo '+i);
+ }
+ assert((await page.locator('.frame--five img').getAttribute('src')).includes('/12182965/'),'FRAME beach portrait has verified source');
+ assert((await page.locator('.frame--six img').getAttribute('src')).includes('/15500246/'),'FRAME lamp still-life has verified source');
+ assert((await page.locator('.frame--seven img').getAttribute('src')).includes('/22816074/'),'FRAME patterned-jacket portrait has verified source');
  await page.locator('[data-feature-select="2"]').click();
  assert(await page.locator('[data-feature-image="2"]').isVisible()&&await page.locator('[data-feature-image="0"]').isHidden()
    &&await page.locator('[data-feature-select="2"]').getAttribute('aria-pressed')==='true'
@@ -520,6 +527,7 @@ try{
  await page.locator('#a09-replay').click();
  assert(await page.locator('.a09-panel').evaluate(el=>el.classList.contains('is-playing')),'ANIM-09 isolated diagonal panel is replayable');
  await page.goto(base+'previews/ANIM-12/index.html',{waitUntil:'domcontentloaded'});
+ for(const [i,id] of [['0','30231500'],['1','4127628'],['2','5750431']])assert((await page.locator('[data-a12-frame="'+i+'"] img').getAttribute('src')).includes('/'+id+'/'),'ANIM-12 isolated photograph matches actual FRAME feature '+i);
  await page.locator('[data-a12-select="2"]').click();
  assert(await page.locator('[data-a12-frame="2"]').isVisible()&&
    await page.locator('[data-a12-select="2"]').getAttribute('aria-pressed')==='true','ANIM-12 isolated project image exchange works');

@@ -12,7 +12,7 @@ for(const asset of manifest.assets){
   if(stockById.has(asset.id))addError('Duplicate stock ID '+asset.id);
   stockById.set(asset.id,asset);
   if(!/^STOCK-\d{3}$/.test(asset.id))addError('Invalid stock ID '+asset.id);
-  if(['STOCK-013','STOCK-022','STOCK-023'].includes(asset.id))addError('Retired image may not be reintroduced: '+asset.id);
+  if(['STOCK-013','STOCK-019','STOCK-020','STOCK-021','STOCK-022','STOCK-023'].includes(asset.id))addError('Retired image may not be reintroduced: '+asset.id);
   if(!asset.sourceUrl?.startsWith('https://')||!asset.licenseUrl?.startsWith('https://')||!asset.photographer||!asset.platform) addError('Missing source/rights metadata '+asset.id);
   if(!Array.isArray(asset.usageIds))addError('Missing usage IDs '+asset.id);
   if(!['approved','needs-review','rejected'].includes(asset.reviewStatus))addError('Bad stock review status '+asset.id);
@@ -51,6 +51,7 @@ for(const component of components){
   const html=existsSync(file)?readFileSync(file,'utf8'):'';
   if(html.includes('photo-1760939858984-5dc76f0ea34a'))addError(component.id+' has forbidden saw photo');
   if(component.id==='ANIM-13' && /photo-1503686982867-43fb1b9fb691|photo-1774516534119-7324f9948176/.test(html))addError('ANIM-13 must not restore unrelated geographically misleading photos');
+  if(component.id==='ANIM-12'&&/photo-1481349518771-20055b2a7b24|photo-1483985988355-763728e1935b|photo-1494438639946-1ebd1d20bf85|photo-1496747611176-843222e1e57c|photo-1531123897727-8f129e1688ce|photo-1534528741775-53994a69daeb/.test(html))addError('ANIM-12 may not restore old FRAME stock');
   if(component.id==='ANIM-13'&&/drift-house-concept\.svg|glass-point-concept\.svg/.test(html))addError('ANIM-13 cannot restore generated synthetic property SVGs');
   // Include poster images as well as src. Scan in-review previews, not just live ones:
   // otherwise remote assets could silently bypass review metadata until launch.

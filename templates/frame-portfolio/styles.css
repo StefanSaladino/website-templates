@@ -63,3 +63,6 @@ footer a{min-height:44px;display:flex;align-items:center}
 
 /* Sample photographer cannot claim authorship of unrelated stock. */
 .frame-demo-disclosure{max-width:650px;margin:16px 0 -28px;padding:10px 12px;border-left:2px solid #757570;font-size:11px;line-height:1.5;color:#41413d;background:#eaeae5}.frame-demo-disclosure strong{color:#111}@media(max-width:620px){.frame-demo-disclosure{margin:14px 4px 0;padding:9px 10px;font-size:10px;line-height:1.45}}
+
+/* Preserve the FRAME off-duty subject toward the right of narrow editorial crops. */
+.frame--two img,.frame-feature-image[data-feature-image="1"] img{object-position:74% center}@media(max-width:620px){.frame--two img,.frame-feature-image[data-feature-image="1"] img{object-position:78% center}}

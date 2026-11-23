@@ -6659,9 +6659,9 @@
     "previewRoute": "./previews/ANIM-12/",
     "thumbnail": null,
     "stockAssetIds": [
-      "STOCK-019",
-      "STOCK-020",
-      "STOCK-021"
+      "STOCK-029",
+      "STOCK-030",
+      "STOCK-031"
     ],
     "interactions": [
       "image-selection",
@@ -6676,7 +6676,7 @@
       "template-integrated"
     ],
     "hasMobileLayout": true,
-    "notes": "Working isolated preview and matching full template; media rights and physical-device visual QA required.",
+    "notes": "ANIM-12 and full FRAME site share three source-attributed Pexels photo studies; image rights, human-loaded crops and native device motion acceptance still in-review.",
     "reviewRoute": "./review.html?id=ANIM-12",
     "mobileTreatmentIds": [],
     "fullTemplateRoute": "../templates/frame-portfolio/index.html#frame-feature",

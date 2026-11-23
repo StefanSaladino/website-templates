@@ -52,6 +52,7 @@ for(const templateId of templates){
   if(filename==='index.html'&&templateId==='woodworker'&&/workshop-photo--illustrated/.test(source))fail('Woodworker generated workshop image cannot return');
   if(templateId==='storefront'&&filename==='index.html'&&/mora-art--(?:hero|sink|materials)/.test(source))fail('MORA synthetic scene illustration cannot return');
   for(const retired of ['photo-1679585651020-9ae0653c84ad','photo-1745777761096-081db6e036e7'])if(source.includes(retired))fail('Retired tattoo artist/client media returned in '+templateId+'/'+filename+': '+retired);
+  for(const retired of ["photo-1481349518771-20055b2a7b24","photo-1483985988355-763728e1935b","photo-1494438639946-1ebd1d20bf85","photo-1496747611176-843222e1e57c","photo-1531123897727-8f129e1688ce","photo-1534528741775-53994a69daeb"])if(source.includes(retired))fail('Retired FRAME source cannot return in '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1524504388940-b1c1722653e1','photo-1529139574466-a303027c1d8b','photo-1506794778202-cad84cf45f1d','photo-1515886657613-9f3515b0c78f'])if(source.includes(retired))fail('Retired FRAME photo cannot return to '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1708805282706-f44730b7e527','photo-1552519507-da3b142c6e3d','photo-1580273916550-e323be2ae537','photo-1492144534655-ae79c964c9d7'])if(source.includes(retired))fail('Retired GARAGE photo cannot return in '+templateId+'/'+filename+': '+retired);
   if(source.includes('photo-1673874500167-17ca5ed1cf17'))fail('Retired Nutella-branded dessert stock must not return to '+templateId+'/'+filename);
@@ -72,7 +73,7 @@ if(!Array.isArray(inventory.assets))fail('Missing assets array in original-templ
 const registered=new Map();
 for(const item of inventory.assets||[]){
  if(!/^TM-\d{3}$/.test(item.id))fail('Invalid original-template asset ID '+item.id);
- if(['TM-048','TM-005','TM-044','TM-065','TM-021','TM-031','TM-034','TM-038','TM-067','TM-011','TM-062','TM-029','TM-030','TM-040','TM-006','TM-019','TM-020','TM-033','TM-014','TM-015','TM-012','TM-013'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
+ if(['TM-048','TM-005','TM-044','TM-065','TM-021','TM-031','TM-034','TM-038','TM-067','TM-011','TM-062','TM-029','TM-030','TM-040','TM-006','TM-019','TM-020','TM-033','TM-014','TM-015','TM-012','TM-013','TM-003','TM-004','TM-007','TM-009','TM-016','TM-017'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
  if(!normalize(item.urlIdentity)||normalize(item.urlIdentity)!==item.urlIdentity)fail('Noncanonical tracked remote media '+item.id);
  if(registered.has(item.urlIdentity))fail('Duplicate original-template URL record: '+item.urlIdentity);
  registered.set(item.urlIdentity,item);

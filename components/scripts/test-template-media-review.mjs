@@ -25,18 +25,18 @@ try{
  assert(css.includes('grid-template-columns:repeat(4,minmax(0,1fr))'));
  assert(!report.assets.some(item=>item.desktopPortrait||item.phoneTall));
  assert(existsSync(path.join(directory,'index.html')));
- // Ensure the follow-up batch reviews all six remaining FRAME photographs,
- // rather than accidentally re-running the original first-five pilot.
- const frameIds=['TM-016','TM-017','TM-093','TM-094','TM-095','TM-096'];
- const remaining=spawnSync(process.execPath,[script,'--offline','--ids='+frameIds.join(','),'--limit=6','--output='+path.join(directory,'frame-remainder')],{encoding:'utf8',timeout:20000});
+ // FRAME full-template media now has 11/11 source page and creator records.
+ const frameIds=['TM-002','TM-093','TM-094','TM-095','TM-096','TM-097','TM-098','TM-099','TM-100','TM-101','TM-102'];
+ const remaining=spawnSync(process.execPath,[script,'--offline','--templates=frame-portfolio','--limit=15','--output='+path.join(directory,'frame-remainder')],{encoding:'utf8',timeout:20000});
  if(remaining.status!==0)throw Error('FRAME remainder review failed: '+remaining.stderr+'\\n'+remaining.stdout);
  const rest=JSON.parse(readFileSync(path.join(directory,'frame-remainder/results.json'),'utf8'));
  assert.deepEqual(rest.assets.map(item=>item.id),frameIds);
- assert.equal(rest.total,6);
+ assert.equal(rest.total,11);
  assert.equal(rest.downloaded,0);
  assert.equal(rest.errors,0);
  assert(rest.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: FRAME selected six active review assets including four attributed Pexels portrait/editorial references, without rights approval.');
+ assert(rest.assets.every(item=>item.sourcePageUrl&&item.creator),'All eleven FRAME items must have recorded original source/creator');
+ console.log('PASS: FRAME all 11 source identities have recorded publisher/creator, with no final rights approval.');
  const commerceIds=['TM-008','TM-026','TM-027','TM-028','TM-032','TM-039','TM-077','TM-078','TM-079'];
  const commerce=spawnSync(process.execPath,[script,'--offline','--templates=editorial-commerce','--limit=10','--output='+path.join(directory,'editorial-commerce')],{encoding:'utf8',timeout:20000});
  if(commerce.status!==0)throw Error('Editorial review selection failed: '+commerce.stderr+'\\n'+commerce.stdout);

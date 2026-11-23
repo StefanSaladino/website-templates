@@ -535,87 +535,6 @@
       ]
     },
     {
-      "id": "STOCK-019",
-      "sourceUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
-      "licenseUrl": "https://unsplash.com/license",
-      "licenseReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-12 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
-      "usageIds": [
-        "ANIM-12"
-      ],
-      "altText": "Portrait against a softly blurred dark background",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
-      "originalFilename": null,
-      "fileHashSHA256": null,
-      "derived": [],
-      "sourcePageVerifiedAt": null,
-      "assetAcquisitionStatus": "not-downloaded",
-      "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
-        "license-and-third-party-rights-unverified",
-        "visual-crop-pending",
-        "template-redistribution-not-cleared"
-      ]
-    },
-    {
-      "id": "STOCK-020",
-      "sourceUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
-      "licenseUrl": "https://unsplash.com/license",
-      "licenseReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-12 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
-      "usageIds": [
-        "ANIM-12"
-      ],
-      "altText": "Fashion editorial photograph of styled clothing",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b",
-      "originalFilename": null,
-      "fileHashSHA256": null,
-      "derived": [],
-      "sourcePageVerifiedAt": null,
-      "assetAcquisitionStatus": "not-downloaded",
-      "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
-        "license-and-third-party-rights-unverified",
-        "visual-crop-pending",
-        "template-redistribution-not-cleared"
-      ]
-    },
-    {
-      "id": "STOCK-021",
-      "sourceUrl": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
-      "licenseUrl": "https://unsplash.com/license",
-      "licenseReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-12 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
-      "usageIds": [
-        "ANIM-12"
-      ],
-      "altText": "Minimal still life with fruit",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24",
-      "originalFilename": null,
-      "fileHashSHA256": null,
-      "derived": [],
-      "sourcePageVerifiedAt": null,
-      "assetAcquisitionStatus": "not-downloaded",
-      "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
-        "license-and-third-party-rights-unverified",
-        "visual-crop-pending",
-        "template-redistribution-not-cleared"
-      ]
-    },
-    {
       "id": "STOCK-024",
       "sourceUrl": "https://images.unsplash.com/photo-1772411650649-f88111bcb8a5",
       "photographer": "Unverified — exact creator and Unsplash source page not established",
@@ -748,6 +667,87 @@
         "property-context-open",
         "cropping-open",
         "final-redistribution-review-open"
+      ]
+    },
+    {
+      "id": "STOCK-031",
+      "sourceUrl": "https://www.pexels.com/photo/yellow-banana-on-pink-background-5750431/",
+      "photographer": "Deon Black",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "licenseReviewedAt": "2026-11-23",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Pexels Free original source identity checked on 2026-11-23: https://www.pexels.com/photo/yellow-banana-on-pink-background-5750431/. Real image appears in both ANIM-12 and FRAME, not an actual fictional studio project. Do not imply person or brand endorsement. Final crop, trademark, model/property and template distribution release pending.",
+      "usageIds": [
+        "ANIM-12"
+      ],
+      "altText": "Single yellow banana on a pink background, photographic still life by Deon Black / Pexels",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/5750431/pexels-photo-5750431.jpeg",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourcePageLicenseLabel": "Free, Pexels License",
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "unrelated-portfolio-stock",
+        "model-or-venue-rights-unverified",
+        "responsive-crop-review-open",
+        "final-distribution-review-open"
+      ]
+    },
+    {
+      "id": "STOCK-030",
+      "sourceUrl": "https://www.pexels.com/photo/content-woman-in-stylish-outfit-with-shopping-bags-4127628/",
+      "photographer": "Gustavo Fring",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "licenseReviewedAt": "2026-11-23",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Pexels Free original source identity checked on 2026-11-23: https://www.pexels.com/photo/content-woman-in-stylish-outfit-with-shopping-bags-4127628/. Real image appears in both ANIM-12 and FRAME, not an actual fictional studio project. Do not imply person or brand endorsement. Final crop, trademark, model/property and template distribution release pending.",
+      "usageIds": [
+        "ANIM-12"
+      ],
+      "altText": "Woman in a blue dress and sunglasses with shopping bags against beige studio background, photo by Gustavo Fring / Pexels",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/4127628/pexels-photo-4127628.jpeg",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourcePageLicenseLabel": "Free, Pexels License",
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "unrelated-portfolio-stock",
+        "model-or-venue-rights-unverified",
+        "responsive-crop-review-open",
+        "final-distribution-review-open"
+      ]
+    },
+    {
+      "id": "STOCK-029",
+      "sourceUrl": "https://www.pexels.com/photo/confident-woman-posing-in-studio-with-bold-lighting-30231500/",
+      "photographer": "Jimmy Elizarraras",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "licenseReviewedAt": "2026-11-23",
+      "reviewStatus": "needs-review",
+      "rightsNotes": "Pexels Free original source identity checked on 2026-11-23: https://www.pexels.com/photo/confident-woman-posing-in-studio-with-bold-lighting-30231500/. Real image appears in both ANIM-12 and FRAME, not an actual fictional studio project. Do not imply person or brand endorsement. Final crop, trademark, model/property and template distribution release pending.",
+      "usageIds": [
+        "ANIM-12"
+      ],
+      "altText": "Studio portrait of a woman in black against dramatic blue-and-purple lighting, photo by Jimmy Elizarraras / Pexels",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/30231500/pexels-photo-30231500.jpeg",
+      "originalFilename": null,
+      "fileHashSHA256": null,
+      "derived": [],
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourcePageLicenseLabel": "Free, Pexels License",
+      "assetAcquisitionStatus": "not-downloaded",
+      "reviewFlags": [
+        "unrelated-portfolio-stock",
+        "model-or-venue-rights-unverified",
+        "responsive-crop-review-open",
+        "final-distribution-review-open"
       ]
     }
   ]

@@ -72,97 +72,6 @@
       "sourceVerificationNote": "Official Unsplash photo page; exact images.unsplash.com CDN identity matched its displayed image link. Photographer/source attribution only; model, location, trademark and redistribution suitability still need independent review."
     },
     {
-      "id": "TM-003",
-      "urlIdentity": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-021",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "6b0fd3c58afb5256f7d8aa60c84bc3bc4e46922e0443ca9a48cbe5e8c2c9beb4",
-        "notes": "Banana still-life is truncated by phone center and attention cover crops; full-frame contain with matching background is a safer preliminary candidate.",
-        "flags": [
-          "phone-cover-crops-subject",
-          "full-frame-candidate-only"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-004",
-      "urlIdentity": "https://images.unsplash.com/photo-1483985988355-763728e1935b",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-020",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "83926a85328b45a66c6f2d2f4605dbaf45261b95fd525b0f4d718b0e26126da1",
-        "notes": "Photo shows person with sunglasses/shopping bags. Attention phone crop nearly excludes the person; center composition retains their upper body. Model/brand rights unverified.",
-        "flags": [
-          "depicted-person",
-          "model-rights-unverified",
-          "attention-phone-crop-poor"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-007",
-      "urlIdentity": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "0743a0bad33e0f936b1f2b4c260d8770dff2a650dc53c8ecc9e6be6a21a80f0d",
-        "notes": "Lamp against green wall; original alt claiming desk objects was inaccurate and corrected. Attention phone crop better retains lamp; rights still unverified.",
-        "flags": [
-          "alt-text-corrected",
-          "phone-focus-needs-review"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-008",
       "urlIdentity": "https://images.unsplash.com/photo-1496080174650-637e3f22fa03",
       "kind": "image",
@@ -190,37 +99,6 @@
           "source-rights-unverified"
         ],
         "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-009",
-      "urlIdentity": "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "e4146862c25bcdb92c8b7f8500e1817f38ef27e1faec8194195842fb11607e3f",
-        "notes": "Person in floral summer dress near coast; phone cover crops lose much of wider composition. A replacement may be preferable if face-forward portrait required; model rights unverified.",
-        "flags": [
-          "depicted-person",
-          "model-rights-unverified",
-          "mobile-crop-loses-context"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
       }
     },
     {
@@ -257,70 +135,6 @@
       },
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Rechecked official Unsplash source page; its displayed image link normalizes to the active TM-010 CDN identity. Contributor Nastuh Abootalebi, office location Sunday Digital Munich. Still unrelated to fictional NORTHLINE legal practice; any property/commercial use and endorsement rights remain unapproved."
-    },
-    {
-      "id": "TM-016",
-      "urlIdentity": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "835b3100c9b9e18355ca87fe7030cd5dd12db5ac44cf92816858553418e1d3b6",
-        "notes": "Woman in patterned jacket and white collar against rust red wall; phone attention crop shifts face toward edge; centered crop initially preferable. Old generic alt clarified.",
-        "flags": [
-          "depicted-person",
-          "alt-text-corrected",
-          "phone-attention-crop-poor",
-          "model-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-017",
-      "urlIdentity": "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-019",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "b4ecec43c054f002958e15f408e8a15facac85c7778bf0855b58650a4fb6751e",
-        "notes": "Blue-lit portrait against lilac background, not dark blurred as previously described. Both image alts corrected. Feature and gallery placements need separate fit review.",
-        "flags": [
-          "depicted-person",
-          "alt-text-corrected",
-          "multiple-placements",
-          "model-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
     },
     {
       "id": "TM-018",
@@ -2105,6 +1919,132 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Official Pexels original photo page https://www.pexels.com/photo/a-woman-in-yellow-shirt-and-denim-shorts-9591740/ credits Linneas Boland-Godbey and lists Free, with exact Free Download identity /photos/9591740/pexels-photo-9591740.jpeg. Real photograph visually inspected: Curly-haired woman in pale-yellow shirt and denim shorts before bright yellow perforated street fence, Portland Oregon. It depicts unrelated independent photographer's work, not FRAME clients or artist. No model, property, garment/trademark release, business identity, licensing for final template sale or acceptance granted by source verification alone."
+    },
+    {
+      "id": "TM-097",
+      "urlIdentity": "https://images.pexels.com/photos/5750431/pexels-photo-5750431.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-031",
+      "sourcePageUrl": "https://www.pexels.com/photo/yellow-banana-on-pink-background-5750431/",
+      "creator": "Deon Black",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Original Pexels publisher photo page https://www.pexels.com/photo/yellow-banana-on-pink-background-5750431/ credits Deon Black and displays Free, with direct Free Download image identity https://images.pexels.com/photos/5750431/pexels-photo-5750431.jpeg. This original was opened and visually verified as: Single yellow banana on a pink background with shadow. Real independently created photography, not the fictional FRAME studio's work. Model/property/garment/brand and commercial redistribution rights and actual responsive crop remain pending; no approval claimed."
+    },
+    {
+      "id": "TM-098",
+      "urlIdentity": "https://images.pexels.com/photos/4127628/pexels-photo-4127628.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-030",
+      "sourcePageUrl": "https://www.pexels.com/photo/content-woman-in-stylish-outfit-with-shopping-bags-4127628/",
+      "creator": "Gustavo Fring",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Original Pexels publisher photo page https://www.pexels.com/photo/content-woman-in-stylish-outfit-with-shopping-bags-4127628/ credits Gustavo Fring and displays Free, with direct Free Download image identity https://images.pexels.com/photos/4127628/pexels-photo-4127628.jpeg. This original was opened and visually verified as: Fashion portrait: woman in blue dress and sunglasses holding shopping bags against beige backdrop. Real independently created photography, not the fictional FRAME studio's work. Model/property/garment/brand and commercial redistribution rights and actual responsive crop remain pending; no approval claimed."
+    },
+    {
+      "id": "TM-099",
+      "urlIdentity": "https://images.pexels.com/photos/15500246/pexels-photo-15500246.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/low-angle-view-of-a-lamp-on-a-wall-15500246/",
+      "creator": "Emre Kocdemir",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Original Pexels publisher photo page https://www.pexels.com/photo/low-angle-view-of-a-lamp-on-a-wall-15500246/ credits Emre Kocdemir and displays Free, with direct Free Download image identity https://images.pexels.com/photos/15500246/pexels-photo-15500246.jpeg. This original was opened and visually verified as: Vintage green wall sconce on pink-peach wall, overhead speaker visible. Real independently created photography, not the fictional FRAME studio's work. Model/property/garment/brand and commercial redistribution rights and actual responsive crop remain pending; no approval claimed."
+    },
+    {
+      "id": "TM-100",
+      "urlIdentity": "https://images.pexels.com/photos/12182965/pexels-photo-12182965.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/woman-in-dress-on-beach-12182965/",
+      "creator": "Connor Scott McManus",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Original Pexels publisher photo page https://www.pexels.com/photo/woman-in-dress-on-beach-12182965/ credits Connor Scott McManus and displays Free, with direct Free Download image identity https://images.pexels.com/photos/12182965/pexels-photo-12182965.jpeg. This original was opened and visually verified as: Woman in a flowing blue floral dress on driftwood at overcast beach. Real independently created photography, not the fictional FRAME studio's work. Model/property/garment/brand and commercial redistribution rights and actual responsive crop remain pending; no approval claimed."
+    },
+    {
+      "id": "TM-101",
+      "urlIdentity": "https://images.pexels.com/photos/22816074/pexels-photo-22816074.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/young-woman-in-a-patterned-jacket-standing-against-a-brick-wall-22816074/",
+      "creator": "Gin",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Original Pexels publisher photo page https://www.pexels.com/photo/young-woman-in-a-patterned-jacket-standing-against-a-brick-wall-22816074/ credits Gin and displays Free, with direct Free Download image identity https://images.pexels.com/photos/22816074/pexels-photo-22816074.jpeg. This original was opened and visually verified as: Short-haired person wearing black-and-white floral jacket against pale and red brick wall. Real independently created photography, not the fictional FRAME studio's work. Model/property/garment/brand and commercial redistribution rights and actual responsive crop remain pending; no approval claimed."
+    },
+    {
+      "id": "TM-102",
+      "urlIdentity": "https://images.pexels.com/photos/30231500/pexels-photo-30231500.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-029",
+      "sourcePageUrl": "https://www.pexels.com/photo/confident-woman-posing-in-studio-with-bold-lighting-30231500/",
+      "creator": "Jimmy Elizarraras",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Original Pexels publisher photo page https://www.pexels.com/photo/confident-woman-posing-in-studio-with-bold-lighting-30231500/ credits Jimmy Elizarraras and displays Free, with direct Free Download image identity https://images.pexels.com/photos/30231500/pexels-photo-30231500.jpeg. This original was opened and visually verified as: Studio portrait of woman in black clothing, blue and purple lighting, circular spotlight backdrop. Real independently created photography, not the fictional FRAME studio's work. Model/property/garment/brand and commercial redistribution rights and actual responsive crop remain pending; no approval claimed."
     }
   ]
 }
