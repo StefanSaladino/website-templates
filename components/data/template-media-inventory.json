@@ -4,41 +4,6 @@
   "rightsPolicy": "Every remote asset remains unapproved pending verified source/creator/license/depictee-property rights and validated local derivatives. Matching component stock references does NOT confer approval.",
   "assets": [
     {
-      "id": "TM-001",
-      "urlIdentity": "https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "creative-agency",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-011",
-      "sourcePageUrl": "https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/",
-      "creator": "cottonbro studio",
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "b4f2d264fd6e518dd7497b5ad683b5b6a9174866401b1224305e561f144064be",
-        "notes": "Poster depicts a person in flowing green studio fashion clothing with a green backdrop, visible white tracking crosses, and white geometric platforms. The 3:5 portrait crop keeps the subject and platforms while trimming outer set pieces. Need actual OFFCUT title contrast/crop acceptance on phone; source photographer, depicted-person release and commercial redistribution remain unverified. Public Pexels page for video 9489382 names cottonbro studio. Individual subject consent, final template context and redistributed derivative rights are not approved.",
-        "flags": [
-          "depicted-person",
-          "visible-studio-tracking-markers",
-          "phone-hero-crop-needs-browser-acceptance",
-          "commercial-redistribution-unverified",
-          "source-creator-verified-release-clearance-open"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-CREATIVE-AGENCY-MEDIA-PILOT.md"
-      },
-      "sourcePageVerifiedAt": "2026-11-22",
-      "sourceVerificationNote": "Official Pexels video 9489382 source is by cottonbro studio, poster image associated with the same video ID. Model/trademark context, final use and resale approval remain open."
-    },
-    {
       "id": "TM-002",
       "urlIdentity": "https://images.unsplash.com/photo-1441986300917-64674bd600d8",
       "kind": "image",
@@ -208,49 +173,6 @@
       },
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
-    },
-    {
-      "id": "TM-071",
-      "urlIdentity": "https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4",
-      "kind": "video",
-      "usages": [
-        {
-          "templateId": "creative-agency",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-011",
-      "sourcePageUrl": "https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/",
-      "creator": "cottonbro studio",
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVideoReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "headers-only-not-approved",
-        "probeMethod": "HEAD",
-        "httpStatus": 200,
-        "contentType": "video/mp4",
-        "contentLengthBytes": null,
-        "acceptRanges": "bytes",
-        "downloadedMediaBytes": 0,
-        "fileResolutionFromFilename": "4096×2160 25fps (filename only; not validated via decoding)",
-        "notes": "HEAD succeeded but did not return Content-Length. Playback frames, duration, codec, exact file size, creator and depicted-person releases were not inspected. The optional remote video is now opt-in, preload none and has no source URL assigned until click. A 1080p-or-smaller rights-cleared rendition is still required before production. Verified Pexels source and contributor: cottonbro studio. Pexels license permits website and template uses with restrictions, including no implied endorsement. No MP4 frames, transfer size, codec or duration have been verified; release remains blocked.",
-        "flags": [
-          "no-content-length",
-          "duration-unverified",
-          "codec-unverified",
-          "model-rights-unverified",
-          "high-bandwidth-4k-reference",
-          "no-production-derivative",
-          "source-and-creator-verified-but-approval-open"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-CREATIVE-AGENCY-MEDIA-PILOT.md"
-      },
-      "sourcePageVerifiedAt": "2026-11-22",
-      "sourceVerificationNote": "Official Pexels video 9489382 source is by cottonbro studio. Only headers of opt-in 4K MP4 were checked; content, rights, bandwidth and optimized derivative unapproved."
     },
     {
       "id": "TM-072",
@@ -1658,6 +1580,48 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Official Pexels monochrome barbell photo 6389074 checked on 2026-11-23, publisher credits Tima Miroshnichenko with Free label, original dimensions 5622 x 3748, and original publisher image download images.pexels.com/photos/6389074/pexels-photo-6389074.jpeg visually inspected. Monochrome scene contains a loaded barbell on a textured gym floor beneath diffuse misty light; no recognizable person, sponsor wordmark, club identity or obvious trademark visible in inspected image. This does not establish rights to the photographed gym, contextual branding or redistribution as an independent stock/photo template product. It is unrelated to fictional YARD; mobile/desktop full-bleed crops and final customer approval remain open."
+    },
+    {
+      "id": "TM-139",
+      "urlIdentity": "https://images.pexels.com/videos/7677235/pexels-photo-7677235.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "creative-agency",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-011",
+      "sourcePageUrl": "https://www.pexels.com/video/close-up-video-of-a-red-silk-cloth-7677235/",
+      "creator": "Mikhail Nilov",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "On 2026-11-23 official Pexels video page 7677235 credited Mikhail Nilov and published Free video of moving red silk, stated 1920x1080 25fps duration 0:18. Official associated preview image link shows exactly images.pexels.com/videos/7677235/pexels-photo-7677235.jpeg. This photo shows people-free textile motion, not an OFFCUT business commission. Real mobile crops, conditional commercial template rights and adapted assets remain unapproved."
+    },
+    {
+      "id": "TM-140",
+      "urlIdentity": "https://videos.pexels.com/video-files/7677235/7677235-hd_1920_1080_25fps.mp4",
+      "kind": "video",
+      "usages": [
+        {
+          "templateId": "creative-agency",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-011",
+      "sourcePageUrl": "https://www.pexels.com/video/close-up-video-of-a-red-silk-cloth-7677235/",
+      "creator": "Mikhail Nilov",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "On 2026-11-23 official Pexels video 7677235 (Mikhail Nilov, red silk cloth, Free) states 1920x1080 25fps and runtime 0:18. Its Free-download URL redirects to exact videos.pexels.com/video-files/7677235/7677235-hd_1920_1080_25fps.mp4, which is the default HD rendition. This is publisher metadata, not decoded video: actual bytes, codec, frames, optimized local derivative and commercial template redistribution permission remain unreviewed. Original OFFCUT film is opt-in, preload none, no autoplay."
     }
   ]
 }

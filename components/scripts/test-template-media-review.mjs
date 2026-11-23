@@ -62,14 +62,14 @@ try{
  const creative=spawnSync(process.execPath,[script,'--offline','--templates=creative-agency','--limit=2','--output='+path.join(directory,'creative-agency')],{encoding:'utf8',timeout:20000});
  if(creative.status!==0)throw Error('OFFCUT review batch failed: '+creative.stderr+'\\n'+creative.stdout);
  const film=JSON.parse(readFileSync(path.join(directory,'creative-agency/results.json'),'utf8'));
- assert.deepEqual(film.assets.map(item=>item.id),['TM-001','TM-071']);
+ assert.deepEqual(film.assets.map(item=>item.id),['TM-139','TM-140']);
  assert.equal(film.total,2);
  assert.equal(film.downloaded,0);
  assert.equal(film.errors,0);
  assert.equal(film.assets[1].candidateStatus,'video-manual-review');
  assert.equal(film.assets[1].videoProbe.status,'offline-not-probed');
  assert(!film.assets[1].sourceSHA256 && !film.assets[1].videoProbe.contentLengthBytes);
- console.log('PASS: OFFCUT preview records both Pexels identities, never downloads or incorrectly approves the 4K video.');
+ console.log('PASS: OFFCUT tracks both Mikhail Nilov original media identities; default HD film is not downloaded or rights-approved.');
  const garage=spawnSync(process.execPath,[script,'--offline','--templates=garage-detailing','--limit=5','--output='+path.join(directory,'garage-detailing')],{encoding:'utf8',timeout:20000});
  if(garage.status!==0)throw Error('Garage visual-review batch failed: '+garage.stderr+'\\n'+garage.stdout);
  const auto=JSON.parse(readFileSync(path.join(directory,'garage-detailing/results.json'),'utf8'));

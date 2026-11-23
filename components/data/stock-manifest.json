@@ -334,13 +334,13 @@
     },
     {
       "id": "STOCK-011",
-      "sourceUrl": "https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/",
-      "photographer": "cottonbro studio",
+      "sourceUrl": "https://www.pexels.com/video/close-up-video-of-a-red-silk-cloth-7677235/",
+      "photographer": "Mikhail Nilov",
       "platform": "Pexels",
       "licenseUrl": "https://www.pexels.com/license/",
       "licenseReviewedAt": null,
       "reviewStatus": "needs-review",
-      "rightsNotes": "Verified original Pexels video 9489382 page credited to cottonbro studio (2026-11-22). Pexels public license allows website and template usage with limitations including no implied endorsement; this is not a model/property release, final redistribution signoff or approval for all contexts. OFFCUT now requires two explicit clicks before attaching the unoptimized 4K MP4 and detaches it on stop, tab hiding, offscreen movement or Save-Data. Other in-review components using the same sample require independent release/media QA. Source still has no confirmed file size, decoded frames, codec, duration or approved local 1080p derivative.",
+      "rightsNotes": "Original Pexels red-silk motion 7677235 by Mikhail Nilov, 1920x1080, 25fps, 0:18 per official publisher. Its official Free download redirects to confirmed default HD MP4. Used by OFFCUT plus five isolated video prototypes; previous identifiable fashion-model UHD film is retired. Real source is people-free abstract textile; clip byte size/codec/complete frames, downstream commercial website-template packaging and portrait crop remain unapproved.",
       "usageIds": [
         "MEDIA-01",
         "MEDIA-02",
@@ -349,23 +349,20 @@
         "HERO-06"
       ],
       "altText": "Poster for sample creative-studio film",
-      "temporaryPreviewUrl": "https://images.pexels.com/videos/9489382/pexels-photo-9489382.jpeg?auto=compress&dpr=1&w=1800",
-      "temporaryVideoUrl": "https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4",
+      "temporaryPreviewUrl": "https://images.pexels.com/videos/7677235/pexels-photo-7677235.jpeg?auto=compress&dpr=1&w=1800",
+      "temporaryVideoUrl": "https://videos.pexels.com/video-files/7677235/7677235-hd_1920_1080_25fps.mp4",
       "originalFilename": null,
       "fileHashSHA256": null,
       "derived": [],
       "assetAcquisitionStatus": "not-downloaded",
-      "sourcePageVerifiedAt": "2026-11-22",
+      "sourcePageVerifiedAt": "2026-11-23",
       "reviewFlags": [
-        "full-license-review-pending",
-        "high-bandwidth-4k-only-reference",
-        "mobile-video-crop-review-pending",
-        "redistribution-not-approved",
-        "source-and-contributor-confirmed",
-        "license-conditions-need-final-signoff",
-        "model-and-endorsement-context-unverified",
-        "unoptimized-4k-transfer-size-unknown",
-        "smaller-local-derivative-pending"
+        "source-and-contributor-verified",
+        "textile-1080p-film-review-only",
+        "commercial-redistribution-pending",
+        "actual-film-bytes-and-codec-uninspected",
+        "production-optimized-local-derivative-pending",
+        "mobile-poster-and-film-visual-crops-pending"
       ]
     },
     {

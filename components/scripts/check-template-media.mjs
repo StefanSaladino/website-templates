@@ -59,6 +59,7 @@ for(const templateId of templates){
   for(const retired of ['photo-1760965825135-e94f4e34494b','photo-1766471870102-dcb1fe88e8cc','photo-1771959453981-b5417268a034','photo-1760092189903-dce3e898dacf'])if(source.includes(retired))fail('Retired AFTER DARK concert stock returned in '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1727270921836-3d51d25d9e33','photo-1773423389979-b28b469967f8','photo-1783716149654-5f3e7012ef45'])if(source.includes(retired))fail('Retired Morrow House photograph in '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1769353086138-19ee65291a04','photo-1756666915060-c4dbf6a03aad','photo-1771818385091-ba8c4d3164b8'])if(source.includes(retired))fail('Retired GRAIN & GABLE source in '+templateId+'/'+filename+': '+retired);
+  if(templateId==='creative-agency'&&source.includes('9489382'))fail('Retired model-facing OFFCUT film/poster returned in '+templateId+'/'+filename);
   if(templateId==='fitness-launch')for(const retired of ['photo-1782849206257-c1bf78721837','photo-1541534741688-6078c6bfb5c5'])if(source.includes(retired))fail('Retired untraced YARD athlete photograph returned in '+templateId+'/'+filename+': '+retired);
   if(templateId==='real-estate')for(const retired of ['photo-1756227356398-aea8ee98cdc6','photo-1772411650649-f88111bcb8a5'])if(source.includes(retired))fail('Retired untraced CURRENT property photo returned in '+templateId+'/'+filename+': '+retired);
   if(templateId==='custom-bakes')for(const retired of ['photo-1773366906258-d657466ad76c','photo-1739901798963-52aa95b1f83e'])if(source.includes(retired))fail('Retired untraced DOT + CRUMB photo returned in '+templateId+'/'+filename+': '+retired);
@@ -90,7 +91,7 @@ for(const item of inventory.assets||[]){
  if(registered.has(item.urlIdentity))fail('Duplicate original-template URL record: '+item.urlIdentity);
  registered.set(item.urlIdentity,item);
  if(!['needs-review','rejected','approved'].includes(item.reviewStatus))fail('Invalid media review status '+item.id);
- if(['TM-001','TM-071'].includes(item.id) && (item.sourcePageUrl!=='https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/' || item.creator!=='cottonbro studio' || item.reviewStatus!=='needs-review')){
+ if(['TM-139','TM-140'].includes(item.id) && (item.sourcePageUrl!=='https://www.pexels.com/video/close-up-video-of-a-red-silk-cloth-7677235/' || item.creator!=='Mikhail Nilov' || item.reviewStatus!=='needs-review')){
   fail('OFFCUT media must retain verified Pexels origin while release approval remains open: '+item.id);
  }
  // Keep researched exact-source matches pinned to the same CDN identity.

@@ -162,8 +162,10 @@ try{
  await openTemplate('creative-agency');
  // The remote 4096x2160 source is never attached on initial page load.
  // An explicit Play interaction can attach it; no large video bytes are fetched by this test.
+ assert((await page.locator('#hero-film').getAttribute('poster')).includes('/7677235/'),'OFFCUT hero poster is original Pexels people-free red silk');
+ assert((await page.locator('#hero-film source').getAttribute('data-src')).includes('7677235-hd_1920_1080_25fps.mp4'),'OFFCUT consent-only film has original-publisher default 1080p identity');
  assert(await page.locator('#hero-film').getAttribute('preload')==='none','OFFCUT hero film does not preload');
- assert(await page.locator('#hero-film').getAttribute('autoplay')===null,'OFFCUT never autoplays the remote 4K video');
+ assert(await page.locator('#hero-film').getAttribute('autoplay')===null,'OFFCUT never autoplays the remote HD video');
  assert(await page.locator('#hero-film source').getAttribute('src')===null,'OFFCUT video URL is not attached until opt-in');
  assert(await page.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT opt-in film control defaults to off');
  assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT film control is accessible');
@@ -179,10 +181,10 @@ try{
  });
  await page.locator('[data-film-toggle]').click();
  assert(await page.locator('#hero-film source').getAttribute('src')===null
-   &&(await page.locator('[data-film-toggle] span').textContent())==='Confirm 4K stream',
+   &&(await page.locator('[data-film-toggle] span').textContent())==='Confirm HD stream',
    'OFFCUT first click only requests consent and cannot fetch video bytes');
  assert((await page.locator('[data-film-status]').textContent()).includes('unknown transfer size'),
-   'OFFCUT user sees a clear 4K bandwidth warning before accepting');
+   'OFFCUT user sees a clear HD bandwidth warning before accepting');
  await page.locator('[data-film-toggle]').click();
  await page.waitForFunction(()=>document.querySelector('[data-film-toggle]')?.getAttribute('aria-pressed')==='true');
  assert((await page.locator('#hero-film source').getAttribute('src'))?.startsWith('https://videos.pexels.com/'),
@@ -191,7 +193,7 @@ try{
  await page.locator('[data-film-toggle]').click();
  assert(await page.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false'
    &&await page.locator('#hero-film source').getAttribute('src')===null,
-   'OFFCUT stopping video removes the remote 4K src');
+   'OFFCUT stopping video removes the remote HD src');
  const saverPage=await browser.newPage({viewport:{width:390,height:900}});
  await saverPage.addInitScript(()=>{
    Object.defineProperty(navigator,'connection',{configurable:true,value:{saveData:true}});
@@ -2169,7 +2171,7 @@ try{
   &&await page.locator('[data-open=photo1]').evaluate(el=>document.activeElement===el),'GAL-08 image viewer closes on Escape with focus restored');
  await page.locator('[data-open=film]').click();
  assert(await page.locator('#viewer-video').isVisible()
-  &&(await page.locator('#viewer-video').getAttribute('src')).includes('9489382-uhd_4096_2160_25fps.mp4'),'GAL-08 selecting film loads the actual one review-only source into native controls');
+  &&(await page.locator('#viewer-video').getAttribute('src')).includes('7677235-hd_1920_1080_25fps.mp4'),'GAL-08 selecting film loads the actual one review-only source into native controls');
  await page.locator('#viewer-close').click();
  assert(await page.locator('#viewer').evaluate(el=>!el.open)
   &&await page.locator('[data-open=film]').evaluate(el=>document.activeElement===el),'GAL-08 film viewer closes and restores opener focus');
@@ -2265,12 +2267,12 @@ try{
  assert(await page.locator('#poster').isVisible()
   &&!await page.locator('#motion').getAttribute('src')
   &&(await page.locator('#motion-status').textContent()).includes('not loaded'),'HERO-06 displays a poster without requesting large video until a visitor opts in');
- await page.route('**/9489382-uhd_4096_2160_25fps.mp4',route=>route.abort());
+ await page.route('**/7677235-hd_1920_1080_25fps.mp4',route=>route.abort());
  await page.locator('#motion-toggle').click();
  await page.waitForFunction(()=>Boolean(document.querySelector('#motion').getAttribute('src')));
- assert((await page.locator('#motion').getAttribute('src')).includes('9489382-uhd')
+ assert((await page.locator('#motion').getAttribute('src')).includes('7677235-hd')
   &&(await page.locator('.credit').textContent()).includes('RIGHTS'),'HERO-06 only installs unrelated review-video URL after explicit user action');
- await page.unroute('**/9489382-uhd_4096_2160_25fps.mp4');
+ await page.unroute('**/7677235-hd_1920_1080_25fps.mp4');
 
  await page.goto(base+'previews/HERO-08/',{waitUntil:'domcontentloaded'});
  assert(await page.locator('#stage').getAttribute('data-finish')==='sand'

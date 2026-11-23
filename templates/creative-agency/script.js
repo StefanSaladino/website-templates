@@ -56,7 +56,7 @@ function updateHeader() {
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive: true });
 
-// OFFCUT's unoptimized 4K review source is independent of the ANIM-02 title.
+// OFFCUT's credited Pexels 1920x1080 textile study is independent of the ANIM-02 title.
 const filmStatus = document.querySelector('[data-film-status]');
 const dataConnection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 let filmState = 'idle'; // idle | confirm | loading | playing
@@ -73,12 +73,12 @@ function showFilmState(state) {
   const label = filmToggle.querySelector('span');
   if (label) label.textContent = {
     idle: 'Preview film',
-    confirm: 'Confirm 4K stream',
+    confirm: 'Confirm HD stream',
     loading: 'Cancel loading',
     playing: 'Stop film'
   }[state] || 'Preview film';
 }
-function stopFilm(message = 'Film stopped. The 4K source was detached; the still poster remains.') {
+function stopFilm(message = 'Film stopped. The HD source was detached; the still poster remains.') {
   ++filmTicket;
   showFilmState('idle');
   film?.pause();
@@ -91,7 +91,7 @@ function stopFilm(message = 'Film stopped. The 4K source was detached; the still
 async function playFilm() {
   if (!film || !filmSource || !filmToggle) return;
   if (saveDataActive()) {
-    stopFilm('Data Saver enabled. The 4K film was not loaded; the still poster remains.');
+    stopFilm('Data Saver enabled. The HD film was not loaded; the still poster remains.');
     return;
   }
   const url = filmSource.dataset.src || '';
@@ -100,7 +100,7 @@ async function playFilm() {
     const parsed = new URL(url);
     exactApprovedPreviewIdentity = parsed.protocol === 'https:'
       && parsed.hostname === 'videos.pexels.com'
-      && parsed.pathname === '/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4'
+      && parsed.pathname === '/video-files/7677235/7677235-hd_1920_1080_25fps.mp4'
       && !parsed.search && !parsed.hash;
   } catch {
     // An invalid URL must never be assigned to a media element.
@@ -111,7 +111,7 @@ async function playFilm() {
   }
   const ticket = ++filmTicket;
   showFilmState('loading');
-  setFilmStatus('Loading the large 4K sample after your confirmation. Cancel at any time.');
+  setFilmStatus('Loading the large HD sample after your confirmation. Cancel at any time.');
   try {
     filmSource.setAttribute('src', url);
     film.load();
@@ -130,7 +130,7 @@ filmToggle?.addEventListener('click', () => {
     stopFilm('Data Saver is enabled. No large video will stream; the poster and headline remain.');
   } else if (filmState === 'idle') {
     showFilmState('confirm');
-    setFilmStatus('The sample is an unoptimized 4K MP4 with unknown transfer size. Confirm 4K stream to use network data, or leave the poster in place.');
+    setFilmStatus('The sample is an unoptimized HD MP4 with unknown transfer size. Confirm HD stream to use network data, or leave the poster in place.');
   } else if (filmState === 'confirm') {
     void playFilm();
   }

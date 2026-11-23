@@ -8,7 +8,7 @@
  const playButton=document.querySelector('#m1-activate'),pauseButton=document.querySelector('#m1-pause');
  const status=document.querySelector('#m1-status');
  const small=matchMedia('(max-width:760px)'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
- const url='https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4';
+ const url='https://videos.pexels.com/video-files/7677235/7677235-hd_1920_1080_25fps.mp4';
  let loading=false,wasPaused=false,observer;
  function ready(){if(video.src)return;video.src=url;video.preload='metadata';video.load();}
  function state(message){status.textContent=message;}

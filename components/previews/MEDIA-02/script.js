@@ -3,7 +3,7 @@
  const video=document.querySelector('#r-video'),stage=document.querySelector('#r-film'),button=document.querySelector('#r-toggle'),status=document.querySelector('#r-status');
  if(!video||!stage||!button||!status)return;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const url='https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4';
+ const url='https://videos.pexels.com/video-files/7677235/7677235-hd_1920_1080_25fps.mp4';
  let enabled=false,visible=true,busy=false,broken=false;
  const label=(text)=>{status.textContent=text;};
  function paint(){const playing=enabled&&!video.paused&&!broken&&!reduced.matches;stage.classList.toggle('is-playing',playing);button.setAttribute('aria-pressed',String(playing));button.textContent=playing?'Pause muted reel':enabled?'Resume muted reel':'Enable muted reel';}

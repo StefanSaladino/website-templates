@@ -50,6 +50,12 @@ for(const component of components){
   const file=path.join(here,'previews',component.id,'index.html');
   const html=existsSync(file)?readFileSync(file,'utf8'):'';
   if(html.includes('photo-1760939858984-5dc76f0ea34a'))addError(component.id+' has forbidden saw photo');
+  if(['MEDIA-01','MEDIA-02','MEDIA-03','GAL-08','HERO-06'].includes(component.id)){
+    const jsPath=path.join(here,'previews',component.id,'script.js');
+    const full=html+'\n'+(existsSync(jsPath)?readFileSync(jsPath,'utf8'):'');
+    if(full.includes('9489382'))addError(component.id+' restored retired fashion-model UHD reference');
+    if(!full.includes('7677235'))addError(component.id+' lost shared Mikhail Nilov red silk source');
+  }
   if(component.id==='ANIM-13' && /photo-1503686982867-43fb1b9fb691|photo-1774516534119-7324f9948176/.test(html))addError('ANIM-13 must not restore unrelated geographically misleading photos');
   if(component.id==='ANIM-12'&&/photo-1481349518771-20055b2a7b24|photo-1483985988355-763728e1935b|photo-1494438639946-1ebd1d20bf85|photo-1496747611176-843222e1e57c|photo-1531123897727-8f129e1688ce|photo-1534528741775-53994a69daeb/.test(html))addError('ANIM-12 may not restore old FRAME stock');
   if(component.id==='ANIM-13'&&/drift-house-concept\.svg|glass-point-concept\.svg/.test(html))addError('ANIM-13 cannot restore generated synthetic property SVGs');

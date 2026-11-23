@@ -47,6 +47,9 @@ if((html+'\n'+js).includes('photo-1774989423979-6a7bf5add3f0'))issues.push('Reti
 if((html+'\n'+js).includes('SUPPER CLUB · QUEEN WEST')||(html+'\n'+js).includes('<i>Reserve a table</i>'))issues.push('SERA concept thumbnail cannot imply a real venue or table booking');
 if((html+'\n'+js).includes('TORONTO · STRENGTH / CONDITIONING'))issues.push('YARD gallery must label its non-operating fictional studio');
 for(const retired of ['photo-1782849206257-c1bf78721837','photo-1541534741688-6078c6bfb5c5'])if((html+'\n'+js).includes(retired))issues.push('Retired YARD actor/athlete photo returned to gallery: '+retired);
+if((html+'\n'+js).includes('9489382'))issues.push('Retired model-facing OFFCUT gallery thumbnail returned');
+if((html+'\n'+js).includes('FILM / 00:12'))issues.push('OFFCUT gallery claims a retired video duration');
+if((html+'\n'+js).includes('TORONTO + ELSEWHERE'))issues.push('Fictional OFFCUT gallery must not imply a real working office');
 if((html+'\n'+js).includes('photo-1756227356398-aea8ee98cdc6'))issues.push('Retired unsourced CURRENT gallery hero photo returned');
 if((html+'\n'+js).includes('photo-1773366906258-d657466ad76c'))issues.push('Retired unattributed DOT + CRUMB gallery photo returned');
 if((html+'\n'+js).includes('ORDER NOTE / 016')||(html+'\n'+js).includes('10–14 days'))issues.push('Bakery concept gallery cannot imply a real order ticket or lead time');
