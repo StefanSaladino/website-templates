@@ -575,6 +575,13 @@ try{
   await page.locator('[data-a20-next]').click();
   assert(await page.locator('[data-a20-slide="2"] .wood-study').isVisible() &&
     (await page.locator('[data-a20-slide="2"] img').count())===0,'ANIM-20 isolated final illustration replaces unsafe stock');
+ await page.setViewportSize({width:1280,height:900});
+ await page.goto(base+'previews/ANIM-20/index.html',{waitUntil:'domcontentloaded'});
+ const isolated20=await page.locator('.a20-stage').boundingBox();
+ assert(!!isolated20&&isolated20.height/isolated20.width>0.7,'ANIM-20 standalone desktop frame preserves portrait photo context instead of panoramic clipping');
+ assert(await page.locator('.a20-slide img[srcset]').count()===2,'ANIM-20 standalone reference photos both have responsive sources');
+ assert((await page.locator('[data-a20-slide="0"] img').getAttribute('src')).includes('/8850241/'),'ANIM-20 standalone uses publisher-attributed planter reference');
+ await page.setViewportSize({width:390,height:900});
  // Review links must point directly at the real full-page examples.
  for(const [id,route] of [['ANIM-09','../templates/editorial-commerce/index.html#journal'],['ANIM-12','../templates/frame-portfolio/index.html#frame-feature'],['ANIM-17','../templates/monolith-architecture/index.html#chapters'],['ANIM-20','../templates/woodworker/index.html#craft-showcase']]){
    await page.goto(base+'review.html?id='+id,{waitUntil:'domcontentloaded'});

@@ -460,3 +460,7 @@ Replaced three untraced Unsplash identity records with actual publisher-verified
 ## GRAIN & GABLE verified portrait framing fix — 23 November 2026
 
 Actual loaded-photo QA flagged the new tiered-planter image as cropped to 40.3% of source content in the 1440px wide ANIM-20 carousel. Revised desktop/tablet carousel stage proportions, responsive image size hints and stale photo alt text; retained the 50% minimum content-visible gate and its real photo-ID selector. Re-run loaded screenshots at 320/390/768/1440 and full Chromium QA before final visual accept. No approval of stock-image releases or Step 18/19.
+
+## ANIM-20 isolated versus integrated parity — 23 November 2026
+
+Extended GRAIN & GABLE's corrected portrait-photo framing and responsive source sets into the standalone ANIM-20 showroom preview, without changing the finite controls, third original joinery drawing, reduced-motion semantics, or mobile layout. Added a 1280px desktop geometry assertion. Await final latest-SHA Chromium/browser screenshot evidence. `main`, Steps 18/19 and all media release gates remain unchanged.

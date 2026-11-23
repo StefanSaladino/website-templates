@@ -13,3 +13,9 @@ body{background:#efe8db;color:#332a23}.a20-header{display:flex;justify-content:s
 @media(max-width:430px){.wood-study__board--one{left:9%;width:82%}.wood-study__board--two{left:16%;width:68%}.wood-study__board--three{left:20%;width:62%}.wood-study__stamp{left:12px;font-size:9px}}
 
 .a20-slide .wood-study{min-height:0}
+
+/* Real portrait garden-planter / wall-shelf stock: editorial gallery should preserve meaningful subject context, matching the integrated original template. */
+@media(min-width:761px){
+ .a20-shell{max-width:900px}
+ .a20-stage{height:clamp(550px,75vw,750px)}
+}
