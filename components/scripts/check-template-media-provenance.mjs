@@ -43,7 +43,7 @@ if(tableIds.length!==ids.length||new Set(tableIds).size!==ids.length||
  tableIds.some(id=>!ids.includes(id))||ids.some(id=>!tableIds.includes(id)))
  errors.push('Clearance queue table must contain exactly one entry for every active media ID');
 const counts=[
- [assets.length,/\*\*(\d+) active external media identities\*\*/,'active identities'],
+ [assets.length,/\*\*(\d+) active external media identities:?\*\*/,'active identities'],
  [noSource,/\*\*(\d+) without verified\/recorded source-page links\*\*/,'missing source pages'],
  [noCreator,/\*\*(\d+) without recorded creator credits\*\*/,'missing creator credits']
 ];
