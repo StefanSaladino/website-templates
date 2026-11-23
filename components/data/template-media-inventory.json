@@ -239,39 +239,6 @@
       }
     },
     {
-      "id": "TM-042",
-      "urlIdentity": "https://images.unsplash.com/photo-1756435292384-1bf32eff7baf",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "architecture",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "8e210e1b646ebcd83f0beb9deab6c1dc42bec549effbb67cb6d4a17982c2eb65",
-        "notes": "Sunset photo of a large multi-wing white residential building with mixed stone-clad lower sections, grey roofs and tower-like upper sections; sweeping wet-looking broad light-grey concrete driveway, low stone wall and planted bed in foreground. No evidence the home is in Georgian Bay, dates to 2026, is called Field House, or was designed by MORROW. Narrow phone crop cuts off house wings and changes building scale. Landscape crop retains wider front and more of the driveway.",
-        "flags": [
-          "false-Georgian-Bay-project-credit",
-          "residential-property-location-unverified",
-          "architect-designer-attribution-unverified",
-          "phone-crop-removes-house-wings",
-          "building-property-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-ARCHITECTURE-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-050",
       "urlIdentity": "https://images.unsplash.com/photo-1761637823276-7d714eb45cb1",
       "kind": "image",
@@ -369,39 +336,6 @@
           "mobile-room-framing-review"
         ],
         "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-058",
-      "urlIdentity": "https://images.unsplash.com/photo-1772708526829-f76d06679c6c",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "architecture",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "02ea72a08ff5ac9359783e2a36309db2d9875153a7734f5e7cd04c8000ef37e3",
-        "notes": "Monumental upward-looking black-and-white architectural photo from a tall rough concrete space/void; several heavy geometric rectangular beams interrupt an intensely bright angular ceiling aperture and light enters from above. No furniture, oak, linen, planted courtyard, residential rooms or identifiable skylight glazing shown. Cannot infer Toronto address, 3400 sq ft, 2025 completion, residential program or affiliation with MORROW. Wide crop omits bright opening, making the space read as abstract concrete rather than an architectural shaft; tall crop preserves aperture context.",
-        "flags": [
-          "unverified-Toronto-project-history",
-          "program-area-completion-unverified",
-          "oak-linen-courtyard-inventions",
-          "unverified-owner-architect",
-          "wide-crop-removes-daylight-aperture"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-ARCHITECTURE-MEDIA-PILOT.md"
       }
     },
     {
@@ -1750,6 +1684,48 @@
       "reviewStatus": "needs-review",
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23"
+    },
+    {
+      "id": "TM-131",
+      "urlIdentity": "https://images.pexels.com/photos/7501130/pexels-photo-7501130.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/white-concrete-house-with-green-grass-lawn-7501130/",
+      "creator": "Gustavo Galeano Maz",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Publisher page verified 2026-11-23: authentic photographed Pexels item 7501130, Gustavo Galeano Maz, Free label, original 5186 by 3460. Content is a contemporary white residence on a green hillside, not a verified commission, office, client property, built scheme, or locale of the fictional MORROW studio. No architecture/designer or property permission, photo redistribution, image crop, or final design approval has been established."
+    },
+    {
+      "id": "TM-132",
+      "urlIdentity": "https://images.pexels.com/photos/39863282/pexels-photo-39863282/free-photo-of-modern-architecture-with-skylight-roof-interior.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/modern-architecture-with-skylight-roof-interior-39863282/",
+      "creator": "Adrien Olichon",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Publisher page verified 2026-11-23: authentic photographed Pexels item 39863282, Adrien Olichon, Free label, original 9520 by 6336. Publisher identifies a modern interior with geometric skylight and structural beams. This unrelated third-party building is a light-and-geometry reference only, not completed or commissioned work of MORROW. Design-property attribution, architect rights, commercially distributed template media, on-page real crops, and stakeholder release remain unapproved."
     }
   ]
 }

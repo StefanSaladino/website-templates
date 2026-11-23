@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **7 without verified/recorded source-page links** and **7 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **5 without verified/recorded source-page links** and **5 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -51,7 +51,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-037 | custom-bakes | Source page missing; Creator missing | product-authorship-unverified, order-pricing-unsupported, wide-crop-truncates-cookies |
 | TM-107 | editorial-commerce | Pexels publisher page; Taryn Elliott | unrelated-cooking-gear, incidental-label-review, 4:5-product-crop-pending |
 | TM-041 | real-estate | Source page missing; Creator missing | property-location-unverified, fake-hero-listing-association, phone-cover-clips-building (+1 more in JSON) |
-| TM-042 | architecture | Source page missing; Creator missing | false-Georgian-Bay-project-credit, residential-property-location-unverified, architect-designer-attribution-unverified (+2 more in JSON) |
+| TM-131 | architecture | Pexels publisher page; Gustavo Galeano Maz | independent hillside home; architect/property rights, device crops, commercial redistribution and stakeholder acceptance open |
 | TM-121 | woodworker | Pexels original; Fallgregg | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-116 | event-launch | Pexels publisher page; Sašo Vukadinović | unrelated-stage-not-harbour-venue, instrument-brand-markings-open, landscape-crop-review-open |
 | TM-130 | contractor | Pexels publisher page; Peter Vang | independent-completed-kitchen, not-builder-portfolio, property/branding and commercial redistribution rights pending |
@@ -60,7 +60,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-051 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | separate-property-not-ruled-out, wall-not-garden-planting-feature, false-project-continuity-risk (+1 more in JSON) |
 | TM-122 | woodworker | Pexels original; Manish Jangid | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-057 | real-estate | Source page missing; Creator missing | property-location-unverified, fictitious-listing-details, mobile-room-framing-review |
-| TM-058 | architecture | Source page missing; Creator missing | unverified-Toronto-project-history, program-area-completion-unverified, oak-linen-courtyard-inventions (+2 more in JSON) |
+| TM-132 | architecture | Pexels publisher page; Adrien Olichon | independent skylight interior; architectural authorship, property rights, image crops and commercial redistribution open |
 | TM-125 | restaurant | Pexels original; Davis Arenas | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
 | TM-060 | custom-bakes | Source page missing; Creator missing | unsupported-cake-flavour-and-ingredients, whole-product-not-shown, extreme-macro-phone-crop (+1 more in JSON) |
 | TM-118 | muskoka-retreat | Pexels publisher page; Дмитрий Терза | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
@@ -232,3 +232,6 @@ Retired untraced photo identities TM-064/066/069, replacing them with publisher-
 
 ## LINE + LEVEL real source attribution — 23 November 2026
 Retired the two unknown Unsplash original identities TM-053/TM-046 and synced the complete contractor page and root thumbnail to distinct Pexels originals: [TM-129 — Thới Nam Cao, interior kitchen renovation with worker](https://www.pexels.com/photo/men-working-inside-a-house-under-repairs-15124970/) and [TM-130 — Peter Vang, white completed kitchen](https://www.pexels.com/photo/modern-renovated-kitchen-with-hardwood-floors-37357024/). Official publisher pages identify both creators and label each image Free. These photographs do not substantiate LINE + LEVEL staff, location, work quality, client relationships, scope or structural alteration. Model/property, photo content, desktop/mobile crops and downstream commercial template redistribution require independent acceptance. **74 original identities, 67 attributed, 7 unattributed, 0 rights-approved**; 25 component-stock records also remain review-only. No `main` merge.
+
+## MORROW real source and gallery alignment — 23 November 2026
+Retired two unsupported original Unsplash identities TM-042 (residence) and TM-058 (concrete shaft), including the original gallery hero. Active independently attributed real Pexels photos: **TM-131** ([Gustavo Galeano Maz, white residence on green hillside, 7501130](https://www.pexels.com/photo/white-concrete-house-with-green-grass-lawn-7501130/)) and **TM-132** ([Adrien Olichon, modern skylight and structural-beam interior, 39863282](https://www.pexels.com/photo/modern-architecture-with-skylight-roof-interior-39863282/)). Official publisher entries identify creators, original pixel sizes, and Free labels. Neither photo identifies a MORROW commission, a completed design, a licensed architecture practice or true geographic project. Architecture/artwork, property, potential trademarks, crop, visual contrast and commercial redistribution require independent clearance. **Active original media identities 74: source-attributed 69, missing 5, rights approved 0**; isolated component stock remains independently 25 in-review. Do not merge `main`.

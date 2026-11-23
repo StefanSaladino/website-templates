@@ -212,7 +212,12 @@ try{
  assert(await page.locator('[data-motion-pattern="ANIM-03"]').evaluate(el=>el.classList.contains('morrow-mask-playing')),'Morrow ANIM-03 reveals its actual hero image');
  assert(await page.locator('.morrow-demo-banner').isVisible(),'MORROW clearly discloses fictional architectural practice');
  assert((await page.locator('.morrow-demo-banner').textContent()).includes('unrelated architecture'),'MORROW cannot attribute outside projects to itself');
- assert((await page.locator('.hero-image').getAttribute('alt')).includes('stone-clad sections'),'MORROW hero matches the suburban residence, not Georgian Bay construction');
+ assert((await page.locator('.hero-image').getAttribute('alt')).includes('white hillside residence'),'MORROW hero describes the independent hillside house, not a fabricated project');
+ assert((await page.locator('.hero-image').getAttribute('src')).includes('/7501130/'),'MORROW must use credited independent hillside house photo');
+ assert((await page.locator('.project-media img').getAttribute('src')).includes('/39863282/'),'MORROW project uses credited geometric interior reference');
+ assert((await page.locator('.hero-image').getAttribute('srcset')).includes('1600w'),'MORROW cover has high-res phone candidates');
+ assert((await page.locator('.project-media img').getAttribute('srcset')).includes('1200w'),'MORROW project image supplies responsive sources');
+ assert(!/photo-1756435292384|photo-1772708526829/.test(await page.content()),'MORROW retired unsourced original photos remain excluded');
  assert((await page.locator('.morrow-hero-stock').textContent()).includes('NOT DESIGNED BY MORROW'),'MORROW hero photo is unrelated residential property');
  assert((await page.locator('.morrow-project-stock').textContent()).includes('UNRELATED'),'MORROW concrete shaft is a stock architectural reference');
  assert((await page.locator('.project-copy').textContent()).includes('Not MORROW work'),'MORROW must not invent completed architecture work');
