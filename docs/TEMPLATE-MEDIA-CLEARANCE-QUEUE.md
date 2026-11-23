@@ -7,18 +7,17 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
 - **0 without verified/recorded source-page links** and **0 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
-- **16 first-priority review records** with people, branding, replacement or video-related flags; 58 follow-on records
+- **15 first-priority review records** with people, branding, replacement or video-related flags; 59 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 16 active records
+## High-priority queue — 15 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
 | TM-001 | creative-agency | Recorded source page; cottonbro studio | depicted-person, visible-studio-tracking-markers, phone-hero-crop-needs-browser-acceptance (+2 more in JSON) |
 | TM-002 | frame-portfolio | Recorded source page; Clark Street Mercantile | visible-brand, property-rights-unverified, model-context-unverified |
-| TM-018 | fitness-launch | Recorded source page; John Arano | recognizable-person-likeness-uncleared, visible-ROGUE-equipment-brand, clothing-brand-mark (+2 more in JSON) |
 | TM-103 | editorial-commerce | Pexels publisher page; Luke Miller | depicted-person, independent-forest-hiker, hero-mobile-crop-and-usage-context-open |
 | TM-105 | editorial-commerce | Pexels publisher page; Atiek Arief | depicted-person, visible-clothing-marking-review, not-fictional-outerwear |
 | TM-113 | event-launch | Pexels publisher page; Felipe Balduino | recognizable-concert-attendees, actual-Sao-Paulo-concert-not-Toronto, mobile-headline-contrast-crop-open |
@@ -33,11 +32,12 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 58 active records
+## Follow-on queue — 59 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
 | TM-137 | fitness-launch | Pexels original photographer page; Jonathan Borba | real kettlebell still life, unrelated studio/equipment; photo/venue rights, portrait crop and commercial-template redistribution pending |
+| TM-138 | fitness-launch | Pexels original photographer page; Tima Miroshnichenko | independent monochrome barbell still life, no visible person or sponsor mark; venue rights, mobile composition and photo redistribution unapproved |
 | TM-106 | editorial-commerce | Pexels publisher page; Alexandre Boucher | real-night-tent-not-owned-shelter, ANIM-09-shared-photo, night-scene-crop-pending |
 | TM-010 | law-firm | Recorded source page; Nastuh Abootalebi | unrelated-office-stock, fictional-firm-and-lawyer-attribution, phone-crop-removes-office-context (+1 more in JSON) |
 | TM-109 | monolith-architecture | Pexels publisher page; Lisa Anna | independent real architectural reference, no verified commission, property/design rights and responsive crop pending |
@@ -246,3 +246,6 @@ Retired two unattributed original Unsplash photos TM-041 (hero) and TM-057 (thir
 Retired unsupported original fitness image **TM-068** (untraced athlete with cropped head, clothing mark and unverifiable club affiliation). Replaced the full YARD fitness story band with **TM-137**, [Jonathan Borba's real Pexels kettlebell photograph, image 27810155](https://www.pexels.com/photo/a-kettlebell-and-a-barbell-on-a-gym-floor-27810155/), 5088 × 3392. The official photographer page, Free label and exact original JPEG download were checked. The photo shows kettlebells on a gym floor and does not imply real YARD participants or coaches. Corrected source caption, alt text, sizing, focal point and equipment-focused copy. The original gallery retains the previously **source-attributed** TM-018 lifter by John Arano / Unsplash while labeling YARD a fictional club; **TM-018's athlete likeness and ROGUE equipment branding remain significant high-priority rights blockers**. The lower-risk equipment image moves from high-priority to follow-on audit, making the current queue 16 first-priority and 58 follow-on identities.
 
 **All 74 active original-template external media identities now have publisher source-page and creator records. All 74 remain `needs-review`, with 0 rights-approved;** 25 separate isolated component stock records also remain review-only. Publisher attribution is neither person/brand/property release nor blanket permission to redistribute third-party photographs as part of a downloadable commercial template. Before any real customer deployment: review individual source licenses, derivative/redistribution restrictions, people/trademarks, all screenshot crops/contrast/keyboard/device views, and obtain stakeholder design acceptance. Steps 18 and 19 remain open. No `main` merge.
+
+## YARD original hero model/ROGUE mitigation — 23 November 2026
+Retired the John Arano / Unsplash weightlifting athlete hero, **TM-018**, from the original full YARD template and gallery. In the actual retired image a lifter, distinctive clothing and prominent ROGUE rack were visible; a fictional fitness service might imply person/brand affiliation despite disclaimers. No model or trademark releases have been obtained, therefore the image is removed rather than approved. Replacement is **TM-138**, [Tima Miroshnichenko / Pexels 6389074](https://www.pexels.com/photo/monochrome-shot-of-a-barbell-6389074/), monochrome loaded barbell on a misty gym floor, 5622×3748. The official Free publisher page, photographer credit, image identity and original photograph were checked. No recognizable person or obvious sponsor logo in the selected source. A fictional gym/photographer ownership claim is still barred, and venue/context rights, downstream commercial reuse and responsive visual crop approval remain unresolved. Hero and root gallery use the same distinct source image, with accurate alt/visible credit and adaptive high-resolution `srcset`. The lower-risk image replaces the branded-lifter high-priority slot, yielding **15 first-priority and 59 follow-on originals**; total external original media **74/74 verified source+creator, 0 rights-approved**. The 25 isolated component stock records remain independently gated. Keep Step 18/19 open and `main` unchanged.

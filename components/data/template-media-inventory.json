@@ -107,41 +107,6 @@
       "sourceVerificationNote": "Rechecked official Unsplash source page; its displayed image link normalizes to the active TM-010 CDN identity. Contributor Nastuh Abootalebi, office location Sunday Digital Munich. Still unrelated to fictional NORTHLINE legal practice; any property/commercial use and endorsement rights remain unapproved."
     },
     {
-      "id": "TM-018",
-      "urlIdentity": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "fitness-launch",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": "https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po",
-      "creator": "John Arano",
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "f4a9da3866226cb6195d8479ae4ac884cc20c538c54c9b657197a216479bfaa5",
-        "notes": "Rear view of a person with hair tied up, white athletic top and dark leggings, gripping a loaded barbell at head/overhead level inside a black metal squat/press rack against a grey brick wall. ROGUE logo visible on rack; clothing also has visible insignia. Not evidence of YARD facility, staff, equipment sponsorship or membership. 16:9 wide crop retains subject and bar but clips more of torso/equipment ends; narrow 3:5 phone crop may trim the plate/bar ends and centralize person.",
-        "flags": [
-          "recognizable-person-likeness-uncleared",
-          "visible-ROGUE-equipment-brand",
-          "clothing-brand-mark",
-          "fictional-gym-attribution",
-          "phone-crop-cuts-barbell-plates"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FITNESS-LAUNCH-MEDIA-PILOT.md"
-      },
-      "sourcePageVerifiedAt": "2026-11-22",
-      "sourceVerificationNote": "Official Unsplash photo page; exact images.unsplash.com CDN identity matched its displayed image link. Photographer/source attribution only; model, location, trademark and redistribution suitability still need independent review."
-    },
-    {
       "id": "TM-035",
       "urlIdentity": "https://images.unsplash.com/photo-1722103155234-5e83b3effe03",
       "kind": "image",
@@ -1672,6 +1637,27 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "On 2026-11-23 checked official Pexels original photographer page and clicked the Free download for Pexels photo 27810155, returning the exact images.pexels.com/photos/27810155/pexels-photo-27810155.jpeg image. Published photographer Jonathan Borba, original size 5088 × 3392. The real image shows worn black kettlebells on dark gym flooring, with a foreground bell and two more shapes behind. No depicted athlete or apparent branded kit is asserted; gym/venue ownership, inclusion in commercial redistributed template products, cropping and human approval remain unresolved. This source is not a YARD studio, class or owned equipment."
+    },
+    {
+      "id": "TM-138",
+      "urlIdentity": "https://images.pexels.com/photos/6389074/pexels-photo-6389074.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "fitness-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/monochrome-shot-of-a-barbell-6389074/",
+      "creator": "Tima Miroshnichenko",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels monochrome barbell photo 6389074 checked on 2026-11-23, publisher credits Tima Miroshnichenko with Free label, original dimensions 5622 x 3748, and original publisher image download images.pexels.com/photos/6389074/pexels-photo-6389074.jpeg visually inspected. Monochrome scene contains a loaded barbell on a textured gym floor beneath diffuse misty light; no recognizable person, sponsor wordmark, club identity or obvious trademark visible in inspected image. This does not establish rights to the photographed gym, contextual branding or redistribution as an independent stock/photo template product. It is unrelated to fictional YARD; mobile/desktop full-bleed crops and final customer approval remain open."
     }
   ]
 }

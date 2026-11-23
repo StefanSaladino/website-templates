@@ -169,8 +169,8 @@ try{
  const fitness=spawnSync(process.execPath,[script,'--offline','--templates=fitness-launch','--limit=5','--output='+path.join(directory,'fitness-launch')],{encoding:'utf8',timeout:20000});
  if(fitness.status!==0)throw Error('YARD media selection failed: '+fitness.stderr+'\\n'+fitness.stdout);
  const fitnessAssets=JSON.parse(readFileSync(path.join(directory,'fitness-launch/results.json'),'utf8'));
- assert.deepEqual(fitnessAssets.assets.map(item=>item.id),['TM-018','TM-137']);
- assert(fitnessAssets.assets.every(item=>item.sourcePageUrl&&item.creator&&item.reviewStatus==='needs-review'),'YARD original athlete and equipment photos are sourced, still not rights-approved');
+ assert.deepEqual(fitnessAssets.assets.map(item=>item.id),['TM-137','TM-138']);
+ assert(fitnessAssets.assets.every(item=>item.sourcePageUrl&&item.creator&&item.reviewStatus==='needs-review'),'Both YARD photos are real publisher-attributed equipment stock, not rights-approved');
  assert.equal(fitnessAssets.total,2);
  assert.equal(fitnessAssets.downloaded,0);
  assert.equal(fitnessAssets.errors,0);

@@ -302,8 +302,12 @@ try{
  await openTemplate('fitness-launch');
  assert(await page.locator('.yard-demo-banner').isVisible(),'YARD visibly identifies its fictional training club and stock imagery');
  assert((await page.locator('.yard-demo-banner').textContent()).includes('no verified physical gym'),'YARD cannot claim a real training facility or coaching');
- assert((await page.locator('.hero-media img').getAttribute('alt')).includes('ROGUE'),'YARD hero describes the visible third-party branded rack');
- assert((await page.locator('.yard-hero-stock').textContent()).includes('NOT YARD'),'YARD must not attribute athlete stock to its members');
+ assert((await page.locator('.hero-media img').getAttribute('src')).includes('/6389074/'),'YARD hero is unbranded, sourced monochrome barbell stock');
+ assert((await page.locator('.hero-media img').getAttribute('alt')).includes('barbell'),'YARD hero accurately describes the real photographed barbell, not a YARD member');
+ assert((await page.locator('.hero-media img').getAttribute('srcset')).includes('2400w'),'YARD cinematic hero supplies high-resolution responsive sources');
+ assert((await page.locator('.hero-media img').getAttribute('sizes')).includes('1600px'),'YARD tall phone hero chooses a sharp 1600px source, not a thumbnail');
+ assert(!/photo-1541534741688/.test(await page.content()),'Retired branded YARD athlete photo must never reappear');
+ assert((await page.locator('.yard-hero-stock').textContent()).includes('TIMA MIROSHNICHENKO'),'YARD hero explicitly credits original stock photographer');
  assert((await page.locator('.image-frame img').getAttribute('src')).includes('/27810155/'),'YARD band uses publisher-attributed kettlebell stock, not an unsourced athlete');
  assert((await page.locator('.image-frame img').getAttribute('alt')).includes('kettlebells'),'YARD band alt accurately describes real kettlebells without invented action');
  assert((await page.locator('.image-frame img').getAttribute('srcset')).includes('1600w'),'YARD equipment image has responsive source widths');
