@@ -182,6 +182,15 @@ try{
  assert.equal(tattooAssets.errors,0);
  assert(tattooAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  console.log('PASS: tattoo-studio uses three credited Pexels equipment/preparation photos, no unverified identifiable clients or tattoo art; release review remains open.');
+ const contractorResult=spawnSync(process.execPath,[script,'--offline','--templates=contractor','--limit=5','--output='+path.join(directory,'contractor')],{encoding:'utf8',timeout:20000});
+ if(contractorResult.status!==0)throw Error('Contractor source preflight failed: '+contractorResult.stderr+'\\n'+contractorResult.stdout);
+ const contractorAssets=JSON.parse(readFileSync(path.join(directory,'contractor/results.json'),'utf8'));
+ assert.deepEqual(contractorAssets.assets.map(x=>x.id),['TM-129','TM-130']);
+ assert(contractorAssets.assets.every(x=>x.sourcePageUrl&&x.creator&&x.reviewStatus==='needs-review'),'Contractor must have two credited independent photos without release approval');
+ assert.equal(contractorAssets.total,2);
+ assert.equal(contractorAssets.downloaded,0);
+ assert.equal(contractorAssets.errors,0);
+ console.log('PASS: LINE + LEVEL original images have publisher/creator records; rights approval remains zero.');
  const morrowSelection=spawnSync(process.execPath,[script,'--offline','--templates=architecture','--limit=5','--output='+path.join(directory,'architecture')],{encoding:'utf8',timeout:20000});
  if(morrowSelection.status!==0)throw Error('MORROW media selection failed: '+morrowSelection.stderr+'\\n'+morrowSelection.stdout);
  const architectureAssets=JSON.parse(readFileSync(path.join(directory,'architecture/results.json'),'utf8'));

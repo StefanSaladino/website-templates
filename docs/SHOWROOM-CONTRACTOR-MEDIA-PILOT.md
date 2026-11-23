@@ -28,3 +28,9 @@ Both identities are external Unsplash stock image URLs. The original template fo
 1. Verify actual Unsplash source pages and creator attribution for each exact image, commercial redistribution rights and any depicted-worker property/likeness permissions.
 2. Approve full-page desktop/mobile framing at actual 320/390/768/1280/1440 widths with loaded media and fallback behavior; candidate crops alone are insufficient.
 3. Re-run the current-commit full build/Chromium and physical-device/accessibility checks. Do not claim real project history or publication readiness.
+
+## Original Pexels source replacement — 23 November 2026
+The earlier Unsplash TM-053/TM-046 screenshots and hashes are retained above only as **retired historical evidence**. They no longer supply the template or original gallery. Active publisher-attributed images:
+- **TM-129**, [Thới Nam Cao, Pexels 15124970](https://www.pexels.com/photo/men-working-inside-a-house-under-repairs-15124970/), official page describes a real kitchen undergoing renovation, with worker and materials; 6240×4160. Independent photo, no fictional builder affiliation.
+- **TM-130**, [Peter Vang, Pexels 37357024](https://www.pexels.com/photo/modern-renovated-kitchen-with-hardwood-floors-37357024/), bright finished white kitchen with hardwood floors and appliances; 4551×3413. Independent photo, not a LINE + LEVEL completed job.
+Both official pages have a named photographer and Free label. HTML uses real image IDs, responsive `srcset`/`sizes`, alt, intrinsic dimensions, eager hero and lazy project; root gallery hero and honest teaser copy are synchronized. Source scanners forbid retired photos. New-commit photo decode, crops and all browser checks must be inspected after CI. A publisher label is not model/property, trademark, commercial redistribution, or stakeholder approval.

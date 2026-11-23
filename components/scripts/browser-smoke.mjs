@@ -238,6 +238,10 @@ try{
  assert((await page.locator('.hero .eyebrow').textContent()).includes('FICTIONAL'),'LINE + LEVEL is identified as a hypothetical company');
  assert((await page.locator('.hero-media-label').textContent()).includes('UNRELATED STOCK'),'LINE + LEVEL framing photo cannot imply a real work site');
  assert((await page.locator('.project-stock-note').textContent()).includes('NOT COMPLETED'),'LINE + LEVEL kitchen is not presented as a completed job');
+ assert((await page.locator('.hero-media img').getAttribute('src')).includes('/15124970/'),'LINE + LEVEL hero must use sourced renovation stock');
+ assert((await page.locator('.project-photo img').getAttribute('src')).includes('/37357024/'),'LINE + LEVEL kitchen must use a distinct sourced kitchen');
+ assert(!/photo-1768321916886|photo-1760545813135/.test(await page.content()),'Retired unsourced contractor imagery must remain excluded');
+ assert((await page.locator('.hero-media img').getAttribute('srcset')).includes('1600w')&&(await page.locator('.project-photo img').getAttribute('srcset')).includes('1200w'),'Contractor pictures must have responsive candidates');
  assert(!(await page.locator('.project-copy').textContent()).includes('11 weeks'),'LINE + LEVEL removes unverified construction duration');
  await page.locator('.visit-form button[type="submit"]').click();
  assert((await page.locator('[data-visit-status]').textContent()).includes('no site visit was requested'),'LINE + LEVEL demo form cannot claim a booking');

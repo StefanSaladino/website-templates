@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **9 without verified/recorded source-page links** and **9 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **7 without verified/recorded source-page links** and **7 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -23,7 +23,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-105 | editorial-commerce | Pexels publisher page; Atiek Arief | depicted-person, visible-clothing-marking-review, not-fictional-outerwear |
 | TM-113 | event-launch | Pexels publisher page; Felipe Balduino | recognizable-concert-attendees, actual-Sao-Paulo-concert-not-Toronto, mobile-headline-contrast-crop-open |
 | TM-114 | event-launch | Pexels publisher page; Big Bag Films | real-performers-not-fictional-lineup, recognizable-performers, artist-endorsement-rights-open, poster-portrait-crop-open |
-| TM-053 | contractor | Source page missing; Creator missing | fictional-Toronto-job-site, visible-worker-model-rights-open, source-photographer-unverified (+1 more in JSON) |
+| TM-129 | contractor | Pexels publisher page; Thới Nam Cao | independent-renovation-scene, depicted-worker-rights-open, actual photo crops, redistribution and stakeholder approval pending |
 | TM-120 | woodworker | Pexels original; Daniel Reche | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-115 | event-launch | Pexels publisher page; Jeremy Li | real-concert-not-fictional-side-room, attendee-likeness-open, indoor-stage-identity-review, portrait-crop-open |
 | TM-068 | fitness-launch | Source page missing; Creator missing | recognizable-person-likeness-uncleared, misleading-carrying-alt, wide-crop-cuts-head (+2 more in JSON) |
@@ -54,7 +54,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-042 | architecture | Source page missing; Creator missing | false-Georgian-Bay-project-credit, residential-property-location-unverified, architect-designer-attribution-unverified (+2 more in JSON) |
 | TM-121 | woodworker | Pexels original; Fallgregg | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-116 | event-launch | Pexels publisher page; Sašo Vukadinović | unrelated-stage-not-harbour-venue, instrument-brand-markings-open, landscape-crop-review-open |
-| TM-046 | contractor | Source page missing; Creator missing | fictional-Vaughan-job-claim, unverified-structural-work-and-timeline, not-a-before-after (+1 more in JSON) |
+| TM-130 | contractor | Pexels publisher page; Peter Vang | independent-completed-kitchen, not-builder-portfolio, property/branding and commercial redistribution rights pending |
 | TM-124 | restaurant | Pexels original; Le Salama (Pexels account) | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
 | TM-050 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | fictitious-before-after-attribution, plant-species-unverified, drainage-work-unverified (+2 more in JSON) |
 | TM-051 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | separate-property-not-ruled-out, wall-not-garden-planting-feature, false-project-continuity-risk (+1 more in JSON) |
@@ -229,3 +229,6 @@ Three old unsourced image identities TM-047/059/063 were retired. Official origi
 ## TIDEFORM original photo and missing infinity layout remediation — 23 November 2026
 
 Retired untraced photo identities TM-064/066/069, replacing them with publisher-identified real Pexels photos TM-126 Alef Morais, TM-127 Vincent Rivaud and TM-128 Sara Brahollari. Full template, original gallery, source inventory, alt text, photographer credits, responsive srcset and enforceable source checks were synchronized. Gallery no longer advertises pool construction services or exact depths; both are explicitly fictional design studies. The original infinity-edge section lacked its own image and content layout rules; added desktop and mobile art direction and included the section in automated screenshot review. All photographed properties and depicted pool mechanisms are unrelated to TIDEFORM, and no engineered plans or builds are verified. Original media: 74 total, 65 attributed, 9 untraced, 0 rights approved. Twenty-five isolated component-stock images remain review only; pool safety, property rights and commercial redistribution remain release-gated.
+
+## LINE + LEVEL real source attribution — 23 November 2026
+Retired the two unknown Unsplash original identities TM-053/TM-046 and synced the complete contractor page and root thumbnail to distinct Pexels originals: [TM-129 — Thới Nam Cao, interior kitchen renovation with worker](https://www.pexels.com/photo/men-working-inside-a-house-under-repairs-15124970/) and [TM-130 — Peter Vang, white completed kitchen](https://www.pexels.com/photo/modern-renovated-kitchen-with-hardwood-floors-37357024/). Official publisher pages identify both creators and label each image Free. These photographs do not substantiate LINE + LEVEL staff, location, work quality, client relationships, scope or structural alteration. Model/property, photo content, desktop/mobile crops and downstream commercial template redistribution require independent acceptance. **74 original identities, 67 attributed, 7 unattributed, 0 rights-approved**; 25 component-stock records also remain review-only. No `main` merge.

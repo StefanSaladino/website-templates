@@ -272,39 +272,6 @@
       }
     },
     {
-      "id": "TM-046",
-      "urlIdentity": "https://images.unsplash.com/photo-1760545813135-fbda9423e448",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "contractor",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "previewDimensions": "1800x1198",
-        "notes": "Bright finished white kitchen: white tiled floor, central white island, white wall cabinets, window, and adjoining dining area. No construction stage, before photo or evidence of a LINE + LEVEL renovation, Vaughan location, 11-week timeline, wall removal or client ownership. Phone center crop trims the broader room context.",
-        "downloadSHA256": "d476051e063e7d9232865c65f48c4c80b88a8c3c43392c14e7970cbf4920d22d",
-        "flags": [
-          "fictional-Vaughan-job-claim",
-          "unverified-structural-work-and-timeline",
-          "not-a-before-after",
-          "phone-crop-trims-room"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-CONTRACTOR-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-050",
       "urlIdentity": "https://images.unsplash.com/photo-1761637823276-7d714eb45cb1",
       "kind": "image",
@@ -372,39 +339,6 @@
       },
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
-    },
-    {
-      "id": "TM-053",
-      "urlIdentity": "https://images.unsplash.com/photo-1768321916886-30dc323bddf7",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "contractor",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "previewDimensions": "1800x2400",
-        "notes": "Tall unfinished interior with exposed light-gauge metal studs and ceiling framing, construction materials and at least one visibly identifiable worker in the distance. Not proof of Toronto, project ownership, safety compliance or a LINE + LEVEL job site. The portrait/phone crop preserves framing better than the wide desktop crop; depicted-person rights require evaluation.",
-        "downloadSHA256": "d5156d942a94d7daf58617f0851e7692b1209c9a8b6dbeebdf3cd3543f037f63",
-        "flags": [
-          "fictional-Toronto-job-site",
-          "visible-worker-model-rights-open",
-          "source-photographer-unverified",
-          "desktop-crop-loses-vertical-context"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-CONTRACTOR-MEDIA-PILOT.md"
-      }
     },
     {
       "id": "TM-057",
@@ -1774,6 +1708,48 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Official Pexels publisher page and exact original downloadable image verified on 2026-11-23: Andrea Davis, photograph 38495442. Real scene: Dark-tiled residential plunge pool with a metal stair rail, small water spillway and timber-clad pool house. The independently pictured pool and wood-clad structure are unrelated to fictional TIDEFORM; no pool construction, engineering, safety, location or actual client work is evidenced. Displayed property/marks, final template commercial rights, review of responsive crops and client acceptance remain outstanding."
+    },
+    {
+      "id": "TM-129",
+      "urlIdentity": "https://images.pexels.com/photos/15124970/pexels-photo-15124970.jpeg",
+      "sourcePageUrl": "https://www.pexels.com/photo/men-working-inside-a-house-under-repairs-15124970/",
+      "creator": "Thới Nam Cao",
+      "sourceVerificationNote": "Checked official Pexels publisher photo 15124970 on 2026-11-23. Page credits Thới Nam Cao, lists Free and gives original dimensions 6240 x 4160. Scene described as kitchen renovation with worker, tools and materials. An unrelated site and person, not LINE + LEVEL workers or a verified job. Model, property, trade context, template redistribution rights, crop and stakeholder review remain unapproved.",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "contractor",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23"
+    },
+    {
+      "id": "TM-130",
+      "urlIdentity": "https://images.pexels.com/photos/37357024/pexels-photo-37357024.jpeg",
+      "sourcePageUrl": "https://www.pexels.com/photo/modern-renovated-kitchen-with-hardwood-floors-37357024/",
+      "creator": "Peter Vang",
+      "sourceVerificationNote": "Checked official Pexels publisher photo 37357024 on 2026-11-23. Page credits Peter Vang, lists Free and gives original dimensions 4551 x 3413. Photograph shows white kitchen cabinetry, wood floors and stainless appliances. Independent stock, not evidence of a LINE + LEVEL finished project, client, engineering or location. Property, branding, commercial template redistribution, crop and stakeholder acceptance remain unapproved.",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "contractor",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23"
     }
   ]
 }
