@@ -445,7 +445,9 @@ try{
  // Third motion integration batch: every new pattern runs inside a real, complete template.
  await openTemplate('editorial-commerce');
  assert(await page.locator('.product-rail .product').count()===8,'RANGE/FOUND retains eight product cards');
-  assert(await page.locator('.product-image--sourced .stock-image-note').count()===3,'RANGE/FOUND shows three separate sourced photographic references with no product attribution');
+  assert(await page.locator('.product-image--sourced .stock-image-note').count()===8,'RANGE/FOUND labels all eight independent product-reference photos as unrelated stock');
+  for(const id of ['29769393','35919634','9043496','9508451','12115344'])assert((await page.content()).includes('/'+id+'/'),'RANGE/FOUND retains sourced real Pexels photo '+id);
+  assert((await page.locator('.hero-media img').getAttribute('src')).includes('/27524811/'),'RANGE/FOUND gallery hero uses publisher-attributed forest photography');
   assert(await page.locator('.product-rail .product-image img').count()===8,'RANGE/FOUND uses actual photographs for all eight product visuals');
   assert((await page.locator('.stock-disclaimer').textContent()).includes('fictional'),'RANGE/FOUND makes product fiction explicit');
   assert(!(await page.content()).includes('photo-1776725121337-48de2c501672'),'RANGE/FOUND retired third-party boot stock');
