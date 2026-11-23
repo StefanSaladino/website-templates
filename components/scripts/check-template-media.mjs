@@ -76,7 +76,13 @@ for(const item of inventory.assets||[]){
   'TM-002':{identity:'https://images.unsplash.com/photo-1441986300917-64674bd600d8',
     page:'https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0',creator:'Clark Street Mercantile'},
   'TM-018':{identity:'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5',
-    page:'https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po',creator:'John Arano'}
+    page:'https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po',creator:'John Arano'},
+  'TM-035':{identity:'https://images.unsplash.com/photo-1722103155234-5e83b3effe03',
+    page:'https://unsplash.com/photos/a-stone-patio-with-steps-and-plants-in-the-foreground-V99f_PhYzmM',creator:'Naoki Suzuki'},
+  'TM-050':{identity:'https://images.unsplash.com/photo-1761637823276-7d714eb45cb1',
+    page:'https://unsplash.com/photos/curved-stone-steps-lead-to-a-paved-patio-area-AqCTAOMJUVk',creator:'Sergej ***** (@skstrannik)'},
+  'TM-051':{identity:'https://images.unsplash.com/photo-1761637823941-0ffae96ec487',
+    page:'https://unsplash.com/photos/stone-wall-with-plants-in-the-foreground-f7poIvVWtfg',creator:'Sergej ***** (@skstrannik)'}
  };
  const src=verifiedSources[item.id];
  if(src&&(item.urlIdentity!==src.identity||item.sourcePageUrl!==src.page||

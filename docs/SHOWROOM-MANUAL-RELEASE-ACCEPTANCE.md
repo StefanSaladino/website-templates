@@ -202,3 +202,13 @@ The two independently corroborated **original Unsplash photo pages** now recorde
 Both exact source IDs are pinned in the source-integrity checker to prevent unrelated image replacements inheriting creator metadata. This increases recorded provenance from **3 to 5 of 62** active media identities; it does not increase approved licenses above zero. The explicit [62-item clearance queue](docs/TEMPLATE-MEDIA-CLEARANCE-QUEUE.md) now reflects 57 missing provenance entries rather than 59.
 
 Official Unsplash license/help material distinguishes the copyright permission from separate depicted-person/property/trademark rights. Unsplash+ also disallows use in digital templates; **do not treat stock photos discovered via third-party portfolio credits as freely distributable template assets.** No licensing or model release has been obtained in this pass, and Steps 18–19 remain open.
+
+## Three additional publisher-origin checks — 22 November 2026
+
+The BED & BORDER landscaping footer already cited three **exact Unsplash source pages**, but the canonical original-template media inventory had empty creator and source-page fields. Directly following each official source's displayed image link established:
+
+- `TM-035`: [Naoki Suzuki, stone patio](https://unsplash.com/photos/a-stone-patio-with-steps-and-plants-in-the-foreground-V99f_PhYzmM) ↔ `photo-1722103155234-5e83b3effe03`.
+- `TM-050`: [Sergej ***** (@skstrannik), curved stone steps](https://unsplash.com/photos/curved-stone-steps-lead-to-a-paved-patio-area-AqCTAOMJUVk) ↔ `photo-1761637823276-7d714eb45cb1`.
+- `TM-051`: [Sergej ***** (@skstrannik), stone wall](https://unsplash.com/photos/stone-wall-with-plants-in-the-foreground-f7poIvVWtfg) ↔ `photo-1761637823941-0ffae96ec487`.
+
+All three origins and image identities are pinned in the source-media integrity test, and the clearance queue is updated. **8/62** original media records now have recorded source/creator (up from 5), **54** remain untraced, and **zero** are approved. This is origin verification, not evidence that BED & BORDER built these properties, that the photographs are licensed for template distribution, or that independent property/brand rights are satisfied. A template footer source link alone is not legal clearance; independent platform/image match was required.

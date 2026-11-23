@@ -5,7 +5,7 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **62 active external media identities:** 61 still/poster images and 1 opt-in 4K video
-- **57 without verified/recorded source-page links** and **57 without recorded creator credits**. Of the 5 recorded pages, TM-010's older entry has no recent `sourcePageVerifiedAt` stamp; that field still merits reverification
+- **54 without verified/recorded source-page links** and **54 without recorded creator credits**. Of the 8 recorded pages, TM-010's older entry has no recent `sourcePageVerifiedAt` stamp; that field still merits reverification
 - **0 rights-approved assets.** All 62 remain `needs-review`
 - **29 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -60,7 +60,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-025 | monolith-architecture | Source page missing; Creator missing | location-unverified, design-credit-unverified, pool-crop-context-review |
 | TM-026 | editorial-commerce | Source page missing; Creator missing | fictional-product-mismatch, phone-crop-needs-css-review |
 | TM-027 | editorial-commerce | Source page missing; Creator missing | product-identity-unverified, phone-crop-needs-css-review |
-| TM-035 | landscaping | Source page missing; Creator missing | studio-project-attribution-unverified, stone-patio-not-established, wide-crop-hides-steps-and-flowers (+1 more in JSON) |
+| TM-035 | landscaping | Recorded source page; Naoki Suzuki | studio-project-attribution-unverified, stone-patio-not-established, wide-crop-hides-steps-and-flowers (+1 more in JSON) |
 | TM-036 | muskoka-retreat | Source page missing; Creator missing | interior-property-unverified, photo-not-actual-accommodation, mobile-crop-review-needed |
 | TM-037 | custom-bakes | Source page missing; Creator missing | product-authorship-unverified, order-pricing-unsupported, wide-crop-truncates-cookies |
 | TM-039 | editorial-commerce | Source page missing; Creator missing | wide-crop-clips-object, product-identity-unverified |
@@ -70,8 +70,8 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-045 | event-launch | Source page missing; Creator missing | no-band-performance-proven, unrelated-venue-photo, phone-crop-loses-stage-context |
 | TM-046 | contractor | Source page missing; Creator missing | fictional-Vaughan-job-claim, unverified-structural-work-and-timeline, not-a-before-after (+1 more in JSON) |
 | TM-047 | restaurant | Source page missing; Creator missing | other-venue-identity-unverified, wine-type-unverified, venue-layout-claims-unverified (+1 more in JSON) |
-| TM-050 | landscaping | Source page missing; Creator missing | fictitious-before-after-attribution, plant-species-unverified, drainage-work-unverified (+2 more in JSON) |
-| TM-051 | landscaping | Source page missing; Creator missing | separate-property-not-ruled-out, wall-not-garden-planting-feature, false-project-continuity-risk (+1 more in JSON) |
+| TM-050 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | fictitious-before-after-attribution, plant-species-unverified, drainage-work-unverified (+2 more in JSON) |
+| TM-051 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | separate-property-not-ruled-out, wall-not-garden-planting-feature, false-project-continuity-risk (+1 more in JSON) |
 | TM-055 | woodworker | Source page missing; Creator missing | wood-species-unverified, fictional-product-not-verified, wide-crop-loses-upper-shelf (+1 more in JSON) |
 | TM-057 | real-estate | Source page missing; Creator missing | property-location-unverified, fictitious-listing-details, mobile-room-framing-review |
 | TM-058 | architecture | Source page missing; Creator missing | unverified-Toronto-project-history, program-area-completion-unverified, oak-linen-courtyard-inventions (+2 more in JSON) |
@@ -93,6 +93,14 @@ The canonical record and enforceable usage scanner are `components/data/template
 - **TM-071** — cottonbro studio: [source record](https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/) · exact-origin verification 2026-11-22. **Still `needs-review`.**
 
 The 22 November source match for **TM-002** identifies Clark Street Mercantile's Montréal shop photograph; exact image match and contributor attribution do not authorize use of the store's branding or depicted customers. **TM-018** is John Arano's barbell-training photo at CrossFit 1855 in Ottawa; subject likeness and ROGUE/training-facility depiction remain potential clearance issues. See `docs/TEMPLATE-MEDIA-SOURCE-VERIFICATION-PASS1.md` for the URLs, matching method and remaining questions.
+
+## Further exact-origin matches (landscaping)
+
+- **TM-035** — Naoki Suzuki: [verified Unsplash photo page](https://unsplash.com/photos/a-stone-patio-with-steps-and-plants-in-the-foreground-V99f_PhYzmM) · image identity `https://images.unsplash.com/photo-1722103155234-5e83b3effe03` · **still needs review**.
+- **TM-050** — Sergej ***** (@skstrannik): [verified Unsplash photo page](https://unsplash.com/photos/curved-stone-steps-lead-to-a-paved-patio-area-AqCTAOMJUVk) · image identity `https://images.unsplash.com/photo-1761637823276-7d714eb45cb1` · **still needs review**.
+- **TM-051** — Sergej ***** (@skstrannik): [verified Unsplash photo page](https://unsplash.com/photos/stone-wall-with-plants-in-the-foreground-f7poIvVWtfg) · image identity `https://images.unsplash.com/photo-1761637823941-0ffae96ec487` · **still needs review**.
+
+These links were already visible in the BED & BORDER template footer. Each was independently cross-checked against the photo-page image URL; the photos are **unrelated stock** and do not establish completed works, client properties, contractor identities, locations or property releases. No asset was approved.
 
 ## Required closure procedure for every asset
 

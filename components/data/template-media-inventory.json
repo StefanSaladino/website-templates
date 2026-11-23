@@ -967,8 +967,8 @@
         }
       ],
       "linkedComponentStockId": "STOCK-017",
-      "sourcePageUrl": null,
-      "creator": null,
+      "sourcePageUrl": "https://unsplash.com/photos/a-stone-patio-with-steps-and-plants-in-the-foreground-V99f_PhYzmM",
+      "creator": "Naoki Suzuki",
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
       "localDerivative": null,
@@ -984,7 +984,9 @@
           "property-location-unknown"
         ],
         "evidenceDocument": "docs/SHOWROOM-LANDSCAPING-MEDIA-PILOT.md"
-      }
+      },
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
     },
     {
       "id": "TM-036",
@@ -1351,8 +1353,8 @@
         }
       ],
       "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
+      "sourcePageUrl": "https://unsplash.com/photos/curved-stone-steps-lead-to-a-paved-patio-area-AqCTAOMJUVk",
+      "creator": "Sergej ***** (@skstrannik)",
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
       "localDerivative": null,
@@ -1369,7 +1371,9 @@
           "site-and-timeline-unverified"
         ],
         "evidenceDocument": "docs/SHOWROOM-LANDSCAPING-MEDIA-PILOT.md"
-      }
+      },
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
     },
     {
       "id": "TM-051",
@@ -1384,8 +1388,8 @@
         }
       ],
       "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
+      "sourcePageUrl": "https://unsplash.com/photos/stone-wall-with-plants-in-the-foreground-f7poIvVWtfg",
+      "creator": "Sergej ***** (@skstrannik)",
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
       "localDerivative": null,
@@ -1401,7 +1405,9 @@
           "phone-crop-cuts-masonry"
         ],
         "evidenceDocument": "docs/SHOWROOM-LANDSCAPING-MEDIA-PILOT.md"
-      }
+      },
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
     },
     {
       "id": "TM-052",
