@@ -440,3 +440,7 @@ The real decoded-photo portfolio-extended CI batch exposed mismatched `sizes` me
 ## AFTER DARK real concert photography source follow-up — 23 November 2026
 
 AFTER DARK's four remaining CDN-only Unsplash images were retired for publisher-attributed real Pexels photographs TM-113..116 (Felipe Balduino, Big Bag Films, Jeremy Li and Sašo Vukadinović). The original template and root gallery thumbnail are synchronized, photos are visibly marked as unrelated independent concert images, and the ANIM-08 demo/live-ticket restrictions remain unchanged. The original media inventory now contains **74 total, 53 source/creator-identified, 21 untraced, zero final rights approvals**. The 25 isolated component-stock entries are unchanged and remain in review. Next: actual still-photo screenshots, media/legal review, then the remaining smaller three-image original-template families. Roadmap Steps 18/19 and manual production release approval remain open; `main` unchanged.
+
+## AFTER DARK responsive Pexels image hints — 23 November 2026
+
+Added source sets and `sizes` for all four source-attributed event photos, prioritizing the full-viewport hero and lazy-loading the below-fold poster and stage references. Intrinsic dimensions and asynchronous decode reduce layout shift and excessive phone requests. Browser assertions cover the new image-delivery contract. No rights/licensing approval, Step 18/19 signoff or main merge; await current-SHA browser and responsive-image QA.

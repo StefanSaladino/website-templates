@@ -337,6 +337,10 @@ try{
  assert((await page.locator('.poster-photo--left img').getAttribute('src')).includes('/8512413/'),'AFTER DARK poster-left uses independently sourced small-stage photograph');
  assert((await page.locator('.poster-photo--right img').getAttribute('src')).includes('/30215324/'),'AFTER DARK poster-right shows a separate indoor audience');
  assert((await page.locator('.venue-image img').getAttribute('src')).includes('/33094348/'),'AFTER DARK venue placeholder uses unrelated sourced stage reference');
+ assert((await page.locator('.hero-image img').getAttribute('sizes'))==='100vw','AFTER DARK main hero advertises actual full-viewport image width');
+ assert((await page.locator('.hero-image img').getAttribute('fetchpriority'))==='high','AFTER DARK prioritizes the above-fold hero image');
+ assert(await page.locator('img[srcset]').count()===4,'AFTER DARK offers responsive source sets for all four concert photographs');
+ assert((await page.locator('.poster-photo--right img').getAttribute('loading'))==='lazy','AFTER DARK defers secondary poster photography');
  assert((await page.locator('.poster-photo--right figcaption').textContent()).includes('STOCK PHOTO'),'AFTER DARK photo does not imply fictional side room');
  assert((await page.locator('.venue-photo-note').textContent()).includes('NOT THE VENUE'),'AFTER DARK concert stock not represented as venue');
  assert(!((await page.locator('.venue dl').textContent()).includes('47 Harbour East')),'AFTER DARK must not provide a fake street address');
