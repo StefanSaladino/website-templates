@@ -132,6 +132,7 @@
       "sections": [
         ".hero",
         ".lineup",
+        ".poster-break",
         ".venue"
       ],
       "required": 4,

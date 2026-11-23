@@ -36,6 +36,7 @@ for(const [batch,entries] of Object.entries(data)){
    const tokens=selector.slice(1).split('.');
    if(tokens.some(token=>!classes.has(token)))errors.push(id+': screenshot selector missing in HTML: '+selector);
   }
+  if(id==='event-launch' && !entry.sections.includes('.poster-break'))errors.push('AFTER DARK loaded-photo review must include the two-photo poster section for visual crop acceptance');
   reports.push({batch,template:id,remoteImageTags:thirdParty.length,localImageTags:tags.length-thirdParty.length,sections:entry.sections});
   console.log('PASS:',id,thirdParty.length+' remote img tags, '+entry.sections.length+' screenshot sections');
  }
