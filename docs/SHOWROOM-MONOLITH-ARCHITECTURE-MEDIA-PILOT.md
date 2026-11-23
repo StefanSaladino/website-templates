@@ -36,3 +36,14 @@ _21 November 2026 · review branch · preliminary only; no creator/licensing/des
 4. Keep all four images `needs-review`; stakeholder/media acceptance and physical-device QA are incomplete. No merge to `main` or component promotion.
 
 **Next batch:** `woodworker` — four photographs, with similar false-crafted-work/portfolio attribution risk.
+
+## New real photographer-attributed images — 23 November 2026
+
+The historical Unsplash candidate observations above are no longer active. Four verified official Pexels original photo pages now support the full MONOLITH layout:
+
+- **TM-109:** [Lisa Anna — photo 19836798](https://www.pexels.com/photo/interior-of-a-modern-minimalist-living-room-19836798/), replacing TM-022; photographed a grey sofa, botanical framed art, and a tall window in a living room.
+- **TM-110:** [Erik Mclean — photo 4744622](https://www.pexels.com/photo/modern-house-on-grass-in-daytime-4744622/), replacing TM-023; photographed a dark timber-clad geometric contemporary residence on a grassy slope.
+- **TM-111:** [Dom Sch-veg-man — photo 14645272](https://www.pexels.com/photo/photo-of-a-seaside-house-with-a-sunset-reflecting-in-the-glass-14645272/), replacing TM-024; photographed a modern glass-walled seaside structure reflecting sunset and trees.
+- **TM-112:** [Sara Brahollari — photo 25934928](https://www.pexels.com/photo/swimming-pool-outside-a-modern-wooden-house-25934928/), replacing TM-025; photographed a timber-clad contemporary house beside an outdoor swimming pool.
+
+The real photographs are unrelated independent references, not MONOLITH project evidence. Main hero contact sheet, all four example studies, root catalogue thumbnail, responsive `src`/`srcset`, alternative descriptions and footer attribution have been synchronized. ANIM-17 integration is unchanged. Manual follow-up: confirm the actual crop positions at 320/390/768/1280/1440, contrast and legibility, real-device/screen-reader navigation, release rights for displayed properties/artwork and final commercial redistribution; source verification is not rights approval. No local derivative approved. Current original image ledger **74 total, 49 source-identified, 25 unsourced, 0 approved**.

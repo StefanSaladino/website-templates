@@ -90,12 +90,13 @@ try{
  const monolith=spawnSync(process.execPath,[script,'--offline','--templates=monolith-architecture','--limit=5','--output='+path.join(directory,'monolith-architecture')],{encoding:'utf8',timeout:20000});
  if(monolith.status!==0)throw Error('Monolith image review batch failed: '+monolith.stderr+'\\n'+monolith.stdout);
  const architecture=JSON.parse(readFileSync(path.join(directory,'monolith-architecture/results.json'),'utf8'));
- assert.deepEqual(architecture.assets.map(item=>item.id),['TM-022','TM-023','TM-024','TM-025']);
+ assert.deepEqual(architecture.assets.map(item=>item.id),['TM-109','TM-110','TM-111','TM-112']);
+ assert(architecture.assets.every(item=>item.sourcePageUrl&&item.creator&&item.reviewStatus==='needs-review'),'MONOLITH photos sourced without final rights approval');
  assert.equal(architecture.total,4);
  assert.equal(architecture.downloaded,0);
  assert.equal(architecture.errors,0);
  assert(architecture.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: monolith-architecture selects four unapproved images without downloads.');
+ console.log('PASS: MONOLITH selects four independent publisher-attributed photo references without downloads or rights approval.');
  const woodwork=spawnSync(process.execPath,[script,'--offline','--templates=woodworker','--limit=5','--output='+path.join(directory,'woodworker')],{encoding:'utf8',timeout:20000});
  if(woodwork.status!==0)throw Error('Woodworker media selection failed: '+woodwork.stderr+'\\n'+woodwork.stdout);
  const woodImages=JSON.parse(readFileSync(path.join(directory,'woodworker/results.json'),'utf8'));

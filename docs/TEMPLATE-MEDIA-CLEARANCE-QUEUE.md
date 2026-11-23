@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **29 without verified/recorded source-page links** and **29 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **25 without verified/recorded source-page links** and **25 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -40,10 +40,10 @@ The canonical record and enforceable usage scanner are `components/data/template
 | --- | --- | --- | --- |
 | TM-106 | editorial-commerce | Pexels publisher page; Alexandre Boucher | real-night-tent-not-owned-shelter, ANIM-09-shared-photo, night-scene-crop-pending |
 | TM-010 | law-firm | Recorded source page; Nastuh Abootalebi | unrelated-office-stock, fictional-firm-and-lawyer-attribution, phone-crop-removes-office-context (+1 more in JSON) |
-| TM-022 | monolith-architecture | Source page missing; Creator missing | studio-attribution-unverified, geography-unverified, mobile-crop-cuts-sofa |
-| TM-023 | monolith-architecture | Source page missing; Creator missing | false-interior-alt, project-attribution-unverified, mobile-crop-truncates-building |
-| TM-024 | monolith-architecture | Source page missing; Creator missing | image-description-corrected, attribution-unverified, mobile-crop-truncates-exterior |
-| TM-025 | monolith-architecture | Source page missing; Creator missing | location-unverified, design-credit-unverified, pool-crop-context-review |
+| TM-109 | monolith-architecture | Pexels publisher page; Lisa Anna | independent real architectural reference, no verified commission, property/design rights and responsive crop pending |
+| TM-110 | monolith-architecture | Pexels publisher page; Erik Mclean | independent real architectural reference, no verified commission, property/design rights and responsive crop pending |
+| TM-111 | monolith-architecture | Pexels publisher page; Dom Sch-veg-man | independent real architectural reference, no verified commission, property/design rights and responsive crop pending |
+| TM-112 | monolith-architecture | Pexels publisher page; Sara Brahollari | independent real architectural reference, no verified commission, property/design rights and responsive crop pending |
 | TM-108 | editorial-commerce | Pexels publisher page; Sergei Skrynnik | glass-cups-not-fictional-Tin-Cup, incidental-products-review, card-crop-pending |
 | TM-104 | editorial-commerce | Pexels publisher page; İlhan ÇAÇA | unrelated-tan-backpack, fictional-material-claims-disclaimed, mobile-crop-pending |
 | TM-035 | landscaping | Recorded source page; Naoki Suzuki | studio-project-attribution-unverified, stone-patio-not-established, wide-crop-hides-steps-and-flowers (+1 more in JSON) |
@@ -205,3 +205,7 @@ Retired FRAME TM-003/004/007/009/016/017, along with all their responsive and th
 ## RANGE/FOUND publisher-source replacement — 23 November 2026
 
 Six untraced original-template stock IDs TM-008/026/027/028/032/039 were retired and replaced by publisher-attributed real Pexels photographs TM-103..108. The root gallery hero is synchronized; isolated ANIM-09 switched from STOCK-018 to STOCK-032 matching full-template TM-106. All replaced imagery remains in-review and depicts unrelated products, people or scenes, not actual RANGE/FOUND work. **Publisher records: 45/74; missing: 29/74; rights-approved: 0/74.** Existing 25 isolated stock identities likewise remain unapproved. Unverified likeness/brands/property, loaded mobile crops, formal redistribution conditions, optimized local derivatives and stakeholder acceptance remain required.
+
+## MONOLITH four-photo publisher attribution — 23 November 2026
+
+MONOLITH retired its four untraced Unsplash images TM-022/023/024/025, replacing them with independent authentic Pexels source photographs TM-109..112. Corresponding full-template `srcset`, gallery thumbnail, attribution and alt descriptions were synchronized, and deprecated photo URLs now fail source checks. All project names, descriptions and locations remain clearly fictional; no real architectural practice affiliation or design authorship is asserted. **Original media: 74 active, 49 source-attributed, 25 untraced, 0 rights-approved.** No production derivatives, physical-device/crop approval, property/design/trademark or downstream commercial redistribution permissions granted.

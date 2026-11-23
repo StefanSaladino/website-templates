@@ -428,3 +428,7 @@ Inspected actual decoded-image Chromium evidence from the successful portfolio b
 ## RANGE/FOUND source attribution follow-through — 23 November 2026
 
 Retired six untraceable RANGE/FOUND Unsplash photos and synchronized the real Pexels replacements with the root gallery and ANIM-09 (new IDs TM-103..108, STOCK-032). Original-template source provenance is now **45/74 verified publisher/creator, 29 untraced, zero final rights approvals**; all 25 component-stock entries remain in review. The template's actual visual/crop checks, depicted-person/property and trademark rights, optimization and stakeholder approval are not finished. Next source backlog: MONOLITH architecture (4), AFTER DARK event (4). Step 18/19 stay unchecked; no merge to main.
+
+## MONOLITH source photography update — 23 November 2026
+
+All four untraced MONOLITH Unsplash photo identities are retired and replaced with real Pexels publisher-attributed originals TM-109..112. All hero/project figure references and root gallery images are synchronized with new captions, alt text and provenance disclaimers. Original-template media source coverage rises to **49/74**, leaving **25 source identities unresolved**, with **0 rights-approved**. The 25 isolated component stock records remain review-only. Loaded-image crop acceptance, legal rights, native-device QA and human approval remain outstanding. Next high-yield work: AFTER DARK's four untraced media. Keep Steps 18 and 19 unchecked and `main` unchanged.
