@@ -5,12 +5,20 @@ on:
       - feature/component-showroom
     paths:
       - 'components/**'
+      - 'index.html'
+      - 'script.js'
+      - 'styles.css'
+      - 'custom-bakes-gallery.css'
       - 'templates/**'
       - 'docs/COMPONENT-**'
       - '.github/workflows/component-showroom-ci.yml'
   pull_request:
     paths:
       - 'components/**'
+      - 'index.html'
+      - 'script.js'
+      - 'styles.css'
+      - 'custom-bakes-gallery.css'
       - 'templates/**'
       - 'docs/COMPONENT-**'
       - '.github/workflows/component-showroom-ci.yml'
