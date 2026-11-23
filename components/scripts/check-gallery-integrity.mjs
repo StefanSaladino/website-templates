@@ -45,6 +45,8 @@ if((html+'\n'+js).includes('photo-1769353086138-19ee65291a04'))issues.push('Reti
 if((html+'\n'+js).includes('White oak wall shelf · 36 in.'))issues.push('Fictional woodworker gallery may not claim a specific unverified commission');
 if((html+'\n'+js).includes('photo-1774989423979-6a7bf5add3f0'))issues.push('Retired SERA gallery image returned');
 if((html+'\n'+js).includes('SUPPER CLUB · QUEEN WEST')||(html+'\n'+js).includes('<i>Reserve a table</i>'))issues.push('SERA concept thumbnail cannot imply a real venue or table booking');
+if((html+'\n'+js).includes('TORONTO · STRENGTH / CONDITIONING'))issues.push('YARD gallery must label its non-operating fictional studio');
+if((html+'\n'+js).includes('photo-1782849206257-c1bf78721837'))issues.push('Retired untraced YARD athlete returned to gallery');
 if((html+'\n'+js).includes('photo-1756227356398-aea8ee98cdc6'))issues.push('Retired unsourced CURRENT gallery hero photo returned');
 if((html+'\n'+js).includes('photo-1773366906258-d657466ad76c'))issues.push('Retired unattributed DOT + CRUMB gallery photo returned');
 if((html+'\n'+js).includes('ORDER NOTE / 016')||(html+'\n'+js).includes('10–14 days'))issues.push('Bakery concept gallery cannot imply a real order ticket or lead time');

@@ -304,8 +304,11 @@ try{
  assert((await page.locator('.yard-demo-banner').textContent()).includes('no verified physical gym'),'YARD cannot claim a real training facility or coaching');
  assert((await page.locator('.hero-media img').getAttribute('alt')).includes('ROGUE'),'YARD hero describes the visible third-party branded rack');
  assert((await page.locator('.yard-hero-stock').textContent()).includes('NOT YARD'),'YARD must not attribute athlete stock to its members');
- assert((await page.locator('.image-frame img').getAttribute('alt')).includes('leaning over'),'YARD corrects inaccurate kettlebell-carry alt');
- assert((await page.locator('.image-frame figcaption').textContent()).includes('not a carry'),'YARD crop is not labelled a loaded carry');
+ assert((await page.locator('.image-frame img').getAttribute('src')).includes('/27810155/'),'YARD band uses publisher-attributed kettlebell stock, not an unsourced athlete');
+ assert((await page.locator('.image-frame img').getAttribute('alt')).includes('kettlebells'),'YARD band alt accurately describes real kettlebells without invented action');
+ assert((await page.locator('.image-frame img').getAttribute('srcset')).includes('1600w'),'YARD equipment image has responsive source widths');
+ assert((await page.locator('.image-frame figcaption').textContent()).includes('JONATHAN BORBA'),'YARD visibly credits source photographer');
+ assert(!/photo-1782849206257/.test(await page.content()),'Retired untraced YARD athlete photo remains absent');
  assert((await page.locator('.yard-schedule-disclaimer').textContent()).includes('No current classes'),'YARD sample timetable is not real');
  await page.locator('[data-yard-demo-form] input[type=email]').fill('preview@example.com');
  await page.locator('[data-yard-demo-form] button[type=submit]').click();

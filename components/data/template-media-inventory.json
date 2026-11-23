@@ -245,39 +245,6 @@
       "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
     },
     {
-      "id": "TM-068",
-      "urlIdentity": "https://images.unsplash.com/photo-1782849206257-c1bf78721837",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "fitness-launch",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "45f2bdcc843595381b3f30c727b5c0858bfb50f5182a258b0cc9240fdf6f3c71",
-        "notes": "Indoor gym with a muscular adult with dark tied-back hair, a navy/black graphic tank and dark shorts leaning forward with both hands resting on/gripping the handles of two large kettlebells on the floor. Not walking or carrying the weights, despite original alt text. Gym equipment and a wall-mounted heater or unit are visible behind. Landscape 16:9 crop cuts off athlete's head and lower kettlebell detail. Neither athlete nor location is verified as YARD staff/client.",
-        "flags": [
-          "recognizable-person-likeness-uncleared",
-          "misleading-carrying-alt",
-          "wide-crop-cuts-head",
-          "fictional-gym-and-coaching-attribution",
-          "printed-clothing-emblem-rights"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FITNESS-LAUNCH-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-071",
       "urlIdentity": "https://videos.pexels.com/video-files/9489382/9489382-uhd_4096_2160_25fps.mp4",
       "kind": "video",
@@ -1684,6 +1651,27 @@
       "reviewStatus": "needs-review",
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23"
+    },
+    {
+      "id": "TM-137",
+      "urlIdentity": "https://images.pexels.com/photos/27810155/pexels-photo-27810155.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "fitness-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/a-kettlebell-and-a-barbell-on-a-gym-floor-27810155/",
+      "creator": "Jonathan Borba",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "On 2026-11-23 checked official Pexels original photographer page and clicked the Free download for Pexels photo 27810155, returning the exact images.pexels.com/photos/27810155/pexels-photo-27810155.jpeg image. Published photographer Jonathan Borba, original size 5088 × 3392. The real image shows worn black kettlebells on dark gym flooring, with a foreground bell and two more shapes behind. No depicted athlete or apparent branded kit is asserted; gym/venue ownership, inclusion in commercial redistributed template products, cropping and human approval remain unresolved. This source is not a YARD studio, class or owned equipment."
     }
   ]
 }

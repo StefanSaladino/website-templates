@@ -5,14 +5,14 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **1 without verified/recorded source-page links** and **1 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **0 without verified/recorded source-page links** and **0 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
-- **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
+- **16 first-priority review records** with people, branding, replacement or video-related flags; 58 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 17 active records
+## High-priority queue — 16 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -26,7 +26,6 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-129 | contractor | Pexels publisher page; Thới Nam Cao | independent-renovation-scene, depicted-worker-rights-open, actual photo crops, redistribution and stakeholder approval pending |
 | TM-120 | woodworker | Pexels original; Daniel Reche | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-115 | event-launch | Pexels publisher page; Jeremy Li | real-concert-not-fictional-side-room, attendee-likeness-open, indoor-stage-identity-review, portrait-crop-open |
-| TM-068 | fitness-launch | Source page missing; Creator missing | recognizable-person-likeness-uncleared, misleading-carrying-alt, wide-crop-cuts-head (+2 more in JSON) |
 | TM-071 (film) | creative-agency | Recorded source page; cottonbro studio | No subject-specific review flags recorded |
 | TM-072 | real-estate | Pexels publisher page; Peter Xie | Unrelated photographed home; private-property and listing-affiliation review still open |
 | TM-073 | real-estate | Pexels publisher page; Max Vakhtbovych | Unrelated photographed lake-facing interior; property context and redistribution review open |
@@ -34,10 +33,11 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 57 active records
+## Follow-on queue — 58 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
+| TM-137 | fitness-launch | Pexels original photographer page; Jonathan Borba | real kettlebell still life, unrelated studio/equipment; photo/venue rights, portrait crop and commercial-template redistribution pending |
 | TM-106 | editorial-commerce | Pexels publisher page; Alexandre Boucher | real-night-tent-not-owned-shelter, ANIM-09-shared-photo, night-scene-crop-pending |
 | TM-010 | law-firm | Recorded source page; Nastuh Abootalebi | unrelated-office-stock, fictional-firm-and-lawyer-attribution, phone-crop-removes-office-context (+1 more in JSON) |
 | TM-109 | monolith-architecture | Pexels publisher page; Lisa Anna | independent real architectural reference, no verified commission, property/design rights and responsive crop pending |
@@ -241,3 +241,8 @@ Retired unattributed Unsplash stock TM-037 (unicorn / numeral cookies) and TM-06
 
 ## CURRENT original waterfront photo source replacements — 23 November 2026
 Retired two unattributed original Unsplash photos TM-041 (hero) and TM-057 (third hypothetical home + journal). The CURRENT full template and gallery now use separately original-attributed Pexels: **TM-135** ([Sujan Shan, real dock and house photographed at Meaford, Ontario, image 15533042](https://www.pexels.com/photo/house-at-the-lake-15533042/), 4000×2250), and **TM-136** ([April Choitz, Pennsylvania lake-facing timber cabin at dusk, image 34701790](https://www.pexels.com/photo/cozy-interior-of-cabin-overlooking-lake-at-dusk-34701790/), 3815×2861). Both named photographer records show Free stock labels and publisher original downloads; **neither is an authorized CURRENT listing, client, property for sale, house brand, or agency endorsement**. The hero has a visible unrelated-stock notice. Third home and story alt/copy are adjusted to real images. Example names, location assertions and price/bed/frontage remain fictional. Rights of photographed private buildings or people, full commercial-template reuse, proof of release, responsive crops and design signoff are unresolved. **73/74 original full-template stock identities have source-page and creator attribution; YARD TM-068 remains untraced; zero rights approved.** Do not merge or mark live.
+
+## YARD real kettlebell photo; original publisher attribution complete — 23 November 2026
+Retired unsupported original fitness image **TM-068** (untraced athlete with cropped head, clothing mark and unverifiable club affiliation). Replaced the full YARD fitness story band with **TM-137**, [Jonathan Borba's real Pexels kettlebell photograph, image 27810155](https://www.pexels.com/photo/a-kettlebell-and-a-barbell-on-a-gym-floor-27810155/), 5088 × 3392. The official photographer page, Free label and exact original JPEG download were checked. The photo shows kettlebells on a gym floor and does not imply real YARD participants or coaches. Corrected source caption, alt text, sizing, focal point and equipment-focused copy. The original gallery retains the previously **source-attributed** TM-018 lifter by John Arano / Unsplash while labeling YARD a fictional club; **TM-018's athlete likeness and ROGUE equipment branding remain significant high-priority rights blockers**. The lower-risk equipment image moves from high-priority to follow-on audit, making the current queue 16 first-priority and 58 follow-on identities.
+
+**All 74 active original-template external media identities now have publisher source-page and creator records. All 74 remain `needs-review`, with 0 rights-approved;** 25 separate isolated component stock records also remain review-only. Publisher attribution is neither person/brand/property release nor blanket permission to redistribute third-party photographs as part of a downloadable commercial template. Before any real customer deployment: review individual source licenses, derivative/redistribution restrictions, people/trademarks, all screenshot crops/contrast/keyboard/device views, and obtain stakeholder design acceptance. Steps 18 and 19 remain open. No `main` merge.
