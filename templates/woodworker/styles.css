@@ -283,3 +283,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* Real workshop reference replaces synthetic/photo-like joinery stand-in. */
 .workshop-photo--sourced{position:relative;overflow:hidden}
 .workshop-photo--sourced .workshop-reference-photo{width:100%;height:100%;display:block;object-fit:cover;object-position:center center}
+
+/* The workshop carousel uses portrait stock photography; keep the whole tiered planter visible on wide screens instead of cropping it as a panoramic billboard. */
+@media(min-width:761px){
+ .craft-showcase-gallery{max-width:900px}
+ .craft-showcase-stage{height:clamp(550px,75vw,750px)}
+}

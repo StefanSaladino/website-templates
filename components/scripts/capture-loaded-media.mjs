@@ -185,7 +185,7 @@ try{
         }
       }
       if(entry.name==='woodworker'&&width===1440){
-        const planter=result.remoteImages.find(img=>img.alt?.startsWith('Tiered stained-wood planter troughs'));
+        const planter=result.remoteImages.find(img=>img.context==='figure.craft-showcase-slide'&&img.src?.includes('/8850241/'));
         if(!planter||!planter.ok||planter.visibleSourceFraction===null||
            planter.visibleSourceFraction<0.5){
           report.errors.push('GRAIN & GABLE 1440px portrait planter crop hides too much source: '+
