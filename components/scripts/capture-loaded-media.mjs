@@ -166,6 +166,15 @@ try{
         if(!warning||!cta||warning.left<-2||warning.right>width+2||warning.top<cta.bottom+8)
           report.errors.push('OFFCUT '+width+' warning is clipped or overlaps the primary CTA');
       }
+      if(entry.name==='restaurant'&&width<=390){
+        const hero=result.remoteImages.find(img=>img.context==='div.hero-media'&&img.src?.includes('/5863521/'));
+        const requestWidth=Number(hero?.src?.match(/[?&]w=(\d+)/)?.[1]||0);
+        // Full-height 390px cover of a 3:2 image needs ~1,600 source pixels,
+        // not 390px, to avoid visibly upscaling a narrow slice on phones.
+        if(!hero?.ok||requestWidth<1400){
+          report.errors.push('SERA '+width+'px hero under-resolved for tall mobile cover crop: requested '+requestWidth+'px');
+        }
+      }
       // Source-specific geometry gates from human review of the actual screenshots.
       // These protect observed defects, not arbitrary crop-ratio thresholds.
       if(entry.name==='architecture'&&width===320){

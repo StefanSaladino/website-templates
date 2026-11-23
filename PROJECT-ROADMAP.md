@@ -468,3 +468,7 @@ Extended GRAIN & GABLE's corrected portrait-photo framing and responsive source 
 ## SERA Restaurant: authenticated photo sources and gallery safety — 23 November 2026
 
 Retired three unattributed original-template SERA Unsplash photos, replaced with authentic publisher-verified Pexels scenes TM-123..125 by Rachel Claire, Le Salama and Davis Arenas. Synced the featured gallery, accurate alt text, real unrelated venue disclaimers, responsive image variants and strict retrospective source guards. Gallery no longer pretends a real Queen West location or live table reservation. Extended decoded screenshot capture to the arched-room image break. Library provenance is **62/74 sources identified, 12 untraced, zero approved**; 25 component stock still review-gated. Prior GRAIN & GABLE CI/browser must be checked, then SERA latest-SHA loaded-image and browser QA. Next source family TIDEFORM Pools. Steps 18/19/manual commercial release remain open; no merge to `main`.
+
+## SERA cover-photo resolution for tall mobile hero — 23 November 2026
+
+Decoded screenshot analysis exposed an overly small 480w source chosen for a 1000px-tall full-bleed phone hero. SERA now advertises the cover's actual pixel needs (`sizes: 1600px` at <=820px, `100vw` desktop), and screenshot QA hard-fails if the hero again requests under 1400px at 320/390px. No layout/interaction changes; new screenshots needed for sharpness approval. All original images remain review-only (62/74 traced, 12 without source, zero rights-approved), main and Steps 18/19 unchanged.
