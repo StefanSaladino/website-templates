@@ -64,3 +64,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #273e
 
 /* Tablet and touch-only pointers cannot reveal a hover-gated quick-add control. */
 @media (hover:none){.product-card .quick{transform:none}}
+
+/* Source-backed MORA still-life, sink and material photography. Product prototypes remain fictional CSS-only UI. */
+.hero-media>.mora-photo-reference{display:block;width:100%;height:100%;object-fit:cover;object-position:center 55%}
+.product-media--reference .mora-photo-reference{width:100%;height:100%;object-fit:cover;display:block}
+.story-image>.mora-photo-reference{display:block;width:100%;height:100%;object-fit:cover;object-position:center center}
