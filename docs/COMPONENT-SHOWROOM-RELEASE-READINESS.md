@@ -127,3 +127,9 @@ No component is promoted to `live`, remaining media rights approvals are still z
 ## Integrated reduced-motion audit — 22 November 2026
 
 A dedicated GitHub Actions workflow `integrated-reduced-motion-qa.yml` and isolated browser runner `components/scripts/audit-reduced-motion.mjs` now check **all 20 ANIM patterns in their actual full-page source templates**, not standalone proxy previews, at 390px and 1440px. It emulates `prefers-reduced-motion: reduce`, scrolls to each real pattern, checks visible headings/sections and target anchors, detects long-running Web Animations in the affected subtree, verifies no root overflow or unexpected film request, and captures **40 actual source screenshots**. This new check requires a successful run on the latest source SHA and manual visual/assistive-technology acceptance; it cannot certify motion sensitivity or screen reader outcomes. Keep Step 19 open.
+
+## Independent mobile alternate-layout QA — 22 November 2026
+
+The 44 optional mobile treatments now have a separate, review-only Chromium browser workflow (`mobile-alternatives-qa.yml`, `audit-mobile-alternatives.mjs`). It loads their real `?mobile=M-...` routes at **320 and 390 CSS px** with touch input and reduced motion, verifies actual selected treatment, viable main/headings, link/control presence, root horizontal overflow and JavaScript/video errors, and saves up to **88 phone screenshots**. Small target hits are **review candidates**, not automatic WCAG failures.
+
+For repeatability this new capture **blocks third-party image/video/font requests**. The resulting frames are evidence of layout and real variant selection only, **not loaded-photo crop or licensing approval**. Native iOS Safari/VoiceOver, Android/TalkBack, font/zoom reflow and final full-media visual acceptance remain independently pending. Await the latest branch workflow; do not mark 44 variants live or close Step 19 from the script alone.
