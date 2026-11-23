@@ -259,133 +259,6 @@
       "sourceVerificationNote": "Rechecked official Unsplash source page; its displayed image link normalizes to the active TM-010 CDN identity. Contributor Nastuh Abootalebi, office location Sunday Digital Munich. Still unrelated to fictional NORTHLINE legal practice; any property/commercial use and endorsement rights remain unapproved."
     },
     {
-      "id": "TM-012",
-      "urlIdentity": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "81e53cca6e5070ce650c019c5cb7a36f1892306262e0eb71a797e69449304cee",
-        "notes": "Man in dark sweater against black; 16:9 desktop crop cuts his face. Vertical phone framing preserves portrait better.",
-        "flags": [
-          "depicted-person",
-          "wide-crop-cuts-face",
-          "model-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-013",
-      "urlIdentity": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "2cc21e6668bb0c1706b51108c9c663b5c74ff88d4afadd4c7ecc93dc7b8db7e4",
-        "notes": "Person in yellow outfit on basketball court; 16:9 wide crop removes head and legs. Phone vertical preserves scene.",
-        "flags": [
-          "depicted-person",
-          "wide-crop-loses-subject",
-          "model-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-014",
-      "urlIdentity": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "061cbefa79c5a9e550cb9dcb79db078f07f151bc351c823fd2b8828f6ff087fb",
-        "notes": "Woman in dark clothing against charcoal studio backdrop; old natural-light alt inaccurate. Wide crop cuts face; opening-left 3:4 desktop and 3:5 phone need CSS review.",
-        "flags": [
-          "depicted-person",
-          "alt-text-corrected",
-          "wide-crop-cuts-face",
-          "model-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-015",
-      "urlIdentity": "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "frame-portfolio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "25b839be68bedf62027395725c8261662c43fd87dbc934e4203c615f75ade435",
-        "notes": "Person in sunglasses, red lettered shirt and jacket under blue sky; 16:9 wide crop cuts eyewear/face. Opening-right 5:4 desktop and 3:4 phone need review; garment logo/lettering rights unresolved.",
-        "flags": [
-          "depicted-person",
-          "alt-text-corrected",
-          "visible-lettering",
-          "wide-crop-cuts-face",
-          "model-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-016",
       "urlIdentity": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce",
       "kind": "image",
@@ -2148,6 +2021,90 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Publisher Pexels photo 35149476 credits Melih Can, Free license, 5152x7728 Fujifilm X-T5. Exact Free Download matches https://images.pexels.com/photos/35149476/pexels-photo-35149476.jpeg; photo depicts a hand wiping silver vehicle door with a towel, with no supported association to fictional GARAGE or its client work. Publisher image file identity, credit, Free Pexels license and visible subject were checked; no final property/brand/model/release consent or responsive-crop approval."
+    },
+    {
+      "id": "TM-093",
+      "urlIdentity": "https://images.pexels.com/photos/12919049/pexels-photo-12919049.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/beautiful-woman-in-black-hoodie-12919049/",
+      "creator": "Brayan Chul",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels original photo page https://www.pexels.com/photo/beautiful-woman-in-black-hoodie-12919049/ credits Brayan Chul and lists Free, with exact Free Download identity /photos/12919049/pexels-photo-12919049.jpeg. Real photograph visually inspected: Woman in black hooded sweatshirt on muted purple studio background; source image 5184x3456. It depicts unrelated independent photographer's work, not FRAME clients or artist. No model, property, garment/trademark release, business identity, licensing for final template sale or acceptance granted by source verification alone."
+    },
+    {
+      "id": "TM-094",
+      "urlIdentity": "https://images.pexels.com/photos/32174987/pexels-photo-32174987.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/elegant-woman-posing-in-stylish-skirt-on-red-background-32174987/",
+      "creator": "Aliyu jooney",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels original photo page https://www.pexels.com/photo/elegant-woman-posing-in-stylish-skirt-on-red-background-32174987/ credits Aliyu jooney and lists Free, with exact Free Download identity /photos/32174987/pexels-photo-32174987.jpeg. Real photograph visually inspected: Full-length female fashion portrait, black top with deep purple-red pleated skirt, bright red background; source 4055x6176. It depicts unrelated independent photographer's work, not FRAME clients or artist. No model, property, garment/trademark release, business identity, licensing for final template sale or acceptance granted by source verification alone."
+    },
+    {
+      "id": "TM-095",
+      "urlIdentity": "https://images.pexels.com/photos/17594379/pexels-photo-17594379.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/portrait-of-a-man-on-a-black-background-17594379/",
+      "creator": "Sandro Tavares",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels original photo page https://www.pexels.com/photo/portrait-of-a-man-on-a-black-background-17594379/ credits Sandro Tavares and lists Free, with exact Free Download identity /photos/17594379/pexels-photo-17594379.jpeg. Real photograph visually inspected: Man in white turtleneck against a black studio background. It depicts unrelated independent photographer's work, not FRAME clients or artist. No model, property, garment/trademark release, business identity, licensing for final template sale or acceptance granted by source verification alone."
+    },
+    {
+      "id": "TM-096",
+      "urlIdentity": "https://images.pexels.com/photos/9591740/pexels-photo-9591740.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "frame-portfolio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/a-woman-in-yellow-shirt-and-denim-shorts-9591740/",
+      "creator": "Linneas Boland-Godbey",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels original photo page https://www.pexels.com/photo/a-woman-in-yellow-shirt-and-denim-shorts-9591740/ credits Linneas Boland-Godbey and lists Free, with exact Free Download identity /photos/9591740/pexels-photo-9591740.jpeg. Real photograph visually inspected: Curly-haired woman in pale-yellow shirt and denim shorts before bright yellow perforated street fence, Portland Oregon. It depicts unrelated independent photographer's work, not FRAME clients or artist. No model, property, garment/trademark release, business identity, licensing for final template sale or acceptance granted by source verification alone."
     }
   ]
 }

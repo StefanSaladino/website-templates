@@ -456,6 +456,12 @@ try{
  assert(!await page.locator('[data-motion-pattern="ANIM-09"]').evaluate(el=>el.classList.contains('journal-motion-playing')),'ANIM-09 skips diagonal motion for reduced-motion users');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('frame-portfolio');
+ assert(await page.locator('.frame-demo-disclosure').isVisible(),'FRAME makes fictional portfolio and independent stock origins explicit');
+ assert((await page.locator('.opening-left img').getAttribute('src')).includes('/12919049/'),'FRAME opening-left references sourced Brayan Chul studio portrait');
+ assert((await page.locator('.opening-right img').getAttribute('src')).includes('/32174987/'),'FRAME opening-right references sourced Aliyu jooney fashion portrait');
+ assert((await page.locator('.frame--four img').getAttribute('src')).includes('/17594379/'),'FRAME sitter image references sourced Sandro Tavares portrait');
+ assert((await page.locator('.frame--eight img').getAttribute('src')).includes('/9591740/'),'FRAME street fashion image references sourced Linneas Boland-Godbey portrait');
+ assert(!/photo-1524504388940|photo-1529139574466|photo-1506794778202|photo-1515886657613/.test(await page.content()),'FRAME retired unsourced portrait images cannot be reintroduced');
  await page.locator('[data-feature-select="2"]').click();
  assert(await page.locator('[data-feature-image="2"]').isVisible()&&await page.locator('[data-feature-image="0"]').isHidden()
    &&await page.locator('[data-feature-select="2"]').getAttribute('aria-pressed')==='true'

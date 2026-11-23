@@ -27,7 +27,7 @@ try{
  assert(existsSync(path.join(directory,'index.html')));
  // Ensure the follow-up batch reviews all six remaining FRAME photographs,
  // rather than accidentally re-running the original first-five pilot.
- const frameIds=['TM-012','TM-013','TM-014','TM-015','TM-016','TM-017'];
+ const frameIds=['TM-016','TM-017','TM-093','TM-094','TM-095','TM-096'];
  const remaining=spawnSync(process.execPath,[script,'--offline','--ids='+frameIds.join(','),'--limit=6','--output='+path.join(directory,'frame-remainder')],{encoding:'utf8',timeout:20000});
  if(remaining.status!==0)throw Error('FRAME remainder review failed: '+remaining.stderr+'\\n'+remaining.stdout);
  const rest=JSON.parse(readFileSync(path.join(directory,'frame-remainder/results.json'),'utf8'));
@@ -36,7 +36,7 @@ try{
  assert.equal(rest.downloaded,0);
  assert.equal(rest.errors,0);
  assert(rest.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: six remaining FRAME IDs selected without fetching or approving assets.');
+ console.log('PASS: FRAME selected six active review assets including four attributed Pexels portrait/editorial references, without rights approval.');
  const commerceIds=['TM-008','TM-026','TM-027','TM-028','TM-032','TM-039','TM-077','TM-078','TM-079'];
  const commerce=spawnSync(process.execPath,[script,'--offline','--templates=editorial-commerce','--limit=10','--output='+path.join(directory,'editorial-commerce')],{encoding:'utf8',timeout:20000});
  if(commerce.status!==0)throw Error('Editorial review selection failed: '+commerce.stderr+'\\n'+commerce.stdout);

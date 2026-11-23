@@ -5,14 +5,14 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **45 without verified/recorded source-page links** and **45 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **41 without verified/recorded source-page links** and **41 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
-- **25 first-priority review records** with people, branding, replacement or video-related flags; 49 follow-on records
+- **21 first-priority review records** with people, branding, replacement or video-related flags; 53 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 25 active records
+## High-priority queue — 21 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -20,10 +20,6 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-002 | frame-portfolio | Recorded source page; Clark Street Mercantile | visible-brand, property-rights-unverified, model-context-unverified |
 | TM-004 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, attention-phone-crop-poor |
 | TM-009 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, mobile-crop-loses-context |
-| TM-012 | frame-portfolio | Source page missing; Creator missing | depicted-person, wide-crop-cuts-face, model-rights-unverified |
-| TM-013 | frame-portfolio | Source page missing; Creator missing | depicted-person, wide-crop-loses-subject, model-rights-unverified |
-| TM-014 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, wide-crop-cuts-face (+1 more in JSON) |
-| TM-015 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, visible-lettering (+2 more in JSON) |
 | TM-016 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, phone-attention-crop-poor (+1 more in JSON) |
 | TM-017 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, multiple-placements (+1 more in JSON) |
 | TM-018 | fitness-launch | Recorded source page; John Arano | recognizable-person-likeness-uncleared, visible-ROGUE-equipment-brand, clothing-brand-mark (+2 more in JSON) |
@@ -42,7 +38,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 49 active records
+## Follow-on queue — 53 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -95,6 +91,10 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-090 | garage-detailing | Pexels source; Tima Miroshnichenko | Foamy headlight detail scene; not a verified client vehicle, crop/brands unapproved |
 | TM-091 | garage-detailing | Pexels source; WAVYVISUALS | Polishing pad with product; equipment manufacturer/trademark context needs review |
 | TM-092 | garage-detailing | Pexels source; Melih Can | Hand polishing silver vehicle door; unrelated work and property/worker context pending |
+| TM-093 | frame-portfolio | Pexels; Brayan Chul | Purple studio portrait, independent stock; person and crop rights unapproved |
+| TM-094 | frame-portfolio | Pexels; Aliyu jooney | Red-background editorial portrait, independent stock and model rights unapproved |
+| TM-095 | frame-portfolio | Pexels; Sandro Tavares | Dark studio portrait of man, model consent and final reuse unapproved |
+| TM-096 | frame-portfolio | Pexels; Linneas Boland-Godbey | Yellow fence fashion portrait, possible clothing artwork and model rights unapproved |
 
 ## Recorded origin pages (not rights approval)
 
@@ -191,3 +191,8 @@ The original library's BLACKLINE preview card now references TM-086 instead of r
 All four active original garage-detailing image identities TM-006, TM-019, TM-020 and TM-033 were retired: they showed branded performance vehicles, unrelated scenery or an unverified employee. Five full-template image placements and the root thumbnail now use four traceable real detailing photographs: TM-089 [Khunkorn Laowisit — white vehicle rotary polishing](https://www.pexels.com/photo/a-person-polishing-the-white-car-5233279/), TM-090 [Tima Miroshnichenko — washed headlight](https://www.pexels.com/photo/a-close-up-shot-of-the-headlight-of-a-car-while-being-washed-6872149/), TM-091 [WAVYVISUALS — polisher pad with cream](https://www.pexels.com/photo/polish-cream-on-polisher-foam-20042053/) and TM-092 [Melih Can — hand wiping silver car door](https://www.pexels.com/photo/close-up-of-hand-polishing-car-surface-35149476/). Matching publisher-hosted original download identities, credits and Free labels were checked. The actual source photos are not endorsements, GARAGE employees, verified jobs or equipment ownership. The white vehicle, tool markings, worker model/property context and phone crops remain pending independent permission and approval. The fictional enquiry form and brand disclaimers remain unchanged.
 
 This changes original-template provenance from 25/74 to **29/74 sourced and attributed**, leaving **45/74 unknown**, **0 finally cleared**. All component stock assets remain independently in review; no `live` promotion or merge to `main`.
+
+
+## FRAME source-attributed photography replacements — 23 November 2026
+
+Retired four untraced original FRAME media IDs TM-014, TM-015, TM-012 and TM-013 (including all associated responsive source-set URLs). Their placements now use independent Pexels originals with exact photo download identities and publisher-listed photographer credits: TM-093 [Brayan Chul black-hoodie purple studio portrait](https://www.pexels.com/photo/beautiful-woman-in-black-hoodie-12919049/), TM-094 [Aliyu jooney red-background fashion portrait](https://www.pexels.com/photo/elegant-woman-posing-in-stylish-skirt-on-red-background-32174987/), TM-095 [Sandro Tavares dark male portrait](https://www.pexels.com/photo/portrait-of-a-man-on-a-black-background-17594379/), and TM-096 [Linneas Boland-Godbey yellow-fence fashion portrait](https://www.pexels.com/photo/a-woman-in-yellow-shirt-and-denim-shorts-9591740/). These are authentic stock photographs, **not AI-generated imagery**, and no person/photographer/photographic portfolio is genuinely affiliated with the invented FRAME studio. A visible, accessible notice and footer provenance caveat establish that. Model releases, fashion/text artwork, downstream redistribution rights, actual zoom/crops and stakeholder visual acceptance remain **unapproved**. Original 24-template manifest remains **74 media identities; 33 with source page and creator, 41 unsourced; zero final approvals**. Six more original FRAME IDs need follow-on work (TM-003, TM-004, TM-007, TM-009, TM-016, TM-017), with shared isolated ANIM-12 stock requiring coordination.
