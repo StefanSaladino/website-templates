@@ -58,7 +58,7 @@ try{
      disclosure:document.querySelector('.intro .lede')?.textContent?.trim()||''
    }));
    const entry={width,status:response?.status()||null,...meta,remoteImages:media,
-     thumbnailBounds:[],videoRequests:videoRequests.length,pageErrors};
+     thumbnailBounds:[],badgeBounds:[],videoRequests:videoRequests.length,pageErrors};
    report.cases.push(entry);
    if(entry.status!==200)report.errors.push(width+' gallery HTTP status '+entry.status);
    if(meta.count!==24)report.errors.push(width+' gallery card count '+meta.count);
@@ -85,6 +85,16 @@ try{
         height:Math.round(b.height),visible:css.display!=='none'&&css.visibility==='visible'};
     });
     entry.thumbnailBounds.push({id,...bounds});
+    const badge=await thumb.locator('.live-badge').evaluate(el=>{
+      const b=el.getBoundingClientRect(),p=el.closest('.thumb').getBoundingClientRect(),css=getComputedStyle(el);
+      return {label:(el.textContent||'').trim(),
+        x:Math.round(b.x),y:Math.round(b.y),width:Math.round(b.width),height:Math.round(b.height),
+        visible:css.display!=='none'&&css.visibility!=='hidden'&&Number(css.opacity)>0,
+        contained:b.left>=p.left-2&&b.top>=p.top-2&&b.right<=p.right+2&&b.bottom<=p.bottom+2};
+    });
+    entry.badgeBounds.push({id,...badge});
+    if(badge.label!=='Preview'||!badge.visible||!badge.contained||badge.width<30||badge.height<12)
+      report.errors.push(width+' '+id+' Preview badge is not legible/contained '+JSON.stringify(badge));
     if(!bounds.visible||bounds.width<60||bounds.height<50||
        bounds.left< -4||bounds.right>width+4)
       report.errors.push(width+' '+id+' thumbnail clipped or hidden '+JSON.stringify(bounds));
@@ -97,7 +107,7 @@ try{
    if(pageErrors.length)report.errors.push(width+' JS errors: '+JSON.stringify(pageErrors));
    if(videoRequests.length)report.errors.push(width+' unexpected remote film request '+JSON.stringify(videoRequests));
    console.log('GALLERY-REVIEW',width+'px',meta.count+' cards',media.length+' decoded-source candidates',
-     entry.thumbnailBounds.length+' geometries',report.errors.length+' cumulative hard errors');
+     entry.thumbnailBounds.length+' geometries',entry.badgeBounds.length+' verified badges',report.errors.length+' cumulative hard errors');
   }catch(error){
    report.errors.push(width+' gallery browser failure: '+(error?.stack||String(error)));
   }finally{await context.close()}
