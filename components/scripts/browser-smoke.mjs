@@ -169,6 +169,20 @@ try{
  assert(await page.locator('#hero-film source').getAttribute('src')===null,'OFFCUT video URL is not attached until opt-in');
  assert(await page.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT opt-in film control defaults to off');
  assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT film control is accessible');
+ const offcutTablet=await browser.newPage({viewport:{width:768,height:900},reducedMotion:'reduce'});
+ await offcutTablet.goto(templateBase+'creative-agency/index.html',{waitUntil:'domcontentloaded'});
+ const offcutTabletRegions=await offcutTablet.evaluate(()=>{
+   const rect=selector=>{const b=document.querySelector(selector)?.getBoundingClientRect();return b?{left:b.left,right:b.right,top:b.top,bottom:b.bottom,height:b.height}:null};
+   return {warning:rect('.film-detail'),cta:rect('.hero-bottom .primary-action'),
+     font:Number.parseFloat(getComputedStyle(document.querySelector('.film-detail')).fontSize)};
+ });
+ assert(offcutTabletRegions.warning&&offcutTabletRegions.cta&&offcutTabletRegions.warning.left>=-2&&
+   offcutTabletRegions.warning.right<=770&&offcutTabletRegions.warning.top>=offcutTabletRegions.cta.bottom+8&&
+   offcutTabletRegions.warning.height>=25&&offcutTabletRegions.font>=10,
+   'OFFCUT 768px HD disclosure is visible and safely below the main CTA');
+ assert(await offcutTablet.locator('#hero-film source').getAttribute('src')===null,
+   'OFFCUT tablet poster does not attach HD film before user confirmation');
+ await offcutTablet.close();
  await page.emulateMedia({reducedMotion:'reduce'});
  assert(await page.locator('#hero-film source').getAttribute('src')===null,'OFFCUT reduced-motion user never loads the video automatically');
  assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT explicit play remains available under reduced motion');

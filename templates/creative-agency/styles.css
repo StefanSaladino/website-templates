@@ -73,7 +73,7 @@ button{font:inherit}
 @media(max-width:900px){.film-detail{bottom:calc(100% + 6px);right:0;max-width:calc(100vw - 36px);width:310px;font-size:9px}.portfolio-demo-note{margin:-22px 0 35px}}
 @media(max-width:360px){.film-detail{width:260px;font-size:9px;padding:8px}}
 
-/* Loaded-poster QA: on narrow devices keep the 4K consent message in flow,
+/* Loaded-poster QA: on narrow devices keep the HD consent message in flow,
    with room below the primary CTA, rather than clipping its first line. */
 @media(max-width:620px){
   .hero-grid{padding-bottom:174px}
@@ -81,6 +81,19 @@ button{font:inherit}
   .offcut-motion-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px 12px;align-items:center}
   .offcut-motion-actions .film-detail{position:static;grid-column:1/-1;right:auto;bottom:auto;width:100%;max-width:none;
     min-height:32px;padding:9px 10px;font-size:10px;line-height:1.45;overflow-wrap:anywhere}
+  .offcut-replay{justify-self:start}
+  .film-toggle{justify-self:end}
+}
+@media(min-width:621px) and (max-width:900px){
+  /* A single visible footer child is left-aligned; its absolutely positioned
+     film status otherwise extends offscreen and overlays the main CTA. */
+  .hero-grid{padding-bottom:178px}
+  .hero-foot{justify-content:flex-end;bottom:16px}
+  .offcut-motion-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;
+    width:min(390px,100%);margin-left:auto;gap:8px 14px;align-items:center}
+  .offcut-motion-actions .film-detail{position:static;grid-column:1/-1;
+    width:100%;max-width:none;padding:10px 12px;font-size:11px;line-height:1.45;
+    overflow-wrap:anywhere}
   .offcut-replay{justify-self:start}
   .film-toggle{justify-self:end}
 }

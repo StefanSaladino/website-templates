@@ -152,7 +152,7 @@ try{
           });
         }
       }
-      if(entry.name==='creative-agency'&&width<=390){
+      if(entry.name==='creative-agency'&&width<=768){
         const regions=await page.evaluate(()=>{
           const bounds=selector=>{
             const rect=document.querySelector(selector)?.getBoundingClientRect();
@@ -163,8 +163,13 @@ try{
         });
         result.filmWarningLayout=regions;
         const warning=regions.warning,cta=regions.cta;
-        if(!warning||!cta||warning.left<-2||warning.right>width+2||warning.top<cta.bottom+8)
-          report.errors.push('OFFCUT '+width+' warning is clipped or overlaps the primary CTA');
+        if(!warning||!cta||warning.left<-2||warning.right>width+2||
+          warning.top<cta.bottom+8||warning.height<25)
+          report.errors.push('OFFCUT '+width+' film warning clipped, collapsed or overlapping main CTA');
+        if(width===768){
+          const noticePx=await page.locator('.film-detail').evaluate(el=>Number.parseFloat(getComputedStyle(el).fontSize));
+          if(noticePx<10)report.errors.push('OFFCUT 768px film notice under 10px');
+        }
       }
       if(entry.name==='restaurant'&&width<=390){
         const hero=result.remoteImages.find(img=>img.context==='div.hero-media'&&img.src?.includes('/5863521/'));
