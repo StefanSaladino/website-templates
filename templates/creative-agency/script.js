@@ -68,10 +68,10 @@ let autoplayBlocked = false;
 function showFilmState(state) {
   filmState = state;
   if (!filmToggle) return;
-  filmToggle.setAttribute('aria-pressed', String(state === 'playing'));
+  filmToggle.setAttribute('aria-pressed', String(state === 'playing' || state === 'loading'));
   filmToggle.disabled = saveDataActive();
   const label = filmToggle.querySelector('span');
-  if (label) label.textContent = state === 'playing' ? 'Pause film' : state === 'loading' ? 'Cancel loading' : 'Play film';
+  if (label) label.textContent = state === 'playing' || state === 'loading' ? 'Pause film' : 'Play film';
 }
 function stopFilm() {
   ++filmTicket;
@@ -96,8 +96,10 @@ async function playFilm() {
   try {
     film.muted = true;
     film.defaultMuted = true;
-    filmSource.setAttribute('src', url);
-    film.load();
+    if (filmSource.getAttribute('src') !== url) {
+      filmSource.setAttribute('src', url);
+      film.load();
+    }
     await film.play();
     if (ticket === filmTicket) showFilmState('playing');
   } catch {
@@ -147,10 +149,14 @@ document.addEventListener('visibilitychange', () => {
   else maybeAutoplay();
 });
 const heroForFilm = document.querySelector('.hero');
-showFilmState('idle');
+if (reduceMotion.matches || saveDataActive()) {
+  stopFilm();
+} else {
+  // Source was already installed by the inline hero bootstrap; never force
+  // the visitor to click the film button to initiate playback.
+  maybeAutoplay();
+}
 if (heroForFilm && 'IntersectionObserver' in window) {
-  // Wait for the initial intersection, so a deep link does not start streaming.
-  heroVisible = false;
   const observer = new IntersectionObserver(entries => {
     heroVisible = Boolean(entries[0]?.isIntersecting);
     if (!heroVisible) stopFilm();

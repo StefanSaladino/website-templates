@@ -33,15 +33,37 @@
       <video
         class="hero-film"
         id="hero-film"
+        autoplay
         muted
         loop
         playsinline
-        preload="none"
+        preload="auto"
         poster="https://images.pexels.com/videos/7677235/pexels-photo-7677235.jpeg?auto=compress&amp;dpr=1&amp;w=1800"
         aria-hidden="true"
       >
         <source data-src="https://videos.pexels.com/video-files/7677235/7677235-hd_1920_1080_25fps.mp4" type="video/mp4" />
       </video>
+      <script>
+        // Start the background film immediately, before the deferred interaction
+        // script. Reduced-motion and Data Saver visitors keep the still poster.
+        (() => {
+          const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+          if (reduced || connection?.saveData) return;
+          const video = document.getElementById('hero-film');
+          const source = video?.querySelector('source[data-src]');
+          if (!video || !source) return;
+          video.muted = true;
+          video.defaultMuted = true;
+          source.src = source.dataset.src;
+          video.load();
+          const attempt = video.play();
+          if (attempt && typeof attempt.catch === 'function') attempt.catch(() => {
+            // The regular playback controller provides a manual retry if the
+            // browser itself disallows muted autoplay.
+          });
+        })();
+      </script>
       <div class="hero-shade"></div>
       <div class="hero-grid">
         <p class="hero-kicker">Independent creative office</p>
@@ -55,7 +77,7 @@
         <a href="#work">Selected work</a>
         <div class="offcut-motion-actions">
           <button class="offcut-replay" type="button" data-replay-motion="ANIM-02" aria-label="Replay the hero headline animation">Replay title</button>
-          <button class="film-toggle" type="button" aria-pressed="false" data-film-toggle><span>Play film</span><i aria-hidden="true"></i></button>
+          <button class="film-toggle" type="button" aria-pressed="true" data-film-toggle><span>Pause film</span><i aria-hidden="true"></i></button>
         </div>
       </div>
     </section>

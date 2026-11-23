@@ -164,7 +164,7 @@ try{
  // the smoke suite never downloads the real remote video.
  assert((await page.locator('#hero-film').getAttribute('poster')).includes('/7677235/'),'OFFCUT hero poster retains sourced red silk');
  assert((await page.locator('#hero-film source').getAttribute('data-src')).includes('7677235-hd_1920_1080_25fps.mp4'),'OFFCUT uses the sourced HD film');
- assert(await page.locator('#hero-film').getAttribute('muted')!==null && await page.locator('#hero-film').getAttribute('loop')!==null && await page.locator('#hero-film').getAttribute('playsinline')!==null,'OFFCUT autoplay is muted, looping and inline');
+ assert(await page.locator('#hero-film').getAttribute('autoplay')!==null && await page.locator('#hero-film').getAttribute('preload')==='auto' && await page.locator('#hero-film').getAttribute('muted')!==null && await page.locator('#hero-film').getAttribute('loop')!==null && await page.locator('#hero-film').getAttribute('playsinline')!==null,'OFFCUT video has native muted inline autoplay and eager preload');
  assert(await page.locator('.film-detail,.film-hint,.portfolio-demo-note,[data-film-status]').count()===0,'OFFCUT informational banners removed');
  assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT playback control is accessible');
  const offcutAuto=await browser.newPage({viewport:{width:390,height:900},reducedMotion:'no-preference'});
@@ -175,8 +175,8 @@ try{
  });
  await offcutAuto.route('**/video-files/**',route=>route.abort());
  await offcutAuto.goto(templateBase+'creative-agency/index.html',{waitUntil:'domcontentloaded'});
- await offcutAuto.waitForFunction(()=>document.querySelector('[data-film-toggle]')?.getAttribute('aria-pressed')==='true');
- assert((await offcutAuto.locator('#hero-film source').getAttribute('src'))?.includes('7677235-hd'),'OFFCUT starts automatically without user interaction');
+ await offcutAuto.waitForFunction(()=>document.querySelector('#hero-film source')?.hasAttribute('src') && document.querySelector('[data-film-toggle]')?.getAttribute('aria-pressed')==='true');
+ assert((await offcutAuto.locator('#hero-film source').getAttribute('src'))?.includes('7677235-hd') && await offcutAuto.locator('#hero-film').getAttribute('autoplay')!==null,'OFFCUT source attaches during HTML parsing and autoplay begins without a click');
  assert((await offcutAuto.locator('[data-film-toggle] span').textContent())==='Pause film','OFFCUT exposes pause during autoplay');
  await offcutAuto.locator('[data-film-toggle]').click();
  assert(await offcutAuto.locator('#hero-film source').getAttribute('src')===null && await offcutAuto.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT pause detaches stream and restores poster');
