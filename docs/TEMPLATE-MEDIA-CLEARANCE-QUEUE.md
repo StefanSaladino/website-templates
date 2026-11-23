@@ -4,15 +4,15 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **72 active external media identities:** 71 still/poster images and 1 opt-in 4K video
-- **52 without verified/recorded source-page links** and **52 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
-- **0 rights-approved assets.** All 72 remain `needs-review`
-- **32 first-priority review records** with people, branding, replacement or video-related flags; 40 follow-on records
+- **73 active external media identities:** 72 still/poster images and 1 opt-in 4K video
+- **51 without verified/recorded source-page links** and **51 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **0 rights-approved assets.** All 73 remain `needs-review`
+- **31 first-priority review records** with people, branding, replacement or video-related flags; 42 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 32 active records
+## High-priority queue — 31 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -31,7 +31,6 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-019 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, visible-vehicle-brand, wide-vs-phone-crop-needs-review (+1 more in JSON) |
 | TM-020 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, recognizable-brand-trade-dress, not-verified-client-work |
 | TM-028 | editorial-commerce | Source page missing; Creator missing | depicted-person, hero-caption-corrected, hero-mobile-crop-needs-css-review |
-| TM-029 | custom-bakes | Source page missing; Creator missing | wedding-cake-product-mismatch, visible-trademark-and-product-brand, baker-ownership-unverified (+2 more in JSON) |
 | TM-030 | tattoo-studio | Source page missing; Creator missing | artist-client-consent-unverified, tattoo-artwork-rights-unverified, machine-branding-unverified (+3 more in JSON) |
 | TM-032 | editorial-commerce | Source page missing; Creator missing | depicted-person, fictional-product-mismatch, model-rights-unverified |
 | TM-033 | garage-detailing | Source page missing; Creator missing | depicted-person, 16-9-crop-excludes-face, model-rights-unverified (+1 more in JSON) |
@@ -49,7 +48,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 40 active records
+## Follow-on queue — 42 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -93,6 +92,8 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-081 | storefront | Pexels original; Angela Roma | Generic pump bottles are a product-styling reference, not actual MORA inventory |
 | TM-082 | storefront | Pexels original; Max Vakhtbovych | Unrelated bathroom photo, incidental items/brands not MORA products |
 | TM-083 | storefront | Pexels original; Polina | Independent serum/jar flatlay, not actual MORA packages or real brand claims |
+| TM-084 | custom-bakes | Pexels official page; Jonathan Borba | White cake photograph, not this fictional studio's work, brand and final rights still require review |
+| TM-085 | custom-bakes | Pexels official page; Gustavo Fring | Cake decorator/venue unrelated to fictional bakery, model/endorsement and final rights review open |
 
 ## Recorded origin pages (not rights approval)
 
@@ -163,3 +164,10 @@ Three RANGE/FOUND product illustrations were removed and replaced with authentic
 ## MORA original photostudies reinstated — 22 November 2026
 
 The three previously synthesized MORA still-life / sink / materials scene illustrations were replaced with independent real photographs under Pexels' Free license: Angela Roma (TM-081, photo 7318850), Max Vakhtbovych (TM-082, 7031908), and Polina (TM-083, 8101513). No Pexels scene is actual MORA merchandise or a true operating storefront. Four remaining product-type prototypes use plain CSS to demonstrate finish-swapping interactions; they are not photos, commercial inventory or AI-generated pictorial images. Current **72 active original-template media identities, 20 with original publisher provenance and creator, 52 remaining untraced, 0 final rights approvals**. Component asset stock remains 25, all in review; native-device, photo-loaded cropping, property/brand and legal distribution approval pending.
+
+
+## DOT + CRUMB branded-photo retirement — 22 November 2026
+
+TM-029 (Unsplash dessert image with a visible Nutella jar) was removed from both the wedding-cake and bakery-story scenes because it mismatched the fictional wedding concept and visually associated an unrelated food brand with the sample business. It was replaced by *two separate, real, publisher-sourced Pexels photographs*: TM-084, [Jonathan Borba's white celebration cake](https://www.pexels.com/photo/elegant-white-layer-cake-with-intricate-frosting-37181428/), and TM-085, [Gustavo Fring's pastry decorating a pink cake](https://www.pexels.com/photo/crop-faceless-female-pastry-cook-decorating-cake-with-chocolate-in-kitchen-3983576/). Both exact Pexels download links, Free license notices and displayed creators were checked. They are **not work by DOT + CRUMB**, and model, property/venue and downstream license/release contexts remain `needs-review`. Neither image is an AI-generated replacement. Tests explicitly forbid the retired Unsplash ID from returning.
+
+Current original-template count: **73 active identities, 22 sourced/attributed, 51 still untraced, 0 finally approved**. The separately inventoried component stock count remains 25 and all entries are in review. Full browser, crop and human release checks remain outstanding.

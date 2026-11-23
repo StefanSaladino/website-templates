@@ -795,39 +795,6 @@
       }
     },
     {
-      "id": "TM-029",
-      "urlIdentity": "https://images.unsplash.com/photo-1673874500167-17ca5ed1cf17",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "custom-bakes",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "2b300481f51c778cde46082cbecdc53387c729bee81f04424565000bd335007e",
-        "notes": "A hand pours glossy dark chocolate sauce over a small round pale dessert on a clear glass cake stand. A plainly visible Nutella-branded jar stands in the background; this is not a one- or two-tier wedding cake, nor demonstrated bakery work. Wide 16:9 crop cuts tabletop/stand context; phone tall preserves the jar and pouring hand, but risks implied endorsement of Nutella.",
-        "flags": [
-          "wedding-cake-product-mismatch",
-          "visible-trademark-and-product-brand",
-          "baker-ownership-unverified",
-          "commercial-replacement-priority",
-          "crop-excludes-table-context"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-CUSTOM-BAKES-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-030",
       "urlIdentity": "https://images.unsplash.com/photo-1679585651020-9ae0653c84ad",
       "kind": "image",
@@ -2188,6 +2155,48 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Actual stock flat-lay of jars and serum bottles on linen by photographer listed as Polina on Pexels; DMC-GX80 metadata and Free license. Independent photographic material study, not fictional MORA inventory or packaging. Publisher source image identity matches direct CDN photo ID. Pexels image licensing is eligible for website-template use, not final context/rights or client clearance."
+    },
+    {
+      "id": "TM-084",
+      "urlIdentity": "https://images.pexels.com/photos/37181428/pexels-photo-37181428.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "custom-bakes",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/elegant-white-layer-cake-with-intricate-frosting-37181428/",
+      "creator": "Jonathan Borba",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Verified on official Pexels photo page, published 20 April 2026: Jonathan Borba, 5177 x 7762 white round celebration cake with swirled frosting on glass stand, Free license. Official Free Download points to images.pexels.com/photos/37181428/pexels-photo-37181428.jpeg. The pictured cake and baker are unrelated to DOT + CRUMB; no real cake order or brand ownership claim. Attribution and Pexels site license eligibility are documented; secondary permissions, downstream delivery and visual approval require separate assessment."
+    },
+    {
+      "id": "TM-085",
+      "urlIdentity": "https://images.pexels.com/photos/3983576/pexels-photo-3983576.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "custom-bakes",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/crop-faceless-female-pastry-cook-decorating-cake-with-chocolate-in-kitchen-3983576/",
+      "creator": "Gustavo Fring",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Verified on official Pexels photo page: Gustavo Fring, 5760 x 3840 image of a crop-framed pastry chef applying chocolate drip icing to a pink cake, Free license. Download URL points to images.pexels.com/photos/3983576/pexels-photo-3983576.jpeg; photographer subject/venue is unrelated to DOT + CRUMB. Model and implied endorsement context, crop, final distribution remain unapproved. Attribution and Pexels site license eligibility are documented; secondary permissions, downstream delivery and visual approval require separate assessment."
     }
   ]
 }

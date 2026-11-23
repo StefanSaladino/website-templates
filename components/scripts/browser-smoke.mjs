@@ -347,8 +347,10 @@ try{
  assert((await page.locator('.bake-demo-banner').textContent()).includes('no orders or date reservations'),'DOT + CRUMB cannot accept real orders');
  assert((await page.locator('.hero-window img').getAttribute('alt')).includes('Extreme close-up'),'DOT + CRUMB frosting macro is not described as an entire cake');
  assert((await page.locator('.bake-item--cookies img').getAttribute('alt')).includes('unicorns'),'DOT + CRUMB sugar cookie subject truthfully described');
- assert((await page.locator('.bake-item--wedding img').getAttribute('alt')).includes('Nutella-branded'),'DOT + CRUMB branded chocolate dessert disclosed');
- assert((await page.locator('.bake-product-disclaimer').textContent()).includes('not a wedding-cake example'),'DOT + CRUMB stock dessert not misrepresented as the wedding item');
+ assert((await page.locator('.bake-item--wedding img').getAttribute('src')).includes('/37181428/'),'DOT + CRUMB wedding sample uses sourced real cake photography');
+ assert((await page.locator('.bake-product-disclaimer').textContent()).includes('Jonathan Borba'),'DOT + CRUMB attributes cake reference without claiming bakery authorship');
+ assert((await page.locator('.story-photo img').getAttribute('src')).includes('/3983576/'),'DOT + CRUMB story uses separately sourced real baking photography');
+ assert(!/photo-1673874500167/.test(await page.content()),'DOT + CRUMB retired branded dessert is not reintroduced');
  await page.locator('[data-sample-bake-form] input[name=date]').fill('2027-03-01');
  await page.locator('[data-sample-bake-form] select[name=type]').selectOption({label:'Celebration cake'});
  await page.locator('[data-sample-bake-form] input[name=name]').fill('Preview Guest');

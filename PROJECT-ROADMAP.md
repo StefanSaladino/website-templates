@@ -366,3 +366,10 @@ Three synthesized product-photo substitutes in RANGE/FOUND were replaced by sour
 ## MORA synthetic photo-scene retirement
 
 The MORA hero still-life, sink and material illustration replacements have now been replaced by three genuine Pexels-sourced photographer-credited photographs (TM-081, 082, 083). CSS-built sample products remain as interactive mockups with no actual checkout or product identity claims. This brings the user-requested photographic-substitution cleanup to twelve removed synthetic photo scenes across CURRENT, Morrow House, RANGE/FOUND, GRAIN & GABLE and MORA. Current originals: 72 active external media identities, 20 verified creator/source pages, 52 untraced, none cleared for final release. No change to core 157/44/20 counts, and Steps 18–19 remain open.
+
+
+## DOT + CRUMB branded-photo retirement — 22 November 2026
+
+TM-029 (Unsplash dessert image with a visible Nutella jar) was removed from both the wedding-cake and bakery-story scenes because it mismatched the fictional wedding concept and visually associated an unrelated food brand with the sample business. It was replaced by *two separate, real, publisher-sourced Pexels photographs*: TM-084, [Jonathan Borba's white celebration cake](https://www.pexels.com/photo/elegant-white-layer-cake-with-intricate-frosting-37181428/), and TM-085, [Gustavo Fring's pastry decorating a pink cake](https://www.pexels.com/photo/crop-faceless-female-pastry-cook-decorating-cake-with-chocolate-in-kitchen-3983576/). Both exact Pexels download links, Free license notices and displayed creators were checked. They are **not work by DOT + CRUMB**, and model, property/venue and downstream license/release contexts remain `needs-review`. Neither image is an AI-generated replacement. Tests explicitly forbid the retired Unsplash ID from returning.
+
+Current original-template count: **73 active identities, 22 sourced/attributed, 51 still untraced, 0 finally approved**. The separately inventoried component stock count remains 25 and all entries are in review. Full browser, crop and human release checks remain outstanding.
