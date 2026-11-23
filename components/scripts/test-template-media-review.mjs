@@ -37,7 +37,7 @@ try{
  assert(rest.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  assert(rest.assets.every(item=>item.sourcePageUrl&&item.creator),'All eleven FRAME items must have recorded original source/creator');
  console.log('PASS: FRAME all 11 source identities have recorded publisher/creator, with no final rights approval.');
- const commerceIds=['TM-008','TM-026','TM-027','TM-028','TM-032','TM-039','TM-077','TM-078','TM-079'];
+ const commerceIds=['TM-077','TM-078','TM-079','TM-103','TM-104','TM-105','TM-106','TM-107','TM-108'];
  const commerce=spawnSync(process.execPath,[script,'--offline','--templates=editorial-commerce','--limit=10','--output='+path.join(directory,'editorial-commerce')],{encoding:'utf8',timeout:20000});
  if(commerce.status!==0)throw Error('Editorial review selection failed: '+commerce.stderr+'\\n'+commerce.stdout);
  const editorial=JSON.parse(readFileSync(path.join(directory,'editorial-commerce/results.json'),'utf8'));
@@ -46,7 +46,8 @@ try{
  assert.equal(editorial.downloaded,0);
  assert.equal(editorial.errors,0);
  assert(editorial.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: editorial-commerce selects nine photography candidates, including three traceable Pexels sources; no fictional products are offered for sale.');
+ assert(editorial.assets.every(item=>item.sourcePageUrl&&item.creator),'All nine RANGE/FOUND sources must have recorded official publisher pages and named creators');
+ console.log('PASS: RANGE/FOUND selects nine official publisher-attributed Pexels identities; no fictional products or stock photos are commercially approved.');
  const retreatIds=['TM-036','TM-061','TM-070','TM-074','TM-075','TM-076'];
  const retreat=spawnSync(process.execPath,[script,'--offline','--templates=muskoka-retreat','--limit=10','--output='+path.join(directory,'muskoka-retreat')],{encoding:'utf8',timeout:20000});
  if(retreat.status!==0)throw Error('Muskoka review batch failed: '+retreat.stderr+'\\n'+retreat.stdout);
