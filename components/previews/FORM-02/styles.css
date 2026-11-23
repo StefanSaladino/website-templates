@@ -19,3 +19,6 @@
  body[data-mobile-treatment="M-FRM-02"] .f2-hint{font-size:12px;line-height:1.5}
 }
 
+
+/* Review navigation is a standalone touch action, not inline prose. */
+.ba-sample-end a{display:inline-flex;align-items:center;min-height:36px;padding:8px 3px;text-underline-offset:3px}

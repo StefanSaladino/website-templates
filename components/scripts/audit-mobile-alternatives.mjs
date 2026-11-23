@@ -74,6 +74,17 @@ try{
     if(info.viewport!==width)result.errors.push(alt.id+' '+width+' CSS viewport mismatch: '+info.viewport);
     if(info.selected!==alt.id)result.errors.push(alt.id+' '+width+' alternative not selected');
     if(info.documentWidth>width+4)result.errors.push(alt.id+' '+width+' document overflow '+info.documentWidth);
+    // Five source-confirmed footer review links previously had 12px hitbox
+    // heights. The component CSS must restore standalone 36px targets.
+    if(['CONTACT-01','FORM-02','NAV-02','SRV-01','PRJ-03'].includes(componentId)){
+      const reviewer=page.locator('.ba-sample-end a[href*="review.html"]');
+      const area=await reviewer.evaluateAll(anchors=>anchors.map(el=>{
+        const r=el.getBoundingClientRect(),s=getComputedStyle(el);
+        return {height:Math.round(r.height),width:Math.round(r.width),display:s.display};
+      }));
+      if(area.length!==1||area[0].height<32||area[0].width<24)
+        result.errors.push(alt.id+' '+width+' undersized standalone footer review target: '+JSON.stringify(area));
+    }
     if(!info.reduced||!info.hasMain||!info.hasHeading)result.errors.push(alt.id+' '+width+' missing base accessible content/reduced preference');
     if(pageErrors.length)result.errors.push(alt.id+' '+width+' JS errors '+JSON.stringify(pageErrors));
     if(films.length)result.errors.push(alt.id+' '+width+' unexpected video loading');

@@ -8,3 +8,6 @@
  body[data-mobile-treatment="M-UTIL-05"] .p3-row{padding:36px 0}
  body[data-mobile-treatment="M-UTIL-05"] .p3-back-top:not([hidden]){position:fixed;right:15px;bottom:calc(19px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;align-items:center;justify-content:center;min-height:48px;max-width:calc(100vw - 30px);padding:12px 19px;background:#303438;color:#fff;border:1px solid #b8bfc0;box-shadow:0 5px 18px #171d2670;font-size:13px;font-weight:800;text-decoration:none;outline-offset:3px}
 }
+
+/* Review navigation is a standalone touch action, not inline prose. */
+.ba-sample-end a{display:inline-flex;align-items:center;min-height:36px;padding:8px 3px;text-underline-offset:3px}

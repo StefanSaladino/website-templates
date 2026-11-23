@@ -16,3 +16,6 @@
  body[data-mobile-treatment="M-CTA-03"] .ct-quick a strong{font:400 clamp(22px,6vw,33px)/1.13 Georgia,serif}
  body[data-mobile-treatment="M-CTA-03"] .ct-quick a small{font-size:11px;color:#d4e1d3}
 }
+
+/* Review navigation is a standalone touch action, not inline prose. */
+.ba-sample-end a{display:inline-flex;align-items:center;min-height:36px;padding:8px 3px;text-underline-offset:3px}

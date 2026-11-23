@@ -27,3 +27,6 @@
  body[data-mobile-treatment="M-NAV-03"] .v-bottom-rail a[aria-current="location"]{border-top-color:#e1cda5;background:#3f584a;font-weight:850}
  body[data-mobile-treatment="M-NAV-03"] :is(#collection,#story,#contact){scroll-margin-top:12px}
 }
+
+/* Review navigation is a standalone touch action, not inline prose. */
+.ba-sample-end a{display:inline-flex;align-items:center;min-height:36px;padding:8px 3px;text-underline-offset:3px}

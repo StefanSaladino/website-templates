@@ -14,3 +14,6 @@
  body[data-mobile-treatment="M-SRV-04"] .srv-row h2{font-size:clamp(26px,6.7vw,37px);line-height:1.06;margin:0;overflow-wrap:anywhere}
  body[data-mobile-treatment="M-SRV-04"] .srv-row p{grid-column:2;font-size:13px;line-height:1.55}
 }
+
+/* Review navigation is a standalone touch action, not inline prose. */
+.ba-sample-end a{display:inline-flex;align-items:center;min-height:36px;padding:8px 3px;text-underline-offset:3px}
