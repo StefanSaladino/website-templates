@@ -341,7 +341,7 @@ try{
  assert((await page.locator('.hero-image img').getAttribute('fetchpriority'))==='high','AFTER DARK prioritizes the above-fold hero image');
  assert(await page.locator('img[srcset]').count()===4,'AFTER DARK offers responsive source sets for all four concert photographs');
  assert((await page.locator('.poster-photo--right img').getAttribute('loading'))==='lazy','AFTER DARK defers secondary poster photography');
- assert((await page.locator('.poster-photo--right figcaption').textContent()).includes('STOCK PHOTO'),'AFTER DARK photo does not imply fictional side room');
+ assert((await page.locator('.poster-photo--right figcaption').textContent()).includes('INDEPENDENT STOCK'),'AFTER DARK right image explicitly labels independent stock instead of a fictional side room');
  assert((await page.locator('.venue-photo-note').textContent()).includes('NOT THE VENUE'),'AFTER DARK concert stock not represented as venue');
  assert(!((await page.locator('.venue dl').textContent()).includes('47 Harbour East')),'AFTER DARK must not provide a fake street address');
  await page.locator('[data-demo-ticket]').click();
