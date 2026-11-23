@@ -50,7 +50,8 @@ for(const component of components){
   const file=path.join(here,'previews',component.id,'index.html');
   const html=existsSync(file)?readFileSync(file,'utf8'):'';
   if(html.includes('photo-1760939858984-5dc76f0ea34a'))addError(component.id+' has forbidden saw photo');
-  if(component.id==='ANIM-13' && /photo-1503686982867-43fb1b9fb691|photo-1774516534119-7324f9948176/.test(html))addError('ANIM-13 must use original architectural concept illustrations, not retired misleading photos');
+  if(component.id==='ANIM-13' && /photo-1503686982867-43fb1b9fb691|photo-1774516534119-7324f9948176/.test(html))addError('ANIM-13 must not restore unrelated geographically misleading photos');
+  if(component.id==='ANIM-13'&&/drift-house-concept\.svg|glass-point-concept\.svg/.test(html))addError('ANIM-13 cannot restore generated synthetic property SVGs');
   // Include poster images as well as src. Scan in-review previews, not just live ones:
   // otherwise remote assets could silently bypass review metadata until launch.
   for(const tag of html.match(/<(?:img|video|source)\b[^>]*>/gi)||[]){

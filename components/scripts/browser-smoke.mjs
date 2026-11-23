@@ -558,17 +558,11 @@ try{
  await openTemplate('real-estate');
  assert(await page.locator('.listing-notice').isVisible(),'CURRENT clearly discloses fictional listings above property rows');
  assert((await page.locator('.listing-notice').textContent()).toLowerCase().includes('nothing shown is available to purchase'),'CURRENT must not imply properties are currently for sale');
- assert((await page.locator('.home-row').first().locator('img').getAttribute('alt')).includes('Original architectural illustration'),'CURRENT Drift House is described as original conceptual artwork');
- assert((await page.locator('.home-row').nth(1).locator('img').getAttribute('alt')).includes('Original interior illustration'),'CURRENT Glass Point is described as original conceptual artwork');
- const originalConceptImages=['drift-house-concept.svg','glass-point-concept.svg'];
- for(const name of originalConceptImages){
-   const occurrences=await page.locator('img[src="'+name+'"]').count();
-   assert(occurrences===2,'CURRENT '+name+' used in both property spread and ANIM-13 rail');
-   const decoded=await page.locator('img[src="'+name+'"]').first().evaluate(async img=>{
-     await img.decode();return img.naturalWidth>0&&img.naturalHeight>0;
-   });
-   assert(decoded,'CURRENT '+name+' original local SVG decodes in Chromium');
+ for(const id of ['37981442','6580232']){
+   const images=page.locator('img[src*="/photos/'+id+'/" ]');
+   assert((await images.count())===2,'CURRENT photo '+id+' is in both homes and rail');
  }
+ assert(!(await page.locator('.home-media img,.shore-slide img').evaluateAll(imgs=>imgs.some(img=>/drift-house-concept\.svg|glass-point-concept\.svg/.test(img.getAttribute('src')||'')))),'CURRENT generated SVG image stand-ins are absent');
  assert(!(await page.locator('.home-media img,.shore-slide img').evaluateAll(imgs=>imgs.some(img=>
    /photo-1503686982867|photo-1774516534119/.test(img.currentSrc||img.src)))),'CURRENT retired geographic-mismatch photos cannot be displayed');
  assert((await page.locator('.photo-tag').textContent()).includes('Not a listing'),'CURRENT photo-tag is labeled as non-listing stock');
@@ -631,15 +625,10 @@ try{
  await page.setViewportSize({width:390,height:900});
  await page.goto(base+'previews/ANIM-13/index.html',{waitUntil:'domcontentloaded'});
  const a13Sources=await page.locator('.a13-slide img').evaluateAll(imgs=>imgs.map(img=>new URL(img.currentSrc||img.src).pathname));
- assert(a13Sources.length===3&&a13Sources[0].endsWith('/templates/real-estate/drift-house-concept.svg')&&
-   a13Sources[1].endsWith('/templates/real-estate/glass-point-concept.svg')&&
-   a13Sources[2].includes('photo-1772411650649'),'ANIM-13 isolated preview uses two original concept illustrations and one labelled remaining stock photo');
- for(const i of [0,1]){
-   const good=await page.locator('.a13-slide img').nth(i).evaluate(async img=>{
-     await img.decode();return img.naturalWidth>0&&img.naturalHeight>0;
-   });
-   assert(good,'ANIM-13 isolated concept '+(i+1)+' decodes local art across built template path');
- }
+ assert(a13Sources.length===3&&a13Sources[0].includes('/photos/37981442/')&&
+   a13Sources[1].includes('/photos/6580232/')&&
+   a13Sources[2].includes('photo-1772411650649'),'ANIM-13 uses two sourced Pexels photographs and one separately review-gated photo');
+ assert(!(await page.locator('.a13-slide img').evaluateAll(imgs=>imgs.some(img=>/\.svg(?:$|[?])/.test(img.getAttribute('src')||'')))),'ANIM-13 no longer uses generated property SVGs');
  await page.locator('[data-a13-next]').click();
  assert((await page.locator('[data-a13-status]').textContent()).includes('2 of 3'),'ANIM-13 isolated rail has real previous/next behaviour');
  await page.goto(base+'previews/ANIM-16/index.html',{waitUntil:'domcontentloaded'});
