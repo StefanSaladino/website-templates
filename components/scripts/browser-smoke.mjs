@@ -311,6 +311,25 @@ try{
  assert(await page.locator('img[srcset]').count()===3,'TIDEFORM all three photo placements use responsive original sources');
  assert(await page.locator('.infinity-edge').evaluate(el=>getComputedStyle(el).display==='grid'),'TIDEFORM infinity section has responsive editorial layout');
  assert(await page.locator('.infinity-edge__copy').isVisible()&&await page.locator('.infinity-edge__note').isVisible(),'TIDEFORM infinity scene explanatory copy and note render');
+ await page.setViewportSize({width:1440,height:900});
+ const tideDesktop=await page.evaluate(()=>{
+  const section=document.querySelector('.infinity-edge').getBoundingClientRect();
+  const line=document.querySelector('.infinity-edge__horizon').getBoundingClientRect();
+  const credit=document.querySelector('.infinity-stock-note').getBoundingClientRect();
+  const circle=document.querySelector('.edge-detail').getBoundingClientRect();
+  return {lineRatio:(line.top-section.top)/section.height,
+    creditBeforeCircle:credit.right<circle.left,
+    creditWithinSection:credit.left>=section.left&&credit.right<=section.right};
+ });
+ assert(tideDesktop.lineRatio>.78&&tideDesktop.creditBeforeCircle&&tideDesktop.creditWithinSection,
+  'TIDEFORM desktop waterline stays below text and the independent-stock caption clears the decorative circle');
+ await page.setViewportSize({width:390,height:900});
+ const tidePhoneLine=await page.evaluate(()=>{
+  const section=document.querySelector('.infinity-edge').getBoundingClientRect();
+  const line=document.querySelector('.infinity-edge__horizon').getBoundingClientRect();
+  return (line.top-section.top)/section.height;
+ });
+ assert(tidePhoneLine>.66,'TIDEFORM phone horizon accent does not strike through the mobile headline');
  assert((await page.locator('.hero-stock-note').textContent()).includes('NOT A TIDEFORM BUILD'),'TIDEFORM cannot attribute the stock hero to itself');
  assert((await page.locator('.infinity-stock-note').textContent()).includes('TROPICAL'),'TIDEFORM infinity photo cannot imply Halton location');
  assert((await page.locator('.project-stock-note').textContent()).includes('NOT BUILT BY TIDEFORM'),'TIDEFORM architectural pool photo not represented as Oakville build');

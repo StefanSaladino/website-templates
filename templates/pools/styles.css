@@ -45,3 +45,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .infinity-edge .infinity-stock-note{z-index:4}
 @media(max-width:980px){.infinity-edge{min-height:850px;grid-template-columns:1fr}.infinity-edge__image img{object-position:52% 43%}.infinity-edge__copy{grid-column:1;padding:170px 24px 32px}.infinity-edge__note{grid-column:1;justify-self:start;max-width:540px;margin:0 24px 72px}}
 @media(max-width:620px){.infinity-edge{min-height:920px;align-content:end}.infinity-edge__image img{object-position:55% center;filter:saturate(.8) brightness(.58)}.infinity-edge__image::after{background:linear-gradient(0deg,rgba(2,46,54,.92),rgba(2,46,54,.62) 55%,rgba(2,46,54,.18))}.infinity-edge__copy{padding:140px 20px 18px}.infinity-edge__copy h2{font-size:clamp(45px,13vw,66px)}.infinity-edge__copy p:not(.section-label){font-size:13px}.infinity-edge__note{margin:0 20px 70px;padding:17px 18px}.infinity-edge__note strong{font-size:24px}}
+
+/* Actual decoded screenshots: keep the animated horizon below the headline,
+   and the independent-photo credit clear of the desktop edge illustration.
+   Higher-specificity rules also take precedence over the legacy style injected
+   by script.js; the static fallback remains legible with scripts unavailable. */
+.infinity-edge .infinity-edge__horizon{top:84%;opacity:.38}
+@media(min-width:981px){
+ .infinity-edge .infinity-stock-note{left:clamp(20px,5vw,70px);right:auto;top:25px;z-index:6}
+}
+@media(max-width:980px){
+ .infinity-edge .infinity-edge__horizon{top:70%;opacity:.28}
+}

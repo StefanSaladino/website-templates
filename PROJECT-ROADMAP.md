@@ -480,3 +480,7 @@ Retired three untraceable pools-template photos in favor of real Pexels original
 ## TIDEFORM distinct original-photo identity collision fix — 23 November 2026
 
 The first TIDEFORM source commit reused Pexels photo 25934928, already registered to MONOLITH TM-112; mandatory gallery source ownership checks failed before browser QA. Corrected project identity TM-128 to separate real Andrea Davis photo 38495442 and updated page, alt, source+creator, queue, pilot evidence and smoke test. 74 URLs are again unique, 65 photos/media sourced, 9 unsourced, zero approved. Existing validator retained; current-SHA browser and loaded-photo QA pending.
+
+## TIDEFORM actual 320/390/768/1440 screenshot review — 23 November 2026
+
+Loaded real photographed pool images and original section screenshots with no decoding failures or horizontal overflow. Found and corrected the decorative infinity-edge horizon clipping through the main heading and the desktop source-label/circular ornament overlap; smoke asserts both responsive geometry changes. The original layout refinements were JS-injected (not entirely absent), with new static CSS now supplying a no-JS fallback. Exact photo attribution 65/74; 9 remain untraced, zero approved. Re-run screenshot and latest-commit CI; no Step18/19 closure or main merge.
