@@ -98,8 +98,8 @@ for(const item of inventory.assets||[]){
  const verifiedSources={
   'TM-002':{identity:'https://images.unsplash.com/photo-1441986300917-64674bd600d8',
     page:'https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0',creator:'Clark Street Mercantile'},
-  'TM-018':{identity:'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5',
-    page:'https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po',creator:'John Arano'},
+  'TM-138':{identity:'https://images.pexels.com/photos/6389074/pexels-photo-6389074.jpeg',
+    page:'https://www.pexels.com/photo/monochrome-shot-of-a-barbell-6389074/',creator:'Tima Miroshnichenko'},
   'TM-010':{identity:'https://images.unsplash.com/photo-1497366754035-f200968a6e72',
     page:'https://unsplash.com/photos/hallway-between-glass-panel-doors-yWwob8kwOCk',creator:'Nastuh Abootalebi'},
   'TM-035':{identity:'https://images.unsplash.com/photo-1722103155234-5e83b3effe03',

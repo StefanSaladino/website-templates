@@ -306,6 +306,9 @@ try{
  assert((await page.locator('.hero-media img').getAttribute('alt')).includes('barbell'),'YARD hero accurately describes the real photographed barbell, not a YARD member');
  assert((await page.locator('.hero-media img').getAttribute('srcset')).includes('2400w'),'YARD cinematic hero supplies high-resolution responsive sources');
  assert((await page.locator('.hero-media img').getAttribute('sizes')).includes('1600px'),'YARD tall phone hero chooses a sharp 1600px source, not a thumbnail');
+ await page.setViewportSize({width:390,height:900});
+ assert((await page.locator('.hero-media img').evaluate(img=>getComputedStyle(img).objectPosition)).startsWith('78%'),
+   'YARD mobile art direction emphasizes the higher right-hand barbell plate rather than a plate obscured by the lower headline');
  assert(!/photo-1541534741688/.test(await page.content()),'Retired branded YARD athlete photo must never reappear');
  assert((await page.locator('.yard-hero-stock').textContent()).includes('TIMA MIROSHNICHENKO'),'YARD hero explicitly credits original stock photographer');
  assert((await page.locator('.image-frame img').getAttribute('src')).includes('/27810155/'),'YARD band uses publisher-attributed kettlebell stock, not an unsourced athlete');

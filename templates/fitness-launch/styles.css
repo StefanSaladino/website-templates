@@ -109,7 +109,7 @@ button,input{font:inherit}
   .hero-bottom{grid-template-columns:1fr;gap:28px;margin-top:34px}
   .primary-button{width:100%}
   .hero-index{display:none}.hero-cut{width:55vw;height:18vw}
-  .hero-media img{object-position:18% 50%}
+  .hero-media img{object-position:78% 50%}
   .statement{grid-template-columns:1fr;gap:28px}.statement-number{font-size:54px}.statement-note{margin-top:0}
   .image-band{grid-template-columns:1fr;min-height:0}.image-frame{min-height:72svh}.image-copy{padding:58px 20px 70px}
   .section-heading{grid-template-columns:1fr;gap:22px;margin-bottom:44px}.schedule-row{grid-template-columns:1fr auto;gap:8px 20px;padding:20px 0}.schedule-row strong{font-size:34px}.schedule-row em{grid-column:1/-1;text-align:left;color:rgba(11,11,10,.68)}
