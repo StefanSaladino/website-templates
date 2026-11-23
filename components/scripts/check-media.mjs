@@ -91,6 +91,10 @@ for(const asset of manifest.assets){
     if(!match||!match.stockAssetIds?.includes(asset.id))addError('Stock usage points to unlinked component '+asset.id+' / '+id);
   }
 }
+for(const id of ['ABOUT-02','INTRO-03','ANIM-20']){
+ const html=readFileSync(path.join(here,'previews',id,'index.html'),'utf8');
+ for(const retired of ['photo-1769353086138-19ee65291a04','photo-1756666915060-c4dbf6a03aad','photo-1771818385091-ba8c4d3164b8'])if(html.includes(retired))addError('Retired GRAIN & GABLE media in '+id+': '+retired);
+}
 // Shared stock references must retain exact verified source and photographer.
 const originals=parse('template-media-inventory.json');
 for(const original of originals.assets||[]){

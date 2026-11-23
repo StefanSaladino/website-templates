@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **18 without verified/recorded source-page links** and **18 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **15 without verified/recorded source-page links** and **15 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -24,7 +24,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-113 | event-launch | Pexels publisher page; Felipe Balduino | recognizable-concert-attendees, actual-Sao-Paulo-concert-not-Toronto, mobile-headline-contrast-crop-open |
 | TM-114 | event-launch | Pexels publisher page; Big Bag Films | real-performers-not-fictional-lineup, recognizable-performers, artist-endorsement-rights-open, poster-portrait-crop-open |
 | TM-053 | contractor | Source page missing; Creator missing | fictional-Toronto-job-site, visible-worker-model-rights-open, source-photographer-unverified (+1 more in JSON) |
-| TM-054 | woodworker | Source page missing; Creator missing | unsupported-white-oak-caption, wood-species-and-size-unverified, depicted-person (+2 more in JSON) |
+| TM-120 | woodworker | Pexels original; Daniel Reche | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-115 | event-launch | Pexels publisher page; Jeremy Li | real-concert-not-fictional-side-room, attendee-likeness-open, indoor-stage-identity-review, portrait-crop-open |
 | TM-068 | fitness-launch | Source page missing; Creator missing | recognizable-person-likeness-uncleared, misleading-carrying-alt, wide-crop-cuts-head (+2 more in JSON) |
 | TM-071 (film) | creative-agency | Recorded source page; cottonbro studio | No subject-specific review flags recorded |
@@ -52,13 +52,13 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-107 | editorial-commerce | Pexels publisher page; Taryn Elliott | unrelated-cooking-gear, incidental-label-review, 4:5-product-crop-pending |
 | TM-041 | real-estate | Source page missing; Creator missing | property-location-unverified, fake-hero-listing-association, phone-cover-clips-building (+1 more in JSON) |
 | TM-042 | architecture | Source page missing; Creator missing | false-Georgian-Bay-project-credit, residential-property-location-unverified, architect-designer-attribution-unverified (+2 more in JSON) |
-| TM-043 | woodworker | Source page missing; Creator missing | species-unverified, single-planter-alt-wrong, not-a-studio-commission (+1 more in JSON) |
+| TM-121 | woodworker | Pexels original; Fallgregg | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-116 | event-launch | Pexels publisher page; Sašo Vukadinović | unrelated-stage-not-harbour-venue, instrument-brand-markings-open, landscape-crop-review-open |
 | TM-046 | contractor | Source page missing; Creator missing | fictional-Vaughan-job-claim, unverified-structural-work-and-timeline, not-a-before-after (+1 more in JSON) |
 | TM-047 | restaurant | Source page missing; Creator missing | other-venue-identity-unverified, wine-type-unverified, venue-layout-claims-unverified (+1 more in JSON) |
 | TM-050 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | fictitious-before-after-attribution, plant-species-unverified, drainage-work-unverified (+2 more in JSON) |
 | TM-051 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | separate-property-not-ruled-out, wall-not-garden-planting-feature, false-project-continuity-risk (+1 more in JSON) |
-| TM-055 | woodworker | Source page missing; Creator missing | wood-species-unverified, fictional-product-not-verified, wide-crop-loses-upper-shelf (+1 more in JSON) |
+| TM-122 | woodworker | Pexels original; Manish Jangid | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-057 | real-estate | Source page missing; Creator missing | property-location-unverified, fictitious-listing-details, mobile-room-framing-review |
 | TM-058 | architecture | Source page missing; Creator missing | unverified-Toronto-project-history, program-area-completion-unverified, oak-linen-courtyard-inventions (+2 more in JSON) |
 | TM-059 | restaurant | Source page missing; Creator missing | other-venue-photo, restaurant-attribution-unverified, wide-crop-removes-distinctive-arch (+1 more in JSON) |
@@ -217,3 +217,7 @@ AFTER DARK retired all four remaining untraced original Unsplash photo identitie
 ## Morrow House independent-photo sourcing — 23 November 2026
 
 Three untraced Unsplash image identities TM-036/061/070 have been retired. Replacements TM-117/118/119 are original, publisher-identified Pexels photographs by Fernanda Neitzel, Дмитрий Терза and Miguel González, respectively. Five full-page uses and the root gallery thumbnail have been synchronized, with responsive source sets, accurate alt text and visible fictional-room disclosures. The catalogue's invented exact geographic coordinates and apparent availability call-to-action were removed. This is not evidence of actual rooms, accommodation or a Muskoka property. All six active Morrow House photos have publisher attribution. Original template media: 74 active, 56 sourced, 18 unresolved and 0 rights-approved. Actual mobile crops, identifiable property/trademark rights, redistribution and stakeholder approval remain open.
+
+## GRAIN & GABLE source synchronization — 23 November 2026
+
+Retired untraced unsplash originals TM-043, TM-054 and TM-055, replaced with authentic Pexels photos TM-120/121/122 by Daniel Reche (hand planing), Fallgregg (tiered flower planters) and Manish Jangid (wooden wall shelves in brick interior). Shared components STOCK-012/025/026 retain their IDs, updated to matched original publisher URLs, people/rights warnings and independent photography. Updated the full template, original gallery thumbnail, isolated ABOUT-02/INTRO-03/ANIM-20 previews, source checks and crop-screening coverage. Product copy and thumbnail no longer imply that photos depict a GRAIN & GABLE product or an unverified white-oak commission. Original template identity count: **74 total, 59 source+creator-attributed, 15 untraced, 0 approved**. Component-stock count 25, all review-only. Independent model/property, commercial template redistribution and device/crop acceptance remain blocked.

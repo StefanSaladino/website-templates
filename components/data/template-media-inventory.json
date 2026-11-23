@@ -272,38 +272,6 @@
       }
     },
     {
-      "id": "TM-043",
-      "urlIdentity": "https://images.unsplash.com/photo-1756666915060-c4dbf6a03aad",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "woodworker",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-025",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "6b24a8160ca78add5cc06d54fae4ee2a3c3542fc8b7bfefbe548d3e301d1dd23",
-        "notes": "Vertical dark-stained tiered wooden planter troughs against masonry block wall, with dry plants. No evidence for cedar species, hidden liner, actual maker or dimensions. 16:9 wide crops lose most tiers; tall portrait retains the subject.",
-        "flags": [
-          "species-unverified",
-          "single-planter-alt-wrong",
-          "not-a-studio-commission",
-          "wide-crop-clips-tiers"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-046",
       "urlIdentity": "https://images.unsplash.com/photo-1760545813135-fbda9423e448",
       "kind": "image",
@@ -468,71 +436,6 @@
           "desktop-crop-loses-vertical-context"
         ],
         "evidenceDocument": "docs/SHOWROOM-CONTRACTOR-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-054",
-      "urlIdentity": "https://images.unsplash.com/photo-1769353086138-19ee65291a04",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "woodworker",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-012",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "ee7f6819036c7c09bf2b3a693565a0b328c41cca99f80d84f072eb0e10d2a9d4",
-        "notes": "Person in a wide-brim hat working timber with a hand tool at a dim workshop bench. Existing 36-inch white oak shelf caption not established. 16:9 crop cuts person's lower body and wider shop; portrait retains process context.",
-        "flags": [
-          "unsupported-white-oak-caption",
-          "wood-species-and-size-unverified",
-          "depicted-person",
-          "not-studio-worker",
-          "wide-crop-truncates-workshop"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-055",
-      "urlIdentity": "https://images.unsplash.com/photo-1771818385091-ba8c4d3164b8",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "woodworker",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-026",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "200834c400ee54f7ff317b591f7524d6213223853186faf13e6dc936e105ab89",
-        "notes": "Two narrow wall-mounted white display ledges holding framed artwork and wood cutting boards. Does not prove species, front-rail design, exact sizes or studio commission. Wide crop clips high shelf; tall portrait shows both.",
-        "flags": [
-          "wood-species-unverified",
-          "fictional-product-not-verified",
-          "wide-crop-loses-upper-shelf",
-          "property-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
       }
     },
     {
@@ -1876,6 +1779,69 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Official Pexels publisher page and matching free-download ID checked on 2026-11-23; verified photographer Miguel González and photo 34997036. Original image inspected: High-angle view across calm dark water and a slim diagonal wooden jetty near the shore at dusk. Independent stock does not show actual Morrow House accommodation, property or Muskoka location. Private property, displayed marks, commercial template redistribution, crops and human release approval are not verified."
+    },
+    {
+      "id": "TM-120",
+      "urlIdentity": "https://images.pexels.com/photos/7109999/pexels-photo-7109999.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "woodworker",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-012",
+      "sourcePageUrl": "https://www.pexels.com/photo/a-person-using-a-wood-planer-7109999/",
+      "creator": "Daniel Reche",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified original Pexels publisher photo page and download identity 7109999 for photographer Daniel Reche on 2026-11-23. Real photographed subject: Close view of a craftsperson's hands planing timber with a metal hand plane at a woodworking bench. This independent image does not document GRAIN & GABLE staff, products, shop, materials, safety practices or actual commissions. Source license labelled Free; depicted-person, property, trade dress, crop, commercial template redistribution and final human release permissions remain unverified."
+    },
+    {
+      "id": "TM-121",
+      "urlIdentity": "https://images.pexels.com/photos/8850241/pexels-photo-8850241.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "woodworker",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-025",
+      "sourcePageUrl": "https://www.pexels.com/photo/garden-flowers-on-wooden-planters-8850241/",
+      "creator": "Fallgregg",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified original Pexels publisher photo page and download identity 8850241 for photographer Fallgregg on 2026-11-23. Real photographed subject: Tiered outdoor wooden flower planters filled with pink and yellow roses against a pale wall and wooden trellis. This independent image does not document GRAIN & GABLE staff, products, shop, materials, safety practices or actual commissions. Source license labelled Free; depicted-person, property, trade dress, crop, commercial template redistribution and final human release permissions remain unverified."
+    },
+    {
+      "id": "TM-122",
+      "urlIdentity": "https://images.pexels.com/photos/31922898/pexels-photo-31922898.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "woodworker",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-026",
+      "sourcePageUrl": "https://www.pexels.com/photo/rustic-brick-interior-with-wooden-shelves-and-decor-31922898/",
+      "creator": "Manish Jangid",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified original Pexels publisher photo page and download identity 31922898 for photographer Manish Jangid on 2026-11-23. Real photographed subject: Three wooden wall-mounted display shelves above a matching cabinet against a rustic brick wall. This independent image does not document GRAIN & GABLE staff, products, shop, materials, safety practices or actual commissions. Source license labelled Free; depicted-person, property, trade dress, crop, commercial template redistribution and final human release permissions remain unverified."
     }
   ]
 }

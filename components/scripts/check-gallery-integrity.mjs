@@ -41,6 +41,8 @@ for(const retired of ['photo-1600210492486-724fe5c67fb0','photo-1600585154340-be
 if((html+'\n'+js).includes('photo-1760965825135-e94f4e34494b'))issues.push('Retired AFTER DARK gallery photo returned');
 if((html+'\n'+js).includes('photo-1783716149654-5f3e7012ef45'))issues.push('Retired Morrow House gallery image returned');
 if((html+'\n'+js).includes('45.1237° N')||(html+'\n'+js).includes('79.6423° W'))issues.push('Fictional Morrow House may not publish invented exact coordinates');
+if((html+'\n'+js).includes('photo-1769353086138-19ee65291a04'))issues.push('Retired GRAIN & GABLE thumbnail photo returned');
+if((html+'\n'+js).includes('White oak wall shelf · 36 in.'))issues.push('Fictional woodworker gallery may not claim a specific unverified commission');
 let photoPlacements=0;
 for(const [source,kind] of [[html,'html'],[js,'script']]){
   for(const found of source.matchAll(/https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\/[^\s"'<>]+/g)){

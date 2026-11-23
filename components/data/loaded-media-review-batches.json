@@ -37,7 +37,8 @@
       "sections": [
         ".hero",
         ".pieces",
-        ".craft-showcase"
+        ".craft-showcase",
+        ".workshop"
       ],
       "required": 6,
       "poster": false

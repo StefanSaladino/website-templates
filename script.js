@@ -6,8 +6,8 @@ if (templateGrid && !document.querySelector('[data-template="woodworker"]')) {
       <a aria-label="Open Woodworker template" class="thumb-link" href="templates/woodworker/">
         <div class="thumb thumb--woodworker-sync">
           <div class="woodworker-thumb-rail" aria-hidden="true"><span>0</span><i></i><i></i><i></i><span>12</span><i></i><i></i><i></i><span>24</span></div>
-          <div class="woodworker-thumb-copy"><div class="woodworker-thumb-brand"><span aria-hidden="true"></span><div><b>GRAIN &amp; GABLE</b><small>WOODWORKING</small></div></div><p>SMALL-BATCH WOODWORK · SOUTHERN ONTARIO</p><strong>Built one<br/><em>at a time.</em></strong><i>Request a build</i></div>
-          <div class="woodworker-thumb-media"><img alt="" src="https://images.unsplash.com/photo-1769353086138-19ee65291a04?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=76&amp;w=1200"/><div><small>ON THE BENCH</small><b>White oak wall shelf · 36 in.</b></div></div>
+          <div class="woodworker-thumb-copy"><div class="woodworker-thumb-brand"><span aria-hidden="true"></span><div><b>GRAIN &amp; GABLE</b><small>WOODWORKING</small></div></div><p>FICTIONAL WOODWORK · DESIGN PREVIEW</p><strong>Built one<br/><em>at a time.</em></strong><i>Request a build</i></div>
+          <div class="woodworker-thumb-media"><img alt="" src="https://images.pexels.com/photos/7109999/pexels-photo-7109999.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"/><div><small>UNRELATED PHOTO / PEXELS</small><b>Hand-planing / stock study</b></div></div>
           <div class="woodworker-thumb-note"><small>SHOP NOTE / 017</small><b>Measure twice.</b></div><span class="live-badge">Preview</span>
         </div>
       </a>

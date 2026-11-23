@@ -526,6 +526,11 @@ try{
  assert(await page.locator('.photo-disclaimer').isVisible(),'GRAIN & GABLE stock and fictional project warning is visible');
  assert((await page.locator('.photo-disclaimer').textContent()).includes('unrelated stock photographs'),'GRAIN & GABLE must not imply completed client work');
  assert((await page.locator('.piece-photo--portrait img').getAttribute('alt')).includes('Tiered'),'GRAIN & GABLE planter alt reflects tiered photo');
+ assert((await page.locator('.hero-image img').getAttribute('src')).includes('/7109999/'),'GRAIN & GABLE hero uses Daniel Reche source-attributed hand planing');
+ assert((await page.locator('.piece-photo--portrait img').getAttribute('src')).includes('/8850241/'),'GRAIN & GABLE planter image matches real publisher photo');
+ assert((await page.locator('.piece-row--reverse img').getAttribute('src')).includes('/31922898/'),'GRAIN & GABLE shelf reference uses unrelated real brick-interior photo');
+ assert((await page.locator('.hero-image img').getAttribute('sizes')).includes('48vw'),'GRAIN & GABLE hero declares responsive photo width');
+ assert(await page.locator('img[srcset]').count()===5,'GRAIN & GABLE five publisher-identified image placements offer responsive source options');
  assert((await page.locator('[data-craft-slide="2"] .wood-study').getAttribute('role'))==='img'
    &&(await page.locator('[data-craft-slide="2"] figcaption').textContent()).includes('Original joinery concept'),'GRAIN & GABLE third slide is an original diagram rather than unsafe imagery');
  assert(await page.locator('.workshop-photo--sourced img.workshop-reference-photo').count()===1

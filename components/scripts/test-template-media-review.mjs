@@ -101,12 +101,13 @@ try{
  const woodwork=spawnSync(process.execPath,[script,'--offline','--templates=woodworker','--limit=5','--output='+path.join(directory,'woodworker')],{encoding:'utf8',timeout:20000});
  if(woodwork.status!==0)throw Error('Woodworker media selection failed: '+woodwork.stderr+'\\n'+woodwork.stdout);
  const woodImages=JSON.parse(readFileSync(path.join(directory,'woodworker/results.json'),'utf8'));
- assert.deepEqual(woodImages.assets.map(item=>item.id),['TM-043','TM-054','TM-055','TM-080']);
+ assert.deepEqual(woodImages.assets.map(item=>item.id),['TM-080','TM-120','TM-121','TM-122']);
+ assert(woodImages.assets.every(item=>item.sourcePageUrl&&item.creator),'GRAIN & GABLE four photo identities must carry official publisher and creator evidence');
  assert.equal(woodImages.total,4);
  assert.equal(woodImages.downloaded,0);
  assert.equal(woodImages.errors,0);
  assert(woodImages.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: woodworker selects four unapproved photos, including a source-attributed safer hand-plane reference; unsafe saw remains retired.');
+ console.log('PASS: GRAIN & GABLE selects four publisher-identified unrelated Pexels photos; unsafe saw stays retired and zero rights are approved.');
  const event=spawnSync(process.execPath,[script,'--offline','--templates=event-launch','--limit=5','--output='+path.join(directory,'event-launch')],{encoding:'utf8',timeout:20000});
  if(event.status!==0)throw Error('AFTER DARK media selection failed: '+event.stderr+'\\n'+event.stdout);
  const eventImages=JSON.parse(readFileSync(path.join(directory,'event-launch/results.json'),'utf8'));

@@ -370,31 +370,32 @@
     },
     {
       "id": "STOCK-012",
-      "sourceUrl": "https://images.unsplash.com/photo-1769353086138-19ee65291a04?auto=format&fit=crop&fm=jpg&q=78&w=1800",
-      "photographer": "Unverified — source credit in existing GRAIN & GABLE template needs matching to individual asset",
-      "platform": "Unsplash (as credited by existing template)",
-      "licenseUrl": "https://unsplash.com/license",
+      "sourceUrl": "https://www.pexels.com/photo/a-person-using-a-wood-planer-7109999/",
+      "photographer": "Daniel Reche",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
       "licenseReviewedAt": null,
       "reviewStatus": "needs-review",
-      "rightsNotes": "Reuses remote Unsplash image already displayed in templates/woodworker/index.html. Exact Unsplash source page, creator attribution, property/model permissions and suitability for redistribution were NOT verified. Review-only until source mapping and rights/crop checks are completed. This image is NOT actual work of the fictional studio.",
+      "rightsNotes": "Official Pexels source page and photographer Daniel Reche confirmed for photo 7109999. Original photographic scene: Close view of a craftsperson's hands planing timber with a metal hand plane at a woodworking bench. Independent source, not a GRAIN & GABLE real client, shop, staff member, finished product or approved imagery. Final commercial distribution, model/property, brand, and mobile crop reviews remain open.",
       "usageIds": [
         "ABOUT-02",
         "INTRO-03"
       ],
-      "altText": "Carpenter working carefully on a piece of wood at a bench; illustrative stock",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1769353086138-19ee65291a04?auto=format&fit=crop&fm=jpg&q=78&w=1800",
+      "altText": "Close view of a craftsperson's hands planing timber with a metal hand plane at a woodworking bench; not a GRAIN & GABLE project",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/7109999/pexels-photo-7109999.jpeg",
       "originalFilename": null,
       "fileHashSHA256": null,
       "derived": [],
-      "sourcePageVerifiedAt": null,
+      "sourcePageVerifiedAt": "2026-11-23",
       "assetAcquisitionStatus": "not-downloaded",
       "reviewFlags": [
-        "exact-source-page-pending",
-        "creator-unverified",
-        "property-and-model-rights-unverified",
-        "photo-crop-approval-pending",
-        "not-cleared-for-template-redistribution"
-      ]
+        "independent-stock-not-fictitious-commission",
+        "publisher-and-creator-confirmed",
+        "person-or-property-rights-open",
+        "mobile-crop-review-pending",
+        "commercial-redistribution-not-cleared"
+      ],
+      "sourcePageLicenseLabel": "Free, Pexels License"
     },
     {
       "id": "STOCK-014",
@@ -563,57 +564,59 @@
     },
     {
       "id": "STOCK-025",
-      "sourceUrl": "https://images.unsplash.com/photo-1756666915060-c4dbf6a03aad",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
-      "licenseUrl": "https://unsplash.com/license",
+      "sourceUrl": "https://www.pexels.com/photo/garden-flowers-on-wooden-planters-8850241/",
+      "photographer": "Fallgregg",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
       "licenseReviewedAt": null,
       "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-20 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "rightsNotes": "Official Pexels source page and photographer Fallgregg confirmed for photo 8850241. Original photographic scene: Tiered outdoor wooden flower planters filled with pink and yellow roses against a pale wall and wooden trellis. Independent source, not a GRAIN & GABLE real client, shop, staff member, finished product or approved imagery. Final commercial distribution, model/property, brand, and mobile crop reviews remain open.",
       "usageIds": [
         "ANIM-20"
       ],
-      "altText": "Tiered wooden planter troughs with dry vegetation against a masonry block wall; stock reference",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1756666915060-c4dbf6a03aad",
+      "altText": "Tiered outdoor wooden flower planters filled with pink and yellow roses against a pale wall and wooden trellis; not a GRAIN & GABLE project",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/8850241/pexels-photo-8850241.jpeg",
       "originalFilename": null,
       "fileHashSHA256": null,
       "derived": [],
-      "sourcePageVerifiedAt": null,
+      "sourcePageVerifiedAt": "2026-11-23",
       "assetAcquisitionStatus": "not-downloaded",
       "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
-        "license-and-third-party-rights-unverified",
-        "visual-crop-pending",
-        "template-redistribution-not-cleared"
-      ]
+        "independent-stock-not-fictitious-commission",
+        "publisher-and-creator-confirmed",
+        "person-or-property-rights-open",
+        "mobile-crop-review-pending",
+        "commercial-redistribution-not-cleared"
+      ],
+      "sourcePageLicenseLabel": "Free, Pexels License"
     },
     {
       "id": "STOCK-026",
-      "sourceUrl": "https://images.unsplash.com/photo-1771818385091-ba8c4d3164b8",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
-      "licenseUrl": "https://unsplash.com/license",
+      "sourceUrl": "https://www.pexels.com/photo/rustic-brick-interior-with-wooden-shelves-and-decor-31922898/",
+      "photographer": "Manish Jangid",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
       "licenseReviewedAt": null,
       "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-20 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "rightsNotes": "Official Pexels source page and photographer Manish Jangid confirmed for photo 31922898. Original photographic scene: Three wooden wall-mounted display shelves above a matching cabinet against a rustic brick wall. Independent source, not a GRAIN & GABLE real client, shop, staff member, finished product or approved imagery. Final commercial distribution, model/property, brand, and mobile crop reviews remain open.",
       "usageIds": [
         "ANIM-20"
       ],
-      "altText": "Shelving with wooden objects and artwork",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1771818385091-ba8c4d3164b8",
+      "altText": "Three wooden wall-mounted display shelves above a matching cabinet against a rustic brick wall; not a GRAIN & GABLE project",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/31922898/pexels-photo-31922898.jpeg",
       "originalFilename": null,
       "fileHashSHA256": null,
       "derived": [],
-      "sourcePageVerifiedAt": null,
+      "sourcePageVerifiedAt": "2026-11-23",
       "assetAcquisitionStatus": "not-downloaded",
       "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
-        "license-and-third-party-rights-unverified",
-        "visual-crop-pending",
-        "template-redistribution-not-cleared"
-      ]
+        "independent-stock-not-fictitious-commission",
+        "publisher-and-creator-confirmed",
+        "person-or-property-rights-open",
+        "mobile-crop-review-pending",
+        "commercial-redistribution-not-cleared"
+      ],
+      "sourcePageLicenseLabel": "Free, Pexels License"
     },
     {
       "id": "STOCK-027",
