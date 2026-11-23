@@ -7,6 +7,11 @@ on:
       - 'components/scripts/capture-loaded-media.mjs'
       - 'components/scripts/check-loaded-media-batches.mjs'
       - 'components/data/loaded-media-review-batches.json'
+      - 'index.html'
+      - 'script.js'
+      - 'styles.css'
+      - 'custom-bakes-gallery.css'
+      - 'components/data/template-media-inventory.json'
       # Photo-source, responsive crop or layout changes must trigger real image QA.
       - 'templates/**/index.html'
       - 'templates/**/styles.css'

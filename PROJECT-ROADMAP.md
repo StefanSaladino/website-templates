@@ -407,3 +407,8 @@ Retired four untraced original FRAME media IDs TM-014, TM-015, TM-012 and TM-013
 ## Root gallery image regression workflow coverage — 23 November 2026
 
 The branch's full showroom CI and Chromium interaction review now trigger on root `index.html`, `script.js`, `styles.css` and `custom-bakes-gallery.css` edits, not only nested `templates/**`/`components/**`. The dedicated gallery thumbnail browser workflow already covered those. This closes a gap where the library thumbnail could change independently of the template and miss full QA; actual image-loaded template review remains separately triggered by template HTML/CSS changes. Gallery assets and licences are still `needs-review` until explicit stakeholder/rights acceptance.
+
+
+## Gallery/photo QA gate now covers catalogue-only image edits — 23 November 2026
+
+The loaded-still-media browser evidence workflow now additionally runs for root gallery `index.html`, `script.js`, `styles.css` and `custom-bakes-gallery.css` changes and original-template image-inventory modifications, alongside full-template index/style changes. This closes the gap where the new FRAME hero/gallery photography could pass source QA yet leave a stale root thumbnail and fail loaded-media preflight on the next photo update. The independent gallery thumbnail workflow still performs the direct gallery screenshot/interaction tests; loaded-media checks the full template stills and asset decoding. Neither workflow approves rights or replaces human crop acceptance.
