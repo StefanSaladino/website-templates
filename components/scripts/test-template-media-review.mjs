@@ -169,12 +169,12 @@ try{
  const tattoos=spawnSync(process.execPath,[script,'--offline','--templates=tattoo-studio','--limit=5','--output='+path.join(directory,'tattoo-studio')],{encoding:'utf8',timeout:20000});
  if(tattoos.status!==0)throw Error('BLACKLINE media selection failed: '+tattoos.stderr+'\\n'+tattoos.stdout);
  const tattooAssets=JSON.parse(readFileSync(path.join(directory,'tattoo-studio/results.json'),'utf8'));
- assert.deepEqual(tattooAssets.assets.map(item=>item.id),['TM-030','TM-040']);
- assert.equal(tattooAssets.total,2);
+ assert.deepEqual(tattooAssets.assets.map(item=>item.id),['TM-086','TM-087','TM-088']);
+ assert.equal(tattooAssets.total,3);
  assert.equal(tattooAssets.downloaded,0);
  assert.equal(tattooAssets.errors,0);
  assert(tattooAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: tattoo-studio selects two unapproved images with zero offline downloads.');
+ console.log('PASS: tattoo-studio uses three credited Pexels equipment/preparation photos, no unverified identifiable clients or tattoo art; release review remains open.');
  const morrowSelection=spawnSync(process.execPath,[script,'--offline','--templates=architecture','--limit=5','--output='+path.join(directory,'architecture')],{encoding:'utf8',timeout:20000});
  if(morrowSelection.status!==0)throw Error('MORROW media selection failed: '+morrowSelection.stderr+'\\n'+morrowSelection.stdout);
  const architectureAssets=JSON.parse(readFileSync(path.join(directory,'architecture/results.json'),'utf8'));

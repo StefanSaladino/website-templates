@@ -409,8 +409,10 @@ try{
  assert(await page.locator('.blackline-demo-banner').isVisible(),'BLACKLINE discloses fictional studio before any work or artist claims');
  assert((await page.locator('.blackline-demo-banner').textContent()).includes('no operating studio'),'BLACKLINE must not imply a real tattoo business');
  assert((await page.locator('.blackline-hero-stock').textContent()).includes('NOT BLACKLINE'),'BLACKLINE hero photo is a reference, not studio work');
- assert((await page.locator('.work-piece--large img').getAttribute('alt')).includes('tattooed skin'),'BLACKLINE TM-030 cannot invent which body part is being tattooed');
- assert((await page.locator('.work-piece--tall img').getAttribute('alt')).includes('ring light'),'BLACKLINE TM-040 accurately describes visible setting');
+ assert((await page.locator('.work-piece--large img').getAttribute('src')).includes('/7005800/'),'BLACKLINE sourced stock depicts machine preparation without client tattoos');
+ assert((await page.locator('.work-piece--tall img').getAttribute('src')).includes('/29217591/'),'BLACKLINE detail photograph shows sourced ink/equipment without identifiable artist faces');
+ assert((await page.locator('.hero-media img').getAttribute('src')).includes('/35658361/'),'BLACKLINE hero uses a source-attributed separate-studio workspace');
+ assert(!/photo-1679585651020|photo-1745777761096/.test(await page.content()),'BLACKLINE retired tattoo/client/artist images stay excluded');
  assert((await page.locator('.blackline-artists-notice').textContent()).includes('invented example profiles'),'BLACKLINE names cannot imply real available artists');
  assert((await page.locator('.flash-card b').textContent()).includes('NOT BOOKABLE'),'BLACKLINE SVG flash design is not available to reserve');
  await page.locator('[data-rhythm-piece]').first().scrollIntoViewIfNeeded();

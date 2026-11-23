@@ -51,6 +51,7 @@ for(const templateId of templates){
   if(filename==='index.html'&&templateId==='editorial-commerce'&&/range-art--(?:boot|route|repair)/.test(source))fail('RANGE/FOUND generated image stand-ins cannot return');
   if(filename==='index.html'&&templateId==='woodworker'&&/workshop-photo--illustrated/.test(source))fail('Woodworker generated workshop image cannot return');
   if(templateId==='storefront'&&filename==='index.html'&&/mora-art--(?:hero|sink|materials)/.test(source))fail('MORA synthetic scene illustration cannot return');
+  for(const retired of ['photo-1679585651020-9ae0653c84ad','photo-1745777761096-081db6e036e7'])if(source.includes(retired))fail('Retired tattoo artist/client media returned in '+templateId+'/'+filename+': '+retired);
   if(source.includes('photo-1673874500167-17ca5ed1cf17'))fail('Retired Nutella-branded dessert stock must not return to '+templateId+'/'+filename);
   if(source.includes('photo-1760939858984-5dc76f0ea34a'))fail('Retired unsafe saw photo is forbidden in '+templateId+'/'+filename);
   for(const removed of ['photo-1503686982867-43fb1b9fb691','photo-1774516534119-7324f9948176'])if(source.includes(removed))fail('Retired misleading property photo '+removed+' in '+templateId+'/'+filename);
@@ -69,7 +70,7 @@ if(!Array.isArray(inventory.assets))fail('Missing assets array in original-templ
 const registered=new Map();
 for(const item of inventory.assets||[]){
  if(!/^TM-\d{3}$/.test(item.id))fail('Invalid original-template asset ID '+item.id);
- if(['TM-048','TM-005','TM-044','TM-065','TM-021','TM-031','TM-034','TM-038','TM-067','TM-011','TM-062','TM-029'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
+ if(['TM-048','TM-005','TM-044','TM-065','TM-021','TM-031','TM-034','TM-038','TM-067','TM-011','TM-062','TM-029','TM-030','TM-040'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
  if(!normalize(item.urlIdentity)||normalize(item.urlIdentity)!==item.urlIdentity)fail('Noncanonical tracked remote media '+item.id);
  if(registered.has(item.urlIdentity))fail('Duplicate original-template URL record: '+item.urlIdentity);
  registered.set(item.urlIdentity,item);

@@ -10,7 +10,7 @@ const manifest=JSON.parse(readFileSync(path.join(here,'data/template-media-inven
 const queue=readFileSync(path.join(here,'../docs/TEMPLATE-MEDIA-CLEARANCE-QUEUE.md'),'utf8');
 const assets=manifest.assets||[];
 const errors=[];
-if(assets.length!==72)errors.push('Expected 72 active source identities, got '+assets.length+'. Update all release checks when identities are added/retired.');
+if(assets.length!==74)errors.push('Expected 74 active source identities, got '+assets.length+'. Update all release checks when identities are added/retired.');
 const ids=assets.map(x=>x.id);
 if(new Set(ids).size!==ids.length)errors.push('Duplicate original media ID');
 const needs=assets.filter(x=>x.reviewStatus==='needs-review');

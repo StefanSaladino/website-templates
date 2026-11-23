@@ -4,15 +4,15 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **73 active external media identities:** 72 still/poster images and 1 opt-in 4K video
-- **51 without verified/recorded source-page links** and **51 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
-- **0 rights-approved assets.** All 73 remain `needs-review`
-- **31 first-priority review records** with people, branding, replacement or video-related flags; 42 follow-on records
+- **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
+- **49 without verified/recorded source-page links** and **49 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **0 rights-approved assets.** All 74 remain `needs-review`
+- **29 first-priority review records** with people, branding, replacement or video-related flags; 45 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 31 active records
+## High-priority queue — 29 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -31,10 +31,8 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-019 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, visible-vehicle-brand, wide-vs-phone-crop-needs-review (+1 more in JSON) |
 | TM-020 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, recognizable-brand-trade-dress, not-verified-client-work |
 | TM-028 | editorial-commerce | Source page missing; Creator missing | depicted-person, hero-caption-corrected, hero-mobile-crop-needs-css-review |
-| TM-030 | tattoo-studio | Source page missing; Creator missing | artist-client-consent-unverified, tattoo-artwork-rights-unverified, machine-branding-unverified (+3 more in JSON) |
 | TM-032 | editorial-commerce | Source page missing; Creator missing | depicted-person, fictional-product-mismatch, model-rights-unverified |
 | TM-033 | garage-detailing | Source page missing; Creator missing | depicted-person, 16-9-crop-excludes-face, model-rights-unverified (+1 more in JSON) |
-| TM-040 | tattoo-studio | Source page missing; Creator missing | identifiable-artist-face-and-body-art, client-and-bystander-consent-unverified, existing-tattoo-copyright-unverified (+4 more in JSON) |
 | TM-049 | event-launch | Source page missing; Creator missing | branded-signage-visible, performer-endorsement-unverified, hero-crop-risk (+1 more in JSON) |
 | TM-052 | event-launch | Source page missing; Creator missing | arena-not-small-venue, fake-photo-timestamp, pyrotechnics-event-misrepresentation (+1 more in JSON) |
 | TM-053 | contractor | Source page missing; Creator missing | fictional-Toronto-job-site, visible-worker-model-rights-open, source-photographer-unverified (+1 more in JSON) |
@@ -48,7 +46,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 42 active records
+## Follow-on queue — 45 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -94,6 +92,9 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-083 | storefront | Pexels original; Polina | Independent serum/jar flatlay, not actual MORA packages or real brand claims |
 | TM-084 | custom-bakes | Pexels official page; Jonathan Borba | White cake photograph, not this fictional studio's work, brand and final rights still require review |
 | TM-085 | custom-bakes | Pexels official page; Gustavo Fring | Cake decorator/venue unrelated to fictional bakery, model/endorsement and final rights review open |
+| TM-086 | tattoo-studio | Pexels official page; Moisés Fonseca | Actual Mexico City workspace; may not imply a BLACKLINE location or studio safety claim |
+| TM-087 | tattoo-studio | Pexels official page; Antoni Shkraba | Gloved hand preparing machine, separate studio; no real client or completed work depicted |
+| TM-088 | tattoo-studio | Pexels official page; Vitor Diniz | Ink caps/tools; independent stock, visible equipment labeling/crop review remains open |
 
 ## Recorded origin pages (not rights approval)
 
@@ -171,3 +172,10 @@ The three previously synthesized MORA still-life / sink / materials scene illust
 TM-029 (Unsplash dessert image with a visible Nutella jar) was removed from both the wedding-cake and bakery-story scenes because it mismatched the fictional wedding concept and visually associated an unrelated food brand with the sample business. It was replaced by *two separate, real, publisher-sourced Pexels photographs*: TM-084, [Jonathan Borba's white celebration cake](https://www.pexels.com/photo/elegant-white-layer-cake-with-intricate-frosting-37181428/), and TM-085, [Gustavo Fring's pastry decorating a pink cake](https://www.pexels.com/photo/crop-faceless-female-pastry-cook-decorating-cake-with-chocolate-in-kitchen-3983576/). Both exact Pexels download links, Free license notices and displayed creators were checked. They are **not work by DOT + CRUMB**, and model, property/venue and downstream license/release contexts remain `needs-review`. Neither image is an AI-generated replacement. Tests explicitly forbid the retired Unsplash ID from returning.
 
 Current original-template count: **73 active identities, 22 sourced/attributed, 51 still untraced, 0 finally approved**. The separately inventoried component stock count remains 25 and all entries are in review. Full browser, crop and human release checks remain outstanding.
+
+
+## BLACKLINE tattoo-session photography retirement — 22 November 2026
+
+Two original Unsplash identities TM-030 and TM-040 displayed identifiable artists, client skin and tattoo artwork without author, studio, model-consent or existing artwork-rights records. These identities were retired from all original-template usages, and a source-level regression forbids reintroduction. Four placements now reuse three independently attributable Pexels reference photographs instead: TM-086 [Moisés Fonseca's Mexico City tattoo workstation](https://www.pexels.com/photo/tattoo-studio-workspace-with-supplies-35658361/), TM-087 [Antoni Shkraba's gloved-hand machine preparation](https://www.pexels.com/photo/a-person-wearing-gloves-holding-tattoo-machine-7005800/) and TM-088 [Vitor Diniz's ink caps and tools](https://www.pexels.com/photo/tattoo-equipment-with-ink-and-needles-29217591/). Each official page credits photographer and shows Free-license status, with the original image file URL matching the photo ID. They do **not** show BLACKLINE clients, staff, procedures, studios or completed work, and associated copy now says so. The illustrated flash-sheet remains a fictional UI treatment, not a real copyrighted tattoo used as advertising. Existing venue/product branding, contextual permissions, crop, optimization and final public template rights remain `needs-review`.
+
+Current original-template media: **74 identities (25 with source page and creator, 49 untraced, zero rights-cleared)**. Separate 25-entry component stock inventory still requires independent review. All 157 components and full templates remain in review; no approval or branch merge.

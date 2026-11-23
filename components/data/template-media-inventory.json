@@ -795,40 +795,6 @@
       }
     },
     {
-      "id": "TM-030",
-      "urlIdentity": "https://images.unsplash.com/photo-1679585651020-9ae0653c84ad",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "tattoo-studio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "a26e8dd802ced6762be098f2d3a774139135e570adf2420fd259e83a978ed9aa",
-        "notes": "Close, over-the-shoulder view of a black-clad tattoo artist with dark hair wearing black gloves and using a dark wrapped tattoo machine against a client's already tattooed skin; some purple stencil marks visible at the right edge. The precise anatomical location cannot be determined from the photograph; original alt 'client's arm' unsupported. The device carries small visible product markings. The image cannot substantiate any BLACKLINE artwork, studio, equipment standards, identity or working relationship. Wide crop isolates machine, gloved hands and ink; tall phone crop retains some artist silhouette.",
-        "flags": [
-          "artist-client-consent-unverified",
-          "tattoo-artwork-rights-unverified",
-          "machine-branding-unverified",
-          "anatomical-location-not-established",
-          "false-recent-work-attribution",
-          "wide-crop-hides-context"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-TATTOO-STUDIO-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-032",
       "urlIdentity": "https://images.unsplash.com/photo-1708105252198-4f5fbf2c0884",
       "kind": "image",
@@ -1015,41 +981,6 @@
           "product-identity-unverified"
         ],
         "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-040",
-      "urlIdentity": "https://images.unsplash.com/photo-1745777761096-081db6e036e7",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "tattoo-studio",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "ee207750480b7c2d67cdcdd21517e40aa8264f0479e75fb7124b2adc829ec457",
-        "notes": "A visibly tattooed bearded adult wearing glasses and a backwards grey cap tattoos the arm of a seated person with extensive existing ink. Black gloves, green-wrapped tattoo machine, a bright circular lamp, partial orange lettering and several background people are visible. Scene resembles a busy public tattoo setting but precise event/location and artist identity are unverified. Wide crop cuts upper lamp and parts of seated client's body; phone crops preserve artist and client's arm but cannot establish ownership of the tattoo artwork.",
-        "flags": [
-          "identifiable-artist-face-and-body-art",
-          "client-and-bystander-consent-unverified",
-          "existing-tattoo-copyright-unverified",
-          "partial-venue-signage",
-          "unverified-convention-location",
-          "fictional-studio-affiliation",
-          "wide-crop-hides-setting"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-TATTOO-STUDIO-MEDIA-PILOT.md"
       }
     },
     {
@@ -2197,6 +2128,69 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Verified on official Pexels photo page: Gustavo Fring, 5760 x 3840 image of a crop-framed pastry chef applying chocolate drip icing to a pink cake, Free license. Download URL points to images.pexels.com/photos/3983576/pexels-photo-3983576.jpeg; photographer subject/venue is unrelated to DOT + CRUMB. Model and implied endorsement context, crop, final distribution remain unapproved. Attribution and Pexels site license eligibility are documented; secondary permissions, downstream delivery and visual approval require separate assessment."
+    },
+    {
+      "id": "TM-086",
+      "urlIdentity": "https://images.pexels.com/photos/35658361/pexels-photo-35658361.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "tattoo-studio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/tattoo-studio-workspace-with-supplies-35658361/",
+      "creator": "Moisés Fonseca",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Publisher Pexels page identifies Moisés Fonseca, Free license, Canon EOS Rebel T7, photo 35658361 and a photographed tattoo workspace in Mexico City, Mexico. Official download path identifies images.pexels.com/photos/35658361/pexels-photo-35658361.jpeg. No BLACKLINE location or artist attribution implied; incidental ink/container branding and studio property rights need review. Publisher-listed license allows website-template use, but it is not final model, property, trademark, photo-quality or product-license approval."
+    },
+    {
+      "id": "TM-087",
+      "urlIdentity": "https://images.pexels.com/photos/7005800/pexels-photo-7005800.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "tattoo-studio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/a-person-wearing-gloves-holding-tattoo-machine-7005800/",
+      "creator": "Antoni Shkraba",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Publisher Pexels page identifies Antoni Shkraba, Free license, Sony ILCE-7M3, photo 7005800 of gloved hands preparing tattoo machine at an unrelated studio. Official download path identifies images.pexels.com/photos/7005800/pexels-photo-7005800.jpeg. No visible completed tattoo or client claim; model/brand/context/final distribution remain under review. Publisher-listed license allows website-template use, but it is not final model, property, trademark, photo-quality or product-license approval."
+    },
+    {
+      "id": "TM-088",
+      "urlIdentity": "https://images.pexels.com/photos/29217591/pexels-photo-29217591.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "tattoo-studio",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/tattoo-equipment-with-ink-and-needles-29217591/",
+      "creator": "Vitor Diniz",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Publisher Pexels page identifies Vitor Diniz, Free license, photo 29217591 of ink caps and tattoo supplies. Exact download path points to images.pexels.com/photos/29217591/pexels-photo-29217591.jpeg. This scene is unconnected to BLACKLINE; avoid equipment ownership or safety-compliance claims. Final logo, visible-art, cropping and distribution review pending. Publisher-listed license allows website-template use, but it is not final model, property, trademark, photo-quality or product-license approval."
     }
   ]
 }
