@@ -4,22 +4,20 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **62 active external media identities:** 61 still/poster images and 1 4K opt-in video
-- **59 without recorded source-page links**, **59 without recorded creator credits**
+- **62 active external media identities:** 61 still/poster images and 1 opt-in 4K video
+- **57 without verified/recorded source-page links** and **57 without recorded creator credits**. Of the 5 recorded pages, TM-010's older entry has no recent `sourcePageVerifiedAt` stamp; that field still merits reverification
 - **0 rights-approved assets.** All 62 remain `needs-review`
-- **29 first-priority review records** flagged for people, recognizable branding, replacement concerns or video-specific risk; 33 follow-on records
-- MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired identities are **not active candidates**. Do not resurrect them
+- **29 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
+- MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
-The canonical and enforceable source is `components/data/template-media-inventory.json`. This dated queue records investigation priorities; it does not infer that a stock platform's ordinary display license permits template redistribution, model/property use, or endorsement claims. Refer to `docs/SHOWROOM-TEMPLATE-MEDIA-INVENTORY.md` for the initial historical inventory and prior review procedures.
+The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## First-priority investigation — 29 records
-
-Video, photographs involving people/likenesses, visible branding, and sources flagged for replacement or misleading photo annotation should be investigated first. Priority is a **workflow ordering**, not a legal or commercial-risk determination.
+## High-priority queue — 29 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
 | TM-001 | creative-agency | Recorded source page; cottonbro studio | depicted-person, visible-studio-tracking-markers, phone-hero-crop-needs-browser-acceptance (+2 more in JSON) |
-| TM-002 | frame-portfolio | Source page missing; Creator missing | visible-brand, property-rights-unverified, model-context-unverified |
+| TM-002 | frame-portfolio | Recorded source page; Clark Street Mercantile | visible-brand, property-rights-unverified, model-context-unverified |
 | TM-004 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, attention-phone-crop-poor |
 | TM-006 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, visible-vehicle-brand, phone-cover-crop-clips-subject (+1 more in JSON) |
 | TM-009 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, mobile-crop-loses-context |
@@ -30,7 +28,7 @@ Video, photographs involving people/likenesses, visible branding, and sources fl
 | TM-015 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, visible-lettering (+2 more in JSON) |
 | TM-016 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, phone-attention-crop-poor (+1 more in JSON) |
 | TM-017 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, multiple-placements (+1 more in JSON) |
-| TM-018 | fitness-launch | Source page missing; Creator missing | recognizable-person-likeness-uncleared, visible-ROGUE-equipment-brand, clothing-brand-mark (+2 more in JSON) |
+| TM-018 | fitness-launch | Recorded source page; John Arano | recognizable-person-likeness-uncleared, visible-ROGUE-equipment-brand, clothing-brand-mark (+2 more in JSON) |
 | TM-019 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, visible-vehicle-brand, wide-vs-phone-crop-needs-review (+1 more in JSON) |
 | TM-020 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, recognizable-brand-trade-dress, not-verified-client-work |
 | TM-028 | editorial-commerce | Source page missing; Creator missing | depicted-person, hero-caption-corrected, hero-mobile-crop-needs-css-review |
@@ -48,9 +46,7 @@ Video, photographs involving people/likenesses, visible branding, and sources fl
 | TM-068 | fitness-launch | Source page missing; Creator missing | recognizable-person-likeness-uncleared, misleading-carrying-alt, wide-crop-cuts-head (+2 more in JSON) |
 | TM-071 (film) | creative-agency | Recorded source page; cottonbro studio | No subject-specific review flags recorded |
 
-## Follow-on investigation — 33 records
-
-These are **not cleared or low-risk**. No special flags in the preliminary pilot can simply mean that no one inspected the image deeply enough. Verify origin, subject/property context, and permissions for each.
+## Follow-on queue — 33 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -88,26 +84,26 @@ These are **not cleared or low-risk**. No special flags in the preliminary pilot
 | TM-069 | pools | Source page missing; Creator missing | fictional-studio-attribution, pool-depth-and-dimensions-unverified, materials-and-equipment-not-proven (+1 more in JSON) |
 | TM-070 | muskoka-retreat | Source page missing; Creator missing | geographic-location-unverified, hero-text-over-image-qa-needed, phone-art-direction-needs-css-review |
 
-## Existing partial provenance (still not approved)
+## Recorded origin pages (not rights approval)
 
-- **TM-001:** cottonbro studio · [recorded source page](https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/) · status `needs-review`
-- **TM-010:** Nastuh Abootalebi · [recorded source page](https://unsplash.com/photos/hallway-between-glass-panel-doors-yWwob8kwOCk) · status `needs-review`
-- **TM-071:** cottonbro studio · [recorded source page](https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/) · status `needs-review`
+- **TM-001** — cottonbro studio: [source record](https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/) · exact-origin verification 2026-11-22. **Still `needs-review`.**
+- **TM-002** — Clark Street Mercantile: [source record](https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0) · exact-origin verification 2026-11-22. **Still `needs-review`.**
+- **TM-010** — Nastuh Abootalebi: [source record](https://unsplash.com/photos/hallway-between-glass-panel-doors-yWwob8kwOCk) · historical source entry, date of exact-origin recheck not recorded. **Still `needs-review`.**
+- **TM-018** — John Arano: [source record](https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po) · exact-origin verification 2026-11-22. **Still `needs-review`.**
+- **TM-071** — cottonbro studio: [source record](https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/) · exact-origin verification 2026-11-22. **Still `needs-review`.**
+
+The 22 November source match for **TM-002** identifies Clark Street Mercantile's Montréal shop photograph; exact image match and contributor attribution do not authorize use of the store's branding or depicted customers. **TM-018** is John Arano's barbell-training photo at CrossFit 1855 in Ottawa; subject likeness and ROGUE/training-facility depiction remain potential clearance issues. See `docs/TEMPLATE-MEDIA-SOURCE-VERIFICATION-PASS1.md` for the URLs, matching method and remaining questions.
 
 ## Required closure procedure for every asset
 
-1. Locate the exact original publisher/source page and the photographer or creator; record the original URL and creator identity against the matching `TM-###` ID.
-2. Review and record the **actual reuse/redistribution terms** for public client-facing template products and any downloaded/optimized derivatives. A remote image loading successfully does not establish permission.
-3. Review recognizable people, art, logos, vehicle brands, private property, location claims and false affiliation/portfolio implications; obtain releases/permissions where needed or replace the source.
-4. Prefer approved, appropriately licensed local image derivatives; verify image quality, subject crop and legibility at 320/390/768/1280/1440px. Update the manifest, template HTML/CSS, and any related gallery thumbnail atomically.
-5. Re-run source-manifest checks, loaded-photo browser QA, gallery thumbnail QA, keyboard and responsive workflows. Secure recorded owner/stakeholder signoff before changing review state or merging into `main`.
+1. Match the exact CDN image identity against the **original platform photo page**, using that page's image link when possible. A third-party site's bare photographer credit or a vaguely similar photo is insufficient.
+2. Record creator and original page, check if the file is standard free Unsplash rather than Unsplash+, and review relevant license/terms for template publication or sale. **Unsplash+ expressly restricts digital-template use.**
+3. Confirm depicted people, artwork, trademarks, logos, locations/private property and endorsements are permitted in the actual proposed context. Obtain required independent permission or replace with owned original material.
+4. For an approved source, make appropriately licensed/local optimized versions and retest actual gallery and full-page crops, text contrast and device layout. Keep original unapproved media records until the migration/decommission is complete; source metadata alone never flips `reviewStatus`.
+5. Re-run media manifest checks, loaded-photo and thumbnail browser suites, responsive and keyboard tests, document QA, and obtain explicit design and release approval.
 
-**Special exception — OFFCUT film:** TM-071 is opt-in 4K video. Do not automatically download, autoplay or claim clearance. Independently establish clip content, licensing, depicted-person permission, codec, duration, bitrate, handset bandwidth effect and an optimized alternative/fallback before considering distribution.
+**OFFCUT exception:** TM-071 remains optional reference video with `preload=none` and user opt-in. Do not download it automatically. Video content, duration, bitrate/codec, model permission and efficient local replacement are still open.
 
-## What this queue does not close
+## Other unresolved release gates
 
-Native Safari/Android, VoiceOver/TalkBack/NVDA, independent document accessibility, 200%–400% zoom and text spacing, all 44 alternate mobile variants, all 20 reduced-motion patterns, final photo overlay contrast, and stakeholder acceptance remain pending in Step 19.
-
-## License interpretation checkpoint
-
-Official platform-license distinctions and the current unresolved redistribution/model/brand assessment are recorded in [`STOCK-PLATFORM-POLICY-REVIEW.md`](STOCK-PLATFORM-POLICY-REVIEW.md). No photographer assignment was inferred from third-party reposts or CDN-only filenames.
+Native Safari/VoiceOver, Android/TalkBack, NVDA, genuine browser zoom/text-only zoom, loaded-photo contrast, all 44 alternate mobile treatments' human review, all 20 animation patterns' human motion review, tagged-PDF independent assessment, and stakeholder design acceptance remain open. No promotion to `live` or merge to `main`.

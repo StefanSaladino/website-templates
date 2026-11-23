@@ -70,6 +70,18 @@ for(const item of inventory.assets||[]){
  if(['TM-001','TM-071'].includes(item.id) && (item.sourcePageUrl!=='https://www.pexels.com/video/woman-in-a-studio-posing-at-the-camera-9489382/' || item.creator!=='cottonbro studio' || item.reviewStatus!=='needs-review')){
   fail('OFFCUT media must retain verified Pexels origin while release approval remains open: '+item.id);
  }
+ // Keep researched exact-source matches pinned to the same CDN identity.
+ // Never translate source-page discovery into media release approval.
+ const verifiedSources={
+  'TM-002':{identity:'https://images.unsplash.com/photo-1441986300917-64674bd600d8',
+    page:'https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0',creator:'Clark Street Mercantile'},
+  'TM-018':{identity:'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5',
+    page:'https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po',creator:'John Arano'}
+ };
+ const src=verifiedSources[item.id];
+ if(src&&(item.urlIdentity!==src.identity||item.sourcePageUrl!==src.page||
+  item.creator!==src.creator||item.reviewStatus!=='needs-review'))
+  fail('Verified original photo provenance drift or accidental rights approval: '+item.id);
  const kind=item.urlIdentity.startsWith('https://videos.pexels.com/')?'video':'image';
  if(item.kind!==kind)fail('Incorrect image/video kind '+item.id);
  const actualStock=knownStock.get(item.urlIdentity)||null;

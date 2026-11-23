@@ -307,3 +307,14 @@ The newest [full reflow run 45093501655](https://github.com/StefanSaladino/websi
 The same correction commit has **green GitHub Pages deployment**, **green full-template keyboard navigation**, and **green 20-pattern reduced-motion regression**. The broad showroom browser CI and independent review QA are separate workflows with results to be checked; do not treat running jobs as passes.
 
 These are **effective CSS viewport and text-spacing simulation** checks rather than real 200%/400% browser zoom, native-device accessibility or assistive-technology acceptance. Human screenshot review of actual loaded photos, 44 mobile alternative styles (their own prior green 88-case matrix), all 62 still-unapproved external media assets, PDF accessibility, legal/brand signoff, and final stakeholder approval remain release blockers. Keep Step 18 final approval and Step 19 open; no `live` status or main merge.
+
+## First exact-platform origin matches — 22 November 2026
+
+The two independently corroborated **original Unsplash photo pages** now recorded against exact active image identities are:
+
+- **TM-002 — FRAME portfolio, branded retail interior:** [Clark Street Mercantile / clothes store interior](https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0), verified against image link `https://images.unsplash.com/photo-1441986300917-64674bd600d8`. Visible store branding, private property and depicted-person issues remain open.
+- **TM-018 — YARD fitness campaign, barbell training:** [John Arano / woman doing weight lifting](https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po), verified against `https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5`. The source describes CrossFit 1855 (Ottawa), not YARD; likeness, trademark and simulated venue affiliation remain unresolved.
+
+Both exact source IDs are pinned in the source-integrity checker to prevent unrelated image replacements inheriting creator metadata. This increases recorded provenance from **3 to 5 of 62** active media identities; it does not increase approved licenses above zero. The explicit [62-item clearance queue](docs/TEMPLATE-MEDIA-CLEARANCE-QUEUE.md) now reflects 57 missing provenance entries rather than 59.
+
+Official Unsplash license/help material distinguishes the copyright permission from separate depicted-person/property/trademark rights. Unsplash+ also disallows use in digital templates; **do not treat stock photos discovered via third-party portfolio credits as freely distributable template assets.** No licensing or model release has been obtained in this pass, and Steps 18–19 remain open.

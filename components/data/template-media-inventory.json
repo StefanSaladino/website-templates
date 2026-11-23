@@ -50,8 +50,8 @@
         }
       ],
       "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
+      "sourcePageUrl": "https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0",
+      "creator": "Clark Street Mercantile",
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
       "localDerivative": null,
@@ -66,7 +66,9 @@
           "model-context-unverified"
         ],
         "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      }
+      },
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Unsplash photo page; exact images.unsplash.com CDN identity matched its displayed image link. Photographer/source attribution only; model, location, trademark and redistribution suitability still need independent review."
     },
     {
       "id": "TM-003",
@@ -522,8 +524,8 @@
         }
       ],
       "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
+      "sourcePageUrl": "https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po",
+      "creator": "John Arano",
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
       "localDerivative": null,
@@ -540,7 +542,9 @@
           "phone-crop-cuts-barbell-plates"
         ],
         "evidenceDocument": "docs/SHOWROOM-FITNESS-LAUNCH-MEDIA-PILOT.md"
-      }
+      },
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Unsplash photo page; exact images.unsplash.com CDN identity matched its displayed image link. Photographer/source attribution only; model, location, trademark and redistribution suitability still need independent review."
     },
     {
       "id": "TM-019",
