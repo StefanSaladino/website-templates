@@ -61,3 +61,16 @@ Media approval: 0/9. Component/template release approval: unchanged. Do not merg
 The original nine-photo audit and sample SHA-256 records above remain historical evidence. **TM-005, TM-044 and TM-065** have been removed from active RANGE/FOUND source and the original-template media inventory. The Route Kit, Field Repair Roll and Ridge Boot cards now use original inline SVG product-concept drawings, not branded third-party photographs, and display **NOT A PRODUCT PHOTO** labels.
 
 All eight sample product cards and the journal's ANIM-09 remain present. The fictional concept has no actual ordering or repair service: its CTAs now invite reviewing the sample kit and its repair copy is explicitly hypothetical. Six other unique remote photo identities remain to be cleared for rights, source-page, image-context accuracy and mobile crops. **Current RANGE/FOUND media identities: 6, down from 9; none approved.** The build checks prevent reintroduction of these retired identities.
+
+## RANGE/FOUND 6/6 active stock-source closure — 23 November 2026
+
+Retired the six untraced Unsplash sources, preserved as historical candidates in the earlier pilot above. The active replacements are authentic Pexels source photographs (not generated images):
+
+- **TM-103 — hero:** [Luke Miller, photo 27524811](https://www.pexels.com/photo/a-person-with-a-backpack-is-standing-on-a-trail-27524811/), replacing TM-028.
+- **TM-104 — pack:** [İlhan ÇAÇA, photo 29769393](https://www.pexels.com/photo/canvas-backpack-leaning-on-tree-in-forest-29769393/), replacing TM-027.
+- **TM-105 — jacket:** [Atiek Arief, photo 35919634](https://www.pexels.com/photo/hiker-in-orange-jacket-on-mountain-trail-35919634/), replacing TM-032.
+- **TM-106 — tent:** [Alexandre Boucher, photo 9043496](https://www.pexels.com/photo/a-tent-in-the-forest-at-night-9043496/), replacing TM-008.
+- **TM-107 — stove:** [Taryn Elliott, photo 9508451](https://www.pexels.com/photo/cooking-pot-with-noodles-on-a-burning-stove-9508451/), replacing TM-039.
+- **TM-108 — cups:** [Sergei Skrynnik, photo 12115344](https://www.pexels.com/photo/water-bottles-and-cups-near-the-stove-on-the-ground-12115344/), replacing TM-026.
+
+Updated every full-template src and relevant alt, all five product stock-photo disclosures, root gallery image, hero/footer provenance and standalone ANIM-09. Replaced STOCK-018 with linked STOCK-032 and guarded removed Unsplash identities against regression. This closes **source attribution**, not photo acceptance: new people/markings, actual 320/390/768/1280/1440 downloaded-image crops, contrast, published photo license limits, optimized local derivatives, screen readers and stakeholder redistribution approval still require evaluation. Active inventory 74 (45 sourced, 29 unsourced, 0 finally rights-approved); component stock count 25. Do not merge or promote.

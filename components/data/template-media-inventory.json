@@ -72,36 +72,6 @@
       "sourceVerificationNote": "Official Unsplash photo page; exact images.unsplash.com CDN identity matched its displayed image link. Photographer/source attribution only; model, location, trademark and redistribution suitability still need independent review."
     },
     {
-      "id": "TM-008",
-      "urlIdentity": "https://images.unsplash.com/photo-1496080174650-637e3f22fa03",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-018",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "f7e7e7377b8d97cd634e5436de6c9764600752857a210c06363aa3f616ec0d94",
-        "notes": "Orange-lit conical tent in dark woods. Center phone crop keeps tent; source does not demonstrate fictional two-person storm shelter, pitching claims or ownership.",
-        "flags": [
-          "fictional-product-mismatch",
-          "source-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-010",
       "urlIdentity": "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
       "kind": "image",
@@ -296,128 +266,6 @@
       }
     },
     {
-      "id": "TM-026",
-      "urlIdentity": "https://images.unsplash.com/photo-1619035226152-81e29823b8d9",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "9ebf51c7677186926e499a440745fc94bb274b741fd43c97c12b761202a67e47",
-        "notes": "Metal kettle on a compact stove with a mug in front of turquoise tent. Portrait crop retains camping scene, but does not depict a confirmed RANGE/FOUND enamel cup.",
-        "flags": [
-          "fictional-product-mismatch",
-          "phone-crop-needs-css-review"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-027",
-      "urlIdentity": "https://images.unsplash.com/photo-1622260614298-449a6f9f14fb",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "7a2671beef3e56577b2c1ccecf727a6cbec48ac968e3fec5d0fec8c85c60b91b",
-        "notes": "Green hiking pack on rocky ground beside flowing water. Portrait crops preserve pack; image cannot substantiate invented waxed ripstop or aluminium frame claims.",
-        "flags": [
-          "product-identity-unverified",
-          "phone-crop-needs-css-review"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-028",
-      "urlIdentity": "https://images.unsplash.com/photo-1627328187791-bb98dfe09ace",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "6d9ec1ea97ab8844919ca033b27088163f9b9634a460060f3089e0c16a330564",
-        "notes": "Hiker with large pack in evergreen forest, not a visible glacier or mountain landscape. Corrected unsupported hero location caption. Review focal point behind mobile headline.",
-        "flags": [
-          "depicted-person",
-          "hero-caption-corrected",
-          "hero-mobile-crop-needs-css-review"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-032",
-      "urlIdentity": "https://images.unsplash.com/photo-1708105252198-4f5fbf2c0884",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "732067beee95c53788cba6ff6df0b19d94951ce9656c12a174a193f3da2e83b5",
-        "notes": "Hiker wearing orange padded jacket touching a summit marker; 4:5 phone view preserves figure. Cannot establish the fictional product specifications; model and brand concerns open.",
-        "flags": [
-          "depicted-person",
-          "fictional-product-mismatch",
-          "model-rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-035",
       "urlIdentity": "https://images.unsplash.com/photo-1722103155234-5e83b3effe03",
       "kind": "image",
@@ -511,36 +359,6 @@
           "wide-crop-truncates-cookies"
         ],
         "evidenceDocument": "docs/SHOWROOM-CUSTOM-BAKES-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-039",
-      "urlIdentity": "https://images.unsplash.com/photo-1742799050770-8073eac5304a",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "editorial-commerce",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "a1d3612ca611761f6caaf41ac256e514caed7365eb604056ca43868cc72723df",
-        "notes": "Dark cooking pot on a small gas canister by a stone wall. Wide 16:9 stress crop truncates fuel canister; portrait view is closer to intended 4:5 product card.",
-        "flags": [
-          "wide-crop-clips-object",
-          "product-identity-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EDITORIAL-COMMERCE-MEDIA-PILOT.md"
       }
     },
     {
@@ -2045,6 +1863,132 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Original Pexels publisher photo page https://www.pexels.com/photo/confident-woman-posing-in-studio-with-bold-lighting-30231500/ credits Jimmy Elizarraras and displays Free, with direct Free Download image identity https://images.pexels.com/photos/30231500/pexels-photo-30231500.jpeg. This original was opened and visually verified as: Studio portrait of woman in black clothing, blue and purple lighting, circular spotlight backdrop. Real independently created photography, not the fictional FRAME studio's work. Model/property/garment/brand and commercial redistribution rights and actual responsive crop remain pending; no approval claimed."
+    },
+    {
+      "id": "TM-103",
+      "urlIdentity": "https://images.pexels.com/photos/27524811/pexels-photo-27524811.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/a-person-with-a-backpack-is-standing-on-a-trail-27524811/",
+      "creator": "Luke Miller",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified on official Pexels publisher page and confirmed the original photo free-download identity 27524811 with named creator Luke Miller and Free license label. Independent unrelated stock, not an authentic RANGE/FOUND product or project. Depicted-person, property, trademark, incidental brands, final desktop/mobile crops, downstream commercial template reuse and independent stakeholder rights approval remain open."
+    },
+    {
+      "id": "TM-104",
+      "urlIdentity": "https://images.pexels.com/photos/29769393/pexels-photo-29769393.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/canvas-backpack-leaning-on-tree-in-forest-29769393/",
+      "creator": "İlhan ÇAÇA",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified on official Pexels publisher page and confirmed the original photo free-download identity 29769393 with named creator İlhan ÇAÇA and Free license label. Independent unrelated stock, not an authentic RANGE/FOUND product or project. Depicted-person, property, trademark, incidental brands, final desktop/mobile crops, downstream commercial template reuse and independent stakeholder rights approval remain open."
+    },
+    {
+      "id": "TM-105",
+      "urlIdentity": "https://images.pexels.com/photos/35919634/pexels-photo-35919634.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/hiker-in-orange-jacket-on-mountain-trail-35919634/",
+      "creator": "Atiek Arief",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified on official Pexels publisher page and confirmed the original photo free-download identity 35919634 with named creator Atiek Arief and Free license label. Independent unrelated stock, not an authentic RANGE/FOUND product or project. Depicted-person, property, trademark, incidental brands, final desktop/mobile crops, downstream commercial template reuse and independent stakeholder rights approval remain open."
+    },
+    {
+      "id": "TM-106",
+      "urlIdentity": "https://images.pexels.com/photos/9043496/pexels-photo-9043496.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": "STOCK-032",
+      "sourcePageUrl": "https://www.pexels.com/photo/a-tent-in-the-forest-at-night-9043496/",
+      "creator": "Alexandre Boucher",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified on official Pexels publisher page and confirmed the original photo free-download identity 9043496 with named creator Alexandre Boucher and Free license label. Independent unrelated stock, not an authentic RANGE/FOUND product or project. Depicted-person, property, trademark, incidental brands, final desktop/mobile crops, downstream commercial template reuse and independent stakeholder rights approval remain open."
+    },
+    {
+      "id": "TM-107",
+      "urlIdentity": "https://images.pexels.com/photos/9508451/pexels-photo-9508451.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/cooking-pot-with-noodles-on-a-burning-stove-9508451/",
+      "creator": "Taryn Elliott",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified on official Pexels publisher page and confirmed the original photo free-download identity 9508451 with named creator Taryn Elliott and Free license label. Independent unrelated stock, not an authentic RANGE/FOUND product or project. Depicted-person, property, trademark, incidental brands, final desktop/mobile crops, downstream commercial template reuse and independent stakeholder rights approval remain open."
+    },
+    {
+      "id": "TM-108",
+      "urlIdentity": "https://images.pexels.com/photos/12115344/pexels-photo-12115344.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/water-bottles-and-cups-near-the-stove-on-the-ground-12115344/",
+      "creator": "Sergei Skrynnik",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Verified on official Pexels publisher page and confirmed the original photo free-download identity 12115344 with named creator Sergei Skrynnik and Free license label. Independent unrelated stock, not an authentic RANGE/FOUND product or project. Depicted-person, property, trademark, incidental brands, final desktop/mobile crops, downstream commercial template reuse and independent stakeholder rights approval remain open."
     }
   ]
 }

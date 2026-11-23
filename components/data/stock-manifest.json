@@ -508,29 +508,29 @@
       ]
     },
     {
-      "id": "STOCK-018",
-      "sourceUrl": "https://images.unsplash.com/photo-1496080174650-637e3f22fa03",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
-      "licenseUrl": "https://unsplash.com/license",
-      "licenseReviewedAt": null,
+      "id": "STOCK-032",
+      "sourceUrl": "https://www.pexels.com/photo/a-tent-in-the-forest-at-night-9043496/",
+      "photographer": "Alexandre Boucher",
+      "platform": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "licenseReviewedAt": "2026-11-23",
       "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-09 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "rightsNotes": "Pexels official original photo 9043496 from Alexandre Boucher identified and matched to publisher Free download. The photographed tent is not a real RANGE/FOUND product or project. Model/property, third-party marks, redistribution, crop and final release acceptance remain open.",
       "usageIds": [
         "ANIM-09"
       ],
-      "altText": "Illuminated tent in a forest after dark",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1496080174650-637e3f22fa03",
+      "altText": "Real Alexandre Boucher photograph of a glowing triangular tent among dark forest trees",
+      "temporaryPreviewUrl": "https://images.pexels.com/photos/9043496/pexels-photo-9043496.jpeg",
       "originalFilename": null,
       "fileHashSHA256": null,
       "derived": [],
-      "sourcePageVerifiedAt": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourcePageLicenseLabel": "Free, Pexels License",
       "assetAcquisitionStatus": "not-downloaded",
       "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
-        "license-and-third-party-rights-unverified",
-        "visual-crop-pending",
+        "unrelated-stock-not-fictional-product",
+        "property-and-brands-open",
+        "responsive-crop-pending",
         "template-redistribution-not-cleared"
       ]
     },

@@ -36,6 +36,7 @@ for(const retired of ["photo-1481349518771-20055b2a7b24","photo-1483985988355-76
 for(const retired of ['photo-1524504388940-b1c1722653e1','photo-1529139574466-a303027c1d8b','photo-1679585651020-9ae0653c84ad','photo-1745777761096-081db6e036e7','photo-1673874500167-17ca5ed1cf17','photo-1708805282706-f44730b7e527','photo-1552519507-da3b142c6e3d','photo-1580273916550-e323be2ae537','photo-1492144534655-ae79c964c9d7']){
   if((html+'\n'+js).includes(retired))issues.push('Retired high-risk gallery photograph returned: '+retired);
 }
+if((html+'\n'+js).includes('photo-1627328187791-bb98dfe09ace'))issues.push('Retired RANGE/FOUND gallery photo returned');
 let photoPlacements=0;
 for(const [source,kind] of [[html,'html'],[js,'script']]){
   for(const found of source.matchAll(/https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\/[^\s"'<>]+/g)){

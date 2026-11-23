@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **35 without verified/recorded source-page links** and **35 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **29 without verified/recorded source-page links** and **29 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -19,8 +19,8 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-001 | creative-agency | Recorded source page; cottonbro studio | depicted-person, visible-studio-tracking-markers, phone-hero-crop-needs-browser-acceptance (+2 more in JSON) |
 | TM-002 | frame-portfolio | Recorded source page; Clark Street Mercantile | visible-brand, property-rights-unverified, model-context-unverified |
 | TM-018 | fitness-launch | Recorded source page; John Arano | recognizable-person-likeness-uncleared, visible-ROGUE-equipment-brand, clothing-brand-mark (+2 more in JSON) |
-| TM-028 | editorial-commerce | Source page missing; Creator missing | depicted-person, hero-caption-corrected, hero-mobile-crop-needs-css-review |
-| TM-032 | editorial-commerce | Source page missing; Creator missing | depicted-person, fictional-product-mismatch, model-rights-unverified |
+| TM-103 | editorial-commerce | Pexels publisher page; Luke Miller | depicted-person, independent-forest-hiker, hero-mobile-crop-and-usage-context-open |
+| TM-105 | editorial-commerce | Pexels publisher page; Atiek Arief | depicted-person, visible-clothing-marking-review, not-fictional-outerwear |
 | TM-049 | event-launch | Source page missing; Creator missing | branded-signage-visible, performer-endorsement-unverified, hero-crop-risk (+1 more in JSON) |
 | TM-052 | event-launch | Source page missing; Creator missing | arena-not-small-venue, fake-photo-timestamp, pyrotechnics-event-misrepresentation (+1 more in JSON) |
 | TM-053 | contractor | Source page missing; Creator missing | fictional-Toronto-job-site, visible-worker-model-rights-open, source-photographer-unverified (+1 more in JSON) |
@@ -38,18 +38,18 @@ The canonical record and enforceable usage scanner are `components/data/template
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
-| TM-008 | editorial-commerce | Source page missing; Creator missing | fictional-product-mismatch, source-rights-unverified |
+| TM-106 | editorial-commerce | Pexels publisher page; Alexandre Boucher | real-night-tent-not-owned-shelter, ANIM-09-shared-photo, night-scene-crop-pending |
 | TM-010 | law-firm | Recorded source page; Nastuh Abootalebi | unrelated-office-stock, fictional-firm-and-lawyer-attribution, phone-crop-removes-office-context (+1 more in JSON) |
 | TM-022 | monolith-architecture | Source page missing; Creator missing | studio-attribution-unverified, geography-unverified, mobile-crop-cuts-sofa |
 | TM-023 | monolith-architecture | Source page missing; Creator missing | false-interior-alt, project-attribution-unverified, mobile-crop-truncates-building |
 | TM-024 | monolith-architecture | Source page missing; Creator missing | image-description-corrected, attribution-unverified, mobile-crop-truncates-exterior |
 | TM-025 | monolith-architecture | Source page missing; Creator missing | location-unverified, design-credit-unverified, pool-crop-context-review |
-| TM-026 | editorial-commerce | Source page missing; Creator missing | fictional-product-mismatch, phone-crop-needs-css-review |
-| TM-027 | editorial-commerce | Source page missing; Creator missing | product-identity-unverified, phone-crop-needs-css-review |
+| TM-108 | editorial-commerce | Pexels publisher page; Sergei Skrynnik | glass-cups-not-fictional-Tin-Cup, incidental-products-review, card-crop-pending |
+| TM-104 | editorial-commerce | Pexels publisher page; İlhan ÇAÇA | unrelated-tan-backpack, fictional-material-claims-disclaimed, mobile-crop-pending |
 | TM-035 | landscaping | Recorded source page; Naoki Suzuki | studio-project-attribution-unverified, stone-patio-not-established, wide-crop-hides-steps-and-flowers (+1 more in JSON) |
 | TM-036 | muskoka-retreat | Source page missing; Creator missing | interior-property-unverified, photo-not-actual-accommodation, mobile-crop-review-needed |
 | TM-037 | custom-bakes | Source page missing; Creator missing | product-authorship-unverified, order-pricing-unsupported, wide-crop-truncates-cookies |
-| TM-039 | editorial-commerce | Source page missing; Creator missing | wide-crop-clips-object, product-identity-unverified |
+| TM-107 | editorial-commerce | Pexels publisher page; Taryn Elliott | unrelated-cooking-gear, incidental-label-review, 4:5-product-crop-pending |
 | TM-041 | real-estate | Source page missing; Creator missing | property-location-unverified, fake-hero-listing-association, phone-cover-clips-building (+1 more in JSON) |
 | TM-042 | architecture | Source page missing; Creator missing | false-Georgian-Bay-project-credit, residential-property-location-unverified, architect-designer-attribution-unverified (+2 more in JSON) |
 | TM-043 | woodworker | Source page missing; Creator missing | species-unverified, single-planter-alt-wrong, not-a-studio-commission (+1 more in JSON) |
@@ -201,3 +201,7 @@ Retired four untraced original FRAME media IDs TM-014, TM-015, TM-012 and TM-013
 ## FRAME complete original and ANIM-12 shared media sourcing — 23 November 2026
 
 Retired FRAME TM-003/004/007/009/016/017, along with all their responsive and three matching isolated ANIM-12 uses. Original Pexels photographs verified at their exact image-download links: TM-097 [Deon Black, banana on pink](https://www.pexels.com/photo/yellow-banana-on-pink-background-5750431/), TM-098 [Gustavo Fring, shopping bags fashion study](https://www.pexels.com/photo/content-woman-in-stylish-outfit-with-shopping-bags-4127628/), TM-099 [Emre Kocdemir, wall-mounted lamp](https://www.pexels.com/photo/low-angle-view-of-a-lamp-on-a-wall-15500246/), TM-100 [Connor Scott McManus, floral dress on beach](https://www.pexels.com/photo/woman-in-dress-on-beach-12182965/), TM-101 [Gin, patterned jacket against brick](https://www.pexels.com/photo/young-woman-in-a-patterned-jacket-standing-against-a-brick-wall-22816074/), and TM-102 [Jimmy Elizarraras, blue/purple studio portrait](https://www.pexels.com/photo/confident-woman-posing-in-studio-with-bold-lighting-30231500/). These are real unrelated images, not AI-generated and not original work by the invented FRAME photographer. All publisher Free labels, named photographers and actual image downloads were checked. The standalone ANIM-12 now uses STOCK-029/030/031 corresponding to TM-102/098/097 with reciprocal component cross-links, and the FRAME root gallery uses TM-102. Full original media inventory: **74 entries, 39 with source and creator, 35 missing, 0 approved**. FRAME alone is **11/11 fully source-attributed**; component stock remains **25, 0 approved**. Human review of likeness, brands/artwork, frame crops, commercial redistribution and final licensing/optimization remains open; no live release or main merge.
+
+## RANGE/FOUND publisher-source replacement — 23 November 2026
+
+Six untraced original-template stock IDs TM-008/026/027/028/032/039 were retired and replaced by publisher-attributed real Pexels photographs TM-103..108. The root gallery hero is synchronized; isolated ANIM-09 switched from STOCK-018 to STOCK-032 matching full-template TM-106. All replaced imagery remains in-review and depicts unrelated products, people or scenes, not actual RANGE/FOUND work. **Publisher records: 45/74; missing: 29/74; rights-approved: 0/74.** Existing 25 isolated stock identities likewise remain unapproved. Unverified likeness/brands/property, loaded mobile crops, formal redistribution conditions, optimized local derivatives and stakeholder acceptance remain required.
