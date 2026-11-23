@@ -66,3 +66,7 @@ footer a{min-height:44px;display:flex;align-items:center}
 
 /* Preserve the FRAME off-duty subject toward the right of narrow editorial crops. */
 .frame--two img,.frame-feature-image[data-feature-image="1"] img{object-position:74% center}@media(max-width:620px){.frame--two img,.frame-feature-image[data-feature-image="1"] img{object-position:78% center}}
+
+/* Human 320/390/768/1440 loaded-photo review: keep heads in frame. The original center-cropped vertical red studio shot removed the subject's head on wide screens; narrow hoodie crop placed the face on the left edge. */
+@media(min-width:621px){.opening-right img{object-position:center top}}
+@media(max-width:620px){.opening-left img{object-position:40% center}}
