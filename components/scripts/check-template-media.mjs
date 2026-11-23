@@ -77,6 +77,8 @@ for(const item of inventory.assets||[]){
     page:'https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0',creator:'Clark Street Mercantile'},
   'TM-018':{identity:'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5',
     page:'https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po',creator:'John Arano'},
+  'TM-010':{identity:'https://images.unsplash.com/photo-1497366754035-f200968a6e72',
+    page:'https://unsplash.com/photos/hallway-between-glass-panel-doors-yWwob8kwOCk',creator:'Nastuh Abootalebi'},
   'TM-035':{identity:'https://images.unsplash.com/photo-1722103155234-5e83b3effe03',
     page:'https://unsplash.com/photos/a-stone-patio-with-steps-and-plants-in-the-foreground-V99f_PhYzmM',creator:'Naoki Suzuki'},
   'TM-050':{identity:'https://images.unsplash.com/photo-1761637823276-7d714eb45cb1',

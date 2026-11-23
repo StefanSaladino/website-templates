@@ -5,7 +5,7 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **62 active external media identities:** 61 still/poster images and 1 opt-in 4K video
-- **54 without verified/recorded source-page links** and **54 without recorded creator credits**. Of the 8 recorded pages, TM-010's older entry has no recent `sourcePageVerifiedAt` stamp; that field still merits reverification
+- **54 without verified/recorded source-page links** and **54 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 62 remain `needs-review`
 - **29 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -115,3 +115,7 @@ These links were already visible in the BED & BORDER template footer. Each was i
 ## Other unresolved release gates
 
 Native Safari/VoiceOver, Android/TalkBack, NVDA, genuine browser zoom/text-only zoom, loaded-photo contrast, all 44 alternate mobile treatments' human review, all 20 animation patterns' human motion review, tagged-PDF independent assessment, and stakeholder design acceptance remain open. No promotion to `live` or merge to `main`.
+
+## Northline original source recheck — 22 November 2026
+
+**TM-010** was already credited to Nastuh Abootalebi. Following the [original Unsplash photo page](https://unsplash.com/photos/hallway-between-glass-panel-doors-yWwob8kwOCk) again and comparing its linked CDN image `photo-1497366754035-f200968a6e72` confirmed the existing source relationship and added the missing verification stamp. The original photo location is identified as the Sunday Digital office in **Munich, Germany**—not NORTHLINE's fictional legal premises. Property rights, endorsement, brand context and publication approval remain open. The image remains `needs-review`.
