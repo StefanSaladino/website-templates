@@ -43,6 +43,8 @@ if((html+'\n'+js).includes('photo-1783716149654-5f3e7012ef45'))issues.push('Reti
 if((html+'\n'+js).includes('45.1237° N')||(html+'\n'+js).includes('79.6423° W'))issues.push('Fictional Morrow House may not publish invented exact coordinates');
 if((html+'\n'+js).includes('photo-1769353086138-19ee65291a04'))issues.push('Retired GRAIN & GABLE thumbnail photo returned');
 if((html+'\n'+js).includes('White oak wall shelf · 36 in.'))issues.push('Fictional woodworker gallery may not claim a specific unverified commission');
+if((html+'\n'+js).includes('photo-1774989423979-6a7bf5add3f0'))issues.push('Retired SERA gallery image returned');
+if((html+'\n'+js).includes('SUPPER CLUB · QUEEN WEST')||(html+'\n'+js).includes('<i>Reserve a table</i>'))issues.push('SERA concept thumbnail cannot imply a real venue or table booking');
 let photoPlacements=0;
 for(const [source,kind] of [[html,'html'],[js,'script']]){
   for(const found of source.matchAll(/https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\/[^\s"'<>]+/g)){

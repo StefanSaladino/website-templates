@@ -70,7 +70,8 @@
       "sections": [
         ".hero",
         ".menu-section",
-        ".room"
+        ".room",
+        ".image-break"
       ],
       "required": 3,
       "poster": false

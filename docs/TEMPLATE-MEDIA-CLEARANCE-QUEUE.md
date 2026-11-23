@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **15 without verified/recorded source-page links** and **15 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **12 without verified/recorded source-page links** and **12 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -55,16 +55,16 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-121 | woodworker | Pexels original; Fallgregg | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-116 | event-launch | Pexels publisher page; Sašo Vukadinović | unrelated-stage-not-harbour-venue, instrument-brand-markings-open, landscape-crop-review-open |
 | TM-046 | contractor | Source page missing; Creator missing | fictional-Vaughan-job-claim, unverified-structural-work-and-timeline, not-a-before-after (+1 more in JSON) |
-| TM-047 | restaurant | Source page missing; Creator missing | other-venue-identity-unverified, wine-type-unverified, venue-layout-claims-unverified (+1 more in JSON) |
+| TM-124 | restaurant | Pexels original; Le Salama (Pexels account) | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
 | TM-050 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | fictitious-before-after-attribution, plant-species-unverified, drainage-work-unverified (+2 more in JSON) |
 | TM-051 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | separate-property-not-ruled-out, wall-not-garden-planting-feature, false-project-continuity-risk (+1 more in JSON) |
 | TM-122 | woodworker | Pexels original; Manish Jangid | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-057 | real-estate | Source page missing; Creator missing | property-location-unverified, fictitious-listing-details, mobile-room-framing-review |
 | TM-058 | architecture | Source page missing; Creator missing | unverified-Toronto-project-history, program-area-completion-unverified, oak-linen-courtyard-inventions (+2 more in JSON) |
-| TM-059 | restaurant | Source page missing; Creator missing | other-venue-photo, restaurant-attribution-unverified, wide-crop-removes-distinctive-arch (+1 more in JSON) |
+| TM-125 | restaurant | Pexels original; Davis Arenas | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
 | TM-060 | custom-bakes | Source page missing; Creator missing | unsupported-cake-flavour-and-ingredients, whole-product-not-shown, extreme-macro-phone-crop (+1 more in JSON) |
 | TM-118 | muskoka-retreat | Pexels publisher page; Дмитрий Терза | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
-| TM-063 | restaurant | Source page missing; Creator missing | hero-alt-underdescribes-visible-interior, unrelated-dining-venue, seat-count-and-kitchen-not-shown (+1 more in JSON) |
+| TM-123 | restaurant | Pexels original; Rachel Claire | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
 | TM-064 | pools | Source page missing; Creator missing | fictional-project-claim, actual-Oakville-location-unverified, pool-engineering-materials-unverified (+2 more in JSON) |
 | TM-066 | pools | Source page missing; Creator missing | unrelated-tropical-setting, not-GTA-construction-evidence, overflow-system-not-visible (+2 more in JSON) |
 | TM-069 | pools | Source page missing; Creator missing | fictional-studio-attribution, pool-depth-and-dimensions-unverified, materials-and-equipment-not-proven (+1 more in JSON) |
@@ -221,3 +221,7 @@ Three untraced Unsplash image identities TM-036/061/070 have been retired. Repla
 ## GRAIN & GABLE source synchronization — 23 November 2026
 
 Retired untraced unsplash originals TM-043, TM-054 and TM-055, replaced with authentic Pexels photos TM-120/121/122 by Daniel Reche (hand planing), Fallgregg (tiered flower planters) and Manish Jangid (wooden wall shelves in brick interior). Shared components STOCK-012/025/026 retain their IDs, updated to matched original publisher URLs, people/rights warnings and independent photography. Updated the full template, original gallery thumbnail, isolated ABOUT-02/INTRO-03/ANIM-20 previews, source checks and crop-screening coverage. Product copy and thumbnail no longer imply that photos depict a GRAIN & GABLE product or an unverified white-oak commission. Original template identity count: **74 total, 59 source+creator-attributed, 15 untraced, 0 approved**. Component-stock count 25, all review-only. Independent model/property, commercial template redistribution and device/crop acceptance remain blocked.
+
+## SERA independent real-venue stock remediation — 23 November 2026
+
+Three old unsourced image identities TM-047/059/063 were retired. Official original Pexels pages now attribute TM-123/124/125 to Rachel Claire, Le Salama (source uploader account) and Davis Arenas. All three full-template image placements, original SERA featured gallery thumbnail, captions, accurate alt text, responsive sources and stock/disclaimer copy were updated. The featured gallery no longer suggests a real Toronto address or operational 'Reserve a table' CTA; the interactive original SERA booking remains a non-submitting design demo. Original media: **74 identities, 62 publisher+creator-attributed, 12 unresolved, zero final rights approvals**. Source page Free labels are not commercial template redistribution approvals or consent from identifiable property/brands. Crop imagery, full-page/physical mobile accessibility and stakeholder release approval remain open. `main` unchanged.

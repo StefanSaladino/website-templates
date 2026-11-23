@@ -305,38 +305,6 @@
       }
     },
     {
-      "id": "TM-047",
-      "urlIdentity": "https://images.unsplash.com/photo-1760662435569-84a4fb1fa407",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "restaurant",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "063864bad53e82cc7817efef46302e90db21737250bc655a8ca157f99d2f6016",
-        "notes": "Dark plum and black paneled wall with a tall thin shaded lamp; a corner of a set table, drinking glass and folded linen appear near the lower edge. Existing lamp/table description is broadly consistent, though visible glass is not confirmed as wine. Stock photo cannot document SERA or its claimed seat count, layout or location. Wide crop reduces the already-limited lower table context; tall phone retains wall and lamp.",
-        "flags": [
-          "other-venue-identity-unverified",
-          "wine-type-unverified",
-          "venue-layout-claims-unverified",
-          "wide-crop-cuts-table"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-RESTAURANT-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-050",
       "urlIdentity": "https://images.unsplash.com/photo-1761637823276-7d714eb45cb1",
       "kind": "image",
@@ -503,38 +471,6 @@
       }
     },
     {
-      "id": "TM-059",
-      "urlIdentity": "https://images.unsplash.com/photo-1773100699991-b7e6bf89a6a1",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "restaurant",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "343f6a4ff7a55eec0b3c853e23abc4e1ebddfb296e412bf69e2fa44b8b4b3343",
-        "notes": "Dim furnished dining interior with wood-topped round tables laid with cutlery, glassware and napkins, dark chairs, and a large semicircular arched window in the background. Description of an arched-window restaurant is supported; fictional SERA ownership, service, neighborhood and room dimensions are not. Wide crop mostly shows foreground table setting and loses the arch; tall crop keeps window/table relationship.",
-        "flags": [
-          "other-venue-photo",
-          "restaurant-attribution-unverified",
-          "wide-crop-removes-distinctive-arch",
-          "capacity-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-RESTAURANT-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-060",
       "urlIdentity": "https://images.unsplash.com/photo-1773366906258-d657466ad76c",
       "kind": "image",
@@ -564,38 +500,6 @@
           "baker-authorship-unverified"
         ],
         "evidenceDocument": "docs/SHOWROOM-CUSTOM-BAKES-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-063",
-      "urlIdentity": "https://images.unsplash.com/photo-1774989423979-6a7bf5add3f0",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "restaurant",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "651154e2c7537c87c907b610a96ffa23921b84e550992bde4415333b3ed370af",
-        "notes": "Opulent interior with many bright golden orb/pendant lights, curved tan upholstered banquette or booth seating, round set tables and lush center greenery. Existing hero alt incorrectly emphasized dark wood tables rather than the bright golden pendants and upholstery. Photo is not evidence of SERA's imaginary open kitchen, 38 seats or Queen West setting; wide crop removes portions of room ceiling and floor.",
-        "flags": [
-          "hero-alt-underdescribes-visible-interior",
-          "unrelated-dining-venue",
-          "seat-count-and-kitchen-not-shown",
-          "wide-crop-loses-room-context"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-RESTAURANT-MEDIA-PILOT.md"
       }
     },
     {
@@ -1842,6 +1746,69 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Verified original Pexels publisher photo page and download identity 31922898 for photographer Manish Jangid on 2026-11-23. Real photographed subject: Three wooden wall-mounted display shelves above a matching cabinet against a rustic brick wall. This independent image does not document GRAIN & GABLE staff, products, shop, materials, safety practices or actual commissions. Source license labelled Free; depicted-person, property, trade dress, crop, commercial template redistribution and final human release permissions remain unverified."
+    },
+    {
+      "id": "TM-123",
+      "urlIdentity": "https://images.pexels.com/photos/5863521/pexels-photo-5863521.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "restaurant",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/interior-design-of-a-bar-and-restaurant-5863521/",
+      "creator": "Rachel Claire",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Pexels publisher record and matching original photo download inspected on 2026-11-23: Rachel Claire, original photo 5863521, listed under Free license. Visible photo: Dark amber-red lounge with a leather tufted bench, hanging chandelier, glass partitions and warm hanging lights. This real image is unrelated to the fictional SERA supper club; photographic attribution and a Free label are not model/property, venue-affiliation, trademark or commercial template redistribution approval. No legal or human release review."
+    },
+    {
+      "id": "TM-124",
+      "urlIdentity": "https://images.pexels.com/photos/37307271/pexels-photo-37307271.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "restaurant",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/cozy-restaurant-interior-with-vintage-lamp-37307271/",
+      "creator": "Le Salama (Pexels account)",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Pexels publisher record and matching original photo download inspected on 2026-11-23: Le Salama (Pexels account), original photo 37307271, listed under Free license. Visible photo: Lamp-lit restaurant dining corner with a fringed table lamp, carved timber partition, white table linen and glassware. This real image is unrelated to the fictional SERA supper club; photographic attribution and a Free label are not model/property, venue-affiliation, trademark or commercial template redistribution approval. No legal or human release review."
+    },
+    {
+      "id": "TM-125",
+      "urlIdentity": "https://images.pexels.com/photos/16131605/pexels-photo-16131605.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "restaurant",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/interior-of-a-restaurant-in-a-rustic-style-16131605/",
+      "creator": "Davis Arenas",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Pexels publisher record and matching original photo download inspected on 2026-11-23: Davis Arenas, original photo 16131605, listed under Free license. Visible photo: Rustic interior with a tall arched window, wooden dining tables, wicker chairs and stone archway. This real image is unrelated to the fictional SERA supper club; photographic attribution and a Free label are not model/property, venue-affiliation, trademark or commercial template redistribution approval. No legal or human release review."
     }
   ]
 }

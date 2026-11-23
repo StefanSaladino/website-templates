@@ -464,3 +464,7 @@ Actual loaded-photo QA flagged the new tiered-planter image as cropped to 40.3% 
 ## ANIM-20 isolated versus integrated parity — 23 November 2026
 
 Extended GRAIN & GABLE's corrected portrait-photo framing and responsive source sets into the standalone ANIM-20 showroom preview, without changing the finite controls, third original joinery drawing, reduced-motion semantics, or mobile layout. Added a 1280px desktop geometry assertion. Await final latest-SHA Chromium/browser screenshot evidence. `main`, Steps 18/19 and all media release gates remain unchanged.
+
+## SERA Restaurant: authenticated photo sources and gallery safety — 23 November 2026
+
+Retired three unattributed original-template SERA Unsplash photos, replaced with authentic publisher-verified Pexels scenes TM-123..125 by Rachel Claire, Le Salama and Davis Arenas. Synced the featured gallery, accurate alt text, real unrelated venue disclaimers, responsive image variants and strict retrospective source guards. Gallery no longer pretends a real Queen West location or live table reservation. Extended decoded screenshot capture to the arched-room image break. Library provenance is **62/74 sources identified, 12 untraced, zero approved**; 25 component stock still review-gated. Prior GRAIN & GABLE CI/browser must be checked, then SERA latest-SHA loaded-image and browser QA. Next source family TIDEFORM Pools. Steps 18/19/manual commercial release remain open; no merge to `main`.

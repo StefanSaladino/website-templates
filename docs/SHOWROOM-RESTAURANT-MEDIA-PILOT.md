@@ -43,3 +43,13 @@ _22 November 2026 · `feature/component-showroom` · image screening only; zero 
 5. Preserve all 3 inventory entries in `needs-review`, rights approvals **0**, and leave `main` unchanged.
 
 **Next photo family:** `pools`, three images.
+
+## Publisher-original photo source replacement — 23 November 2026
+
+The three historical unsourced Unsplash candidates and their original review SHA hashes above are retired from **active** template sources and ledger; old review results remain historical observations. New Pexels originals, verified to matched exact publisher photo download IDs, are:
+
+- **TM-123 / hero** — [Rachel Claire, Pexels photo 5863521](https://www.pexels.com/photo/interior-design-of-a-bar-and-restaurant-5863521/). Actual photographed subject: Dark amber-red lounge with a leather tufted bench, hanging chandelier, glass partitions and warm hanging lights. Retired identity TM-063.
+- **TM-124 / room** — [Le Salama (Pexels account), Pexels photo 37307271](https://www.pexels.com/photo/cozy-restaurant-interior-with-vintage-lamp-37307271/). Actual photographed subject: Lamp-lit restaurant dining corner with a fringed table lamp, carved timber partition, white table linen and glassware. Retired identity TM-047.
+- **TM-125 / image-break** — [Davis Arenas, Pexels photo 16131605](https://www.pexels.com/photo/interior-of-a-restaurant-in-a-rustic-style-16131605/). Actual photographed subject: Rustic interior with a tall arched window, wooden dining tables, wicker chairs and stone archway. Retired identity TM-059.
+
+The SERA hero now shows a real dark red lounge, the room inset a vintage lamp and set table, and the full-bleed dining image a different arched-window venue; none represents a real SERA site. Gallery thumbnail now uses the new hero but explicitly says fictional dining concept and explore design preview instead of implying Queen West table reservations. All three in-template `img` tags use `srcset`, truthful alt text, intrinsic sizes and asynchronous decoding; the hero loads eagerly and secondary imagery lazily. The still-image batch captures the hero, menu, room, **and full-bleed arched dining-room** at 320, 390, 768, 1440 widths; follow-up visuals must verify actual object-fit crop and caption readability. No real booking, venue, menu, address or seat count is established. **Original photo library 62/74 sourced, 12 untraced, 0 rights-approved**; all 25 isolated component-stock identities remain in review. Photography releases, property/branding and redistribution terms, iOS/Android and screen-reader QA still pending. Do not promote or merge.

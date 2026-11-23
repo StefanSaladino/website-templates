@@ -318,7 +318,12 @@ try{
  await openTemplate('restaurant');
  assert(await page.locator('.sera-demo-banner').isVisible(),'SERA clearly announces it is a fictional restaurant before the hero');
  assert((await page.locator('.sera-demo-banner').textContent()).includes('No tables can be booked'),'SERA cannot imply live restaurant booking');
- assert((await page.locator('.hero-media img').getAttribute('alt')).includes('golden pendant lights'),'SERA hero alt reflects the actual illuminated room');
+ assert((await page.locator('.hero-media img').getAttribute('alt')).includes('leather tufted bench'),'SERA hero alt truthfully describes actual unrelated warm-lit lounge');
+ assert((await page.locator('.hero-media img').getAttribute('src')).includes('/5863521/'),'SERA hero uses verified Rachel Claire Pexels photograph');
+ assert((await page.locator('.room-image img').getAttribute('src')).includes('/37307271/'),'SERA room image uses verified Le Salama Pexels photograph');
+ assert((await page.locator('.image-break img').getAttribute('src')).includes('/16131605/'),'SERA background uses verified Davis Arenas arched-room photograph');
+ assert((await page.locator('.hero-media img').getAttribute('fetchpriority'))==='high','SERA prioritizes the genuine hero image');
+ assert(await page.locator('img[srcset]').count()===3,'SERA all three new publisher-attributed photos have responsive width hints');
  assert((await page.locator('.hero-stock-label').textContent()).includes('NOT SERA'),'SERA hero image cannot impersonate the restaurant');
  assert((await page.locator('.image-stock-label').textContent()).includes('STOCK PHOTO'),'SERA dining room is disclosed as unrelated');
  assert((await page.locator('.menu-disclaimer').textContent()).includes('fictional examples'),'SERA menu and ingredient/prices are examples');

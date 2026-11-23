@@ -38,6 +38,7 @@ for(const [batch,entries] of Object.entries(data)){
   }
   if(id==='event-launch' && !entry.sections.includes('.poster-break'))errors.push('AFTER DARK loaded-photo review must include the two-photo poster section for visual crop acceptance');
   if(id==='woodworker'&&!entry.sections.includes('.workshop'))errors.push('GRAIN & GABLE source-photo review must capture workshop alongside hero, pieces and carousel');
+  if(id==='restaurant'&&!entry.sections.includes('.image-break'))errors.push('SERA loaded-photo review must capture its actual full-bleed arched dining-room scene');
   reports.push({batch,template:id,remoteImageTags:thirdParty.length,localImageTags:tags.length-thirdParty.length,sections:entry.sections});
   console.log('PASS:',id,thirdParty.length+' remote img tags, '+entry.sections.length+' screenshot sections');
  }
