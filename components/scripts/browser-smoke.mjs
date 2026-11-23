@@ -154,7 +154,7 @@ try{
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('garage-detailing');
  assert(await page.locator('.gallery-disclaimer').isVisible(),'GARAGE stock-image context is visible before the showcase');
- assert((await page.locator('.gallery-disclaimer').textContent()).includes('not verified GARAGE clients'),'GARAGE must not imply real client work');
+ assert((await page.locator('.gallery-disclaimer').textContent()).includes('not GARAGE employees, verified clients or completed jobs'),'GARAGE must not imply real client work');
  assert((await page.locator('.work-main img').getAttribute('src')).includes('/6872149/'),'GARAGE gallery photo depicts actual headlight washing rather than a fictional finished client car');
  assert((await page.locator('.feature-image img').getAttribute('src')).includes('/35149476/'),'GARAGE feature photograph depicts vehicle hand-polishing, not a fictional client job');
  assert((await page.locator('.hero-image img').getAttribute('src')).includes('/5233279/'),'GARAGE hero and gallery use a sourced real detailer scene');
