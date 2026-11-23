@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "check": "node scripts/check-gallery-integrity.mjs && node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs && node scripts/check-template-media.mjs && node scripts/check-loaded-media-batches.mjs && node scripts/test-template-media-review.mjs && npm run check:review",
+    "check": "node scripts/check-gallery-integrity.mjs && node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs && node scripts/check-template-media.mjs && node scripts/check-template-media-provenance.mjs && node scripts/check-loaded-media-batches.mjs && node scripts/test-template-media-review.mjs && npm run check:review",
     "build": "npm run check && vite build && node scripts/postbuild.mjs && node scripts/check-dist.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "optimize:stock": "node scripts/optimize-stock.mjs",
@@ -21,7 +21,8 @@
     "review:gallery-browser": "node scripts/audit-gallery-browser.mjs",
     "review:reduced-motion": "node scripts/audit-reduced-motion.mjs",
     "review:mobile-alternatives": "node scripts/audit-mobile-alternatives.mjs",
-    "review:reflow-text-spacing": "node scripts/audit-text-spacing-reflow.mjs"
+    "review:reflow-text-spacing": "node scripts/audit-text-spacing-reflow.mjs",
+    "check:media-provenance": "node scripts/check-template-media-provenance.mjs"
   },
   "devDependencies": {
     "vite": "^6.3.0",
