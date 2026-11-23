@@ -89,3 +89,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .house-spread__image .retreat-replacement-photo{object-position:center center}
 .room--three .retreat-replacement-photo{object-position:center center}
 .season--winter .retreat-replacement-photo{object-position:center center}
+
+/* Keep source disclosures anchored inside their respective image frames. */
+.room-media,.house-spread__image{position:relative}

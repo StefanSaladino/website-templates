@@ -376,6 +376,12 @@ try{
   assert(await page.locator('.house-spread__image img.retreat-replacement-photo').count()===1,'Morrow House setting uses sourced actual photography');
   assert(await page.locator('.room--three img.retreat-replacement-photo').count()===1,'Morrow House sample suite uses sourced actual photography');
   assert(await page.locator('.season--winter img.retreat-replacement-photo').count()===1,'Morrow House winter scene uses sourced actual photography');
+ assert((await page.locator('.room--one img').getAttribute('src')).includes('/34053439/'),'Morrow Hearth Room uses source-attributed real Pexels fireplace interior');
+ assert((await page.locator('.room--two img').getAttribute('src')).includes('/34503418/'),'Morrow Pine Room uses separate real wood-lined interior');
+ assert((await page.locator('.hero-media img').getAttribute('src')).includes('/34997036/'),'Morrow lake hero uses independently attributed sunset dock');
+ assert(await page.locator('.room--one .sample-photo-note,.room--two .sample-photo-note').count()===2,'Both Morrow room images visibly disclose fictional room context');
+ assert(await page.locator('img[srcset]').count()===5,'Morrow five new independent stock photo placements offer responsive source sets');
+ assert((await page.locator('.room--one .room-copy').textContent()).includes('Proposed:'),'Morrow fictional room amenities are clearly hypothetical');
  assert(!(await page.content()).includes('photo-1702936425973-8ca360714a97'),'Morrow House alpine stock cannot reappear');
  assert(!(await page.content()).includes('photo-1583509208810-f57bef92d0a0'),'Morrow House frozen-hut stock cannot reappear');
  await page.locator('.availability-form button[type="submit"]').click();

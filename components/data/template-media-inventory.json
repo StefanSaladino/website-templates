@@ -176,37 +176,6 @@
       "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
     },
     {
-      "id": "TM-036",
-      "urlIdentity": "https://images.unsplash.com/photo-1727270921836-3d51d25d9e33",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "muskoka-retreat",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "417e6b0e652f926f4da96479a1424930603a23135c612afd5afd19304bf9d86b",
-        "notes": "Interior bedroom with exposed timber beams and stone fireplace; broad visual description matches. 3:4 portrait cover trims the bed and fireplace edge; need real CSS room-card crop check. No evidence the depicted room exists at a fictional retreat.",
-        "flags": [
-          "interior-property-unverified",
-          "photo-not-actual-accommodation",
-          "mobile-crop-review-needed"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-MUSKOKA-RETREAT-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-037",
       "urlIdentity": "https://images.unsplash.com/photo-1739901798963-52aa95b1f83e",
       "kind": "image",
@@ -695,37 +664,6 @@
       }
     },
     {
-      "id": "TM-061",
-      "urlIdentity": "https://images.unsplash.com/photo-1773423389979-b28b469967f8",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "muskoka-retreat",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "8a1f03f8eb2d41c4c682b28490782d47650abe3ddab9c186e96959c70fe67398",
-        "notes": "Wood-paneled room with bed and orange freestanding wood stove, not a masonry fireplace; corrected inaccurate alt text. Portrait crop keeps stove and partial bed. Forest-view and property identity remain unverified.",
-        "flags": [
-          "alt-description-corrected",
-          "interior-property-unverified",
-          "photo-not-actual-accommodation"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-MUSKOKA-RETREAT-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-063",
       "urlIdentity": "https://images.unsplash.com/photo-1774989423979-6a7bf5add3f0",
       "kind": "image",
@@ -886,37 +824,6 @@
           "phone-crop-truncates-building-context"
         ],
         "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-070",
-      "urlIdentity": "https://images.unsplash.com/photo-1783716149654-5f3e7012ef45",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "muskoka-retreat",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "e738a35efa6cbbc9368b777c4b366fe15d6ca73b0b9364c8dcf4d747ae61b6a1",
-        "notes": "Warm sunset over a calm lake, low dock extending from one shore, foreground leaves at left. Crop options retain sunset and dock with different foreground balance; real text-over-image contrast and exact phone hero focal point require browser QA. Lake/location not verified as Rosseau.",
-        "flags": [
-          "geographic-location-unverified",
-          "hero-text-over-image-qa-needed",
-          "phone-art-direction-needs-css-review"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-MUSKOKA-RETREAT-MEDIA-PILOT.md"
       }
     },
     {
@@ -1906,6 +1813,69 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Official Pexels source page checked directly on 2026-11-23: photographer Sašo Vukadinović, Pexels Free label and matching original image URL photo ID 33094348; actual photographic scene inspected. This independent stock photograph shows unoccupied dim indoor stage with drum kit, speakers, microphone stands and blue-green lighting. It does not represent any booked AFTER DARK event or fictional performer/venue. Depicted people, event signage, venue/property rights, brand marks, downstream commercial template redistribution, crop and human acceptance are not approved."
+    },
+    {
+      "id": "TM-117",
+      "urlIdentity": "https://images.pexels.com/photos/34053439/pexels-photo-34053439.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/cozy-rustic-bedroom-with-fireplace-and-scenic-view-34053439/",
+      "creator": "Fernanda Neitzel",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page and matching free-download ID checked on 2026-11-23; verified photographer Fernanda Neitzel and photo 34053439. Original image inspected: Warm rustic bedroom with bed, brick fireplace, wooden soaking tub and views through windows. Independent stock does not show actual Morrow House accommodation, property or Muskoka location. Private property, displayed marks, commercial template redistribution, crops and human release approval are not verified."
+    },
+    {
+      "id": "TM-118",
+      "urlIdentity": "https://images.pexels.com/photos/34503418/pexels-photo-34503418.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/cozy-cabin-bedroom-with-wooden-interior-34503418/",
+      "creator": "Дмитрий Терза",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page and matching free-download ID checked on 2026-11-23; verified photographer Дмитрий Терза and photo 34503418. Original image inspected: Wood-lined cabin bedroom with blue bedding, side lamp and trees visible outside a window. Independent stock does not show actual Morrow House accommodation, property or Muskoka location. Private property, displayed marks, commercial template redistribution, crops and human release approval are not verified."
+    },
+    {
+      "id": "TM-119",
+      "urlIdentity": "https://images.pexels.com/photos/34997036/pexels-photo-34997036.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/tranquil-lake-with-wooden-dock-at-sunset-34997036/",
+      "creator": "Miguel González",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page and matching free-download ID checked on 2026-11-23; verified photographer Miguel González and photo 34997036. Original image inspected: High-angle view across calm dark water and a slim diagonal wooden jetty near the shore at dusk. Independent stock does not show actual Morrow House accommodation, property or Muskoka location. Private property, displayed marks, commercial template redistribution, crops and human release approval are not verified."
     }
   ]
 }

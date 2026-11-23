@@ -448,3 +448,7 @@ Added source sets and `sizes` for all four source-attributed event photos, prior
 ## AFTER DARK poster headline layering — 23 November 2026
 
 Actual loaded-photo desktop evidence exposed the right concert picture covering rotated `LOUD ENOUGH` poster letters. A desktop-only z-index and contrast shadow fix preserves the legibility of large editorial typography, while the existing phone layout stays unchanged. A 1440px Chromium assertion guards it. Reinspect regenerated screenshot before acceptance; rights and Steps 18/19 remain pending.
+
+## Morrow House — photographic provenance follow-up (23 November 2026)
+
+Retired three untraced Morrow House stock photos and introduced real, publisher-attributed Pexels originals TM-117..119. Synchronized five template photo uses and gallery, responsive image candidates and alt text, independent-stock room labels, fictional amenities and provenance ledger. Removed catalogue's made-up precise coordinates and misleading availability presentation. All six Morrow House media identities now have source+creator records. Full original-template media: 56/74 sourced, 18 unresolved, zero approved; 25 component-stock records remain review-only. Loaded-image QA, property rights, actual device/screen-reader and final manual release still pending. Next small batches: GRAIN & GABLE, SERA, TIDEFORM. Steps 18/19 and main unchanged.

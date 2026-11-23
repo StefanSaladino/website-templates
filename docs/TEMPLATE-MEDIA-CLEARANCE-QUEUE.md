@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **21 without verified/recorded source-page links** and **21 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **18 without verified/recorded source-page links** and **18 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -47,7 +47,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-108 | editorial-commerce | Pexels publisher page; Sergei Skrynnik | glass-cups-not-fictional-Tin-Cup, incidental-products-review, card-crop-pending |
 | TM-104 | editorial-commerce | Pexels publisher page; İlhan ÇAÇA | unrelated-tan-backpack, fictional-material-claims-disclaimed, mobile-crop-pending |
 | TM-035 | landscaping | Recorded source page; Naoki Suzuki | studio-project-attribution-unverified, stone-patio-not-established, wide-crop-hides-steps-and-flowers (+1 more in JSON) |
-| TM-036 | muskoka-retreat | Source page missing; Creator missing | interior-property-unverified, photo-not-actual-accommodation, mobile-crop-review-needed |
+| TM-117 | muskoka-retreat | Pexels publisher page; Fernanda Neitzel | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
 | TM-037 | custom-bakes | Source page missing; Creator missing | product-authorship-unverified, order-pricing-unsupported, wide-crop-truncates-cookies |
 | TM-107 | editorial-commerce | Pexels publisher page; Taryn Elliott | unrelated-cooking-gear, incidental-label-review, 4:5-product-crop-pending |
 | TM-041 | real-estate | Source page missing; Creator missing | property-location-unverified, fake-hero-listing-association, phone-cover-clips-building (+1 more in JSON) |
@@ -63,12 +63,12 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-058 | architecture | Source page missing; Creator missing | unverified-Toronto-project-history, program-area-completion-unverified, oak-linen-courtyard-inventions (+2 more in JSON) |
 | TM-059 | restaurant | Source page missing; Creator missing | other-venue-photo, restaurant-attribution-unverified, wide-crop-removes-distinctive-arch (+1 more in JSON) |
 | TM-060 | custom-bakes | Source page missing; Creator missing | unsupported-cake-flavour-and-ingredients, whole-product-not-shown, extreme-macro-phone-crop (+1 more in JSON) |
-| TM-061 | muskoka-retreat | Source page missing; Creator missing | alt-description-corrected, interior-property-unverified, photo-not-actual-accommodation |
+| TM-118 | muskoka-retreat | Pexels publisher page; Дмитрий Терза | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
 | TM-063 | restaurant | Source page missing; Creator missing | hero-alt-underdescribes-visible-interior, unrelated-dining-venue, seat-count-and-kitchen-not-shown (+1 more in JSON) |
 | TM-064 | pools | Source page missing; Creator missing | fictional-project-claim, actual-Oakville-location-unverified, pool-engineering-materials-unverified (+2 more in JSON) |
 | TM-066 | pools | Source page missing; Creator missing | unrelated-tropical-setting, not-GTA-construction-evidence, overflow-system-not-visible (+2 more in JSON) |
 | TM-069 | pools | Source page missing; Creator missing | fictional-studio-attribution, pool-depth-and-dimensions-unverified, materials-and-equipment-not-proven (+1 more in JSON) |
-| TM-070 | muskoka-retreat | Source page missing; Creator missing | geographic-location-unverified, hero-text-over-image-qa-needed, phone-art-direction-needs-css-review |
+| TM-119 | muskoka-retreat | Pexels publisher page; Miguel González | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
 | TM-077 | editorial-commerce | Pexels original; Jonathan Cooper | footwear is not fictional Ridge Boot, unrelated item, final brand/trade review open |
 | TM-078 | editorial-commerce | Pexels original; Nataliya Vaitkevich | map and compass not manufactured Route Kit, map copyright/context review pending |
 | TM-079 | editorial-commerce | Pexels original; Maxi Gagliano | sewing tools not actual Field Repair Roll, independent stock only |
@@ -213,3 +213,7 @@ MONOLITH retired its four untraced Unsplash images TM-022/023/024/025, replacing
 ## AFTER DARK real-photo publisher-source remediation — 23 November 2026
 
 AFTER DARK retired all four remaining untraced original Unsplash photo identities TM-045/049/052/056, replacing them with authentic publisher-identified Pexels photographs TM-113..116. A São Paulo red-light audience, an independent small-stage group, an indoor concert crowd and an empty music stage now replace the earlier misleading arena/outdoor/venue references. The root gallery thumbnail is synchronized and each visible photograph remains clearly unrelated to invented AFTER DARK performers, date and venue. No real event or ticket sales exist. Original-template media counts: **74 identities, 53 publisher/creator-attributed, 21 without source, zero release rights approved**. Brand/likeness, event permission, cropping and downstream template delivery remain open. Previous source identities are blocked from template and gallery reintroduction.
+
+## Morrow House independent-photo sourcing — 23 November 2026
+
+Three untraced Unsplash image identities TM-036/061/070 have been retired. Replacements TM-117/118/119 are original, publisher-identified Pexels photographs by Fernanda Neitzel, Дмитрий Терза and Miguel González, respectively. Five full-page uses and the root gallery thumbnail have been synchronized, with responsive source sets, accurate alt text and visible fictional-room disclosures. The catalogue's invented exact geographic coordinates and apparent availability call-to-action were removed. This is not evidence of actual rooms, accommodation or a Muskoka property. All six active Morrow House photos have publisher attribution. Original template media: 74 active, 56 sourced, 18 unresolved and 0 rights-approved. Actual mobile crops, identifiable property/trademark rights, redistribution and stakeholder approval remain open.

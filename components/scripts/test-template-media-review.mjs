@@ -48,7 +48,7 @@ try{
  assert(editorial.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
  assert(editorial.assets.every(item=>item.sourcePageUrl&&item.creator),'All nine RANGE/FOUND sources must have recorded official publisher pages and named creators');
  console.log('PASS: RANGE/FOUND selects nine official publisher-attributed Pexels identities; no fictional products or stock photos are commercially approved.');
- const retreatIds=['TM-036','TM-061','TM-070','TM-074','TM-075','TM-076'];
+ const retreatIds=['TM-074','TM-075','TM-076','TM-117','TM-118','TM-119'];
  const retreat=spawnSync(process.execPath,[script,'--offline','--templates=muskoka-retreat','--limit=10','--output='+path.join(directory,'muskoka-retreat')],{encoding:'utf8',timeout:20000});
  if(retreat.status!==0)throw Error('Muskoka review batch failed: '+retreat.stderr+'\\n'+retreat.stdout);
  const cabin=JSON.parse(readFileSync(path.join(directory,'muskoka-retreat/results.json'),'utf8'));
@@ -57,7 +57,8 @@ try{
  assert.equal(cabin.downloaded,0);
  assert.equal(cabin.errors,0);
  assert(cabin.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: Muskoka photo inventory selects six third-party candidates, with three traced Pexels originals; final property/media rights pending.');
+ assert(cabin.assets.every(item=>item.sourcePageUrl&&item.creator),'Six Morrow House photos require source+creator evidence');
+ console.log('PASS: all six Morrow House photo identities are sourced independent real Pexels photos, with no legal release approval.');
  const creative=spawnSync(process.execPath,[script,'--offline','--templates=creative-agency','--limit=2','--output='+path.join(directory,'creative-agency')],{encoding:'utf8',timeout:20000});
  if(creative.status!==0)throw Error('OFFCUT review batch failed: '+creative.stderr+'\\n'+creative.stdout);
  const film=JSON.parse(readFileSync(path.join(directory,'creative-agency/results.json'),'utf8'));

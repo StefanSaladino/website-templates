@@ -39,6 +39,8 @@ for(const retired of ['photo-1524504388940-b1c1722653e1','photo-1529139574466-a3
 if((html+'\n'+js).includes('photo-1627328187791-bb98dfe09ace'))issues.push('Retired RANGE/FOUND gallery photo returned');
 for(const retired of ['photo-1600210492486-724fe5c67fb0','photo-1600585154340-be6161a56a0c','photo-1613490493576-7fde63acd811'])if((html+'\n'+js).includes(retired))issues.push('Retired MONOLITH gallery image returned: '+retired);
 if((html+'\n'+js).includes('photo-1760965825135-e94f4e34494b'))issues.push('Retired AFTER DARK gallery photo returned');
+if((html+'\n'+js).includes('photo-1783716149654-5f3e7012ef45'))issues.push('Retired Morrow House gallery image returned');
+if((html+'\n'+js).includes('45.1237° N')||(html+'\n'+js).includes('79.6423° W'))issues.push('Fictional Morrow House may not publish invented exact coordinates');
 let photoPlacements=0;
 for(const [source,kind] of [[html,'html'],[js,'script']]){
   for(const found of source.matchAll(/https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\/[^\s"'<>]+/g)){
