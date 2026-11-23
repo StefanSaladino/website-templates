@@ -20,7 +20,8 @@
     "check:gallery": "node scripts/check-gallery-integrity.mjs",
     "review:gallery-browser": "node scripts/audit-gallery-browser.mjs",
     "review:reduced-motion": "node scripts/audit-reduced-motion.mjs",
-    "review:mobile-alternatives": "node scripts/audit-mobile-alternatives.mjs"
+    "review:mobile-alternatives": "node scripts/audit-mobile-alternatives.mjs",
+    "review:reflow-text-spacing": "node scripts/audit-text-spacing-reflow.mjs"
   },
   "devDependencies": {
     "vite": "^6.3.0",
