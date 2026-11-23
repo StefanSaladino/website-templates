@@ -72,7 +72,7 @@ const imageFirstCatalog = [
  {id:'frame-portfolio',cat:'minimal creative',title:'Photography Portfolio',label:'Minimal · Creative',
   inner:'<div class="thumb thumb--frame-photo"><div class="frame-image-grid"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=550&amp;q=76" alt="" loading="lazy"></div><div class="frame-letter"><b>FRAME.</b><span>SELECTED IMAGES</span></div><span class="live-badge">Preview</span></div>'},
  {id:'garage-detailing',cat:'business creative',title:'Automotive Detailing',label:'Business · Creative',
-  inner:'<div class="thumb thumb--garage-photo"><img class="garage-image" src="https://images.unsplash.com/photo-1708805282706-f44730b7e527?auto=format&amp;fit=crop&amp;w=1100&amp;q=78" alt="" loading="lazy"><div class="garage-shade"></div><div class="garage-logo"><b>GARAGE</b><small>DETAILING STUDIO</small></div><div class="garage-tag">DETAIL / CORRECT / PROTECT</div><span class="live-badge">Preview</span></div>'}
+  inner:'<div class="thumb thumb--garage-photo"><img class="garage-image" src="https://images.pexels.com/photos/5233279/pexels-photo-5233279.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1100" alt="" loading="lazy"><div class="garage-shade"></div><div class="garage-logo"><b>GARAGE</b><small>DETAILING STUDIO</small></div><div class="garage-tag">DETAIL / CORRECT / PROTECT</div><span class="live-badge">Preview</span></div>'}
 ];
 if(templateGrid){
   for(const item of imageFirstCatalog){

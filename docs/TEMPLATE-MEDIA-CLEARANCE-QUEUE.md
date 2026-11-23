@@ -5,21 +5,20 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **49 without verified/recorded source-page links** and **49 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **45 without verified/recorded source-page links** and **45 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
-- **29 first-priority review records** with people, branding, replacement or video-related flags; 45 follow-on records
+- **25 first-priority review records** with people, branding, replacement or video-related flags; 49 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 29 active records
+## High-priority queue — 25 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
 | TM-001 | creative-agency | Recorded source page; cottonbro studio | depicted-person, visible-studio-tracking-markers, phone-hero-crop-needs-browser-acceptance (+2 more in JSON) |
 | TM-002 | frame-portfolio | Recorded source page; Clark Street Mercantile | visible-brand, property-rights-unverified, model-context-unverified |
 | TM-004 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, attention-phone-crop-poor |
-| TM-006 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, visible-vehicle-brand, phone-cover-crop-clips-subject (+1 more in JSON) |
 | TM-009 | frame-portfolio | Source page missing; Creator missing | depicted-person, model-rights-unverified, mobile-crop-loses-context |
 | TM-012 | frame-portfolio | Source page missing; Creator missing | depicted-person, wide-crop-cuts-face, model-rights-unverified |
 | TM-013 | frame-portfolio | Source page missing; Creator missing | depicted-person, wide-crop-loses-subject, model-rights-unverified |
@@ -28,11 +27,8 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-016 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, phone-attention-crop-poor (+1 more in JSON) |
 | TM-017 | frame-portfolio | Source page missing; Creator missing | depicted-person, alt-text-corrected, multiple-placements (+1 more in JSON) |
 | TM-018 | fitness-launch | Recorded source page; John Arano | recognizable-person-likeness-uncleared, visible-ROGUE-equipment-brand, clothing-brand-mark (+2 more in JSON) |
-| TM-019 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, visible-vehicle-brand, wide-vs-phone-crop-needs-review (+1 more in JSON) |
-| TM-020 | garage-detailing | Source page missing; Creator missing | inaccurate-old-alt, recognizable-brand-trade-dress, not-verified-client-work |
 | TM-028 | editorial-commerce | Source page missing; Creator missing | depicted-person, hero-caption-corrected, hero-mobile-crop-needs-css-review |
 | TM-032 | editorial-commerce | Source page missing; Creator missing | depicted-person, fictional-product-mismatch, model-rights-unverified |
-| TM-033 | garage-detailing | Source page missing; Creator missing | depicted-person, 16-9-crop-excludes-face, model-rights-unverified (+1 more in JSON) |
 | TM-049 | event-launch | Source page missing; Creator missing | branded-signage-visible, performer-endorsement-unverified, hero-crop-risk (+1 more in JSON) |
 | TM-052 | event-launch | Source page missing; Creator missing | arena-not-small-venue, fake-photo-timestamp, pyrotechnics-event-misrepresentation (+1 more in JSON) |
 | TM-053 | contractor | Source page missing; Creator missing | fictional-Toronto-job-site, visible-worker-model-rights-open, source-photographer-unverified (+1 more in JSON) |
@@ -46,7 +42,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 45 active records
+## Follow-on queue — 49 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -95,6 +91,10 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-086 | tattoo-studio | Pexels official page; Moisés Fonseca | Actual Mexico City workspace; may not imply a BLACKLINE location or studio safety claim |
 | TM-087 | tattoo-studio | Pexels official page; Antoni Shkraba | Gloved hand preparing machine, separate studio; no real client or completed work depicted |
 | TM-088 | tattoo-studio | Pexels official page; Vitor Diniz | Ink caps/tools; independent stock, visible equipment labeling/crop review remains open |
+| TM-089 | garage-detailing | Pexels source; Khunkorn Laowisit | Hands polishing white bonnet; work is not a GARAGE job, person/vehicle permission unapproved |
+| TM-090 | garage-detailing | Pexels source; Tima Miroshnichenko | Foamy headlight detail scene; not a verified client vehicle, crop/brands unapproved |
+| TM-091 | garage-detailing | Pexels source; WAVYVISUALS | Polishing pad with product; equipment manufacturer/trademark context needs review |
+| TM-092 | garage-detailing | Pexels source; Melih Can | Hand polishing silver vehicle door; unrelated work and property/worker context pending |
 
 ## Recorded origin pages (not rights approval)
 
@@ -184,3 +184,10 @@ Current original-template media: **74 identities (25 with source page and creato
 ## BLACKLINE gallery thumbnail correction
 
 The original library's BLACKLINE preview card now references TM-086 instead of retired TM-040. A new gallery-integrity hard gate prevents the retired wedding-dessert/tattoo-person images from appearing in the gallery. No media totals change; this is another placement of the same traceable but not-yet-release-approved photo.
+
+
+## GARAGE detailing source-first photography — 22 November 2026
+
+All four active original garage-detailing image identities TM-006, TM-019, TM-020 and TM-033 were retired: they showed branded performance vehicles, unrelated scenery or an unverified employee. Five full-template image placements and the root thumbnail now use four traceable real detailing photographs: TM-089 [Khunkorn Laowisit — white vehicle rotary polishing](https://www.pexels.com/photo/a-person-polishing-the-white-car-5233279/), TM-090 [Tima Miroshnichenko — washed headlight](https://www.pexels.com/photo/a-close-up-shot-of-the-headlight-of-a-car-while-being-washed-6872149/), TM-091 [WAVYVISUALS — polisher pad with cream](https://www.pexels.com/photo/polish-cream-on-polisher-foam-20042053/) and TM-092 [Melih Can — hand wiping silver car door](https://www.pexels.com/photo/close-up-of-hand-polishing-car-surface-35149476/). Matching publisher-hosted original download identities, credits and Free labels were checked. The actual source photos are not endorsements, GARAGE employees, verified jobs or equipment ownership. The white vehicle, tool markings, worker model/property context and phone crops remain pending independent permission and approval. The fictional enquiry form and brand disclaimers remain unchanged.
+
+This changes original-template provenance from 25/74 to **29/74 sourced and attributed**, leaving **45/74 unknown**, **0 finally cleared**. All component stock assets remain independently in review; no `live` promotion or merge to `main`.

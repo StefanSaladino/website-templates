@@ -32,7 +32,7 @@ if(!html.includes('fictional design previews under review'))
   issues.push('Gallery must disclose that these are not production-approved websites');
 const identities=new Map(manifest.assets.map(item=>[item.urlIdentity,item]));
 // A source removed from a full template must also disappear from its gallery thumbnail.
-for(const retired of ['photo-1679585651020-9ae0653c84ad','photo-1745777761096-081db6e036e7','photo-1673874500167-17ca5ed1cf17']){
+for(const retired of ['photo-1679585651020-9ae0653c84ad','photo-1745777761096-081db6e036e7','photo-1673874500167-17ca5ed1cf17','photo-1708805282706-f44730b7e527','photo-1552519507-da3b142c6e3d','photo-1580273916550-e323be2ae537','photo-1492144534655-ae79c964c9d7']){
   if((html+'\n'+js).includes(retired))issues.push('Retired high-risk gallery photograph returned: '+retired);
 }
 let photoPlacements=0;
