@@ -31,6 +31,10 @@ if(/class="live-badge">Live<\/span>|>Live now<\/span>/i.test(html+'\n'+js))
 if(!html.includes('fictional design previews under review'))
   issues.push('Gallery must disclose that these are not production-approved websites');
 const identities=new Map(manifest.assets.map(item=>[item.urlIdentity,item]));
+// A source removed from a full template must also disappear from its gallery thumbnail.
+for(const retired of ['photo-1679585651020-9ae0653c84ad','photo-1745777761096-081db6e036e7','photo-1673874500167-17ca5ed1cf17']){
+  if((html+'\n'+js).includes(retired))issues.push('Retired high-risk gallery photograph returned: '+retired);
+}
 let photoPlacements=0;
 for(const [source,kind] of [[html,'html'],[js,'script']]){
   for(const found of source.matchAll(/https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\/[^\s"'<>]+/g)){

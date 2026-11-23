@@ -44,7 +44,7 @@ if (templateGrid && !document.querySelector('[data-template="tattoo-studio"]')) 
     <article class="template-card is-live" data-category="business creative" data-template="tattoo-studio">
       <a aria-label="Open Tattoo Studio template" class="thumb-link" href="templates/tattoo-studio/">
         <div class="thumb thumb--blackline-sync">
-          <img class="blackline-thumb-bg" alt="" src="https://images.unsplash.com/photo-1745777761096-081db6e036e7?auto=format&amp;fit=crop&amp;fm=jpg&amp;q=78&amp;w=1200"/>
+          <img class="blackline-thumb-bg" alt="" src="https://images.pexels.com/photos/35658361/pexels-photo-35658361.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"/>
           <div class="blackline-thumb-shade"></div><div class="blackline-thumb-noise"></div>
           <div class="blackline-thumb-brand"><b>BLACKLINE</b><small>SOCIAL CLUB</small></div>
           <div class="blackline-thumb-copy"><small>APPOINTMENT-ONLY · TORONTO</small><strong>GOOD WORK.<br/><em>NO RUSH.</em></strong><i>Request an appointment ↗</i></div>
