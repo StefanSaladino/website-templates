@@ -43,3 +43,14 @@ _22 November 2026 · `feature/component-showroom` · image preview only; 0 right
 4. Keep all four original photos `needs-review`, with zero media/venue/schedule approvals. No commercial ticket link, false sales scarcity or announcement until genuine event documentation and stakeholder release authorization.
 
 **Next batch:** `custom-bakes` — three photos and likely product/food claim accuracy.
+
+## AFTER DARK official photographer-source replacement — 23 November 2026 (supersedes earlier candidate URLs)
+
+Four historical Unsplash candidates TM-045/049/052/056 were removed from active template use. The current photographic set consists of original, identifiable **real Pexels photos**, not AI-generated art:
+
+- **TM-113 / hero:** [Felipe Balduino, Pexels photo 17718206](https://www.pexels.com/photo/crowd-at-concert-17718206/) — Concertgoers holding phones in a crowd lit by intense red lighting at an unrelated live performance. Former identity TM-049 retired.
+- **TM-114 / poster-left:** [Big Bag Films, Pexels photo 8512413](https://www.pexels.com/photo/band-playing-on-small-stage-8512413/) — Independent small indoor band performing under magenta lights with keyboard, saxophone, guitar and drums. Former identity TM-052 retired.
+- **TM-115 / poster-right:** [Jeremy Li, Pexels photo 30215324](https://www.pexels.com/photo/vibrant-indoor-concert-with-dynamic-lights-30215324/) — Independent crowded indoor concert with raised hands, bright stage lighting and plumes of show haze. Former identity TM-056 retired.
+- **TM-116 / venue:** [Sašo Vukadinović, Pexels photo 33094348](https://www.pexels.com/photo/dimly-lit-concert-stage-with-drums-and-amplifiers-33094348/) — Unoccupied dim indoor stage with drum kit, speakers, microphone stands and blue-green lighting. Former identity TM-045 retired.
+
+The full demo source, original gallery thumb, alt descriptions, captions, near-photograph visible rights disclaimer, manifest, queue and regression tests now use these independent real photographs. Existing ANIM-08, mobile menu, fictional artist lineup, date, sample tickets, sample venue and no-checkout behavior are unchanged. **Source records identified: 53/74, still missing: 21, all 74 remain `needs-review`.** Follow-up: actual loaded-photo captures at 320/390/768/1280/1440 widths, image crops and legibility, stage/gear and crowd likeness or brand permissions, regional commercial template reuse and stakeholder signoff. Pexels Free source labelling is not consent from performers or permission to imply affiliation. No remote photo was considered an approved local derivative; no merge or `live` release.

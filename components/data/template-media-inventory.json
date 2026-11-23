@@ -335,37 +335,6 @@
       }
     },
     {
-      "id": "TM-045",
-      "urlIdentity": "https://images.unsplash.com/photo-1760092189903-dce3e898dacf",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "event-launch",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "f5ab0f3f23641cbb1da517190c344d78bfbc33bb1fee58a0cef6120bf503bd34",
-        "notes": "Black-and-white music venue view across audience silhouettes toward an unoccupied-looking stage with drum kit, microphones and spotlights; no performing band clearly visible. Hero/venue usage would falsely locate it at fictional harbour warehouse. Portrait phone crops lose some stage equipment and crowd context.",
-        "flags": [
-          "no-band-performance-proven",
-          "unrelated-venue-photo",
-          "phone-crop-loses-stage-context"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EVENT-LAUNCH-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-046",
       "urlIdentity": "https://images.unsplash.com/photo-1760545813135-fbda9423e448",
       "kind": "image",
@@ -428,38 +397,6 @@
           "wide-crop-cuts-table"
         ],
         "evidenceDocument": "docs/SHOWROOM-RESTAURANT-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-049",
-      "urlIdentity": "https://images.unsplash.com/photo-1760965825135-e94f4e34494b",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "event-launch",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "76bb59b143d70d7a540191431fa7fa96ebf0d3115268d329d8517c6fd6e50e65",
-        "notes": "Vertical crowd-and-stage photograph with saturated red lights, a lit stage backdrop and illuminated script-like signage near the top. Branding/location and depicted performance are not linked to the fictitious AFTER DARK lineup. Wide crop cuts much of venue crowd/vertical setting; phone crop resembles full portrait but excludes surrounding stage edges.",
-        "flags": [
-          "branded-signage-visible",
-          "performer-endorsement-unverified",
-          "hero-crop-risk",
-          "venue-identity-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EVENT-LAUNCH-MEDIA-PILOT.md"
       }
     },
     {
@@ -530,38 +467,6 @@
       },
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
-    },
-    {
-      "id": "TM-052",
-      "urlIdentity": "https://images.unsplash.com/photo-1766471870102-dcb1fe88e8cc",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "event-launch",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "4f524ca63298f707e67d90125727e22c4e5dc773fe8947bb0e0abd78746942fe",
-        "notes": "Wide-angle photograph of enormous indoor arena concert with extended runway, pyro flame jets, smoke and audience throughout large stands; a clear mismatch to small two-room harbour warehouse and the invented MAIN ROOM 00:42 caption. Tall phone stress crop cuts grandstand scale and side stage.",
-        "flags": [
-          "arena-not-small-venue",
-          "fake-photo-timestamp",
-          "pyrotechnics-event-misrepresentation",
-          "phone-crop-loses-scale"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EVENT-LAUNCH-MEDIA-PILOT.md"
-      }
     },
     {
       "id": "TM-053",
@@ -659,38 +564,6 @@
           "property-rights-unverified"
         ],
         "evidenceDocument": "docs/SHOWROOM-WOODWORKER-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-056",
-      "urlIdentity": "https://images.unsplash.com/photo-1771959453981-b5417268a034",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "event-launch",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "d8ac63bd47fa165d4f42180492b49267dcccaaa1ea09481a6cf1a8fad98ce4b6",
-        "notes": "Elevated view of enormous dense outdoor music crowd toward brightly lit stage and advertising signage. Not a SIDE ROOM 01:17 shot or proof of this event; vertical crops discard much of crowd width. Venue and identity/trademark evidence unverified.",
-        "flags": [
-          "outdoor-event-not-side-room",
-          "fake-photo-timestamp",
-          "branding-visible",
-          "phone-crop-cuts-crowd"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-EVENT-LAUNCH-MEDIA-PILOT.md"
       }
     },
     {
@@ -1949,6 +1822,90 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Official Pexels publisher page and Free photo download link verify creator Sara Brahollari, original photo number 25934928 and real photographic content (a timber-clad contemporary house beside an outdoor swimming pool). No architecture practice affiliation or design authorship is established; unrelated illustrative stock. Property, architectural design, incidental artwork/trademarks, commercial template redistribution, actual responsive crops and independent stakeholder approval remain unverified."
+    },
+    {
+      "id": "TM-113",
+      "urlIdentity": "https://images.pexels.com/photos/17718206/pexels-photo-17718206.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "event-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/crowd-at-concert-17718206/",
+      "creator": "Felipe Balduino",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels source page checked directly on 2026-11-23: photographer Felipe Balduino, Pexels Free label and matching original image URL photo ID 17718206; actual photographic scene inspected. This independent stock photograph shows concertgoers holding phones in a crowd lit by intense red lighting at an unrelated live performance. It does not represent any booked AFTER DARK event or fictional performer/venue. Depicted people, event signage, venue/property rights, brand marks, downstream commercial template redistribution, crop and human acceptance are not approved."
+    },
+    {
+      "id": "TM-114",
+      "urlIdentity": "https://images.pexels.com/photos/8512413/pexels-photo-8512413.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "event-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/band-playing-on-small-stage-8512413/",
+      "creator": "Big Bag Films",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels source page checked directly on 2026-11-23: photographer Big Bag Films, Pexels Free label and matching original image URL photo ID 8512413; actual photographic scene inspected. This independent stock photograph shows independent small indoor band performing under magenta lights with keyboard, saxophone, guitar and drums. It does not represent any booked AFTER DARK event or fictional performer/venue. Depicted people, event signage, venue/property rights, brand marks, downstream commercial template redistribution, crop and human acceptance are not approved."
+    },
+    {
+      "id": "TM-115",
+      "urlIdentity": "https://images.pexels.com/photos/30215324/pexels-photo-30215324.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "event-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/vibrant-indoor-concert-with-dynamic-lights-30215324/",
+      "creator": "Jeremy Li",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels source page checked directly on 2026-11-23: photographer Jeremy Li, Pexels Free label and matching original image URL photo ID 30215324; actual photographic scene inspected. This independent stock photograph shows independent crowded indoor concert with raised hands, bright stage lighting and plumes of show haze. It does not represent any booked AFTER DARK event or fictional performer/venue. Depicted people, event signage, venue/property rights, brand marks, downstream commercial template redistribution, crop and human acceptance are not approved."
+    },
+    {
+      "id": "TM-116",
+      "urlIdentity": "https://images.pexels.com/photos/33094348/pexels-photo-33094348.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "event-launch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/dimly-lit-concert-stage-with-drums-and-amplifiers-33094348/",
+      "creator": "Sašo Vukadinović",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels source page checked directly on 2026-11-23: photographer Sašo Vukadinović, Pexels Free label and matching original image URL photo ID 33094348; actual photographic scene inspected. This independent stock photograph shows unoccupied dim indoor stage with drum kit, speakers, microphone stands and blue-green lighting. It does not represent any booked AFTER DARK event or fictional performer/venue. Depicted people, event signage, venue/property rights, brand marks, downstream commercial template redistribution, crop and human acceptance are not approved."
     }
   ]
 }

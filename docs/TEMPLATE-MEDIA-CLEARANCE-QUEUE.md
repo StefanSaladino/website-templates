@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **25 without verified/recorded source-page links** and **25 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **21 without verified/recorded source-page links** and **21 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -21,11 +21,11 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-018 | fitness-launch | Recorded source page; John Arano | recognizable-person-likeness-uncleared, visible-ROGUE-equipment-brand, clothing-brand-mark (+2 more in JSON) |
 | TM-103 | editorial-commerce | Pexels publisher page; Luke Miller | depicted-person, independent-forest-hiker, hero-mobile-crop-and-usage-context-open |
 | TM-105 | editorial-commerce | Pexels publisher page; Atiek Arief | depicted-person, visible-clothing-marking-review, not-fictional-outerwear |
-| TM-049 | event-launch | Source page missing; Creator missing | branded-signage-visible, performer-endorsement-unverified, hero-crop-risk (+1 more in JSON) |
-| TM-052 | event-launch | Source page missing; Creator missing | arena-not-small-venue, fake-photo-timestamp, pyrotechnics-event-misrepresentation (+1 more in JSON) |
+| TM-113 | event-launch | Pexels publisher page; Felipe Balduino | recognizable-concert-attendees, actual-Sao-Paulo-concert-not-Toronto, mobile-headline-contrast-crop-open |
+| TM-114 | event-launch | Pexels publisher page; Big Bag Films | real-performers-not-fictional-lineup, recognizable-performers, artist-endorsement-rights-open, poster-portrait-crop-open |
 | TM-053 | contractor | Source page missing; Creator missing | fictional-Toronto-job-site, visible-worker-model-rights-open, source-photographer-unverified (+1 more in JSON) |
 | TM-054 | woodworker | Source page missing; Creator missing | unsupported-white-oak-caption, wood-species-and-size-unverified, depicted-person (+2 more in JSON) |
-| TM-056 | event-launch | Source page missing; Creator missing | outdoor-event-not-side-room, fake-photo-timestamp, branding-visible (+1 more in JSON) |
+| TM-115 | event-launch | Pexels publisher page; Jeremy Li | real-concert-not-fictional-side-room, attendee-likeness-open, indoor-stage-identity-review, portrait-crop-open |
 | TM-068 | fitness-launch | Source page missing; Creator missing | recognizable-person-likeness-uncleared, misleading-carrying-alt, wide-crop-cuts-head (+2 more in JSON) |
 | TM-071 (film) | creative-agency | Recorded source page; cottonbro studio | No subject-specific review flags recorded |
 | TM-072 | real-estate | Pexels publisher page; Peter Xie | Unrelated photographed home; private-property and listing-affiliation review still open |
@@ -53,7 +53,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-041 | real-estate | Source page missing; Creator missing | property-location-unverified, fake-hero-listing-association, phone-cover-clips-building (+1 more in JSON) |
 | TM-042 | architecture | Source page missing; Creator missing | false-Georgian-Bay-project-credit, residential-property-location-unverified, architect-designer-attribution-unverified (+2 more in JSON) |
 | TM-043 | woodworker | Source page missing; Creator missing | species-unverified, single-planter-alt-wrong, not-a-studio-commission (+1 more in JSON) |
-| TM-045 | event-launch | Source page missing; Creator missing | no-band-performance-proven, unrelated-venue-photo, phone-crop-loses-stage-context |
+| TM-116 | event-launch | Pexels publisher page; Sašo Vukadinović | unrelated-stage-not-harbour-venue, instrument-brand-markings-open, landscape-crop-review-open |
 | TM-046 | contractor | Source page missing; Creator missing | fictional-Vaughan-job-claim, unverified-structural-work-and-timeline, not-a-before-after (+1 more in JSON) |
 | TM-047 | restaurant | Source page missing; Creator missing | other-venue-identity-unverified, wine-type-unverified, venue-layout-claims-unverified (+1 more in JSON) |
 | TM-050 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | fictitious-before-after-attribution, plant-species-unverified, drainage-work-unverified (+2 more in JSON) |
@@ -209,3 +209,7 @@ Six untraced original-template stock IDs TM-008/026/027/028/032/039 were retired
 ## MONOLITH four-photo publisher attribution — 23 November 2026
 
 MONOLITH retired its four untraced Unsplash images TM-022/023/024/025, replacing them with independent authentic Pexels source photographs TM-109..112. Corresponding full-template `srcset`, gallery thumbnail, attribution and alt descriptions were synchronized, and deprecated photo URLs now fail source checks. All project names, descriptions and locations remain clearly fictional; no real architectural practice affiliation or design authorship is asserted. **Original media: 74 active, 49 source-attributed, 25 untraced, 0 rights-approved.** No production derivatives, physical-device/crop approval, property/design/trademark or downstream commercial redistribution permissions granted.
+
+## AFTER DARK real-photo publisher-source remediation — 23 November 2026
+
+AFTER DARK retired all four remaining untraced original Unsplash photo identities TM-045/049/052/056, replacing them with authentic publisher-identified Pexels photographs TM-113..116. A São Paulo red-light audience, an independent small-stage group, an indoor concert crowd and an empty music stage now replace the earlier misleading arena/outdoor/venue references. The root gallery thumbnail is synchronized and each visible photograph remains clearly unrelated to invented AFTER DARK performers, date and venue. No real event or ticket sales exist. Original-template media counts: **74 identities, 53 publisher/creator-attributed, 21 without source, zero release rights approved**. Brand/likeness, event permission, cropping and downstream template delivery remain open. Previous source identities are blocked from template and gallery reintroduction.
