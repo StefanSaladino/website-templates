@@ -27,7 +27,7 @@
         ".room-strip",
         ".seasons"
       ],
-      "required": 5,
+      "required": 8,
       "poster": false
     }
   ],

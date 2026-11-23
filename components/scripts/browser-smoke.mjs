@@ -356,9 +356,9 @@ try{
  await page.locator('[data-sample-bake-form] button[type=submit]').click();
  assert((await page.locator('[data-bake-form-response]').textContent()).includes('no order inquiry was sent'),'DOT + CRUMB demo form confirms no booking or submission');
  await openTemplate('muskoka-retreat');
- assert(await page.locator('.house-spread__image .retreat-art[role="img"]').count()===1,'Morrow House alpine cabin replaced with original scene illustration');
- assert(await page.locator('.room--three .retreat-art[role="img"]').count()===1,'Morrow House frozen hut replaced with an original suite concept floor plan');
- assert(await page.locator('.season--winter .retreat-art').count()===1,'Morrow House winter scene uses original illustration');
+  assert(await page.locator('.house-spread__image img.retreat-replacement-photo').count()===1,'Morrow House setting uses sourced actual photography');
+  assert(await page.locator('.room--three img.retreat-replacement-photo').count()===1,'Morrow House sample suite uses sourced actual photography');
+  assert(await page.locator('.season--winter img.retreat-replacement-photo').count()===1,'Morrow House winter scene uses sourced actual photography');
  assert(!(await page.content()).includes('photo-1702936425973-8ca360714a97'),'Morrow House alpine stock cannot reappear');
  assert(!(await page.content()).includes('photo-1583509208810-f57bef92d0a0'),'Morrow House frozen-hut stock cannot reappear');
  await page.locator('.availability-form button[type="submit"]').click();

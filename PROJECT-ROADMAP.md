@@ -347,3 +347,12 @@ Both obsolete STOCK records have been retired from the 25-asset isolated compone
 Removed the two generated CURRENT property SVG files and their use in the 24-template catalogue and ANIM-13 animation preview. Replaced with independent real Pexels photos credited to Peter Xie (37981442) and Max Vakhtbovych (6580232). Source URLs, creator, camera metadata and Pexels' template-eligible copyright license are documented as TM-072/073 and STOCK-027/028. The photos are unrelated to the invented Drift House and Glass Point listings; original labels and alt text now say so. Final property/context review, loaded-photo crops, performance, assistive technology and stakeholder approval remain open. This policy supersedes earlier illustration substitutions; no release or merge authorization is implied.
 
 Next visual-first audit: inspect MORA, RANGE/FOUND, Morrow House and GRAIN & GABLE's generated graphic substitutions, distinguish decorative design diagrams from photographic stand-ins, and replace any remaining photo substitutes with rights-traceable photography. Step 18 and Step 19 remain open.
+
+
+## Photo-only Morrow House restoration — 22 November 2026
+
+Replaced the three earlier generated illustration stand-ins (lakeside house, pictured suite and winter cabin scene) with direct Pexels publisher-identified photographs by ilayda 0700 (TM-074), Matheus Bertelli (TM-075), and Courtney RA (TM-076). The source is real published stock photography, but the real places are not the fictional accommodation, and photos do not establish any booking, room configuration or location claim. Source pages and licenses have been logged in the manifest. All three remain needs-review pending actual mobile crop, rights/affiliation acceptance, and optimization. The guide map is a functional conceptual diagram and was intentionally retained, not substituted for a photograph.
+
+Current full-template remote media: **65 entries, 13 with photographer and source page, 52 with missing provenance, zero final approvals**. Component stock remains **25 entries, zero final approvals**. All steps and claims must continue to be checked against actual browser/rendered media and user acceptance.
+
+Continue replacing other previously drawn photo stand-ins in editorial-commerce, storefront and woodworking without deleting interactive UX or invented-business disclosures. Step 18 and Step 19 remain open.

@@ -1978,6 +1978,69 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Official Pexels page identifies Max Vakhtbovych as photographer, free Pexels license and Nikon D810 camera metadata. Direct free-download URL has the same 6580232 photo ID. Pexels publisher terms explicitly permit use in web templates, but this does not establish depicted-property, non-endorsement, or final redistribution clearance."
+    },
+    {
+      "id": "TM-074",
+      "urlIdentity": "https://images.pexels.com/photos/35855593/pexels-photo-35855593.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/peaceful-lakeside-cabin-in-forest-landscape-35855593/",
+      "creator": "ilayda 0700",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Pexels page 35855593 identifies ilayda 0700, Nikon Z30 EXIF, free license and exact matching source download. The cabin is unrelated to Morrow House and its actual geography is not claimed. Stock image publication as part of a website template is permitted under Pexels license but location/branding/property releases, downloaded derivative and final client approval remain open."
+    },
+    {
+      "id": "TM-075",
+      "urlIdentity": "https://images.pexels.com/photos/9056663/pexels-photo-9056663.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/a-bedroom-in-a-wooden-cabin-9056663/",
+      "creator": "Matheus Bertelli",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Pexels page 9056663 identifies Matheus Bertelli, Free license and matching original download for a warm wooden cabin bedroom. The photographed room is not a Morrow House accommodation. Stock image publication as part of a website template is permitted under Pexels license but location/branding/property releases, downloaded derivative and final client approval remain open."
+    },
+    {
+      "id": "TM-076",
+      "urlIdentity": "https://images.pexels.com/photos/20428396/pexels-photo-20428396.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "muskoka-retreat",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/small-cabin-by-a-frozen-lake-in-forest-in-winter-20428396/",
+      "creator": "Courtney RA",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Official Pexels page 20428396 identifies Courtney RA and Free license; exact download path was checked. Frozen lake and cabin photographed elsewhere, not a Morrow House property in Muskoka. Stock image publication as part of a website template is permitted under Pexels license but location/branding/property releases, downloaded derivative and final client approval remain open."
     }
   ]
 }

@@ -4,15 +4,15 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **62 active external media identities:** 61 still/poster images and 1 opt-in 4K video
+- **65 active external media identities:** 64 still/poster images and 1 opt-in 4K video
 - **52 without verified/recorded source-page links** and **52 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 60 remain `needs-review`
-- **29 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
+- **32 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 29 active records
+## High-priority queue — 32 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -45,6 +45,9 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-071 (film) | creative-agency | Recorded source page; cottonbro studio | No subject-specific review flags recorded |
 | TM-072 | real-estate | Pexels publisher page; Peter Xie | Unrelated photographed home; private-property and listing-affiliation review still open |
 | TM-073 | real-estate | Pexels publisher page; Max Vakhtbovych | Unrelated photographed lake-facing interior; property context and redistribution review open |
+| TM-074 | muskoka-retreat | Pexels publisher page; ilayda 0700 | Independent cabin/lake photograph, not a bookable property; property/location review open |
+| TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
+| TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
 ## Follow-on queue — 33 active records
 
@@ -135,4 +138,11 @@ ANIM-13 now reuses the two original CURRENT SVG assets rather than separately sh
 
 CURRENT and the isolated ANIM-13 no longer use the two generated SVG images. TM-072 / STOCK-027 is a photo by Peter Xie (https://www.pexels.com/photo/modern-house-by-tranquil-lake-surrounded-by-trees-37981442/) and TM-073 / STOCK-028 is by Max Vakhtbovych (https://www.pexels.com/photo/cozy-apartament-on-water-with-floor-to-ceiling-windows-6580232/). Original publisher pages identify creators, actual image links, camera metadata and Free/Pexels License. The license (https://www.pexels.com/license/) permits website template use, but that is NOT a final property/context/redistribution release approval. Both photos are clearly described as unrelated illustrative references, not CURRENT listings.
 
-Current inventory: **62 original-template media identities (10 source/creator recorded; 52 untraced)**; **25 component stock identities**; **zero finally release-approved**. Crops, performance, subject/property rights and stakeholder acceptance remain outstanding.
+At the earlier CURRENT-only checkpoint: **62 original-template identities (10 sourced, 52 untraced)**. These counts were superseded by the following retreat pass. Crops, performance, subject/property rights and stakeholder acceptance remain outstanding.
+
+
+## Photo-only Morrow House restoration — 22 November 2026
+
+Replaced the three earlier generated illustration stand-ins (lakeside house, pictured suite and winter cabin scene) with direct Pexels publisher-identified photographs by ilayda 0700 (TM-074), Matheus Bertelli (TM-075), and Courtney RA (TM-076). The source is real published stock photography, but the real places are not the fictional accommodation, and photos do not establish any booking, room configuration or location claim. Source pages and licenses have been logged in the manifest. All three remain needs-review pending actual mobile crop, rights/affiliation acceptance, and optimization. The guide map is a functional conceptual diagram and was intentionally retained, not substituted for a photograph.
+
+Current full-template remote media: **65 entries, 13 with photographer and source page, 52 with missing provenance, zero final approvals**. Component stock remains **25 entries, zero final approvals**. All steps and claims must continue to be checked against actual browser/rendered media and user acceptance.

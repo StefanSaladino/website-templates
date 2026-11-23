@@ -83,3 +83,9 @@
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #3b342b;outline-offset:4px}
 .site-header a:focus-visible,.site-header button:focus-visible,.mobile-menu a:focus-visible,.hero a:focus-visible,.hero button:focus-visible{outline:3px solid #f5e38d;outline-offset:4px}
 .booking a:focus-visible,.site-footer a:focus-visible{outline:3px solid #f5e38d;outline-offset:4px}
+
+/* Photographic replacement of prior generated scenic stand-ins. */
+.retreat-replacement-photo{display:block;width:100%;height:100%;object-fit:cover}
+.house-spread__image .retreat-replacement-photo{object-position:center center}
+.room--three .retreat-replacement-photo{object-position:center center}
+.season--winter .retreat-replacement-photo{object-position:center center}

@@ -57,3 +57,10 @@ The five original candidate photos, identities and hashes above remain historica
 Morrow House remains a fictional, non-operating accommodation concept. Copy now emphasizes proposed rooms, hypothetical features and no verified physical address. Date controls are explicitly non-booking; form submission is prevented in script and no-JavaScript fallback, with accessible feedback saying no reservation or information was sent. The existing chapter navigation and mobile templates remain in place.
 
 **Current Morrow House remote media: 3 (TM-036, TM-061, TM-070), all `needs-review`.** No new stock images or unverified property photos were introduced, and no rights approval was granted. Browser regression and asset-scan checks reject the retired identities; real-device visual, accessibility and remaining photo licensing remain release blockers.
+
+
+## Photo-only Morrow House restoration — 22 November 2026
+
+Replaced the three earlier generated illustration stand-ins (lakeside house, pictured suite and winter cabin scene) with direct Pexels publisher-identified photographs by ilayda 0700 (TM-074), Matheus Bertelli (TM-075), and Courtney RA (TM-076). The source is real published stock photography, but the real places are not the fictional accommodation, and photos do not establish any booking, room configuration or location claim. Source pages and licenses have been logged in the manifest. All three remain needs-review pending actual mobile crop, rights/affiliation acceptance, and optimization. The guide map is a functional conceptual diagram and was intentionally retained, not substituted for a photograph.
+
+Current full-template remote media: **65 entries, 13 with photographer and source page, 52 with missing provenance, zero final approvals**. Component stock remains **25 entries, zero final approvals**. All steps and claims must continue to be checked against actual browser/rendered media and user acceptance.
