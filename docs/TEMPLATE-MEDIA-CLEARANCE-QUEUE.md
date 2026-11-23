@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **3 without verified/recorded source-page links** and **3 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **1 without verified/recorded source-page links** and **1 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -50,7 +50,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-117 | muskoka-retreat | Pexels publisher page; Fernanda Neitzel | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
 | TM-134 | custom-bakes | Pexels publisher page; Jill Wellington | unrelated pastel floral cookies; maker, image/property rights, commercial redistribution and mobile crops unapproved |
 | TM-107 | editorial-commerce | Pexels publisher page; Taryn Elliott | unrelated-cooking-gear, incidental-label-review, 4:5-product-crop-pending |
-| TM-041 | real-estate | Source page missing; Creator missing | property-location-unverified, fake-hero-listing-association, phone-cover-clips-building (+1 more in JSON) |
+| TM-135 | real-estate | Pexels publisher page; Sujan Shan | real Meaford waterfront home, not a CURRENT listing; dock visitor/property rights, crop and redistribution review open |
 | TM-131 | architecture | Pexels publisher page; Gustavo Galeano Maz | independent hillside home; architect/property rights, device crops, commercial redistribution and stakeholder acceptance open |
 | TM-121 | woodworker | Pexels original; Fallgregg | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
 | TM-116 | event-launch | Pexels publisher page; Sašo Vukadinović | unrelated-stage-not-harbour-venue, instrument-brand-markings-open, landscape-crop-review-open |
@@ -59,7 +59,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-050 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | fictitious-before-after-attribution, plant-species-unverified, drainage-work-unverified (+2 more in JSON) |
 | TM-051 | landscaping | Recorded source page; Sergej ***** (@skstrannik) | separate-property-not-ruled-out, wall-not-garden-planting-feature, false-project-continuity-risk (+1 more in JSON) |
 | TM-122 | woodworker | Pexels original; Manish Jangid | independently photographed stock, fictional workshop and product subjects, human rights/crop/redistribution still open |
-| TM-057 | real-estate | Source page missing; Creator missing | property-location-unverified, fictitious-listing-details, mobile-room-framing-review |
+| TM-136 | real-estate | Pexels publisher page; April Choitz | Pennsylvania lake cabin at dusk, not a CURRENT property; property/identity and commercial redistribution approval open |
 | TM-132 | architecture | Pexels publisher page; Adrien Olichon | independent skylight interior; architectural authorship, property rights, image crops and commercial redistribution open |
 | TM-125 | restaurant | Pexels original; Davis Arenas | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
 | TM-133 | custom-bakes | Pexels publisher page; Zeynep Ladin Üstündağ | unrelated pink-piped birthday cake; baker, photographed product, commercial redistribution and phone crops unapproved |
@@ -238,3 +238,6 @@ Retired two unsupported original Unsplash identities TM-042 (residence) and TM-0
 
 ## DOT + CRUMB distinct publisher-identified originals — 23 November 2026
 Retired unattributed Unsplash stock TM-037 (unicorn / numeral cookies) and TM-060 (extreme frosting macro). Real matching Pexels replacements are **TM-133** ([Zeynep Ladin Üstündağ, overhead white and pink birthday cake, 29192489](https://www.pexels.com/photo/elegant-pink-birthday-cake-with-white-icing-29192489/)) and **TM-134** ([Jill Wellington, pastel floral iced sugar cookies, 6770390](https://www.pexels.com/photo/cookies-with-beautiful-design-on-white-cloth-6770390/)). Source pages identify named photographers and Free labels; the original download images were viewed. Bakery does not own, bake or sell any of the photographed items. The root gallery now displays the actual birthday cake, labels this as a fictional bake-studio preview, and removes invented order tickets / lead-time promises. **Original full-template source coverage: 71/74; three untraced (CURRENT 2, YARD 1); zero rights-approved.** Four DOT + CRUMB photographs remain needs-review for commercial template redistribution, product and person/property rights, real loaded-image crops and stakeholder signoff. No merge.
+
+## CURRENT original waterfront photo source replacements — 23 November 2026
+Retired two unattributed original Unsplash photos TM-041 (hero) and TM-057 (third hypothetical home + journal). The CURRENT full template and gallery now use separately original-attributed Pexels: **TM-135** ([Sujan Shan, real dock and house photographed at Meaford, Ontario, image 15533042](https://www.pexels.com/photo/house-at-the-lake-15533042/), 4000×2250), and **TM-136** ([April Choitz, Pennsylvania lake-facing timber cabin at dusk, image 34701790](https://www.pexels.com/photo/cozy-interior-of-cabin-overlooking-lake-at-dusk-34701790/), 3815×2861). Both named photographer records show Free stock labels and publisher original downloads; **neither is an authorized CURRENT listing, client, property for sale, house brand, or agency endorsement**. The hero has a visible unrelated-stock notice. Third home and story alt/copy are adjusted to real images. Example names, location assertions and price/bed/frontage remain fictional. Rights of photographed private buildings or people, full commercial-template reuse, proof of release, responsive crops and design signoff are unresolved. **73/74 original full-template stock identities have source-page and creator attribution; YARD TM-068 remains untraced; zero rights approved.** Do not merge or mark live.

@@ -176,38 +176,6 @@
       "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
     },
     {
-      "id": "TM-041",
-      "urlIdentity": "https://images.unsplash.com/photo-1756227356398-aea8ee98cdc6",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "real-estate",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "bf472c6416de6db5da1bc455c915e1044e570aa168ef0e4e50f4f9c0d60db71a",
-        "notes": "Modern waterfront house with orange roof/trim accents, timber/stone cladding, landscaping and a small dock visible. The photo is not known to show the fictional Drift House or Thornbury. The landscape original is reasonably framed in 16:9; narrow phone crops remove some shore and building facade.",
-        "flags": [
-          "property-location-unverified",
-          "fake-hero-listing-association",
-          "phone-cover-clips-building",
-          "rights-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-050",
       "urlIdentity": "https://images.unsplash.com/photo-1761637823276-7d714eb45cb1",
       "kind": "image",
@@ -275,37 +243,6 @@
       },
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Official Unsplash image hyperlink exactly matches the inventory CDN identity; origin only, NOT project-credit, property, licensing or endorsement approval."
-    },
-    {
-      "id": "TM-057",
-      "urlIdentity": "https://images.unsplash.com/photo-1772411650649-f88111bcb8a5",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "real-estate",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": "STOCK-024",
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "09cfcc656ceda5ec3f7c6fc87cdd0ce43ed0403c54597afe0f523086f93cc8b2",
-        "notes": "Dark living area silhouettes furniture in front of large windows overlooking water and vivid sunset clouds. This supports a lake-view interior photo description, but not the fictional Tiny Township listing, bed count or shoreline footage. Portrait crop keeps the central water view and loses side furnishings.",
-        "flags": [
-          "property-location-unverified",
-          "fictitious-listing-details",
-          "mobile-room-framing-review"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-REAL-ESTATE-MEDIA-PILOT.md"
-      }
     },
     {
       "id": "TM-068",
@@ -1705,6 +1642,48 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Verified official original Pexels page and linked image download on 2026-11-23: photographer Jill Wellington, item 6770390, Free to use label and dimensions 5760 x 3840. Photo shows pastel pink, lilac, mint and white floral/decorative iced sugar cookies on ruffled white fabric. No unicorn, number-four or letter-L cookie is implied. Actual baker, product sourcing, venue, custom bakery offerings, image/property rights, redistribution inside commercial template bundles and final design acceptance remain unverified."
+    },
+    {
+      "id": "TM-135",
+      "urlIdentity": "https://images.pexels.com/photos/15533042/pexels-photo-15533042.jpeg",
+      "creator": "Sujan Shan",
+      "sourcePageUrl": "https://www.pexels.com/photo/house-at-the-lake-15533042/",
+      "sourceVerificationNote": "On 2026-11-23 checked official Pexels photographer and Free page for original photo 15533042 by Sujan Shan, 4000 x 2250, published with location Meaford, Ontario, Canada. Original publisher JPG depicts real white shoreline home, rocky edge, dock and trees; person appears on dock. Used only as unrelated editorial architecture stock, NOT a CURRENT client listing, photograph of invented homes, brokerage affiliation or availability. Owner/property/person rights and resale/distribution within commercial site templates, cropping and final human design approval remain unresolved.",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "real-estate",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23"
+    },
+    {
+      "id": "TM-136",
+      "urlIdentity": "https://images.pexels.com/photos/34701790/pexels-photo-34701790.jpeg",
+      "creator": "April Choitz",
+      "sourcePageUrl": "https://www.pexels.com/photo/cozy-interior-of-cabin-overlooking-lake-at-dusk-34701790/",
+      "sourceVerificationNote": "On 2026-11-23 checked official Pexels photographer and Free page for April Choitz original photo 34701790, 3815 x 2861, recorded Pennsylvania, United States. Original publisher JPG shows warm wood-paneled cabin, glowing lamps, wide windows and lake framed by bare trees at dusk. Not Georgian Bay, a CURRENT listing or a real North Window property. Photo/owner/property rights, commercial template redistribution and final loaded-photo crop and human design signoff remain unresolved.",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "real-estate",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23"
     }
   ]
 }

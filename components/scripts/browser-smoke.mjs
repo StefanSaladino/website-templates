@@ -673,6 +673,12 @@ try{
  assert(!(await page.locator('.home-media img,.shore-slide img').evaluateAll(imgs=>imgs.some(img=>
    /photo-1503686982867|photo-1774516534119/.test(img.currentSrc||img.src)))),'CURRENT retired geographic-mismatch photos cannot be displayed');
  assert((await page.locator('.photo-tag').textContent()).includes('Not a listing'),'CURRENT photo-tag is labeled as non-listing stock');
+ assert((await page.locator('.hero-photo img').getAttribute('src')).includes('/15533042/'),'CURRENT hero must reference a real, publisher-attributed Meaford shore house');
+ assert((await page.locator('.hero-photo img').getAttribute('srcset')).includes('1600w'),'CURRENT real-photo hero must supply phone/desktop responsive sources');
+ assert((await page.locator('.home-row--blue img').getAttribute('src')).includes('/34701790/'),'CURRENT third home is unrelated credited lakeside timber cabin photography');
+ assert((await page.locator('#shore-frame-3 img').getAttribute('src')).includes('/34701790/'),'CURRENT third journal frame shares credited cabin photo');
+ assert((await page.locator('.home-row--blue img').getAttribute('srcset')).includes('1200w'),'CURRENT third home has adaptive photo sizes');
+ assert(!/photo-1756227356398|photo-1772411650649/.test(await page.content()),'CURRENT retired untraced stock must remain absent');
  await page.locator('[data-sample-contact] button').click();
  assert((await page.locator('[data-sample-response]').textContent()).includes('no brief was sent'),'CURRENT demo form confirms no agent request was submitted');
  await page.waitForSelector('[data-shore-next]:visible');
