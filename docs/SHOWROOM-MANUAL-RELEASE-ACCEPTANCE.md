@@ -24,7 +24,7 @@ Record reviewer initials, device/OS/browser version, date, exact commit and pass
 | Zoom and text spacing | Reflow at 200%/400%; increased font and spacing; inspect truncated text, lost controls and fixed-position overlays | **Not tested** |
 | Responsive visuals | Verify actual **320, 390, 768, 1280 and 1440px** screenshots for all 24 full templates; screenshot with images loaded and any failed-image fallback separately | **Not signed off** |
 | Interaction targets | Use real touch to check menu/button hitboxes, forms, swatches, carousel/rail controls and links close to viewport edges | **Not tested** |
-| Reduced motion | Test each of 20 integrated animation patterns under `prefers-reduced-motion: reduce`; essential content remains readable and no autoplay/nonconsensual 4K video | **Not approved** |
+| Reduced motion | Test each of 20 integrated animation patterns under `prefers-reduced-motion: reduce`; essential content remains readable and no autoplay under reduced motion; pause control and poster fallback for the HD hero | **Not approved** |
 | Component mobile alternatives | Inspect **all 44 independent layout alternatives**, verify correct style selection, names, touch/keyboard navigation and responsive overflow | **Not signed off** |
 | Visual contrast | Measure text and focus cues over **actual loaded photographs**, overlays, light/dark variants, states and disabled controls; remediate deficits | **Not approved** |
 | Sample documents | Open the MENU-04 tagged PDF and HTML version in a real screen reader, check headings/reading order and independent PDF accessibility; update metadata if necessary | **Not certified** |
@@ -32,7 +32,7 @@ Record reviewer initials, device/OS/browser version, date, exact commit and pass
 
 ## Media provenance and rights — release blocker
 
-Track each exact image/poster and video by source URL, creator, license terms and suitability for redistribution in a publicly shared template. A screenshot or successful remote image response does **not** authorize reuse. No media licenses have been marked approved. The retired barefoot-saw stock image must remain excluded from active media; original joinery illustrations replaced it, but all surviving third-party assets still require rights approval. **OFFCUT's opt-in 4K video remains unapproved** until source/license, footage content, duration, bitrate, device download cost, and fallback performance have been independently assessed. Do not flip the consent gate or autoplay flags for convenience.
+Track each exact image/poster and video by source URL, creator, license terms and suitability for redistribution in a publicly shared template. A screenshot or successful remote image response does **not** authorize reuse. No media licenses have been marked approved. The retired barefoot-saw stock image must remain excluded from active media; original joinery illustrations replaced it, but all surviving third-party assets still require rights approval. **OFFCUT's current HD autoplay video remains unapproved** until source/license, footage content, duration, bitrate, device download cost, and fallback performance have been independently assessed. Do not flip the consent gate or autoplay flags for convenience.
 
 ## Per-template log
 

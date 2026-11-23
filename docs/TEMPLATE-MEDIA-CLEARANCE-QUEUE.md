@@ -4,7 +4,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
+- **74 active external media identities:** 73 still/poster images and 1 HD hero video (conditional muted autoplay)
 - **0 without verified/recorded source-page links** and **0 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **13 first-priority review records** with people, branding, replacement or video-related flags; 61 follow-on records

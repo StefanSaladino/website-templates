@@ -160,65 +160,63 @@ try{
  assert((await page.locator('.hero-image img').getAttribute('src')).includes('/5233279/'),'GARAGE hero and gallery use a sourced real detailer scene');
  assert((await page.locator('.work-side img').nth(1).getAttribute('src')).includes('/20042053/'),'GARAGE side vignette uses a sourced foam polisher study');
  await openTemplate('creative-agency');
- // The remote 4096x2160 source is never attached on initial page load.
- // An explicit Play interaction can attach it; no large video bytes are fetched by this test.
- assert((await page.locator('#hero-film').getAttribute('poster')).includes('/7677235/'),'OFFCUT hero poster is original Pexels people-free red silk');
- assert((await page.locator('#hero-film source').getAttribute('data-src')).includes('7677235-hd_1920_1080_25fps.mp4'),'OFFCUT consent-only film has original-publisher default 1080p identity');
- assert(await page.locator('#hero-film').getAttribute('preload')==='none','OFFCUT hero film does not preload');
- assert(await page.locator('#hero-film').getAttribute('autoplay')===null,'OFFCUT never autoplays the remote HD video');
- assert(await page.locator('#hero-film source').getAttribute('src')===null,'OFFCUT video URL is not attached until opt-in');
- assert(await page.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT opt-in film control defaults to off');
- assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT film control is accessible');
+ // OFFCUT is autoplay-first, with deterministic simulated media playback so
+ // the smoke suite never downloads the real remote video.
+ assert((await page.locator('#hero-film').getAttribute('poster')).includes('/7677235/'),'OFFCUT hero poster retains sourced red silk');
+ assert((await page.locator('#hero-film source').getAttribute('data-src')).includes('7677235-hd_1920_1080_25fps.mp4'),'OFFCUT uses the sourced HD film');
+ assert(await page.locator('#hero-film').getAttribute('muted')!==null && await page.locator('#hero-film').getAttribute('loop')!==null && await page.locator('#hero-film').getAttribute('playsinline')!==null,'OFFCUT autoplay is muted, looping and inline');
+ assert(await page.locator('.film-detail,.film-hint,.portfolio-demo-note,[data-film-status]').count()===0,'OFFCUT informational banners removed');
+ assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT playback control is accessible');
+ const offcutAuto=await browser.newPage({viewport:{width:390,height:900},reducedMotion:'no-preference'});
+ await offcutAuto.addInitScript(()=>{
+   HTMLMediaElement.prototype.load=function(){};
+   HTMLMediaElement.prototype.play=function(){return Promise.resolve()};
+   HTMLMediaElement.prototype.pause=function(){};
+ });
+ await offcutAuto.route('**/video-files/**',route=>route.abort());
+ await offcutAuto.goto(templateBase+'creative-agency/index.html',{waitUntil:'domcontentloaded'});
+ await offcutAuto.waitForFunction(()=>document.querySelector('[data-film-toggle]')?.getAttribute('aria-pressed')==='true');
+ assert((await offcutAuto.locator('#hero-film source').getAttribute('src'))?.includes('7677235-hd'),'OFFCUT starts automatically without user interaction');
+ assert((await offcutAuto.locator('[data-film-toggle] span').textContent())==='Pause film','OFFCUT exposes pause during autoplay');
+ await offcutAuto.locator('[data-film-toggle]').click();
+ assert(await offcutAuto.locator('#hero-film source').getAttribute('src')===null && await offcutAuto.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT pause detaches stream and restores poster');
+ await offcutAuto.locator('[data-film-toggle]').click();
+ await offcutAuto.waitForFunction(()=>document.querySelector('[data-film-toggle]')?.getAttribute('aria-pressed')==='true');
+ await offcutAuto.emulateMedia({reducedMotion:'reduce'});
+ await offcutAuto.waitForFunction(()=>!document.querySelector('#hero-film source').hasAttribute('src'));
+ assert(await offcutAuto.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT preference change stops active film');
+ await offcutAuto.close();
  const offcutTablet=await browser.newPage({viewport:{width:768,height:900},reducedMotion:'reduce'});
  await offcutTablet.goto(templateBase+'creative-agency/index.html',{waitUntil:'domcontentloaded'});
  const offcutTabletRegions=await offcutTablet.evaluate(()=>{
    const rect=selector=>{const b=document.querySelector(selector)?.getBoundingClientRect();return b?{left:b.left,right:b.right,top:b.top,bottom:b.bottom,height:b.height}:null};
-   return {warning:rect('.film-detail'),cta:rect('.hero-bottom .primary-action'),
-     font:Number.parseFloat(getComputedStyle(document.querySelector('.film-detail')).fontSize)};
+   return {controls:rect('.offcut-motion-actions'),cta:rect('.hero-bottom .primary-action')};
  });
- assert(offcutTabletRegions.warning&&offcutTabletRegions.cta&&offcutTabletRegions.warning.left>=-2&&
-   offcutTabletRegions.warning.right<=770&&offcutTabletRegions.warning.top>=offcutTabletRegions.cta.bottom+8&&
-   offcutTabletRegions.warning.height>=25&&offcutTabletRegions.font>=10,
-   'OFFCUT 768px HD disclosure is visible and safely below the main CTA');
- assert(await offcutTablet.locator('#hero-film source').getAttribute('src')===null,
-   'OFFCUT tablet poster does not attach HD film before user confirmation');
+ assert(offcutTabletRegions.controls&&offcutTabletRegions.cta&&offcutTabletRegions.controls.left>=-2&&
+   offcutTabletRegions.controls.right<=770&&offcutTabletRegions.controls.top>=offcutTabletRegions.cta.bottom+8&&
+   offcutTabletRegions.controls.height>=44,'OFFCUT tablet playback controls clear the main CTA');
+ assert(await offcutTablet.locator('#hero-film source').getAttribute('src')===null,'OFFCUT reduced-motion visitor gets poster without automatic stream');
  await offcutTablet.close();
- await page.emulateMedia({reducedMotion:'reduce'});
- assert(await page.locator('#hero-film source').getAttribute('src')===null,'OFFCUT reduced-motion user never loads the video automatically');
- assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT explicit play remains available under reduced motion');
- await page.emulateMedia({reducedMotion:'no-preference'});
- await page.evaluate(() => {
-   const video=document.querySelector('#hero-film');
-   video.load=()=>{};
-   video.play=()=>Promise.resolve();
-   video.pause=()=>{};
- });
- await page.locator('[data-film-toggle]').click();
- assert(await page.locator('#hero-film source').getAttribute('src')===null
-   &&(await page.locator('[data-film-toggle] span').textContent())==='Confirm HD stream',
-   'OFFCUT first click only requests consent and cannot fetch video bytes');
- assert((await page.locator('[data-film-status]').textContent()).includes('unknown transfer size'),
-   'OFFCUT user sees a clear HD bandwidth warning before accepting');
- await page.locator('[data-film-toggle]').click();
- await page.waitForFunction(()=>document.querySelector('[data-film-toggle]')?.getAttribute('aria-pressed')==='true');
- assert((await page.locator('#hero-film source').getAttribute('src'))?.startsWith('https://videos.pexels.com/'),
-   'OFFCUT attaches source only on second confirmed click');
- assert((await page.locator('[data-film-toggle] span').textContent())==='Stop film','OFFCUT control shows stop action when playing');
- await page.locator('[data-film-toggle]').click();
- assert(await page.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false'
-   &&await page.locator('#hero-film source').getAttribute('src')===null,
-   'OFFCUT stopping video removes the remote HD src');
  const saverPage=await browser.newPage({viewport:{width:390,height:900}});
  await saverPage.addInitScript(()=>{
    Object.defineProperty(navigator,'connection',{configurable:true,value:{saveData:true}});
  });
  await saverPage.route('**/video-files/**',route=>route.abort());
  await saverPage.goto(templateBase+'creative-agency/index.html',{waitUntil:'domcontentloaded'});
- await saverPage.locator('[data-film-toggle]').click();
- assert((await saverPage.locator('[data-film-status]').textContent()).includes('Data Saver')
-   &&await saverPage.locator('#hero-film source').getAttribute('src')===null,
-   'OFFCUT Save-Data mode blocks streaming on click');
+ assert(await saverPage.locator('[data-film-toggle]').isDisabled() && await saverPage.locator('#hero-film source').getAttribute('src')===null,'OFFCUT Save-Data blocks automatic and manual streaming');
  await saverPage.close();
+ const rejectedPage=await browser.newPage({viewport:{width:390,height:900},reducedMotion:'no-preference'});
+ await rejectedPage.addInitScript(()=>{
+   HTMLMediaElement.prototype.load=function(){};
+   HTMLMediaElement.prototype.play=function(){window.offcutAttempted=true;return Promise.reject(new Error('Autoplay blocked'))};
+   HTMLMediaElement.prototype.pause=function(){};
+ });
+ await rejectedPage.route('**/video-files/**',route=>route.abort());
+ await rejectedPage.goto(templateBase+'creative-agency/index.html',{waitUntil:'domcontentloaded'});
+ await rejectedPage.waitForFunction(()=>window.offcutAttempted && !document.querySelector('#hero-film source').hasAttribute('src'));
+ assert((await rejectedPage.locator('[data-film-toggle] span').textContent())==='Play film','OFFCUT blocked autoplay leaves poster and retry control');
+ await rejectedPage.close();
+ await page.bringToFront();
  await page.waitForSelector('.offcut-motion-ready');
  await page.locator('[data-replay-motion="ANIM-02"]').click();
  assert(await page.locator('[data-motion-pattern="ANIM-02"]').evaluate(el=>el.classList.contains('offcut-motion-playing')),'OFFCUT ANIM-02 replays a line-wise title');

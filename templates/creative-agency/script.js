@@ -56,29 +56,24 @@ function updateHeader() {
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive: true });
 
-// OFFCUT's credited Pexels 1920x1080 textile study is independent of the ANIM-02 title.
-const filmStatus = document.querySelector('[data-film-status]');
+// Autoplay the muted loop for ordinary visitors. Keep the poster for reduced
+// motion, Data Saver, playback rejection and no-JS; never load when offscreen.
 const dataConnection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-let filmState = 'idle'; // idle | confirm | loading | playing
-let filmTicket = 0;
 const saveDataActive = () => dataConnection?.saveData === true;
-
-function setFilmStatus(message) {
-  if (filmStatus) filmStatus.textContent = message;
-}
+let filmState = 'idle';
+let filmTicket = 0;
+let manuallyPaused = false;
+let heroVisible = true;
+let autoplayBlocked = false;
 function showFilmState(state) {
   filmState = state;
   if (!filmToggle) return;
   filmToggle.setAttribute('aria-pressed', String(state === 'playing'));
+  filmToggle.disabled = saveDataActive();
   const label = filmToggle.querySelector('span');
-  if (label) label.textContent = {
-    idle: 'Preview film',
-    confirm: 'Confirm HD stream',
-    loading: 'Cancel loading',
-    playing: 'Stop film'
-  }[state] || 'Preview film';
+  if (label) label.textContent = state === 'playing' ? 'Pause film' : state === 'loading' ? 'Cancel loading' : 'Play film';
 }
-function stopFilm(message = 'Film stopped. The HD source was detached; the still poster remains.') {
+function stopFilm() {
   ++filmTicket;
   showFilmState('idle');
   film?.pause();
@@ -86,83 +81,84 @@ function stopFilm(message = 'Film stopped. The HD source was detached; the still
     filmSource.removeAttribute('src');
     film?.load();
   }
-  setFilmStatus(message);
 }
 async function playFilm() {
-  if (!film || !filmSource || !filmToggle) return;
-  if (saveDataActive()) {
-    stopFilm('Data Saver enabled. The HD film was not loaded; the still poster remains.');
-    return;
-  }
+  if (!film || !filmSource || !filmToggle || saveDataActive() || document.hidden || !heroVisible || filmState !== 'idle') return;
   const url = filmSource.dataset.src || '';
-  let exactApprovedPreviewIdentity = false;
   try {
     const parsed = new URL(url);
-    exactApprovedPreviewIdentity = parsed.protocol === 'https:'
-      && parsed.hostname === 'videos.pexels.com'
-      && parsed.pathname === '/video-files/7677235/7677235-hd_1920_1080_25fps.mp4'
-      && !parsed.search && !parsed.hash;
-  } catch {
-    // An invalid URL must never be assigned to a media element.
-  }
-  if (!exactApprovedPreviewIdentity) {
-    stopFilm('Sample film unavailable. The still poster remains.');
-    return;
-  }
+    if (parsed.protocol !== 'https:' || parsed.hostname !== 'videos.pexels.com'
+      || parsed.pathname !== '/video-files/7677235/7677235-hd_1920_1080_25fps.mp4'
+      || parsed.search || parsed.hash) return;
+  } catch { return; }
   const ticket = ++filmTicket;
   showFilmState('loading');
-  setFilmStatus('Loading the large HD sample after your confirmation. Cancel at any time.');
   try {
+    film.muted = true;
+    film.defaultMuted = true;
     filmSource.setAttribute('src', url);
     film.load();
     await film.play();
-    if (ticket !== filmTicket) return;
-    showFilmState('playing');
-    setFilmStatus('Review-only film playing. Stop to disconnect the stream and return to the poster.');
+    if (ticket === filmTicket) showFilmState('playing');
   } catch {
-    if (ticket === filmTicket) stopFilm('The sample film could not play. The still poster remains.');
+    if (ticket === filmTicket) {
+      autoplayBlocked = true;
+      stopFilm();
+    }
   }
+}
+function maybeAutoplay() {
+  if (!manuallyPaused && !autoplayBlocked && !reduceMotion.matches && !saveDataActive() && !document.hidden && heroVisible) void playFilm();
 }
 filmToggle?.addEventListener('click', () => {
   if (filmState === 'loading' || filmState === 'playing') {
+    manuallyPaused = true;
     stopFilm();
-  } else if (saveDataActive()) {
-    stopFilm('Data Saver is enabled. No large video will stream; the poster and headline remain.');
-  } else if (filmState === 'idle') {
-    showFilmState('confirm');
-    setFilmStatus('The sample is an unoptimized HD MP4 with unknown transfer size. Confirm HD stream to use network data, or leave the poster in place.');
-  } else if (filmState === 'confirm') {
+  } else {
+    manuallyPaused = false;
+    autoplayBlocked = false;
     void playFilm();
   }
 });
+function onFilmError() {
+  if (filmState === 'loading' || filmState === 'playing') {
+    autoplayBlocked = true;
+    stopFilm();
+  }
+}
+film?.addEventListener('error', onFilmError);
+filmSource?.addEventListener('error', onFilmError);
 film?.addEventListener('pause', () => {
-  if (filmState === 'playing') stopFilm();
-});
-film?.addEventListener('error', () => {
-  if (filmState === 'loading' || filmState === 'playing') stopFilm('Video could not load. The poster remains.');
-});
-filmSource?.addEventListener('error', () => {
-  if (filmState === 'loading' || filmState === 'playing') stopFilm('Video source unavailable. The poster remains.');
-});
-reduceMotion.addEventListener?.('change', event => {
-  if (event.matches && (filmState === 'playing' || filmState === 'loading')) {
-    stopFilm('Reduced motion enabled. Film disconnected and poster restored.');
+  if (filmState === 'playing') {
+    autoplayBlocked = true;
+    stopFilm();
   }
 });
+reduceMotion.addEventListener?.('change', event => {
+  if (event.matches) stopFilm();
+  else maybeAutoplay();
+});
 dataConnection?.addEventListener?.('change', () => {
-  if (saveDataActive()) stopFilm('Data Saver activated. Film disconnected and poster restored.');
+  if (saveDataActive()) stopFilm();
+  else { showFilmState(filmState); maybeAutoplay(); }
 });
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden && filmState !== 'idle') stopFilm('Film stopped when the tab was hidden. Poster restored.');
+  if (document.hidden) stopFilm();
+  else maybeAutoplay();
 });
 const heroForFilm = document.querySelector('.hero');
+showFilmState('idle');
 if (heroForFilm && 'IntersectionObserver' in window) {
+  // Wait for the initial intersection, so a deep link does not start streaming.
+  heroVisible = false;
   const observer = new IntersectionObserver(entries => {
-    if (!entries[0]?.isIntersecting && (filmState === 'playing' || filmState === 'loading')) {
-      stopFilm('Film stopped after scrolling away from the hero. Poster restored.');
-    }
+    heroVisible = Boolean(entries[0]?.isIntersecting);
+    if (!heroVisible) stopFilm();
+    else maybeAutoplay();
   }, { threshold: 0 });
   observer.observe(heroForFilm);
+} else {
+  maybeAutoplay();
 }
 
 const revealItems = document.querySelectorAll('.reveal');

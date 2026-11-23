@@ -1,5 +1,5 @@
 /* Actual remote still-image layout evidence, not a media licensing or accessibility approval.
- * Never assign a video src, issue a video request or download the 4K Pexels MP4.
+ * Capture OFFCUT in reduced-motion poster mode; never request its HD video.
  */
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
@@ -116,14 +116,14 @@ try{
   for(const entry of templates){
     for(const width of sizes){
       const context=await browser.newContext({viewport:{width,height:900},deviceScaleFactor:1,
-        reducedMotion:width===320?'reduce':'no-preference'});
+        reducedMotion:entry.name==='creative-agency'||width===320?'reduce':'no-preference'});
       const page=await context.newPage();
       let videoRequests=0;
       page.on('request',request=>{
         if(/^https:\/\/videos\.pexels\.com\//.test(request.url()))videoRequests++;
       });
       page.on('pageerror',error=>report.errors.push(entry.name+' '+width+' browser: '+String(error)));
-      // No 4K body or video headers are fetched, even if future code accidentally
+      // No HD body or video headers are fetched, even if future code accidentally
       // attaches the source. A request attempt itself fails the QA ledger.
       await page.route(/^https:\/\/videos\.pexels\.com\//,route=>route.abort('blockedbyclient'));
       const response=await page.goto(origin+entry.name+'/index.html',{waitUntil:'domcontentloaded',timeout:18000});
@@ -152,24 +152,20 @@ try{
           });
         }
       }
-      if(entry.name==='creative-agency'&&width<=768){
+      if(entry.name==='creative-agency'){
         const regions=await page.evaluate(()=>{
           const bounds=selector=>{
             const rect=document.querySelector(selector)?.getBoundingClientRect();
             return rect?{left:rect.left,top:rect.top,right:rect.right,bottom:rect.bottom,width:rect.width,height:rect.height}:null;
           };
-          return {warning:bounds('.film-detail'),cta:bounds('.hero-bottom .primary-action'),
-            controls:bounds('.offcut-motion-actions'),hero:bounds('.hero')};
+          return {controls:bounds('.offcut-motion-actions'),cta:bounds('.hero-bottom .primary-action'),
+            banners:document.querySelectorAll('.film-detail,.film-hint,.portfolio-demo-note,[data-film-status]').length};
         });
-        result.filmWarningLayout=regions;
-        const warning=regions.warning,cta=regions.cta;
-        if(!warning||!cta||warning.left<-2||warning.right>width+2||
-          warning.top<cta.bottom+8||warning.height<25)
-          report.errors.push('OFFCUT '+width+' film warning clipped, collapsed or overlapping main CTA');
-        if(width===768){
-          const noticePx=await page.locator('.film-detail').evaluate(el=>Number.parseFloat(getComputedStyle(el).fontSize));
-          if(noticePx<10)report.errors.push('OFFCUT 768px film notice under 10px');
-        }
+        result.filmControlLayout=regions;
+        const controls=regions.controls,cta=regions.cta;
+        if(!controls||!cta||controls.left<-2||controls.right>width+2||
+          controls.top<cta.bottom+8||controls.height<44||regions.banners!==0)
+          report.errors.push('OFFCUT '+width+' playback controls clipped/overlapping CTA or obsolete banners present');
       }
       if(entry.name==='restaurant'&&width<=390){
         const hero=result.remoteImages.find(img=>img.context==='div.hero-media'&&img.src?.includes('/5863521/'));
@@ -213,7 +209,7 @@ try{
       if(result.remoteImages.length!==entry.required)report.errors.push(entry.name+' '+width+' expected '+entry.required+' remote img elements, saw '+result.remoteImages.length);
       for(const img of media.images)if(!img.ok||img.naturalWidth<1)report.errors.push(entry.name+' '+width+' image failed: '+img.src+' '+(img.error||''));
       if(entry.poster&&(!media.poster?.ok||media.poster.naturalWidth<1))report.errors.push(entry.name+' '+width+' poster did not decode: '+(media.poster?.error||'unknown'));
-      if(videoRequests>0||layout.sourceAttached||layout.autoplay)report.errors.push(entry.name+' '+width+' unexpected 4K video network/activation');
+      if(videoRequests>0||layout.sourceAttached||layout.autoplay)report.errors.push(entry.name+' '+width+' unexpected video network/activation during still capture');
       await sectionsToCapture(page,entry,width);
       await context.close();
       console.log('MEDIA-REVIEW',entry.name,width+'px',result.remoteImages.length+' loaded images',media.poster?'poster '+media.poster.ok:'',videoRequests+' video requests');
@@ -234,5 +230,5 @@ try{
       screenshotPrefix:flag.screenshotPrefix,src:flag.src}));
   }
   if(report.errors.length){for(const issue of report.errors)console.error('REVIEW-FAIL:',issue);process.exitCode=1;}
-  else console.log('PASS: '+batch+' decoded remote and local stills at 320/390/768/1440, without 4K requests. Crop flags are manual review prompts, not verified defects. Licensing and human crop/contrast sign-off remain open.');
+  else console.log('PASS: '+batch+' decoded remote and local stills at 320/390/768/1440, without video requests. Crop flags are manual review prompts, not verified defects. Licensing and human crop/contrast sign-off remain open.');
 }
