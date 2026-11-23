@@ -6705,12 +6705,10 @@
     "category": "animations",
     "title": "Horizontal story rail",
     "status": "in-review",
-    "exampleContext": "Photographic journal: scroll-snap story frames with keyboard controls",
+    "exampleContext": "Waterfront concept journal: two original architectural illustrations and one review-only stock photograph",
     "previewRoute": "./previews/ANIM-13/",
     "thumbnail": null,
     "stockAssetIds": [
-      "STOCK-022",
-      "STOCK-023",
       "STOCK-024"
     ],
     "interactions": [
@@ -6735,7 +6733,7 @@
     "showcase": {
       "label": "Animation and interaction",
       "focus": "Touch-friendly horizontal editorial rail",
-      "summary": "A three-card photo journal can be swiped or navigated with previous/next; the rail never hijacks page scrolling.",
+      "summary": "A three-scene concept journal can be swiped or navigated with previous/next; the rail never hijacks page scrolling.",
       "desktop": "Observe the real motion or controls, then inspect the full-page integrated treatment.",
       "mobile": "Phone layout stays fully usable without forced movement; reduced motion is respected.",
       "lookFor": [
@@ -6743,7 +6741,7 @@
         "No scroll trapping or inaccessible controls"
       ],
       "focusAnchor": "motion-showcase",
-      "explain": "A three-card photo journal can be swiped or navigated with previous/next; the rail never hijacks page scrolling.",
+      "explain": "A three-scene concept journal can be swiped or navigated with previous/next; the rail never hijacks page scrolling.",
       "bestFor": [
         "Photography-led landscape projects",
         "Editorial portfolio and real-estate stories"

@@ -630,6 +630,16 @@ try{
  assert(await page.locator('[data-a04-pause]').getAttribute('aria-pressed')==='false','ANIM-04 isolated scroll-depth preview can be paused');
  await page.setViewportSize({width:390,height:900});
  await page.goto(base+'previews/ANIM-13/index.html',{waitUntil:'domcontentloaded'});
+ const a13Sources=await page.locator('.a13-slide img').evaluateAll(imgs=>imgs.map(img=>new URL(img.currentSrc||img.src).pathname));
+ assert(a13Sources.length===3&&a13Sources[0].endsWith('/templates/real-estate/drift-house-concept.svg')&&
+   a13Sources[1].endsWith('/templates/real-estate/glass-point-concept.svg')&&
+   a13Sources[2].includes('photo-1772411650649'),'ANIM-13 isolated preview uses two original concept illustrations and one labelled remaining stock photo');
+ for(const i of [0,1]){
+   const good=await page.locator('.a13-slide img').nth(i).evaluate(async img=>{
+     await img.decode();return img.naturalWidth>0&&img.naturalHeight>0;
+   });
+   assert(good,'ANIM-13 isolated concept '+(i+1)+' decodes local art across built template path');
+ }
  await page.locator('[data-a13-next]').click();
  assert((await page.locator('[data-a13-status]').textContent()).includes('2 of 3'),'ANIM-13 isolated rail has real previous/next behaviour');
  await page.goto(base+'previews/ANIM-16/index.html',{waitUntil:'domcontentloaded'});

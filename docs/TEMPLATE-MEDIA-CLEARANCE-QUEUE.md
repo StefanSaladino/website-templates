@@ -122,4 +122,8 @@ Native Safari/VoiceOver, Android/TalkBack, NVDA, genuine browser zoom/text-only 
 
 The geographically inaccurate coastal-surf **TM-011** and alpine-mountain **TM-062** images were retired from the CURRENT real-estate original template and replaced in **both** their main home spreads and the horizontal story rail with locally-authored, brand-specific architectural SVG drawings (`drift-house-concept.svg` and `glass-point-concept.svg`). They are **illustrations of invented buildings**, not photos, verified properties, real listings or approved design plans.
 
-The original-template third-party media queue is now **60 total**, **8 source/creator-verified**, **52 untraced**, **0 legally approved**. These two remote identities remain independently **in-review as STOCK-022/STOCK-023** in isolated `ANIM-13` component source; do not mistake the original-template retirement for site-wide licensing resolution. See `SHOWROOM-REAL-ESTATE-ILLUSTRATION-REMEDIATION.md` for exact changes.
+The original-template third-party media queue is now **60 total**, **8 source/creator-verified**, **52 untraced**, **0 legally approved**. A follow-on component pass also retired STOCK-022/STOCK-023 from isolated `ANIM-13`; the third illustrated-story stock identity STOCK-024 remains unapproved, as do the other 22 active isolated component stock records. See `SHOWROOM-REAL-ESTATE-ILLUSTRATION-REMEDIATION.md` for exact changes.
+
+## Standalone component reconciliation
+
+ANIM-13 now reuses the two original CURRENT SVG assets rather than separately showing the retired coastal and mountain photography. The isolated component stock manifest is **23 active remote identities, zero approved**; the original full-template queue remains **60 active identities, eight attributed, 52 untraced and zero approved**. The two different distribution surfaces have separate inventories: do not add the 23 and 60 counts as if they were disjoint unique photos.

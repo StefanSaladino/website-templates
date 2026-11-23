@@ -616,60 +616,6 @@
       ]
     },
     {
-      "id": "STOCK-022",
-      "sourceUrl": "https://images.unsplash.com/photo-1503686982867-43fb1b9fb691",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
-      "licenseUrl": "https://unsplash.com/license",
-      "licenseReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-13 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
-      "usageIds": [
-        "ANIM-13"
-      ],
-      "altText": "Modern waterfront home overlooking calm water",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1503686982867-43fb1b9fb691",
-      "originalFilename": null,
-      "fileHashSHA256": null,
-      "derived": [],
-      "sourcePageVerifiedAt": null,
-      "assetAcquisitionStatus": "not-downloaded",
-      "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
-        "license-and-third-party-rights-unverified",
-        "visual-crop-pending",
-        "template-redistribution-not-cleared"
-      ]
-    },
-    {
-      "id": "STOCK-023",
-      "sourceUrl": "https://images.unsplash.com/photo-1774516534119-7324f9948176",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
-      "licenseUrl": "https://unsplash.com/license",
-      "licenseReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-13 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
-      "usageIds": [
-        "ANIM-13"
-      ],
-      "altText": "Contemporary lake-facing interior and tall windows",
-      "temporaryPreviewUrl": "https://images.unsplash.com/photo-1774516534119-7324f9948176",
-      "originalFilename": null,
-      "fileHashSHA256": null,
-      "derived": [],
-      "sourcePageVerifiedAt": null,
-      "assetAcquisitionStatus": "not-downloaded",
-      "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
-        "license-and-third-party-rights-unverified",
-        "visual-crop-pending",
-        "template-redistribution-not-cleared"
-      ]
-    },
-    {
       "id": "STOCK-024",
       "sourceUrl": "https://images.unsplash.com/photo-1772411650649-f88111bcb8a5",
       "photographer": "Unverified — exact creator and Unsplash source page not established",
