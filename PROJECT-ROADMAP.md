@@ -385,3 +385,8 @@ Current original-template media: **74 identities (25 with source page and creato
 ## Root gallery thumbnail follow-through — 22 November 2026
 
 The BLACKLINE gallery thumbnail was still using retired identifiable artist/client Unsplash TM-040 after the full-page scene cleanup. Root `script.js` now reuses the unrelated, photographer-attributed Pexels workstation photograph TM-086 (Moisés Fonseca), and `check-gallery-integrity.mjs` explicitly forbids all three recent high-risk retired photos (TM-029/030/040) in the gallery. This is a photo-source and honesty correction, not production rights signoff.
+
+
+## Automatic image-loaded QA triggers — 22 November 2026
+
+`showroom-loaded-media-qa.yml` now runs on changes to any full-template `index.html` or `styles.css` in addition to its existing batch configuration and capture scripts. Previously a photo swap with unchanged per-template image count could leave the loaded-photo job unrun. The workflow still captures actual remote image decoding and crop evidence but is not independent photo-license, attribution, model/property release or stakeholder acceptance. Review image-loaded evidence at 320/390/768/1280/1440 CSS px when available; do not promote assets without manual approval.
