@@ -312,6 +312,7 @@ try{
  assert(await page.locator('.infinity-edge').evaluate(el=>getComputedStyle(el).display==='grid'),'TIDEFORM infinity section has responsive editorial layout');
  assert(await page.locator('.infinity-edge__copy').isVisible()&&await page.locator('.infinity-edge__note').isVisible(),'TIDEFORM infinity scene explanatory copy and note render');
  await page.setViewportSize({width:1440,height:900});
+ await page.locator('.infinity-edge').scrollIntoViewIfNeeded();
  const tideDesktop=await page.evaluate(()=>{
   const section=document.querySelector('.infinity-edge').getBoundingClientRect();
   const line=document.querySelector('.infinity-edge__horizon').getBoundingClientRect();
@@ -319,9 +320,10 @@ try{
   const circle=document.querySelector('.edge-detail').getBoundingClientRect();
   return {lineRatio:(line.top-section.top)/section.height,
     creditBeforeCircle:credit.right<circle.left,
+    creditBelowHeader:credit.top>document.querySelector('.site-header').getBoundingClientRect().bottom+10,
     creditWithinSection:credit.left>=section.left&&credit.right<=section.right};
  });
- assert(tideDesktop.lineRatio>.78&&tideDesktop.creditBeforeCircle&&tideDesktop.creditWithinSection,
+ assert(tideDesktop.lineRatio>.78&&tideDesktop.creditBeforeCircle&&tideDesktop.creditBelowHeader&&tideDesktop.creditWithinSection,
   'TIDEFORM desktop waterline stays below text and the independent-stock caption clears the decorative circle');
  await page.setViewportSize({width:390,height:900});
  const tidePhoneLine=await page.evaluate(()=>{

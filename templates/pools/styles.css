@@ -52,7 +52,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
    by script.js; the static fallback remains legible with scripts unavailable. */
 .infinity-edge .infinity-edge__horizon{top:84%;opacity:.38}
 @media(min-width:981px){
- .infinity-edge .infinity-stock-note{left:clamp(20px,5vw,70px);right:auto;top:25px;z-index:6}
+ .infinity-edge .infinity-stock-note{left:clamp(20px,5vw,70px);right:auto;top:112px;z-index:6}
 }
 @media(max-width:980px){
  .infinity-edge .infinity-edge__horizon{top:70%;opacity:.28}

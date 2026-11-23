@@ -484,3 +484,7 @@ The first TIDEFORM source commit reused Pexels photo 25934928, already registere
 ## TIDEFORM actual 320/390/768/1440 screenshot review — 23 November 2026
 
 Loaded real photographed pool images and original section screenshots with no decoding failures or horizontal overflow. Found and corrected the decorative infinity-edge horizon clipping through the main heading and the desktop source-label/circular ornament overlap; smoke asserts both responsive geometry changes. The original layout refinements were JS-injected (not entirely absent), with new static CSS now supplying a no-JS fallback. Exact photo attribution 65/74; 9 remain untraced, zero approved. Re-run screenshot and latest-commit CI; no Step18/19 closure or main merge.
+
+## TIDEFORM fixed header vs original stock photo label — 23 November 2026
+
+After 320/390/768/1440 photo screenshots confirmed resolved decorative horizon/headline crossings, adjusted the desktop infinity-section stock label to clear fixed header navigation in the exact screenshot scroll position. Chromium smoke now verifies bounding-box visibility and circle separation. Manual/photo QA still open until new commit verification; Steps 18/19 and `main` unchanged.
