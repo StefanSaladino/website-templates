@@ -307,7 +307,7 @@ try{
  assert((await page.locator('.hero-image img').getAttribute('alt')).includes('courtyard pool'),'TIDEFORM hero depicts an unrelated modern courtyard pool');
  assert((await page.locator('.hero-image img').getAttribute('src')).includes('/40808027/'),'TIDEFORM hero has Alef Morais publisher-attributed image');
  assert((await page.locator('.infinity-edge__image img').getAttribute('src')).includes('/34732331/'),'TIDEFORM tropical pool shows Vincent Rivaud original');
- assert((await page.locator('.project-image img').getAttribute('src')).includes('/25934928/'),'TIDEFORM architectural pool has Sara Brahollari original');
+ assert((await page.locator('.project-image img').getAttribute('src')).includes('/38495442/'),'TIDEFORM project photo uses distinct Andrea Davis publisher original, not MONOLITH architecture stock');
  assert(await page.locator('img[srcset]').count()===3,'TIDEFORM all three photo placements use responsive original sources');
  assert(await page.locator('.infinity-edge').evaluate(el=>getComputedStyle(el).display==='grid'),'TIDEFORM infinity section has responsive editorial layout');
  assert(await page.locator('.infinity-edge__copy').isVisible()&&await page.locator('.infinity-edge__note').isVisible(),'TIDEFORM infinity scene explanatory copy and note render');

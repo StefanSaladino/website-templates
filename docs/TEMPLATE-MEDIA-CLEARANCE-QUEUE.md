@@ -65,7 +65,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-060 | custom-bakes | Source page missing; Creator missing | unsupported-cake-flavour-and-ingredients, whole-product-not-shown, extreme-macro-phone-crop (+1 more in JSON) |
 | TM-118 | muskoka-retreat | Pexels publisher page; Дмитрий Терза | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
 | TM-123 | restaurant | Pexels original; Rachel Claire | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
-| TM-128 | pools | Pexels original; Sara Brahollari | unrelated residential/tropical property; rights, commercial template redistribution and engineering unverified |
+| TM-128 | pools | Pexels original; Andrea Davis | unrelated residential/tropical property; rights, commercial template redistribution and engineering unverified |
 | TM-127 | pools | Pexels original; Vincent Rivaud | unrelated residential/tropical property; rights, commercial template redistribution and engineering unverified |
 | TM-126 | pools | Pexels original; Alef Morais | unrelated residential/tropical property; rights, commercial template redistribution and engineering unverified |
 | TM-119 | muskoka-retreat | Pexels publisher page; Miguel González | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
