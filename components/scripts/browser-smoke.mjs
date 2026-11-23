@@ -402,8 +402,14 @@ try{
  await openTemplate('custom-bakes');
  assert(await page.locator('.bake-demo-banner').isVisible(),'DOT + CRUMB visibly discloses its fictional business and unverified bakery photographs');
  assert((await page.locator('.bake-demo-banner').textContent()).includes('no orders or date reservations'),'DOT + CRUMB cannot accept real orders');
- assert((await page.locator('.hero-window img').getAttribute('alt')).includes('Extreme close-up'),'DOT + CRUMB frosting macro is not described as an entire cake');
- assert((await page.locator('.bake-item--cookies img').getAttribute('alt')).includes('unicorns'),'DOT + CRUMB sugar cookie subject truthfully described');
+ assert((await page.locator('.hero-window img').getAttribute('alt')).includes('Happy Birthday'),'DOT + CRUMB hero accurately describes a complete cake, not the retired macro');
+ assert((await page.locator('.hero-window img').getAttribute('src')).includes('/29192489/'),'DOT + CRUMB hero is publisher-attributed piped birthday cake');
+ assert((await page.locator('.hero-window img').getAttribute('srcset')).includes('1400w'),'DOT + CRUMB hero has responsive high-resolution image alternatives');
+ assert((await page.locator('.bake-item--cake img').getAttribute('src')).includes('/29192489/'),'DOT + CRUMB cake example uses the same independently attributed birthday cake');
+ assert((await page.locator('.bake-item--cookies img').getAttribute('src')).includes('/6770390/'),'DOT + CRUMB floral cookies are attributed to Jill Wellington');
+ assert((await page.locator('.bake-item--cookies img').getAttribute('srcset')).includes('1400w'),'DOT + CRUMB cookie photo has responsive candidates');
+ assert(!/photo-1773366906258|photo-1739901798963/.test(await page.content()),'Retired unsourced bakery photos remain excluded');
+ assert((await page.locator('.bake-item--cookies img').getAttribute('alt')).includes('floral'),'DOT + CRUMB sugar cookies truthfully described as pastel floral icing');
  assert((await page.locator('.bake-item--wedding img').getAttribute('src')).includes('/37181428/'),'DOT + CRUMB wedding sample uses sourced real cake photography');
  assert((await page.locator('.bake-product-disclaimer').textContent()).includes('Jonathan Borba'),'DOT + CRUMB attributes cake reference without claiming bakery authorship');
  assert((await page.locator('.story-photo img').getAttribute('src')).includes('/3983576/'),'DOT + CRUMB story uses separately sourced real baking photography');

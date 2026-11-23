@@ -45,6 +45,8 @@ if((html+'\n'+js).includes('photo-1769353086138-19ee65291a04'))issues.push('Reti
 if((html+'\n'+js).includes('White oak wall shelf · 36 in.'))issues.push('Fictional woodworker gallery may not claim a specific unverified commission');
 if((html+'\n'+js).includes('photo-1774989423979-6a7bf5add3f0'))issues.push('Retired SERA gallery image returned');
 if((html+'\n'+js).includes('SUPPER CLUB · QUEEN WEST')||(html+'\n'+js).includes('<i>Reserve a table</i>'))issues.push('SERA concept thumbnail cannot imply a real venue or table booking');
+if((html+'\n'+js).includes('photo-1773366906258-d657466ad76c'))issues.push('Retired unattributed DOT + CRUMB gallery photo returned');
+if((html+'\n'+js).includes('ORDER NOTE / 016')||(html+'\n'+js).includes('10–14 days'))issues.push('Bakery concept gallery cannot imply a real order ticket or lead time');
 if((html+'\n'+js).includes('photo-1756435292384-1bf32eff7baf'))issues.push('Retired unsourced MORROW gallery hero returned');
 if((html+'\n'+js).includes('FIELD HOUSE · 2026'))issues.push('Fictional MORROW thumbnail must not imply a real completed project');
 if((html+'\n'+js).includes('photo-1768321916886-30dc323bddf7'))issues.push('Retired LINE + LEVEL stock in original gallery');

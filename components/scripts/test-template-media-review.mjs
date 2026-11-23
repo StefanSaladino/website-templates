@@ -121,12 +121,13 @@ try{
  const bake=spawnSync(process.execPath,[script,'--offline','--templates=custom-bakes','--limit=5','--output='+path.join(directory,'custom-bakes')],{encoding:'utf8',timeout:20000});
  if(bake.status!==0)throw Error('DOT + CRUMB media selection failed: '+bake.stderr+'\\n'+bake.stdout);
  const bakeAssets=JSON.parse(readFileSync(path.join(directory,'custom-bakes/results.json'),'utf8'));
- assert.deepEqual(bakeAssets.assets.map(item=>item.id),['TM-037','TM-060','TM-084','TM-085']);
+ assert.deepEqual(bakeAssets.assets.map(item=>item.id),['TM-084','TM-085','TM-133','TM-134']);
+ assert(bakeAssets.assets.every(item=>item.sourcePageUrl&&item.creator),'All four bakery photo identities must have publisher and creator records');
  assert.equal(bakeAssets.total,4);
  assert.equal(bakeAssets.downloaded,0);
  assert.equal(bakeAssets.errors,0);
  assert(bakeAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: custom-bakes selects four photos, including two publisher-attributed Pexels originals, and keeps them unapproved pending final release checks.');
+ console.log('PASS: DOT + CRUMB selects all four distinct publisher-attributed Pexels originals without approval or offline downloads.');
  const inventory=JSON.parse(readFileSync(path.join(path.dirname(script),'../data/template-media-inventory.json'),'utf8'));
  const moraHtml=readFileSync(path.join(path.dirname(script),'../../templates/storefront/index.html'),'utf8');
  const moraSource=inventory.assets.filter(asset=>asset.usages?.some(use=>use.templateId==='storefront'));

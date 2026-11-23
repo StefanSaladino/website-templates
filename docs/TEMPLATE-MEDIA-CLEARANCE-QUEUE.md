@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **5 without verified/recorded source-page links** and **5 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **3 without verified/recorded source-page links** and **3 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -48,7 +48,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-104 | editorial-commerce | Pexels publisher page; İlhan ÇAÇA | unrelated-tan-backpack, fictional-material-claims-disclaimed, mobile-crop-pending |
 | TM-035 | landscaping | Recorded source page; Naoki Suzuki | studio-project-attribution-unverified, stone-patio-not-established, wide-crop-hides-steps-and-flowers (+1 more in JSON) |
 | TM-117 | muskoka-retreat | Pexels publisher page; Fernanda Neitzel | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
-| TM-037 | custom-bakes | Source page missing; Creator missing | product-authorship-unverified, order-pricing-unsupported, wide-crop-truncates-cookies |
+| TM-134 | custom-bakes | Pexels publisher page; Jill Wellington | unrelated pastel floral cookies; maker, image/property rights, commercial redistribution and mobile crops unapproved |
 | TM-107 | editorial-commerce | Pexels publisher page; Taryn Elliott | unrelated-cooking-gear, incidental-label-review, 4:5-product-crop-pending |
 | TM-041 | real-estate | Source page missing; Creator missing | property-location-unverified, fake-hero-listing-association, phone-cover-clips-building (+1 more in JSON) |
 | TM-131 | architecture | Pexels publisher page; Gustavo Galeano Maz | independent hillside home; architect/property rights, device crops, commercial redistribution and stakeholder acceptance open |
@@ -62,7 +62,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-057 | real-estate | Source page missing; Creator missing | property-location-unverified, fictitious-listing-details, mobile-room-framing-review |
 | TM-132 | architecture | Pexels publisher page; Adrien Olichon | independent skylight interior; architectural authorship, property rights, image crops and commercial redistribution open |
 | TM-125 | restaurant | Pexels original; Davis Arenas | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
-| TM-060 | custom-bakes | Source page missing; Creator missing | unsupported-cake-flavour-and-ingredients, whole-product-not-shown, extreme-macro-phone-crop (+1 more in JSON) |
+| TM-133 | custom-bakes | Pexels publisher page; Zeynep Ladin Üstündağ | unrelated pink-piped birthday cake; baker, photographed product, commercial redistribution and phone crops unapproved |
 | TM-118 | muskoka-retreat | Pexels publisher page; Дмитрий Терза | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
 | TM-123 | restaurant | Pexels original; Rachel Claire | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
 | TM-128 | pools | Pexels original; Andrea Davis | unrelated residential/tropical property; rights, commercial template redistribution and engineering unverified |
@@ -235,3 +235,6 @@ Retired the two unknown Unsplash original identities TM-053/TM-046 and synced th
 
 ## MORROW real source and gallery alignment — 23 November 2026
 Retired two unsupported original Unsplash identities TM-042 (residence) and TM-058 (concrete shaft), including the original gallery hero. Active independently attributed real Pexels photos: **TM-131** ([Gustavo Galeano Maz, white residence on green hillside, 7501130](https://www.pexels.com/photo/white-concrete-house-with-green-grass-lawn-7501130/)) and **TM-132** ([Adrien Olichon, modern skylight and structural-beam interior, 39863282](https://www.pexels.com/photo/modern-architecture-with-skylight-roof-interior-39863282/)). Official publisher entries identify creators, original pixel sizes, and Free labels. Neither photo identifies a MORROW commission, a completed design, a licensed architecture practice or true geographic project. Architecture/artwork, property, potential trademarks, crop, visual contrast and commercial redistribution require independent clearance. **Active original media identities 74: source-attributed 69, missing 5, rights approved 0**; isolated component stock remains independently 25 in-review. Do not merge `main`.
+
+## DOT + CRUMB distinct publisher-identified originals — 23 November 2026
+Retired unattributed Unsplash stock TM-037 (unicorn / numeral cookies) and TM-060 (extreme frosting macro). Real matching Pexels replacements are **TM-133** ([Zeynep Ladin Üstündağ, overhead white and pink birthday cake, 29192489](https://www.pexels.com/photo/elegant-pink-birthday-cake-with-white-icing-29192489/)) and **TM-134** ([Jill Wellington, pastel floral iced sugar cookies, 6770390](https://www.pexels.com/photo/cookies-with-beautiful-design-on-white-cloth-6770390/)). Source pages identify named photographers and Free labels; the original download images were viewed. Bakery does not own, bake or sell any of the photographed items. The root gallery now displays the actual birthday cake, labels this as a fictional bake-studio preview, and removes invented order tickets / lead-time promises. **Original full-template source coverage: 71/74; three untraced (CURRENT 2, YARD 1); zero rights-approved.** Four DOT + CRUMB photographs remain needs-review for commercial template redistribution, product and person/property rights, real loaded-image crops and stakeholder signoff. No merge.
