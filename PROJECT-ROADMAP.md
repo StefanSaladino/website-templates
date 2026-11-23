@@ -444,3 +444,7 @@ AFTER DARK's four remaining CDN-only Unsplash images were retired for publisher-
 ## AFTER DARK responsive Pexels image hints — 23 November 2026
 
 Added source sets and `sizes` for all four source-attributed event photos, prioritizing the full-viewport hero and lazy-loading the below-fold poster and stage references. Intrinsic dimensions and asynchronous decode reduce layout shift and excessive phone requests. Browser assertions cover the new image-delivery contract. No rights/licensing approval, Step 18/19 signoff or main merge; await current-SHA browser and responsive-image QA.
+
+## AFTER DARK poster headline layering — 23 November 2026
+
+Actual loaded-photo desktop evidence exposed the right concert picture covering rotated `LOUD ENOUGH` poster letters. A desktop-only z-index and contrast shadow fix preserves the legibility of large editorial typography, while the existing phone layout stays unchanged. A 1440px Chromium assertion guards it. Reinspect regenerated screenshot before acceptance; rights and Steps 18/19 remain pending.

@@ -94,3 +94,9 @@ button{font:inherit}
 a:focus-visible,button:focus-visible{outline:3px solid #ffe18c;outline-offset:4px}
 .mobile-menu a:focus-visible{outline:3px solid #101010;outline-offset:4px}
 .mobile-menu[inert]{pointer-events:none}
+
+/* Keep the intentionally oversized editorial lettering above the adjacent stock photo at desktop widths. */
+@media(min-width:821px){
+  .poster-type{position:relative;z-index:3;pointer-events:none}
+  .poster-type span,.poster-type em{text-shadow:0 2px 14px rgba(0,0,0,.9)}
+}

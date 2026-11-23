@@ -352,6 +352,11 @@ try{
  await page.locator('[data-replay-motion="ANIM-08"]').click();
  assert(!await page.locator('[data-motion-pattern="ANIM-08"]').evaluate(el=>el.classList.contains('event-line-playing')),'ANIM-08 reduced-motion fallback');
  await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.setViewportSize({width:1440,height:900});
+ await openTemplate('event-launch');
+ const posterZ=await page.locator('.poster-type').evaluate(el=>({position:getComputedStyle(el).position,z:getComputedStyle(el).zIndex}));
+ assert(posterZ.position==='relative'&&Number(posterZ.z)>=3,'AFTER DARK oversized desktop poster lettering stacks above the right concert photograph');
+ await page.setViewportSize({width:390,height:900});
  await openTemplate('custom-bakes');
  assert(await page.locator('.bake-demo-banner').isVisible(),'DOT + CRUMB visibly discloses its fictional business and unverified bakery photographs');
  assert((await page.locator('.bake-demo-banner').textContent()).includes('no orders or date reservations'),'DOT + CRUMB cannot accept real orders');
