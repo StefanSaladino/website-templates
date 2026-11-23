@@ -5,7 +5,7 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 ## Release-blocking inventory
 
 - **74 active external media identities:** 73 still/poster images and 1 opt-in 4K video
-- **12 without verified/recorded source-page links** and **12 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
+- **9 without verified/recorded source-page links** and **9 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
 - **17 first-priority review records** with people, branding, replacement or video-related flags; 57 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
@@ -65,9 +65,9 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-060 | custom-bakes | Source page missing; Creator missing | unsupported-cake-flavour-and-ingredients, whole-product-not-shown, extreme-macro-phone-crop (+1 more in JSON) |
 | TM-118 | muskoka-retreat | Pexels publisher page; Дмитрий Терза | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
 | TM-123 | restaurant | Pexels original; Rachel Claire | unrelated restaurant interiors, not an operating SERA venue; property/location, crop and commercial reuse approval pending |
-| TM-064 | pools | Source page missing; Creator missing | fictional-project-claim, actual-Oakville-location-unverified, pool-engineering-materials-unverified (+2 more in JSON) |
-| TM-066 | pools | Source page missing; Creator missing | unrelated-tropical-setting, not-GTA-construction-evidence, overflow-system-not-visible (+2 more in JSON) |
-| TM-069 | pools | Source page missing; Creator missing | fictional-studio-attribution, pool-depth-and-dimensions-unverified, materials-and-equipment-not-proven (+1 more in JSON) |
+| TM-128 | pools | Pexels original; Sara Brahollari | unrelated residential/tropical property; rights, commercial template redistribution and engineering unverified |
+| TM-127 | pools | Pexels original; Vincent Rivaud | unrelated residential/tropical property; rights, commercial template redistribution and engineering unverified |
+| TM-126 | pools | Pexels original; Alef Morais | unrelated residential/tropical property; rights, commercial template redistribution and engineering unverified |
 | TM-119 | muskoka-retreat | Pexels publisher page; Miguel González | unrelated real cabin/lake photography, not a room or location claim; rights/crop/redistribution open |
 | TM-077 | editorial-commerce | Pexels original; Jonathan Cooper | footwear is not fictional Ridge Boot, unrelated item, final brand/trade review open |
 | TM-078 | editorial-commerce | Pexels original; Nataliya Vaitkevich | map and compass not manufactured Route Kit, map copyright/context review pending |
@@ -225,3 +225,7 @@ Retired untraced unsplash originals TM-043, TM-054 and TM-055, replaced with aut
 ## SERA independent real-venue stock remediation — 23 November 2026
 
 Three old unsourced image identities TM-047/059/063 were retired. Official original Pexels pages now attribute TM-123/124/125 to Rachel Claire, Le Salama (source uploader account) and Davis Arenas. All three full-template image placements, original SERA featured gallery thumbnail, captions, accurate alt text, responsive sources and stock/disclaimer copy were updated. The featured gallery no longer suggests a real Toronto address or operational 'Reserve a table' CTA; the interactive original SERA booking remains a non-submitting design demo. Original media: **74 identities, 62 publisher+creator-attributed, 12 unresolved, zero final rights approvals**. Source page Free labels are not commercial template redistribution approvals or consent from identifiable property/brands. Crop imagery, full-page/physical mobile accessibility and stakeholder release approval remain open. `main` unchanged.
+
+## TIDEFORM original photo and missing infinity layout remediation — 23 November 2026
+
+Retired untraced photo identities TM-064/066/069, replacing them with publisher-identified real Pexels photos TM-126 Alef Morais, TM-127 Vincent Rivaud and TM-128 Sara Brahollari. Full template, original gallery, source inventory, alt text, photographer credits, responsive srcset and enforceable source checks were synchronized. Gallery no longer advertises pool construction services or exact depths; both are explicitly fictional design studies. The original infinity-edge section lacked its own image and content layout rules; added desktop and mobile art direction and included the section in automated screenshot review. All photographed properties and depicted pool mechanisms are unrelated to TIDEFORM, and no engineered plans or builds are verified. Original media: 74 total, 65 attributed, 9 untraced, 0 rights approved. Twenty-five isolated component-stock images remain review only; pool safety, property rights and commercial redistribution remain release-gated.

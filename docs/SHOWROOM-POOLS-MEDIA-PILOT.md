@@ -42,3 +42,13 @@ _22 November 2026 · `feature/component-showroom` · visual screening only, not 
 5. Keep all three assets `needs-review`, **zero rights approvals**, no `main` merge.
 
 **Next batch:** `fitness-launch` (2 photos), then `tattoo-studio` (2), `architecture` (2), `contractor` (2), `law-firm` (1).
+
+## Authentic Pexels pool-photo remediation — 23 November 2026
+
+The historical Unsplash records and their SHA/crop observations above remain audit history only; active TIDEFORM HTML now uses three independent publisher-authenticated real photographs:
+
+- TM-126 / hero: [Alef Morais / official Pexels photograph 40808027](https://www.pexels.com/photo/luxurious-modern-house-with-pool-and-patio-40808027/); visible content: Modern courtyard pool with a pale concrete basin beside a two-story white and timber-accented house, glass doors and lawn. Previous TM record TM-069 retired.
+- TM-127 / infinity: [Vincent Rivaud / official Pexels photograph 34732331](https://www.pexels.com/photo/tropical-resort-infinity-pool-with-palm-trees-34732331/); visible content: Turquoise tropical resort pool with palm trees, poolside sun loungers and umbrellas beneath a blue sky. Previous TM record TM-066 retired.
+- TM-128 / project: [Sara Brahollari / official Pexels photograph 25934928](https://www.pexels.com/photo/swimming-pool-outside-a-modern-wooden-house-25934928/); visible content: Pale blue outdoor pool reflecting a dark-trimmed modern house with warm timber siding and tall glazed windows. Previous TM record TM-064 retired.
+
+Each image has accurate alt text, original dimensions, asynchronous decoding and mobile/desktop responsive candidates, with above-the-fold image priority. The new gallery thumbnail no longer implies a real Halton pool company, a construction quote or actual 3 ft 6 in to 7 ft pool depths. The infinity-edge section had markup but lacked layout/style definitions, now restored with a real background photo, responsive content/engineering notice and visible third-party photo label. Capture the hero, shape studies, infinity scene and project image at 320/390/768/1440 in the loaded-photo suite; manual mobile/device crop and color/contrast review still required. Pool photos cannot evidence installed engineering, builder credentials, safety, verified properties or GTA service. All 74 original identities remain needs-review; source attribution 65/74, 9 unresolved, zero cleared. No final property, branding, licensing or commercial template approval.

@@ -189,6 +189,7 @@
       "sections": [
         ".hero",
         ".shapes",
+        ".infinity-edge",
         ".project"
       ],
       "required": 3,

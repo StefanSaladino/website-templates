@@ -45,6 +45,8 @@ if((html+'\n'+js).includes('photo-1769353086138-19ee65291a04'))issues.push('Reti
 if((html+'\n'+js).includes('White oak wall shelf · 36 in.'))issues.push('Fictional woodworker gallery may not claim a specific unverified commission');
 if((html+'\n'+js).includes('photo-1774989423979-6a7bf5add3f0'))issues.push('Retired SERA gallery image returned');
 if((html+'\n'+js).includes('SUPPER CLUB · QUEEN WEST')||(html+'\n'+js).includes('<i>Reserve a table</i>'))issues.push('SERA concept thumbnail cannot imply a real venue or table booking');
+if((html+'\n'+js).includes('photo-1783125127199-860da9744dcc'))issues.push('Retired TIDEFORM thumbnail stock returned');
+if((html+'\n'+js).includes('CUSTOM POOLS · HALTON + WEST GTA')||(html+'\n'+js).includes('<i>Plan your pool</i>'))issues.push('Fictional TIDEFORM gallery cannot offer pool construction');
 let photoPlacements=0;
 for(const [source,kind] of [[html,'html'],[js,'script']]){
   for(const found of source.matchAll(/https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\/[^\s"'<>]+/g)){

@@ -503,72 +503,6 @@
       }
     },
     {
-      "id": "TM-064",
-      "urlIdentity": "https://images.unsplash.com/photo-1775476794218-39effb7db2d1",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "pools",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "b08c041db467f36658b15ea808966264571d92ceecd1917d07ab5e599c7f12f6",
-        "notes": "Architectural pool or water feature beside a long tan-panelled modern building, a vertical dark line along the wall, metal handrails at the far edge, and dark trees. The water occupies the foreground and is bordered by pale coping. Not recognizably a residential Oakville pool; cannot confirm pool dimensions, structure, concrete, limestone, flush coping, dark tile, shallow steps, construction firm or occupancy. Landscape wide crop reduces the height of tan wall and water-plane, phone tall preserves perspective.",
-        "flags": [
-          "fictional-project-claim",
-          "actual-Oakville-location-unverified",
-          "pool-engineering-materials-unverified",
-          "owner-builder-not-established",
-          "wide-crop-changes-scale"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-066",
-      "urlIdentity": "https://images.unsplash.com/photo-1777919541982-dcb34c146a2d",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "pools",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "2f22ca9132a97ee6cc8b8bb838fbdcfb24e18925c30ed0d718578073458721aa",
-        "notes": "Blue water occupies foreground, visually meeting a distant view near a low horizon; palm trees, lush tropical vegetation and modern white buildings under broad blue sky. Appears visually consistent with vanishing-edge effect, but overflow channels, catch basin, pool engineering, property rights, exact locale and connection to TIDEFORM are not shown. Wide crop discards much sky and top framing; phone tall preserves horizon and landscaping.",
-        "flags": [
-          "unrelated-tropical-setting",
-          "not-GTA-construction-evidence",
-          "overflow-system-not-visible",
-          "source-property-rights-unverified",
-          "wide-crop-horizon-composition"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
-      }
-    },
-    {
       "id": "TM-068",
       "urlIdentity": "https://images.unsplash.com/photo-1782849206257-c1bf78721837",
       "kind": "image",
@@ -599,38 +533,6 @@
           "printed-clothing-emblem-rights"
         ],
         "evidenceDocument": "docs/SHOWROOM-FITNESS-LAUNCH-MEDIA-PILOT.md"
-      }
-    },
-    {
-      "id": "TM-069",
-      "urlIdentity": "https://images.unsplash.com/photo-1783125127199-860da9744dcc",
-      "kind": "image",
-      "usages": [
-        {
-          "templateId": "pools",
-          "files": [
-            "index.html"
-          ]
-        }
-      ],
-      "linkedComponentStockId": null,
-      "sourcePageUrl": null,
-      "creator": null,
-      "rightsReviewedAt": null,
-      "reviewStatus": "needs-review",
-      "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-22",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "3e5c968bffdadde834b707b208ae852f6ee1955def32759905f2d092846cb9f0",
-        "notes": "Small rectangular outdoor courtyard swimming pool with dark blue water bordered by pale paving and bright green lawn, between white modern buildings with large glazed openings and flat projecting roofline. This is the hero background, not proof of the proposed custom concrete pool, any 3 ft 6 in to 7 ft depth, construction permit, installed equipment, pool safety or client site. Phone tall crops much of the wings and lawn; wide crop retains full architecture.",
-        "flags": [
-          "fictional-studio-attribution",
-          "pool-depth-and-dimensions-unverified",
-          "materials-and-equipment-not-proven",
-          "phone-crop-truncates-building-context"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-POOLS-MEDIA-PILOT.md"
       }
     },
     {
@@ -1809,6 +1711,69 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Pexels publisher record and matching original photo download inspected on 2026-11-23: Davis Arenas, original photo 16131605, listed under Free license. Visible photo: Rustic interior with a tall arched window, wooden dining tables, wicker chairs and stone archway. This real image is unrelated to the fictional SERA supper club; photographic attribution and a Free label are not model/property, venue-affiliation, trademark or commercial template redistribution approval. No legal or human release review."
+    },
+    {
+      "id": "TM-126",
+      "urlIdentity": "https://images.pexels.com/photos/40808027/pexels-photo-40808027.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "pools",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/luxurious-modern-house-with-pool-and-patio-40808027/",
+      "creator": "Alef Morais",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page and exact matching original download URL verified on 2026-11-23, Alef Morais / photo 40808027. Real photographed image: Modern courtyard pool with a pale concrete basin beside a two-story white and timber-accented house, glass doors and lawn. Independent stock cannot document real TIDEFORM work, Ontario property or verified engineering. Photographer/source Free license label is not approval of recognizable property, trade dress, construction claims, crop quality, commercial template redistribution or client release."
+    },
+    {
+      "id": "TM-127",
+      "urlIdentity": "https://images.pexels.com/photos/34732331/pexels-photo-34732331.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "pools",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/tropical-resort-infinity-pool-with-palm-trees-34732331/",
+      "creator": "Vincent Rivaud",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page and exact matching original download URL verified on 2026-11-23, Vincent Rivaud / photo 34732331. Real photographed image: Turquoise tropical resort pool with palm trees, poolside sun loungers and umbrellas beneath a blue sky. Independent stock cannot document real TIDEFORM work, Ontario property or verified engineering. Photographer/source Free license label is not approval of recognizable property, trade dress, construction claims, crop quality, commercial template redistribution or client release."
+    },
+    {
+      "id": "TM-128",
+      "urlIdentity": "https://images.pexels.com/photos/25934928/pexels-photo-25934928.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "pools",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/swimming-pool-outside-a-modern-wooden-house-25934928/",
+      "creator": "Sara Brahollari",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page and exact matching original download URL verified on 2026-11-23, Sara Brahollari / photo 25934928. Real photographed image: Pale blue outdoor pool reflecting a dark-trimmed modern house with warm timber siding and tall glazed windows. Independent stock cannot document real TIDEFORM work, Ontario property or verified engineering. Photographer/source Free license label is not approval of recognizable property, trade dress, construction claims, crop quality, commercial template redistribution or client release."
     }
   ]
 }

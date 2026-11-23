@@ -25,3 +25,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
    typography/real 200%-400% browser-zoom acceptance still outstanding. */
 @media(max-width:620px){.project{grid-template-columns:minmax(0,1fr)}.project-image,.project-copy,.project-water-note{min-width:0}}
 @media(max-width:360px){.project h2{font-size:42px}}
+
+
+/* Restored art direction for the once-unstyled infinity-edge section. */
+.infinity-edge{position:relative;isolation:isolate;min-height:850px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;background:var(--abyss);color:#fff;overflow:hidden}
+.infinity-edge__image{position:absolute;inset:0;z-index:-2}
+.infinity-edge__image img{width:100%;height:100%;object-fit:cover;object-position:center 52%;filter:saturate(.84) brightness(.72)}
+.infinity-edge__image::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,46,54,.82),rgba(2,46,54,.3) 61%,rgba(2,46,54,.15)),linear-gradient(0deg,rgba(2,46,54,.8),transparent 65%)}
+.infinity-edge__horizon{position:absolute;z-index:-1;inset:auto 0 26% 0;height:1px;background:linear-gradient(90deg,transparent,rgba(217,253,248,.2),transparent);pointer-events:none}
+.infinity-edge__copy{grid-column:1;align-self:end;position:relative;z-index:2;padding:170px clamp(22px,6vw,88px) 115px}
+.infinity-edge__copy .section-label{color:#a4eeeb}
+.infinity-edge__copy h2{margin:0;font:400 clamp(58px,6.9vw,99px)/.87 Georgia,"Times New Roman",serif;letter-spacing:-.06em}
+.infinity-edge__copy h2 em{color:#b8efed;font-weight:400}
+.infinity-edge__copy p:not(.section-label){max-width:540px;margin:29px 0 0;color:#e4f6f4;font:400 15px/1.65 Georgia,serif}
+.infinity-edge__note{grid-column:2;align-self:end;justify-self:end;position:relative;z-index:2;max-width:410px;margin:0 clamp(22px,6vw,88px) 104px 24px;padding:23px 25px;border-left:2px solid #a4eeeb;background:rgba(5,53,62,.83)}
+.infinity-edge__note small{color:#b1e9e6;font:800 9px/1.5 Arial,sans-serif;letter-spacing:.13em}
+.infinity-edge__note strong{display:block;margin-top:12px;font:400 29px/1.05 Georgia,serif;letter-spacing:-.04em}
+.infinity-edge__note p{margin:17px 0 0;color:#e2f0ed;font:400 12px/1.6 Georgia,serif}
+.infinity-edge .infinity-stock-note{z-index:4}
+@media(max-width:980px){.infinity-edge{min-height:850px;grid-template-columns:1fr}.infinity-edge__image img{object-position:52% 43%}.infinity-edge__copy{grid-column:1;padding:170px 24px 32px}.infinity-edge__note{grid-column:1;justify-self:start;max-width:540px;margin:0 24px 72px}}
+@media(max-width:620px){.infinity-edge{min-height:920px;align-content:end}.infinity-edge__image img{object-position:55% center;filter:saturate(.8) brightness(.58)}.infinity-edge__image::after{background:linear-gradient(0deg,rgba(2,46,54,.92),rgba(2,46,54,.62) 55%,rgba(2,46,54,.18))}.infinity-edge__copy{padding:140px 20px 18px}.infinity-edge__copy h2{font-size:clamp(45px,13vw,66px)}.infinity-edge__copy p:not(.section-label){font-size:13px}.infinity-edge__note{margin:0 20px 70px;padding:17px 18px}.infinity-edge__note strong{font-size:24px}}

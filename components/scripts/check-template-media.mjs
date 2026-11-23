@@ -60,6 +60,7 @@ for(const templateId of templates){
   for(const retired of ['photo-1727270921836-3d51d25d9e33','photo-1773423389979-b28b469967f8','photo-1783716149654-5f3e7012ef45'])if(source.includes(retired))fail('Retired Morrow House photograph in '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1769353086138-19ee65291a04','photo-1756666915060-c4dbf6a03aad','photo-1771818385091-ba8c4d3164b8'])if(source.includes(retired))fail('Retired GRAIN & GABLE source in '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1774989423979-6a7bf5add3f0','photo-1760662435569-84a4fb1fa407','photo-1773100699991-b7e6bf89a6a1'])if(source.includes(retired))fail('Retired SERA untraced restaurant photo in '+templateId+'/'+filename+': '+retired);
+  for(const retired of ['photo-1783125127199-860da9744dcc','photo-1777919541982-dcb34c146a2d','photo-1775476794218-39effb7db2d1'])if(source.includes(retired))fail('Retired TIDEFORM stock photo in '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1708805282706-f44730b7e527','photo-1552519507-da3b142c6e3d','photo-1580273916550-e323be2ae537','photo-1492144534655-ae79c964c9d7'])if(source.includes(retired))fail('Retired GARAGE photo cannot return in '+templateId+'/'+filename+': '+retired);
   if(source.includes('photo-1673874500167-17ca5ed1cf17'))fail('Retired Nutella-branded dessert stock must not return to '+templateId+'/'+filename);
   if(source.includes('photo-1760939858984-5dc76f0ea34a'))fail('Retired unsafe saw photo is forbidden in '+templateId+'/'+filename);

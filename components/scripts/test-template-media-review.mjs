@@ -157,12 +157,13 @@ try{
  const pools=spawnSync(process.execPath,[script,'--offline','--templates=pools','--limit=5','--output='+path.join(directory,'pools')],{encoding:'utf8',timeout:20000});
  if(pools.status!==0)throw Error('TIDEFORM media selection failed: '+pools.stderr+'\\n'+pools.stdout);
  const poolAssets=JSON.parse(readFileSync(path.join(directory,'pools/results.json'),'utf8'));
- assert.deepEqual(poolAssets.assets.map(item=>item.id),['TM-064','TM-066','TM-069']);
+ assert.deepEqual(poolAssets.assets.map(item=>item.id),['TM-126','TM-127','TM-128']);
+ assert(poolAssets.assets.every(item=>item.sourcePageUrl&&item.creator),'TIDEFORM independent photos need publisher and photographer identities');
  assert.equal(poolAssets.total,3);
  assert.equal(poolAssets.downloaded,0);
  assert.equal(poolAssets.errors,0);
  assert(poolAssets.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: pools selects three unapproved images without offline downloads.');
+ console.log('PASS: all three TIDEFORM photos are real publisher-identified independent Pexels stock; no rights or construction claims approved.');
  const fitness=spawnSync(process.execPath,[script,'--offline','--templates=fitness-launch','--limit=5','--output='+path.join(directory,'fitness-launch')],{encoding:'utf8',timeout:20000});
  if(fitness.status!==0)throw Error('YARD media selection failed: '+fitness.stderr+'\\n'+fitness.stdout);
  const fitnessAssets=JSON.parse(readFileSync(path.join(directory,'fitness-launch/results.json'),'utf8'));

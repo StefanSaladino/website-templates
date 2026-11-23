@@ -472,3 +472,7 @@ Retired three unattributed original-template SERA Unsplash photos, replaced with
 ## SERA cover-photo resolution for tall mobile hero — 23 November 2026
 
 Decoded screenshot analysis exposed an overly small 480w source chosen for a 1000px-tall full-bleed phone hero. SERA now advertises the cover's actual pixel needs (`sizes: 1600px` at <=820px, `100vw` desktop), and screenshot QA hard-fails if the hero again requests under 1400px at 320/390px. No layout/interaction changes; new screenshots needed for sharpness approval. All original images remain review-only (62/74 traced, 12 without source, zero rights-approved), main and Steps 18/19 unchanged.
+
+## TIDEFORM 3 authentic photos + unstyled infinity scene repair — 23 November 2026
+
+Retired three untraceable pools-template photos in favor of real Pexels originals (TM-126 Alef Morais; TM-127 Vincent Rivaud; TM-128 Sara Brahollari). Synced full template/gallery, responsive source widths and alt text, publisher + creator ledger, fictional builder/gallery labels, media tests and visible infinity-section stock disclosure. Fixed missing original infinity-edge responsive CSS and added the scene to the actual still-photo capture matrix. Library provenance: 65/74 sourced, 9 untraced, zero approved; 25 component stock assets still pending. Await actual latest-commit loaded-image screenshot and browser QA, property/engineering/physical-device and commercial redistribution releases. No main merge; Steps 18/19 remain open.

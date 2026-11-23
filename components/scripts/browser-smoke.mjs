@@ -304,7 +304,13 @@ try{
  await openTemplate('pools');
  assert(await page.locator('.pool-demo-banner').isVisible(),'TIDEFORM visibly discloses fictional builder and unrelated photos');
  assert((await page.locator('.pool-demo-banner').textContent()).includes('No construction inquiries'),'TIDEFORM template cannot accept real work');
- assert((await page.locator('.hero-image img').getAttribute('alt')).includes('courtyard pool'),'TIDEFORM hero correctly depicts courtyard pool and not a finished build');
+ assert((await page.locator('.hero-image img').getAttribute('alt')).includes('courtyard pool'),'TIDEFORM hero depicts an unrelated modern courtyard pool');
+ assert((await page.locator('.hero-image img').getAttribute('src')).includes('/40808027/'),'TIDEFORM hero has Alef Morais publisher-attributed image');
+ assert((await page.locator('.infinity-edge__image img').getAttribute('src')).includes('/34732331/'),'TIDEFORM tropical pool shows Vincent Rivaud original');
+ assert((await page.locator('.project-image img').getAttribute('src')).includes('/25934928/'),'TIDEFORM architectural pool has Sara Brahollari original');
+ assert(await page.locator('img[srcset]').count()===3,'TIDEFORM all three photo placements use responsive original sources');
+ assert(await page.locator('.infinity-edge').evaluate(el=>getComputedStyle(el).display==='grid'),'TIDEFORM infinity section has responsive editorial layout');
+ assert(await page.locator('.infinity-edge__copy').isVisible()&&await page.locator('.infinity-edge__note').isVisible(),'TIDEFORM infinity scene explanatory copy and note render');
  assert((await page.locator('.hero-stock-note').textContent()).includes('NOT A TIDEFORM BUILD'),'TIDEFORM cannot attribute the stock hero to itself');
  assert((await page.locator('.infinity-stock-note').textContent()).includes('TROPICAL'),'TIDEFORM infinity photo cannot imply Halton location');
  assert((await page.locator('.project-stock-note').textContent()).includes('NOT BUILT BY TIDEFORM'),'TIDEFORM architectural pool photo not represented as Oakville build');
