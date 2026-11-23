@@ -212,3 +212,9 @@ The BED & BORDER landscaping footer already cited three **exact Unsplash source 
 - `TM-051`: [Sergej ***** (@skstrannik), stone wall](https://unsplash.com/photos/stone-wall-with-plants-in-the-foreground-f7poIvVWtfg) ↔ `photo-1761637823941-0ffae96ec487`.
 
 All three origins and image identities are pinned in the source-media integrity test, and the clearance queue is updated. **8/62** original media records now have recorded source/creator (up from 5), **54** remain untraced, and **zero** are approved. This is origin verification, not evidence that BED & BORDER built these properties, that the photographs are licensed for template distribution, or that independent property/brand rights are satisfied. A template footer source link alone is not legal clearance; independent platform/image match was required.
+
+## Cross-catalogue shared-image provenance — 22 November 2026
+
+The new publisher match for original-template image **TM-035** also applies to **STOCK-017**, the same remote image used by independent `ANIM-04` preview. The previously anonymous component stock entry now credits **Naoki Suzuki** and the [exact Unsplash source page](https://unsplash.com/photos/a-stone-patio-with-steps-and-plants-in-the-foreground-V99f_PhYzmM). It retains `needs-review`, no approved local derivative and unapproved property/redistribution usage. Old claims that the source and creator were unknown were removed only from this record.
+
+The component-source check now compares original-template and component provenance on shared image identities. It detects mismatched source/creator and forbids a shared remote reference being marked approved. Existing Pexels OFFCUT STOCK-011 overlaps remain subject to this same gate. No component or template was published.

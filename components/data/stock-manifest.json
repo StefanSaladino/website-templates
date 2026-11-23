@@ -482,13 +482,13 @@
     },
     {
       "id": "STOCK-017",
-      "sourceUrl": "https://images.unsplash.com/photo-1722103155234-5e83b3effe03",
-      "photographer": "Unverified — exact creator and Unsplash source page not established",
-      "platform": "Unsplash CDN (source identity unverified)",
+      "sourceUrl": "https://unsplash.com/photos/a-stone-patio-with-steps-and-plants-in-the-foreground-V99f_PhYzmM",
+      "photographer": "Naoki Suzuki",
+      "platform": "Unsplash",
       "licenseUrl": "https://unsplash.com/license",
       "licenseReviewedAt": null,
       "reviewStatus": "needs-review",
-      "rightsNotes": "Found in ANIM-04 animation preview as a direct CDN image URL. Exact photo source, photographer, depicted-person/property/trademark rights, intended redistribution terms, crop, attribution and image availability have NOT been verified. Review-only: do not represent the image as an actual client project or approve its commercial use until the source and rights are checked.",
+      "rightsNotes": "Official Unsplash photo page's displayed image exactly matches the original CDN identity, and credits Naoki Suzuki. This garden image is shared by BED & BORDER (TM-035) and component ANIM-04 (STOCK-017). It is unrelated stock, NOT actual client work. Depicted property, local derivative, redistribution rights and final commercial approval remain pending.",
       "usageIds": [
         "ANIM-04"
       ],
@@ -497,14 +497,14 @@
       "originalFilename": null,
       "fileHashSHA256": null,
       "derived": [],
-      "sourcePageVerifiedAt": null,
+      "sourcePageVerifiedAt": "2026-11-22",
       "assetAcquisitionStatus": "not-downloaded",
       "reviewFlags": [
-        "cdn-only-source",
-        "creator-unverified",
         "license-and-third-party-rights-unverified",
         "visual-crop-pending",
-        "template-redistribution-not-cleared"
+        "template-redistribution-not-cleared",
+        "publisher-and-creator-verified-release-open",
+        "cross-catalogue-shared-stock"
       ]
     },
     {

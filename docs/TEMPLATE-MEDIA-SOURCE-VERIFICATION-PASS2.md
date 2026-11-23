@@ -19,3 +19,9 @@ The current inventory remains **62 active original-template third-party media id
 ### Next steps
 
 Trace remaining high-priority people/property/brand images to exact source pages, obtain any required releases and verify license scope for website templates. If rights or provenance remain unclear, use owned-original replacement artwork/photography rather than asserting permission. Retest all affected browser and accessible-media workflows after source changes.
+
+## Cross-catalogue shared-image provenance — 22 November 2026
+
+The new publisher match for original-template image **TM-035** also applies to **STOCK-017**, the same remote image used by independent `ANIM-04` preview. The previously anonymous component stock entry now credits **Naoki Suzuki** and the [exact Unsplash source page](https://unsplash.com/photos/a-stone-patio-with-steps-and-plants-in-the-foreground-V99f_PhYzmM). It retains `needs-review`, no approved local derivative and unapproved property/redistribution usage. Old claims that the source and creator were unknown were removed only from this record.
+
+The component-source check now compares original-template and component provenance on shared image identities. It detects mismatched source/creator and forbids a shared remote reference being marked approved. Existing Pexels OFFCUT STOCK-011 overlaps remain subject to this same gate. No component or template was published.

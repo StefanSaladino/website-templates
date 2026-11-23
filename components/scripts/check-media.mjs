@@ -88,6 +88,16 @@ for(const asset of manifest.assets){
     if(!match||!match.stockAssetIds?.includes(asset.id))addError('Stock usage points to unlinked component '+asset.id+' / '+id);
   }
 }
+// Shared stock references must retain exact verified source and photographer.
+const originals=parse('template-media-inventory.json');
+for(const original of originals.assets||[]){
+ const counterpart=original.linkedComponentStockId&&stockById.get(original.linkedComponentStockId);
+ if(!counterpart||!original.sourcePageUrl||!original.creator)continue;
+ if(counterpart.sourceUrl!==original.sourcePageUrl||counterpart.photographer!==original.creator)
+  addError('Shared photo source/creator mismatch: '+original.id+' / '+counterpart.id);
+ if(original.reviewStatus!=='needs-review'||counterpart.reviewStatus!=='needs-review')
+  addError('Shared remote image lacks required release review: '+original.id+' / '+counterpart.id);
+}
 for(const w of warnings)console.warn('REVIEW:',w);
 console.log('Media QA: '+manifest.assets.length+' registered, '+warnings.length+' awaiting review, '+remote+' remote image refs across '+inReview+' in-review and '+live+' live components.');
 if(errors.length){errors.forEach(x=>console.error('FAIL:',x));process.exit(1)}
