@@ -2041,6 +2041,90 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-22",
       "sourceVerificationNote": "Official Pexels page 20428396 identifies Courtney RA and Free license; exact download path was checked. Frozen lake and cabin photographed elsewhere, not a Morrow House property in Muskoka. Stock image publication as part of a website template is permitted under Pexels license but location/branding/property releases, downloaded derivative and final client approval remain open."
+    },
+    {
+      "id": "TM-077",
+      "urlIdentity": "https://images.pexels.com/photos/8868319/pexels-photo-8868319.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/close-up-of-shoes-8868319/",
+      "creator": "Jonathan Cooper",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Pexels publisher page lists Jonathan Cooper, Free license, camera Canon EOS 5D Mark III, photo 8868319. Beige hiking boots are worn by a real individual, not the fictional RANGE/FOUND Ridge Boot; product ownership, material and merchant claims are expressly disclaimed. Exact publisher page contains direct original source image link. Pexels copyright license permits template use, not automatic property, model, trademark or derivative redistribution approval."
+    },
+    {
+      "id": "TM-078",
+      "urlIdentity": "https://images.pexels.com/photos/7235808/pexels-photo-7235808.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/maps-and-a-compass-7235808/",
+      "creator": "Nataliya Vaitkevich",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Publisher lists Nataliya Vaitkevich, Free Pexels license, photo 7235808 showing maps, camera and compass. Nothing photographed is a manufactured RANGE/FOUND Route Kit; map/local copyright and other contextual rights require final review. Exact publisher page contains direct original source image link. Pexels copyright license permits template use, not automatic property, model, trademark or derivative redistribution approval."
+    },
+    {
+      "id": "TM-079",
+      "urlIdentity": "https://images.pexels.com/photos/4610582/pexels-photo-4610582.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "editorial-commerce",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/thread-and-needle-arranged-on-table-with-scissors-4610582/",
+      "creator": "Maxi Gagliano",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Publisher lists Maxi Gagliano, Free Pexels license, Nikon D3400 photo 4610582 of scissors, needle and yellow thread. This is not a brand-associated Field Repair Roll or actual product; final commercial context, cropping and release review pending. Exact publisher page contains direct original source image link. Pexels copyright license permits template use, not automatic property, model, trademark or derivative redistribution approval."
+    },
+    {
+      "id": "TM-080",
+      "urlIdentity": "https://images.pexels.com/photos/5711903/pexels-photo-5711903.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "woodworker",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/wooden-plank-on-workbench-in-workshop-5711903/",
+      "creator": "Anna Shvets",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-22",
+      "sourceVerificationNote": "Publisher lists Anna Shvets, Free Pexels license, Fujifilm X-T3 metadata, photo 5711903 of a hand plane on dusty woodworking bench. Independent photo is not a verified GRAIN & GABLE workshop, employee or project. Final affiliation/rights and crop approval pending. Exact publisher page contains direct original source image link. Pexels copyright license permits template use, not automatic property, model, trademark or derivative redistribution approval."
     }
   ]
 }

@@ -439,8 +439,8 @@ try{
  // Third motion integration batch: every new pattern runs inside a real, complete template.
  await openTemplate('editorial-commerce');
  assert(await page.locator('.product-rail .product').count()===8,'RANGE/FOUND retains eight product cards');
-  assert(await page.locator('.product-image--illustrated .range-art[role="img"]').count()===3,'RANGE/FOUND uses three original illustrations instead of branded product stock');
-  assert(await page.locator('.product-rail .product-image img').count()===5,'RANGE/FOUND retains five other development-stock image cards');
+  assert(await page.locator('.product-image--sourced .stock-image-note').count()===3,'RANGE/FOUND shows three separate sourced photographic references with no product attribution');
+  assert(await page.locator('.product-rail .product-image img').count()===8,'RANGE/FOUND uses actual photographs for all eight product visuals');
   assert((await page.locator('.stock-disclaimer').textContent()).includes('fictional'),'RANGE/FOUND makes product fiction explicit');
   assert(!(await page.content()).includes('photo-1776725121337-48de2c501672'),'RANGE/FOUND retired third-party boot stock');
   await page.locator('[data-journal-replay]').click();
@@ -482,8 +482,8 @@ try{
  assert((await page.locator('.piece-photo--portrait img').getAttribute('alt')).includes('Tiered'),'GRAIN & GABLE planter alt reflects tiered photo');
  assert((await page.locator('[data-craft-slide="2"] .wood-study').getAttribute('role'))==='img'
    &&(await page.locator('[data-craft-slide="2"] figcaption').textContent()).includes('Original joinery concept'),'GRAIN & GABLE third slide is an original diagram rather than unsafe imagery');
- assert(await page.locator('.workshop-photo--illustrated .wood-study').count()===1
-    &&(await page.locator('.workshop-note').textContent()).includes('Original joinery drawing'),'GRAIN & GABLE workshop illustration replaces unsafe saw photograph');
+ assert(await page.locator('.workshop-photo--sourced img.workshop-reference-photo').count()===1
+    &&(await page.locator('.workshop-note').textContent()).includes('Anna Shvets'),'GRAIN & GABLE workshop image is attributed real photography rather than synthetic art');
  await page.locator('.request-form input[name="name"]').fill('Example Visitor');
  await page.locator('.request-form input[name="email"]').fill('demo@example.com');
  await page.locator('.request-form button[type="submit"]').click();

@@ -4,10 +4,10 @@ _22 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **65 active external media identities:** 64 still/poster images and 1 opt-in 4K video
+- **69 active external media identities:** 68 still/poster images and 1 opt-in 4K video
 - **52 without verified/recorded source-page links** and **52 without recorded creator credits**. All 8 recorded original photo pages now have exact-link recheck dates; source identity verification still does not establish rights approval.
-- **0 rights-approved assets.** All 60 remain `needs-review`
-- **32 first-priority review records** with people, branding, replacement or video-related flags; 33 follow-on records
+- **0 rights-approved assets.** All 69 remain `needs-review`
+- **32 first-priority review records** with people, branding, replacement or video-related flags; 37 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
@@ -49,7 +49,7 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 33 active records
+## Follow-on queue — 37 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
@@ -86,6 +86,10 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-066 | pools | Source page missing; Creator missing | unrelated-tropical-setting, not-GTA-construction-evidence, overflow-system-not-visible (+2 more in JSON) |
 | TM-069 | pools | Source page missing; Creator missing | fictional-studio-attribution, pool-depth-and-dimensions-unverified, materials-and-equipment-not-proven (+1 more in JSON) |
 | TM-070 | muskoka-retreat | Source page missing; Creator missing | geographic-location-unverified, hero-text-over-image-qa-needed, phone-art-direction-needs-css-review |
+| TM-077 | editorial-commerce | Pexels original; Jonathan Cooper | footwear is not fictional Ridge Boot, unrelated item, final brand/trade review open |
+| TM-078 | editorial-commerce | Pexels original; Nataliya Vaitkevich | map and compass not manufactured Route Kit, map copyright/context review pending |
+| TM-079 | editorial-commerce | Pexels original; Maxi Gagliano | sewing tools not actual Field Repair Roll, independent stock only |
+| TM-080 | woodworker | Pexels original; Anna Shvets | unrelated hand-plane workbench, not verified workshop work |
 
 ## Recorded origin pages (not rights approval)
 
@@ -146,3 +150,8 @@ At the earlier CURRENT-only checkpoint: **62 original-template identities (10 so
 Replaced the three earlier generated illustration stand-ins (lakeside house, pictured suite and winter cabin scene) with direct Pexels publisher-identified photographs by ilayda 0700 (TM-074), Matheus Bertelli (TM-075), and Courtney RA (TM-076). The source is real published stock photography, but the real places are not the fictional accommodation, and photos do not establish any booking, room configuration or location claim. Source pages and licenses have been logged in the manifest. All three remain needs-review pending actual mobile crop, rights/affiliation acceptance, and optimization. The guide map is a functional conceptual diagram and was intentionally retained, not substituted for a photograph.
 
 Current full-template remote media: **65 entries, 13 with photographer and source page, 52 with missing provenance, zero final approvals**. Component stock remains **25 entries, zero final approvals**. All steps and claims must continue to be checked against actual browser/rendered media and user acceptance.
+
+
+## Further photographic stand-in replacement: RANGE/FOUND and GRAIN & GABLE
+
+Three RANGE/FOUND product illustrations were removed and replaced with authentic photography from Jonathan Cooper (TM-077 / Pexels 8868319), Nataliya Vaitkevich (TM-078 / 7235808), and Maxi Gagliano (TM-079 / 4610582). The GRAIN & GABLE workshop stand-in was replaced by a real photographed hand-plane workbench from Anna Shvets (TM-080 / 5711903). Authentic photographer/Free Pexels source records are stored in the canonical manifest. All product names/prices remain fictional, stock images never claim genuine brand merchandise, and GRAIN & GABLE's separate functional ANIM-20 illustration remains a diagram, not a photo substitute. Current full-template media count **69 (17 with publisher attribution, 52 not yet traced, 0 final rights approvals)**; component stock still **25** unapproved. Final loaded photo, property/brand/context and stakeholder review pending.

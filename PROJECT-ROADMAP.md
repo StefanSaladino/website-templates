@@ -356,3 +356,8 @@ Replaced the three earlier generated illustration stand-ins (lakeside house, pic
 Current full-template remote media: **65 entries, 13 with photographer and source page, 52 with missing provenance, zero final approvals**. Component stock remains **25 entries, zero final approvals**. All steps and claims must continue to be checked against actual browser/rendered media and user acceptance.
 
 Continue replacing other previously drawn photo stand-ins in editorial-commerce, storefront and woodworking without deleting interactive UX or invented-business disclosures. Step 18 and Step 19 remain open.
+
+
+## Photo-first follow-up — RANGE/FOUND and woodworking
+
+Three synthesized product-photo substitutes in RANGE/FOUND were replaced by source-linked real Pexels photography (TM-077..079) with explicit unrelated-stock labels, and a synthetic workshop stand-in in GRAIN & GABLE was replaced by a genuine hand-plane/workbench photo (TM-080). Existing fictional-product and non-transactional protections remain; the actual functional joinery diagram in ANIM-20 is retained. 69 active full-template external identities, 17 source+creator documented, 52 untraced, none finally approved. CI/device/contrast/crop/stakeholder acceptance still required.

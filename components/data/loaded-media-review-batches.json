@@ -16,7 +16,7 @@
         ".collection",
         ".journal"
       ],
-      "required": 7,
+      "required": 10,
       "poster": false
     },
     {
@@ -39,7 +39,7 @@
         ".pieces",
         ".craft-showcase"
       ],
-      "required": 5,
+      "required": 6,
       "poster": false
     },
     {
