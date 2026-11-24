@@ -233,3 +233,46 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
 }
 @media(max-width:360px){.opening h1{font-size:clamp(48px,15vw,58px)}.presets button{padding-inline:8px}}
 @media(forced-colors:active){.edition-mark,.print-stripe{background:CanvasText}.crease-path,.crease-guide{stroke:CanvasText}.crease-dot{fill:CanvasText}}
+
+/* F7 / A spatial exhibition set, not a uniform background wash.
+   The walls and floor are original vector planes with individually shaded
+   faces. They sit behind the existing geometry and do not alter its camera. */
+:root{--paper:#171b17;--ink:#f5f2e8;--muted:#d0d3c5;--line:#b2b8a04f}
+html,body{background:var(--paper)}
+.mast{background:#222720;position:relative;z-index:2}
+.opening{position:relative;isolation:isolate}
+.exhibition-space{position:absolute;z-index:-1;inset:0 0 -100px;overflow:hidden;pointer-events:none}
+.space-architecture{display:block;width:100%;height:100%;position:absolute;inset:0}
+.exhibition-space::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#171b17e8 0%,#171b1799 30%,#171b1712 62%,transparent 100%),linear-gradient(0deg,var(--paper),transparent 19%);pointer-events:none}
+.opening-copy,.workbench,.under{position:relative;z-index:1}
+.opening-copy .index{color:#e1e3d6}
+.hero-description{color:#d0d3c5}
+.scene-meta,.fold-hint,.ends{color:#e0e1d5}
+.range-wrap input::-webkit-slider-runnable-track{background:#c0c5b3}
+.range-wrap input::-moz-range-track{background:#c0c5b3}
+.presets button{border-color:#a8af9d}
+.paper-shadow,.plate-shadow{position:absolute;pointer-events:none;left:50%;top:76%;width:76%;height:22%;background:radial-gradient(ellipse,#090c08b8 0%,#090c0866 34%,transparent 72%);transform:translate(-50%,-50%);z-index:0}
+.paper-shadow{transform-origin:center;will-change:transform}
+.scene .camera,.scene .static-print,.registration-stack{z-index:1}
+.crease-interlude{position:relative}
+.study{position:relative;isolation:isolate}
+.print-space{position:absolute;inset:0 0 -150px;z-index:-1;overflow:hidden;pointer-events:none;background:linear-gradient(115deg,#1b211b 4%,#252d24 52%,#353f32 100%);mask-image:linear-gradient(0deg,transparent 0%,#000 14%,#000 86%,transparent 100%)}
+.print-wall{position:absolute;inset:0;pointer-events:none}
+.print-wall-a{clip-path:polygon(62% 0,90% 0,74% 74%,46% 100%,37% 100%);background:linear-gradient(145deg,#58614d 0%,#343e30 72%,#20271e)}
+.print-wall-b{clip-path:polygon(90% 0,100% 0,100% 87%,74% 74%);background:linear-gradient(110deg,#272f25,#424c3a)}
+.print-wall-c{clip-path:polygon(0 86%,74% 74%,100% 87%,100% 100%,0 100%);background:linear-gradient(180deg,#3b4434,#171b17)}
+.plate-shadow{top:70%;width:70%;height:23%;opacity:.85}
+.registration-head,.registration-foot{border-color:#bcc6a747}
+.registration-head>p,.study-copy,.registration-foot>span{color:#d0d3c5}
+@media(max-width:1000px){
+ .exhibition-space::after{background:linear-gradient(180deg,#171b17d9 0%,#171b1766 28%,transparent 51%),linear-gradient(0deg,var(--paper),transparent 15%)}
+}
+@media(max-width:740px){
+ .exhibition-space{inset:0 0 -70px}
+ .space-architecture{height:100%;width:100%}
+ .exhibition-space::after{background:linear-gradient(180deg,#171b17e8 0%,#171b1799 30%,#171b1708 58%),linear-gradient(0deg,var(--paper),transparent 18%)}
+ .paper-shadow{top:77%;width:87%;height:26%}
+ .print-space{inset:0 0 -80px}
+ .plate-shadow{width:90%;height:24%}
+}
+@media(forced-colors:active){.exhibition-space,.print-space,.paper-shadow,.plate-shadow{display:none!important}.mast{background:Canvas}}
