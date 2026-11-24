@@ -8,7 +8,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
-const allIds=["apex-automotive","resonance-sound","event-horizon","essence-fragrance","calibre-watch","shift-card","prism-optics","orbit-cinema","abyss-ocean","strata-architecture","fulcrum-light","fold-paper-studio"];
+const allIds=["apex-automotive","resonance-sound","event-horizon","essence-fragrance","calibre-watch","shift-card","prism-optics","orbit-cinema","abyss-ocean","strata-architecture","fulcrum-light","fold-paper-studio","index-designer"];
 const only=process.argv.find(a=>a.startsWith('--only='))?.slice(7);
 if(only&&!allIds.includes(only))throw Error('Unknown capture id '+only);
 const ids=only?[only]:allIds;
@@ -40,7 +40,8 @@ try{
   if(id==='shift-card')await page.waitForFunction(()=>{const s=document.querySelector('#composition');return s?.dataset.renderer==='webgl'&&s.dataset.motionSettled==='true'&&+s.dataset.progress===0},{},{timeout:15000});
   else if(id==='fold-paper-studio')await page.waitForFunction(()=>{const s=document.querySelector('#scene');return s?.dataset.mode==='3d'&&s.dataset.settled==='true'&&s.dataset.openness==='0.450000'&&document.querySelectorAll('.panel').length===8},{},{timeout:15000});
   else if(spec?.stage&&id!=='strata-architecture')await page.waitForFunction(({sel,initial})=>{const s=document.querySelector(sel);return s&&Object.entries(initial).filter(([k])=>k!=='data-rendered-paused').every(([k,v])=>s.getAttribute(k)===v)},{sel:spec.stage,initial:spec.initial},{timeout:15000});
-  const opening=await page.evaluate(()=>{const h=document.querySelector('h1'),r=h?.getBoundingClientRect(),cs=h&&getComputedStyle(h);return {title:h?.textContent?.trim().replace(/\s+/g,' '),scrollY,overflow:document.documentElement.scrollWidth>innerWidth+2,headingVisible:!!r&&r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&cs.visibility!=='hidden'&&cs.display!=='none',canvases:[...document.querySelectorAll('canvas')].filter(c=>{const r=c.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0}).length}});
+  if(id==='index-designer')await page.waitForFunction(()=>document.querySelector('#proof-track')?.dataset.motion==='live'&&document.querySelectorAll('.project-cover').length===6&&[...document.querySelectorAll('.project-cover img')].every(i=>i.complete&&i.naturalWidth>0));
+  const opening=await page.evaluate(id=>{const h=document.querySelector(id==='index-designer'?'.brand':'h1'),r=h?.getBoundingClientRect(),cs=h&&getComputedStyle(h);return {title:h?.textContent?.trim().replace(/\s+/g,' '),scrollY,overflow:document.documentElement.scrollWidth>innerWidth+2,headingVisible:!!r&&r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&cs.visibility!=='hidden'&&cs.display!=='none',canvases:[...document.querySelectorAll('canvas')].filter(c=>{const r=c.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0}).length}},id);
   assert(opening.headingVisible&&!opening.overflow&&opening.scrollY===0,id+' opening viewport '+JSON.stringify(opening));
   // Take the actual viewport at the original opening, never scroll into a
   // later chapter. Wait two paints after decoded media and renderer readiness.
@@ -52,7 +53,7 @@ try{
   const meta=await sharp(image).metadata();assert.equal(meta.width,960);assert.equal(meta.height,600);
   const remote=loaded.filter(i=>/^https:\/\/(?:images\.pexels\.com|images\.unsplash\.com)\//.test(i.src)).map(i=>i.src.split('?')[0]);
   const assetIds=[...new Set(remote)].map(url=>{const item=inventory.assets.find(a=>a.urlIdentity===url&&a.usages.some(u=>u.templateId===id));assert(item,id+' untracked remote image '+url);return item.id});
-  if(['apex-automotive','calibre-watch','essence-fragrance','orbit-cinema','strata-architecture'].includes(id))assert(assetIds.length,id+' missing decoded source photograph');
+  if(['apex-automotive','calibre-watch','essence-fragrance','orbit-cinema','strata-architecture','index-designer'].includes(id))assert(assetIds.length,id+' missing decoded source photograph');
   writeFileSync(path.join(output,id+'.png'),png);writeFileSync(path.join(output,id+'.webp'),image);
   report.captures.push({id,sourceCommit,opening,bytes:image.length,sha256:createHash('sha256').update(image).digest('hex'),sourceAssetIds:assetIds,reviewStatus:'needs-review'});
   console.log('CAPTURE',id,opening.title,image.length+' bytes',assetIds.join(','));

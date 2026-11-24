@@ -41,7 +41,8 @@ const templates=discoverTemplates(path.resolve(here,'..'));
 const cdnRegex=/https?:\/\/(?:images\.unsplash\.com|images\.pexels\.com|videos\.pexels\.com)\/[^\s"'<>\x29\x60]+/gi;
 for(const templateId of templates){
  const dir=path.join(templatesRoot,templateId);
- const files=readdirSync(dir).filter(filename=>/\.(html|css|js)$/i.test(filename)&&statSync(path.join(dir,filename)).isFile());
+ const collect=(folder,prefix='')=>readdirSync(folder,{withFileTypes:true}).flatMap(e=>e.isDirectory()?collect(path.join(folder,e.name),prefix+e.name+'/'):/\.(html|css|js)$/i.test(e.name)?[prefix+e.name]:[]);
+ const files=templateId==='index-designer'?collect(dir):readdirSync(dir).filter(filename=>/\.(html|css|js)$/i.test(filename)&&statSync(path.join(dir,filename)).isFile());
  for(const filename of files){
   const source=readFileSync(path.join(dir,filename),'utf8').replace(/&amp;/g,'&');
   if(templateId==='real-estate'&&/drift-house-concept\.svg|glass-point-concept\.svg/.test(source))fail('CURRENT must not restore synthetic SVG property images');

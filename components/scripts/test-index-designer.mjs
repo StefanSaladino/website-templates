@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';import {chromium} from 'playwright';import {spawn} from 'node:child_process';import {existsSync,mkdirSync} from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),url='http://127.0.0.1:4328/templates/_drafts/index-designer/',out=path.join(root,'components/index-designer-evidence');mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','4328','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),url='http://127.0.0.1:4328/templates/index-designer/',out=path.join(root,'components/index-designer-evidence');mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','4328','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
 try{for(let i=0;i<60;i++){try{if((await fetch(url)).ok)break}catch{}await new Promise(r=>setTimeout(r,150))}
 browser=await chromium.launch({headless:true,executablePath:['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(existsSync),args:['--no-sandbox']});
 const groups=['identity','food','culture','architecture','fashion','professional'],ids=['vessa','canto','arc'];
@@ -14,7 +14,7 @@ assert.equal(await p.locator('.studio-chapter').count(),3);
 assert.equal(await p.locator('.studio-controls,.studio-counter,.studio-progress,[data-studio-jump]').count(),0);
 assert.equal(await p.locator('.studio-colophon nav a').count(),3);assert.equal(await p.locator('.studio-colophon #studio-motion').count(),1);
 assert.equal(await p.locator('.studio-colophon .colophon-bottom a[href="#main"]').count(),1);
-assert.equal(await p.locator('.studio-colophon a[href="../../../index.html"]').count(),1);
+assert.equal(await p.locator('.studio-colophon a[href="../../index.html"]').count(),1);
 const studio=p.locator('.luxury-studio');await p.waitForFunction(()=>document.querySelector('.luxury-studio').dataset.studioMode==='motion');
 const studioChapters=p.locator('.studio-chapter'),studioShots=p.locator('.studio-shot');
 for(const image of await p.locator('.studio-shot img').all()){await image.evaluate(n=>{n.loading='eager'});await image.evaluate(n=>n.decode());assert(await image.evaluate(n=>n.naturalWidth>0))}

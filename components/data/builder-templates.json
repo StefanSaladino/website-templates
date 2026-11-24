@@ -92,6 +92,13 @@
     "route": "../templates/garage-detailing/"
   },
   {
+    "slug": "index-designer",
+    "title": "INDEX / Selected work",
+    "route": "../templates/index-designer/",
+    "configuratorStatus": "gallery-only",
+    "configuratorBlocker": "Multi-page portfolio palette and expanded preview interactions need dedicated configurator verification"
+  },
+  {
     "slug": "interactive-playground",
     "title": "Interactive Playground",
     "route": "../templates/interactive-playground/"

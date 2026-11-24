@@ -260,5 +260,17 @@
       "required": 3,
       "poster": false
     }
+  ],
+  "designer-portfolio": [
+    {
+      "name": "index-designer",
+      "sections": [
+        ".proof-stage",
+        ".study-stack",
+        ".luxury-studio"
+      ],
+      "required": 15,
+      "poster": false
+    }
   ]
 }

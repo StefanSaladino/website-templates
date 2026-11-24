@@ -7,42 +7,48 @@
       "sourcePage": "https://www.pexels.com/photo/blank-white-paper-on-the-ground-11028403/",
       "urlIdentity": "https://images.pexels.com/photos/11028403/pexels-photo-11028403.jpeg",
       "alt": "Blank card on a surface with directional light and shadow",
-      "reviewStatus": "Pexels free stock source confirmed; browser crop, image load and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending",
+      "photographer": "Yulia H."
     },
     {
       "id": "food",
       "sourcePage": "https://www.pexels.com/photo/paper-cups-of-coffee-on-table-7319334/",
       "urlIdentity": "https://images.pexels.com/photos/7319334/pexels-photo-7319334.jpeg",
       "alt": "Four disposable takeaway cups arranged on a white surface",
-      "reviewStatus": "Pexels free stock source confirmed; browser crop, image load and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending",
+      "photographer": "Angela Roma"
     },
     {
       "id": "culture",
       "sourcePage": "https://www.pexels.com/photo/abstract-background-of-various-paper-sheets-scattered-on-table-6070384/",
       "urlIdentity": "https://images.pexels.com/photos/6070384/pexels-photo-6070384.jpeg",
       "alt": "Overlapping colourful and textured blank paper sheets",
-      "reviewStatus": "Pexels free stock source confirmed; browser crop, image load and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending",
+      "photographer": "Jill Burrow"
     },
     {
       "id": "vessa",
       "sourcePage": "https://www.pexels.com/photo/white-plastic-pump-bottle-with-a-beige-background-7815016/",
       "urlIdentity": "https://images.pexels.com/photos/7815016/pexels-photo-7815016.jpeg",
       "alt": "Plain skincare pump bottle against a beige backdrop",
-      "reviewStatus": "Pexels free stock source confirmed; browser crop, image load and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending",
+      "photographer": "Mikhail Nilov"
     },
     {
       "id": "canto",
       "sourcePage": "https://www.pexels.com/photo/a-mockup-disposable-paper-cup-with-dark-liquid-8015724/",
       "urlIdentity": "https://images.pexels.com/photos/8015724/pexels-photo-8015724.jpeg",
       "alt": "Blank disposable coffee cup against a soft white backdrop",
-      "reviewStatus": "Pexels free stock source confirmed; browser crop, image load and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending",
+      "photographer": "Cup of Couple"
     },
     {
       "id": "arc",
       "sourcePage": "https://www.pexels.com/photo/abstract-background-of-various-paper-sheets-scattered-on-table-6070384/",
       "urlIdentity": "https://images.pexels.com/photos/6070384/pexels-photo-6070384.jpeg",
       "alt": "An arrangement of textured coloured paper sheets",
-      "reviewStatus": "Pexels free stock source confirmed; browser crop, image load and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending",
+      "photographer": "Jill Burrow"
     },
     {
       "id": "architecture",
@@ -50,15 +56,15 @@
       "urlIdentity": "https://images.pexels.com/photos/12256996/pexels-photo-12256996.jpeg",
       "photographer": "Ayşegül Aytören",
       "alt": "Minimalist concrete building exterior with strong geometric lines",
-      "reviewStatus": "Free stock source page confirmed; loaded visual crop and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending"
     },
     {
       "id": "fashion",
       "sourcePage": "https://www.pexels.com/photo/blank-paper-tag-on-textile-11485130/",
       "urlIdentity": "https://images.pexels.com/photos/11485130/pexels-photo-11485130.jpeg",
-      "photographer": "Pexels contributor",
+      "photographer": "Andrzej Gdula",
       "alt": "Blank paper clothing tag on textured fabric",
-      "reviewStatus": "Free stock source page confirmed; loaded visual crop and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending"
     },
     {
       "id": "professional",
@@ -66,7 +72,7 @@
       "urlIdentity": "https://images.pexels.com/photos/18677608/pexels-photo-18677608.jpeg",
       "photographer": "Yusuf Çelik",
       "alt": "Open blank notebook and pen in a minimalist workspace",
-      "reviewStatus": "Free stock source page confirmed; loaded visual crop and third-party rights screening pending"
+      "reviewStatus": "Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending"
     }
   ]
 }

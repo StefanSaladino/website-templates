@@ -71,3 +71,7 @@ Stakeholder reported footer not visible after P15. P15 Pages 45506292114 succeed
 
 ### P17 registration recovery
 The exact registered-source build, membership and thumbnail capture steps in run 45507045514 passed; specialist stopped on a CANTO mobile heading hit-test at 390px. The saved screenshot `390-canto-opening-precheck.png` shows the entire CANTO heading, legible and not overlapped by the rail. P16 full specialist run 45506510239 passed. Treat this as an intermittent interaction/transition timing issue, not confirmed absence of a heading: retain identical hit-test/bounds requirements, wait for stable success rather than a single sample, and emit geometry and sampled hits on failure. Restore the exact captured thumbnail by verified SHA-256 from the prior run, preserve all layouts, and verify source/media/catalogue gates before creating the review-only registration candidate. Full registered-route specialist and production rights/device clearance remain required after promotion.
+
+
+## P17 — gallery-only registration
+Stakeholder authorized adding INDEX. P16 Pages 45506510105 and ten-route/four-width specialist 45506510239 passed. Move verified design into templates/index-designer, correct gallery return link, retain all nine child routes and register actual opening capture, dedicated immersive QA, eight publisher-attributed stock identities (including nested case-file usages), and loaded-photo review. Gallery-only; configurator enablement requires separate actual palette and expanded-preview QA. No main merge or commercial rights approval.

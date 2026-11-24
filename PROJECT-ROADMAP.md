@@ -686,3 +686,7 @@ Specialist 45432905923 on 49cb768 passed strict cadence and visual gates togethe
 
 ### Stakeholder-authorized SELVEDGE start
 Exact 11 gallery captures promoted at 01756f4; Pages 45452212390 passed. Stakeholder explicitly deferred SHIFT desktop review and authorized the next site. This supersedes the previous sequencing hold only; SHIFT cadence, native configurator and physical review remain unresolved. SELVEDGE S1 is an unregistered review draft at `templates/_drafts/selvedge-outerwear/`, with original illustrated garment, continuous bounded-stage animatic and specialist checks. See `docs/SELVEDGE-OUTERWEAR-ROADMAP.md`. No production approval or main merge.
+
+
+## INDEX / Selected work — review gallery registration
+INDEX P16 passed deployment and specialist review. P17 adds the 37th complete review website (35 configurator-selectable), actual opening thumbnail and dedicated multi-page specialist coverage; no main merge or production approval. See docs/INDEX-DESIGNER-ROADMAP.md.

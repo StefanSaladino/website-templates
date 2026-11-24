@@ -1862,6 +1862,179 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Pexels source page Free label and original linked download visually inspected. Independent monochrome photograph of mirror and sculpted sports-car panel; not the same vehicle as the hero. No claimed brand relationship. Original linked download verified. Final rights/crop review open."
+    },
+    {
+      "id": "TM-158",
+      "urlIdentity": "https://images.pexels.com/photos/11028403/pexels-photo-11028403.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "index-designer",
+          "files": [
+            "cases/vessa.html",
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/blank-white-paper-on-the-ground-11028403/",
+      "creator": "Yulia H.",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-24",
+      "sourceVerificationNote": "Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open."
+    },
+    {
+      "id": "TM-159",
+      "urlIdentity": "https://images.pexels.com/photos/7319334/pexels-photo-7319334.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "index-designer",
+          "files": [
+            "cases/canto.html",
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/paper-cups-of-coffee-on-table-7319334/",
+      "creator": "Angela Roma",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-24",
+      "sourceVerificationNote": "Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open."
+    },
+    {
+      "id": "TM-160",
+      "urlIdentity": "https://images.pexels.com/photos/6070384/pexels-photo-6070384.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "index-designer",
+          "files": [
+            "cases/arc.html",
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/abstract-background-of-various-paper-sheets-scattered-on-table-6070384/",
+      "creator": "Jill Burrow",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-24",
+      "sourceVerificationNote": "Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open."
+    },
+    {
+      "id": "TM-161",
+      "urlIdentity": "https://images.pexels.com/photos/7815016/pexels-photo-7815016.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "index-designer",
+          "files": [
+            "cases/vessa.html",
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/white-plastic-pump-bottle-with-a-beige-background-7815016/",
+      "creator": "Mikhail Nilov",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-24",
+      "sourceVerificationNote": "Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open."
+    },
+    {
+      "id": "TM-162",
+      "urlIdentity": "https://images.pexels.com/photos/8015724/pexels-photo-8015724.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "index-designer",
+          "files": [
+            "cases/canto.html",
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/a-mockup-disposable-paper-cup-with-dark-liquid-8015724/",
+      "creator": "Cup of Couple",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-24",
+      "sourceVerificationNote": "Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open."
+    },
+    {
+      "id": "TM-163",
+      "urlIdentity": "https://images.pexels.com/photos/12256996/pexels-photo-12256996.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "index-designer",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/a-concrete-building-12256996/",
+      "creator": "Ayşegül Aytören",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-24",
+      "sourceVerificationNote": "Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open."
+    },
+    {
+      "id": "TM-164",
+      "urlIdentity": "https://images.pexels.com/photos/11485130/pexels-photo-11485130.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "index-designer",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/blank-paper-tag-on-textile-11485130/",
+      "creator": "Andrzej Gdula",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-24",
+      "sourceVerificationNote": "Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open."
+    },
+    {
+      "id": "TM-165",
+      "urlIdentity": "https://images.pexels.com/photos/18677608/pexels-photo-18677608.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "index-designer",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/opened-notebook-with-blank-pages-18677608/",
+      "creator": "Yusuf Çelik",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-24",
+      "sourceVerificationNote": "Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open."
     }
   ]
 }

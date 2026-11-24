@@ -456,5 +456,13 @@
       "test-fold-study.mjs"
     ],
     "reason": "Dedicated suite verifies connected CSS 3D hinge geometry, printed plane separation, motion cadence, native touch, keyboard, reflow and preference recovery."
+  },
+  "index-designer": {
+    "dedicated": true,
+    "workflow": ".github/workflows/index-designer-review.yml",
+    "scripts": [
+      "test-index-designer.mjs"
+    ],
+    "reason": "Dedicated ten-route browser suite covers proof alignment, study stacking, studio parallax, reverse scroll, actual photo decoding, footer navigation, preferences and no-JS fallback."
   }
 }
