@@ -448,5 +448,13 @@
       "test-shift-components.mjs"
     ],
     "reason": "Recovery suite verifies continuous bounded composition, actual mesh projection and rendering, accessibility, model study and both reusable component examples."
+  },
+  "selvedge-outerwear": {
+    "dedicated": true,
+    "workflow": ".github/workflows/selvedge-storyboard.yml",
+    "scripts": [
+      "test-selvedge-storyboard.mjs"
+    ],
+    "reason": "Specialist verifies real photographic crop, native wheel, reversible continuous motion, cadence, responsive recovery and native embedded palette."
   }
 }

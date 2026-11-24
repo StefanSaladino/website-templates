@@ -145,6 +145,13 @@
     "route": "../templates/restaurant/"
   },
   {
+    "slug": "selvedge-outerwear",
+    "title": "SELVEDGE / Outside the ordinary",
+    "route": "../templates/selvedge-outerwear/",
+    "configuratorStatus": "gallery-only",
+    "configuratorBlocker": "Expanded preview native scroll verification pending"
+  },
+  {
     "slug": "shift-card",
     "title": "SHIFT / The moving card",
     "route": "../templates/shift-card/"

@@ -1,5 +1,5 @@
 import {catalogue,variants,DEFAULT,hex,contrast} from './builder-model.js';
-import {KEY,LEGACY_KEY,PURPOSES,LABELS,QUESTIONS,PALETTES,MAX_PAGES,pageOptions,available,options,templates,allSlots,fresh,restore,change,ready,pageEntries,exportBrief} from './builder-journey.js';
+import {KEY,LEGACY_KEY,PURPOSES,LABELS,QUESTIONS,PALETTES,MAX_PAGES,pageOptions,available,options,templates,allSlots,fresh,restore,change,ready,pageEntries,exportBrief} from './builder-journey.js?v20261124-selvedge';
 import {renderSourcePage,isContextReference,escape as e} from './builder-compose.js';
 import {themePreviewDocument} from './builder-theme.js?v20261124-native-palettes';
 const $=q=>document.querySelector(q),stage=$('#stage'),notice=$('#notice'),steps=['About your website','Choose a look','Pick designs','Make it yours','See your website'];

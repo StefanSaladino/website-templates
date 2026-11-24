@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341",
+  "sourceCommit": "f3a1fedae79cd2500787a78843cad539c22969a7",
   "viewport": {
     "width": 1440,
     "height": 900
@@ -25,7 +25,8 @@
       "sourceAssetIds": [
         "TM-155"
       ],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "resonance-sound",
@@ -39,7 +40,8 @@
       "bytes": 43716,
       "sha256": "b5056b4cde5a067b2b462566fedb0dfdb7e75ca31328c1cec1b4dede8dad6956",
       "sourceAssetIds": [],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "event-horizon",
@@ -53,7 +55,8 @@
       "bytes": 35122,
       "sha256": "0d0ce9fb1ef89f47b1528004bbcfcfc701e966d2671e893a247a025e7bf97c09",
       "sourceAssetIds": [],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "essence-fragrance",
@@ -69,7 +72,8 @@
       "sourceAssetIds": [
         "TM-153"
       ],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "calibre-watch",
@@ -86,7 +90,8 @@
         "TM-151",
         "TM-152"
       ],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "shift-card",
@@ -100,7 +105,8 @@
       "bytes": 24022,
       "sha256": "2ca033b6758300bcb8e60b694f5ab900c043515b316f012d71247c2bfccacdb5",
       "sourceAssetIds": [],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "prism-optics",
@@ -114,7 +120,8 @@
       "bytes": 27136,
       "sha256": "a833a3a55cbc039425b2cdfa84ebbb17729ece9f534998f46e1ea156fbd029e9",
       "sourceAssetIds": [],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "orbit-cinema",
@@ -133,7 +140,8 @@
         "TM-149",
         "TM-150"
       ],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "abyss-ocean",
@@ -147,7 +155,8 @@
       "bytes": 33902,
       "sha256": "3eea244fe0e0288e2006b4c9ab4b6377d6401a686e7482e13f4849cb9629346c",
       "sourceAssetIds": [],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "strata-architecture",
@@ -163,7 +172,8 @@
       "sourceAssetIds": [
         "TM-145"
       ],
-      "reviewStatus": "needs-review"
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
     },
     {
       "id": "fulcrum-light",
@@ -177,6 +187,24 @@
       "bytes": 19930,
       "sha256": "f747ea01673ee8ba73e8cd9a177ec44df363b8651602371002849dd1aea9e0aa",
       "sourceAssetIds": [],
+      "reviewStatus": "needs-review",
+      "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
+    },
+    {
+      "id": "selvedge-outerwear",
+      "sourceCommit": "f3a1fedae79cd2500787a78843cad539c22969a7",
+      "opening": {
+        "title": "Outsidethe ordinary.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 0
+      },
+      "bytes": 25442,
+      "sha256": "be8b596fcfbce29b9998c7396f595242393b58a0732fe5ba51d4eebbb8ff2a1a",
+      "sourceAssetIds": [
+        "TM-157"
+      ],
       "reviewStatus": "needs-review"
     }
   ]

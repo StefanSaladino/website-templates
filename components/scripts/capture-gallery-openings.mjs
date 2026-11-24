@@ -8,7 +8,10 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
-const ids=["apex-automotive","resonance-sound","event-horizon","essence-fragrance","calibre-watch","shift-card","prism-optics","orbit-cinema","abyss-ocean","strata-architecture","fulcrum-light"];
+const allIds=["apex-automotive","resonance-sound","event-horizon","essence-fragrance","calibre-watch","shift-card","prism-optics","orbit-cinema","abyss-ocean","strata-architecture","fulcrum-light","selvedge-outerwear"];
+const only=process.argv.find(a=>a.startsWith('--only='))?.slice(7);
+if(only&&!allIds.includes(only))throw Error('Unknown capture id '+only);
+const ids=only?[only]:allIds;
 const viewport={width:1440,height:900},origin='http://127.0.0.1:4318/';
 const output=path.join(root,'components/gallery-opening-evidence');mkdirSync(output,{recursive:true});
 const server=spawn('python3',['-m','http.server','4318','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
@@ -35,6 +38,7 @@ try{
   assert(loaded.every(i=>i.width>0&&i.height>0),id+' unloaded image');
   const spec=specs[id];
   if(id==='shift-card')await page.waitForFunction(()=>{const s=document.querySelector('#composition');return s?.dataset.renderer==='webgl'&&s.dataset.motionSettled==='true'&&+s.dataset.progress===0},{},{timeout:15000});
+  else if(id==='selvedge-outerwear')await page.waitForFunction(()=>{const s=document.querySelector('#stage');return s?.dataset.mode==='live'&&s.dataset.settled==='true'&&+s.dataset.progress===0},{},{timeout:15000});
   else if(spec?.stage&&id!=='strata-architecture')await page.waitForFunction(({sel,initial})=>{const s=document.querySelector(sel);return s&&Object.entries(initial).filter(([k])=>k!=='data-rendered-paused').every(([k,v])=>s.getAttribute(k)===v)},{sel:spec.stage,initial:spec.initial},{timeout:15000});
   const opening=await page.evaluate(()=>{const h=document.querySelector('h1'),r=h?.getBoundingClientRect(),cs=h&&getComputedStyle(h);return {title:h?.textContent?.trim().replace(/\s+/g,' '),scrollY,overflow:document.documentElement.scrollWidth>innerWidth+2,headingVisible:!!r&&r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&cs.visibility!=='hidden'&&cs.display!=='none',canvases:[...document.querySelectorAll('canvas')].filter(c=>{const r=c.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0}).length}});
   assert(opening.headingVisible&&!opening.overflow&&opening.scrollY===0,id+' opening viewport '+JSON.stringify(opening));
@@ -48,9 +52,9 @@ try{
   const meta=await sharp(image).metadata();assert.equal(meta.width,960);assert.equal(meta.height,600);
   const remote=loaded.filter(i=>/^https:\/\/(?:images\.pexels\.com|images\.unsplash\.com)\//.test(i.src)).map(i=>i.src.split('?')[0]);
   const assetIds=[...new Set(remote)].map(url=>{const item=inventory.assets.find(a=>a.urlIdentity===url&&a.usages.some(u=>u.templateId===id));assert(item,id+' untracked remote image '+url);return item.id});
-  if(['apex-automotive','calibre-watch','essence-fragrance','orbit-cinema','strata-architecture'].includes(id))assert(assetIds.length,id+' missing decoded source photograph');
+  if(['apex-automotive','calibre-watch','essence-fragrance','orbit-cinema','strata-architecture','selvedge-outerwear'].includes(id))assert(assetIds.length,id+' missing decoded source photograph');
   writeFileSync(path.join(output,id+'.png'),png);writeFileSync(path.join(output,id+'.webp'),image);
-  report.captures.push({id,opening,bytes:image.length,sha256:createHash('sha256').update(image).digest('hex'),sourceAssetIds:assetIds,reviewStatus:'needs-review'});
+  report.captures.push({id,sourceCommit,opening,bytes:image.length,sha256:createHash('sha256').update(image).digest('hex'),sourceAssetIds:assetIds,reviewStatus:'needs-review'});
   console.log('CAPTURE',id,opening.title,image.length+' bytes',assetIds.join(','));
   await ctx.close();
  }
@@ -65,6 +69,8 @@ try{
   }
   for(const id of ids)writeFileSync(path.join(root,'templates',id,'gallery-opening.webp'),readFileSync(path.join(output,id+'.webp')));
   writeFileSync(path.join(root,'index.html'),html);
-  writeFileSync(path.join(root,'components/data/gallery-opening-captures.json'),JSON.stringify(report,null,2)+'\n');
+  const ledgerPath=path.join(root,'components/data/gallery-opening-captures.json');
+  if(only&&existsSync(ledgerPath)){const previous=JSON.parse(readFileSync(ledgerPath,'utf8'));report.captures=[...previous.captures.filter(x=>x.id!==only).map(x=>({...x,sourceCommit:x.sourceCommit||previous.sourceCommit})),...report.captures]}
+  writeFileSync(ledgerPath,JSON.stringify(report,null,2)+'\n');
  }
 }finally{writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');await browser?.close();server.kill()}

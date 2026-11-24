@@ -260,5 +260,17 @@
       "required": 3,
       "poster": false
     }
+  ],
+  "selvedge": [
+    {
+      "name": "selvedge-outerwear",
+      "sections": [
+        ".stage",
+        ".construction",
+        ".edition"
+      ],
+      "required": 2,
+      "poster": false
+    }
   ]
 }
