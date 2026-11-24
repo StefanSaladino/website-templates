@@ -42,3 +42,7 @@ Registration 45463454790 passed real 1440x900 opening capture (25,442-byte WebP,
 
 ## S5 — registration candidate
 S4 native palette specialist test completed successfully on fb842fe. Candidate moves the unchanged photographic template to the registered route, adds dedicated immersive coverage and exact-source still-media/provenance records, and uses an actual opening capture. All existing screenshot bytes remain unchanged. The manager authorized gallery-only registration after standalone checks passed; configuratorStatus gallery-only excludes it from customer selection, pending actual expanded preview verification. Registration is review-only, not rights, physical-device or production acceptance.
+
+
+## Stakeholder visual rejection
+Registered gallery-only at 231f290; stakeholder reviewed and rejected the concept as a reskin of SHIFT and unsuitable jacket imagery. Technical checks do not imply visual approval. Freeze this concept; do not enable configurator. New independent concept FOLD under separate draft. Keep gallery record until explicit retirement/replacement decision; no main merge.

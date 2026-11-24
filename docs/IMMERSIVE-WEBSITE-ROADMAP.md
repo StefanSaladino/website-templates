@@ -169,3 +169,7 @@ Physical desktop SHIFT review is explicitly deferred by stakeholder until they h
 
 ### Stakeholder-authorized SELVEDGE start
 Exact 11 gallery captures promoted at 01756f4; Pages 45452212390 passed. Stakeholder explicitly deferred SHIFT desktop review and authorized the next site. This supersedes the previous sequencing hold only; SHIFT cadence, native configurator and physical review remain unresolved. SELVEDGE S1 is an unregistered review draft at `templates/_drafts/selvedge-outerwear/`, with original illustrated garment, continuous bounded-stage animatic and specialist checks. See `docs/SELVEDGE-OUTERWEAR-ROADMAP.md`. No production approval or main merge.
+
+
+### New direction — FOLD
+Stakeholder rejected SELVEDGE as a reskinned SHIFT with unsuitable imagery. Visual acceptance withdrawn; keep gallery-only gate, do not extend the same pinned campaign architecture. Begin unrelated draft FOLD: continuous hinged-paper 3D deformation, native typography, explicit interactive folding/drag and natural page flow. No generated imagery, no product photography. See docs/FOLD-PAPER-STUDIO-ROADMAP.md. Require visual approval before registration. No main merge.
