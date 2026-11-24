@@ -53,7 +53,7 @@ for(const templateId of templates){
   if(templateId==='storefront'&&filename==='index.html'&&/mora-art--(?:hero|sink|materials)/.test(source))fail('MORA synthetic scene illustration cannot return');
   for(const retired of ['photo-1679585651020-9ae0653c84ad','photo-1745777761096-081db6e036e7'])if(source.includes(retired))fail('Retired tattoo artist/client media returned in '+templateId+'/'+filename+': '+retired);
   for(const retired of ["photo-1481349518771-20055b2a7b24","photo-1483985988355-763728e1935b","photo-1494438639946-1ebd1d20bf85","photo-1496747611176-843222e1e57c","photo-1531123897727-8f129e1688ce","photo-1534528741775-53994a69daeb"])if(source.includes(retired))fail('Retired FRAME source cannot return in '+templateId+'/'+filename+': '+retired);
-  for(const retired of ['photo-1524504388940-b1c1722653e1','photo-1529139574466-a303027c1d8b','photo-1506794778202-cad84cf45f1d','photo-1515886657613-9f3515b0c78f'])if(source.includes(retired))fail('Retired FRAME photo cannot return to '+templateId+'/'+filename+': '+retired);
+  for(const retired of ['photo-1524504388940-b1c1722653e1','photo-1529139574466-a303027c1d8b','photo-1506794778202-cad84cf45f1d','photo-1515886657613-9f3515b0c78f','photo-1441986300917-64674bd600d8'])if(source.includes(retired))fail('Retired FRAME photo cannot return to '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1627328187791-bb98dfe09ace','photo-1622260614298-449a6f9f14fb','photo-1708105252198-4f5fbf2c0884','photo-1496080174650-637e3f22fa03','photo-1742799050770-8073eac5304a','photo-1619035226152-81e29823b8d9'])if(source.includes(retired))fail('Retired RANGE/FOUND stock must not return in '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1600210492486-724fe5c67fb0','photo-1600566753190-17f0baa2a6c3','photo-1600585154340-be6161a56a0c','photo-1613490493576-7fde63acd811'])if(source.includes(retired))fail('Retired MONOLITH original photo returned in '+templateId+'/'+filename+': '+retired);
   for(const retired of ['photo-1760965825135-e94f4e34494b','photo-1766471870102-dcb1fe88e8cc','photo-1771959453981-b5417268a034','photo-1760092189903-dce3e898dacf','/17718206/','/8512413/','/30215324/'])if(source.includes(retired))fail('Retired AFTER DARK concert stock returned in '+templateId+'/'+filename+': '+retired);
@@ -86,7 +86,7 @@ if(!Array.isArray(inventory.assets))fail('Missing assets array in original-templ
 const registered=new Map();
 for(const item of inventory.assets||[]){
  if(!/^TM-\d{3}$/.test(item.id))fail('Invalid original-template asset ID '+item.id);
- if(['TM-048','TM-005','TM-044','TM-065','TM-021','TM-031','TM-034','TM-038','TM-067','TM-011','TM-062','TM-029','TM-030','TM-040','TM-006','TM-019','TM-020','TM-033','TM-014','TM-015','TM-012','TM-013','TM-003','TM-004','TM-007','TM-009','TM-016','TM-017','TM-113','TM-114','TM-115'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
+ if(['TM-048','TM-005','TM-044','TM-065','TM-021','TM-031','TM-034','TM-038','TM-067','TM-011','TM-062','TM-029','TM-030','TM-040','TM-006','TM-019','TM-020','TM-033','TM-014','TM-015','TM-012','TM-013','TM-003','TM-004','TM-007','TM-009','TM-016','TM-017','TM-113','TM-114','TM-115','TM-002'].includes(item.id))fail('Retired unsuitable image record must not be reintroduced: '+item.id);
  if(!normalize(item.urlIdentity)||normalize(item.urlIdentity)!==item.urlIdentity)fail('Noncanonical tracked remote media '+item.id);
  if(registered.has(item.urlIdentity))fail('Duplicate original-template URL record: '+item.urlIdentity);
  registered.set(item.urlIdentity,item);
@@ -103,8 +103,8 @@ for(const item of inventory.assets||[]){
     page:'https://www.pexels.com/photo/red-lights-on-a-stage-5389623/',creator:'Isabella Mendes'},
   'TM-143':{identity:'https://images.pexels.com/photos/10809871/pexels-photo-10809871.jpeg',
     page:'https://www.pexels.com/photo/lights-on-a-stage-in-the-dark-10809871/',creator:'Filipe Braggio'},
-  'TM-002':{identity:'https://images.unsplash.com/photo-1441986300917-64674bd600d8',
-    page:'https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0',creator:'Clark Street Mercantile'},
+  'TM-144':{identity:'https://images.pexels.com/photos/29904622/pexels-photo-29904622.jpeg',
+    page:'https://www.pexels.com/photo/minimalist-ceramic-vase-in-warm-sunlight-29904622/',creator:'Tiarra Sorte'},
   'TM-138':{identity:'https://images.pexels.com/photos/6389074/pexels-photo-6389074.jpeg',
     page:'https://www.pexels.com/photo/monochrome-shot-of-a-barbell-6389074/',creator:'Tima Miroshnichenko'},
   'TM-010':{identity:'https://images.unsplash.com/photo-1497366754035-f200968a6e72',

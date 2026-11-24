@@ -32,7 +32,7 @@ if(!html.includes('fictional design previews under review'))
   issues.push('Gallery must disclose that these are not production-approved websites');
 const identities=new Map(manifest.assets.map(item=>[item.urlIdentity,item]));
 // A source removed from a full template must also disappear from its gallery thumbnail.
-for(const retired of ["photo-1481349518771-20055b2a7b24","photo-1483985988355-763728e1935b","photo-1494438639946-1ebd1d20bf85","photo-1496747611176-843222e1e57c","photo-1531123897727-8f129e1688ce","photo-1534528741775-53994a69daeb"])if((html+'\n'+js).includes(retired))issues.push('Retired FRAME gallery media returned: '+retired);
+for(const retired of ["photo-1481349518771-20055b2a7b24","photo-1483985988355-763728e1935b","photo-1494438639946-1ebd1d20bf85","photo-1496747611176-843222e1e57c","photo-1531123897727-8f129e1688ce","photo-1534528741775-53994a69daeb","photo-1441986300917-64674bd600d8"])if((html+'\n'+js).includes(retired))issues.push('Retired FRAME gallery media returned: '+retired);
 for(const retired of ['photo-1524504388940-b1c1722653e1','photo-1529139574466-a303027c1d8b','photo-1679585651020-9ae0653c84ad','photo-1745777761096-081db6e036e7','photo-1673874500167-17ca5ed1cf17','photo-1708805282706-f44730b7e527','photo-1552519507-da3b142c6e3d','photo-1580273916550-e323be2ae537','photo-1492144534655-ae79c964c9d7']){
   if((html+'\n'+js).includes(retired))issues.push('Retired high-risk gallery photograph returned: '+retired);
 }

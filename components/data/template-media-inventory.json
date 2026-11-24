@@ -4,8 +4,8 @@
   "rightsPolicy": "Every remote asset remains unapproved pending verified source/creator/license/depictee-property rights and validated local derivatives. Matching component stock references does NOT confer approval.",
   "assets": [
     {
-      "id": "TM-002",
-      "urlIdentity": "https://images.unsplash.com/photo-1441986300917-64674bd600d8",
+      "id": "TM-144",
+      "urlIdentity": "https://images.pexels.com/photos/29904622/pexels-photo-29904622.jpeg",
       "kind": "image",
       "usages": [
         {
@@ -16,25 +16,13 @@
         }
       ],
       "linkedComponentStockId": null,
-      "sourcePageUrl": "https://unsplash.com/photos/clothes-store-interior-P3pI6xzovu0",
-      "creator": "Clark Street Mercantile",
+      "sourcePageUrl": "https://www.pexels.com/photo/minimalist-ceramic-vase-in-warm-sunlight-29904622/",
+      "creator": "Tiarra Sorte",
       "rightsReviewedAt": null,
       "reviewStatus": "needs-review",
       "localDerivative": null,
-      "pilotVisualReview": {
-        "reviewedAt": "2026-11-21",
-        "status": "preliminary-observations-only-not-approved",
-        "downloadSHA256": "ddf549cc4270e474cc57449929d89b4e3c51a0e04706e9bae5ca5c5835fc4810",
-        "notes": "Retail interior shows visible U.S. Navy branding; person/property/brand use context remains unverified. Phone crops retain displays, but not approved.",
-        "flags": [
-          "visible-brand",
-          "property-rights-unverified",
-          "model-context-unverified"
-        ],
-        "evidenceDocument": "docs/SHOWROOM-FRAME-PORTFOLIO-MEDIA-PILOT.md"
-      },
-      "sourcePageVerifiedAt": "2026-11-22",
-      "sourceVerificationNote": "Official Unsplash photo page; exact images.unsplash.com CDN identity matched its displayed image link. Photographer/source attribution only; model, location, trademark and redistribution suitability still need independent review."
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page checked on 2026-11-23: Tiarra Sorte, Free label, 4096 x 4096 dimensions. Official Free Download link resolves to exact image ID 29904622. Visually inspected publisher download: sculptural cream ceramic vase in warm sunlight against a brown backdrop, no visible people or obvious branding. Independent stock, not FRAME's work. Design/property rights, commercial template redistribution, responsive crop and final approval remain open."
     },
     {
       "id": "TM-010",

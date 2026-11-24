@@ -7,16 +7,15 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 - **74 active external media identities:** 73 still/poster images and 1 HD hero video (conditional muted autoplay)
 - **0 without verified/recorded source-page links** and **0 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
 - **0 rights-approved assets.** All 74 remain `needs-review`
-- **10 first-priority review records** with people, branding, replacement or video-related flags; 64 follow-on records
+- **9 first-priority review records** with people, branding, replacement or video-related flags; 65 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
 
-## High-priority queue — 10 active records
+## High-priority queue — 9 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
-| TM-002 | frame-portfolio | Recorded source page; Clark Street Mercantile | visible-brand, property-rights-unverified, model-context-unverified |
 | TM-103 | editorial-commerce | Pexels publisher page; Luke Miller | depicted-person, independent-forest-hiker, hero-mobile-crop-and-usage-context-open |
 | TM-105 | editorial-commerce | Pexels publisher page; Atiek Arief | depicted-person, visible-clothing-marking-review, not-fictional-outerwear |
 | TM-129 | contractor | Pexels publisher page; Thới Nam Cao | independent-renovation-scene, depicted-worker-rights-open, actual photo crops, redistribution and stakeholder approval pending |
@@ -27,10 +26,11 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 64 active records
+## Follow-on queue — 65 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
+| TM-144 | frame-portfolio | Pexels publisher page; Tiarra Sorte | Independent ceramic still life, no visible person or branding; object design rights, crop and commercial redistribution pending |
 | TM-141 | event-launch | Pexels publisher page; Yan Krukau | Stage/lighting reference; image decode, exact crop, property/equipment marks, commercial redistribution and stakeholder signoff pending |
 | TM-142 | event-launch | Pexels publisher page; Isabella Mendes | Stage/lighting reference; image decode, exact crop, property/equipment marks, commercial redistribution and stakeholder signoff pending |
 | TM-143 | event-launch | Pexels publisher page; Filipe Braggio | Stage/lighting reference; image decode, exact crop, property/equipment marks, commercial redistribution and stakeholder signoff pending |
@@ -255,3 +255,6 @@ Retired active original **TM-001** (person in a studio fashion shoot) and **TM-0
 
 ## AFTER DARK risk mitigation — 23 November 2026
 TM-113/114/115 retired in favor of publisher-attributed microphone-stage, red-spotlight and abstract-beam studies TM-141/142/143. The active count remains 74, with 10 high-priority and 64 follow-on records, zero rights approved. Actual image decoding/visual inspection and legal review remain pending.
+
+## FRAME retail-brand mitigation — 23 November 2026
+TM-002 retired (not rights-approved). Replacement TM-144: [Tiarra Sorte ceramic still life](https://www.pexels.com/photo/minimalist-ceramic-vase-in-warm-sunlight-29904622/), square 4096×4096; official page and Free download identity checked, actual publisher image inspected. 74/74 source-attributed, 9 high-priority, 65 follow-on, zero rights-approved. Remaining FRAME people images require independent likeness review. No approval or main merge.

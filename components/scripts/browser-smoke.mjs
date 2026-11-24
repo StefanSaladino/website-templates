@@ -549,6 +549,9 @@ try{
  assert(!await page.locator('[data-motion-pattern="ANIM-09"]').evaluate(el=>el.classList.contains('journal-motion-playing')),'ANIM-09 skips diagonal motion for reduced-motion users');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await openTemplate('frame-portfolio');
+ assert((await page.locator('.frame--nine img').getAttribute('src')).includes('/29904622/') && (await page.locator('.frame--nine img').getAttribute('alt')).includes('Tiarra Sorte'),'FRAME Still here uses the independent ceramic still life, not the branded retail interior');
+ assert(await page.locator('.frame--nine img').getAttribute('width')==='4096' && await page.locator('.frame--nine img').getAttribute('height')==='4096','FRAME ceramic image records true square dimensions');
+ assert(!((await page.content()).includes('photo-1441986300917-64674bd600d8')),'FRAME retired branded retail stock cannot return');
  assert(await page.locator('.frame-demo-disclosure').isVisible(),'FRAME makes fictional portfolio and independent stock origins explicit');
  assert((await page.locator('.opening-left img').getAttribute('src')).includes('/12919049/'),'FRAME opening-left references sourced Brayan Chul studio portrait');
  assert((await page.locator('.opening-right img').getAttribute('src')).includes('/32174987/'),'FRAME opening-right references sourced Aliyu jooney fashion portrait');

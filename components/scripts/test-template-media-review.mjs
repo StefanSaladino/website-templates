@@ -26,7 +26,7 @@ try{
  assert(!report.assets.some(item=>item.desktopPortrait||item.phoneTall));
  assert(existsSync(path.join(directory,'index.html')));
  // FRAME full-template media now has 11/11 source page and creator records.
- const frameIds=['TM-002','TM-093','TM-094','TM-095','TM-096','TM-097','TM-098','TM-099','TM-100','TM-101','TM-102'];
+ const frameIds=['TM-144','TM-093','TM-094','TM-095','TM-096','TM-097','TM-098','TM-099','TM-100','TM-101','TM-102'];
  const remaining=spawnSync(process.execPath,[script,'--offline','--templates=frame-portfolio','--limit=15','--output='+path.join(directory,'frame-remainder')],{encoding:'utf8',timeout:20000});
  if(remaining.status!==0)throw Error('FRAME remainder review failed: '+remaining.stderr+'\\n'+remaining.stdout);
  const rest=JSON.parse(readFileSync(path.join(directory,'frame-remainder/results.json'),'utf8'));
