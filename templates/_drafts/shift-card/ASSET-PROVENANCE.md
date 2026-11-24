@@ -6,3 +6,5 @@ P2 model.html and scene.js implement original closed rounded rectangular mesh, a
 P3 uses the same original 3D model and texture generation in the full page. Motion is native scroll driven. Static SVG remains available for no JS, reduced motion, context loss and manual still view.
 
 P4 adds locally generated graphite and silver static SVG counterparts and shared original material definitions. The WebGL shader receives independent edge/specular/roughness values and updates both texture faces without replacing the mesh. Finish choices work in the static/reduced-motion view as well. No external assets or financial service.
+
+P5 lifecycle refinements bound pixel count and duplicate frame submissions, retain SVG until first render, and keep still-mode controls and announcements in the narrative. No new third-party assets.
