@@ -9,3 +9,6 @@ for(const hz of [30,60,120])for(const compact of [false,true]){let p=0;const dt=
 
 import {bufferSize,MOTION_PIXEL_LIMIT} from '../../templates/shift-card/studio-scene.js';
 for(const [w,h] of [[330,495],[1268,400],[1700,546],[3840,1200]])for(const dpr of [1,2,3])for(const compact of [false,true]){const full=bufferSize(w,h,dpr,compact),limit=compact?MOTION_PIXEL_LIMIT.compact:MOTION_PIXEL_LIMIT.wide,motion=bufferSize(w,h,dpr,compact,limit);assert(motion.width*motion.height<=limit);assert(motion.width<=full.width&&motion.height<=full.height);assert(Math.abs(motion.width/motion.height-w/h)<=Math.max(1,motion.width/motion.height)/motion.height*2)}console.log('PASS motion pixel budgets and proportional drawing-buffer scaling');
+
+import {cardGeometry} from '../../templates/shift-card/studio-scene.js';
+const mesh=cardGeometry();let winding=0;for(let i=0;i<mesh.length;i+=27){const a=mesh.slice(i,i+3),b=mesh.slice(i+9,i+12),c=mesh.slice(i+18,i+21),ab=b.map((v,k)=>v-a[k]),ac=c.map((v,k)=>v-a[k]),n=[ab[1]*ac[2]-ab[2]*ac[1],ab[2]*ac[0]-ab[0]*ac[2],ab[0]*ac[1]-ab[1]*ac[0]],avg=[0,1,2].map(k=>mesh[i+3+k]+mesh[i+12+k]+mesh[i+21+k]);assert(n.reduce((v,x,k)=>v+x*avg[k],0)>0,'Closed mesh has a non-outward triangle at '+i);winding++}console.log('PASS outward winding of '+winding+' closed-mesh triangles');

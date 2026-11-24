@@ -59,6 +59,23 @@ try{
     delete capture.png;
    }
    result.samePose=pair;
+   if(width===1440){
+    result.optimizedPixelReview=await p.evaluate(async()=>{
+     const {createCardScene}=await import('/templates/shift-card/studio-scene.js?v=13');
+     const c=document.createElement('canvas'),scene=createCardScene(c),gl=scene.gl,viewport={width:640,height:300,dpr:.75,compact:false};
+     const output=[];
+     try{for(const [yaw,pitch,roll,light] of [[-28,13,-19,-35],[0,-10,35,28],[65,8,50,50],[105,-12,72,-25],[175,5,88,10]]){
+      for(const finish of ['ultramarine','graphite','silver']){
+       const opts={yaw,pitch,roll,light,finish,studio:.7,cardWidth:270,viewport};
+       scene.draw(opts);const before=new Uint8Array(c.width*c.height*4);gl.readPixels(0,0,c.width,c.height,gl.RGBA,gl.UNSIGNED_BYTE,before);
+       scene.draw({...opts,viewport:{...viewport,motionPass:true}});const after=new Uint8Array(before.length);gl.readPixels(0,0,c.width,c.height,gl.RGBA,gl.UNSIGNED_BYTE,after);
+       let total=0,changedAlpha=0,opaque=0,large=0;for(let i=0;i<before.length;i+=4){if(before[i+3]!==after[i+3])changedAlpha++;if(before[i+3]||after[i+3]){opaque++;for(let k=0;k<3;k++){const diff=Math.abs(before[i+k]-after[i+k]);total+=diff;if(diff>4)large++}}}
+       output.push({yaw,pitch,roll,finish,opaque,changedAlpha,meanRgbDelta:total/Math.max(1,opaque*3),largeChannelFraction:large/Math.max(1,opaque*3),pixels:c.width*c.height});
+      }
+     }}finally{scene.dispose()}return output;
+    });
+    for(const q of result.optimizedPixelReview){assert(q.opaque>1000,'Pixel comparison must contain real card artwork');assert(q.changedAlpha/q.pixels<.002,'Optimized renderer changed silhouette: '+JSON.stringify(q));assert(q.meanRgbDelta<=1&&q.largeChannelFraction<=.01,'Optimized renderer changed material appearance: '+JSON.stringify(q))}
+   }
    await p.screenshot({path:path.join(out,'density-'+width+'-dpr'+dpr+'-settled.png')});
    const before=await get();assert.deepEqual(before.css,start.css);assert.deepEqual(before.dimensions,start.dimensions);
    // Frequent direction changes and short pauses must not repeatedly allocate
