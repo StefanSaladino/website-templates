@@ -49,6 +49,7 @@ jobs:
       - name: Validate all metadata and in-review previews
         run: npm run check
       - name: Build catalogue and review routes
+        id: showroom_build
         run: npm run build
       - name: Verify built GitHub Pages subpath output
         run: node scripts/check-dist.mjs
@@ -59,6 +60,7 @@ jobs:
       - name: Test guided configurator paths
         run: npm run check:builder-browser
       - name: Audit composed website palettes
+        if: ${{ !cancelled() && steps.showroom_build.outcome == 'success' }}
         run: npm run review:builder-palettes
       - name: Test viewer interactions and scrolling in Chromium
         run: npm run check:browser

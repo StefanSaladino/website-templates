@@ -17,3 +17,5 @@ main{max-width:1500px;margin:auto;padding:36px var(--pad) 60px}.intro{max-width:
 .colour-sample{background:#fff;color:var(--ink);min-width:0}.palette-preview-title{font-size:14px;padding:12px;margin:0;border-bottom:1px solid var(--line)}.palette-frame-wrap{position:relative;overflow:hidden;background:#fff;width:100%;min-height:120px}.palette-frame-wrap iframe{position:absolute;left:0;top:0;width:960px;height:900px;border:0;transform-origin:0 0}.sample-caption{color:var(--muted)}
 
 .preview-panel.expanded-preview{position:fixed;inset:0;z-index:300;background:var(--paper);padding:12px;display:flex;flex-direction:column;overflow:auto}.preview-panel.expanded-preview .frame-wrap{flex:1 0 auto;align-items:flex-start}.preview-panel.expanded-preview .device-controls{position:sticky;top:0;z-index:1;background:var(--paper);padding-bottom:8px}.preview-panel.expanded-preview #preview-note{padding:0 8px}
+
+.palette-preview-jump{display:none}@media(max-width:800px){.palette-preview-jump{display:block;margin:10px 0}.palette-preview-jump button{width:100%}.colour-sample{scroll-margin-top:90px}}

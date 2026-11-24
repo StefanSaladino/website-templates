@@ -22,13 +22,13 @@ try{
    if(!trim&&await page.locator('#trim').isChecked())await page.locator('#trim').uncheck();
    const key=[primary,secondary,trim||'none'].join('/');
    await page.waitForFunction(k=>{const d=document.querySelector('#palette-preview')?.contentDocument;return d?.body?.dataset.previewReady==='true'&&d.body.dataset.previewPalette===k},key);
-   await page.locator('#next').click();await page.waitForFunction(k=>{const d=document.querySelector('#preview')?.contentDocument;return d?.body?.dataset.previewReady==='true'&&d.body.dataset.previewPalette===k},key);
+   await page.locator('#palette-preview').scrollIntoViewIfNeeded();await page.locator('#next').click();await page.waitForFunction(k=>{const d=document.querySelector('#preview')?.contentDocument;return d?.body?.dataset.previewReady==='true'&&d.body.dataset.previewPalette===k},key);
    const tabs=await page.locator('[data-page]').count(),pages=tabs?await page.locator('[data-page]').evaluateAll(a=>a.map(x=>x.dataset.page)):['home'];
    for(const pg of pages){if(tabs)await page.locator('[data-page='+pg+']').click();
     for(const w of [390,768,1440]){
      await page.locator('[data-width="'+w+'"]').click();
      await page.waitForFunction(({k,w})=>{const f=document.querySelector('#preview'),d=f?.contentDocument;return d?.body?.dataset.previewReady==='true'&&d.body.dataset.previewPalette===k&&f.contentWindow.innerWidth===w},{k:key,w});
-     const result=await page.locator('#preview').evaluate(frame=>{
+     await page.locator('#preview').scrollIntoViewIfNeeded();await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));const result=await page.locator('#preview').evaluate(frame=>{
       const d=frame.contentDocument,win=frame.contentWindow,hosts=[...d.querySelectorAll('[data-source-status=mounted]')],rows=[],media=[],issues=[];
       const parse=s=>{const m=s.match(/^rgba?\(([^)]+)\)$/);return m?m[1].split(',').map(Number):null};
       const lum=c=>c.slice(0,3).map(x=>x/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4).reduce((a,x,i)=>a+x*[.2126,.7152,.0722][i],0);
