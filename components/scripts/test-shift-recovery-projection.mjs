@@ -12,3 +12,6 @@ for(const [w,h] of [[330,495],[1268,400],[1700,546],[3840,1200]])for(const dpr o
 
 import {cardGeometry} from '../../templates/shift-card/studio-scene.js';
 const mesh=cardGeometry();let winding=0;for(let i=0;i<mesh.length;i+=27){const a=mesh.slice(i,i+3),b=mesh.slice(i+9,i+12),c=mesh.slice(i+18,i+21),ab=b.map((v,k)=>v-a[k]),ac=c.map((v,k)=>v-a[k]),n=[ab[1]*ac[2]-ab[2]*ac[1],ab[2]*ac[0]-ab[0]*ac[2],ab[0]*ac[1]-ab[1]*ac[0]],avg=[0,1,2].map(k=>mesh[i+3+k]+mesh[i+12+k]+mesh[i+21+k]);assert(n.reduce((v,x,k)=>v+x*avg[k],0)>0,'Closed mesh has a non-outward triangle at '+i);winding++}console.log('PASS outward winding of '+winding+' closed-mesh triangles');
+
+import {useMotionOptimization} from '../../templates/shift-card/studio-scene.js';
+for(let i=0;i<=1000;i++){const q=campaignPose(i/1000,false,{left:86,right:1354,top:95,bottom:495},1440,900);assert(useMotionOptimization(q.pose.yaw,q.pose.pitch),'Authored desktop pose must retain optimized path at '+i)}for(const yaw of [65,90,105,115])assert(!useMotionOptimization(yaw,8));assert(useMotionOptimization(175,5));console.log('PASS face-on optimized path for 1001 desktop poses and grazing angle fallback');

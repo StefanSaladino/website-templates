@@ -1,4 +1,4 @@
-import {createCardScene,bufferSize,MOTION_PIXEL_LIMIT} from './studio-scene.js?v=13';
+import {createCardScene,bufferSize,MOTION_PIXEL_LIMIT} from './studio-scene.js?v=14';
 import {frameProduct} from './projection.js';
 import {FINISHES} from './materials.js';
 import {followProgress} from './motion-clock.js';
