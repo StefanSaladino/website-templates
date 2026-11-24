@@ -1124,3 +1124,6 @@ User requested only three more full websites beyond FULCRUM: STRATA (procedural 
 
 ## Current flagship expansion (supersedes earlier three-site limit)
 Five additional full websites approved after PRISM: CALIBRE, ESSENCE, EVENT HORIZON, RESONANCE, APEX, in that order. Detailed technical and acceptance roadmap in [IMMERSIVE-WEBSITE-ROADMAP.md](IMMERSIVE-WEBSITE-ROADMAP.md). Target 34 websites. Extract proven working features only after site review; existing catalogue unchanged.
+
+## Client website configurator — next priority
+See [Website configurator roadmap](WEBSITE-CONFIGURATOR-ROADMAP.md). Reuse permanent IDs, genuine previews, compatible mobile treatments and full-site routes. Build a client guided selection, composed rough preview, palette and ordered export before resuming deferred QA/extraction. Existing standalone demos remain intact. Explicit adapter coverage and truthful template recipes are required; no invented component mappings or readiness promotion. Plan only.

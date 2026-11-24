@@ -603,3 +603,6 @@ Original standing-wave particle sculpture and opt-in Web Audio sine tone, live a
 
 ### APEX — F5 source checkpoint
 Genuine automotive photography plus aligned, illustrative animated streamlines/wake overlay, relative speed, pause/reset, reduced-motion and no-JS. Source identity TM-155/156 verified; rights open. 34/34 planned full-site implementations; current APEX and RESONANCE workbench QA pending. No claims of CFD, actual wind tunnel data, generated car, manufacturer endorsement or 3D model. Next review and reusable technique extraction, not main merge.
+
+### Priority shift — client website configurator
+User requested guided component/full-layout selection, responsive and alternate mobile review, primary/secondary/optional trim palette, rough composed website and confirmed ordered copyable ID brief. Added [Website configurator roadmap](docs/WEBSITE-CONFIGURATOR-ROADMAP.md) before resuming deferred QA. Plan only; no builder code yet. Preserve all current component IDs, status/rights gates, and main branch.
