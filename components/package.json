@@ -24,7 +24,8 @@
     "review:reflow-text-spacing": "node scripts/audit-text-spacing-reflow.mjs",
     "check:media-provenance": "node scripts/check-template-media-provenance.mjs",
     "check:template-baseline": "node scripts/test-all-template-baseline.mjs",
-    "check:header-browser": "node scripts/test-site-header-browser.mjs"
+    "check:header-browser": "node scripts/test-site-header-browser.mjs",
+    "check:builder-browser": "node scripts/test-builder-browser.mjs"
   },
   "devDependencies": {
     "vite": "^6.3.0",

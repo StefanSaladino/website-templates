@@ -39,3 +39,6 @@ Initial functional selection-to-brief wizard: actual catalogue and full-template
 
 ### Navigation consistency checkpoint
 Shared sticky header across gallery, catalogue, review and configurator; Main, Components and Design your own at every width. Progressive mobile menu with keyboard and no-JS fallback; source and Chromium regressions registered, execution pending. Resume adapter expansion next.
+
+### Guided selection UX checkpoint
+Every non-animation category has a dedicated prompt (new categories automatically included). Header, hero and footer are essential; other sections are optional. A visible checklist supports revisiting, explicit skip or finish remaining, and saved progress. Visual choices use genuine lazy source previews focused on the showcased section, with a larger preview and direct choose-and-continue. Repeat sections remain possible; choosing a different primary design replaces that category's first selection, retaining page position. Complete templates are paginated visual choices. Motion remains a separate reference step. Dedicated model and Chromium checks added. Composition coverage still seven adapters; no promotion or main merge.

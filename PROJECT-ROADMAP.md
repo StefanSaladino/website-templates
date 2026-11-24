@@ -612,3 +612,6 @@ Initial builder at components/builder.html: selection, responsive source preview
 
 ### Shared library navigation — configurator priority
 Unified main gallery, component catalogue, individual review and builder with shared sticky lion-mark header, Main / Components / Design your own links, active state, responsive mobile menu, keyboard and no-JS fallback. All fictional preview headers remain intact. Source/browser regression gates registered; execution pending. Adapter expansion remains next. No main merge.
+
+### Guided visual configurator — selection UX
+Replace group/category dropdowns and manually invoked single preview with one component type per prompt, required header/hero/footer, individually skippable optional sections, finish-remaining shortcut, persistent category checklist, direct pick-and-advance, repeat/add and replace, actual lazy focused source previews per option, enlarged dialog, and paginated full-layout previews. Retain ordered brief, responsive/mobile and palette steps, existing seven rough adapters and all QA/release gates. Pure model and dedicated browser regressions registered; browser execution pending. No main merge.
