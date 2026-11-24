@@ -112,13 +112,13 @@ try{
  const event=spawnSync(process.execPath,[script,'--offline','--templates=event-launch','--limit=5','--output='+path.join(directory,'event-launch')],{encoding:'utf8',timeout:20000});
  if(event.status!==0)throw Error('AFTER DARK media selection failed: '+event.stderr+'\\n'+event.stdout);
  const eventImages=JSON.parse(readFileSync(path.join(directory,'event-launch/results.json'),'utf8'));
- assert.deepEqual(eventImages.assets.map(item=>item.id),['TM-113','TM-114','TM-115','TM-116']);
+ assert.deepEqual(eventImages.assets.map(item=>item.id),['TM-141','TM-142','TM-143','TM-116']);
  assert(eventImages.assets.every(item=>item.sourcePageUrl&&item.creator),'Every AFTER DARK image must have matched photographer and original publisher page');
  assert.equal(eventImages.total,4);
  assert.equal(eventImages.downloaded,0);
  assert.equal(eventImages.errors,0);
  assert(eventImages.assets.every(item=>item.reviewStatus==='needs-review'&&item.candidateStatus==='offline-no-image-inspection'));
- console.log('PASS: AFTER DARK selects four sourced, unrelated Pexels concert photographs; rights remain unapproved and no images were downloaded offline.');
+ console.log('PASS: AFTER DARK selects four sourced, unrelated Pexels stage and lighting studies; rights remain unapproved and no images were downloaded offline.');
  const bake=spawnSync(process.execPath,[script,'--offline','--templates=custom-bakes','--limit=5','--output='+path.join(directory,'custom-bakes')],{encoding:'utf8',timeout:20000});
  if(bake.status!==0)throw Error('DOT + CRUMB media selection failed: '+bake.stderr+'\\n'+bake.stdout);
  const bakeAssets=JSON.parse(readFileSync(path.join(directory,'custom-bakes/results.json'),'utf8'));

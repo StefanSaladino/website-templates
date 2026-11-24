@@ -164,7 +164,7 @@ try{
  // the smoke suite never downloads the real remote video.
  assert((await page.locator('#hero-film').getAttribute('poster')).includes('/7677235/'),'OFFCUT hero poster retains sourced red silk');
  assert((await page.locator('#hero-film source').getAttribute('data-src')).includes('7677235-hd_1920_1080_25fps.mp4'),'OFFCUT uses the sourced HD film');
- assert(await page.locator('#hero-film').getAttribute('autoplay')!==null && await page.locator('#hero-film').getAttribute('preload')==='auto' && await page.locator('#hero-film').getAttribute('muted')!==null && await page.locator('#hero-film').getAttribute('loop')!==null && await page.locator('#hero-film').getAttribute('playsinline')!==null,'OFFCUT video has native muted inline autoplay and eager preload');
+ assert(await page.locator('#hero-film').getAttribute('preload')==='auto' && await page.locator('#hero-film').getAttribute('muted')!==null && await page.locator('#hero-film').getAttribute('loop')!==null && await page.locator('#hero-film').getAttribute('playsinline')!==null,'OFFCUT video has muted inline loop and eager preload');
  assert(await page.locator('.film-detail,.film-hint,.portfolio-demo-note,[data-film-status]').count()===0,'OFFCUT informational banners removed');
  assert(await page.locator('[data-film-toggle]').isVisible(),'OFFCUT playback control is accessible');
  const offcutAuto=await browser.newPage({viewport:{width:390,height:900},reducedMotion:'no-preference'});
@@ -183,7 +183,7 @@ try{
  await offcutAuto.locator('[data-film-toggle]').click();
  await offcutAuto.waitForFunction(()=>document.querySelector('[data-film-toggle]')?.getAttribute('aria-pressed')==='true');
  await offcutAuto.emulateMedia({reducedMotion:'reduce'});
- await offcutAuto.waitForFunction(()=>!document.querySelector('#hero-film source').hasAttribute('src'));
+ await offcutAuto.waitForFunction(()=>!document.querySelector('#hero-film source').hasAttribute('src') && !document.querySelector('#hero-film').autoplay);
  assert(await offcutAuto.locator('[data-film-toggle]').getAttribute('aria-pressed')==='false','OFFCUT preference change stops active film');
  await offcutAuto.close();
  const offcutTablet=await browser.newPage({viewport:{width:768,height:900},reducedMotion:'reduce'});
@@ -195,7 +195,7 @@ try{
  assert(offcutTabletRegions.controls&&offcutTabletRegions.cta&&offcutTabletRegions.controls.left>=-2&&
    offcutTabletRegions.controls.right<=770&&offcutTabletRegions.controls.top>=offcutTabletRegions.cta.bottom+8&&
    offcutTabletRegions.controls.height>=44,'OFFCUT tablet playback controls clear the main CTA');
- assert(await offcutTablet.locator('#hero-film source').getAttribute('src')===null,'OFFCUT reduced-motion visitor gets poster without automatic stream');
+ assert(await offcutTablet.locator('#hero-film source').getAttribute('src')===null && await offcutTablet.locator('#hero-film').getAttribute('autoplay')===null,'OFFCUT reduced-motion visitor gets poster without source or autoplay');
  await offcutTablet.close();
  const saverPage=await browser.newPage({viewport:{width:390,height:900}});
  await saverPage.addInitScript(()=>{
@@ -398,12 +398,12 @@ try{
  assert(await page.locator('.event-demo-banner').isVisible(),'AFTER DARK fictional event disclaimer is visible before the poster');
  assert((await page.locator('.event-demo-banner').textContent()).includes('No event or ticket sales'),'AFTER DARK does not advertise a real event');
  assert((await page.locator('.lineup-disclaimer').textContent()).includes('fictional placeholders'),'AFTER DARK artist appearances not claimed');
- assert((await page.locator('.poster-photo--left img').getAttribute('alt')).includes('small indoor band'),'AFTER DARK left image truthfully depicts an independent small-stage performance');
- assert((await page.locator('.hero-image img').getAttribute('src')).includes('/17718206/'),'AFTER DARK red-lit hero uses source-attributed Pexels photography');
- assert((await page.locator('.poster-photo--left img').getAttribute('src')).includes('/8512413/'),'AFTER DARK poster-left uses independently sourced small-stage photograph');
- assert((await page.locator('.poster-photo--right img').getAttribute('src')).includes('/30215324/'),'AFTER DARK poster-right shows a separate indoor audience');
+ assert((await page.locator('.poster-photo--left img').getAttribute('alt')).includes('Three red spotlights'),'AFTER DARK left image is an independent lighting study');
+ assert((await page.locator('.hero-image img').getAttribute('src')).includes('/9001997/'),'AFTER DARK hero uses attributed unoccupied microphone-stage reference');
+ assert((await page.locator('.poster-photo--left img').getAttribute('src')).includes('/5389623/'),'AFTER DARK poster-left uses independently sourced red spotlights');
+ assert((await page.locator('.poster-photo--right img').getAttribute('src')).includes('/10809871/'),'AFTER DARK poster-right uses abstract beams instead of a real audience');
  assert((await page.locator('.venue-image img').getAttribute('src')).includes('/33094348/'),'AFTER DARK venue placeholder uses unrelated sourced stage reference');
- assert((await page.locator('.hero-image img').getAttribute('sizes'))==='100vw','AFTER DARK main hero advertises actual full-viewport image width');
+ assert((await page.locator('.hero-image img').getAttribute('sizes'))==='(max-width:820px) 1600px, 100vw','AFTER DARK cover advertises full-height phone source needs');
  assert((await page.locator('.hero-image img').getAttribute('fetchpriority'))==='high','AFTER DARK prioritizes the above-fold hero image');
  assert(await page.locator('img[srcset]').count()===4,'AFTER DARK offers responsive source sets for all four concert photographs');
  assert((await page.locator('.poster-photo--right img').getAttribute('loading'))==='lazy','AFTER DARK defers secondary poster photography');

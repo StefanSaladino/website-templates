@@ -49,8 +49,11 @@
         (() => {
           const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-          if (reduced || connection?.saveData) return;
           const video = document.getElementById('hero-film');
+          if (reduced || connection?.saveData) {
+            video?.removeAttribute('autoplay');
+            return;
+          }
           const source = video?.querySelector('source[data-src]');
           if (!video || !source) return;
           video.muted = true;

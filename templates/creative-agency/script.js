@@ -76,6 +76,7 @@ function showFilmState(state) {
 function stopFilm() {
   ++filmTicket;
   showFilmState('idle');
+  film?.removeAttribute('autoplay');
   film?.pause();
   if (filmSource?.hasAttribute('src')) {
     filmSource.removeAttribute('src');
@@ -96,6 +97,7 @@ async function playFilm() {
   try {
     film.muted = true;
     film.defaultMuted = true;
+    film.autoplay = !reduceMotion.matches && !saveDataActive();
     if (filmSource.getAttribute('src') !== url) {
       filmSource.setAttribute('src', url);
       film.load();
