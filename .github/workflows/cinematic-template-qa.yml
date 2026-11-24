@@ -24,6 +24,8 @@ jobs:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/test-cinematic-template.mjs && node scripts/test-optical-template.mjs
+      - run: npx playwright install --with-deps webkit
+      - run: OPTICAL_BROWSER=webkit node scripts/test-optical-template.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

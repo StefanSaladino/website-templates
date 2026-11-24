@@ -91,3 +91,6 @@ CALIBRE revision 3 b8e3473 cinematic, immersive, Pages, reflow, touch, gallery a
 
 ### ESSENCE default optical state
 User requested refraction on by default at 50%. Initial and reset strength are 50%; ripples run automatically only when the scene is visible and normal motion is allowed. Reduced-motion/no-JS retain a static 50% distortion. Zero remains available via slider. Browser assertions updated for default, reset, pause and static modes.
+
+### ESSENCE optical animation correction
+User reported animation stopped after setting 50% default. Chromium prior state tests passed, but did not prove actual animated pixels at 50%. Keep initial/reset 50% and automatic animation. Static SVG optical displacement retained; animate the clipped photo with bounded composited transforms instead of relying on live turbulence attribute repaint. Mobile optical photo now occupies its own visible full-bleed area above controls, not masked under text; visibility tracks photo itself. Add actual before/after screenshot and transform assertion for automatic motion, retain pause/reset/offscreen and static modes, require Chromium and WebKit optical suites. Device-specific cause not independently reproduced; current-SHA checks pending.
