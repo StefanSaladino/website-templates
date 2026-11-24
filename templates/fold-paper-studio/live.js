@@ -2,7 +2,7 @@ import {geometry,advance,clamp,PANELS} from './geometry.js?v=1';
 const root=document.documentElement,scene=document.querySelector('#scene'),sheet=document.querySelector('#sheet'),controls=document.querySelector('#controls'),range=document.querySelector('#openness'),output=document.querySelector('#amount'),status=document.querySelector('#status'),reduce=matchMedia('(prefers-reduced-motion: reduce)'),forced=matchMedia('(forced-colors: active)');
 let target=.45,current=.45,pw=0,ph=0,raf=0,last=0,draws=0,drag=null,enabled=false;
 const trace=new URLSearchParams(location.search).has('motion-debug')?{frames:[]}:null;if(trace)window.__foldTrace=trace;
-const panels=Array.from({length:PANELS},(_,i)=>{const n=document.createElement('div');n.className='panel';n.style.setProperty('--offset',i);n.innerHTML='<div class="panel-content"><div class="printed"><strong>FOLD</strong><small>FORM / 001<br>SPACE BETWEEN</small><b></b></div></div>';sheet.append(n);return n});
+const panels=Array.from({length:PANELS},(_,i)=>{const n=document.createElement('div');n.className='panel';n.style.setProperty('--offset',i);n.innerHTML='<div class="panel-content"><div class="printed"><strong>FOLD</strong><small>F/01<br>THE SPACE BETWEEN</small><b></b><i class="print-stripe"></i></div></div>';sheet.append(n);return n});
 function paint(){
  const planes=geometry(current,pw);
  for(let i=0;i<planes.length;i++){const p=planes[i],n=panels[i];n.style.transform='translate3d('+p.x.toFixed(5)+'px,0,'+p.z.toFixed(5)+'px) rotateY('+(p.angle*180/Math.PI).toFixed(5)+'deg)';n.style.setProperty('--shade',p.shade.toFixed(5))}
