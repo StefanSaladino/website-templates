@@ -12,3 +12,28 @@
 @media(max-width:740px){.mast{grid-template-columns:1fr;gap:4px;padding-block:10px}.mast nav{justify-content:flex-start;gap:22px}.work{padding-inline:12px}.project-grid{gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}.project-cover{aspect-ratio:.85}.project-cover:first-child{grid-column:1/-1;aspect-ratio:1.55}.project-subsection{padding:20px 6px}.collection-heading{align-items:start}.logo-grid{gap:12px}.logo-caption h3{font-size:17px}.logo-caption p{font-size:12px}.case-screen{min-height:100svh;align-items:end;padding-bottom:65px}.case-screen h3{font-size:clamp(58px,15vw,108px)}.case-screen::after{background:linear-gradient(0deg,#141411e8 0%,#1414118a 34%,transparent 76%)}.case-story-intro,.narrative-row,.about-layout{grid-template-columns:minmax(0,1fr);gap:12px}.case-story-intro .eyebrow{grid-column:auto}.case-story-intro{margin-bottom:25px}.design-board{grid-template-columns:1fr}.palette-board{min-height:100px}.case-index{align-items:start}.case-index nav{gap:14px}.case-photo-credit{font-size:10px}.footer small{display:block;margin:0}.about-layout{gap:22px;padding-bottom:35px}}
 @media(max-width:360px){.mast nav{gap:12px}.mast nav a{font-size:13px}.logo-grid{grid-template-columns:1fr}.logo-art{aspect-ratio:1.45}.case-index nav{gap:9px}.case-index nav a{font-size:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}@media(forced-colors:active){.case-screen{background:Canvas;color:CanvasText}.case-photo,.case-screen::after{display:none}.case-photo-credit{color:CanvasText}.case-read-link{border-color:CanvasText}.logo-art,.mark-only{border:1px solid CanvasText}}
+
+/* P4 — six equal photographic covers, three compact case-study entries. */
+.project-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.1vw,16px)}
+.project-cover{aspect-ratio:1.32}
+.case-index-note{font-size:13px;color:var(--muted)}
+.case-disclosure{border-top:1px solid var(--line);margin-inline:var(--pad);min-width:0}
+.case-disclosure:last-child{border-bottom:1px solid var(--line)}
+.case-preview-row{display:grid;grid-template-columns:minmax(100px,.8fr) minmax(0,1.65fr) auto;align-items:center;gap:clamp(14px,3vw,48px);padding:20px 0;cursor:pointer;list-style:none;min-width:0}
+.case-preview-row::-webkit-details-marker{display:none}.case-preview-row:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.case-preview-photo{display:block;aspect-ratio:2;overflow:hidden;background:#ddd6ca}
+.case-preview-photo img{width:100%;height:100%;object-fit:cover;object-position:var(--photo-position,50% 50%);display:block;transition:transform .6s var(--ease)}
+.case-preview-row:hover img{transform:scale(1.04)}
+.case-preview-copy,.case-preview-title,.case-preview-action{display:block;min-width:0}
+.case-preview-title{font-size:clamp(28px,4.4vw,68px);letter-spacing:-.065em;font-weight:500;line-height:1.1;margin:5px 0 8px;overflow-wrap:anywhere}
+.case-preview-action{font-size:13px;color:var(--muted)}
+.case-toggle{position:relative;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;transition:transform .32s var(--ease)}
+.case-toggle:before,.case-toggle:after{content:"";position:absolute;left:50%;top:50%;width:15px;height:1px;background:currentColor;transform:translate(-50%,-50%)}
+.case-toggle:after{transform:translate(-50%,-50%) rotate(90deg)}
+.case-disclosure[open] .case-toggle{transform:rotate(45deg)}
+.case-disclosure .case-story{margin-inline:calc(-1 * var(--pad))}
+.case-disclosure[open] .case-story{animation:collection-open .42s var(--ease) both}
+.case-close-bar{padding:0 var(--pad) 24px;display:flex;justify-content:flex-end}
+.close-case{min-height:44px;background:none;border:1px solid var(--line);padding:8px 16px}
+@media(max-width:740px){.project-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.project-cover:first-child{grid-column:auto;aspect-ratio:1.05}.project-cover{aspect-ratio:1.05}.case-preview-row{grid-template-columns:minmax(85px,.85fr) minmax(0,1.45fr) 44px;gap:12px;padding:15px 0}.case-preview-photo{aspect-ratio:1.15}.case-preview-title{font-size:clamp(24px,6vw,38px)}.case-preview-copy .eyebrow{font-size:11px}.case-preview-action{font-size:12px}}
+@media(max-width:360px){.case-preview-row{grid-template-columns:minmax(0,1fr) 44px}.case-preview-photo{grid-column:1/-1;aspect-ratio:2.2}}

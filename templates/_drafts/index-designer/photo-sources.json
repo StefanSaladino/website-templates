@@ -43,6 +43,30 @@
       "urlIdentity": "https://images.pexels.com/photos/6070384/pexels-photo-6070384.jpeg",
       "alt": "An arrangement of textured coloured paper sheets",
       "reviewStatus": "Pexels free stock source confirmed; browser crop, image load and third-party rights screening pending"
+    },
+    {
+      "id": "architecture",
+      "sourcePage": "https://www.pexels.com/photo/a-concrete-building-12256996/",
+      "urlIdentity": "https://images.pexels.com/photos/12256996/pexels-photo-12256996.jpeg",
+      "photographer": "Ayşegül Aytören",
+      "alt": "Minimalist concrete building exterior with strong geometric lines",
+      "reviewStatus": "Free stock source page confirmed; loaded visual crop and third-party rights screening pending"
+    },
+    {
+      "id": "fashion",
+      "sourcePage": "https://www.pexels.com/photo/blank-paper-tag-on-textile-11485130/",
+      "urlIdentity": "https://images.pexels.com/photos/11485130/pexels-photo-11485130.jpeg",
+      "photographer": "Pexels contributor",
+      "alt": "Blank paper clothing tag on textured fabric",
+      "reviewStatus": "Free stock source page confirmed; loaded visual crop and third-party rights screening pending"
+    },
+    {
+      "id": "professional",
+      "sourcePage": "https://www.pexels.com/photo/opened-notebook-with-blank-pages-18677608/",
+      "urlIdentity": "https://images.pexels.com/photos/18677608/pexels-photo-18677608.jpeg",
+      "photographer": "Yusuf Çelik",
+      "alt": "Open blank notebook and pen in a minimalist workspace",
+      "reviewStatus": "Free stock source page confirmed; loaded visual crop and third-party rights screening pending"
     }
   ]
 }
