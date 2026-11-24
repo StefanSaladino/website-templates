@@ -37,3 +37,6 @@ html{overflow-anchor:none}.composition{display:grid;grid-template-columns:minmax
 
 /* R6: decorative words travel on distinct paths rather than piling up at the midpoint. */
 .composition .layer-a{transform:translate(calc(-50% + (var(--tx,0) + var(--type-a-x,0))*1px),-50%)}.composition .layer-b{transform:translate(calc(-50% + (var(--tx,0) + var(--type-b-x,0))*1px),-50%)}.composition .layer-c{transform:translate(calc(-50% + (var(--tx,0) + var(--type-c-x,0))*1px),-50%)}.detail-art{background:transparent}.object,.everyday,.closing{padding-block:clamp(48px,7.2vw,116px)}
+
+/* Native sticky header controls are already fully visible. Avoid scroll-padding-induced focus offsets within the bounded story. */
+html.motion-enabled{scroll-padding-top:0;scroll-behavior:auto}.composition .mast-tools .still{scroll-margin:0}.composition .mast-tools .still:focus-visible{outline-offset:2px}
