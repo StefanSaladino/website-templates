@@ -331,3 +331,55 @@ body[data-page=case] .mast{background:linear-gradient(180deg,#10110fef,transpare
 @media(max-width:360px){body[data-page=home] .mast{grid-template-columns:1fr;gap:0}.mast nav{justify-content:flex-start;gap:20px}.work-index{font-size:9px}.work-end a{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.project-grid[data-active] .project-cover:not([data-active]) img{filter:none}}
 @media(forced-colors:active){.brand span,.folder-cases .case-index h2 span,.about h2 em{color:CanvasText}}
+
+/* P9 PROOF ROOM: a living physical contact sheet; six native photo links. */
+body[data-page=home]{--paper:#eae7df;--ink:#242521;--muted:#56594f;--line:#aba99c;--accent:#9b392a;background:var(--paper)}
+body[data-page=home] .mast{position:relative;z-index:6;min-height:76px;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;padding:12px var(--pad);background:var(--paper);border-bottom:1px solid var(--line)}
+body[data-page=home] .brand{font-size:clamp(38px,4vw,57px);letter-spacing:-.095em}
+body[data-page=home] .work{padding:0}
+.proof-track{position:relative;--pose:1;--proof-progress:0}
+.proof-stage{position:relative;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:clamp(420px,calc(100svh - 76px),820px);padding:0 var(--pad);isolation:isolate}
+.proof-top,.proof-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;color:var(--muted);font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+.proof-top{border-bottom:1px solid var(--line)}.proof-edition{font-weight:600;color:var(--ink)}
+.proof-space{position:relative;min-width:0;display:grid;place-items:center;padding:clamp(24px,4vw,58px) clamp(18px,5vw,70px);isolation:isolate;perspective:1800px}
+.proof-cross{position:absolute;pointer-events:none;font:24px/1 monospace;color:#777970}.cross-a{top:12px;left:0}.cross-b{bottom:12px;right:0}
+.proof-space .project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));width:100%;max-width:min(1250px,calc((100svh - 180px)*2.05));height:auto;aspect-ratio:2.05;gap:clamp(12px,1.7vw,24px);transform-style:preserve-3d;isolation:auto}
+.proof-space .project-cover:nth-child(n){grid-column:auto;grid-row:auto;position:relative;display:block;aspect-ratio:auto;min-width:0;min-height:0;overflow:visible;isolation:auto;background:none;transform-origin:center;transform:translate3d(calc(var(--dx,0px)*var(--pose)),calc(var(--dy,0px)*var(--pose)),calc(var(--depth,0px)*var(--pose))) rotateZ(calc(var(--rz,0deg)*var(--pose))) rotateY(calc(var(--ry,0deg)*var(--pose))) rotateX(calc(var(--rx,0deg)*var(--pose)));transition:none;z-index:auto;outline-offset:5px}
+.proof-face{display:block;width:100%;height:100%;position:relative;overflow:hidden;background:#d1cbbd;border:clamp(4px,.6vw,9px) solid #faf9f4;box-shadow:0 2px 3px #312b2420,0 12px 24px #312b2420;transition:box-shadow .35s var(--ease)}
+.proof-space .project-cover img{width:100%;height:100%;object-fit:cover;transform:none;filter:none;transition:transform .55s var(--ease);animation:none}
+.proof-space .project-cover:hover img,.proof-space .project-cover:focus-visible img{transform:scale(1.035);filter:none}
+.proof-space .project-cover:hover .proof-face,.proof-space .project-cover:focus-visible .proof-face{box-shadow:0 3px 8px #312b2430,0 16px 32px #312b2428}
+.proof-space .project-cover:focus-visible{outline-color:var(--accent)}
+.proof-space .project-cover[data-proof="0"]{--dx:-11px;--dy:-14px;--depth:36px;--rz:-7deg;--ry:-9deg;--rx:6deg}
+.proof-space .project-cover[data-proof="1"]{--dx:0px;--dy:-21px;--depth:12px;--rz:3deg;--ry:7deg;--rx:-4deg}
+.proof-space .project-cover[data-proof="2"]{--dx:13px;--dy:-8px;--depth:44px;--rz:7deg;--ry:8deg;--rx:5deg}
+.proof-space .project-cover[data-proof="3"]{--dx:-14px;--dy:14px;--depth:18px;--rz:5deg;--ry:-7deg;--rx:-4deg}
+.proof-space .project-cover[data-proof="4"]{--dx:1px;--dy:20px;--depth:43px;--rz:-5deg;--ry:6deg;--rx:5deg}
+.proof-space .project-cover[data-proof="5"]{--dx:13px;--dy:11px;--depth:26px;--rz:4deg;--ry:8deg;--rx:-5deg}
+.proof-bottom{border-top:1px solid var(--line);min-height:60px;flex-wrap:wrap}
+.proof-progress{height:2px;width:70px;background:#a9a99c;display:block}.proof-progress i{display:block;height:100%;width:100%;background:var(--accent);transform-origin:left;transform:scaleX(var(--proof-progress))}
+.proof-bottom button,.proof-bottom a{min-height:44px;display:inline-flex;align-items:center;gap:9px;background:transparent;border:0;color:var(--ink);font-size:12px;text-transform:none;letter-spacing:0;padding:0}.proof-bottom button{text-decoration:underline;text-underline-offset:5px}
+.proof-track[data-motion=live]{min-height:calc(100svh + 40vh)}.proof-track[data-motion=live] .proof-stage{position:sticky;top:0;min-height:100svh}
+.proof-track[data-motion=still]{--pose:0;--proof-progress:1;min-height:0}.proof-track:not([data-motion=live]) .proof-space .project-cover{transform:none}.proof-track:not([data-motion=live]) .proof-instruction{display:none}
+body[data-page=home] .folder-cases{margin-top:clamp(80px,12vw,164px)}body[data-page=home] .folder-index a[aria-current=step]{color:#84382d}
+body[data-page=home] .folder-vessa{--folder:#ded4c4;--folder-ink:#302722}body[data-page=home] .folder-canto{--folder:#413f36;--folder-ink:#f2eee2}body[data-page=home] .folder-arc{--folder:#b7bdac;--folder-ink:#2c342b}body[data-page=home] .folder-sheet{box-shadow:0 8px 23px #27251e20}body[data-page=home] .about h2 em{color:var(--accent)}
+.opening-stage .film-image,.opening-stage .film-shade{pointer-events:none}.opening-stage .film-copy{z-index:3;position:relative;align-self:end}.opening-stage .film-copy h1{position:relative;z-index:1}
+@media(max-width:900px){body[data-page=home] .mast{grid-template-columns:1fr auto;min-height:70px}.proof-space{padding:28px 20px}.proof-space .project-grid{gap:14px;aspect-ratio:1.5;max-width:min(100%,calc((100svh - 180px)*1.5))}}
+@media(max-width:740px){
+ body[data-page=home] .mast{grid-template-columns:1fr auto;padding:10px 15px;min-height:68px}body[data-page=home] .mast nav{gap:10px}body[data-page=home] .mast nav a{font-size:12px}
+ .proof-stage{padding:0 13px;min-height:0}.proof-top{font-size:9px;min-height:43px;gap:7px}.proof-space{padding:22px 10px;perspective:1200px}
+ .proof-space .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));aspect-ratio:.73;gap:12px;max-width:min(100%,calc((100svh - 158px)*.73))}
+ .proof-space .project-cover[data-proof="0"]{--dx:-3px;--dy:-5px;--depth:8px;--rz:-5deg;--ry:-5deg;--rx:3deg}
+ .proof-space .project-cover[data-proof="1"]{--dx:3px;--dy:-5px;--depth:10px;--rz:5deg;--ry:5deg;--rx:-3deg}
+ .proof-space .project-cover[data-proof="2"]{--dx:-3px;--dy:0px;--depth:12px;--rz:4deg;--ry:-4deg;--rx:3deg}
+ .proof-space .project-cover[data-proof="3"]{--dx:3px;--dy:0px;--depth:8px;--rz:-4deg;--ry:4deg;--rx:-3deg}
+ .proof-space .project-cover[data-proof="4"]{--dx:-3px;--dy:5px;--depth:8px;--rz:-4deg;--ry:-4deg;--rx:3deg}
+ .proof-space .project-cover[data-proof="5"]{--dx:3px;--dy:5px;--depth:11px;--rz:4deg;--ry:4deg;--rx:3deg}
+ .proof-face{border-width:5px;box-shadow:0 3px 8px #312b2420}.proof-bottom{gap:5px 12px;font-size:10px}.proof-progress{width:40px}.proof-instruction{font-size:9px}.proof-cross{font-size:16px}
+ .proof-track[data-motion=live] .proof-stage{min-height:100svh;grid-template-rows:auto minmax(0,1fr) auto}
+ .opening-stage{padding-bottom:clamp(154px,23svh,200px)}.opening-stage .film-credit{bottom:116px}.opening-stage .film-copy h1{font-size:clamp(50px,15vw,106px)}.opening-stage .film-copy>p:not(.film-label){font-size:18px}
+}
+@media(max-width:360px){body[data-page=home] .mast{grid-template-columns:1fr;gap:0}body[data-page=home] .mast nav{justify-content:flex-start;gap:20px}.proof-top{font-size:9px}.proof-instruction{display:none}}
+@media(max-height:649px){.proof-space .project-grid{max-width:100%}}
+@media(prefers-reduced-motion:reduce){.proof-track{--pose:0!important;min-height:0!important}.proof-stage{position:relative!important;min-height:0!important}.proof-space .project-cover{transform:none!important}.proof-space .project-cover img{transform:none!important}}
+@media(forced-colors:active){.proof-face{border:1px solid CanvasText}}

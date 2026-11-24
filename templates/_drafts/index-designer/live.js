@@ -24,13 +24,15 @@ if(folderSection){
  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});motion.addEventListener('change',layout);desktop.addEventListener('change',layout);document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(pending);pending=0}else schedule()});layout();
 }
 
-// A minimal, off-image index provides orientation without text on the tiles.
-// Touch navigation remains one tap. No pointer-following cursor or global loop.
-const grid=document.querySelector('.project-grid'),index=document.querySelector('#work-index-live');
-if(grid&&index){const cards=[...grid.querySelectorAll('.project-cover')];let intro;
- function clear(){delete grid.dataset.active;cards.forEach(c=>delete c.dataset.active);index.textContent='06 collections / 24 marks'}
- function enter(card){delete grid.dataset.enter;clearTimeout(intro);grid.dataset.active='true';cards.forEach(c=>{if(c===card)c.dataset.active='true';else delete c.dataset.active});index.textContent=String(card.dataset.collectionIndex).padStart(2,'0')+' / '+card.getAttribute('aria-label').replace(/^Explore /,'')}
- cards.forEach(c=>{c.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')enter(c)});c.addEventListener('pointerleave',()=>{if(document.activeElement!==c)clear()});c.addEventListener('focus',()=>enter(c));c.addEventListener('blur',clear)});
- if(!motion.matches&&scrollY<100){grid.dataset.enter='true';intro=setTimeout(()=>delete grid.dataset.enter,1000)}
- motion.addEventListener('change',()=>{if(motion.matches){delete grid.dataset.enter;clearTimeout(intro)}})
+// Scroll-sampled physical pose; native links stay interactive, no input capture.
+const track=document.querySelector('#proof-track'),stage=document.querySelector('#proof-stage'),grid=document.querySelector('#proof-grid'),index=document.querySelector('#work-index-live'),stillButton=document.querySelector('#proof-still');
+if(track&&stage&&grid&&index&&stillButton){
+ const cards=[...grid.querySelectorAll('.project-cover')],heightGate=matchMedia('(min-height:650px)'),clamp=n=>Math.max(0,Math.min(1,n));let still=false,raf=0,progress=-1;
+ function render(){raf=0;const distance=track.offsetHeight-stage.offsetHeight;const raw=track.dataset.motion==='live'&&distance>1?clamp(-track.getBoundingClientRect().top/distance):1;const t=raw*raw*(3-2*raw);if(Math.abs(raw-progress)<.0001)return;progress=raw;track.style.setProperty('--pose',(1-t).toFixed(5));track.style.setProperty('--proof-progress',raw.toFixed(5));track.dataset.progress=raw.toFixed(5)}
+ function schedule(){if(!raf&&!document.hidden)raf=requestAnimationFrame(render)}
+ function mode(){const live=!still&&!motion.matches&&heightGate.matches;track.dataset.motion=live?'live':'still';stillButton.hidden=motion.matches||!heightGate.matches;stillButton.textContent=still?'Motion view':'Still view';stillButton.setAttribute('aria-pressed',String(still));progress=-1;render()}
+ function select(card){index.textContent=String(card.dataset.collectionIndex).padStart(2,'0')+' / '+card.getAttribute('aria-label').replace(/^Explore /,'')}
+ function reset(){index.textContent='Six collections / 24 marks'}
+ cards.forEach(card=>{card.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')select(card)});card.addEventListener('pointerleave',()=>{if(document.activeElement!==card)reset()});card.addEventListener('focus',()=>select(card));card.addEventListener('blur',reset)});
+ stillButton.addEventListener('click',()=>{still=!still;mode()});motion.addEventListener('change',mode);heightGate.addEventListener('change',mode);addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});addEventListener('pageshow',()=>{progress=-1;schedule()});document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0}else schedule()});mode();
 }
