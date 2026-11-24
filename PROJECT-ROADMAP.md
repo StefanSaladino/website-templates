@@ -585,3 +585,6 @@ User rejected revision 2 because synthetic watch remained. Revision 3 removes al
 
 ### ESSENCE — F2 source checkpoint
 Real fragrance photography and citrus sensory editorial; actual photographic reflection distortion via SVG filter, bounded manual intensity and optional animated ripples. No synthetic product. Dedicated optical QA and media batch registered, 31 websites, 84 media identities. CALIBRE b8e3473 cinematic and Pages passed; correct stale gallery description. EVENT HORIZON next after review. No main merge.
+
+### EVENT HORIZON — F3 source checkpoint
+Original analytic lensing and accretion disk shader, continuous reversible approach, adjustable lensing, pause and quality, responsive static fallback. Registered actual pixel and lifecycle QA. ESSENCE 3003c10 passed cinematic/optical and Pages; user approved. 32 full templates, 34 target. RESONANCE next after review. No new media or main merge.

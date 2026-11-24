@@ -95,6 +95,22 @@ try{
     report.cases.push({id,continuousProductTimeline:true,reversible:true});
    }catch(e){report.errors.push(id+' timeline: '+String(e))}finally{await page.close()}
   }
+  if(s.lensingTimeline){
+   const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'no-preference'});
+   await page.addInitScript(()=>{const get=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,opts,...rest){return get.call(this,type,type==='webgl'?{...opts,preserveDrawingBuffer:true}:opts,...rest)}});
+   try{
+    await page.goto(url);await checkState(page,s,{'data-rendered-zone':'approach','data-rendered-paused':'false'});
+    const stage=page.locator(s.stage),canvas=page.locator(s.canvas),start=await stage.getAttribute('data-frame-time'),before=await pixels(canvas);
+    await page.waitForFunction(({sel,start})=>Number(document.querySelector(sel).dataset.frameTime)>Number(start)+.3,{sel:s.stage,start});
+    assert.notEqual((await pixels(canvas)).hash,before.hash,'Disk must visibly animate');
+    await page.locator('#motion').click();await checkState(page,s,{'data-rendered-paused':'true'});const frozen=await stage.getAttribute('data-frame-time'),still=await pixels(canvas);await page.waitForTimeout(180);assert.equal(await stage.getAttribute('data-frame-time'),frozen);assert.equal((await pixels(canvas)).hash,still.hash);
+    const go=async(id)=>{await page.locator('#'+id).evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));await checkState(page,s,{'data-rendered-zone':id});};
+    await go('lensing');await page.locator('#lensing').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY+el.offsetHeight*.5,behavior:'instant'}));await page.waitForFunction(sel=>{const p=Number(document.querySelector(sel).dataset.renderedProgress);return p>.34&&p<.67},s.stage);
+    await go('accretion');await page.screenshot({path:path.join(dir,id+'-accretion-mobile.png')});await go('horizon');await checkState(page,s,{'data-rendered-progress':'1.000'});await go('approach');await checkState(page,s,{'data-rendered-progress':'0.000'});
+    const ext=await canvas.evaluate(el=>{const x=el.getContext('webgl')?.getExtension('WEBGL_lose_context');if(!x)return false;window.__testContext=x;x.loseContext();return true});if(ext){await checkState(page,s,{'data-renderer':'static'});assert(await page.locator(s.fallback).isVisible());await page.evaluate(()=>window.__testContext.restoreContext());await checkState(page,s,{'data-renderer':'webgl'});}
+    report.cases.push({id,lensingTimeline:true,animatedPixels:true,pausedPixels:true,reversible:true,contextLossTested:ext});
+   }catch(e){report.errors.push(id+' lensing: '+String(e))}finally{await page.close()}
+  }
   if(s.animatedChecks){
    const motionPage=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'no-preference'});
    try{
@@ -133,6 +149,6 @@ try{
   try{const page=await noJS.newPage();await page.goto(url);assert(await page.locator(s.fallback).isVisible());assert(await page.locator('main').isVisible());report.cases.push({id,noJavaScript:true})}
   catch(e){report.errors.push(id+' no JS: '+String(e))}finally{await noJS.close()}
  }
- if(report.cases.length!==ids.length*(widths.length+2)+Object.values(specs).filter(s=>s.animatedChecks).length+Object.values(specs).filter(s=>s.productTimeline).length)report.errors.push('Incomplete immersive case coverage');
+ if(report.cases.length!==ids.length*(widths.length+2)+Object.values(specs).filter(s=>s.animatedChecks).length+Object.values(specs).filter(s=>s.productTimeline).length+Object.values(specs).filter(s=>s.lensingTimeline).length)report.errors.push('Incomplete immersive case coverage');
 }catch(e){report.errors.push(String(e?.stack||e))}
 finally{await browser?.close();server.kill('SIGTERM');writeFileSync(path.join(dir,'results.json'),JSON.stringify(report,null,2));for(const e of report.errors)console.error('IMMERSIVE-FAIL',e);console.log('Immersive template QA:',report.cases.length,'passed,',report.errors.length,'failed');if(report.errors.length)process.exitCode=1}

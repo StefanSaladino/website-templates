@@ -352,5 +352,89 @@
       }
     ],
     "productTimeline": true
+  },
+  "event-horizon": {
+    "stage": "#environment",
+    "canvas": "#space-canvas",
+    "fallback": ".fallback",
+    "fixedStage": true,
+    "initial": {
+      "data-rendered-zone": "approach",
+      "data-rendered-progress": "0.000",
+      "data-rendered-paused": "true",
+      "data-rendered-mass": "100"
+    },
+    "steps": [
+      {
+        "selector": "[data-jump=lensing]",
+        "action": "click",
+        "state": {
+          "data-rendered-zone": "lensing"
+        },
+        "controlState": {
+          "aria-current": "location"
+        }
+      },
+      {
+        "selector": "#gravity",
+        "action": "fill",
+        "value": "150",
+        "state": {
+          "data-rendered-mass": "150"
+        }
+      },
+      {
+        "selector": "[data-jump=accretion]",
+        "action": "click",
+        "state": {
+          "data-rendered-zone": "accretion"
+        }
+      },
+      {
+        "selector": "[data-jump=horizon]",
+        "action": "click",
+        "state": {
+          "data-rendered-zone": "horizon",
+          "data-rendered-progress": "1.000"
+        }
+      },
+      {
+        "selector": "[data-jump=lensing]",
+        "action": "click",
+        "state": {
+          "data-rendered-zone": "lensing"
+        }
+      }
+    ],
+    "reset": {
+      "selector": "[data-jump=approach]",
+      "state": {
+        "data-rendered-zone": "approach",
+        "data-rendered-progress": "0.000"
+      }
+    },
+    "fallbackSteps": [
+      {
+        "selector": "[data-jump=horizon]",
+        "action": "click",
+        "state": {
+          "data-zone": "horizon"
+        }
+      },
+      {
+        "selector": "[data-jump=approach]",
+        "action": "click",
+        "state": {
+          "data-zone": "approach"
+        }
+      }
+    ],
+    "fallbackDisabled": [
+      "#gravity",
+      "#motion",
+      "#quality"
+    ],
+    "qualityToggle": "#quality",
+    "lensingTimeline": true
   }
 }
