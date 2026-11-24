@@ -1,4 +1,4 @@
-/* Browser evidence for the original 24-template root gallery.
+/* Browser evidence for the 25-template root gallery.
  * This is screenshot/asset QA, not source/creator license, model release,
  * full accessibility signoff, or a claim the concepts are production ready.
  */
@@ -36,7 +36,7 @@ try{
   await page.route(/^https:\/\/videos\.pexels\.com\//,r=>r.abort('blockedbyclient'));
   try{
    const response=await page.goto(base+'index.html',{waitUntil:'domcontentloaded',timeout:20000});
-   await page.waitForFunction(()=>document.querySelectorAll('.featured-pick,.template-card').length===24,{timeout:15000});
+   await page.waitForFunction(()=>document.querySelectorAll('.featured-pick,.template-card').length===25,{timeout:15000});
    await page.evaluate(()=>document.fonts.ready);
    const media=await page.evaluate(async()=>{
     const imgs=[...document.querySelectorAll('img[src]')].filter(img=>
@@ -61,9 +61,9 @@ try{
      thumbnailBounds:[],badgeBounds:[],videoRequests:videoRequests.length,pageErrors};
    report.cases.push(entry);
    if(entry.status!==200)report.errors.push(width+' gallery HTTP status '+entry.status);
-   if(meta.count!==24)report.errors.push(width+' gallery card count '+meta.count);
+   if(meta.count!==25)report.errors.push(width+' gallery card count '+meta.count);
    if(meta.documentWidth>width+4)report.errors.push(width+' page-wide overflow '+meta.documentWidth);
-   if(meta.previewBadges.length!==24||meta.previewBadges.some(x=>x!=='Preview'))
+   if(meta.previewBadges.length!==25||meta.previewBadges.some(x=>x!=='Preview'))
     report.errors.push(width+' missing/unapproved gallery preview labels: '+JSON.stringify(meta.previewBadges));
    if(!meta.disclosure.includes('fictional design previews under review'))
     report.errors.push(width+' missing transparent gallery review disclosure');
@@ -71,7 +71,7 @@ try{
    for(const img of media)if(!img.ok||!img.naturalWidth)
     report.errors.push(width+' gallery image decode failed: '+img.url+' '+(img.error||''));
    const cards=page.locator('.featured-pick,.template-card');
-   for(let i=0;i<24;i++){
+   for(let i=0;i<25;i++){
     const card=cards.nth(i);
     const href=await card.locator('a[href^="templates/"]').first().getAttribute('href');
     const id=/^templates\/([a-z-]+)\/$/.exec(href||'')?.[1];

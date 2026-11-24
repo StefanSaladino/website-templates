@@ -1112,3 +1112,6 @@ The 30 new `index.html`/`styles.css`/`script.js` files were fetched from the bra
 **Release blocked:** A passing production build/Chromium CI run has not been observed; manual desktop/mobile/Safari/Android visual QA, accessibility audit and component acceptance remain outstanding. The **16 registered stock assets are still `needs-review`** (none approved for final redistributed use). Some demos intentionally have no actual backend or a fully tagged PDF. The branch remains **`feature/component-showroom`** and `main` remains unchanged.
 
 See **[COMPONENT-SHOWROOM-RELEASE-READINESS.md](./COMPONENT-SHOWROOM-RELEASE-READINESS.md)** for the explicit gate matrix, precise local and CI commands, artifact review and promotion rules. The next development phase should be verification and defect fixing—not further expansion of core draft counts.
+
+## Template-first immersive expansion (23 November 2026)
+See [Immersive website roadmap](IMMERSIVE-WEBSITE-ROADMAP.md). User explicitly requested full-site templates before components. Preserve 157 active core components and 44 mobile variants until six 3D website concepts have working integrated experiences. FULCRUM A1 added to full website library; planned 3D-01..12 are not yet registered. Original media remediation paused at FRAME 7e32171; release gates remain open.

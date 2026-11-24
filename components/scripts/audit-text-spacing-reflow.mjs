@@ -16,7 +16,7 @@ const templates=readdirSync(path.join(root,'templates'),{withFileTypes:true})
  .map(x=>x.name).sort();
 const widths=[320,640],modes=['baseline','spacing'];
 const origin='http://127.0.0.1:4263/templates/';
-const result={checkedAt:new Date().toISOString(),scope:'24 original full-page templates',
+const result={checkedAt:new Date().toISOString(),scope:'25 original full-page templates',
  widths,conditions:['baseline effective CSS width','WCAG 1.4.12 enlarged text spacing'],
  trueBrowserZoomTest:false,nativeDeviceAcceptance:false,
  realScreenReaderTest:false,loadedPhotoContrast:false,mediaRightsApproved:false,
@@ -24,7 +24,7 @@ const result={checkedAt:new Date().toISOString(),scope:'24 original full-page te
 const server=spawn('python3',['-m','http.server','4263','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));let browser;
 try{
- if(templates.length!==24)throw Error('Expected 24 original template sources, found '+templates.length);
+ if(templates.length!==25)throw Error('Expected 25 original template sources, found '+templates.length);
  let ok=false;for(let i=0;i<60;i++){try{if((await fetch(origin+templates[0]+'/index.html')).ok){ok=true;break}}catch{}await sleep(200)}
  if(!ok)throw Error('Original template HTTP server unavailable');
  const executablePath=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(existsSync);

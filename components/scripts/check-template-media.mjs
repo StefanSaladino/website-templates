@@ -39,7 +39,7 @@ const add=(url,templateId,filename)=>{
 const templates=readdirSync(templatesRoot,{withFileTypes:true})
  .filter(entry=>entry.isDirectory()&&existsSync(path.join(templatesRoot,entry.name,'index.html')))
  .map(entry=>entry.name).sort();
-if(templates.length!==24)fail('Expected 24 original complete-site templates; found '+templates.length);
+if(templates.length!==25)fail('Expected 25 original complete-site templates; found '+templates.length);
 const cdnRegex=/https?:\/\/(?:images\.unsplash\.com|images\.pexels\.com|videos\.pexels\.com)\/[^\s"'<>\x29\x60]+/gi;
 for(const templateId of templates){
  const dir=path.join(templatesRoot,templateId);

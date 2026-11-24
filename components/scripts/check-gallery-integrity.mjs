@@ -18,14 +18,14 @@ const original=matchGroup(html,/class="thumb-link" href="templates\/([a-z-]+)\//
 const appended=matchGroup(js,/if \(templateGrid && !document\.querySelector\('\[data-template="([a-z-]+)"\]'\)\)/g);
 const imageFirst=matchGroup(js,/\{id:'([a-z-]+)',cat:/g);
 const cards=[...featured,...original,...appended,...imageFirst];
-if([featured.length,original.length,appended.length,imageFirst.length].join(',')!=='3,14,4,3')
+if([featured.length,original.length,appended.length,imageFirst.length].join(',')!=='3,15,4,3')
   issues.push('Gallery source card groups changed; audit parser needs review: '+[featured.length,original.length,appended.length,imageFirst.length]);
-if(cards.length!==24||new Set(cards).size!==24)issues.push('Expected 24 distinct preview links, found '+cards.length+' ('+new Set(cards).size+' unique)');
+if(cards.length!==25||new Set(cards).size!==25)issues.push('Expected 25 distinct preview links, found '+cards.length+' ('+new Set(cards).size+' unique)');
 for(const id of cards)if(!originalTemplates.includes(id))issues.push('Broken original-template gallery href: '+id);
 for(const id of originalTemplates)if(!cards.includes(id))issues.push('Original template missing a gallery card: '+id);
 const badges=[...html.matchAll(/class="live-badge">Preview<\/span>/g),
   ...js.matchAll(/class="live-badge">Preview<\/span>/g)].length;
-if(badges!==24)issues.push('Expected 24 clearly review-labelled thumbnail badges, found '+badges);
+if(badges!==25)issues.push('Expected 25 clearly review-labelled thumbnail badges, found '+badges);
 if(/class="live-badge">Live<\/span>|>Live now<\/span>/i.test(html+'\n'+js))
   issues.push('Unapproved original-template gallery must not claim live-release status');
 if(!html.includes('fictional design previews under review'))
@@ -83,4 +83,4 @@ for(const [source,kind] of [[html,'html'],[js,'script']]){
 }
 if(photoPlacements!==22)issues.push('Unexpected source-photo placement count in gallery: '+photoPlacements+' (expected 22)');
 if(issues.length){for(const issue of issues)console.error('GALLERY-FAIL:',issue);process.exitCode=1;}
-else console.log('PASS: 24 distinct working preview routes (3 featured, 14 static, 4 appended, 3 image-first), 24 honest Preview badges and '+photoPlacements+' matched in-review CDN thumbnail placements. Visual/copyright/human review still open.');
+else console.log('PASS: 25 distinct working preview routes (3 featured, 15 static, 4 appended, 3 image-first), 25 honest Preview badges and '+photoPlacements+' matched in-review CDN thumbnail placements. Visual/copyright/human review still open.');

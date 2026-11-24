@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e8e2d5">
+  <meta name="description" content="FULCRUM 01 — a fictional lighting design concept with an interactive 3D product study, finish options and an exploded assembly.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FULCRUM 01 — Light, in balance.">
+  <meta property="og:description" content="Explore a fictional adjustable lighting concept in three dimensions.">
+  <title>FULCRUM 01 — Light, in balance.</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to product</a>
+  <header class="masthead">
+    <a class="brand" href="#main">FULCRUM<span>.</span></a>
+    <nav aria-label="Main navigation"><a href="#design">Design</a><a href="#construction">Construction</a></nav>
+    <a class="edition" href="#model">No. 01 / Study</a>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="hero" id="model" aria-labelledby="title">
+      <div class="hero-intro">
+        <p class="eyebrow">Lighting study / No. 01</p>
+        <h1 id="title">Light, in<br><em>balance.</em></h1>
+        <p class="intro-copy">A cantilevered desk lamp built around one precise idea: the right light, without the visual weight.</p>
+        <a class="primary" href="#construction">Explore the construction</a>
+      </div>
+      <div class="model-column">
+        <figure class="stage" aria-labelledby="model-caption" data-renderer="static">
+          <div class="stage-index" aria-hidden="true"><span>FULCRUM / 01</span><span>FORM STUDY</span></div>
+          <div class="ground-shadow" aria-hidden="true"></div>
+          <div class="fallback" aria-hidden="true">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+              <defs><linearGradient id="metal" x2="1" y2=".1"><stop stop-color="#635e54"/><stop offset=".5" stop-color="#bcb5a7"/><stop offset="1" stop-color="#59564f"/></linearGradient><linearGradient id="paint" x2="1" y2=".25"><stop stop-color="#93451e"/><stop offset=".52" stop-color="#d58243"/><stop offset="1" stop-color="#9b4b23"/></linearGradient></defs>
+              <g class="fallback-base"><ellipse cx="192" cy="415" rx="114" ry="27" fill="#28251e" opacity=".12"/><path class="fallback-paint" d="M95 389v20c0 15 43 29 97 29s97-14 97-29v-20Z" fill="url(#paint)"/><ellipse class="fallback-paint" cx="192" cy="389" rx="97" ry="29" fill="#ba6934"/><ellipse cx="192" cy="389" rx="21" ry="6" fill="#51473a"/></g>
+              <g class="fallback-post"><path d="M179 388V145h26v243Z" fill="url(#metal)"/><rect x="180" y="136" width="148" height="17" rx="8" fill="url(#metal)"/><circle cx="192" cy="145" r="16" fill="#4f4c43"/></g>
+              <g class="fallback-head"><rect x="316" y="140" width="20" height="43" rx="7" fill="url(#metal)"/><path class="fallback-paint" d="M278 177Q326 158 374 177l43 70H235Z" fill="url(#paint)"/><ellipse cx="326" cy="247" rx="91" ry="19" fill="#55402b"/><ellipse cx="326" cy="247" rx="78" ry="12" fill="#eddfb5"/><ellipse cx="326" cy="249" rx="24" ry="8" fill="#fff6d6"/></g>
+            </svg>
+          </div>
+          <canvas id="lamp-canvas" width="800" height="800" aria-hidden="true" hidden></canvas>
+          <figcaption id="model-caption"><span>01 / Adjustable desk lamp</span><span id="view-mode">Static product illustration</span></figcaption>
+        </figure>
+        <fieldset id="model-controls" disabled>
+          <legend class="sr-only">Product study controls</legend>
+          <div class="finish-row">
+            <span class="control-label">Finish</span>
+            <div class="finishes" role="group" aria-label="Select lamp finish">
+              <button type="button" data-finish="ochre" aria-pressed="true"><span class="chip ochre"></span>Ochre</button>
+              <button type="button" data-finish="chalk" aria-pressed="false"><span class="chip chalk"></span>Chalk</button>
+              <button type="button" data-finish="graphite" aria-pressed="false"><span class="chip graphite"></span>Graphite</button>
+            </div>
+          </div>
+          <div class="view-controls">
+            <div><label for="rotation">Rotate</label><input id="rotation" type="range" min="-180" max="180" value="-25" step="1"></div>
+            <div><label for="assembly">Assembly</label><input id="assembly" type="range" min="0" max="100" value="0" step="1" aria-valuetext="Assembled"></div>
+            <button type="button" id="reset">Reset</button>
+          </div>
+          <p id="model-status" class="sr-only" role="status" aria-live="polite">Ochre finish, assembled.</p>
+        </fieldset>
+      </div>
+    </section>
+    <section class="design" id="design" aria-labelledby="design-title">
+      <p class="eyebrow">01 / The design</p>
+      <div><h2 id="design-title">Less mass.<br>More intention.</h2><p>A grounded circular base and offset arm balance the broad, spun-metal shade. The silhouette is designed to be read from every angle, not just the front.</p></div>
+      <div class="design-drawing" aria-hidden="true"><svg viewBox="0 0 300 230"><g fill="none" stroke="currentColor" stroke-width="1.2"><path d="M35 200H265M82 181V51H180V78M142 78H218L246 126H114Z"/><ellipse cx="82" cy="181" rx="46" ry="10"/><path d="M82 51h-26m26 130H56M60 51v130m-5-130h10m-10 130h10M114 140v8h132v-8"/></g><text x="44" y="120" transform="rotate(-90 44 120)" font-size="8">HEIGHT STUDY</text><text x="180" y="159" text-anchor="middle" font-size="8">SHADE PROFILE</text></svg></div>
+    </section>
+    <section class="construction" id="construction" aria-labelledby="construction-title">
+      <div class="section-intro"><p class="eyebrow">02 / The construction</p><h2 id="construction-title">Three pieces.<br>One balance.</h2><p>Explore the model in assembled or separated form. This is a conceptual visualization, not a manufacturing specification.</p><a class="primary secondary" href="#model" id="explore-assembly">Open assembly view</a></div>
+      <ol class="parts"><li><span>01</span><div><h3>Spun shade</h3><p>A wide metal reflector concentrates the visual profile around the light source.</p></div></li><li><span>02</span><div><h3>Cantilever arm</h3><p>A slender offset support creates the open space beneath the head.</p></div></li><li><span>03</span><div><h3>Weighted base</h3><p>A broad circular footprint grounds the asymmetric form.</p></div></li></ol>
+    </section>
+    <section class="closing"><p class="eyebrow">FULCRUM / Concept collection</p><h2>Consider the<br>object itself.</h2><a class="primary" href="#model">Return to the model</a></section>
+  </main>
+  <footer><span>FULCRUM. Fictional design study; not available for sale.</span><a href="../../index.html">Back to templates</a></footer>
+</body>
+</html>

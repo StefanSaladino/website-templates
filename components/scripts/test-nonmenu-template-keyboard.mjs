@@ -14,7 +14,8 @@ const server=spawn('python3',['-m','http.server','4218','--bind','127.0.0.1'],{c
 const examples=[
  {name:'architecture',target:'main'},
  {name:'dark-tech',target:'main'},
- {name:'frame-portfolio',target:'images'}
+ {name:'frame-portfolio',target:'images'},
+ {name:'fulcrum-light',target:'main'}
 ];
 const report={scope:'Non-drawer template keyboard landmarks and specialty controls',cases:[],errors:[],a11yCertified:false};
 const ensure=(ok,message)=>{if(!ok)throw Error(message)};
@@ -56,6 +57,14 @@ try{
     ensure((await page.locator('[data-spot-status]').textContent()).includes('emphasized'),'Status must announce emphasized state');
     await page.keyboard.press('Enter');
     ensure(await spotlight.getAttribute('aria-pressed')==='false','Second Enter resets spotlight');
+   }else if(example.name==='fulcrum-light'){
+    const chalk=page.locator('[data-finish="chalk"]');
+    await chalk.focus();await page.keyboard.press('Enter');
+    ensure(await chalk.getAttribute('aria-pressed')==='true','Finish can be selected with Enter');
+    const assembly=page.locator('#assembly');await assembly.focus();await page.keyboard.press('End');
+    ensure(await assembly.getAttribute('aria-valuetext')==='Fully separated','Keyboard assembly slider works');
+    await page.locator('#reset').focus();await page.keyboard.press('Enter');
+    ensure(await page.locator('[data-finish="ochre"]').getAttribute('aria-pressed')==='true','Reset returns initial finish');
    }else{
     const portrait=page.locator('[data-filter="portrait"]');
     await portrait.focus();await page.keyboard.press('Enter');

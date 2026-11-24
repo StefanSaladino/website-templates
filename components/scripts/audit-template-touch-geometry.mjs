@@ -1,4 +1,4 @@
-/* Browser touch-geometry evidence for 24 original sites, not a WCAG/device audit. */
+/* Browser touch-geometry evidence for 25 original sites, not a WCAG/device audit. */
 import {chromium} from 'playwright';
 import {spawn} from 'node:child_process';
 import {existsSync,mkdirSync,readdirSync,writeFileSync} from 'node:fs';
@@ -14,7 +14,7 @@ const report={date:new Date().toISOString(),automatedTouchAcceptance:false,physi
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 let browser;
 try{
- if(templates.length!==24)throw Error('Expected 24 original templates, found '+templates.length);
+ if(templates.length!==25)throw Error('Expected 25 original templates, found '+templates.length);
  for(let i=0;i<50;i++){try{if((await fetch(origin+templates[0]+'/index.html')).ok)break;}catch{}await delay(200);}
  const executablePath=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(existsSync);
  browser=await chromium.launch({headless:true,executablePath,args:['--no-sandbox']});
@@ -105,7 +105,7 @@ try{
    if(geometry.unnamedButtons.length)report.warnings.push({template,width,type:'unnamed-buttons',controls:geometry.unnamedButtons});
    // Every template now has a hard root-overflow gate at all five audited
    // widths. Previous 120-case browser evidence showed zero root overflows;
-   // preserve that invariant across all 24 designs, not only YARD/KERN.
+   // preserve that invariant across all 25 designs, not only YARD/KERN.
    if(geometry.documentWidth>width+4){
       report.errors.push({template,width,type:'responsive-overflow-regression',
         viewport:width,scrollWidth:geometry.documentWidth,offenders:geometry.overflowCandidates,
