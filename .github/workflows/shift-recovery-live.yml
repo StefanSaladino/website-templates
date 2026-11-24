@@ -2,7 +2,7 @@ name: SHIFT recovery live composition
 on:
   push:
     branches: [feature/component-showroom]
-    paths: ['templates/_drafts/shift-recovery/**','templates/shift-card/**','components/previews/ANIM-21/**','components/previews/ANIM-22/**','components/scripts/test-shift-components.mjs','components/scripts/test-shift-model.mjs','components/scripts/test-shift-recovery-live.mjs','components/scripts/test-shift-recovery-projection.mjs','components/scripts/test-shift-recovery-accessibility.mjs','.github/workflows/shift-recovery-live.yml']
+    paths: ['templates/_drafts/shift-recovery/**','templates/shift-card/**','components/previews/ANIM-21/**','components/previews/ANIM-22/**','components/scripts/test-shift-components.mjs','components/scripts/test-shift-model.mjs','components/scripts/test-shift-recovery-live.mjs','components/scripts/test-shift-cadence-isolated.mjs','components/scripts/test-shift-recovery-projection.mjs','components/scripts/test-shift-recovery-accessibility.mjs','.github/workflows/shift-recovery-live.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -23,6 +23,8 @@ jobs:
       - run: npx playwright install ffmpeg
       - run: node scripts/test-shift-recovery-accessibility.mjs
       - run: node scripts/test-shift-recovery-live.mjs
+        if: success() || failure()
+      - run: node scripts/test-shift-cadence-isolated.mjs
         if: success() || failure()
       - run: node scripts/test-shift-model.mjs
         if: success() || failure()
