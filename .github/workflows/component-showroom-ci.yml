@@ -58,6 +58,8 @@ jobs:
         run: npm run check:header-browser
       - name: Test guided configurator paths
         run: npm run check:builder-browser
+      - name: Audit composed website palettes
+        run: npm run review:builder-palettes
       - name: Test viewer interactions and scrolling in Chromium
         run: npm run check:browser
       - name: Save browser review evidence

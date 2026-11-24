@@ -51,3 +51,6 @@ Live and final preview mount the exact original focus-anchor markup with origina
 
 ### Semantic palette checkpoint
 One customer palette drives preview interface recolouring for all mounted source sections, not a component-ID allowlist. Snapshot authored computed styles, map solid surfaces and accents to common palette roles, choose contrast-aware text and preserve original image URLs/crops/filters, original illustrations and photo treatments. No source stylesheet mutation, geometry changes or blanket filters. Colour stage now shows selected Home designs in real time; ready-made templates can preview chosen colours or restore original ones. This is a preview-level theme approximation; contextual/interactive states, complex art/overlays and accessibility require visual review and production token integration. Model and Chromium regression assertions cover live palette change and media preservation.
+
+### Palette stress audit
+Pristine revision-safe source remounts avoid stale recolouring; custom input debounced. Canvas uses secondary, near-equal tints remain distinct, readable brand foreground and control edges; media unchanged. Dedicated audit matrix records solid-background contrast and overflow flags, preserves media identity/crop/filter, and captures representative screenshots. Human/physical-device review still required.

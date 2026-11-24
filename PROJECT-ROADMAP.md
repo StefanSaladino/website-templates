@@ -624,3 +624,6 @@ Retire seven simplified reconstructed adapters from the active renderer. Extract
 
 ### Shared brand palette preview
 Source-composed sections now receive a common semantic palette across authored solid surfaces, text, borders, buttons and non-media gradients, using contrast-aware foregrounds and derived tints. Preserve original photo/video/SVG and CSS artwork, media overlays and geometry. Colour stage previews actual selected Home layout and updates in place; full template colour previews apply only to the local example document with original-colour reset. All palette role math and live-to-final theme assertions added. Broad component/state/contrast and real-device visual QA remain open; no main merge.
+
+### Palette stress audit
+Previous CI found a stale computed footer color. Recompose from pristine source on each committed palette, debounce custom input and track completed palette revisions. Explicit secondary canvas, distinct near-equal surface tints, contrast-aware brand text and control boundaries. Expandable review. Four website purposes, six palettes, all suggested pages, three widths, machine-readable contrast/overflow diagnostics and screenshots. Actual Chromium evidence pending; no visual approval or main merge.

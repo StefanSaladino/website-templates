@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {contrast} from '../builder-model.js';
-import {rgba,mix,readable,paletteRoles,surface,foreground,edge} from '../builder-theme.js';
+import {rgba,mix,readable,paletteRoles,surface,foreground,edge,controlEdge,bodyText,distinctTint} from '../builder-theme.js';
 import {PALETTES} from '../builder-journey.js';
 assert.deepEqual(rgba('rgba(20, 30, 40, 0.5)'),[20,30,40,.5]);assert.equal(mix('#000000','#FFFFFF',.5),'#808080');
 for(const p of [...PALETTES,{primary:'#FFFFFF',secondary:'#000000',trim:'#FFFFFF'},{primary:'#222222',secondary:'#222222',trim:null},{primary:'#FFFF00',secondary:'#FF00FF',trim:'#00FF00'}]){
@@ -9,3 +9,5 @@ for(const p of [...PALETTES,{primary:'#FFFFFF',secondary:'#000000',trim:'#FFFFFF
  assert(contrast(readable(p.trim||p.primary,p.secondary),p.secondary)>=4.5)
 }
 console.log('PASS brand palette roles, derived surfaces, optional trim and contrast-safe text/control boundaries across standard and extreme palettes.');
+
+assert.notEqual(distinctTint('#222222','#222222',.2),'#222222');assert.notEqual(distinctTint('#FFFFFF','#FFFFFF',.2),'#FFFFFF');for(const p of PALETTES){assert.equal(surface([20,30,40,1],p,{canvas:true}),p.secondary);assert(contrast(bodyText(p.secondary,p),p.secondary)>=4.5);assert(contrast(controlEdge(p.primary,p.secondary,p),p.secondary)>=3)}console.log('PASS near-equal palette surfaces, canvas role and control boundaries.');

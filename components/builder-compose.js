@@ -130,7 +130,7 @@ function mountSection(doc,parent,src,c,entry,spec){
 }
 const skeleton='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'; img-src \'self\' https: data:; media-src \'self\' https:; font-src \'self\' https: data:; form-action \'none\'; frame-src \'none\'; base-uri \'none\'"><title>Selected website designs</title><style>html,body{margin:0;min-height:100%;font:16px Arial,sans-serif}*,*::before,*::after{box-sizing:border-box}body{overflow-x:clip}#page{min-width:0}#page[data-rail]{display:grid;grid-template-columns:110px minmax(0,1fr)}#sections{min-width:0}#sections>div{min-width:0}.preview-error{padding:35px 5vw;border:1px dashed #a25a3a;background:#f8f3e8;color:#282828}.loading{padding:24px}@media(max-width:850px){#page[data-rail]{display:block}}</style></head><body><main id="page"><div id="sections"><p class="loading">Preparing your selected designs…</p></div></main></body></html>';
 export async function renderSourcePage(frame,spec,cat,onResult=()=>{}){
- const revision=(revisions.get(frame)||0)+1;revisions.set(frame,revision);if(frame.contentDocument?.body)delete frame.contentDocument.body.dataset.previewReady;
+ const revision=(revisions.get(frame)||0)+1;revisions.set(frame,revision);const scroll=spec.preserveScroll?frame.contentWindow?.scrollY||0:0;if(frame.contentDocument?.body)delete frame.contentDocument.body.dataset.previewReady;
  const active=()=>frame.isConnected&&revisions.get(frame)===revision;
  const entries=spec.sections.map(entry=>({entry,c:cat.core.get(entry.coreId)}));
  const sources=await Promise.allSettled(entries.map(({c})=>c&&!isContextReference(c)?readSource(c):Promise.resolve(null)));
@@ -141,7 +141,7 @@ export async function renderSourcePage(frame,spec,cat,onResult=()=>{}){
    entries.forEach(({entry,c},i)=>{if(c&&isContextReference(c)){context++;return}const source=sources[i];if(c&&source.status==='fulfilled'&&source.value){try{const rail=c.id==='NAV-05'&&spec.width>850;const host=mountSection(doc,rail?page:container,source.value,c,entry,{...spec,cat});if(rail){page.dataset.rail='';page.prepend(host)}shown++;return}catch(err){page.querySelectorAll('[data-source-status=preparing]').forEach(n=>n.remove());console.warn('Could not mount',c.id,err)}}
     errors++;const box=doc.createElement('section');box.className='preview-error';box.dataset.sourceStatus='error';box.dataset.id=c?.id||entry.coreId;box.textContent=(c?.title||entry.coreId)+' could not be loaded. Your original selection is still saved.';container.append(box)});
    if(!shown&&!errors){const p=doc.createElement('p');p.className='loading';p.textContent='Choose a design to begin.';container.append(p)}
-   doc.body.dataset.previewReady='true';resolve({shown,errors,context});
+   doc.body.dataset.previewPalette=[spec.palette.primary,spec.palette.secondary,spec.palette.trim||'none'].join('/');doc.body.dataset.previewReady='true';if(scroll)frame.contentWindow.scrollTo(0,scroll);resolve({shown,errors,context});
   };frame.addEventListener('load',loaded);frame.setAttribute('sandbox','allow-same-origin');frame.removeAttribute('src');frame.srcdoc=skeleton.replace('<body>','<body data-revision="'+revision+'">');
  });
  if(active()&&mounted)onResult(mounted);return mounted;
