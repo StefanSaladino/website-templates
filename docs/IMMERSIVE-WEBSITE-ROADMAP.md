@@ -1,4 +1,6 @@
-# Experiential website templates — three remaining code-only builds
+# Experiential website templates — flagship expansion
+
+**Current governing scope:** stakeholder approved five further flagship experiences after PRISM, in order CALIBRE, ESSENCE, EVENT HORIZON, RESONANCE, APEX. Target 34 complete sites, planning only. The earlier three-site limit below is historical, not a current restriction.
 Current scope supersedes the earlier eleven-site proposal (23 November 2026). FULCRUM remains the completed interactive product study. The stakeholder wants exactly three additional websites, one each for procedural 3D modelling, shader programming and programmatic cinematic sequences. Target 28 complete websites (24 original + FULCRUM + 3), not a CI constraint. No Blender, hand-authored external model, manual video editing, paid design tool, downloaded footage or required remote runtime. All art, geometry, shaders and timelines reproducible through repository code. No component extraction until full websites are functioning and reviewed.
 
 ## Build 1 — STRATA / procedural 3D modelling
@@ -39,3 +41,38 @@ Stakeholder liked ABYSS and explicitly requested real photography or videography
 
 ## Additional flagship — PRISM / precision optics
 User supplied an 18.6-second screen recording of jacket-site inspiration and explicitly requested a different product and higher quality. Observed: dark electric-blue studio lighting, large central garment, technical text callouts, changing detail views, colour collection and separated material stack. Footage does not establish which effects are true live 3D. Adopt the interaction principles, not the jacket or brand. PRISM is an original precision lens, real-time procedural lathe meshes, 100+ machined grip ribs per ring, calibration ticks, coated glass, iris and axially separated optical components. Full-screen persistent scene, scroll-linked camera path and assembly, integrated editorial chapters and finish/rotation control. No boxed viewer or feature-card wall. Source implemented, 29 sites (one expressly requested additional flagship beyond 28). Dedicated pixel-change and reverse scroll tests; actual mobile/desktop render inspection and stakeholder acceptance pending. ORBIT's prior reverse-scroll test had a stale same-chapter state race; await exact scroll/progress rather than remove assertion. STRATA visual acceptance remains unresolved. No main merge or component extraction.
+
+## Flagship expansion — stakeholder approved (current governing plan)
+PRISM is the approved creative benchmark; ABYSS also received positive stakeholder feedback. Current 29-site revision 5c211f9 passed immersive, cinematic, gallery, loaded still-media, reduced-motion, keyboard, reflow, touch and Pages workflows. STRATA remains visually unresolved; no claims of manual release approval. Five further websites approved, bringing target to 34. Each must have a distinct narrative and visual language, not a reskin of PRISM. Build full sites first and review each before proceeding. No card walls, boxed demos, stock dashboard UI or arrow emojis.
+
+### F1 CALIBRE — mechanical watch (next)
+- Concept: skeletonized horology, warm brass and brushed steel in a dark editorial studio. Camera follows a recognizable watch, then reveals its movement in context.
+- Procedural case, lugs, crown, dial, indices, hands, toothed wheels, shafts, plates, jewel bearings, balance wheel and escapement-inspired motion. Explicit pitch radii, tooth counts, meshing direction and speed ratios for the illustrative gear train. Avoid pretending it is a certified working watch; drive model from a common simulation time, not independently spinning arbitrary decorative gears.
+- Scene path: assembled dial, macro mechanism, aligned axial separation, reassembly. Inspect controls, time/run-pause and reduced-motion stills. The movement is visible and coherent even when case closed.
+- Gates: actual pixels, gear-ratio unit assertions, pause/resume, reset, reverse scroll, bounded assembly and actual mobile/desktop captures; no moving parts detach randomly. Budget GPU work; no-JS/GL fallback.
+
+### F2 ESSENCE — fragrance
+- An original luxury bottle surrounded by restrained, cinematic light and natural ingredient imagery. No generic product catalogue.
+- Closed glass geometry, liquid volume/headspace and cap; render refraction/reflection approximations, plausible fill motion and surface response, caustics-inspired projection. If using genuine ingredient photos, trace exact publisher, credit and keep rights review open.
+- Journey: silhouette, optical glass macro, ingredient atmosphere, final product. Native scroll and optional manual material/lighting interaction.
+- Gates: stable volume silhouette, no clipping/NaN, actual pixel response to tilt or illumination, reduced motion/no GPU, mobile legibility, performance. Do not claim physical fluid or ray-traced accuracy unless actually implemented.
+
+### F3 EVENT HORIZON — gravitational distortion
+- One full-screen space environment, an original stylized accretion disk and background star field. No repeated feature sections.
+- Bounded GPU raymarch or analytical lensing with physically inspired deflection, disk intersection, occlusion, Doppler-like color and luminosity. Distinguish approximation from relativistic simulation.
+- Scroll approach, horizon passage as an illustrative visual transition, optional mass/intensity control, pause and quality tiers.
+- Gates: shader compile and actual depth/parameter pixel changes, bounded render steps, no numerical singularities, reversible native scroll, context recovery, static fallback and mobile performance.
+
+### F4 RESONANCE — audio-reactive environment
+- Original sound sculpture: standing-wave patterns, particles and ferrofluid-inspired surfaces, with typography inside the environment.
+- Web Audio oscillator or original synthesized sound, FFT/energy analysis and bounded GPU/CPU particle motion; explicit user activation for all audio. Optional microphone only after separate consent, local analysis, no recording/upload. No microphone requirement.
+- Interactive frequency and intensity controls, mute/stop, reduced motion, silent fallback and no autoplay.
+- Gates: user gesture starts sound; stop releases resources; frequency changes real visual state; permission denial safe; keyboard/touch controls; bounded particle count, no rapid flashing.
+
+### F5 APEX — automotive engineering
+- Original unbranded vehicle, coherent stylized bodywork and wheels, automotive studio-to-wind-tunnel sequence. If a model is needed use explicitly approved documented license, no unverified downloaded assets. No misleading engineering claims.
+- Parametric body panels and wheel geometry, controlled paint reflection, airflow streamlines from a bounded illustrative field, transparent/cutaway mechanical detail only where meaningful, wheel/suspension motion.
+- Gates: actual model geometry and views, wheel anchoring, reversible wind-tunnel transition, flow/finish response, frame budget and mobile fallback. Not CFD or validated mechanical design.
+
+### Release and sequencing
+Implement F1 first; F2–F5 remain planned until committed. Actual browser screenshots at 320/390/768/1440 and real test results before claiming completion, record current SHA and unresolved issues. Reuse engine primitives only where helpful; compositions must be different. Keep existing 157 core / 44 mobile alternatives / 20 integrated animations unchanged. After full-site acceptance, extract proven techniques into components; do not create placeholder component IDs. No main merge. Stock review remains separate and paused except any approved newly sourced assets. 

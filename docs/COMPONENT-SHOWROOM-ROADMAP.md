@@ -1121,3 +1121,6 @@ Follow [IMMERSIVE-WEBSITE-ROADMAP.md](IMMERSIVE-WEBSITE-ROADMAP.md): eleven plan
 
 ## Current experiential scope (supersedes eleven-site proposal)
 User requested only three more full websites beyond FULCRUM: STRATA (procedural modelling; source implemented), ABYSS (shader programming), ORBIT (programmatic cinematic sequences). See [IMMERSIVE-WEBSITE-ROADMAP.md](IMMERSIVE-WEBSITE-ROADMAP.md). Extract actual tested capabilities after all three; no predetermined new component count or placeholders. Existing component catalogue unchanged.
+
+## Current flagship expansion (supersedes earlier three-site limit)
+Five additional full websites approved after PRISM: CALIBRE, ESSENCE, EVENT HORIZON, RESONANCE, APEX, in that order. Detailed technical and acceptance roadmap in [IMMERSIVE-WEBSITE-ROADMAP.md](IMMERSIVE-WEBSITE-ROADMAP.md). Target 34 websites. Extract proven working features only after site review; existing catalogue unchanged.

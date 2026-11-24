@@ -570,3 +570,6 @@ User liked ABYSS and requests real photography/video in last build. ABYSS e92885
 
 ## PRISM additional flagship
 User supplied inspiration recording and requested a different product, genuine immersive 3D. Original PRISM lens with procedural mechanical rings, radial knurling, glass groups and iris, full-viewport scene, scroll-driven camera/exploded optical sequence and live finish/rotation. Add to roadmap as 29th template; no external product model or video, no jacket copying. Browser pixel and continuous timeline QA registered, visual acceptance pending. ORBIT reverse-scroll assertion synchronization corrected. No main merge.
+
+## Five additional immersive flagships — approved
+Stakeholder liked PRISM and ABYSS and approved CALIBRE (mechanical animation), ESSENCE (optical/fluid effects), EVENT HORIZON (lensing shaders), RESONANCE (audio-reactive simulation), APEX (automotive/airflow) in that order. Governing detailed build/QA plan: docs/IMMERSIVE-WEBSITE-ROADMAP.md. 29 implemented sites, 34 target, no hardcoded validator count. PRISM 5c211f9 immersive/cinematic and Pages passed; STRATA visually unresolved. CALIBRE next; full sites first, then reviewed component extraction. No main merge.
