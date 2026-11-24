@@ -28,3 +28,7 @@
 /* Tablet uses its own projection budget: the desktop 90px foreground depth
    was too aggressive for the narrower scene (verified 768px overflow). */
 @media(min-width:741px) and (max-width:1000px){.registration-scene{min-height:clamp(380px,53vw,490px);perspective:950px}.registration-stack{width:65%}.registration[data-separated=true] .substrate{transform:translate3d(-10%,19%,-35px)}.registration[data-separated=true] .ink-dark{transform:translate3d(-1%,-2%,18px)}.registration[data-separated=true] .ink-red{transform:translate3d(9%,-20%,55px)}}
+
+/* Desktop separation uses less extreme projection than the original 90px/25%
+   translation; keep the printed edge comfortably within the scene. */
+@media(min-width:1001px){.registration-scene{min-height:clamp(340px,46vw,600px)}.registration[data-separated=true] .ink-red{transform:translate3d(10%,-19%,68px)}}
