@@ -1610,6 +1610,48 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "On 2026-11-23 official Pexels video 7677235 (Mikhail Nilov, red silk cloth, Free) states 1920x1080 25fps and runtime 0:18. Its Free-download URL redirects to exact videos.pexels.com/video-files/7677235/7677235-hd_1920_1080_25fps.mp4, which is the default HD rendition. This is publisher metadata, not decoded video: actual bytes, codec, frames, optimized local derivative and commercial template redistribution permission remain unreviewed. Original OFFCUT film autoplays muted for ordinary visitors via JavaScript; the poster remains under reduced motion, Save-Data, failed playback and no-JS. Isolated stock previews retain their separate explicit controls."
+    },
+    {
+      "id": "TM-145",
+      "urlIdentity": "https://images.pexels.com/photos/34658645/pexels-photo-34658645.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "strata-architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/minimalist-concrete-structure-in-clean-design-34658645/",
+      "creator": "Simeon Galabov",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page verified 2026-11-23, Free label and 4134 x 2710 dimensions; official Free download URL resolves to this exact image ID and was visually inspected: pale textured concrete structure with strong geometric opening and dark interior, no visible person or branding. Independent photographic reference, not a STRATA commission or photograph of the procedural residence. Final property, crop and template-use review remains open."
+    },
+    {
+      "id": "TM-146",
+      "urlIdentity": "https://images.pexels.com/photos/31446187/pexels-photo-31446187.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "strata-architecture",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/modern-minimalist-architecture-with-reflective-pool-31446187/",
+      "creator": "Little forest 작은 숲",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels publisher page verified 2026-11-23, Free label and 3536 x 5296 dimensions; official Free download URL resolves to this exact image ID and was visually inspected: bare trees, concrete wall and shallow reflective courtyard pool, no visible person or branding. Independent photographic reference, not a STRATA commission or photograph of the procedural residence. Final property, crop and template-use review remains open."
     }
   ]
 }

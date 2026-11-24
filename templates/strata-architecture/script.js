@@ -2,6 +2,9 @@
 'use strict';
 const stage=document.querySelector('.stage'),canvas=document.querySelector('#architecture'),fallback=document.querySelector('.fallback'),controls=document.querySelector('#views'),caption=document.querySelector('#render-caption'),label=document.querySelector('#scene-label'),description=document.querySelector('#scene-description');
 const motion=matchMedia('(prefers-reduced-motion: reduce)');
+const hero=document.querySelector('.hero'),threshold=document.querySelector('.threshold');let photoFrame=0;
+function photoMotion(){photoFrame=0;if(motion.matches||document.hidden)return;for(const [el,key] of [[hero,'--hero-scale'],[threshold,'--threshold-scale']]){const r=el.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight){const progress=Math.max(0,Math.min(1,(innerHeight-r.top)/(innerHeight+r.height)));el.style.setProperty(key,String(1+progress*.075));}}}
+window.addEventListener('scroll',()=>{if(!motion.matches&&!photoFrame)photoFrame=requestAnimationFrame(photoMotion)},{passive:true});
 const views={
  exterior:{label:'Exterior',eye:[9.6,7.1,11.5],target:[0,.25,0],span:11.5,fit:1,copy:'Two wings enclose a terrace and reflecting pool. A continuous roof establishes a horizontal line against the landscape.'},
  courtyard:{label:'Courtyard',eye:[4.1,2.55,8.4],target:[-.65,1.05,-1.2],span:8.6,fit:0,copy:'From the terrace, the timber screens and deep overhang shelter a glazed living room. Water forms the foreground.'},
@@ -112,6 +115,7 @@ function init(){
  try{
  gl=canvas.getContext('webgl',{alpha:true,antialias:true,powerPreference:'low-power'});if(!gl)throw Error('WebGL unavailable');
  const vs=compile(gl.VERTEX_SHADER,`
+ precision mediump float;
  attribute vec3 aPosition;attribute vec3 aNormal;attribute vec3 aColor;attribute float aKind;
  uniform vec3 uEye,uRight,uUp,uForward;uniform vec2 uSpan,uCenter;uniform float uPlan;
  varying vec3 vPos,vNormal,vColor;varying float vKind;
@@ -146,8 +150,8 @@ function init(){
  program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);gl.deleteShader(vs);gl.deleteShader(fs);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
  uniforms=Object.fromEntries(['uEye','uRight','uUp','uForward','uSpan','uCenter','uPlan','uDusk'].map(k=>[k,gl.getUniformLocation(program,k)]));
  buffers=Object.entries(scene()).map(([name,data])=>{const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);return{name,buffer,count:data.length/10}});
- gl.enable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);stage.dataset.renderer='webgl';canvas.hidden=false;fallback.hidden=true;caption.textContent='Live procedural 3D / no imported model';requestDraw();
- }catch{fallbackMode();}
+ gl.enable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);delete stage.dataset.renderError;stage.dataset.renderer='webgl';canvas.hidden=false;fallback.hidden=true;caption.textContent='Live procedural study / generated geometry';requestDraw();
+ }catch(error){stage.dataset.renderError=String(error?.message||error);fallbackMode();}
 }
 function requestDraw(){if(disposed||!gl||stage.dataset.renderer!=='webgl'||!visible||document.hidden||frame)return;frame=requestAnimationFrame(draw);}
 function draw(now){

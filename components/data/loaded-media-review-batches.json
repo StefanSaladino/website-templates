@@ -205,5 +205,17 @@
       "required": 3,
       "poster": false
     }
+  ],
+  "immersive": [
+    {
+      "name": "strata-architecture",
+      "sections": [
+        ".hero",
+        ".threshold",
+        ".study"
+      ],
+      "required": 2,
+      "poster": false
+    }
   ]
 }

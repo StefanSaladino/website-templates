@@ -14,7 +14,8 @@ const report={templates:ids,widths,cases:[],errors:[],physicalDeviceAcceptance:f
 const checkState=async(page,s,state)=>{
  const stage=page.locator(s.stage);
  await stage.scrollIntoViewIfNeeded();
- await page.waitForFunction(({sel,state})=>{const el=document.querySelector(sel);return el&&Object.entries(state).every(([k,v])=>el.getAttribute(k)===v)},{sel:s.stage,state});
+ await page.waitForFunction(({sel,state})=>{const el=document.querySelector(sel);return el&&(el.dataset.renderError||Object.entries(state).every(([k,v])=>el.getAttribute(k)===v))},{sel:s.stage,state});
+ if(Object.keys(state).some(k=>k.startsWith('data-rendered-'))){const err=await stage.getAttribute('data-render-error');assert(!err,'WebGL initialization failed: '+err);}
 };
 const act=async(page,s,step)=>{
  const control=page.locator(step.selector);
@@ -44,7 +45,9 @@ try{
   const url=base+id+'/';
   for(const width of widths){
    const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce',deviceScaleFactor:1});
-   const errors=[],remote=[];page.on('pageerror',e=>errors.push(String(e)));page.on('request',r=>{if(!r.url().startsWith(origin+'/'))remote.push(r.url())});
+   const errors=[],remote=[],allowedImages=new Set(s.allowedImageIdentities||[]);page.on('pageerror',e=>errors.push(String(e)));page.on('request',r=>{if(!r.url().startsWith(origin+'/')&&!(r.resourceType()==='image'&&allowedImages.has(r.url().split('?')[0])))remote.push(r.url())});
+   // Keep geometry QA deterministic; separately verify photo decode/crops in loaded-media review.
+   if(allowedImages.size)await page.route('**/*',r=>{const url=r.request().url();return allowedImages.has(url.split('?')[0])?r.abort():r.continue()});
    // Keep the test drawing buffer readable; production remains demand-rendered.
    await page.addInitScript(()=>{const get=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,opts,...rest){return get.call(this,type,/^webgl2?$/.test(type)?{...opts,preserveDrawingBuffer:true}:opts,...rest)}});
    try{
@@ -70,7 +73,7 @@ try{
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
     assert.deepEqual(errors,[]);assert.deepEqual(remote,[]);
     await page.screenshot({path:path.join(dir,id+'-'+width+'.png'),fullPage:true});
-    report.cases.push({id,width,webgl:true,pixelChanges:s.steps.length,noRemoteRequests:true});
+    report.cases.push({id,width,webgl:true,pixelChanges:s.steps.length,noUnexpectedRemoteRequests:true,referenceImagesExcluded:allowedImages.size});
    }catch(e){report.errors.push(id+' '+width+': '+String(e));}finally{await page.close()}
   }
   const page=await browser.newPage({viewport:{width:390,height:900},reducedMotion:'reduce'});

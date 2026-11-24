@@ -558,3 +558,6 @@ Stakeholder narrowed remaining experiential builds to exactly three: STRATA proc
 
 ### Experiential art direction update
 User specified sleek futuristic, cinematic sites inspired by Instagram references (posts inaccessible; no observed footage claimed). Three remaining builds use edge-to-edge environments and continuous editorial compositions, no card-based demo walls. STRATA revision 2 full-bleed scene, contemporary typography, material rows, responsive camera fit and continuous roof correction. Current QA pending; ABYSS and ORBIT planned.
+
+### STRATA photography-led rebuild
+Previous rendered state failed at all four immersive browser widths; stakeholder rejected viewer/card-like layout and synthetic imagery. Replace full composition with real stock reference photography (Simeon Galabov and Little forest 작은 숲, verified official downloads), full-height photo-led chapters, no cards, distinct generated geometry study, scroll-scale photography, and original scene controls. Explicitly align shader precision and report init failures. Add exact inventory/clearance/batch records for two photos; 76 external identities total, 9 existing high-priority risks and 67 follow-on. No rights approval. Current-sha tests pending; original media work remains paused, main unchanged.

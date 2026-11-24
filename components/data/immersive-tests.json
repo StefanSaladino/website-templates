@@ -183,6 +183,10 @@
           "data-view": "courtyard"
         }
       }
+    ],
+    "allowedImageIdentities": [
+      "https://images.pexels.com/photos/34658645/pexels-photo-34658645.jpeg",
+      "https://images.pexels.com/photos/31446187/pexels-photo-31446187.jpeg"
     ]
   }
 }
