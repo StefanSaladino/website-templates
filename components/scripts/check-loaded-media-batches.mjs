@@ -7,8 +7,11 @@ import path from 'node:path';
 const repo=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const data=JSON.parse(readFileSync(new URL('../data/loaded-media-review-batches.json',import.meta.url),'utf8'));
 const errors=[],reports=[],seen=new Set();
+const inventory=JSON.parse(readFileSync(new URL('../data/template-media-inventory.json',import.meta.url),'utf8'));
+const expected=new Set(inventory.assets.flatMap(asset=>asset.usages.map(use=>use.templateId)));
 const names=Object.keys(data);
-if(names.join('|')!=='baseline|portfolio|services|professional|campaign|portfolio-extended|retail')errors.push('Unexpected review batch configuration: '+names);
+if(!names.length&&expected.size)errors.push('No still-image review batches configured');
+for(const name of names)if(!/^[a-z0-9-]+$/.test(name))errors.push('Invalid still-media batch name: '+name);
 for(const [batch,entries] of Object.entries(data)){
  if(!Array.isArray(entries)||!entries.length){errors.push(batch+': empty batch');continue;}
  for(const entry of entries){
@@ -44,7 +47,7 @@ for(const [batch,entries] of Object.entries(data)){
   console.log('PASS:',id,thirdParty.length+' remote img tags, '+entry.sections.length+' screenshot sections');
  }
 }
-if(seen.size!==19)errors.push('Expected 19 unique loaded-photo templates after MORA photography restoration, found '+seen.size);
+for(const id of expected)if(!seen.has(id))errors.push('External-media template lacks a loaded-media review batch: '+id);
 if(errors.length){
  for(const error of errors)console.error('MEDIA-BATCH-ERROR:',error);
  console.error('FAIL:',errors.length+' still-media batch source errors');

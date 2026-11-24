@@ -1,18 +1,17 @@
-/* Offline source integrity gate for all 24 original full-site templates.
+/* Offline source integrity gate for every complete full-site template.
  * This deliberately checks deterministic static HTML semantics only: it is NOT
  * a screen-reader audit, contrast test, HTML parser, or WCAG certification.
  */
 import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {discoverTemplates} from './template-catalogue.mjs';
 
 const repo=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const templates=path.join(repo,'templates');
 const failures=[];
 const results=[];
-const byFolder=readdirSync(templates,{withFileTypes:true})
- .filter(entry=>entry.isDirectory()&&existsSync(path.join(templates,entry.name,'index.html')))
- .sort((a,b)=>a.name.localeCompare(b.name));
+const byFolder=discoverTemplates(repo).map(name=>({name}));
 
 function attributes(tag){
  const attrs=new Map();
@@ -62,7 +61,6 @@ for(const entry of byFolder){
  else console.log('PASS: '+name+' ('+idSet.size+' unique IDs, main/skip, references and fragments)');
  results.push({template:name,idCount:idSet.size,errors});
 }
-if(byFolder.length!==24)failures.push({template:'catalogue',errors:['Expected 24 original full-site templates, found '+byFolder.length]});
 console.log('Full-template static accessibility references: '+(results.length-failures.filter(x=>x.template!=='catalogue').length)+'/'+results.length+' templates without source-reference errors');
 if(failures.length){
  for(const problem of failures){

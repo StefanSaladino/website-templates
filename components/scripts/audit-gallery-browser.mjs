@@ -1,4 +1,4 @@
-/* Browser evidence for the 25-template root gallery.
+/* Browser evidence for all complete websites in the root gallery.
  * This is screenshot/asset QA, not source/creator license, model release,
  * full accessibility signoff, or a claim the concepts are production ready.
  */
@@ -7,7 +7,12 @@ import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync,existsSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {galleryMembership,compareMembership} from './template-catalogue.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+const {ids:expectedIds,source,missing,unexpected,duplicates}=galleryMembership(root);
+if(missing.length||unexpected.length||duplicates.length)throw Error('Source gallery membership mismatch '+JSON.stringify({missing,unexpected,duplicates}));
+const expectedCount=expectedIds.length;
+const expectedMedia=source.media.map(x=>new URL(x).origin+new URL(x).pathname).sort();
 const output=path.join(root,'components/gallery-thumbnail-evidence');
 mkdirSync(output,{recursive:true});
 const base='http://127.0.0.1:4238/';
@@ -36,8 +41,10 @@ try{
   await page.route(/^https:\/\/videos\.pexels\.com\//,r=>r.abort('blockedbyclient'));
   try{
    const response=await page.goto(base+'index.html',{waitUntil:'domcontentloaded',timeout:20000});
-   await page.waitForFunction(()=>document.querySelectorAll('.featured-pick,.template-card').length===25,{timeout:15000});
+   await page.waitForFunction(count=>document.querySelectorAll('.featured-pick,.template-card').length===count,expectedCount,{timeout:15000});
    await page.evaluate(()=>document.fonts.ready);
+   const localThumbs=await page.locator('.featured-pick .thumb img,.template-card .thumb img').evaluateAll(async imgs=>Promise.all(imgs.filter(img=>new URL(img.src,location.href).origin===location.origin).map(async img=>{try{await img.decode();return {src:img.src,ok:img.naturalWidth>0}}catch{return {src:img.src,ok:false}}})));
+   for(const img of localThumbs)if(!img.ok)report.errors.push(width+' local thumbnail failed: '+img.src);
    const media=await page.evaluate(async()=>{
     const imgs=[...document.querySelectorAll('img[src]')].filter(img=>
      /^https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\//.test(img.currentSrc||img.src));
@@ -61,20 +68,21 @@ try{
      thumbnailBounds:[],badgeBounds:[],videoRequests:videoRequests.length,pageErrors};
    report.cases.push(entry);
    if(entry.status!==200)report.errors.push(width+' gallery HTTP status '+entry.status);
-   if(meta.count!==25)report.errors.push(width+' gallery card count '+meta.count);
+   if(meta.count!==expectedCount)report.errors.push(width+' gallery card count '+meta.count);
    if(meta.documentWidth>width+4)report.errors.push(width+' page-wide overflow '+meta.documentWidth);
-   if(meta.previewBadges.length!==25||meta.previewBadges.some(x=>x!=='Preview'))
+   if(meta.previewBadges.length!==expectedCount||meta.previewBadges.some(x=>x!=='Preview'))
     report.errors.push(width+' missing/unapproved gallery preview labels: '+JSON.stringify(meta.previewBadges));
    if(!meta.disclosure.includes('fictional design previews under review'))
     report.errors.push(width+' missing transparent gallery review disclosure');
-   if(media.length!==22)report.errors.push(width+' expected 22 CDN image placements, found '+media.length);
+   const actualMedia=media.map(x=>new URL(x.url).origin+new URL(x.url).pathname).sort();
+   if(JSON.stringify(actualMedia)!==JSON.stringify(expectedMedia))report.errors.push(width+' source/rendered CDN thumbnail identity mismatch: expected '+expectedMedia.length+' placements, found '+actualMedia.length);
    for(const img of media)if(!img.ok||!img.naturalWidth)
     report.errors.push(width+' gallery image decode failed: '+img.url+' '+(img.error||''));
    const cards=page.locator('.featured-pick,.template-card');
-   for(let i=0;i<25;i++){
+   for(let i=0;i<await cards.count();i++){
     const card=cards.nth(i);
     const href=await card.locator('a[href^="templates/"]').first().getAttribute('href');
-    const id=/^templates\/([a-z-]+)\/$/.exec(href||'')?.[1];
+    const id=/^templates\/([a-z0-9-]+)\/$/.exec(href||'')?.[1];
     if(!id){report.errors.push(width+' card '+i+' has an invalid preview route '+href);continue}
     const thumb=card.locator('.thumb').first();
     if(await thumb.count()!==1){report.errors.push(width+' '+id+' has no unique thumbnail');continue}
@@ -104,6 +112,8 @@ try{
       report.screenshots.push(filename);
     }catch(e){report.errors.push(width+' '+id+' screenshot: '+String(e))}
    }
+   const membership=compareMembership(expectedIds,entry.thumbnailBounds.map(x=>x.id));
+   if(Object.values(membership).some(x=>x.length))report.errors.push(width+' gallery route membership '+JSON.stringify(membership));
    if(pageErrors.length)report.errors.push(width+' JS errors: '+JSON.stringify(pageErrors));
    if(videoRequests.length)report.errors.push(width+' unexpected remote film request '+JSON.stringify(videoRequests));
    console.log('GALLERY-REVIEW',width+'px',meta.count+' cards',media.length+' decoded-source candidates',

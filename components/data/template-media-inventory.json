@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "25 full-site templates (including one original procedural 3D template with no remote stock; separate from 157 showroom components)",
+  "scope": "All complete-site templates discovered under templates/; external stock only, separate from locally authored procedural assets and showroom components",
   "rightsPolicy": "Every remote asset remains unapproved pending verified source/creator/license/depictee-property rights and validated local derivatives. Matching component stock references does NOT confer approval.",
   "assets": [
     {

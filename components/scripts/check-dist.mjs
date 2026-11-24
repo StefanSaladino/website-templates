@@ -1,6 +1,7 @@
 import {readFileSync,existsSync,readdirSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {discoverTemplates} from './template-catalogue.mjs';
 const here=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const output=path.resolve(here,'../dist/components');
 const components=JSON.parse(readFileSync(path.join(here,'data/components.json'),'utf8'));
@@ -31,6 +32,11 @@ if(existsSync(path.join(output,'assets'))){
 }
 // Every connected animation example must resolve to a real bundled template.
 const rootOutput=path.resolve(here,'../dist');
+for(const id of discoverTemplates(path.resolve(here,'..'))){
+ const source=path.resolve(here,'../templates',id,'index.html'),built=path.join(rootOutput,'templates',id,'index.html');
+ if(!existsSync(built))missing.push('Missing complete website in build: '+id);
+ else if(readFileSync(source,'utf8')!==readFileSync(built,'utf8'))missing.push('Stale complete website in build: '+id);
+}
 for(const component of components.filter(x=>x.status!=='draft'&&x.category==='animations')){
  if(!component.fullTemplateRoute||!component.fullTemplateName)missing.push('Animation not integrated into a real template '+component.id);
 }

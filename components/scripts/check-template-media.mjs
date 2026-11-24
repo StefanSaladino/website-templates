@@ -1,6 +1,7 @@
 import {readFileSync,existsSync,readdirSync,statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {discoverTemplates} from './template-catalogue.mjs';
 
 // Original full-site templates are a distinct media surface from the 157
 // component specimens; this check inventories CDN identities, NOT image rights.
@@ -36,10 +37,7 @@ const add=(url,templateId,filename)=>{
  if(!templates.has(templateId))templates.set(templateId,new Set());
  templates.get(templateId).add(filename);
 };
-const templates=readdirSync(templatesRoot,{withFileTypes:true})
- .filter(entry=>entry.isDirectory()&&existsSync(path.join(templatesRoot,entry.name,'index.html')))
- .map(entry=>entry.name).sort();
-if(templates.length!==25)fail('Expected 25 original complete-site templates; found '+templates.length);
+const templates=discoverTemplates(path.resolve(here,'..'));
 const cdnRegex=/https?:\/\/(?:images\.unsplash\.com|images\.pexels\.com|videos\.pexels\.com)\/[^\s"'<>\x29\x60]+/gi;
 for(const templateId of templates){
  const dir=path.join(templatesRoot,templateId);
