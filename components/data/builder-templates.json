@@ -145,6 +145,11 @@
     "route": "../templates/restaurant/"
   },
   {
+    "slug": "shift-card",
+    "title": "SHIFT / The moving card",
+    "route": "../templates/shift-card/"
+  },
+  {
     "slug": "storefront",
     "title": "Storefront",
     "route": "../templates/storefront/"

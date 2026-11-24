@@ -5,7 +5,9 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
-const specs=JSON.parse(readFileSync(path.join(root,'components/data/immersive-tests.json'),'utf8'));
+const registered=JSON.parse(readFileSync(path.join(root,'components/data/immersive-tests.json'),'utf8'));
+// Dedicated SHIFT suite covers native scroll, reduced motion and lifecycle without overriding system preference.
+const specs=Object.fromEntries(Object.entries(registered).filter(([,spec])=>!spec.dedicated));
 const ids=Object.keys(specs),widths=[320,390,768,1440];
 const dir=path.join(root,'components/immersive-evidence');mkdirSync(dir,{recursive:true});
 const port=4283,origin='http://127.0.0.1:'+port,base=origin+'/templates/';

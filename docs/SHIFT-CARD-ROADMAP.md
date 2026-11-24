@@ -1,6 +1,6 @@
 # SHIFT / the moving card — flagship template roadmap
 
-Status: **P1–P5 browser verified; P6 cinematic refinement implemented, visual review pending.** One additional complete, single-page website. Target catalogue total: 35, after all acceptance gates. Working slug: `shift-card`. Fictional payment-card brand; no actual financial service or application processing.
+Status: **P1–P6 verified; P7 registered as review preview, integration QA pending.** One additional complete, single-page website. Target catalogue total: 35, after all acceptance gates. Working slug: `shift-card`. Fictional payment-card brand; no actual financial service or application processing.
 
 ## 1. Reference and creative thesis
 
@@ -76,7 +76,7 @@ Desktop: full-bleed persistent scene with large layered text; mobile: art-direct
 - Run specialist immersive, baseline, gallery, keyboard, reflow, touch, reduced-motion and configurator checks against exact head. Do not claim physical device or visual approval from CI alone. Record failures, evidence and remaining limitations in this roadmap.
 - Preserve the existing design contract, media-review gates, main branch and 34-site catalogue until registration. No new external media necessary. No main merge or production release without authorization.
 
-## Next implementation action
+## Original implementation starting point (historical)
 
 P1: establish the chalk-stage opening and deep-ink material chapter as actual responsive HTML compositions, with an original card silhouette placeholder only for the storyboard. Review the static compositions before advancing to the real-time mesh. This is a roadmap commit only; no template source, published catalogue entry or completed visual design yet.
 
@@ -100,3 +100,6 @@ Workflow 45385361122 passed storyboard, standalone model, journey, all material 
 
 ### P5 verification and P6 visual refinement
 SHIFT workflow 45385995315 passed all four specialist suites, including actual WebGL context loss/restoration, five viewport/DPR cases, keyboard, text spacing, static/reduced-motion/graphics-disabled alternatives. Initial transfer 48,477 bytes and gzip JS 7,753 bytes (prior revision); buffer maxima within limits. Inspected five desktop and five mobile chapter captures: readable but opening too much like a split hero, portrait tablet requires dedicated layout, and composition needs more deliberate transitions. Added original giant outlined SHIFT wordmark behind opening/final card and restrained finish chapter art, rebalanced opening camera and typography, authored four intermediate camera/light/scale poses with exact chapter endpoints and deterministic reversible interpolation, portrait tablet art-region layout, and desktop chapter index with current chapter indication. Extended browser sequence QA to wide desktop, landscape and intermediate captures; exact endpoint and midpoint numeric assertions. Current revision source implemented, actual new captures and broader QA pending before P7. No catalogue registration, main merge, physical-device or manual acceptance claim.
+
+### P6 verified; P7 catalogue registration (review only)
+Workflow 45386440340 passed all four SHIFT suites including six viewports, wide intermediate poses, keyboard, materials, lifecycle and fallback. Reviewed 25 actual chapter/bridge screenshots (1440/1920/768/390/844); opening and final tablet titles overlapped the card, landscape card neared mast, so P7 reserves distinct in-flow tablet art areas and clips the live layer to the story boundary. P6 transfer 54,076 bytes, gzip JS 8,231 bytes. Move draft to `templates/shift-card/` with corrected gallery return link, original thumbnail and gallery Preview card, catalogue total 35; register ready-made configurator option in product recommendation list after existing first four, preserve prior presets. Dedicated immersive manifest entry enforces all four specialist suites (generic suite excludes only this explicitly dedicated entry, since SHIFT deliberately uses SVG under reduced motion). Added browser coverage for selecting SHIFT, original/custom colours, expanded phone preview, material interaction and return. Preserve original product artwork and swatch colours. Source registered, current-SHA tests/deployment and manual/Safari/device acceptance pending. No main merge. P8 next only after integration verification.

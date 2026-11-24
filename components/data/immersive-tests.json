@@ -436,5 +436,16 @@
     ],
     "qualityToggle": "#quality",
     "lensingTimeline": true
+  },
+  "shift-card": {
+    "dedicated": true,
+    "workflow": ".github/workflows/shift-storyboard.yml",
+    "scripts": [
+      "test-shift-storyboard.mjs",
+      "test-shift-model.mjs",
+      "test-shift-journey.mjs",
+      "test-shift-lifecycle.mjs"
+    ],
+    "reason": "Dedicated suite verifies actual native scroll, GPU recovery, and reduced-motion SVG rather than forcing WebGL during reduced motion."
   }
 }

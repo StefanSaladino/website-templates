@@ -1,6 +1,6 @@
 import {chromium} from 'playwright';import {spawn} from 'node:child_process';import {existsSync,mkdirSync,writeFileSync,readFileSync} from 'node:fs';import {gzipSync} from 'node:zlib';import path from 'node:path';import {fileURLToPath} from 'node:url';import assert from 'node:assert/strict';
-import {bufferSize} from '../../templates/_drafts/shift-card/scene.js';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),out=path.join(root,'components/shift-storyboard-evidence'),dir=path.join(root,'templates/_drafts/shift-card'),origin='http://127.0.0.1:4301',url=origin+'/templates/_drafts/shift-card/';mkdirSync(out,{recursive:true});
+import {bufferSize} from '../../templates/shift-card/scene.js';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),out=path.join(root,'components/shift-storyboard-evidence'),dir=path.join(root,'templates/shift-card'),origin='http://127.0.0.1:4301',url=origin+'/templates/shift-card/';mkdirSync(out,{recursive:true});
 const scripts=['script.js','scene.js','timeline.js','materials.js'],compressedJS=scripts.reduce((n,p)=>n+gzipSync(readFileSync(path.join(dir,p))).length,0);assert(compressedJS<=300000);
 for(const [w,h,dpr,small] of [[390,844,3,true],[320,740,2,true],[1440,900,2,false],[3840,2160,3,false]]){const b=bufferSize(w,h,dpr,small);assert(b.width*b.height<=b.limit);assert(b.width/w<=(small?1.5:2)+.001)}
 const server=spawn('python3',['-m','http.server','4301','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;const report={compressedJS,physicalDeviceAcceptance:false,cases:[]};

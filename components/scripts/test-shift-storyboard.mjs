@@ -4,7 +4,7 @@ import {existsSync,mkdirSync,writeFileSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),out=path.join(root,'components/shift-storyboard-evidence'),origin='http://127.0.0.1:4298',url=origin+'/templates/_drafts/shift-card/';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),out=path.join(root,'components/shift-storyboard-evidence'),origin='http://127.0.0.1:4298',url=origin+'/templates/shift-card/';
 mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','4298','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;const report=[];
 try{for(let i=0;i<50;i++){try{if((await fetch(url)).ok)break}catch{}await new Promise(r=>setTimeout(r,200))}
  const executablePath=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(existsSync);browser=await chromium.launch({executablePath,headless:true,args:['--no-sandbox']});

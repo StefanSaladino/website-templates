@@ -6,3 +6,6 @@
 
 ## P5 measured browser evidence (7616d64)
 Dedicated workflow 45385995315 passed all four suites. Lifecycle report: 7,753 bytes gzip JavaScript, 48,477 bytes initial requested transfer at each of five tested viewport/DPR cases; 58,752-byte geometry buffer; 11,184,811-byte estimated texture allocation; observed drawing buffers 532,800 to 2,500,000 pixels. CPU command-submission times 0–0.4ms are not GPU frame rates. Real context loss and restoration, keyboard, text spacing and unavailable GPU passed. These numbers apply to the tested revision; P6 retest pending.
+
+## P6 evidence (f5e8486)
+Workflow 45386440340 passed all four suites. Report: 54,076 bytes initial transfer, 8,231 bytes gzip JS, buffer counts 532,800–2,500,000. Physical GPU FPS and Safari remain unverified. P7 retest pending.

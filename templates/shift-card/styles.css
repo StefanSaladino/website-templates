@@ -37,3 +37,16 @@ html[data-renderer=webgl]:not([data-frame-ready=true]) .chapter img{visibility:v
 @media(min-width:1000px) and (min-height:600px){.opening-backdrop,.final-backdrop,.finish-backdrop{display:block}.opening-backdrop span{top:38%;transform:translate(-50%,-50%) translateY(calc(var(--story-progress,0)*-14px))}.opening-type{padding-top:clamp(90px,17vh,180px);padding-bottom:15px}.opening h1{font-size:clamp(78px,10.7vw,166px);max-width:63%;position:relative}.opening h1 span{width:max-content;max-width:100%}.opening-art{inset:10% 11% 17%}.opening-card{width:min(44vw,650px);transform:translate(40%,0%) perspective(1200px) rotateX(13deg) rotateY(-18deg) rotateZ(-26deg)}.final-backdrop span{top:47%;font-size:clamp(160px,25vw,430px)}.final h2{font-size:clamp(75px,10.5vw,166px)}.final-art img{width:min(38vw,550px)}.finish-backdrop span{opacity:.7}.chapter-index{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:6;display:flex;flex-direction:column;gap:2px;padding:3px;background:var(--chalk);color:var(--ink);border:1px solid #aaa9a3}.chapter-index a{display:grid;place-items:center;width:44px;height:44px;font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}.chapter-index a[aria-current=location]{background:var(--ink);color:white}.chapter-index a:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.chapter-index a:hover{text-decoration:underline}.chapter-label{padding-right:24px}}
 /* A portrait tablet is a mobile composition, not a squeezed desktop split. */
 @media(min-width:701px) and (max-width:999px) and (orientation:portrait){.opening h1{font-size:clamp(72px,13vw,125px)}.opening-type{padding-top:45px}.opening-art{inset:32% 10% 12%}.opening-card{width:65vw;transform:translate(10%,0) perspective(1000px) rotateY(-14deg) rotateZ(-22deg)}.object-layout,.everyday-layout{grid-template-columns:1fr;gap:15px;align-items:start;padding:38px 0 12px}.object-art,.everyday-art{min-height:420px}.object-art img{width:65vw;transform:perspective(1000px) rotateY(-25deg) rotateZ(19deg)}.everyday-art img{width:46vw;transform:rotate(-68deg)}.finish-copy{width:100%;padding:32px 0 0}.finish-art{position:relative;inset:auto;min-height:420px;order:2;margin:12px calc(var(--pad)*-1);z-index:0}.finish-copy{order:1}.finish-art img{width:76vw;transform:translate(8%,3%) rotate(-28deg)}.finish-options{order:3;width:100%}.finish .chapter-label{order:0}.final h2{font-size:clamp(74px,12vw,120px)}.final-art{inset:30% 12% 17%}.final-art img{width:47vw;transform:rotate(-80deg)}.everyday-art{gap:15px}}
+
+/* P7: distinct art regions below portrait tablet titles; protect mast in landscape. */
+.mast{background:var(--chalk)}
+@media(min-width:701px) and (max-width:999px) and (orientation:portrait){
+ .opening,.final{justify-content:space-between}
+ .opening-type{padding:48px 0 0}
+ .opening-art,.final-art{position:relative;inset:auto;min-height:clamp(380px,58vw,540px);margin:14px 0;display:grid;place-items:center}
+ .opening-card{width:65%;transform:perspective(1000px) rotateY(-14deg) rotateZ(-22deg)}
+ .final h2{padding:48px 0 0}
+ .final-art img{width:45%;transform:rotate(-80deg)}
+ html[data-renderer=webgl] .opening-type,html[data-renderer=webgl] .final h2{z-index:3}
+}
+@media(max-height:500px) and (min-width:701px){.mast{position:relative;z-index:5}.opening-type{z-index:3!important}}

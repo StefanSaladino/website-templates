@@ -3,7 +3,7 @@ export const KEY='boomer.design-brief.v2',LEGACY_KEY='boomer.design-brief.v1';
 export const PURPOSES={
  business:{title:'Promote my business and services',description:'Tell people what you do and help them get in touch.',recommend:'multiple',templates:['contractor','law-firm','landscaping','architecture','woodworker','pools','garage-detailing']},
  work:{title:'Showcase my work',description:'Let your projects, photos or creative work do the talking.',recommend:'single',templates:['frame-portfolio','creative-agency','architecture','monolith-architecture','tattoo-studio']},
- products:{title:'Showcase or sell my products',description:'Introduce products and encourage customers to buy or enquire.',recommend:'multiple',templates:['storefront','editorial-commerce','custom-bakes','calibre-watch','essence-fragrance','app-launch']},
+ products:{title:'Showcase or sell my products',description:'Introduce products and encourage customers to buy or enquire.',recommend:'multiple',templates:['storefront','editorial-commerce','custom-bakes','calibre-watch','shift-card','essence-fragrance','app-launch']},
  booking:{title:'Help customers make bookings',description:'Show what you offer and help people arrange a visit.',recommend:'multiple',templates:['restaurant','muskoka-retreat','tattoo-studio','fitness-launch','event-launch']},
  other:{title:'Something else',description:'Start with a simple, flexible website.',recommend:'single',templates:['creative-agency','quiet-saas','app-launch','waitlist','event-launch']}
 };

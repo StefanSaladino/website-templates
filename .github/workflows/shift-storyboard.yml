@@ -2,7 +2,7 @@ name: SHIFT storyboard review
 on:
   push:
     branches: [feature/component-showroom]
-    paths: ['templates/_drafts/shift-card/**','components/scripts/test-shift-storyboard.mjs','components/scripts/test-shift-model.mjs','components/scripts/test-shift-journey.mjs','components/scripts/test-shift-lifecycle.mjs','.github/workflows/shift-storyboard.yml']
+    paths: ['templates/shift-card/**','components/scripts/test-shift-storyboard.mjs','components/scripts/test-shift-model.mjs','components/scripts/test-shift-journey.mjs','components/scripts/test-shift-lifecycle.mjs','.github/workflows/shift-storyboard.yml']
   workflow_dispatch:
 permissions:
   contents: read
