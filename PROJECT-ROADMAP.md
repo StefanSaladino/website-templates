@@ -682,3 +682,7 @@ R6 specialist workflow 45408471833 passed all tests; R7 replaces the registered 
 
 ### SHIFT R8 automated recovery and configurator integration
 Specialist 45432905923 on 49cb768 passed strict cadence and visual gates together, plus high-density, accessibility, projection and both reusable specimens. Showroom CI/review and Pages passed; thumbnail visual job cancelled after route preflight. User reports mobile looks good; desktop physical/visual approval remains open. Fix native SHIFT ready-made palette integration so custom colours follow live scroll rather than generic static inline theme overrides. See SHIFT visual recovery and configurator roadmaps for exact evidence and remaining gates. No new template, no main merge.
+
+
+### Stakeholder-authorized SELVEDGE start
+Exact 11 gallery captures promoted at 01756f4; Pages 45452212390 passed. Stakeholder explicitly deferred SHIFT desktop review and authorized the next site. This supersedes the previous sequencing hold only; SHIFT cadence, native configurator and physical review remain unresolved. SELVEDGE S1 is an unregistered review draft at `templates/_drafts/selvedge-outerwear/`, with original illustrated garment, continuous bounded-stage animatic and specialist checks. See `docs/SELVEDGE-OUTERWEAR-ROADMAP.md`. No production approval or main merge.

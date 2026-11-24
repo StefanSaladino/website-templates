@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="800" viewBox="0 0 700 800" role="img" aria-labelledby="t d"><title id="t">SELVEDGE field jacket</title><desc id="d">Original front view illustration in weathered olive, with four stitched pockets and a standing collar.</desc>
+<defs>
+ <linearGradient id="body" x1="0" y1="0" x2="1" y2=".85" gradientUnits="objectBoundingBox"><stop stop-color="#a2a58a"/><stop offset=".25" stop-color="#777e65"/><stop offset=".53" stop-color="#858a70"/><stop offset=".8" stop-color="#626953"/><stop offset="1" stop-color="#505746"/></linearGradient>
+ <linearGradient id="sleeve" x1="0" y1="0" x2="1" y2=".2"><stop stop-color="#444b3e"/><stop offset=".22" stop-color="#7b8268"/><stop offset=".54" stop-color="#91967d"/><stop offset="1" stop-color="#5c634f"/></linearGradient>
+ <linearGradient id="right" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#4b5243"/><stop offset=".35" stop-color="#787f64"/><stop offset=".72" stop-color="#888e75"/><stop offset="1" stop-color="#4a5142"/></linearGradient>
+ <linearGradient id="pocket" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#92977e"/><stop offset=".45" stop-color="#767e65"/><stop offset="1" stop-color="#545b48"/></linearGradient>
+ <linearGradient id="collar" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#464d3d"/><stop offset=".46" stop-color="#848b73"/><stop offset="1" stop-color="#626954"/></linearGradient>
+ <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 0L4 4M-2 2L2 6M2 -2L6 2" stroke="#e1dfc8" stroke-width=".45" opacity=".15"/><path d="M0 4L4 0" stroke="#34392e" stroke-width=".35" opacity=".12"/></pattern>
+ <filter id="shadow" x="-30%" y="-20%" width="160%" height="155%"><feDropShadow dx="4" dy="14" stdDeviation="14" flood-color="#22281e" flood-opacity=".24"/></filter>
+ <clipPath id="shape"><path d="M262 81Q350 57 438 81L457 123Q524 145 551 196L624 585 592 652 527 646 489 421 484 711Q350 739 216 711L211 421 173 646 108 652 76 585 149 196Q176 145 243 123Z"/></clipPath>
+</defs>
+<g filter="url(#shadow)" stroke="#42493c" stroke-linejoin="round" stroke-width="1.5">
+ <path d="M243 123Q176 145 149 196L76 585 108 652 173 646 220 376 224 200Z" fill="url(#sleeve)"/>
+ <path d="M457 123Q524 145 551 196L624 585 592 652 527 646 480 376 476 200Z" fill="url(#right)"/>
+ <path d="M243 123Q272 110 350 120Q428 110 457 123L483 201 489 421 484 711Q350 739 216 711L211 421 217 201Z" fill="url(#body)"/>
+ <path d="M262 81Q350 57 438 81L457 123 419 164 350 139 281 164 243 123Z" fill="url(#collar)"/>
+ <path d="M271 88Q350 69 429 88L421 111Q350 99 279 111Z" fill="#3e4436"/>
+ <path d="M349 135L349 724" stroke="#3d4436" stroke-width="3"/>
+ <path d="M342 143L357 143 358 722 340 722Z" fill="#69725a"/>
+ <path d="M349 150V716" stroke="#b4b59c" stroke-width=".8" stroke-dasharray="3 5"/>
+ <g fill="url(#pocket)"><path d="M238 235L320 228 326 329 242 339Z"/><path d="M380 228L462 235 458 339 374 329Z"/><path d="M233 453L327 444 333 592 236 606Z"/><path d="M373 444L467 453 464 606 367 592Z"/></g>
+ <g fill="#858d72"><path d="M234 230L323 222 324 253 239 262Z"/><path d="M377 222L466 230 461 262 376 253Z"/><path d="M229 448L330 438 331 478 233 489Z"/><path d="M370 438L471 448 467 489 369 478Z"/></g>
+ <g fill="#4c5541" stroke="#a2a48c" stroke-width=".7"><circle cx="280" cy="244" r="4"/><circle cx="420" cy="244" r="4"/><circle cx="281" cy="462" r="4"/><circle cx="419" cy="462" r="4"/><circle cx="350" cy="170" r="3.5"/><circle cx="350" cy="698" r="3.5"/></g>
+ <path d="M85 579L182 595 173 646 108 652Z" fill="#656c55"/><path d="M518 595L615 579 592 652 527 646Z" fill="#626a54"/>
+ <path d="M222 682Q350 704 478 682L484 711Q350 739 216 711Z" fill="#646c56"/>
+ <g clip-path="url(#shape)" fill="url(#weave)" stroke="none"><rect x="60" y="60" width="580" height="690"/></g>
+ <g fill="none" stroke="#d0d1b7" stroke-width="1" opacity=".55" stroke-dasharray="3 3"><path d="M246 133Q202 168 183 205L110 580M454 133Q498 168 517 205L590 580M224 215V681M476 215V681M245 270L248 330 319 322M381 322L452 330 455 270M241 492L244 597 326 585M374 585L456 597 459 492M225 690Q350 710 475 690"/></g>
+ <g fill="none" stroke="#3b4435" stroke-width="1.4" opacity=".35"><path d="M155 229Q162 293 138 360M545 229Q538 293 562 360M225 376Q255 387 286 382M414 382Q445 387 475 376M240 639Q285 625 323 645M377 645Q415 625 460 639"/></g>
+ <path d="M329 107H371V120H329Z" fill="#dad7c5" stroke="none"/><text x="350" y="116" font-family="Arial,sans-serif" font-size="6" fill="#262d23" text-anchor="middle" letter-spacing="1">SELVEDGE</text>
+</g></svg>
