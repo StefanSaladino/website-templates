@@ -157,3 +157,7 @@ Stakeholder rejected 274a691: the previous handoff repair produced an isolated s
 
 ### SHIFT recovery review registration
 R6 specialist workflow 45408471833 passed all tests; R7 replaces the registered review template with the bounded recovered campaign. See docs/SHIFT-VISUAL-RECOVERY-ROADMAP.md. Current registered-route and configurator checks pending. Catalogue counts unchanged, no main merge or physical-device approval.
+
+
+### R8.9 bounded campaign reuse preparation
+See [IMMERSIVE-CAMPAIGN-REUSE-CONTRACT.md](IMMERSIVE-CAMPAIGN-REUSE-CONTRACT.md) for proven/pending architecture boundaries and future acceptance sequence. Proposed next direction is an original apparel editorial campaign, subject to closing SHIFT recovery. No new template or component IDs, runtime changes or main merge in this checkpoint.
