@@ -54,6 +54,7 @@ try{
     await page.goto(url,{waitUntil:'domcontentloaded'});
     const stage=page.locator(s.stage),canvas=page.locator(s.canvas);
     await checkState(page,s,s.initial);assert.equal(await stage.getAttribute('data-renderer'),'webgl');
+    if(s.lensingTimeline){assert.equal(await stage.getAttribute('data-frame-budget'),width<700?'30':'60');}
     let prior=await pixels(canvas);assert(prior.opaque>100,'Model must render actual visible pixels');if(s.requireFraming)assert(prior.framed,'Assembled model clipped by canvas');
     for(const step of s.steps){
      const before=step.stableBottomFraction?await pixels(canvas,step.stableBottomFraction):prior;
@@ -106,7 +107,11 @@ try{
     await page.locator('#motion').click();await checkState(page,s,{'data-rendered-paused':'true'});const frozen=await stage.getAttribute('data-frame-time'),still=await pixels(canvas);await page.waitForTimeout(180);assert.equal(await stage.getAttribute('data-frame-time'),frozen);assert.equal((await pixels(canvas)).hash,still.hash);
     const go=async(id)=>{await page.locator('#'+id).evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));await checkState(page,s,{'data-rendered-zone':id});};
     await go('lensing');await page.locator('#lensing').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY+el.offsetHeight*.5,behavior:'instant'}));await page.waitForFunction(sel=>{const p=Number(document.querySelector(sel).dataset.renderedProgress);return p>.34&&p<.67},s.stage);
-    await go('accretion');await page.screenshot({path:path.join(dir,id+'-accretion-mobile.png')});await go('horizon');await checkState(page,s,{'data-rendered-progress':'1.000'});await go('approach');await checkState(page,s,{'data-rendered-progress':'0.000'});
+    await go('accretion');await page.screenshot({path:path.join(dir,id+'-accretion-mobile.png')});
+    const diskFrame=await pixels(canvas);
+    await go('horizon');await checkState(page,s,{'data-rendered-progress':'1.000'});assert.notEqual((await pixels(canvas)).hash,diskFrame.hash);
+    await go('accretion');await page.waitForFunction(sel=>document.querySelector(sel).dataset.renderedProgress==='0.680',s.stage);assert.equal((await pixels(canvas)).hash,diskFrame.hash,'Paused camera path must be reversible at the same pose');
+    await go('approach');await checkState(page,s,{'data-rendered-progress':'0.000'});
     const ext=await canvas.evaluate(el=>{const x=el.getContext('webgl')?.getExtension('WEBGL_lose_context');if(!x)return false;window.__testContext=x;x.loseContext();return true});if(ext){await checkState(page,s,{'data-renderer':'static'});assert(await page.locator(s.fallback).isVisible());await page.evaluate(()=>window.__testContext.restoreContext());await checkState(page,s,{'data-renderer':'webgl'});}
     report.cases.push({id,lensingTimeline:true,animatedPixels:true,pausedPixels:true,reversible:true,contextLossTested:ext});
    }catch(e){report.errors.push(id+' lensing: '+String(e))}finally{await page.close()}

@@ -1,2 +1,4 @@
 # EVENT HORIZON
 All stars, lensing, accretion emission, fallback and icon are original repository-authored code. No telescope imagery or external runtime. The shader uses bounded analytic image-space radial deflection, occlusion and projected turbulent disk emission with lensed arcs. It does not numerically solve null geodesics, simulate an infalling observer or reproduce measured astrophysical data. The horizon fade is artistic. SVG fallback is a deliberately simplified illustration. No outside media rights implicated.
+
+Revision 2: radius-dependent angular advection, spiral filaments, pixel-footprint star filtering, secondary lensed star image, continuous camera centre/tilt/inclination trajectory, bounded exposure fade. Still an artistic analytic projection, not numerical relativistic ray tracing. 30/60 FPS rendering targets, not guaranteed device throughput.

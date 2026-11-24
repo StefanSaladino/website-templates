@@ -588,3 +588,6 @@ Real fragrance photography and citrus sensory editorial; actual photographic ref
 
 ### EVENT HORIZON — F3 source checkpoint
 Original analytic lensing and accretion disk shader, continuous reversible approach, adjustable lensing, pause and quality, responsive static fallback. Registered actual pixel and lifecycle QA. ESSENCE 3003c10 passed cinematic/optical and Pages; user approved. 32 full templates, 34 target. RESONANCE next after review. No new media or main merge.
+
+### EVENT HORIZON motion polish
+Actual revision 1 browser captures reviewed; refine shader flow, camera, lensing, frame pacing and type placement without replacing concept. Preserve controls and reversible scroll. Current-sha QA pending; 32 templates unchanged.
