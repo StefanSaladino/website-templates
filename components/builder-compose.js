@@ -1,5 +1,6 @@
 // The catalogue specimen is the source of truth. No second implementation of a design.
 import {ink,variants} from './builder-model.js';
+import {themeTree} from './builder-theme.js';
 export const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cache=new Map(),revisions=new WeakMap();
 const root=new URL('./previews/',document.baseURI);
@@ -91,20 +92,6 @@ function bindContent(target,c,spec){
  if(c.id==='FOOT-02')setText(target,'.f2-bottom strong','YOUR BUSINESS');
  if(c.id==='CONTACT-03')setText(target,'.service-info>div:first-child span','Your business · sample details');
 }
-// Theme only known semantic surfaces and text, preserving authored image overlays and original art.
-// Unmapped colors deliberately remain original rather than destroying contrast or design identity.
-const themeCSS={
- 'NAV-01':'.n1-head{background:var(--ba-secondary);color:var(--ba-on-secondary);border-bottom-color:var(--ba-primary)}.n1-toggle span{background:var(--ba-on-secondary)}.n1-menu:not([hidden]){background:var(--ba-secondary);color:var(--ba-on-secondary)}',
- 'NAV-02':'[data-source-target]{background:var(--ba-secondary);color:var(--ba-on-secondary)}',
- 'NAV-03':'[data-source-target]{background:var(--ba-primary);color:var(--ba-on-primary)}.n3-toggle span{background:var(--ba-on-primary)}',
- 'HERO-02':'[data-source-target]{background:var(--ba-secondary);color:var(--ba-on-secondary)}.h2-copy h1 em,.h2-copy p{color:var(--ba-on-secondary)}.h2-copy a{border-bottom-color:var(--ba-trim)}',
- 'SRV-02':'[data-source-target]{background:var(--ba-secondary);color:var(--ba-on-secondary)}',
- 'ABOUT-01':'[data-source-target],.ab-copy{background:var(--ba-secondary);color:var(--ba-on-secondary)}.ab-copy h1 i,.ab-copy p,.ab-copy blockquote{color:var(--ba-on-secondary)}',
- 'FOOT-01':'.ft-footer{background:var(--ba-primary);color:var(--ba-on-primary)}.ft-footer p{color:var(--ba-on-primary)}',
- 'CTA-02':'.c2-cta{background:var(--ba-primary);color:var(--ba-on-primary);border-color:var(--ba-trim)}',
- 'HERO-01':'.h1-copy a{border-color:var(--ba-trim)}'
-};
-function applyTheme(host,spec){const p=spec.palette;host.style.setProperty('--ba-primary',p.primary);host.style.setProperty('--ba-secondary',p.secondary);host.style.setProperty('--ba-trim',p.trim||p.primary);host.style.setProperty('--ba-on-primary',ink(p.primary));host.style.setProperty('--ba-on-secondary',ink(p.secondary))}
 function installLocalControls(shadow,body,target,c,entry,width){
  // No source scripts are executed. Only small, local preview interactions with known targets.
  shadow.addEventListener('submit',e=>{e.preventDefault();e.stopPropagation()});
@@ -124,11 +111,11 @@ function installLocalControls(shadow,body,target,c,entry,width){
  }
 }
 function mountSection(doc,parent,src,c,entry,spec){
- const host=doc.createElement('div');host.dataset.id=c.id;host.dataset.slot=entry.slotId||String(entry.key);host.dataset.sourceAnchor=c.showcase.focusAnchor;host.dataset.sourceStatus='preparing';host.dataset.mobile=spec.width<=430&&entry.mobileId||'default';host.setAttribute('role','group');host.setAttribute('aria-label',c.title);applyTheme(host,spec);parent.append(host);
+ const host=doc.createElement('div');host.dataset.id=c.id;host.dataset.slot=entry.slotId||String(entry.key);host.dataset.sourceAnchor=c.showcase.focusAnchor;host.dataset.sourceStatus='preparing';host.dataset.mobile=spec.width<=430&&entry.mobileId||'default';host.setAttribute('role','group');host.setAttribute('aria-label',c.title);parent.append(host);
  const shadow=host.attachShadow({mode:'open'}),style=doc.createElement('style');style.textContent=src.css+'\n'+
  ':host{display:block;position:relative;min-width:0;contain:layout;isolation:isolate} [data-source-html],[data-source-body]{display:block!important;margin:0!important;padding:0!important;min-height:0!important;height:auto!important;overflow:visible!important;max-width:none!important;width:auto!important} [data-source-target]{position:relative!important;inset:auto!important;min-width:0;max-width:100%} [hidden]{display:none!important} @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}'+
  (c.id==='NAV-05'?'@media(min-width:851px){:host{contain:none;position:sticky;top:0;align-self:start}[data-source-target]{height:100vh;width:110px;position:relative!important}}':'')+
- (spec.width<=430&&entry.mobileId?'':'')+(spec.theme!==false?themeCSS[c.id]||'':'');
+ '';
  const html=doc.createElement('div'),body=doc.createElement('div');copyAttributes(src.doc.documentElement,html);copyAttributes(src.doc.body,body);html.dataset.sourceHtml='';body.dataset.sourceBody='';
  if(spec.width<=430&&variants(spec.cat,c.id).some(x=>x.id===entry.mobileId))body.dataset.mobileTreatment=entry.mobileId;else body.removeAttribute('data-mobile-treatment');
  const chain=[];let n=src.target.parentElement;while(n&&n!==src.doc.body){chain.unshift(n);n=n.parentElement}
@@ -139,7 +126,7 @@ function mountSection(doc,parent,src,c,entry,spec){
  html.append(body);shadow.append(style,html);
  // Source image failures keep the original authored background/geometry and honest alt text.
  target.querySelectorAll('img').forEach(img=>{img.addEventListener('error',()=>{img.style.visibility='hidden';img.closest('.n3-scene,.h1-scene,.g2-photo,.s3-media,.c2-scene')?.classList.add('image-pending')},{once:true})});
- installLocalControls(shadow,body,target,c,entry,spec.width);host.dataset.sourceStatus='mounted';return host;
+ installLocalControls(shadow,body,target,c,entry,spec.width);themeTree(body,spec.palette);host.dataset.palettePrimary=spec.palette.primary;host.dataset.paletteSecondary=spec.palette.secondary;host.dataset.paletteTrim=spec.palette.trim||'';host.dataset.sourceStatus='mounted';return host;
 }
 const skeleton='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'; img-src \'self\' https: data:; media-src \'self\' https:; font-src \'self\' https: data:; form-action \'none\'; frame-src \'none\'; base-uri \'none\'"><title>Selected website designs</title><style>html,body{margin:0;min-height:100%;font:16px Arial,sans-serif}*,*::before,*::after{box-sizing:border-box}body{overflow-x:clip}#page{min-width:0}#page[data-rail]{display:grid;grid-template-columns:110px minmax(0,1fr)}#sections{min-width:0}#sections>div{min-width:0}.preview-error{padding:35px 5vw;border:1px dashed #a25a3a;background:#f8f3e8;color:#282828}.loading{padding:24px}@media(max-width:850px){#page[data-rail]{display:block}}</style></head><body><main id="page"><div id="sections"><p class="loading">Preparing your selected designs…</p></div></main></body></html>';
 export async function renderSourcePage(frame,spec,cat,onResult=()=>{}){
