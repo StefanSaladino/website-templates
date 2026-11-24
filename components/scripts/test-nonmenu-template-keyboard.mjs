@@ -58,13 +58,13 @@ try{
     await page.keyboard.press('Enter');
     ensure(await spotlight.getAttribute('aria-pressed')==='false','Second Enter resets spotlight');
    }else if(example.name==='fulcrum-light'){
-    const chalk=page.locator('[data-finish="chalk"]');
+    const chalk=page.locator('button[data-finish="chalk"]');
     await chalk.focus();await page.keyboard.press('Enter');
     ensure(await chalk.getAttribute('aria-pressed')==='true','Finish can be selected with Enter');
     const assembly=page.locator('#assembly');await assembly.focus();await page.keyboard.press('End');
     ensure(await assembly.getAttribute('aria-valuetext')==='Fully separated','Keyboard assembly slider works');
     await page.locator('#reset').focus();await page.keyboard.press('Enter');
-    ensure(await page.locator('[data-finish="ochre"]').getAttribute('aria-pressed')==='true','Reset returns initial finish');
+    ensure(await page.locator('button[data-finish="ochre"]').getAttribute('aria-pressed')==='true','Reset returns initial finish');
    }else{
     const portrait=page.locator('[data-filter="portrait"]');
     await portrait.focus();await page.keyboard.press('Enter');

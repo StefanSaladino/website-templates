@@ -143,12 +143,12 @@
     stage.dataset.finish=finish;stage.dataset.assembly=String(exploded);
     rotation.value=String(Math.round(angle));assembly.value=String(exploded);
     assembly.setAttribute('aria-valuetext',exploded===0?'Assembled':exploded===100?'Fully separated':exploded+' percent separated');
-    for(const b of document.querySelectorAll('[data-finish]'))b.setAttribute('aria-pressed',String(b.dataset.finish===finish));
+    for(const b of controls.querySelectorAll('button[data-finish]'))b.setAttribute('aria-pressed',String(b.dataset.finish===finish));
     if(announce)status.textContent=finish[0].toUpperCase()+finish.slice(1)+' finish, '+assembly.getAttribute('aria-valuetext').toLowerCase()+'.';
     requestDraw();
   }
   controls.disabled=false;init();update(false);
-  for(const b of document.querySelectorAll('[data-finish]'))b.addEventListener('click',()=>{finish=b.dataset.finish;update();});
+  for(const b of controls.querySelectorAll('button[data-finish]'))b.addEventListener('click',()=>{finish=b.dataset.finish;update();});
   rotation.addEventListener('input',()=>{userRotated=true;angle=Number(rotation.value);update(false);});
   assembly.addEventListener('input',()=>{exploded=Number(assembly.value);update();});
   document.querySelector('#reset').addEventListener('click',()=>{finish='ochre';angle=-25;exploded=0;userRotated=true;update();});

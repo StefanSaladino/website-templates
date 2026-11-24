@@ -1115,3 +1115,6 @@ See **[COMPONENT-SHOWROOM-RELEASE-READINESS.md](./COMPONENT-SHOWROOM-RELEASE-REA
 
 ## Template-first immersive expansion (23 November 2026)
 See [Immersive website roadmap](IMMERSIVE-WEBSITE-ROADMAP.md). User explicitly requested full-site templates before components. Preserve 157 active core components and 44 mobile variants until six 3D website concepts have working integrated experiences. FULCRUM A1 added to full website library; planned 3D-01..12 are not yet registered. Original media remediation paused at FRAME 7e32171; release gates remain open.
+
+## Code-only experiential expansion (supersedes six-site plan)
+Follow [IMMERSIVE-WEBSITE-ROADMAP.md](IMMERSIVE-WEBSITE-ROADMAP.md): eleven planned complete websites (one implemented), all buildable via repository code alone, no Blender or manual video editing required. Cinematic continuous experiences and advanced effects are developed in full templates first; extract tested 3D-01..12 and additional proven techniques only after the website foundation. Existing component/mobile records remain unchanged. 35 is a planning target for website count, not a validator constraint. No release until separate acceptance gates.

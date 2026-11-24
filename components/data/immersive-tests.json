@@ -9,7 +9,7 @@
     },
     "steps": [
       {
-        "selector": "[data-finish=chalk]",
+        "selector": "button[data-finish=chalk]",
         "action": "click",
         "state": {
           "data-rendered-finish": "chalk"
@@ -48,7 +48,7 @@
     ],
     "fallbackSteps": [
       {
-        "selector": "[data-finish=graphite]",
+        "selector": "button[data-finish=graphite]",
         "action": "click",
         "state": {
           "data-finish": "graphite"
