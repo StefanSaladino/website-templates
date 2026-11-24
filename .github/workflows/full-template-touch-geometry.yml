@@ -4,6 +4,8 @@ on:
     branches:
       - feature/component-showroom
     paths:
+      - 'templates/**'
+      - 'components/scripts/template-catalogue.mjs'
       - 'components/scripts/audit-template-touch-geometry.mjs'
       - '.github/workflows/full-template-touch-geometry.yml'
   workflow_dispatch:

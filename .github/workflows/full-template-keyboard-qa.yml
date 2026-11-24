@@ -4,30 +4,9 @@ on:
     branches:
       - feature/component-showroom
     paths:
-      - 'templates/creative-agency/**'
-      - 'templates/editorial-commerce/**'
-      - 'templates/muskoka-retreat/**'
-      - 'templates/contractor/**'
-      - 'templates/woodworker/**'
-      - 'templates/restaurant/**'
-      - 'templates/law-firm/**'
-      - 'templates/custom-bakes/**'
-      - 'templates/landscaping/**'
-      - 'templates/pools/**'
-      - 'templates/storefront/**'
-      - 'templates/fitness-launch/**'
-      - 'templates/tattoo-studio/**'
-      - 'templates/real-estate/**'
-      - 'templates/event-launch/**'
-      - 'templates/quiet-saas/**'
-      - 'templates/interactive-playground/**'
-      - 'templates/waitlist/**'
-      - 'templates/garage-detailing/**'
-      - 'templates/monolith-architecture/**'
-      - 'templates/app-launch/**'
-      - 'templates/architecture/**'
-      - 'templates/dark-tech/**'
-      - 'templates/frame-portfolio/**'
+      - 'templates/**'
+      - 'components/scripts/template-catalogue.mjs'
+      - 'components/scripts/test-all-template-baseline.mjs'
       - 'components/scripts/test-nonmenu-template-keyboard.mjs'
       - 'components/scripts/test-app-launch-nav.mjs'
       - 'components/scripts/test-overlay-menu-keyboard.mjs'
@@ -52,7 +31,7 @@ jobs:
   keyboard:
     name: Native keyboard and responsive focus regression
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -64,6 +43,9 @@ jobs:
       - name: Build full template routes
         working-directory: components
         run: npm run build
+      - name: Run automatically discovered complete-site keyboard baseline
+        working-directory: components
+        run: npm run check:template-baseline
       - name: Run keyboard and focus navigation check without remote media
         working-directory: components
         run: node scripts/test-template-keyboard.mjs
@@ -94,6 +76,7 @@ jobs:
         with:
           name: full-template-keyboard-evidence
           path: |
+            components/all-template-baseline-evidence/
             components/template-keyboard-evidence/
             components/law-firm-keyboard-evidence/
             components/storefront-cart-keyboard-evidence/

@@ -2,9 +2,9 @@ name: Immersive website template QA
 on:
   push:
     branches: [feature/component-showroom]
-    paths: ['templates/fulcrum-light/**','components/scripts/test-immersive-template.mjs','.github/workflows/immersive-template-qa.yml']
+    paths: ['templates/**','components/data/immersive-tests.json','components/scripts/test-immersive-template.mjs','components/scripts/check-immersive-contract.mjs','components/scripts/template-catalogue.mjs','.github/workflows/immersive-template-qa.yml']
   pull_request:
-    paths: ['templates/fulcrum-light/**','components/scripts/test-immersive-template.mjs','.github/workflows/immersive-template-qa.yml']
+    paths: ['templates/**','components/data/immersive-tests.json','components/scripts/test-immersive-template.mjs','components/scripts/check-immersive-contract.mjs','components/scripts/template-catalogue.mjs','.github/workflows/immersive-template-qa.yml']
 permissions:
   contents: read
 concurrency:
@@ -13,7 +13,7 @@ concurrency:
 jobs:
   browser:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: components
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --no-audit --no-fund
-      - run: node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/check-gallery-integrity.mjs
+      - run: node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/check-gallery-integrity.mjs && node scripts/check-immersive-contract.mjs
       - run: node scripts/test-immersive-template.mjs
       - uses: actions/upload-artifact@v4
         if: always()

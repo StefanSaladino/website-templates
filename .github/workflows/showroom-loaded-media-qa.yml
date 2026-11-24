@@ -13,8 +13,8 @@ on:
       - 'custom-bakes-gallery.css'
       - 'components/data/template-media-inventory.json'
       # Photo-source, responsive crop or layout changes must trigger real image QA.
-      - 'templates/**/index.html'
-      - 'templates/**/styles.css'
+      - 'templates/**'
+      - 'components/scripts/template-catalogue.mjs'
       - '.github/workflows/showroom-loaded-media-qa.yml'
   workflow_dispatch:
 
@@ -26,14 +26,24 @@ permissions:
   contents: read
 
 jobs:
+  configure:
+    runs-on: ubuntu-24.04
+    outputs:
+      batches: ${{ steps.batches.outputs.names }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: batches
+        run: |
+          echo "names=$(node -p 'JSON.stringify(Object.keys(require("./components/data/loaded-media-review-batches.json")))')" >> "$GITHUB_OUTPUT"
   still-media-browser:
+    needs: configure
     name: Real still-image crop evidence (${{ matrix.batch }})
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        batch: [baseline, portfolio, services, professional, campaign, portfolio-extended, retail]
+        batch: ${{ fromJSON(needs.configure.outputs.batches) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -1,4 +1,4 @@
-/* Full-template reduced-motion audit for all twenty installed ANIM patterns.
+/* Full-template reduced-motion audit for all in-review ANIM patterns.
  * This is a controlled Chromium preference-and-render check only: not a physical
  * device or screen-reader audit, nor a legal/production approval.
  */
@@ -21,8 +21,8 @@ const results={checkedAt:new Date().toISOString(),branch:'feature/component-show
 const server=spawn('python3',['-m','http.server','4241','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 let browser;
 try{
- if(records.length!==20||new Set(records.map(x=>x.id)).size!==20)
-  throw Error('Expected 20 unique in-review ANIM entries, found '+records.length);
+ if(!records.length||new Set(records.map(x=>x.id)).size!==records.length)
+  throw Error('Expected unique nonempty in-review ANIM entries, found '+records.length);
  let ready=false;
  for(let i=0;i<60;i++){try{if((await fetch(base+'quiet-saas/index.html')).ok){ready=true;break}}catch{}await sleep(200)}
  if(!ready)throw Error('Source-template HTTP server unavailable');

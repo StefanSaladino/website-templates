@@ -1,4 +1,4 @@
-/* Isolated 44-alternative phone-layout audit.
+/* Isolated phone-layout alternative audit.
  * CSS/DOM and screenshot QA only; stock media is blocked and human/native
  * device visual or accessibility acceptance cannot be inferred from passing.
  */
@@ -13,15 +13,15 @@ mkdirSync(out,{recursive:true});
 const alternatives=JSON.parse(readFileSync(path.join(root,'components/data/mobile-treatments.json'),'utf8'))
  .filter(x=>x.status==='in-review');
 const widths=[320,390],base='http://127.0.0.1:4250/components/';
-const result={date:new Date().toISOString(),scope:'44 independent in-review phone alternatives',
+const result={date:new Date().toISOString(),scope:alternatives.length+' independent in-review phone alternatives',
  widths,stockMediaLoaded:false,realDeviceTest:false,screenReaderApproved:false,
  stakeholderApproved:false,rightsApproved:false,cases:[],screenshots:[],warnings:[],errors:[]};
 const server=spawn('python3',['-m','http.server','4250','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 let browser;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 try{
- if(alternatives.length!==44||new Set(alternatives.map(x=>x.id)).size!==44)
-  throw Error('Expected 44 unique in-review alternatives, found '+alternatives.length);
+ if(new Set(alternatives.map(x=>x.id)).size!==alternatives.length)
+  throw Error('Duplicate in-review alternatives');
  let ready=false;
  for(let i=0;i<60;i++){try{if((await fetch(base+'index.html')).ok){ready=true;break}}catch{}await sleep(200)}
  if(!ready)throw Error('Mobile alternative preview server did not start');
@@ -29,7 +29,7 @@ try{
  if(!executablePath)throw Error('System Chromium required');
  browser=await chromium.launch({headless:true,executablePath,args:['--no-sandbox']});
  for(const alt of alternatives){
-  const parts=/^\.\/previews\/([A-Z]+-\d+)\/\?mobile=(M-[A-Z]+-\d+)$/.exec(alt.previewRoute||'');
+  const parts=/^\.\/previews\/([A-Z0-9]+-\d+)\/\?mobile=(M-[A-Z0-9]+-\d+)$/.exec(alt.previewRoute||'');
   if(!parts){result.errors.push(alt.id+' malformed previewRoute '+alt.previewRoute);continue}
   const [,componentId,mobileId]=parts;
   if(mobileId!==alt.id||!alt.compatibleComponentIds?.includes(componentId))

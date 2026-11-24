@@ -4,6 +4,8 @@ on:
     branches:
       - feature/component-showroom
     paths:
+      - 'templates/**'
+      - 'components/scripts/template-catalogue.mjs'
       - 'index.html'
       - 'script.js'
       - 'styles.css'
@@ -33,7 +35,7 @@ jobs:
       - name: Install isolated browser dependencies
         working-directory: components
         run: npm install --no-audit --no-fund
-      - name: Preflight 24 gallery routes, badge states, and source identities
+      - name: Preflight all gallery routes, badge states, and source identities
         working-directory: components
         run: npm run check:gallery
       - name: Confirm system Chrome and Python

@@ -15,7 +15,7 @@ for(const cat of categories){
 for(const item of components){
   if(componentIds.has(item.id))fail('Duplicate component ID '+item.id);
   componentIds.add(item.id);
-  if(!/^[A-Z]+-\d{2}$/.test(item.id))fail('Bad component ID '+item.id);
+  if(!/^[A-Z0-9]+-\d{2,}$/.test(item.id))fail('Bad component ID '+item.id);
   if(!categoryIds.has(item.category))fail('Unknown category for '+item.id);
   if(!item.title||!item.exampleContext)fail('Missing example details '+item.id);
   if(!['draft','in-review','approved','live'].includes(item.status))fail('Bad status '+item.id);
@@ -37,10 +37,10 @@ for(const cat of categories){
   const count=components.filter(x=>x.category===cat.id).length;
   if(count!==cat.plannedCount)fail('Category count '+cat.id+' expected '+cat.plannedCount+' got '+count);
 }
-if(categories.length!==30||components.length!==157)fail('Catalogue must contain 30 families and 157 options including 20 planned animation patterns');
+if(!categories.length||!components.length)fail('Catalogue must contain categories and component records');
 if(!Array.isArray(stock.assets))fail('Stock manifest must contain assets[]');
-if(mobile.length!==44)fail('Mobile treatment baseline must include 44 options');
-const mobileIds=new Set();for(const m of mobile){if(mobileIds.has(m.id))fail('Duplicate mobile treatment '+m.id);mobileIds.add(m.id);if(!/^M-[A-Z]+-\d{2}$/.test(m.id))fail('Bad mobile ID '+m.id);for(const parent of m.compatibleComponentIds||[])if(!componentIds.has(parent))fail('Invalid parent '+parent+' for '+m.id);if(m.status==='in-review'&&(!m.previewRoute||!m.compatibleComponentIds.length))fail('Incomplete mobile preview '+m.id)}
+if(!Array.isArray(mobile))fail('Mobile treatment catalogue must be an array');
+const mobileIds=new Set();for(const m of mobile){if(mobileIds.has(m.id))fail('Duplicate mobile treatment '+m.id);mobileIds.add(m.id);if(!/^M-[A-Z0-9]+-\d{2,}$/.test(m.id))fail('Bad mobile ID '+m.id);for(const parent of m.compatibleComponentIds||[])if(!componentIds.has(parent))fail('Invalid parent '+parent+' for '+m.id);if(m.status==='in-review'&&(!m.previewRoute||!m.compatibleComponentIds.length))fail('Incomplete mobile preview '+m.id)}
 
 // Multiple phone variations may share a parent, but every active variation must be linked exactly once.
 for(const item of components.filter(x=>x.status!=='draft')){

@@ -5,6 +5,7 @@ on:
       - feature/component-showroom
     paths:
       - 'templates/**'
+      - 'components/scripts/template-catalogue.mjs'
       - 'components/scripts/audit-text-spacing-reflow.mjs'
       - '.github/workflows/original-template-reflow-qa.yml'
   workflow_dispatch:
@@ -18,7 +19,7 @@ permissions:
 
 jobs:
   reflow:
-    name: Review 24 original templates at effective 200-400 percent reflow widths
+    name: Review all complete templates at effective 200-400 percent reflow widths
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:

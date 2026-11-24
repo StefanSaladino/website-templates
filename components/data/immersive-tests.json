@@ -1,0 +1,67 @@
+{
+  "fulcrum-light": {
+    "stage": ".stage",
+    "canvas": "#lamp-canvas",
+    "fallback": ".fallback",
+    "initial": {
+      "data-rendered-finish": "ochre",
+      "data-rendered-assembly": "0"
+    },
+    "steps": [
+      {
+        "selector": "[data-finish=chalk]",
+        "action": "click",
+        "state": {
+          "data-rendered-finish": "chalk"
+        }
+      },
+      {
+        "selector": "#rotation",
+        "action": "fill",
+        "value": "80",
+        "state": {
+          "data-rendered-angle": "80"
+        }
+      },
+      {
+        "selector": "#assembly",
+        "action": "fill",
+        "value": "100",
+        "state": {
+          "data-rendered-assembly": "100"
+        },
+        "controlState": {
+          "aria-valuetext": "Fully separated"
+        }
+      }
+    ],
+    "reset": {
+      "selector": "#reset",
+      "state": {
+        "data-rendered-finish": "ochre",
+        "data-rendered-assembly": "0",
+        "data-rendered-angle": "-25"
+      }
+    },
+    "fallbackDisabled": [
+      "#rotation"
+    ],
+    "fallbackSteps": [
+      {
+        "selector": "[data-finish=graphite]",
+        "action": "click",
+        "state": {
+          "data-finish": "graphite"
+        }
+      },
+      {
+        "selector": "#assembly",
+        "action": "fill",
+        "value": "100",
+        "state": {
+          "data-assembly": "100"
+        }
+      }
+    ]
+  }
+}

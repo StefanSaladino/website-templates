@@ -23,3 +23,6 @@ Native WebGL first where simple procedural meshes suffice; evaluate a pinned loc
 
 ## Paused checkpoint
 Original 24-template media remediation paused after FRAME commit 7e32171: 74/74 external source identities attributed, 9 high-priority risks remain; next RANGE/FOUND TM-103 and TM-105. No rights approval, no Step 18/19 final acceptance, no main merge. The new procedural template brings the gallery to 25; existing component inventory remains 157 core / 44 mobile alternatives / 20 integrated animations. No clearance claim for newly authored assets.
+
+## Future-template test contract
+Do not change overall template totals. Add a complete source folder and one unique Preview gallery route; all-site tests discover it automatically. For every immersive site use `data-immersive-template` on the root HTML element and register its controls, rendered states, reset and fallback in `components/data/immersive-tests.json`. This is a hard coverage contract. External images require attributable inventory records and a loaded-media batch entry. New components must follow category planned counts and all existing specialist contracts; aggregate totals are not constraints. Run current-SHA CI and review actual screenshots/native performance separately.

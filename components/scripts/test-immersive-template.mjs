@@ -1,54 +1,79 @@
 import {chromium} from 'playwright';
 import {spawn} from 'node:child_process';
-import {existsSync,mkdirSync,writeFileSync} from 'node:fs';
+import {existsSync,mkdirSync,writeFileSync,readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import {createHash} from 'node:crypto';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+const specs=JSON.parse(readFileSync(path.join(root,'components/data/immersive-tests.json'),'utf8'));
+const ids=Object.keys(specs),widths=[320,390,768,1440];
 const dir=path.join(root,'components/immersive-evidence');mkdirSync(dir,{recursive:true});
-const port=4283,base='http://127.0.0.1:'+port+'/templates/fulcrum-light/';
+const port=4283,origin='http://127.0.0.1:'+port,base=origin+'/templates/';
 const server=spawn('python3',['-m','http.server',String(port),'--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
-const report={cases:[],errors:[],physicalDeviceAcceptance:false};let browser;
+const report={templates:ids,widths,cases:[],errors:[],physicalDeviceAcceptance:false};let browser;
+const checkState=async(page,s,state)=>{
+ const stage=page.locator(s.stage);
+ await stage.scrollIntoViewIfNeeded();
+ await page.waitForFunction(({sel,state})=>{const el=document.querySelector(sel);return el&&Object.entries(state).every(([k,v])=>el.getAttribute(k)===v)},{sel:s.stage,state});
+};
+const act=async(page,s,step)=>{
+ const control=page.locator(step.selector);
+ if(step.action==='fill')await control.fill(step.value);else await control.click();
+ await checkState(page,s,step.state);
+ for(const [key,value] of Object.entries(step.controlState||{}))assert.equal(await control.getAttribute(key),value);
+};
+const pixels=async(canvas)=>canvas.evaluate(async el=>{
+ const gl=el.getContext('webgl')||el.getContext('webgl2');
+ if(!gl)throw Error('No actual WebGL context');
+ const raw=new Uint8Array(gl.drawingBufferWidth*gl.drawingBufferHeight*4);
+ gl.readPixels(0,0,gl.drawingBufferWidth,gl.drawingBufferHeight,gl.RGBA,gl.UNSIGNED_BYTE,raw);
+ let opaque=0;for(let i=3;i<raw.length;i+=4)if(raw[i]>0)opaque++;
+ const digest=await crypto.subtle.digest('SHA-256',raw);
+ return {opaque,hash:[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')};
+});
 try{
- for(let i=0;i<50;i++){try{if((await fetch(base)).ok)break}catch{}await new Promise(r=>setTimeout(r,200))}
+ let ready=false;for(let i=0;i<50;i++){try{if((await fetch(base+ids[0]+'/')).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,200))}
+ if(!ready)throw Error('Immersive HTTP server unavailable');
  const chrome=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(existsSync);
  browser=await chromium.launch({headless:true,executablePath:chrome||undefined,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
- for(const width of [320,390,768,1440]){
+ for(const [id,s] of Object.entries(specs)){
+  const url=base+id+'/';
+  for(const width of widths){
    const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce',deviceScaleFactor:1});
-   const errors=[],remote=[];page.on('pageerror',e=>errors.push(String(e)));page.on('request',r=>{if(!r.url().startsWith('http://127.0.0.1:'))remote.push(r.url())});
+   const errors=[],remote=[];page.on('pageerror',e=>errors.push(String(e)));page.on('request',r=>{if(!r.url().startsWith(origin+'/'))remote.push(r.url())});
+   // Keep the test drawing buffer readable; production remains demand-rendered.
+   await page.addInitScript(()=>{const get=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,opts,...rest){return get.call(this,type,/^webgl2?$/.test(type)?{...opts,preserveDrawingBuffer:true}:opts,...rest)}});
    try{
-    await page.goto(base,{waitUntil:'domcontentloaded'});
-    const stage=page.locator('.stage');await stage.scrollIntoViewIfNeeded();
-    await page.waitForFunction(()=>document.querySelector('.stage')?.dataset.renderedFinish==='ochre');
-    assert.equal(await stage.getAttribute('data-renderer'),'webgl');
-    const canvas=page.locator('#lamp-canvas'), hash=async()=>createHash('sha256').update(await canvas.screenshot()).digest('hex');
-    const initial=await hash();await page.locator('[data-finish=chalk]').click();
-    await page.waitForFunction(()=>document.querySelector('.stage')?.dataset.renderedFinish==='chalk');
-    assert.notEqual(await hash(),initial,'Material selection changes rendered pixels');
-    await page.locator('#rotation').fill('80');await page.waitForFunction(()=>document.querySelector('.stage')?.dataset.renderedAngle==='80');
-    const rotated=await hash();
-    await page.locator('#assembly').fill('100');await page.waitForFunction(()=>document.querySelector('.stage')?.dataset.renderedAssembly==='100');
-    assert.notEqual(await hash(),rotated,'Exploded assembly changes rendered pixels');
-    assert.equal(await page.locator('#assembly').getAttribute('aria-valuetext'),'Fully separated');
-    await stage.screenshot({path:path.join(dir,'fulcrum-'+width+'-assembly.png')});
-    await page.locator('#reset').click();await page.waitForFunction(()=>document.querySelector('.stage')?.dataset.renderedFinish==='ochre'&&document.querySelector('.stage')?.dataset.renderedAssembly==='0');
+    await page.goto(url,{waitUntil:'domcontentloaded'});
+    const stage=page.locator(s.stage),canvas=page.locator(s.canvas);
+    await checkState(page,s,s.initial);assert.equal(await stage.getAttribute('data-renderer'),'webgl');
+    let prior=await pixels(canvas);assert(prior.opaque>100,'Model must render actual visible pixels');
+    for(const step of s.steps){
+     await act(page,s,step);
+     const current=await pixels(canvas);assert(current.opaque>100&&current.hash!==prior.hash,'Rendered pixels must change: '+step.selector);prior=current;
+    }
+    await stage.screenshot({path:path.join(dir,id+'-'+width+'-interaction.png')});
+    await page.locator(s.reset.selector).click();await checkState(page,s,s.reset.state);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
     assert.deepEqual(errors,[]);assert.deepEqual(remote,[]);
-    await page.screenshot({path:path.join(dir,'fulcrum-'+width+'.png'),fullPage:true});
-    report.cases.push({width,webgl:true,materialPixels:true,assemblyPixels:true,noRemoteRequests:true});
-   }catch(e){report.errors.push(width+': '+String(e));}finally{await page.close()}
+    await page.screenshot({path:path.join(dir,id+'-'+width+'.png'),fullPage:true});
+    report.cases.push({id,width,webgl:true,pixelChanges:s.steps.length,noRemoteRequests:true});
+   }catch(e){report.errors.push(id+' '+width+': '+String(e));}finally{await page.close()}
+  }
+  const page=await browser.newPage({viewport:{width:390,height:900},reducedMotion:'reduce'});
+  try{
+   await page.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return /^webgl2?$/.test(type)?null:original.call(this,type,...args)}});
+   await page.goto(url,{waitUntil:'domcontentloaded'});
+   assert.equal(await page.locator(s.stage).getAttribute('data-renderer'),'static');assert(await page.locator(s.fallback).isVisible());
+   for(const selector of s.fallbackDisabled||[])assert(await page.locator(selector).isDisabled());
+   for(const step of s.fallbackSteps)await act(page,s,step);
+   await page.screenshot({path:path.join(dir,id+'-static-fallback.png'),fullPage:true});
+   report.cases.push({id,fallback:true,controls:true});
+  }catch(e){report.errors.push(id+' fallback: '+String(e))}finally{await page.close()}
+  const noJS=await browser.newContext({viewport:{width:390,height:900},javaScriptEnabled:false});
+  try{const page=await noJS.newPage();await page.goto(url);assert(await page.locator(s.fallback).isVisible());assert(await page.locator('main').isVisible());report.cases.push({id,noJavaScript:true})}
+  catch(e){report.errors.push(id+' no JS: '+String(e))}finally{await noJS.close()}
  }
- const page=await browser.newPage({viewport:{width:390,height:900},reducedMotion:'reduce'});
- await page.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl'?null:original.call(this,type,...args)}});
- await page.goto(base,{waitUntil:'domcontentloaded'});
- assert.equal(await page.locator('.stage').getAttribute('data-renderer'),'static');
- assert(await page.locator('.fallback').isVisible());assert(await page.locator('#rotation').isDisabled());
- await page.locator('[data-finish=graphite]').click();await page.locator('#assembly').fill('100');
- assert.equal(await page.locator('.stage').getAttribute('data-finish'),'graphite');
- assert.equal(await page.locator('.stage').getAttribute('data-assembly'),'100');
- await page.screenshot({path:path.join(dir,'fulcrum-static-fallback.png'),fullPage:true});
- report.cases.push({fallback:true,finish:true,assembly:true});
- await page.close();
+ if(report.cases.length!==ids.length*(widths.length+2))report.errors.push('Incomplete immersive case coverage');
 }catch(e){report.errors.push(String(e?.stack||e))}
 finally{await browser?.close();server.kill('SIGTERM');writeFileSync(path.join(dir,'results.json'),JSON.stringify(report,null,2));for(const e of report.errors)console.error('IMMERSIVE-FAIL',e);console.log('Immersive template QA:',report.cases.length,'passed,',report.errors.length,'failed');if(report.errors.length)process.exitCode=1}
