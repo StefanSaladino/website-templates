@@ -1,0 +1,183 @@
+{
+  "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "output": {
+    "width": 960,
+    "height": 600,
+    "format": "webp"
+  },
+  "reviewOnly": true,
+  "captures": [
+    {
+      "id": "apex-automotive",
+      "opening": {
+        "title": "FORM FOLLOWSMOTION.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 0
+      },
+      "bytes": 35036,
+      "sha256": "2625080ce2e04bbbda458603d711dd88710f9c530dc4194c4f47928add8ee2cf",
+      "sourceAssetIds": [
+        "TM-155"
+      ],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "resonance-sound",
+      "opening": {
+        "title": "Soundtakes shape.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 1
+      },
+      "bytes": 43716,
+      "sha256": "b5056b4cde5a067b2b462566fedb0dfdb7e75ca31328c1cec1b4dede8dad6956",
+      "sourceAssetIds": [],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "event-horizon",
+      "opening": {
+        "title": "Beyondthe last light.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 1
+      },
+      "bytes": 35122,
+      "sha256": "0d0ce9fb1ef89f47b1528004bbcfcfc701e966d2671e893a247a025e7bf97c09",
+      "sourceAssetIds": [],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "essence-fragrance",
+      "opening": {
+        "title": "The shapeof scent.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 0
+      },
+      "bytes": 29826,
+      "sha256": "4c39e8939a9d9b7142d9fedcd8bd0d2c82e7311074d19c6d22745fde76c2800c",
+      "sourceAssetIds": [
+        "TM-153"
+      ],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "calibre-watch",
+      "opening": {
+        "title": "Time,made visible.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 0
+      },
+      "bytes": 47404,
+      "sha256": "8da29067fcbdacf9a7d758be19252a52996684d3819e5b2616b5b8f811201b6a",
+      "sourceAssetIds": [
+        "TM-151",
+        "TM-152"
+      ],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "shift-card",
+      "opening": {
+        "title": "Move on your terms.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 1
+      },
+      "bytes": 24022,
+      "sha256": "2ca033b6758300bcb8e60b694f5ab900c043515b316f012d71247c2bfccacdb5",
+      "sourceAssetIds": [],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "prism-optics",
+      "opening": {
+        "title": "Seedifferent.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 1
+      },
+      "bytes": 27136,
+      "sha256": "a833a3a55cbc039425b2cdfa84ebbb17729ece9f534998f46e1ea156fbd029e9",
+      "sourceAssetIds": [],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "orbit-cinema",
+      "opening": {
+        "title": "Beyond thehorizon.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 0
+      },
+      "bytes": 107034,
+      "sha256": "f4a76257d7e2fe9f52860b567ecd495644d32200176507be5c1279bae04b982f",
+      "sourceAssetIds": [
+        "TM-147",
+        "TM-148",
+        "TM-149",
+        "TM-150"
+      ],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "abyss-ocean",
+      "opening": {
+        "title": "Intothe dark.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 1
+      },
+      "bytes": 33902,
+      "sha256": "3eea244fe0e0288e2006b4c9ab4b6377d6401a686e7482e13f4849cb9629346c",
+      "sourceAssetIds": [],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "strata-architecture",
+      "opening": {
+        "title": "The shapeof absence.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 0
+      },
+      "bytes": 70434,
+      "sha256": "09af3f6dcc3f27a6c6e698a410975e7ad203a9d91433ec80184d5ffac9c204a3",
+      "sourceAssetIds": [
+        "TM-145"
+      ],
+      "reviewStatus": "needs-review"
+    },
+    {
+      "id": "fulcrum-light",
+      "opening": {
+        "title": "Light in balance.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 1
+      },
+      "bytes": 19930,
+      "sha256": "f747ea01673ee8ba73e8cd9a177ec44df363b8651602371002849dd1aea9e0aa",
+      "sourceAssetIds": [],
+      "reviewStatus": "needs-review"
+    }
+  ]
+}
