@@ -6,3 +6,6 @@ for(const [w,h,area] of cases){const xs=[],ys=[];let last=null;for(let i=0;i<=10
 
 import {followProgress} from '../../templates/shift-card/motion-clock.js';
 for(const hz of [30,60,120])for(const compact of [false,true]){let p=0;const dt=1000/hz;for(let i=0;i<hz;i++){const next=followProgress(p,.8,dt,compact);assert(next>=p&&next<=.8);p=next}assert.equal(p,.8);for(let i=0;i<hz;i++){const next=followProgress(p,.1,dt,compact);assert(next<=p&&next>=.1);p=next}assert.equal(p,.1);assert.equal(followProgress(NaN,.65,dt,compact),.65)}console.log('PASS time-based scroll convergence, reversal and exact idle endpoints at 30/60/120Hz');
+
+import {bufferSize,MOTION_PIXEL_LIMIT} from '../../templates/shift-card/studio-scene.js';
+for(const [w,h] of [[330,495],[1268,400],[1700,546],[3840,1200]])for(const dpr of [1,2,3])for(const compact of [false,true]){const full=bufferSize(w,h,dpr,compact),limit=compact?MOTION_PIXEL_LIMIT.compact:MOTION_PIXEL_LIMIT.wide,motion=bufferSize(w,h,dpr,compact,limit);assert(motion.width*motion.height<=limit);assert(motion.width<=full.width&&motion.height<=full.height);assert(Math.abs(motion.width/motion.height-w/h)<=Math.max(1,motion.width/motion.height)/motion.height*2)}console.log('PASS motion pixel budgets and proportional drawing-buffer scaling');

@@ -14,9 +14,12 @@ const results=[],failures=[];
 let browser;
 const percentile=(values,p)=>{const sorted=[...values].sort((a,b)=>a-b);return sorted[Math.max(0,Math.ceil(sorted.length*p)-1)]??null};
 const summarize=frames=>{
- const intervals=frames.slice(1).map((f,i)=>f.time-frames[i].time);
+ // The final sharpness-only repaint follows an intentional quiet dwell,
+ // not a moving frame. Log its delay/cost separately from scroll cadence.
+ const active=frames.filter(f=>!f.restoring),restoration=frames.find(f=>f.restoring);
+ const intervals=active.slice(1).map((f,i)=>f.time-active[i].time);
  const lag=frames.map(f=>Math.abs(f.target-f.progress));
- return {samples:frames.length,intervalP50:percentile(intervals,.5),intervalP95:percentile(intervals,.95),over33ms:intervals.filter(v=>v>34).length,over50ms:intervals.filter(v=>v>51).length,over33Fraction:intervals.filter(v=>v>34).length/Math.max(1,intervals.length),submitP95:percentile(frames.map(f=>f.submitMs),.95),maxLag:Math.max(0,...lag),pixels:Math.max(0,...frames.map(f=>f.pixels))};
+ return {samples:active.length,restoration:restoration?{delay:restoration.time-active.at(-1).time,submitMs:restoration.submitMs,pixels:restoration.pixels}:null,motionPixels:Math.max(0,...active.map(f=>f.pixels)),intervalP50:percentile(intervals,.5),intervalP95:percentile(intervals,.95),over33ms:intervals.filter(v=>v>34).length,over50ms:intervals.filter(v=>v>51).length,over33Fraction:intervals.filter(v=>v>34).length/Math.max(1,intervals.length),submitP95:percentile(frames.map(f=>f.submitMs),.95),maxLag:Math.max(0,...lag),pixels:Math.max(0,...frames.map(f=>f.pixels))};
 };
 try{
  let ready=false;for(let i=0;i<50;i++){try{if((await fetch(url)).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,200))}
@@ -44,11 +47,13 @@ try{
     const inputs=await p.evaluate(({travel,from,to,duration})=>new Promise(resolve=>{const start=performance.now();let count=0;function tick(){const q=Math.min(1,(performance.now()-start)/duration);scrollTo(0,Math.round(travel*(from+(to-from)*q)));count++;if(q<1)setTimeout(tick,34);else resolve(count)}tick()}),{travel,from,to,duration});
     const target=Math.round(travel*to)/travel;
     await p.waitForFunction(target=>{const s=document.querySelector('#composition');return s.dataset.motionSettled==='true'&&Math.abs(+s.dataset.progress-target)<.000002},target);
-    const measured=await p.evaluate(()=>{const s=document.querySelector('#composition');return {frames:window.__shiftMotionTrace.frames.slice(),layouts:+s.dataset.layoutCount,draws:+s.dataset.draws,progress:+s.dataset.progress}});
+    const measured=await p.evaluate(()=>{const s=document.querySelector('#composition');return {frames:window.__shiftMotionTrace.frames.slice(),layouts:+s.dataset.layoutCount,draws:+s.dataset.draws,progress:+s.dataset.progress,quality:s.dataset.bufferQuality,pixels:+s.dataset.bufferPixels}});
     const summary=summarize(measured.frames);
     const entry={name,from,to,duration,inputs,baseline,...summary,layouts:measured.layouts,frames:measured.frames};result.phases.push(entry);
     console.log('SHIFT isolated cadence '+JSON.stringify({width,height,name,inputs,...summary}));
     assert(summary.samples>=10,'Too few rendered samples');
+    assert.equal(measured.quality,'full','Stopped card must restore full quality');assert.equal(measured.pixels,baseline.canvasPixels,'Stopped buffer must recover its initial size');
+    if(baseline.canvasPixels>(width===390?200000:130000)){assert(summary.motionPixels<=(width===390?200000:130000),'Motion buffer exceeded pixel budget');assert(summary.restoration,'Missing final sharpness restore');assert(summary.restoration.delay<=350,'Sharpness restore took too long');assert.equal(measured.frames.filter(f=>f.restoring).length,1,'One restoration expected per continuous sequence');}
     assert.equal(measured.layouts,baseline.layouts,'Scroll caused layout reinitialization');
     const sign=Math.sign(to-from);
     for(let i=1;i<measured.frames.length;i++){const a=measured.frames[i-1],b=measured.frames[i];assert(sign*(b.progress-a.progress)>=-1e-6&&sign*(b.target-b.progress)>=-1e-6,'Non-monotonic motion or overshoot: '+name)}
