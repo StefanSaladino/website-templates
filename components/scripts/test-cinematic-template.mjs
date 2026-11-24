@@ -24,6 +24,7 @@ try{
    try{
     await page.goto(origin+'/templates/'+id+'/',{waitUntil:'domcontentloaded'});
     const film=page.locator(s.film);
+    if(s.photographyOnly){assert.equal(await page.locator('canvas,svg,object,embed').count(),0,'Synthetic product renderer must not return');assert.equal(await film.locator('.shot img').count(),s.chapters.length);for(const img of await film.locator('.shot img').all()){const url=await img.getAttribute('src');assert(s.imageIdentities.includes(url.split('?')[0]),'Only recorded genuine photographs are allowed');}}
     assert.equal(await film.getAttribute('data-cinematic'),mode==='motion'?'motion':mode==='reduce'?'still':'static');
     const go=async(chapter)=>{await page.locator('#'+chapter).evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));if(mode!=='nojs')await page.waitForFunction(({sel,chapter})=>document.querySelector(sel).dataset.chapter===chapter,{sel:s.film,chapter});};
     for(const chapter of s.chapters){await go(chapter);assert(await page.locator('#'+chapter+' h1, #'+chapter+' h2').isVisible());if(mode!=='nojs')assert.equal(await page.locator('[data-jump="'+chapter+'"]').getAttribute('aria-current'),'location');}

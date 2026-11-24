@@ -14,5 +14,19 @@
       "https://images.unsplash.com/photo-1777033356671-59469ab29684"
     ],
     "mode": "#motion"
+  },
+  "calibre-watch": {
+    "film": "#film",
+    "chapters": [
+      "reveal",
+      "movement",
+      "inspect"
+    ],
+    "imageIdentities": [
+      "https://images.pexels.com/photos/12915491/pexels-photo-12915491.jpeg",
+      "https://images.pexels.com/photos/34149486/pexels-photo-34149486.jpeg"
+    ],
+    "mode": "#motion",
+    "photographyOnly": true
   }
 }

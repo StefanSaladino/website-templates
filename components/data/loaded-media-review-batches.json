@@ -216,16 +216,6 @@
       ],
       "required": 2,
       "poster": false
-    },
-    {
-      "name": "calibre-watch",
-      "sections": [
-        ".opening",
-        ".macro",
-        ".inspect"
-      ],
-      "required": 2,
-      "poster": false
     }
   ],
   "cinematic": [
@@ -238,6 +228,16 @@
         ".chapter-beyond"
       ],
       "required": 4,
+      "poster": false
+    },
+    {
+      "name": "calibre-watch",
+      "sections": [
+        ".opening",
+        ".macro",
+        ".inspect"
+      ],
+      "required": 3,
       "poster": false
     }
   ]

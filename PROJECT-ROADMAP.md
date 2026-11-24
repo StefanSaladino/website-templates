@@ -579,3 +579,6 @@ First of five approved flagships implemented: full-screen skeleton watch with sy
 
 ### CALIBRE photo-led correction
 User rejected generated watch visual. Real brushed-steel skeleton watch and separate macro photo integrated with cinematic scroll treatment, independent 3D mechanical study retained later. TM-151/152 publisher-verified, 82 active identities, 0 rights approved. Existing mechanical tests retained; current QA pending. No new site or main merge.
+
+### CALIBRE — remove generated watch completely
+User rejected revision 2 because synthetic watch remained. Revision 3 removes all model code, simulation controls, SVG fallback and generated thumbnail; exclusively real photography, with scroll-directed film effects. Cinematic and still-media QA replace the retired mechanical-specific test. 30 sites unchanged, ESSENCE remains next after review. No new asset identity; 82 remain in rights review.
