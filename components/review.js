@@ -44,6 +44,7 @@ if(fullTemplateLink && design.category==='animations' && /^\.\.\/templates\/[a-z
   fullTemplateLink.textContent='See '+design.id+' on '+(design.fullTemplateName||'a complete website template');
   fullTemplateLink.hidden=false;
 }
+const builderLink=document.querySelector('#review-add-builder');if(builderLink){if(design.category==='animations')builderLink.hidden=true;else builderLink.href='./builder.html?add='+encodeURIComponent(design.id)}
 title.textContent = focus.focus || design.title;
 document.title = (focus.focus || design.title) + ' — Explore design';
 document.querySelector('#review-id').textContent = 'Example '+design.id+' · Still in development';

@@ -11,7 +11,7 @@ const requireFile=(relative)=>{
  const full=path.resolve(output,relative);
  if(!full.startsWith(output+path.sep)||!existsSync(full))missing.push(relative);
 };
-for(const file of ['index.html','review.html','data/components.json','data/categories.json','data/mobile-treatments.json','data/stock-manifest.json'])requireFile(file);
+for(const file of ['index.html','review.html','builder.html','data/builder-templates.json','data/components.json','data/categories.json','data/mobile-treatments.json','data/stock-manifest.json'])requireFile(file);
 for(const component of components.filter(x=>x.status!=='draft')){
  for(const name of ['index.html','styles.css','script.js'])requireFile('previews/'+component.id+'/'+name);
 }

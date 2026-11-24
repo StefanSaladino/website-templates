@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "check": "node scripts/check-immersive-contract.mjs && node scripts/test-template-catalogue.mjs && node scripts/check-gallery-integrity.mjs && node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs && node scripts/check-template-media.mjs && node scripts/check-template-media-provenance.mjs && node scripts/check-loaded-media-batches.mjs && node scripts/test-template-media-review.mjs && npm run check:review",
+    "check": "node scripts/test-builder-model.mjs && node scripts/check-immersive-contract.mjs && node scripts/test-template-catalogue.mjs && node scripts/check-gallery-integrity.mjs && node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/validate.mjs && node scripts/check-previews.mjs && node scripts/check-media.mjs && node scripts/check-template-media.mjs && node scripts/check-template-media-provenance.mjs && node scripts/check-loaded-media-batches.mjs && node scripts/test-template-media-review.mjs && npm run check:review",
     "build": "npm run check && vite build && node scripts/postbuild.mjs && node scripts/check-dist.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "optimize:stock": "node scripts/optimize-stock.mjs",

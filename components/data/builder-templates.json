@@ -1,0 +1,172 @@
+[
+  {
+    "slug": "abyss-ocean",
+    "title": "Abyss Ocean",
+    "route": "../templates/abyss-ocean/"
+  },
+  {
+    "slug": "apex-automotive",
+    "title": "Apex Automotive",
+    "route": "../templates/apex-automotive/"
+  },
+  {
+    "slug": "app-launch",
+    "title": "App Launch",
+    "route": "../templates/app-launch/"
+  },
+  {
+    "slug": "architecture",
+    "title": "Architecture",
+    "route": "../templates/architecture/"
+  },
+  {
+    "slug": "calibre-watch",
+    "title": "Calibre Watch",
+    "route": "../templates/calibre-watch/"
+  },
+  {
+    "slug": "contractor",
+    "title": "Contractor",
+    "route": "../templates/contractor/"
+  },
+  {
+    "slug": "creative-agency",
+    "title": "Creative Agency",
+    "route": "../templates/creative-agency/"
+  },
+  {
+    "slug": "custom-bakes",
+    "title": "Custom Bakes",
+    "route": "../templates/custom-bakes/"
+  },
+  {
+    "slug": "dark-tech",
+    "title": "Dark Tech",
+    "route": "../templates/dark-tech/"
+  },
+  {
+    "slug": "editorial-commerce",
+    "title": "Editorial Commerce",
+    "route": "../templates/editorial-commerce/"
+  },
+  {
+    "slug": "essence-fragrance",
+    "title": "Essence Fragrance",
+    "route": "../templates/essence-fragrance/"
+  },
+  {
+    "slug": "event-horizon",
+    "title": "Event Horizon",
+    "route": "../templates/event-horizon/"
+  },
+  {
+    "slug": "event-launch",
+    "title": "Event Launch",
+    "route": "../templates/event-launch/"
+  },
+  {
+    "slug": "fitness-launch",
+    "title": "Fitness Launch",
+    "route": "../templates/fitness-launch/"
+  },
+  {
+    "slug": "frame-portfolio",
+    "title": "Frame Portfolio",
+    "route": "../templates/frame-portfolio/"
+  },
+  {
+    "slug": "fulcrum-light",
+    "title": "Fulcrum Light",
+    "route": "../templates/fulcrum-light/"
+  },
+  {
+    "slug": "garage-detailing",
+    "title": "Garage Detailing",
+    "route": "../templates/garage-detailing/"
+  },
+  {
+    "slug": "interactive-playground",
+    "title": "Interactive Playground",
+    "route": "../templates/interactive-playground/"
+  },
+  {
+    "slug": "landscaping",
+    "title": "Landscaping",
+    "route": "../templates/landscaping/"
+  },
+  {
+    "slug": "law-firm",
+    "title": "Law Firm",
+    "route": "../templates/law-firm/"
+  },
+  {
+    "slug": "monolith-architecture",
+    "title": "Monolith Architecture",
+    "route": "../templates/monolith-architecture/"
+  },
+  {
+    "slug": "muskoka-retreat",
+    "title": "Muskoka Retreat",
+    "route": "../templates/muskoka-retreat/"
+  },
+  {
+    "slug": "orbit-cinema",
+    "title": "Orbit Cinema",
+    "route": "../templates/orbit-cinema/"
+  },
+  {
+    "slug": "pools",
+    "title": "Pools",
+    "route": "../templates/pools/"
+  },
+  {
+    "slug": "prism-optics",
+    "title": "Prism Optics",
+    "route": "../templates/prism-optics/"
+  },
+  {
+    "slug": "quiet-saas",
+    "title": "Quiet Saas",
+    "route": "../templates/quiet-saas/"
+  },
+  {
+    "slug": "real-estate",
+    "title": "Real Estate",
+    "route": "../templates/real-estate/"
+  },
+  {
+    "slug": "resonance-sound",
+    "title": "Resonance Sound",
+    "route": "../templates/resonance-sound/"
+  },
+  {
+    "slug": "restaurant",
+    "title": "Restaurant",
+    "route": "../templates/restaurant/"
+  },
+  {
+    "slug": "storefront",
+    "title": "Storefront",
+    "route": "../templates/storefront/"
+  },
+  {
+    "slug": "strata-architecture",
+    "title": "Strata Architecture",
+    "route": "../templates/strata-architecture/"
+  },
+  {
+    "slug": "tattoo-studio",
+    "title": "Tattoo Studio",
+    "route": "../templates/tattoo-studio/"
+  },
+  {
+    "slug": "waitlist",
+    "title": "Waitlist",
+    "route": "../templates/waitlist/"
+  },
+  {
+    "slug": "woodworker",
+    "title": "Woodworker",
+    "route": "../templates/woodworker/"
+  }
+]

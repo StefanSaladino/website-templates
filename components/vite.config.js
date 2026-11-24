@@ -9,6 +9,6 @@ export default defineConfig({
     outDir:path.resolve(here,'../dist/components'),
     emptyOutDir:true,
     target:'es2022',
-    rollupOptions:{input:{catalogue:path.resolve(here,'index.html'),review:path.resolve(here,'review.html')}}
+    rollupOptions:{input:{catalogue:path.resolve(here,'index.html'),review:path.resolve(here,'review.html'),builder:path.resolve(here,'builder.html')}}
   }
 });

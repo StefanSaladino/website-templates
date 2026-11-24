@@ -606,3 +606,6 @@ Genuine automotive photography plus aligned, illustrative animated streamlines/w
 
 ### Priority shift — client website configurator
 User requested guided component/full-layout selection, responsive and alternate mobile review, primary/secondary/optional trim palette, rough composed website and confirmed ordered copyable ID brief. Added [Website configurator roadmap](docs/WEBSITE-CONFIGURATOR-ROADMAP.md) before resuming deferred QA. Plan only; no builder code yet. Preserve all current component IDs, status/rights gates, and main branch.
+
+### Configurator checkpoint 1
+Initial builder at components/builder.html: selection, responsive source preview, local draft, palette, ordered copy/text/JSON and seven explicit rough adapters. Remaining adapter coverage, comparison UX and browser QA. No main merge.
