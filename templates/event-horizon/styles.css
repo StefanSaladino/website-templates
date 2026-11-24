@@ -11,3 +11,7 @@
 @media(min-width:481px) and (max-width:900px){.opening-title h1{font-size:clamp(52px,10vw,78px)}.opening{padding-top:clamp(390px,58svh,570px)}}
 @media(max-width:480px){.opening-title h1{font-size:clamp(49px,12vw,66px)}.chapter-copy h2{font-size:clamp(48px,12vw,70px)}}
 @media(prefers-reduced-motion:no-preference){.opening-title,.chapter-copy,.opening .copy{transform:translateY(var(--text-drift,0px))}.chapter:focus-within .opening-title,.chapter:focus-within .chapter-copy,.chapter:focus-within .copy{transform:none}}
+
+/* Keep the ring luminous rather than dimming it with a full-width overlay. */
+@media(min-width:901px){.shade{background:linear-gradient(90deg,#080809bf 0%,#08080950 31%,transparent 57%),linear-gradient(0deg,#080809ab 0%,transparent 23%,transparent 90%,#0808097a 100%)}}
+@media(max-width:900px){.shade{background:linear-gradient(0deg,#080809e0 0%,#0808098c 24%,transparent 48%,transparent 84%,#08080933 100%)}}

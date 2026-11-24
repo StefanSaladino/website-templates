@@ -51,10 +51,10 @@ void main(){
  float boundary=smoothstep(.76,1.,uProgress);
  // A continuous camera arc: the distant subject sits clear of the title,
  // moves toward the observer, then drifts into the shadow.
- vec2 center=mix(vec2(aspect*mix(.19,.09,approach),mix(.035,.09,approach)),vec2(0.,mix(.09,.23,approach)),mobile);
+ vec2 center=mix(vec2(aspect*mix(.21,.14,approach),mix(.015,.09,approach)),vec2(0.,mix(.09,.20,approach)),mobile);
  center+=vec2(.015*sin(uProgress*PI),-.035*boundary);
  vec2 p=uv-center;
- float R=mix(.129,.282,approach)*sqrt(clamp(uMass,.5,1.5));
+ float R=mix(.166,.282,approach)*sqrt(clamp(uMass,.5,1.5));
  R*=mix(1.,min(1.,aspect/.94),mobile);
  R*=1.+boundary*1.6;
  vec2 q=p/max(R,.012);float r=length(q),phi=atan(q.y,q.x);
@@ -67,23 +67,24 @@ void main(){
  vec2 secondary=normalize(q+vec2(.0001,0.))*(.035+.09*abs(r-1.04))+vec2(.17,-.19);
  float secondaryMask=gauss(r-1.08,.075);
  float haze=fbm(sky*7.5)*fbm(sky*2.3+7.);
- vec3 col=vec3(.006,.007,.011)+haze*vec3(.020,.020,.030);
+ vec3 col=vec3(.003,.004,.007)+haze*vec3(.012,.013,.020);
  col+=stars(sky,115.,3.)+stars(sky,211.,13.)*.55;
  if(uQuality>0.5)col+=stars(sky,67.,29.)*.72;
  col+=stars(secondary,106.,13.)*secondaryMask*.60;
- float lensGlow=gauss(r-1.13,.16)*.055+gauss(r-1.06,.045)*.13;
+ float lensGlow=gauss(r-1.13,.12)*.045+gauss(r-1.06,.035)*.18;
  col+=vec3(.96,.30,.07)*lensGlow;
  // Lensed far side: narrow near-circular photon arc plus broad asymmetric
  // secondary image. This is an artistic analytic image, not a GR solution.
- float arcRadius=1.16+.10*pow(abs(sin(phi)),1.4);
- float arcWidth=.055+.075*abs(sin(phi));
+ float arcRadius=1.12+.13*pow(abs(sin(phi)),1.4);
+ float arcWidth=.045+.065*abs(sin(phi));
  float top=.35+.65*smoothstep(-.75,.15,q.y);
  float ringAngle=phi+uTime*.47/(.85+r*r);float tex=fbm(vec2(cos(ringAngle),sin(ringAngle))*9.+vec2(r*17.,r*3.));
  float arc=gauss(r-arcRadius,arcWidth)*(.35+.65*tex)*top;
  float outer=gauss(r-(1.34+.13*sin(phi)),.18)*(.20+.60*tex)*top;
- float thin=gauss(r-1.046,.018)*(.65+.35*cos(phi-.25));
- col+=vec3(1.0,.36,.085)*(arc*1.15+outer*.48);
- col+=vec3(1.,.83,.57)*thin*.85;
+ float pixelWidth=1./max(R*uResolution.y,1.);
+ float thin=gauss(r-1.035,max(.018,pixelWidth*.95))*(.76+.24*cos(phi-.25));
+ col+=vec3(1.0,.43,.12)*(arc*1.65+outer*.30);
+ col+=vec3(1.,.89,.68)*thin*1.50;
  // Projected disk with narrow vertical extent and radial filament structure.
  float tilt=mix(-.23,.14,smoothstep(.05,.72,uProgress))-.18*boundary;
  mat2 rot=mat2(cos(tilt),sin(tilt),-sin(tilt),cos(tilt));
@@ -95,13 +96,18 @@ void main(){
  float diskGlow=gauss(d.y,.14+.20*inclination)*smoothstep(.85,1.35,abs(d.x))*(1.-smoothstep(2.7,4.2,abs(d.x)));
  // Occlude the background and far half of the disk; foreground may pass
  // across the shadow at the bottom, as an inclined disk would.
- float shadow=smoothstep(.99,1.025,r);
+ float edgeAA=max(.007,pixelWidth);
+ float shadow=smoothstep(1.-edgeAA,1.+edgeAA,r);
  col*=shadow;
  float foreground=1.-smoothstep(-.035,.025,d.y);
- float visibleDisk=mix(shadow,1.,foreground);
- col+=(emission+vec3(.46,.095,.018)*diskGlow*.25)*visibleDisk;
+ // The foreground disk overlaps only the lower edge of the shadow,
+ // preserving a legible dark centre and the thin lensed rim.
+ float frontLip=foreground*smoothstep(.78,.99,r);
+ float visibleDisk=max(shadow,frontLip);
+ col+=(emission*1.24+vec3(.46,.095,.018)*diskGlow*.16)*visibleDisk;
+ col*=smoothstep(.76,.80,r);
  // Extended soft atmospheric light and nonuniform exposure.
- col+=vec3(.17,.035,.007)*gauss(r-1.6,.72)*.16*shadow;
+ col+=vec3(.17,.035,.007)*gauss(r-1.6,.48)*.095*shadow;
  // Fade the surrounding emission as the shadow envelops the frame.
  col*=1.-.985*smoothstep(.15,1.,boundary);
  col*=1.-.40*smoothstep(.25,1.1,length(uv*vec2(.72,1.)));

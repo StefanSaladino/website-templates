@@ -591,3 +591,6 @@ Original analytic lensing and accretion disk shader, continuous reversible appro
 
 ### EVENT HORIZON motion polish
 Actual revision 1 browser captures reviewed; refine shader flow, camera, lensing, frame pacing and type placement without replacing concept. Preserve controls and reversible scroll. Current-sha QA pending; 32 templates unchanged.
+
+### EVENT HORIZON shadow clarity
+Increase opening shadow size and inner-ring definition, preserve dark core, reduce haze/overlay and retain revision 2 cinematic motion. Revision 3 committed; QA pending.
