@@ -4,6 +4,7 @@ on:
     branches: [feature/component-showroom]
     paths:
       - 'templates/_drafts/index-designer/**'
+      - 'templates/index-designer/**'
       - 'components/scripts/test-index-designer.mjs'
       - '.github/workflows/index-designer-review.yml'
   workflow_dispatch:

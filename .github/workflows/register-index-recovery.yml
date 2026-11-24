@@ -31,6 +31,9 @@ jobs:
       - name: Prepare exact review source and verify captured thumbnail identity
         run: |
           node components/scripts/prepare-index-registration.mjs
+          # The connector has already installed the registered-route trigger. Keep
+          # workflow files out of the bot-authored registration candidate.
+          git restore --source=HEAD -- .github/workflows/index-designer-review.yml
           printf '%s  %s\n' 7c1b73c33d8a00bbae855468f314b89608b57f5988ef09c7884d2d66b846ff5b /tmp/index-registration-evidence/gallery-opening-evidence/index-designer.webp | sha256sum -c -
           cp /tmp/index-registration-evidence/gallery-opening-evidence/index-designer.webp templates/index-designer/gallery-opening.webp
           cp /tmp/index-registration-evidence/gallery-opening-evidence/report.json components/data/gallery-opening-captures.json
@@ -44,6 +47,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- templates index.html components/data components/scripts docs .github/workflows/index-designer-review.yml PROJECT-ROADMAP.md
+          git add -A -- templates index.html components/data components/scripts docs PROJECT-ROADMAP.md
           git commit -m "feat(gallery): register INDEX with verified browser thumbnail"
           git push origin HEAD:refs/heads/index-registration/${GITHUB_SHA}
