@@ -28,7 +28,7 @@ if(folderSection){
 // Touch navigation remains one tap. No pointer-following cursor or global loop.
 const grid=document.querySelector('.project-grid'),index=document.querySelector('#work-index-live');
 if(grid&&index){const cards=[...grid.querySelectorAll('.project-cover')];let intro;
- function clear(){delete grid.dataset.active;cards.forEach(c=>delete c.dataset.active);index.textContent='Six collections / 24 marks'}
+ function clear(){delete grid.dataset.active;cards.forEach(c=>delete c.dataset.active);index.textContent='06 collections / 24 marks'}
  function enter(card){delete grid.dataset.enter;clearTimeout(intro);grid.dataset.active='true';cards.forEach(c=>{if(c===card)c.dataset.active='true';else delete c.dataset.active});index.textContent=String(card.dataset.collectionIndex).padStart(2,'0')+' / '+card.getAttribute('aria-label').replace(/^Explore /,'')}
  cards.forEach(c=>{c.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')enter(c)});c.addEventListener('pointerleave',()=>{if(document.activeElement!==c)clear()});c.addEventListener('focus',()=>enter(c));c.addEventListener('blur',clear)});
  if(!motion.matches&&scrollY<100){grid.dataset.enter='true';intro=setTimeout(()=>delete grid.dataset.enter,1000)}

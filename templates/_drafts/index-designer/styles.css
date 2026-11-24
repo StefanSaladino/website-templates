@@ -211,3 +211,123 @@ body[data-page=case] .footer{padding-bottom:calc(22px + 68px)}
 @media(max-width:360px){.mast nav{gap:14px}.work-index{font-size:9px}.work-end>span{max-width:13ch}.work-end a{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.opening-stage{position:relative!important}.film-opening{min-height:100svh!important}.film-secondary{opacity:0!important}.project-cover img{transform:none!important}}
 @media(forced-colors:active){.opening-stage{background:Canvas}.opening-stage .film-copy,.opening-stage .film-credit{color:CanvasText}.index-dot{background:CanvasText}}
+
+/* P8 — NIGHT GALLERY. A different visual architecture, not a new coat of
+   paint on the equal-tile grid. Six image-only links become two composed
+   triptychs; on mobile, each grouping occupies its own editorial spread. */
+:root{--paper:#111210;--ink:#f2f0e9;--muted:#b7b8ae;--line:#ffffff29;--accent:#d3df9c;--pad:clamp(18px,3.5vw,64px)}
+html,body{background:var(--paper);color:var(--ink)}
+body[data-page=home] .mast{min-height:94px;padding-block:10px;border-bottom:0;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}
+.brand{font-size:clamp(44px,5.9vw,84px);line-height:.95;letter-spacing:-.105em}
+.brand span{color:var(--accent)}
+.mast-note{color:var(--muted);font-size:11px;line-height:1.45;letter-spacing:.05em}
+.mast nav a{font-size:14px}
+.work{padding:0;position:relative}
+.work-index,.work-end{margin:0 var(--pad);font-size:11px;letter-spacing:.09em;min-height:50px}
+.work-index{border-top:1px solid var(--line)}
+.work-index-live{color:var(--muted)}
+.index-dot{background:var(--accent)}
+.project-grid{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));height:clamp(450px,calc(100svh - 185px),850px);gap:3px}
+.project-cover{aspect-ratio:auto;min-height:0;position:relative;background:#242521}
+.project-identity{grid-column:1/5;grid-row:1/3}
+.project-food{grid-column:5/7;grid-row:1}
+.project-culture{grid-column:5/7;grid-row:2}
+.project-architecture{grid-column:7/9;grid-row:1}
+.project-fashion{grid-column:9/13;grid-row:1/3}
+.project-professional{grid-column:7/9;grid-row:2}
+.project-cover img{filter:saturate(.94);transform:scale(1);transition:transform .9s var(--ease),filter .65s var(--ease)}
+.project-cover:hover img,.project-cover:focus-visible img{transform:scale(1.045);filter:saturate(1.06)}
+.project-grid[data-active] .project-cover:not([data-active]) img{filter:saturate(.55) brightness(.75)}
+.project-grid[data-active] .project-cover[data-active]{z-index:1}
+.project-cover:focus-visible{outline-offset:-4px;outline-color:var(--accent)}
+.project-identity img{object-position:54% 50%}.project-fashion img{object-position:49% 48%}
+.project-food img{object-position:50% 50%}.project-culture img{object-position:48% 48%}
+.project-architecture img{object-position:50% 46%}.project-professional img{object-position:50% 53%}
+.work-end{min-height:57px;border-bottom:1px solid var(--line)}
+.work-end a{color:var(--ink)}
+/* The case index is a restrained archival system: one dark canvas, high
+   contrast folios, large photographic plates and clearly offset tabs. */
+.folder-cases{margin:clamp(80px,11vw,164px) var(--pad) 0;--folder-top:18px;--folder-offset:45px}
+.folder-cases .case-index{align-items:end;gap:20px}
+.folder-cases .case-index h2{font-size:clamp(47px,8.5vw,130px);font-weight:500;letter-spacing:-.09em;line-height:.9}
+.folder-cases .case-index h2 span{color:var(--accent)}
+.case-index-note{color:var(--muted);font-size:12px}
+.folder-index{border-color:var(--line);margin-top:30px}
+.folder-index a{color:var(--muted)}
+.folder-index a[aria-current=step]{color:var(--accent)}
+.folder-vessa{--folder:#dad2c3;--folder-ink:#262622}
+.folder-canto{--folder:#394039;--folder-ink:#f5f1e6}
+.folder-arc{--folder:#b8c3a6;--folder-ink:#252d23}
+.folder-tab{font-size:11px;font-weight:600;border-radius:5px 5px 0 0}
+.folder-cases .folder-sheet{grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr);padding:clamp(18px,2.4vw,40px);gap:clamp(18px,3vw,44px);box-shadow:0 -1px 0 #0002,0 10px 28px #0005}
+.folder-copy strong{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.075em;font-size:clamp(42px,6.4vw,101px)}
+.folder-label{font-size:10px;letter-spacing:.12em}
+.folder-discipline{font-size:clamp(15px,1.4vw,20px)}
+.folder-open{font-size:13px}
+.folder-cases .case-card-photo img{filter:none}
+.about{margin:clamp(85px,13vw,180px) var(--pad) 0}
+.about h2{font-size:clamp(55px,9vw,140px);font-weight:500;line-height:.9}
+.about h2 em{color:var(--accent)}
+.about-layout p{color:var(--muted)}
+.footer{border-color:var(--line);color:var(--muted)}
+.photo-credits{color:var(--muted)}
+/* The mark gallery is a high-contrast exhibition, not a captioned catalogue. */
+body[data-page=collection] .gallery-page{padding-top:clamp(38px,6vw,94px)}
+.gallery-heading{padding-bottom:22px;border-bottom:1px solid var(--line)}
+.gallery-heading h1{font-size:clamp(44px,8vw,120px);font-weight:500}
+.gallery-heading .eyebrow{color:var(--accent)}
+.artwork-grid{gap:3px;grid-template-columns:repeat(12,minmax(0,1fr))}
+.gallery-mark:nth-child(1){grid-column:1/8}.gallery-mark:nth-child(2){grid-column:8/13}
+.gallery-mark:nth-child(3){grid-column:1/6}.gallery-mark:nth-child(4){grid-column:6/13}
+.gallery-mark .logo-art{height:clamp(270px,36vw,540px)}
+.gallery-mark .logo-art svg{width:clamp(76px,13vw,190px)}
+.gallery-mark .wordmark{font-size:clamp(23px,4.5vw,70px)}
+/* Films use the same dark exhibition frame, but a pale design chapter
+   gives the original marks room to breathe. Retain scoped photo motion. */
+body[data-page=case]{--paper:#111210;--ink:#f2f0e9;--muted:#c3c3ba;--accent:#d3df9c;--line:#ffffff29}
+body[data-page=case] .mast{background:linear-gradient(180deg,#10110fef,transparent)}
+.film-label{color:#d3df9c}
+.film-brief{background:#161815}.film-delivery{background:#111210}
+.film-response{background:#e6e4db;color:#21231f;--muted:#55574f}
+.film-response .film-label{color:#48533c}
+.film-rail{background:#111210f7;border-color:#ffffff29}
+.film-rail-progress i{background:#d3df9c}
+.film-rail #film-counter,.film-rail nav a[aria-current]{color:#d3df9c}
+@media(min-width:901px) and (min-height:690px) and (prefers-reduced-motion:no-preference){.folder-cases[data-stack=enabled] .folder-sheet{min-height:clamp(340px,calc(100svh - 220px),590px)}}
+@media(max-width:900px){
+ body[data-page=home] .mast{grid-template-columns:1fr auto;min-height:78px}
+ .project-grid{height:clamp(510px,76svh,760px)}
+ .folder-cases .folder-sheet{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr)}
+}
+@media(max-width:740px){
+ body[data-page=home] .mast{grid-template-columns:1fr auto;gap:8px;min-height:72px;padding:10px 16px}
+ .brand{font-size:42px}
+ .mast nav{gap:clamp(10px,3vw,20px);justify-content:flex-end;flex-wrap:wrap}
+ .mast nav a{font-size:12px;min-height:44px}
+ .work-index,.work-end{margin-inline:16px;min-height:42px;font-size:10px}
+ .work-index{gap:6px;letter-spacing:.035em}
+ .project-grid{height:auto;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,clamp(112px,39vw,240px));gap:3px}
+ .project-identity{grid-column:1;grid-row:1/3}
+ .project-food{grid-column:2;grid-row:1}
+ .project-culture{grid-column:2;grid-row:2}
+ .project-architecture{grid-column:1;grid-row:3}
+ .project-fashion{grid-column:2;grid-row:3/5}
+ .project-professional{grid-column:1;grid-row:4}
+ .work-end>span{max-width:15ch}
+ .folder-cases{margin-top:80px}
+ .folder-cases .case-index h2{font-size:clamp(50px,12vw,85px)}
+ .folder-cases .folder-sheet{grid-template-columns:minmax(0,1fr);padding:14px;gap:16px}
+ .folder-copy strong{font-size:clamp(50px,14vw,82px)}
+ .artwork-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .gallery-mark:nth-child(n){grid-column:auto}
+ .gallery-mark:nth-child(1),.gallery-mark:nth-child(4){grid-column:1/-1}
+ .gallery-mark .logo-art{height:clamp(145px,44vw,300px)}
+ .gallery-mark:nth-child(1) .logo-art,.gallery-mark:nth-child(4) .logo-art{height:clamp(220px,66vw,420px)}
+ .gallery-mark .logo-art svg{width:clamp(46px,12vw,90px)}
+ .gallery-mark .wordmark{font-size:clamp(15px,4vw,28px)}
+ .gallery-mark:nth-child(1) .logo-art svg,.gallery-mark:nth-child(4) .logo-art svg{width:clamp(80px,21vw,150px)}
+ .gallery-mark:nth-child(1) .wordmark,.gallery-mark:nth-child(4) .wordmark{font-size:clamp(28px,7vw,48px)}
+}
+@media(max-width:360px){body[data-page=home] .mast{grid-template-columns:1fr;gap:0}.mast nav{justify-content:flex-start;gap:20px}.work-index{font-size:9px}.work-end a{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.project-grid[data-active] .project-cover:not([data-active]) img{filter:none}}
+@media(forced-colors:active){.brand span,.folder-cases .case-index h2 span,.about h2 em{color:CanvasText}}
