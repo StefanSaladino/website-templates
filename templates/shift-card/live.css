@@ -61,3 +61,11 @@ html.motion-enabled .composition{position:sticky;top:0;height:var(--stage-h);min
 .stable-height-probe{position:fixed;inset:0 auto auto 0;width:1px;height:100svh;visibility:hidden;pointer-events:none;contain:strict}
 .motion-enabled .composition .ground{left:0;top:0;width:256px;height:64px;border-radius:0;background:radial-gradient(ellipse at center,#111218 0%,#11121885 29%,#11121800 72%);filter:none;transform:translate3d(calc(var(--shadow-px-x,0)*1px),calc(var(--shadow-px-y,0)*1px),0) translate(-50%,-50%) scale(var(--shadow-scale-x,1),var(--shadow-scale-y,1));transform-origin:center;will-change:transform,opacity}
 .motion-enabled .composition .campaign-type{will-change:transform,opacity}
+
+/* Native preview palette only; standalone and original-colour views unchanged. */
+html[data-preview-themed] body{--paper:var(--preview-secondary);--ink:var(--preview-ink);--accent:var(--preview-accent)}
+html[data-preview-themed] .composition[data-renderer=static]{--bg:var(--preview-secondary);--fg:var(--preview-ink);--type:var(--preview-static-type)}
+html[data-preview-themed] .closing .primary{background:var(--preview-primary);color:var(--preview-on-primary)}
+html[data-preview-themed] :is(.object,.everyday,.closing) .kicker{color:var(--preview-accent)}
+html[data-preview-themed] a:focus-visible{outline-color:currentColor}
+html[data-preview-themed] footer{border-color:var(--preview-ink)}

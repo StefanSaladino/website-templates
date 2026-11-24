@@ -1,7 +1,7 @@
 import {catalogue,variants,DEFAULT,hex,contrast} from './builder-model.js';
 import {KEY,LEGACY_KEY,PURPOSES,LABELS,QUESTIONS,PALETTES,MAX_PAGES,pageOptions,available,options,templates,allSlots,fresh,restore,change,ready,pageEntries,exportBrief} from './builder-journey.js';
 import {renderSourcePage,isContextReference,escape as e} from './builder-compose.js';
-import {themePreviewDocument} from './builder-theme.js';
+import {themePreviewDocument} from './builder-theme.js?v20261124-shift-native';
 const $=q=>document.querySelector(q),stage=$('#stage'),notice=$('#notice'),steps=['About your website','Choose a look','Pick designs','Make it yours','See your website'];
 let cat,s,showAll=false,width=1440,thumbs,resize,frameResize,dialogReturn=null,templatePage=0;
 const load=async p=>{const r=await fetch(p,{cache:'no-cache'});if(!r.ok)throw Error(p);return r.json()};

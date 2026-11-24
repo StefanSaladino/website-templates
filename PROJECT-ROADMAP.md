@@ -678,3 +678,7 @@ Stakeholder rejected 274a691: the previous handoff repair produced an isolated s
 
 ### SHIFT recovery review registration
 R6 specialist workflow 45408471833 passed all tests; R7 replaces the registered review template with the bounded recovered campaign. See docs/SHIFT-VISUAL-RECOVERY-ROADMAP.md. Current registered-route and configurator checks pending. Catalogue counts unchanged, no main merge or physical-device approval.
+
+
+### SHIFT R8 automated recovery and configurator integration
+Specialist 45432905923 on 49cb768 passed strict cadence and visual gates together, plus high-density, accessibility, projection and both reusable specimens. Showroom CI/review and Pages passed; thumbnail visual job cancelled after route preflight. User reports mobile looks good; desktop physical/visual approval remains open. Fix native SHIFT ready-made palette integration so custom colours follow live scroll rather than generic static inline theme overrides. See SHIFT visual recovery and configurator roadmaps for exact evidence and remaining gates. No new template, no main merge.

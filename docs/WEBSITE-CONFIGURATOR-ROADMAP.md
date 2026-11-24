@@ -69,3 +69,7 @@ Remove the four-card cap from the custom component journey: show every available
 
 ### Review transition regression hotfix
 CI 45326728920 and customer report reproduced the colour-to-review failure: expanded-preview refactor removed the sourceReferences helper while both review render and page refresh still call it. Restore helper, retain modal and all category options. Commit state only after successful synchronous render; recover prior step with an explicit error if render throws, preserve selections and recover failed saved-review reopen to colour step. Browser regressions assert visible review, reference panel, no page errors, persisted review reload and both custom/template paths. Existing v2 localStorage unchanged; reload after deployment to resume saved selections. No main merge.
+
+
+### SHIFT native animated template palette integration
+The registered ready-made SHIFT example previously passed the reduced-motion builder path, but generic important inline recolouring can override dynamic stage CSS. Use its opt-in native palette contract to map the continuous colour track to selected primary/secondary colours and retain product artwork and contrast-safe text. Other templates and source composition behaviour remain unchanged. Add actual live WebGL desktop/phone expanded preview, reverse motion and original palette restoration regression coverage. Exact 49cb768 specialist, full builder CI and review passed before this correction; current revision verification pending. No main merge.

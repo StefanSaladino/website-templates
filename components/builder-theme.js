@@ -83,5 +83,9 @@ export function themeTree(root,p,{original=false}={}){
  root.dataset.brandThemed='true';root.dataset.brandPalette=[p.primary,p.secondary,p.trim||'none'].join('/');return counts
 }
 export function themePreviewDocument(doc,p,original=false){
- if(!doc?.body)return;const hosts=[...doc.querySelectorAll('[data-source-status=mounted]')];if(hosts.length){doc.body.style.background=original?'':p.secondary;for(const h of hosts){const body=h.shadowRoot?.querySelector('[data-source-body]');if(body)themeTree(body,p,{original});h.dataset.palettePrimary=p.primary;h.dataset.paletteSecondary=p.secondary;h.dataset.paletteTrim=p.trim||''}}else themeTree(doc.body,p,{original});
+ if(!doc?.body)return;
+ // A native animated theme owns its colour track. Generic inline !important
+ // recolouring would freeze that track and override contrast changes.
+ if(doc.documentElement.dataset.nativePreviewPalette==='shift'){const root=doc.documentElement;root.dataset.previewPaletteInput=original?'null':JSON.stringify(p);root.dispatchEvent(new doc.defaultView.Event('shift-preview-palette'));return}
+ const hosts=[...doc.querySelectorAll('[data-source-status=mounted]')];if(hosts.length){doc.body.style.background=original?'':p.secondary;for(const h of hosts){const body=h.shadowRoot?.querySelector('[data-source-body]');if(body)themeTree(body,p,{original});h.dataset.palettePrimary=p.primary;h.dataset.paletteSecondary=p.secondary;h.dataset.paletteTrim=p.trim||''}}else themeTree(doc.body,p,{original});
 }
