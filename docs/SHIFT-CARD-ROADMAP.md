@@ -1,6 +1,6 @@
 # SHIFT / the moving card — flagship template roadmap
 
-Status: **Approved direction; planned, not implemented.** One additional complete, single-page website. Target catalogue total: 35, after all acceptance gates. Working slug: `shift-card`. Fictional payment-card brand; no actual financial service or application processing.
+Status: **P1 static source implemented; visual review pending.** One additional complete, single-page website. Target catalogue total: 35, after all acceptance gates. Working slug: `shift-card`. Fictional payment-card brand; no actual financial service or application processing.
 
 ## 1. Reference and creative thesis
 
@@ -82,3 +82,6 @@ P1: establish the chalk-stage opening and deep-ink material chapter as actual re
 
 ## Checkpoints
 - 2026-11-24: video reference inspected; direction selected; implementation roadmap written. Prior configurator hotfix 9c77176 passed all three GitHub workflows. SHIFT planned only.
+
+### SHIFT P1 source checkpoint
+Five responsive static editorial chapter compositions and original local SVG card artwork implemented in `templates/_drafts/shift-card/`. Deliberately outside discovered catalogue; no WebGL, motion engine or finish selector claim. Native chapter links and final local disclosure work without JS. Dedicated browser review workflow captures 30 chapter screenshots at six portrait/desktop/landscape viewports, checks decoded artwork, document overflow and no external requests. P1 visual review pending; next P2 only after actual visual inspection. 34 registered templates remain unchanged; no main merge.

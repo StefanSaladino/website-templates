@@ -645,3 +645,6 @@ CI 45326728920 and customer report reproduced the colour-to-review failure: expa
 
 ### Next flagship — SHIFT / the moving card
 User supplied a new 32-second reference video and requested one additional immersive page template roadmap. Choose an original fictional card brand launch with a continuous scroll-linked procedural card, typography occlusion, cinematic camera/material changes and responsive still fallback. [Detailed SHIFT roadmap](docs/SHIFT-CARD-ROADMAP.md) governs this single 35th template, planned only; next P1 storyboard/composition, then P2 real scene. Existing 34 templates, presets and builder unchanged. Review current-SHA browser evidence and actual visuals before catalogue integration. No main merge.
+
+### SHIFT P1 source checkpoint
+Five responsive static editorial chapter compositions and original local SVG card artwork implemented in `templates/_drafts/shift-card/`. Deliberately outside discovered catalogue; no WebGL, motion engine or finish selector claim. Native chapter links and final local disclosure work without JS. Dedicated browser review workflow captures 30 chapter screenshots at six portrait/desktop/landscape viewports, checks decoded artwork, document overflow and no external requests. P1 visual review pending; next P2 only after actual visual inspection. 34 registered templates remain unchanged; no main merge.

@@ -124,3 +124,6 @@ User requested a client-facing design selection flow before resuming QA. See [We
 
 ## New authorized flagship — SHIFT / the moving card
 Latest stakeholder video supplies direct visual reference for an original scroll-driven card launch, distinct from the prior ten experiential builds. Single additional website, planned total 35. [Dedicated implementation roadmap](SHIFT-CARD-ROADMAP.md) defines storyboard, native procedural real-time scene, typography layering, responsive fallback, QA and catalogue gates; P1 next. No further sites or component extraction authorized by this plan. No source built yet.
+
+### SHIFT P1 source checkpoint
+Five responsive static editorial chapter compositions and original local SVG card artwork implemented in `templates/_drafts/shift-card/`. Deliberately outside discovered catalogue; no WebGL, motion engine or finish selector claim. Native chapter links and final local disclosure work without JS. Dedicated browser review workflow captures 30 chapter screenshots at six portrait/desktop/landscape viewports, checks decoded artwork, document overflow and no external requests. P1 visual review pending; next P2 only after actual visual inspection. 34 registered templates remain unchanged; no main merge.

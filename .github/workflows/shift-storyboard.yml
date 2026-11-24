@@ -1,0 +1,28 @@
+name: SHIFT storyboard review
+on:
+  push:
+    branches: [feature/component-showroom]
+    paths: ['templates/_drafts/shift-card/**','components/scripts/test-shift-storyboard.mjs','.github/workflows/shift-storyboard.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  storyboard:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: components
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: node scripts/test-shift-storyboard.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shift-storyboard-evidence
+          path: components/shift-storyboard-evidence
+          retention-days: 7
