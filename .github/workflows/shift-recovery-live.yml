@@ -21,8 +21,9 @@ jobs:
       - run: npm install --no-audit --no-fund
       - run: node scripts/test-shift-recovery-projection.mjs
       - run: npx playwright install ffmpeg
-      - run: node scripts/test-shift-recovery-live.mjs
       - run: node scripts/test-shift-recovery-accessibility.mjs
+      - run: node scripts/test-shift-recovery-live.mjs
+        if: success() || failure()
       - uses: actions/upload-artifact@v4
         if: always()
         with:

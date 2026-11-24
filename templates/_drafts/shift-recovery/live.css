@@ -40,3 +40,13 @@ html{overflow-anchor:none}.composition{display:grid;grid-template-columns:minmax
 
 /* Native sticky header controls are already fully visible. Avoid scroll-padding-induced focus offsets within the bounded story. */
 html.motion-enabled{scroll-padding-top:0;scroll-behavior:auto}.composition .mast-tools .still{scroll-margin:0}.composition .mast-tools .still:focus-visible{outline-offset:2px}
+
+/* R6: geometry belongs to the mode transaction, not an independent media-query
+   override. The R2 stylesheet unpins on prefers-reduced-motion before the
+   MediaQueryList callback, erasing the original reading anchor. In this live
+   prototype retain the old story geometry only until setup() removes the class
+   synchronously; draw() already stops immediately on the motion preference.
+   Without JS the class is never present and the page is always normal flow. */
+html{scroll-padding-top:0;scroll-behavior:auto}
+html.motion-enabled .story{height:calc(var(--stage-h) + var(--travel))}
+html.motion-enabled .composition{position:sticky;top:0;height:var(--stage-h);min-height:0}
