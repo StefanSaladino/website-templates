@@ -1,0 +1,18 @@
+{
+  "orbit-cinema": {
+    "film": "#film",
+    "chapters": [
+      "surface",
+      "ascent",
+      "orbit",
+      "beyond"
+    ],
+    "imageIdentities": [
+      "https://images.pexels.com/photos/2387877/pexels-photo-2387877.jpeg",
+      "https://images.pexels.com/photos/796206/pexels-photo-796206.jpeg",
+      "https://images.unsplash.com/photo-1777047023742-1607aeb1a5bb",
+      "https://images.unsplash.com/photo-1777033356671-59469ab29684"
+    ],
+    "mode": "#motion"
+  }
+}

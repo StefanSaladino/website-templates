@@ -1652,6 +1652,90 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Official Pexels publisher page verified 2026-11-23, Free label and 3536 x 5296 dimensions; official Free download URL resolves to this exact image ID and was visually inspected: bare trees, concrete wall and shallow reflective courtyard pool, no visible person or branding. Independent photographic reference, not a STRATA commission or photograph of the procedural residence. Final property, crop and template-use review remains open."
+    },
+    {
+      "id": "TM-147",
+      "urlIdentity": "https://images.pexels.com/photos/2387877/pexels-photo-2387877.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "orbit-cinema",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/silhouette-of-mountain-under-starry-night-2387877/",
+      "creator": "Sam Kolder",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels Free source page and exact Free download checked; inspected image shows dense Milky Way stars over silhouette of mountain, no apparent people or branding. Independent montage; no implied endorsement or completed project. Final template rights/crop review open."
+    },
+    {
+      "id": "TM-148",
+      "urlIdentity": "https://images.pexels.com/photos/796206/pexels-photo-796206.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "orbit-cinema",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/space-shuttle-launch-during-nighttime-796206/",
+      "creator": "Edvin Richardson",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official Pexels Free page and exact download checked; actual image inspected shows distant vertical luminous trail against dark blue sky, no identifiable vehicle branding. Independent montage; no implied endorsement or completed project. Final template rights/crop review open."
+    },
+    {
+      "id": "TM-149",
+      "urlIdentity": "https://images.unsplash.com/photo-1777047023742-1607aeb1a5bb",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "orbit-cinema",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://unsplash.com/photos/view-of-earth-from-space-with-clouds-ErjNGXc9mqA",
+      "creator": "NASA",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official NASA Unsplash upload identified as Artemis II Captures the Terminator Line, art002e000190, photographed by Reid Wiseman from Orion April 2 2026. Source page identifies free Unsplash license and exact CDN link; direct image fetch unavailable in research, actual decode/crop pending. Independent montage; no implied endorsement or completed project. Final template rights/crop review open."
+    },
+    {
+      "id": "TM-150",
+      "urlIdentity": "https://images.unsplash.com/photo-1777033356671-59469ab29684",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "orbit-cinema",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://unsplash.com/photos/earth-rising-over-the-moons-surface-w9sZL_hvNug",
+      "creator": "NASA",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Official NASA Unsplash upload describes Artemis II Earthset over lunar far side on April 6 2026. Source page identifies free Unsplash license and exact CDN link; direct image fetch unavailable in research, actual decode/crop pending. Independent montage; no implied endorsement or completed project. Final template rights/crop review open."
     }
   ]
 }

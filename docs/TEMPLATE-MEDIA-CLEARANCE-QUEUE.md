@@ -4,10 +4,10 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **76 active external media identities:** 75 still/poster images and 1 HD hero video (conditional muted autoplay)
+- **80 active external media identities:** 79 still/poster images and 1 HD hero video (conditional muted autoplay)
 - **0 without verified/recorded source-page links** and **0 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
-- **0 rights-approved assets.** All 76 remain `needs-review`
-- **9 first-priority review records** with people, branding, replacement or video-related flags; 67 follow-on records
+- **0 rights-approved assets.** All 80 remain `needs-review`
+- **9 first-priority review records** with people, branding, replacement or video-related flags; 71 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
@@ -26,10 +26,14 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 67 active records
+## Follow-on queue — 71 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
+| TM-147 | orbit-cinema | Pexels publisher page; Sam Kolder | Independently credited photographic montage, source delivery, rights and crop review open |
+| TM-148 | orbit-cinema | Pexels publisher page; Edvin Richardson | Independently credited photographic montage, source delivery, rights and crop review open |
+| TM-149 | orbit-cinema | Unsplash publisher page; NASA | Independently credited photographic montage, source delivery, rights and crop review open |
+| TM-150 | orbit-cinema | Unsplash publisher page; NASA | Independently credited photographic montage, source delivery, rights and crop review open |
 | TM-145 | strata-architecture | Pexels publisher page; Simeon Galabov | Independent architectural reference photograph, crop/property and template-use review open |
 | TM-146 | strata-architecture | Pexels publisher page; Little forest 작은 숲 | Independent courtyard reference photograph, not generated residence, property/crop review open |
 | TM-144 | frame-portfolio | Pexels publisher page; Tiarra Sorte | Independent ceramic still life, no visible person or branding; object design rights, crop and commercial redistribution pending |

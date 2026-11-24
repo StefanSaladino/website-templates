@@ -217,5 +217,18 @@
       "required": 2,
       "poster": false
     }
+  ],
+  "cinematic": [
+    {
+      "name": "orbit-cinema",
+      "sections": [
+        ".chapter-surface",
+        ".chapter-ascent",
+        ".chapter-orbit",
+        ".chapter-beyond"
+      ],
+      "required": 4,
+      "poster": false
+    }
   ]
 }
