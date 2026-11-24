@@ -77,3 +77,7 @@ The registered ready-made SHIFT example previously passed the reduced-motion bui
 
 ### Expanded SHIFT live preview scroll regression
 Exact 1a3c3bb showroom CI 45445366791 reached the live desktop palette path but timed out on intermediate scroll pose; static SHIFT and general palette matrix passed. Source-level race correction prevents resize restoration from overwriting a new scroll request; regression now waits for stable child geometry, uses measured story coordinate and validates actual scroll/pose, with screenshot and state on timeout. Root cause of original timeout not conclusively established; rerun pending. No main merge.
+
+
+### Native scrolling investigation
+Both 121a87f and b0d7e78 expanded SHIFT tests reported an unchanged child scrollY of zero despite requesting 848px; document is visibly rendered and scrollable by dimensions, with no resize transaction. Current test separates native wheel input from parent-realm programmatic scroll by requiring actual wheel progress and using child execution context for exact poses. Retain failure diagnostics. No confirmed runtime root cause or acceptance claim until browser results.
