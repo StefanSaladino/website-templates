@@ -15,21 +15,14 @@ try{
  for(const width of [320,390,768,1440]){
   const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});await ctx.route('**/*',r=>r.request().url().startsWith(origin)?r.continue():r.abort());
   const page=await ctx.newPage();await page.goto(url,{waitUntil:'domcontentloaded'});
-  await page.locator('[data-mode=custom]').click();assert(await page.locator('#step-title').textContent()==='Choose your navigation');
-  assert(await page.locator('[data-guide-skip]').count()===0);assert(await page.locator('#next').isDisabled());assert(await page.locator('.design-option').count()>1);
-  const first=page.locator('.design-option').first();await first.scrollIntoViewIfNeeded();await first.locator('[data-loaded]').waitFor({timeout:15000});
-  assert(await first.locator('iframe').evaluate(f=>!!f.contentDocument?.getElementById(f.closest('[data-thumb]').dataset.anchor)));
-  await first.locator('[data-enlarge]').click();assert(await page.locator('#design-dialog').isVisible());await page.keyboard.press('Escape');assert(await page.locator('#design-dialog').isHidden());
-  await page.screenshot({path:path.join(evidence,'guide-'+width+'.png')});
-  for(const id of ['NAV-01','HERO-01','FOOT-01'])await page.locator('[data-pick='+id+']').click();
-  assert(await page.locator('[data-guide-skip]').isVisible());await page.locator('[data-guide-skip]').click();
-  assert.equal(await page.locator('#step-title').textContent(),'Introduce your business');
-  await page.reload({waitUntil:'domcontentloaded'});await page.locator('[data-guide-finish]').waitFor();assert.equal(await page.locator('#step-title').textContent(),'Introduce your business');
-  await page.locator('[data-guide-finish]').click();assert.equal(await page.locator('#step-title').textContent(),'Review responsive layouts');
-  await page.locator('#next').click();await page.locator('#next').click();await page.locator('#next').click();assert((await page.locator('#brief').inputValue()).includes('01. NAV-01'));
-  assert((await page.locator('#brief').inputValue()).includes('03. FOOT-01'));assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
-  await ctx.close();
+  await page.locator('[data-purpose=business]').click();await page.locator('[data-size=unsure]').click();assert(await page.locator('.plan-pages section').count()===3);
+  await page.locator('[data-mode=custom]').click();assert.equal(await page.locator('#step-title').textContent(),'How should your menu and logo look?');assert(await page.locator('[data-skip]').count()===0);
+  const first=page.locator('.design-option').first();await first.scrollIntoViewIfNeeded();await first.locator('[data-loaded]').waitFor({timeout:15000});assert(await first.locator('iframe').evaluate(f=>!!f.contentDocument?.getElementById(f.closest('[data-specimen]').dataset.anchor)));assert(await first.locator('[data-specimen]').evaluate(x=>Number(x.dataset.crop)<720));
+  await first.locator('[data-enlarge]').click();assert(await page.locator('#design-dialog').isVisible());await page.keyboard.press('Escape');assert(await page.locator('#design-dialog').isHidden());await page.screenshot({path:path.join(evidence,'journey-'+width+'.png')});
+  await page.locator('[data-pick=NAV-01]').click();await page.locator('[data-delegate]').click();await page.reload({waitUntil:'domcontentloaded'});await page.locator('[data-delegate-all]').click();assert.equal(await page.locator('#step-title').textContent(),'Make it feel like your business');
+  await page.locator('[data-palette="2"]').click();await page.locator('[data-motion=still]').click();await page.locator('#next').click();assert.equal(await page.locator('#step-title').textContent(),'Here’s your website design');await page.locator('[data-width=390]').click();await page.locator('[data-page=services]').click();assert(await page.locator('#preview').evaluate(f=>f.contentWindow.innerWidth===390));
+  await page.locator('#next').click();await page.locator('summary').filter({hasText:'Technical details'}).click();const text=await page.locator('#brief').inputValue();assert(text.includes('SHARED WEBSITE DESIGN')&&text.includes('NAV-01')&&text.includes('SERVICES')&&text.includes('Motion preference: still'));assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await ctx.close();
  }
- const ctx=await browser.newContext({viewport:{width:390,height:900}});await ctx.route('**/*',r=>r.request().url().startsWith(origin)?r.continue():r.abort());const p=await ctx.newPage();await p.goto(url,{waitUntil:'domcontentloaded'});await p.locator('[data-mode=template]').click();assert(await p.locator('.design-option').count()<=6);await p.locator('[data-pick=abyss-ocean]').click();assert.equal(await p.locator('#step-title').textContent(),'Review responsive layouts');await ctx.close();
- console.log('PASS guided builder: essential steps, real previews, optional skips, resume, ordered export and full template path at four widths.');
+ const ctx=await browser.newContext({viewport:{width:390,height:900}});await ctx.route('**/*',r=>r.request().url().startsWith(origin)?r.continue():r.abort());const p=await ctx.newPage();await p.goto(url,{waitUntil:'domcontentloaded'});await p.locator('[data-purpose=work]').click();await p.locator('[data-size=single]').click();await p.locator('[data-mode=template]').click();assert.equal(await p.locator('.design-option').count(),4);await p.locator('[data-pick=frame-portfolio]').click();assert.equal(await p.locator('#step-title').textContent(),'Make it feel like your business');await p.locator('#next').click();await p.locator('#next').click();assert(await p.locator('[data-copy]').isVisible());await ctx.close();
+ console.log('PASS customer journey: four screen widths, focused specimen, recommended multipage plan, resume, delegation, palette/motion, page and phone previews, technical export and quick template route.');
 }finally{if(browser)await browser.close();server.kill();}

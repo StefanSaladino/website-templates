@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+import {catalogue} from '../builder-model.js';
+import {fresh,restore,change,ready,recommendedPlan,allSlots,options,pageEntries,exportBrief,PURPOSES} from '../builder-journey.js';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../data'),read=n=>JSON.parse(readFileSync(path.join(root,n+'.json'),'utf8')),cat=catalogue(...['components','mobile-treatments','builder-templates','categories'].map(read));
+for(const p of Object.keys(PURPOSES))for(const size of ['single','multiple','unsure']){
+ let s=fresh(),send=a=>s=change(s,a,cat);send({type:'purpose',value:p});send({type:'size',value:size});assert.equal(s.plan.pages.length,s.size==='single'?1:3);assert.equal(s.plan.shared.filter(x=>x.category==='headers').length,1);assert.equal(s.plan.shared.filter(x=>x.category==='footers').length,1);assert(allSlots(s.plan).length<15);
+ send({type:'mode',value:'custom'});const x=allSlots(s.plan)[0];send({type:'skip',id:x.id});assert(!Object.hasOwn(s.choices,x.id));assert(!ready(s));send({type:'delegate-all'});assert(ready(s));assert.equal(s.step,3);const b=exportBrief(s,cat);assert.equal(b.data.shared.length,2);assert.equal(b.data.pages.length,s.plan.pages.length);
+ for(const page of s.plan.pages){const entries=pageEntries(s,page.id);assert.equal(entries[0].coreId,b.data.shared[0].coreId);assert.equal(entries.at(-1).coreId,b.data.shared[1].coreId)}
+ const r=restore(JSON.parse(JSON.stringify(s)),null,cat).s;assert(ready(r));assert.deepEqual(exportBrief(r,cat).data,b.data);send({type:'confirm'});assert(s.confirmed);send({type:'motion',value:'still'});assert(!s.confirmed);
+}
+let s=fresh(),send=a=>s=change(s,a,cat);send({type:'purpose',value:'business'});send({type:'size',value:'multiple'});send({type:'mode',value:'custom'});let home=s.plan.pages[0].slots.find(x=>x.category==='services'),services=s.plan.pages[1].slots.find(x=>x.category==='services');send({type:'pick',id:home.id,coreId:'SRV-02'});send({type:'pick',id:services.id,coreId:'SRV-01'});assert.equal(s.choices[home.id].coreId,'SRV-02');assert.equal(s.choices[services.id].coreId,'SRV-01');send({type:'skip',id:home.id});assert.equal(s.choices[home.id],false);send({type:'delegate-all'});assert(ready(s));assert(!exportBrief(s,cat).data.pages[0].sections.some(x=>x.category==='services'));send({type:'mode',value:'template'});send({type:'template',slug:'contractor'});assert(ready(s));assert.equal(exportBrief(s,cat).data.template,'contractor');assert(exportBrief(s,cat).data.pages.every(p=>!p.sections.length));assert.equal(exportBrief(s,cat).data.palette,null);
+const legacy={version:1,mode:'custom',sections:[{key:1,coreId:'NAV-01',mobileId:'M-NAV-01',animationIds:['ANIM-01']},{key:2,coreId:'HERO-01'},{key:3,coreId:'SRV-02'},{key:4,coreId:'SRV-01'},{key:5,coreId:'FOOT-01'}],palette:{primary:'#123456',secondary:'#FFFFFF',trim:null}};
+const recovered=restore(null,legacy,cat);assert(recovered.migrated);assert.equal(recovered.s.choices['home:services:2'].coreId,'SRV-01');assert.equal(recovered.s.choices['shared:headers'].mobileId,'M-NAV-01');assert.equal(recovered.s.palette.primary,'#123456');assert.equal(recovered.s.choices['shared:headers'].animationIds[0],'ANIM-01');
+console.log('PASS customer journey: 15 recommendation paths, per-page IDs, shared header/footer, required/optional choices, delegation, persistence, legacy migration, template reference and confirmation invalidation.');
