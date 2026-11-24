@@ -55,3 +55,9 @@ html.motion-enabled .composition{position:sticky;top:0;height:var(--stage-h);min
 .preference-probe{position:fixed;left:0;top:0;width:1px;height:1px;visibility:hidden;pointer-events:none;contain:strict}
 @media(prefers-reduced-motion:reduce){.preference-probe{width:2px}}
 @media(forced-colors:active){.preference-probe{height:2px}}
+
+/* R8 frame pacing: measured canvas is confined to the artwork box. A soft
+   radial texture replaces per-frame width/position/blur shadow recalculation. */
+.stable-height-probe{position:fixed;inset:0 auto auto 0;width:1px;height:100svh;visibility:hidden;pointer-events:none;contain:strict}
+.motion-enabled .composition .ground{left:0;top:0;width:256px;height:64px;border-radius:0;background:radial-gradient(ellipse at center,#111218 0%,#11121885 29%,#11121800 72%);filter:none;transform:translate3d(calc(var(--shadow-px-x,0)*1px),calc(var(--shadow-px-y,0)*1px),0) translate(-50%,-50%) scale(var(--shadow-scale-x,1),var(--shadow-scale-y,1));transform-origin:center;will-change:transform,opacity}
+.motion-enabled .composition .campaign-type{will-change:transform,opacity}

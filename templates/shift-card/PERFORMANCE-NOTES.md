@@ -12,3 +12,5 @@ Workflow 45386440340 passed all four suites. Report: 54,076 bytes initial transf
 
 ## R6 recovery acceptance (b867b7e)
 Workflow 45408471833 passed all specialist steps: 105 live positions, 4 accessibility widths, context loss/recovery, reading offsets and text reflow. Buffer sizes 532800/740610/1248720/2500000px at 320/390/768/1440. Physical GPU FPS and Safari not measured. R7 registered-route rerun pending.
+
+R8: art-slot-sized canvas, cached buffer sizing and projection points, event-driven exponential scroll following, stable touch viewport sizing and transform-only soft shadow. Actual buffer allocation now depends on reserved artwork dimensions rather than full-stage area. Opt-in ?motion-debug=1 records rAF scheduling/CPU submission, not physical screen FPS. Measure current candidate on device before acceptance.

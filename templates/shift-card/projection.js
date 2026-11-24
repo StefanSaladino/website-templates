@@ -1,7 +1,7 @@
 // Exact CPU equivalent of the existing WebGL vertex transform. Use actual mesh
 // vertices rather than an axis-aligned approximation; no changes to shared scene API.
 import {cardGeometry,DIMENSIONS} from './studio-scene.js';
-const mesh=cardGeometry(),points=[];for(let i=0;i<mesh.length;i+=9)points.push([mesh[i],mesh[i+1],mesh[i+2]]);
+const mesh=cardGeometry(),points=[],seen=new Set();for(let i=0;i<mesh.length;i+=9){const p=[mesh[i],mesh[i+1],mesh[i+2]],key=p.join(':');if(!seen.has(key)){seen.add(key);points.push(p)}}
 const rad=Math.PI/180;
 export function projectedUnitBounds({yaw,pitch,roll,distance}){const cy=Math.cos(yaw*rad),sy=Math.sin(yaw*rad),cx=Math.cos(pitch*rad),sx=Math.sin(pitch*rad),cz=Math.cos(roll*rad),sz=Math.sin(roll*rad);let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;for(const [x,y,z] of points){const a=cy*x+sy*z,c=-sy*x+cy*z,b=cx*y-sx*c,d=sx*y+cx*c,px=cz*a-sz*b,py=sz*a+cz*b,k=distance/((distance-d)*DIMENSIONS.width);left=Math.min(left,px*k);right=Math.max(right,px*k);top=Math.min(top,-py*k);bottom=Math.max(bottom,-py*k)}return {left,right,top,bottom}}
 export function frameProduct(pose,area,desired){const b=projectedUnitBounds(pose),rw=b.right-b.left,rh=b.bottom-b.top;const cardWidth=Math.max(1,Math.min(desired.width,(area.right-area.left)/rw,(area.bottom-area.top)/rh));const centerX=Math.max(area.left-b.left*cardWidth,Math.min(area.right-b.right*cardWidth,desired.x)),centerY=Math.max(area.top-b.top*cardWidth,Math.min(area.bottom-b.bottom*cardWidth,desired.y));return {cardWidth,centerX,centerY,bounds:{left:centerX+b.left*cardWidth,right:centerX+b.right*cardWidth,top:centerY+b.top*cardWidth,bottom:centerY+b.bottom*cardWidth}}}
