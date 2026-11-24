@@ -28,5 +28,35 @@ let opening,mid;for(const q of [0,.2,.5,.72,1,.5,0]){const s=await visit(q);asse
 }
 await visit(1);await p.evaluate(()=>scrollTo(0,document.querySelector('#construction').offsetTop+80));await p.waitForFunction(()=>document.querySelector('#stage').getBoundingClientRect().bottom<=0);assert.deepEqual(errors,[]);await ctx.close()}
 for(const config of [{viewport:{width:844,height:390}},{viewport:{width:390,height:844},reducedMotion:'reduce'},{viewport:{width:390,height:844},javaScriptEnabled:false}]){const ctx=await browser.newContext(config),p=await ctx.newPage();await p.goto(url);await p.locator('.garment img').evaluate(async img=>{await img.decode();if(!img.naturalWidth||!img.currentSrc.includes('/6044143/'))throw Error('Actual source photograph failed to load')});assert(await p.locator('.garment img').isVisible());assert.equal(await p.locator('#stage').evaluate(s=>getComputedStyle(s).position),'relative');await ctx.close()}
-console.log('PASS responsive opening, continuous reversible storyboard, authentic close-up, cadence, idle and static alternatives');
+// Revisit a live mid-story position through resize, system preference changes,
+// manual still view, rapid reversals and navigation in ordinary content.
+const rotation=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,hasTouch:true,isMobile:true,reducedMotion:'no-preference'}),rp=await rotation.newPage();
+const errors=[];rp.on('pageerror',e=>errors.push(e.message));await rp.goto(url);
+await rp.locator('.garment img').evaluate(img=>img.decode());
+const stage=rp.locator('#stage');
+const live=async width=>rp.waitForFunction(width=>{const s=document.querySelector('#stage');return s.dataset.mode==='live'&&s.dataset.settled==='true'&&+s.dataset.layoutWidth===width},width);
+const still=async reason=>{await rp.waitForFunction(reason=>{const s=document.querySelector('#stage');return s.dataset.mode==='static'&&s.dataset.reason===reason&&s.dataset.settled==='true'},reason);assert.equal(await stage.evaluate(s=>getComputedStyle(s).position),'relative');assert.equal(await stage.getAttribute('data-detail-scale'),'1');assert.equal(await stage.getAttribute('data-progress'),'0.000000');const draws=await stage.getAttribute('data-draws');await rp.waitForTimeout(180);assert.equal(await stage.getAttribute('data-draws'),draws);assert(await rp.locator('.garment img').isVisible())};
+const go=async q=>{const target=await rp.evaluate(q=>{const s=document.querySelector('#stage'),top=+s.dataset.top,travel=+s.dataset.travel,y=Math.round(top+travel*q);scrollTo(0,y);return (y-top)/travel},q);await rp.waitForFunction(target=>{const s=document.querySelector('#stage');return s.dataset.settled==='true'&&Math.abs(+s.dataset.progress-target)<.000002},target);return target};
+const near=async q=>assert(Math.abs(+(await stage.getAttribute('data-progress'))-q)<.025,'Progress did not survive layout change');
+await live(390);const q=await go(.46);
+await rp.setViewportSize({width:844,height:390});await still('short viewport');await rp.screenshot({path:path.join(out,'rotation-landscape-static.png')});await rp.setViewportSize({width:390,height:844});await live(390);await near(q);
+await rp.setViewportSize({width:430,height:932});await live(430);await near(q);await rp.setViewportSize({width:390,height:844});await live(390);await near(q);
+await rp.locator('#still').click();await still('manual still');assert.equal(await rp.locator('#still').getAttribute('aria-pressed'),'true');assert(await rp.locator('#still').evaluate(b=>document.activeElement===b));await rp.locator('#still').click();await live(390);await near(q);
+await rp.locator('#still').focus();await rp.emulateMedia({reducedMotion:'reduce'});await still('reduced motion');assert(await rp.locator('#still').isHidden());assert(await rp.locator('.intro .text-link').evaluate(a=>document.activeElement===a),'Focus must survive hidden control');await rp.emulateMedia({reducedMotion:'no-preference'});await live(390);await near(q);
+await rp.emulateMedia({forcedColors:'active'});await still('forced colours');await rp.emulateMedia({forcedColors:'none'});await live(390);await near(q);
+// Rapid direction changes must converge to the actual last native scroll.
+await rp.evaluate(async()=>{const s=document.querySelector('#stage'),top=+s.dataset.top,travel=+s.dataset.travel;for(const q of [.83,.18,.72,.29,.61,.38]){scrollTo(0,Math.round(top+travel*q));await new Promise(r=>requestAnimationFrame(r))}});
+await rp.waitForFunction(()=>{const s=document.querySelector('#stage');return s.dataset.settled==='true'&&Math.abs(+s.dataset.progress-.38)<.002});await near(.38);
+// Lower content stays in place across preference changes; stale resume is discarded.
+await rp.locator('.intro .text-link').click();await rp.waitForFunction(()=>document.querySelector('#stage').getBoundingClientRect().bottom<=1);
+await rp.evaluate(()=>scrollBy(0,90));const beforeLower=await rp.locator('#construction').evaluate(n=>n.getBoundingClientRect().top);
+await rp.emulateMedia({reducedMotion:'reduce'});await still('reduced motion');assert(Math.abs(await rp.locator('#construction').evaluate(n=>n.getBoundingClientRect().top)-beforeLower)<3,'Lower reading position lost on static fallback');
+await rp.emulateMedia({reducedMotion:'no-preference'});await rp.waitForFunction(()=>document.querySelector('#stage').dataset.mode==='live');assert(Math.abs(await rp.locator('#construction').evaluate(n=>n.getBoundingClientRect().top)-beforeLower)<3,'Lower reading position lost on resume');
+await rp.evaluate(()=>scrollTo(0,0));await live(390);await near(0);
+assert.deepEqual(errors,[]);await rotation.close();
+// Reflow stress: text spacing override with an actual narrow viewport. Permit
+// the intentional static fallback rather than squeezing readable content.
+const reflow=await browser.newContext({viewport:{width:320,height:640},reducedMotion:'no-preference'}),re=await reflow.newPage();await re.goto(url);await re.addStyleTag({content:'*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}'});
+await re.waitForTimeout(300);const check=await re.evaluate(()=>{const s=document.querySelector('#stage'),r=s.getBoundingClientRect(),nodes=['.mast','.lead','.intro'].map(sel=>{const n=s.querySelector(sel),b=n.getBoundingClientRect();return {sel,left:b.left,right:b.right,top:b.top,bottom:b.bottom,scroll:n.scrollWidth,client:n.clientWidth}});return {mode:s.dataset.mode,overflow:document.documentElement.scrollWidth>innerWidth+1,stage:{left:r.left,right:r.right,top:r.top,bottom:r.bottom},nodes}});assert(!check.overflow,JSON.stringify(check));for(const n of check.nodes)assert(n.left>=check.stage.left-1&&n.right<=check.stage.right+1&&n.top>=check.stage.top-1&&n.bottom<=check.stage.bottom+1&&n.scroll<=n.client+2,JSON.stringify(check));await re.screenshot({path:path.join(out,'320-text-spacing.png'),fullPage:true});await reflow.close();
+console.log('PASS responsive opening, continuous reversible storyboard, authentic close-up, cadence, idle, rotation, preferences, focus, reading anchors and text spacing');
 }finally{writeFileSync(path.join(out,'cadence.json'),JSON.stringify(cadence,null,2));await browser?.close();server.kill()}
