@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f3f1ec">
+  <meta name="theme-color" content="#181a18">
   <meta name="description" content="FULCRUM 01 — a fictional lighting design concept with an interactive 3D product study, finish options and an exploded assembly.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="FULCRUM 01 — Light, in balance.">
   <meta property="og:description" content="Explore a fictional adjustable lighting concept in three dimensions.">
   <title>FULCRUM 01 — Light, in balance.</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="styles.css?v=studio-03">
+  <script defer src="script.js?v=studio-03"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to product</a>
@@ -24,13 +24,13 @@
     <section class="hero" id="model" aria-labelledby="title">
       <div class="hero-intro">
         <p class="eyebrow"><span class="edition-mark"></span> Object 01 / Task lighting</p>
-        <h1 id="title">Light in<br>balance<span>.</span></h1>
+        <h1 id="title">Light in balance<span>.</span></h1>
         <p class="intro-copy">A considered object for the everyday. A precise cantilever, a spun-metal shade, and light where you need it.</p>
-        <a class="primary" href="#construction">Explore the design</a><div class="hero-detail"><span>01 / FULCRUM</span><span>Three finishes. One form.</span></div>
+        <a class="primary" href="#construction">Discover the details</a>
       </div>
       <div class="model-column">
         <figure class="stage" aria-labelledby="model-caption" data-renderer="static">
-          <div class="stage-index" aria-hidden="true"><span>FIG. 01</span><span>LIGHTING OBJECT</span></div>
+          <div class="stage-index" aria-hidden="true"><span>01 / FORM STUDY</span><span>360° PRODUCT VIEW</span></div>
           
           <div class="fallback" aria-hidden="true">
             <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@
 </svg>
           </div>
           <canvas id="lamp-canvas" width="800" height="800" aria-hidden="true" hidden></canvas>
-          <figcaption id="model-caption"><span>01 / Cantilever desk lamp</span><span id="view-mode">Static illustration</span></figcaption>
+          <figcaption id="model-caption"><span>FULCRUM 01 / Cantilever desk lamp</span><span id="view-mode">Static illustration</span></figcaption>
         </figure>
         <fieldset id="model-controls" disabled>
           <legend class="sr-only">Product study controls</legend>
@@ -74,13 +74,13 @@
             <div><label for="assembly">03 / Shade assembly <output id="assembly-value" for="assembly">0%</output></label><input id="assembly" type="range" min="0" max="100" value="0" step="1" aria-valuetext="Assembled"></div>
             <button type="button" id="reset">Reset</button>
           </div>
-          <p class="assembly-note">Separate the shade and diffuser; the stand remains assembled.</p><p id="model-status" class="sr-only" role="status" aria-live="polite">Ochre finish, assembled.</p>
+          <p class="assembly-note">Shade and diffuser only. The support remains attached to the base.</p><p id="model-status" class="sr-only" role="status" aria-live="polite">Ochre finish, assembled.</p>
         </fieldset>
       </div>
     </section>
     <section class="design" id="design" aria-labelledby="design-title">
       <p class="eyebrow">01 / The design</p>
-      <div><h2 id="design-title">A quieter<br>kind of object.</h2><p>A low, weighted base anchors a slender graphite arm. The shallow spun-metal shade keeps the silhouette balanced, with a recessed diffuser to soften the light.</p></div>
+      <div><h2 id="design-title">One continuous line.</h2><p>A low, weighted base anchors a slender graphite arm. The shallow spun-metal shade keeps the silhouette balanced, with a recessed diffuser to soften the light.</p></div>
       <div class="design-drawing" aria-hidden="true"><svg viewBox="0 0 300 230"><g fill="none" stroke="currentColor" stroke-width="1.2"><path d="M35 200H265M82 181V51H180V78M142 78H218L246 126H114Z"/><ellipse cx="82" cy="181" rx="46" ry="10"/><path d="M82 51h-26m26 130H56M60 51v130m-5-130h10m-10 130h10M114 140v8h132v-8"/></g><text x="44" y="120" transform="rotate(-90 44 120)" font-size="8">HEIGHT STUDY</text><text x="180" y="159" text-anchor="middle" font-size="8">SHADE PROFILE</text></svg></div>
     </section>
     <section class="construction" id="construction" aria-labelledby="construction-title">

@@ -64,3 +64,5 @@ Original stock remediation is paused at FRAME 7e32171: 74/74 attributed external
 
 ### FULCRUM refinement checkpoint
 User requested sleeker design and correction of assembly lifting the lamp off its base. Real prior CI screenshots reviewed: refine stage, scale, lighting and physical proportions, keep base and support anchored, separate only shade/diffuser. Actual rendered-pixel invariance tests and matching SVG fallback assertions added; verify current revision before moving to STRATA.
+
+Studio 03 checkpoint: user requested more visible refinement. Wide dark studio replaces split layout, camera framing corrected, asset versions explicit, actual geometry bounds checked in browser. Await current-SHA visual/CI acceptance.

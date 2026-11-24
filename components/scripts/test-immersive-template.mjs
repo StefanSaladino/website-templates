@@ -27,11 +27,12 @@ const pixels=async(canvas,bottomFraction=.34)=>canvas.evaluate(async (el,bottomF
  if(!gl)throw Error('No actual WebGL context');
  const raw=new Uint8Array(gl.drawingBufferWidth*gl.drawingBufferHeight*4);
  gl.readPixels(0,0,gl.drawingBufferWidth,gl.drawingBufferHeight,gl.RGBA,gl.UNSIGNED_BYTE,raw);
- let opaque=0;for(let i=3;i<raw.length;i+=4)if(raw[i]>0)opaque++;
+ let opaque=0, minX=gl.drawingBufferWidth,minY=gl.drawingBufferHeight,maxX=-1,maxY=-1;
+ for(let i=3;i<raw.length;i+=4){if(raw[i]>0)opaque++;if(raw[i]>200){const index=(i-3)/4,x=index%gl.drawingBufferWidth,y=Math.floor(index/gl.drawingBufferWidth);minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);}}
  const hex=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(x=>x.toString(16).padStart(2,'0')).join('');
  const bottom=raw.subarray(0,Math.floor(gl.drawingBufferHeight*bottomFraction)*gl.drawingBufferWidth*4);
  let bottomOpaque=0;for(let i=3;i<bottom.length;i+=4)if(bottom[i]>200)bottomOpaque++;
- return {opaque,hash:await hex(raw),bottomOpaque,bottomHash:await hex(bottom)};
+ return {opaque,hash:await hex(raw),bottomOpaque,bottomHash:await hex(bottom),framed:minX>2&&minY>2&&maxX<gl.drawingBufferWidth-3&&maxY<gl.drawingBufferHeight-3};
 },bottomFraction);
 try{
  let ready=false;for(let i=0;i<50;i++){try{if((await fetch(base+ids[0]+'/')).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,200))}
@@ -49,12 +50,13 @@ try{
     await page.goto(url,{waitUntil:'domcontentloaded'});
     const stage=page.locator(s.stage),canvas=page.locator(s.canvas);
     await checkState(page,s,s.initial);assert.equal(await stage.getAttribute('data-renderer'),'webgl');
-    let prior=await pixels(canvas);assert(prior.opaque>100,'Model must render actual visible pixels');
+    let prior=await pixels(canvas);assert(prior.opaque>100,'Model must render actual visible pixels');if(s.requireFraming)assert(prior.framed,'Assembled model clipped by canvas');
     for(const step of s.steps){
      const before=step.stableBottomFraction?await pixels(canvas,step.stableBottomFraction):prior;
      await act(page,s,step);
      const current=await pixels(canvas,step.stableBottomFraction||.34);
      assert(current.opaque>100&&current.hash!==prior.hash,'Rendered pixels must change: '+step.selector);
+     if(s.requireFraming)assert(current.framed,'Model clipped after '+step.selector);
      if(step.stableBottomFraction){
        assert(before.bottomOpaque>100,'Grounded base must be visible in the tested region');
        assert.equal(current.bottomHash,before.bottomHash,'Assembly must not move or redraw grounded base/support pixels');

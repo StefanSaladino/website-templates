@@ -79,6 +79,7 @@
           ".fallback-post"
         ]
       }
-    ]
+    ],
+    "requireFraming": true
   }
 }

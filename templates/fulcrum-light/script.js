@@ -25,9 +25,12 @@
     for(let j=0;j<profile.length-1;j++){
       const [r0,y0]=profile[j], [r1,y1]=profile[j+1];
       const n=normalize([y1-y0,r0-r1]);
+      const adjacent=k=>normalize([profile[k+1][1]-profile[k][1],profile[k][0]-profile[k+1][0]]);
+      const smooth=k=>{if(k<0||k>=profile.length-1)return n;const q=adjacent(k);return n[0]*q[0]+n[1]*q[1]>.73?normalize([n[0]+q[0],n[1]+q[1]]):n;};
+      const lo=smooth(j-1),hi=smooth(j+1);
       for(let i=0;i<segments;i++){
         const t0=i*TAU/segments,t1=(i+1)*TAU/segments;
-        const a=vertex(r0,y0,t0,n),b=vertex(r1,y1,t0,n),c=vertex(r1,y1,t1,n),d=vertex(r0,y0,t1,n);
+        const a=vertex(r0,y0,t0,lo),b=vertex(r1,y1,t0,hi),c=vertex(r1,y1,t1,hi),d=vertex(r0,y0,t1,lo);
         out.push(...a,...b,...c,...a,...c,...d);
       }
     }
@@ -78,7 +81,8 @@
           vec3 p=tilt(yaw(aPosition+vec3(0.,uShift,0.),uAngle));
           vPosition=p;vLocal=aPosition;vNormal=tilt(yaw(aNormal,uAngle));
           float depth=6.6-p.z;
-          gl_Position=vec4(p.x*3.25/uAspect,(p.y+.04)*3.25,depth*1.018-.22,depth);
+          float scale=min(2.48,2.95*uAspect);
+          gl_Position=vec4(p.x*scale/uAspect,(p.y+.13)*scale,depth*1.018-.22,depth);
         }`);
       const fs=compile(gl.FRAGMENT_SHADER,`
         precision mediump float;
@@ -88,15 +92,15 @@
           if(uShadow>.5){
             vec2 q=(vLocal.xz-vec2(-.58,0.))/vec2(1.28,1.03);
             float d=length(q);
-            float a=.26*exp(-3.5*d*d)*(1.-smoothstep(.72,1.,d));
-            gl_FragColor=vec4(.18,.20,.17,a);return;
+            float a=.38*exp(-3.5*d*d)*(1.-smoothstep(.72,1.,d));
+            gl_FragColor=vec4(.04,.05,.04,a);return;
           }
           vec3 n=normalize(vNormal),l=normalize(vec3(-.85,1.35,1.55)),r=normalize(vec3(1.1,.40,-.65));
           vec3 eye=normalize(vec3(0.,0.,6.6)-vPosition);
           float diff=max(dot(n,l),0.), rim=max(dot(n,r),0.);
           float spec=pow(max(dot(n,normalize(l+eye)),0.),mix(15.,56.,uGloss))*(.10+.25*uGloss);
           float edge=pow(1.-max(dot(n,eye),0.),3.);
-          vec3 color=uColor*(.48+.56*diff+.18*rim)+vec3(spec+.035*edge);
+          vec3 color=uColor*(.55+.68*diff+.24*rim)+vec3(spec+.06*edge);
           gl_FragColor=vec4(clamp(color,0.,1.),1.);
         }`);
       program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
@@ -132,14 +136,14 @@
   }
   function draw(){
     if(!gl||gl.isContextLost()||stage.dataset.renderer!=='webgl')return;
-    const rect=stage.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,1.6,1100/Math.max(rect.width,rect.height,1));
+    const rect=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,1.6,1100/Math.max(rect.width,rect.height,1));
     const w=Math.max(1,Math.round(rect.width*dpr)),h=Math.max(1,Math.round(rect.height*dpr));
     if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h}
     gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(program);
     gl.uniform1f(uniforms.uAngle,angle*Math.PI/180);gl.uniform1f(uniforms.uAspect,w/h);
     const p=gl.getAttribLocation(program,'aPosition'),n=gl.getAttribLocation(program,'aNormal');
     gl.enableVertexAttribArray(p);gl.enableVertexAttribArray(n);
-    const materials={paint:finishes[finish],metal:[.28,.30,.28],dark:[.18,.19,.17],diffuser:[.91,.88,.79],shadow:[0,0,0]};
+    const materials={paint:finishes[finish],metal:[.34,.36,.34],dark:[.18,.19,.17],diffuser:[.91,.88,.79],shadow:[0,0,0]};
     for(const item of meshes){
       gl.bindBuffer(gl.ARRAY_BUFFER,item.buffer);
       gl.vertexAttribPointer(p,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(n,3,gl.FLOAT,false,24,12);
