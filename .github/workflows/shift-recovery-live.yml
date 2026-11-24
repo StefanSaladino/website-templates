@@ -2,14 +2,14 @@ name: SHIFT recovery live composition
 on:
   push:
     branches: [feature/component-showroom]
-    paths: ['templates/_drafts/shift-recovery/**','components/scripts/test-shift-recovery-live.mjs','components/scripts/test-shift-recovery-projection.mjs','components/scripts/test-shift-recovery-accessibility.mjs','.github/workflows/shift-recovery-live.yml']
+    paths: ['templates/_drafts/shift-recovery/**','templates/shift-card/**','components/previews/ANIM-21/**','components/previews/ANIM-22/**','components/scripts/test-shift-components.mjs','components/scripts/test-shift-model.mjs','components/scripts/test-shift-recovery-live.mjs','components/scripts/test-shift-recovery-projection.mjs','components/scripts/test-shift-recovery-accessibility.mjs','.github/workflows/shift-recovery-live.yml']
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   review:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 14
     defaults:
       run:
         working-directory: components
@@ -24,9 +24,15 @@ jobs:
       - run: node scripts/test-shift-recovery-accessibility.mjs
       - run: node scripts/test-shift-recovery-live.mjs
         if: success() || failure()
+      - run: node scripts/test-shift-model.mjs
+        if: success() || failure()
+      - run: node scripts/test-shift-components.mjs
+        if: success() || failure()
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: shift-recovery-live-evidence
-          path: components/shift-recovery-live-evidence
+          path: |
+            components/shift-recovery-live-evidence
+            components/shift-storyboard-evidence
           retention-days: 7

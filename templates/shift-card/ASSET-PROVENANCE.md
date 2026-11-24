@@ -10,3 +10,5 @@ P4 adds locally generated graphite and silver static SVG counterparts and shared
 P5 lifecycle refinements bound pixel count and duplicate frame submissions, retain SVG until first render, and keep still-mode controls and announcements in the narrative. No new third-party assets.
 
 P7: registered review template; original thumbnail is a self-contained SVG interpretation, not a photograph or captured screenshot. Original product artwork and swatch colours retained. No external assets or financial service.
+
+R7 review candidate: original studio-rendered mesh and original local SVG/Canvas artwork, no external assets. Thumbnail is a vector interpretation of the exact b867b7e opening browser capture (not itself a screenshot). Registered page uses the recovered shared bounded composition. Previous renderer and model study retained for independent component compatibility. Visual stakeholder and physical-device acceptance outstanding.

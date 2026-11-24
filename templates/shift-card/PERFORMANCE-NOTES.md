@@ -9,3 +9,6 @@ Dedicated workflow 45385995315 passed all four suites. Lifecycle report: 7,753 b
 
 ## P6 evidence (f5e8486)
 Workflow 45386440340 passed all four suites. Report: 54,076 bytes initial transfer, 8,231 bytes gzip JS, buffer counts 532,800–2,500,000. Physical GPU FPS and Safari remain unverified. P7 retest pending.
+
+## R6 recovery acceptance (b867b7e)
+Workflow 45408471833 passed all specialist steps: 105 live positions, 4 accessibility widths, context loss/recovery, reading offsets and text reflow. Buffer sizes 532800/740610/1248720/2500000px at 320/390/768/1440. Physical GPU FPS and Safari not measured. R7 registered-route rerun pending.

@@ -675,3 +675,6 @@ User reported visible scene-to-scene jumps. Current bca4827 audit identified dis
 
 ### SHIFT visual recovery — blocking priority
 Stakeholder rejected 274a691: the previous handoff repair produced an isolated sticky product viewer on compact screens, and desktop remains a fixed product over independent scrolling sections. Exact-revision Pages build and all five SHIFT specialist stages passed, but actual chapter/bridge captures and source audit demonstrate visual failure. Reopened original video and audited 36 current positions at 390/768/1440/844; documented 11 causes, measured layout/motion ranges, a bounded shared scene architecture, and R0–R7 phased remediation with separate composition and motion approval gates in [SHIFT visual recovery roadmap](docs/SHIFT-VISUAL-RECOVERY-ROADMAP.md). Visual acceptance reopened; no further immersive designs or main merge until recovery review. Next R1 storyboard prototype only. No runtime changes in this commit. Device/Safari and motion-recording acceptance remain outstanding.
+
+### SHIFT recovery review registration
+R6 specialist workflow 45408471833 passed all tests; R7 replaces the registered review template with the bounded recovered campaign. See docs/SHIFT-VISUAL-RECOVERY-ROADMAP.md. Current registered-route and configurator checks pending. Catalogue counts unchanged, no main merge or physical-device approval.

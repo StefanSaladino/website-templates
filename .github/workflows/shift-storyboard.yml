@@ -1,32 +1,10 @@
-name: SHIFT storyboard review
+name: SHIFT legacy review (superseded)
 on:
-  push:
-    branches: [feature/component-showroom]
-    paths: ['templates/shift-card/**','components/previews/ANIM-21/**','components/previews/ANIM-22/**','components/scripts/test-shift-components.mjs','components/scripts/test-shift-storyboard.mjs','components/scripts/test-shift-model.mjs','components/scripts/test-shift-journey.mjs','components/scripts/test-shift-lifecycle.mjs','.github/workflows/shift-storyboard.yml']
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  storyboard:
+  historical:
     runs-on: ubuntu-24.04
-    timeout-minutes: 8
-    defaults:
-      run:
-        working-directory: components
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - run: npm install --no-audit --no-fund
-      - run: node scripts/test-shift-storyboard.mjs
-      - run: node scripts/test-shift-model.mjs
-      - run: node scripts/test-shift-journey.mjs
-      - run: node scripts/test-shift-lifecycle.mjs
-      - run: node scripts/test-shift-components.mjs
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: shift-storyboard-evidence
-          path: components/shift-storyboard-evidence
-          retention-days: 7
+      - run: echo "Historical P1-P8 tests are superseded by shift-recovery-live.yml; use the recovery workflow for the registered template."

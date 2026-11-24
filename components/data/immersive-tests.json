@@ -439,13 +439,14 @@
   },
   "shift-card": {
     "dedicated": true,
-    "workflow": ".github/workflows/shift-storyboard.yml",
+    "workflow": ".github/workflows/shift-recovery-live.yml",
     "scripts": [
-      "test-shift-storyboard.mjs",
+      "test-shift-recovery-live.mjs",
+      "test-shift-recovery-accessibility.mjs",
+      "test-shift-recovery-projection.mjs",
       "test-shift-model.mjs",
-      "test-shift-journey.mjs",
-      "test-shift-lifecycle.mjs"
+      "test-shift-components.mjs"
     ],
-    "reason": "Dedicated suite verifies actual native scroll, GPU recovery, and reduced-motion SVG rather than forcing WebGL during reduced motion."
+    "reason": "Recovery suite verifies continuous bounded composition, actual mesh projection and rendering, accessibility, model study and both reusable component examples."
   }
 }

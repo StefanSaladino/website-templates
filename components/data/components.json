@@ -7102,20 +7102,20 @@
     "notes": "Original procedural product specimen and full-page integration. Custom geometry and implementation required for a new product; physical device review outstanding.",
     "reviewRoute": "./review.html?id=ANIM-21",
     "mobileTreatmentIds": [],
-    "fullTemplateRoute": "../templates/shift-card/index.html#opening",
+    "fullTemplateRoute": "../templates/shift-card/index.html#story",
     "fullTemplateName": "SHIFT / The moving card",
     "showcase": {
       "label": "Immersive product motion",
       "focus": "Single real-time object and layered typography",
-      "summary": "Native scrolling rotates a procedural card between three camera poses; oversized outlined text remains behind the object. Static chapter copy and artwork remain when motion or graphics are disabled.",
-      "desktop": "Scroll or use the controls and inspect the actual full-page example.",
-      "mobile": "Compact sticky visual above readable chapters; native chapter links and static artwork.",
+      "summary": "One bounded campaign composition coordinates a real-time object, decorative typography, studio light and backdrop on native scroll; the entire composition releases into normal content.",
+      "desktop": "Scroll through the unified opening and continue into normal editorial content.",
+      "mobile": "Portrait-specific integrated campaign with protected readable copy; no product-only sticky viewer. Still view releases into normal flow.",
       "lookFor": [
-        "Single real-time object and layered typography",
-        "Working controls and static fallback"
+        "One shared product and typography composition",
+        "Continuous motion and clean release"
       ],
       "focusAnchor": "motion-showcase",
-      "explain": "Native scrolling rotates a procedural card between three camera poses; oversized outlined text remains behind the object. Static chapter copy and artwork remain when motion or graphics are disabled.",
+      "explain": "One bounded campaign composition coordinates a real-time object, decorative typography, studio light and backdrop on native scroll; the entire composition releases into normal content.",
       "bestFor": [
         "Product launches",
         "High-end brand storytelling"
@@ -7149,7 +7149,7 @@
     "notes": "Original procedural product specimen and full-page integration. Custom geometry and implementation required for a new product; physical device review outstanding.",
     "reviewRoute": "./review.html?id=ANIM-22",
     "mobileTreatmentIds": [],
-    "fullTemplateRoute": "../templates/shift-card/index.html#finish",
+    "fullTemplateRoute": "../templates/shift-card/index.html#object",
     "fullTemplateName": "SHIFT / The moving card",
     "showcase": {
       "label": "Immersive product motion",
