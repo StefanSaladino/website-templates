@@ -50,3 +50,29 @@ html[data-renderer=webgl]:not([data-frame-ready=true]) .chapter img{visibility:v
  html[data-renderer=webgl] .opening-type,html[data-renderer=webgl] .final h2{z-index:3}
 }
 @media(max-height:500px) and (min-width:701px){.mast{position:relative;z-index:5}.opening-type{z-index:3!important}}
+
+/* Continuous product stage: one canvas for the entire story, no chapter handoffs. */
+.live-scene{filter:none;pointer-events:none}.annotation,.everyday-art>span{pointer-events:none}
+@media(max-width:700px),(max-width:999px) and (orientation:portrait){
+ html[data-renderer=webgl]{--stage-height:clamp(208px,36svh,350px);scroll-padding-top:calc(var(--stage-height) + 12px)}
+ html[data-renderer=webgl] .live-scene{position:sticky;top:0;inset-inline:0;height:var(--stage-height);width:100%;z-index:8;background:var(--chalk);border-bottom:1px solid #99999955;overflow:hidden;isolation:isolate}
+ html[data-renderer=webgl] .live-scene canvas{position:absolute;inset:0;width:100%;height:100%}
+ html[data-renderer=webgl] .chapter{min-height:max(320px,calc(100svh - var(--stage-height)));padding:24px var(--pad) 38px;justify-content:space-between}
+ html[data-renderer=webgl] .chapter .opening-art,html[data-renderer=webgl] .chapter .object-art,html[data-renderer=webgl] .chapter .finish-art,html[data-renderer=webgl] .chapter .everyday-art,html[data-renderer=webgl] .chapter .final-art{display:none}
+ html[data-renderer=webgl] .opening-type,html[data-renderer=webgl] .final h2{padding:24px 0}
+ html[data-renderer=webgl] .object-layout,html[data-renderer=webgl] .everyday-layout{display:block;padding:32px 0 0}
+ html[data-renderer=webgl] .finish-copy{width:100%;padding:28px 0 14px}
+ html[data-renderer=webgl] .finish-options{width:100%;padding:0;order:3}
+ html[data-renderer=webgl] .opening-bottom{grid-template-columns:1fr;gap:10px;padding-top:12px}
+ html[data-renderer=webgl] .edition{justify-self:start;text-align:left}
+ html[data-renderer=webgl] .final-bottom{flex-direction:column;align-items:stretch}
+ html[data-renderer=webgl] .concept{width:100%}
+ html[data-renderer=webgl] .opening h1,html[data-renderer=webgl] .final h2{font-size:clamp(50px,12vw,100px)}
+ html[data-renderer=webgl] .object h2,html[data-renderer=webgl] .finish h2,html[data-renderer=webgl] .everyday h2{font-size:clamp(48px,10vw,88px)}
+ /* Keep the original fallback available until the first draw, in the same stage
+    geometry; system reduced motion restores the original in-flow illustrations. */
+ html[data-renderer=webgl]:not([data-frame-ready=true]) .live-scene{background:var(--chalk) url('card.svg') center/auto 58% no-repeat}
+}
+@media(min-width:701px) and (max-height:500px) and (orientation:landscape){
+ .opening{min-height:calc(100svh - 74px)}.opening-type{padding:18px 0 12px}.opening h1{font-size:clamp(48px,8vw,76px)}.opening-bottom{gap:10px;padding-top:8px}.opening-bottom p{font-size:12px}.edition{font-size:9px}.opening .chapter-label{font-size:10px}.final h2{font-size:clamp(52px,9vw,80px)}
+}
