@@ -37,40 +37,45 @@ body[data-page=home] .study-cases{margin:0;padding:clamp(56px,8vw,112px) var(--p
 @media(min-width:741px) and (min-height:690px) and (prefers-reduced-motion:no-preference){
  .study-cases[data-stack=enabled] .study-photo{aspect-ratio:auto;height:clamp(260px,calc(100svh - 310px),440px)}
 }
-body[data-page=home] .studio-finale{margin:0;padding:clamp(50px,8vw,115px) var(--pad) 38px;background:#292d28;color:#f4f2e9;--muted:#cbcfc3;--accent:#ebc6ad}
-.studio-heading,.studio-composition,.studio-return{max-width:1320px;margin-inline:auto}
-.studio-heading{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:0 clamp(22px,5vw,76px);align-items:end;margin-bottom:clamp(28px,5vw,68px)}
-.studio-heading .studio-overline{grid-column:1/-1;color:#d5d8ca}
-body[data-page=home] .studio-heading h2{font:500 clamp(42px,6vw,88px)/.99 Arial,Helvetica,sans-serif;letter-spacing:-.065em;margin:0;overflow-wrap:normal}
-.studio-heading .studio-copy{color:#d5d8ca;font-size:clamp(15px,1.5vw,21px);line-height:1.6;margin:0 0 3px;max-width:36ch}
-.studio-composition{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(24px,5vw,76px);align-items:start}
-.studio-explorer h3{font-size:14px;font-weight:500;margin:0 0 16px;color:#d5d8ca}
-.practice-item{border-top:1px solid #787e70}
-.practice-item:last-child{border-bottom:1px solid #787e70}
-.practice-item summary{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:66px;padding:14px 0;cursor:pointer;list-style:none;color:#f4f2e9;font-size:clamp(23px,3.1vw,43px);letter-spacing:-.055em;line-height:1.1}
-.practice-item summary::-webkit-details-marker{display:none}
-.practice-item summary>span:first-child{display:flex;align-items:baseline;gap:12px}
-.practice-item summary small{font:11px/1 Arial,sans-serif;letter-spacing:0;color:#d5d8ca}
-.practice-item summary:focus-visible{outline:2px solid #ebc6ad;outline-offset:4px}
-.practice-indicator{width:21px;height:21px;flex:none;position:relative}
-.practice-indicator:before,.practice-indicator:after{content:"";position:absolute;top:50%;left:2px;right:2px;height:1px;background:currentColor;transition:transform .25s ease}
-.practice-indicator:after{transform:rotate(90deg)}
-.practice-item[open] .practice-indicator:after{transform:none}
-.practice-item[open] summary{color:#ebc6ad}
-.practice-content{padding:0 0 20px 25px;max-width:42ch;color:#d5d8ca}
-.practice-content p{font-size:15px;line-height:1.6;margin:0 0 8px}
-.practice-content a{display:inline-flex;align-items:center;gap:10px;min-height:44px;text-decoration:underline;text-underline-offset:4px;color:#f4f2e9;font-size:14px}
-.practice-visual{margin:0;min-width:0}
-.practice-frame{position:relative;aspect-ratio:1.3;overflow:hidden;background:#41473c}
-.practice-image{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;visibility:hidden;transform:scale(1.025);transition:opacity .45s ease,transform .65s var(--ease),visibility .45s}
-.practice-identity{opacity:1;visibility:visible;transform:none}
-.studio-composition:has([data-practice="type"][open]) .practice-identity,.studio-composition:has([data-practice="direction"][open]) .practice-identity{opacity:0;visibility:hidden;transform:scale(1.025)}
-.studio-composition:has([data-practice="type"][open]) .practice-type,.studio-composition:has([data-practice="direction"][open]) .practice-direction{opacity:1;visibility:visible;transform:none}
-.practice-visual figcaption{font-size:12px;color:#d5d8ca;margin-top:9px}
-.studio-return{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;border-top:1px solid #787e70;margin-top:clamp(28px,5vw,68px);padding-top:20px}
-.studio-return p{margin:0;font-size:clamp(18px,2vw,26px);letter-spacing:-.03em}
-.studio-return a{min-height:44px;display:inline-flex;align-items:center;gap:14px;font-size:14px;border-bottom:1px solid currentColor}
-body[data-page=home] .photo-credits{margin:0;padding:0 var(--pad) 12px;background:#292d28;color:#d5d8ca}
+/* P14 — CALIBRE-inspired bounded photographic finale.
+   Stage is sticky only inside this section. Normal-flow chapters and native
+   links remain readable without JS, on short viewports and in still mode. */
+body[data-page=home] .luxury-studio{margin:0;background:#111210;color:#f2ece2;--muted:#d0c8b9;--accent:#dfc39a;--studio-rail:74px}
+.studio-cinema{position:relative;isolation:isolate}
+.studio-stage{display:none}
+.studio-chapters{position:relative;z-index:2}
+.studio-chapter{position:relative;isolation:isolate;min-height:100svh;display:flex;align-items:center;padding:clamp(56px,9vw,130px) clamp(20px,8vw,140px);background:#181916;color:#f2ece2}
+.studio-static-shot{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#292a25}
+.studio-static-shot img,.studio-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--shot-position,50% 50%)}
+.studio-chapter:after,.studio-shade{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#111210f5 0%,#111210d9 28%,#11121070 60%,#11121016 100%),linear-gradient(0deg,#111210a8,transparent 32%);z-index:-1}
+.studio-chapter-copy{position:relative;max-width:min(660px,76%);min-width:0}
+.studio-eyebrow{font:500 11px/1.5 var(--index-text,Arial,sans-serif);letter-spacing:.12em;text-transform:uppercase;color:#e3c69e;margin:0 0 clamp(18px,3vw,34px)}
+body[data-page=home] .luxury-studio .studio-chapter-copy h2,body[data-page=home] .luxury-studio .studio-chapter-copy h3{font:400 clamp(58px,8.4vw,130px)/.98 Georgia,'Times New Roman',serif;letter-spacing:-.055em;margin:0 0 26px;color:#f7f0e6;overflow-wrap:break-word}
+.studio-narrative{font:400 clamp(16px,1.5vw,21px)/1.7 var(--index-text,Arial,sans-serif);color:#eee8df;max-width:34ch;margin:0 0 22px}
+.studio-chapter-link{min-height:48px;display:inline-flex;align-items:center;gap:20px;border-bottom:1px solid #d8bd97;font-size:14px;color:#f6eee3}
+.studio-chapter-link svg{width:19px;height:19px;transition:transform .3s ease}
+.studio-chapter-link:hover svg{transform:translateX(4px)}
+.luxury-studio a:focus-visible,.luxury-studio button:focus-visible{outline:2px solid #dfc39a;outline-offset:5px}
+.studio-controls{position:relative;z-index:3;display:grid;grid-template-columns:auto minmax(50px,1fr) auto auto;align-items:center;gap:12px 22px;padding:10px var(--pad);background:#141512;color:#eee8df;border-top:1px solid #6b6456}
+.studio-counter{font:12px/1.5 var(--index-text,Arial,sans-serif);font-variant-numeric:tabular-nums;color:#dfc39a}
+.studio-progress{height:2px;background:#61594e;overflow:hidden}
+.studio-progress i{display:block;width:100%;height:100%;background:#dfc39a;transform:scaleX(var(--studio-progress,0));transform-origin:left}
+.studio-controls nav{display:flex;align-items:center;gap:clamp(12px,3vw,40px)}
+.studio-controls nav a,.studio-controls button{display:inline-flex;align-items:center;min-height:44px;color:#e8e1d7;font-size:12px;white-space:nowrap;background:none;border:0;padding:0 2px}
+.studio-controls nav a[aria-current=location]{color:#dfc39a;text-decoration:underline;text-underline-offset:5px}
+.studio-controls button{text-decoration:underline;text-underline-offset:5px}
+.studio-controls button[hidden]{display:none!important}
+.luxury-studio[data-studio-mode=motion] .studio-stage{display:block;position:sticky;top:0;height:100svh;margin-bottom:-100svh;z-index:1;overflow:hidden;background:#181916;pointer-events:none}
+.studio-shot{position:absolute;inset:0;opacity:var(--shot-opacity,0);overflow:hidden;background:#181916}
+.studio-shot:first-child{opacity:var(--shot-opacity,1)}
+.studio-shot img{transform:translate3d(var(--shot-x,0px),var(--shot-y,0px),0) scale(var(--shot-zoom,1.1));transform-origin:var(--shot-position,50% 50%)}
+.studio-shade{z-index:3}
+.luxury-studio[data-studio-mode=motion] .studio-chapter{min-height:112svh;background:transparent;isolation:auto;pointer-events:none}
+.luxury-studio[data-studio-mode=motion] .studio-static-shot,.luxury-studio[data-studio-mode=motion] .studio-chapter:after{display:none}
+.luxury-studio[data-studio-mode=motion] .studio-chapter-copy{transform:translateY(var(--studio-type-y,0px));pointer-events:auto}
+.luxury-studio[data-studio-mode=motion] .studio-chapter:focus-within .studio-chapter-copy{transform:none}
+.luxury-studio[data-studio-mode=motion] .studio-controls{margin-top:0}
+body[data-page=home] .photo-credits{margin:0;padding:0 var(--pad) 12px;background:#141512;color:#d6cfc3}
 body[data-page=home] .studio-colophon{display:block;background:#eae7df;color:#242521;border:0;padding:clamp(24px,4vw,54px) var(--pad) 20px}
 .colophon-top{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px 36px;align-items:center;padding-bottom:24px;max-width:1320px;margin:auto}
 .colophon-top .colophon-brand{font:900 clamp(36px,4.6vw,68px)/1 Arial,sans-serif;letter-spacing:-.10em;justify-self:start}
@@ -97,3 +102,19 @@ body[data-page=home] .studio-colophon small{color:#53564e;margin:0;font-size:12p
 }
 @media(max-height:689px),(prefers-reduced-motion:reduce){.study-panel{position:relative!important;top:auto!important}.practice-image{transition:none!important}}
 @media(forced-colors:active){.study-panel,.practice-frame{border:1px solid CanvasText}.practice-item[open] summary{color:CanvasText}}
+
+@media(max-width:740px){
+ .studio-chapter{align-items:flex-end;padding:clamp(140px,26svh,260px) var(--pad) clamp(48px,9svh,90px)}
+ .studio-chapter-copy{max-width:100%;width:100%}
+ body[data-page=home] .luxury-studio .studio-chapter-copy h2,body[data-page=home] .luxury-studio .studio-chapter-copy h3{font-size:clamp(46px,12vw,80px);line-height:1.02;margin-bottom:18px}
+ .studio-chapter:after,.studio-shade{background:linear-gradient(0deg,#111210fa 0%,#111210e8 25%,#1112109a 48%,#11121020 85%),linear-gradient(90deg,#11121040,transparent)}
+ .studio-shot img,.studio-static-shot img{object-position:50% 42%;transform-origin:50% 42%}
+ .studio-controls{grid-template-columns:auto 1fr auto;gap:4px 10px;padding:8px var(--pad)}
+ .studio-controls nav{grid-row:2;grid-column:1/-1;justify-content:space-between}
+ .studio-controls button{grid-row:1;grid-column:3}
+ .studio-narrative{font-size:16px;line-height:1.55;margin-bottom:12px}
+ .studio-eyebrow{font-size:10px;margin-bottom:16px}
+}
+@media(max-height:620px){.studio-chapter{min-height:100svh;padding:55px var(--pad)}}
+@media(prefers-reduced-motion:reduce){.studio-shot img,.studio-chapter-copy{transform:none!important}}
+@media(forced-colors:active){.studio-static-shot,.studio-stage{visibility:hidden}.studio-chapter{background:Canvas;color:CanvasText}.luxury-studio .studio-chapter-copy :is(h2,h3,p,a){color:CanvasText!important}}

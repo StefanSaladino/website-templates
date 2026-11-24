@@ -34,3 +34,38 @@ if(track&&stage&&grid&&index&&stillButton){
  cards.forEach(card=>{card.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')select(card)});card.addEventListener('pointerleave',()=>{if(document.activeElement!==card)reset()});card.addEventListener('focus',()=>select(card));card.addEventListener('blur',reset)});
  stillButton.addEventListener('click',()=>{still=!still;mode()});motion.addEventListener('change',mode);heightGate.addEventListener('change',mode);addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});addEventListener('pageshow',()=>{progress=-1;schedule()});document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0}else schedule()});mode();
 }
+
+// CALIBRE-inspired scroll edit, scoped to the studio's own sticky stage.
+// No global fixed overlay or perpetual animation loop.
+const studio=document.querySelector('.luxury-studio');
+if(studio){
+ const chapters=[...studio.querySelectorAll('[data-studio-chapter]')],shots=[...studio.querySelectorAll('[data-studio-shot]')],links=[...studio.querySelectorAll('[data-studio-jump]')],button=studio.querySelector('#studio-motion'),counter=studio.querySelector('.studio-counter'),heightGate=matchMedia('(min-height:621px)');
+ const clamp=n=>Math.max(0,Math.min(1,n)),ease=n=>n*n*(3-2*n),mix=(a,b,t)=>a+(b-a)*t;
+ const poses=[{z:[1.07,1.23],x:[0,-.015],y:[.018,-.024]},{z:[1.12,1.28],x:[0,.017],y:[.012,-.025]},{z:[1.08,1.24],x:[-.01,.012],y:[.018,-.02]}];
+ let still=false,raf=0,lastActive=-1;
+ function paintStudio(){
+  raf=0;if(document.hidden)return;
+  const rects=chapters.map(c=>c.getBoundingClientRect()),vh=innerHeight;
+  let i=0;while(i<rects.length-1&&rects[i+1].top<=0)i++;
+  const span=Math.max(1,rects[i].height),t=clamp(-rects[i].top/span),blend=i<rects.length-1?ease(clamp((t-.58)/.42)):0;
+  const live=studio.dataset.studioMode==='motion',scale=innerWidth<741?.65:1;
+  // The following frame is composited over a fully opaque outgoing image.
+  // This avoids a dark flash between photos and is reversible on scroll.
+  shots.forEach((shot,j)=>{const pose=poses[j],e=j===i?ease(t):0;
+   shot.style.setProperty('--shot-opacity',String(j===i?1:j===i+1?blend:0));
+   shot.style.setProperty('--shot-zoom',String(1+(mix(...pose.z,e)-1)*scale));
+   shot.style.setProperty('--shot-x',mix(...pose.x,e)*innerWidth*scale+'px');
+   shot.style.setProperty('--shot-y',mix(...pose.y,e)*vh*scale+'px');
+  });
+  chapters.forEach((c,j)=>{const distance=rects[j].top+rects[j].height*.5-vh*.5;c.style.setProperty('--studio-type-y',live?Math.max(-24,Math.min(24,distance*.065))+'px':'0px')});
+  studio.style.setProperty('--studio-progress',String(clamp((i+t)/chapters.length)));
+  studio.dataset.studioChapter=String(i);studio.dataset.studioBlend=blend.toFixed(4);studio.dataset.studioProgress=((i+t)/chapters.length).toFixed(4);
+  if(i!==lastActive){lastActive=i;counter.textContent=String(i+1).padStart(2,'0')+' / 03';links.forEach((a,j)=>{if(j===i)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
+ }
+ function scheduleStudio(){if(!raf&&!document.hidden)raf=requestAnimationFrame(paintStudio)}
+ function modeStudio(){const live=!still&&!motion.matches&&heightGate.matches;studio.dataset.studioMode=live?'motion':'static';button.hidden=motion.matches||!heightGate.matches;button.textContent=live?'Still view':'Motion view';button.setAttribute('aria-pressed',String(!live));scheduleStudio()}
+ button.addEventListener('click',()=>{still=!still;modeStudio()});motion.addEventListener('change',modeStudio);heightGate.addEventListener('change',modeStudio);
+ addEventListener('scroll',scheduleStudio,{passive:true});addEventListener('resize',scheduleStudio,{passive:true});addEventListener('pageshow',scheduleStudio);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0}else scheduleStudio()});
+ modeStudio();paintStudio();
+}
