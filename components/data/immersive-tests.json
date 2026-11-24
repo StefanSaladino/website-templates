@@ -433,6 +433,10 @@
         }
       }
     ],
-    "mechanicalTimeline": true
+    "mechanicalTimeline": true,
+    "allowedImageIdentities": [
+      "https://images.pexels.com/photos/12915491/pexels-photo-12915491.jpeg",
+      "https://images.pexels.com/photos/34149486/pexels-photo-34149486.jpeg"
+    ]
   }
 }

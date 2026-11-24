@@ -1736,6 +1736,48 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Official NASA Unsplash upload describes Artemis II Earthset over lunar far side on April 6 2026. Source page identifies free Unsplash license and exact CDN link; direct image fetch unavailable in research, actual decode/crop pending. Independent montage; no implied endorsement or completed project. Final template rights/crop review open."
+    },
+    {
+      "id": "TM-151",
+      "urlIdentity": "https://images.pexels.com/photos/12915491/pexels-photo-12915491.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "calibre-watch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/silver-and-black-wristwatch-12915491/",
+      "creator": "Tony Litvyak",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Publisher Free label, 3079 x 3847, original Free download verified and visually inspected on 2026-11-23: diagonal brushed-steel skeleton wristwatch, gold movement, black strap on textured charcoal surface. No obvious readable brand; design and trademark clearance remain open. Independent editorial use, no endorsement. Final redistribution and crop review pending."
+    },
+    {
+      "id": "TM-152",
+      "urlIdentity": "https://images.pexels.com/photos/34149486/pexels-photo-34149486.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "calibre-watch",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/close-up-of-watch-movement-mechanics-34149486/",
+      "creator": "Gunnar Hoffmann",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Publisher Free label, 4256 x 2832, original Free download verified and visually inspected on 2026-11-23: warmly illuminated mechanical movement with ruby jewel, machined metal and dark vignette. Case text visible; not evidence of the hero watch's specification or internals. Independent editorial use, no endorsement. Final redistribution and crop review pending."
     }
   ]
 }

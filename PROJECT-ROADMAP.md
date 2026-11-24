@@ -576,3 +576,6 @@ Stakeholder liked PRISM and ABYSS and approved CALIBRE (mechanical animation), E
 
 ### CALIBRE source checkpoint
 First of five approved flagships implemented: full-screen skeleton watch with synchronized illustrative gear train, axial layer separation and scroll camera, pause/advance/rotation, responsive fallback. Mechanism math and actual pixel/scroll assertions registered; current SHA QA pending. 30 full templates; ESSENCE next after CALIBRE review.
+
+### CALIBRE photo-led correction
+User rejected generated watch visual. Real brushed-steel skeleton watch and separate macro photo integrated with cinematic scroll treatment, independent 3D mechanical study retained later. TM-151/152 publisher-verified, 82 active identities, 0 rights approved. Existing mechanical tests retained; current QA pending. No new site or main merge.

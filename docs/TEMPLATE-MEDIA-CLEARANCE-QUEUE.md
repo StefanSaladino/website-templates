@@ -4,10 +4,10 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **80 active external media identities:** 79 still/poster images and 1 HD hero video (conditional muted autoplay)
+- **82 active external media identities:** 81 still/poster images and 1 HD hero video (conditional muted autoplay)
 - **0 without verified/recorded source-page links** and **0 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
-- **0 rights-approved assets.** All 80 remain `needs-review`
-- **9 first-priority review records** with people, branding, replacement or video-related flags; 71 follow-on records
+- **0 rights-approved assets.** All 82 remain `needs-review`
+- **9 first-priority review records** with people, branding, replacement or video-related flags; 73 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
@@ -26,10 +26,12 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 71 active records
+## Follow-on queue — 73 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
+| TM-151 | calibre-watch | Pexels publisher page; Tony Litvyak | Real watch editorial reference, third-party design/crop/template rights open |
+| TM-152 | calibre-watch | Pexels publisher page; Gunnar Hoffmann | Independent macro reference; case text and third-party rights review open |
 | TM-147 | orbit-cinema | Pexels publisher page; Sam Kolder | Independently credited photographic montage, source delivery, rights and crop review open |
 | TM-148 | orbit-cinema | Pexels publisher page; Edvin Richardson | Independently credited photographic montage, source delivery, rights and crop review open |
 | TM-149 | orbit-cinema | Unsplash publisher page; NASA | Independently credited photographic montage, source delivery, rights and crop review open |
