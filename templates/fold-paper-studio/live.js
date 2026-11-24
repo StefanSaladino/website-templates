@@ -22,7 +22,7 @@ range.addEventListener('input',()=>select(+range.value/100));range.addEventListe
 // Horizontal drag is optional. Native vertical touch scrolling remains enabled.
 scene.addEventListener('pointerdown',e=>{if(!enabled||e.button!==0||!e.isPrimary||drag)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,start:target,active:false}});
 scene.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(!drag.active){if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>8){drag=null;return}if(Math.abs(dx)<8)return;drag.active=true;scene.setPointerCapture(e.pointerId)}select(drag.start+dx/Math.max(150,scene.clientWidth*.7))});
-function release(e){if(drag?.id!==e.pointerId)return;if(drag.active)select(target,true);drag=null}scene.addEventListener('pointerup',release);scene.addEventListener('pointercancel',release);scene.addEventListener('lostpointercapture',release);
+function release(e){if(drag?.id!==e.pointerId)return;if(drag.active)select(target,true);drag=null}scene.addEventListener('pointerup',release);scene.addEventListener('pointercancel',release);scene.addEventListener('lostpointercapture',release);window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
 new ResizeObserver(measure).observe(scene);reduce.addEventListener('change',configure);forced.addEventListener('change',configure);document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0;last=0}else if(current!==target)queue()});configure();
 
 const registration=document.querySelector('#registration'),registrationToggle=document.querySelector('#registration-toggle'),registrationScene=document.querySelector('#registration-scene'),registrationLabel=document.querySelector('#registration-label'),registrationStatus=document.querySelector('#registration-status');
@@ -31,3 +31,23 @@ function registrationState(announce=false){registration.dataset.separated=String
 registrationToggle.addEventListener('click',()=>{separated=!separated;registrationState(true)});
 function registrationPreference(){const available=CSS.supports('transform-style','preserve-3d')&&!forced.matches,focused=document.activeElement===registrationToggle;if(!available&&focused)document.querySelector('#registration-heading').focus({preventScroll:true});registrationToggle.hidden=!available;if(!available){separated=false;registrationState()}}
 forced.addEventListener('change',registrationPreference);registrationPreference();registrationState();
+
+// Ambient scene is a separate CSS 3D space. No JS frame loop. Only visible
+// chambers animate; reduced-motion, forced colours and background tabs stop it.
+const spaces=[...document.querySelectorAll('.spatial-set')],ambientToggle=document.querySelector('#ambient-toggle'),visibleSpaces=new Set();
+let ambientPaused=false;
+function ambientState(){
+ const allowed=CSS.supports('transform-style','preserve-3d')&&!reduce.matches&&!forced.matches;
+ const focused=document.activeElement===ambientToggle;
+ if(!allowed&&focused)document.querySelector('#title').focus({preventScroll:true});
+ ambientToggle.hidden=!allowed;
+ ambientToggle.setAttribute('aria-pressed',String(ambientPaused));
+ ambientToggle.textContent=ambientPaused?'Resume atmosphere':'Pause atmosphere';
+ for(const node of spaces)node.dataset.running=String(allowed&&!ambientPaused&&!document.hidden&&visibleSpaces.has(node));
+}
+ambientToggle.addEventListener('click',()=>{ambientPaused=!ambientPaused;ambientState()});
+if('IntersectionObserver' in window){
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting)visibleSpaces.add(entry.target);else visibleSpaces.delete(entry.target)}ambientState()},{threshold:0.01});
+ for(const node of spaces)observer.observe(node);
+}
+reduce.addEventListener('change',ambientState);forced.addEventListener('change',ambientState);document.addEventListener('visibilitychange',ambientState);ambientState();
