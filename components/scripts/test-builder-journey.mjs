@@ -3,7 +3,7 @@ import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {catalogue} from '../builder-model.js';
-import {fresh,restore,change,ready,recommendedPlan,allSlots,options,pageEntries,exportBrief,PURPOSES} from '../builder-journey.js';
+import {fresh,restore,change,ready,recommendedPlan,allSlots,options,pageEntries,exportBrief,PURPOSES,pageOptions,MAX_PAGES} from '../builder-journey.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../data'),read=n=>JSON.parse(readFileSync(path.join(root,n+'.json'),'utf8')),cat=catalogue(...['components','mobile-treatments','builder-templates','categories'].map(read));
 for(const p of Object.keys(PURPOSES))for(const size of ['single','multiple','unsure']){
  let s=fresh(),send=a=>s=change(s,a,cat);send({type:'purpose',value:p});send({type:'size',value:size});assert.equal(s.plan.pages.length,s.size==='single'?1:3);assert.equal(s.plan.shared.filter(x=>x.category==='headers').length,1);assert.equal(s.plan.shared.filter(x=>x.category==='footers').length,1);assert(allSlots(s.plan).length<15);
@@ -15,3 +15,12 @@ let s=fresh(),send=a=>s=change(s,a,cat);send({type:'purpose',value:'business'});
 const legacy={version:1,mode:'custom',sections:[{key:1,coreId:'NAV-01',mobileId:'M-NAV-01',animationIds:['ANIM-01']},{key:2,coreId:'HERO-01'},{key:3,coreId:'SRV-02'},{key:4,coreId:'SRV-01'},{key:5,coreId:'FOOT-01'}],palette:{primary:'#123456',secondary:'#FFFFFF',trim:null}};
 const recovered=restore(null,legacy,cat);assert(recovered.migrated);assert.equal(recovered.s.choices['home:services:2'].coreId,'SRV-01');assert.equal(recovered.s.choices['shared:headers'].mobileId,'M-NAV-01');assert.equal(recovered.s.palette.primary,'#123456');assert.equal(recovered.s.choices['shared:headers'].animationIds[0],'ANIM-01');
 console.log('PASS customer journey: 15 recommendation paths, per-page IDs, shared header/footer, required/optional choices, delegation, persistence, legacy migration, template reference and confirmation invalidation.');
+
+let edited=fresh(),act=a=>edited=change(edited,a,cat);
+act({type:'purpose',value:'business'});act({type:'size',value:'multiple'});assert.deepEqual(edited.plan.pages.map(p=>p.id),['home','services','contact']);
+act({type:'mode',value:'custom'});act({type:'delegate-all'});const old=edited.choices['home:heroes'];
+act({type:'add-page',page:'about'});act({type:'add-page',page:'faq'});act({type:'add-page',page:'custom',title:'Kitchen renovations'});assert(!ready(edited));assert.equal(edited.choices['home:heroes'].coreId,old.coreId);assert.equal(edited.plan.pages.find(p=>p.id==='faq').slots[1].category,'faq');
+act({type:'rename-page',id:'about',title:'Our story'});act({type:'move-page',id:'about',delta:-1});assert.equal(edited.plan.pages[1].title,'Our story');act({type:'remove-page',id:'services'});assert(!edited.plan.pages.some(p=>p.id==='services'));act({type:'remove-page',id:'home'});assert.equal(edited.plan.pages[0].id,'home');
+act({type:'mode',value:'custom'});act({type:'delegate-all'});assert(ready(edited));assert.equal(edited.choices['faq:faq'].coreId,'UI-01');assert(pageEntries(edited,'faq').some(x=>x.coreId==='UI-01'));const saved=restore(JSON.parse(JSON.stringify(edited)),null,cat).s;assert.deepEqual(exportBrief(saved,cat).data,exportBrief(edited,cat).data);
+act({type:'add-page',page:'about'});assert.equal(edited.plan.pages.filter(p=>p.id==='about').length,1);for(const p of pageOptions('business',cat))if(p.id!=='custom')act({type:'add-page',page:p.id});assert.equal(edited.plan.pages.length,MAX_PAGES);assert.equal(edited.plan.pages[0].id,'home');
+console.log('PASS editable page presets, adding/removing/renaming/reordering, custom titles, FAQ source, preservation and page limit.');

@@ -5,7 +5,7 @@ export const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 const cache=new Map(),revisions=new WeakMap();
 const root=new URL('./previews/',document.baseURI);
 const contextOnly=new Set(['CTA-05','UI-05','LEGAL-01','LEGAL-02','LEGAL-03']);
-export const isContextReference=c=>c&&(['interface','legal'].includes(c.category)||contextOnly.has(c.id));
+export const isContextReference=(c,entry)=>c&&!(c.id==='UI-01'&&entry?.slotId?.split(':')[1]==='faq')&&(['interface','legal'].includes(c.category)||contextOnly.has(c.id));
 function sourceURL(c){
  const url=new URL(c.previewRoute,document.baseURI);
  if(url.origin!==root.origin||url.pathname!==root.pathname+c.id+'/'||!/^([A-Z]+)-[0-9]+$/.test(c.id))throw Error('Invalid source route');
@@ -106,6 +106,10 @@ function bindContent(target,c,spec){
  if(c.id==='CONTACT-03')setText(target,'.service-info>div:first-child span','Your business · sample details');
 }
 function installLocalControls(shadow,body,target,c,entry,width){
+ if(c.id==='UI-01'&&entry.slotId?.split(':')[1]==='faq'){
+  const q=target.querySelector('#u1-query'),items=[...target.querySelectorAll('.u1-item')],status=target.querySelector('#u1-status'),empty=target.querySelector('#u1-empty');
+  if(q){const filter=()=>{const term=q.value.trim().toLowerCase();let count=0;for(const row of items){row.hidden=!row.textContent.toLowerCase().includes(term);if(!row.hidden)count++}if(status)status.textContent=count+' sample questions available';if(empty)empty.hidden=count!==0};q.addEventListener('input',filter);for(const id of ['#u1-clear','#u1-reset'])target.querySelector(id)?.addEventListener('click',()=>{q.value='';filter();q.focus()});filter()}
+ }
  // No source scripts are executed. Only small, local preview interactions with known targets.
  shadow.addEventListener('submit',e=>{e.preventDefault();e.stopPropagation()});
  shadow.addEventListener('click',e=>{
@@ -146,12 +150,12 @@ export async function renderSourcePage(frame,spec,cat,onResult=()=>{}){
  const revision=(revisions.get(frame)||0)+1;revisions.set(frame,revision);const scroll=spec.preserveScroll?frame.contentWindow?.scrollY||0:0;if(frame.contentDocument?.body)delete frame.contentDocument.body.dataset.previewReady;
  const active=()=>frame.isConnected&&revisions.get(frame)===revision;
  const entries=spec.sections.map(entry=>({entry,c:cat.core.get(entry.coreId)}));
- const sources=await Promise.allSettled(entries.map(({c})=>c&&!isContextReference(c)?readSource(c):Promise.resolve(null)));
+ const sources=await Promise.allSettled(entries.map(({c,entry})=>c&&!isContextReference(c,entry)?readSource(c):Promise.resolve(null)));
  if(!active())return;
  const mounted=await new Promise(resolve=>{
   const loaded=()=>{if(!active()){frame.removeEventListener('load',loaded);resolve(null);return}const doc=frame.contentDocument,page=doc?.getElementById('page'),container=doc?.getElementById('sections');if(!page||!container||doc.body.dataset.revision!==String(revision))return;frame.removeEventListener('load',loaded);
    container.replaceChildren();doc.body.style.background=spec.palette.secondary;let errors=0,shown=0,context=0;
-   entries.forEach(({entry,c},i)=>{if(c&&isContextReference(c)){context++;return}const source=sources[i];if(c&&source.status==='fulfilled'&&source.value){try{const rail=c.id==='NAV-05'&&spec.width>850;const host=mountSection(doc,rail?page:container,source.value,c,entry,{...spec,cat});if(rail){page.dataset.rail='';page.prepend(host)}shown++;return}catch(err){page.querySelectorAll('[data-source-status=preparing]').forEach(n=>n.remove());console.warn('Could not mount',c.id,err)}}
+   entries.forEach(({entry,c},i)=>{if(c&&isContextReference(c,entry)){context++;return}const source=sources[i];if(c&&source.status==='fulfilled'&&source.value){try{const rail=c.id==='NAV-05'&&spec.width>850;const host=mountSection(doc,rail?page:container,source.value,c,entry,{...spec,cat});if(rail){page.dataset.rail='';page.prepend(host)}shown++;return}catch(err){page.querySelectorAll('[data-source-status=preparing]').forEach(n=>n.remove());console.warn('Could not mount',c.id,err)}}
     errors++;const box=doc.createElement('section');box.className='preview-error';box.dataset.sourceStatus='error';box.dataset.id=c?.id||entry.coreId;box.textContent=(c?.title||entry.coreId)+' could not be loaded. Your original selection is still saved.';container.append(box)});
    if(!shown&&!errors){const p=doc.createElement('p');p.className='loading';p.textContent='Choose a design to begin.';container.append(p)}
    doc.body.dataset.previewPalette=[spec.palette.primary,spec.palette.secondary,spec.palette.trim||'none'].join('/');doc.body.dataset.previewReady='true';if(scroll)frame.contentWindow.scrollTo(0,scroll);resolve({shown,errors,context});
