@@ -594,3 +594,6 @@ Actual revision 1 browser captures reviewed; refine shader flow, camera, lensing
 
 ### EVENT HORIZON shadow clarity
 Increase opening shadow size and inner-ring definition, preserve dark core, reduce haze/overlay and retain revision 2 cinematic motion. Revision 3 committed; QA pending.
+
+### RESONANCE — F4 source checkpoint
+Original standing-wave particle sculpture and opt-in Web Audio sine tone, live analyser energy, frequency/intensity, silent exploration and static/reduced-motion fallback. Dedicated actual pixel and audio lifecycle tests registered. EVENT HORIZON 69c0c19 deployed and immersive QA passed, stakeholder approved. 33 full sites, 34 target; APEX next after review. No new media or main merge.
