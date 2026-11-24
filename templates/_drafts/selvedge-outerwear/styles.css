@@ -23,3 +23,17 @@
 @supports(mask-composite:intersect){.garment{mask-image:linear-gradient(to bottom,transparent 0%,#000 12%,#000 88%,transparent 100%),linear-gradient(to right,transparent 0%,#000 4%,#000 96%,transparent 100%);mask-composite:intersect}}
 .motion .garment img{transform:scale(var(--detail-scale,1));will-change:transform}
 @media(forced-colors:active){.garment{mask-image:none;mix-blend-mode:normal}.garment img{transform:none}}
+
+/* Native palette preview changes the authored colour track, not image pixels.
+   Custom palettes retain the original light photographic surface with its
+   feathered edge; multiply on arbitrary dark brand colours would obscure detail. */
+html[data-preview-themed]{background:var(--preview-secondary-bg);color:var(--preview-secondary-fg)}
+html[data-preview-themed] .stage{--bg:var(--preview-secondary-bg);--fg:var(--preview-secondary-fg);--type:var(--preview-static-type);--accent:var(--preview-secondary-accent)}
+html[data-preview-themed] .garment,html[data-preview-themed] .detail img{mix-blend-mode:normal}
+html[data-preview-themed] .construction{background:var(--preview-secondary-bg);color:var(--preview-secondary-fg)}
+html[data-preview-themed] .construction dt{color:var(--preview-secondary-accent)}
+html[data-preview-themed] .construction dl div{border-color:currentColor}
+html[data-preview-themed] .detail{background:#efeee9;color:#232923}
+html[data-preview-themed] .detail figcaption{background:var(--preview-secondary-bg);color:var(--preview-secondary-fg)}
+html[data-preview-themed] .edition{background:var(--preview-primary-bg);color:var(--preview-primary-fg)}
+html[data-preview-themed] footer{background:var(--preview-secondary-bg);color:var(--preview-secondary-fg)}
