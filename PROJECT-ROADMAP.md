@@ -597,3 +597,6 @@ Increase opening shadow size and inner-ring definition, preserve dark core, redu
 
 ### RESONANCE — F4 source checkpoint
 Original standing-wave particle sculpture and opt-in Web Audio sine tone, live analyser energy, frequency/intensity, silent exploration and static/reduced-motion fallback. Dedicated actual pixel and audio lifecycle tests registered. EVENT HORIZON 69c0c19 deployed and immersive QA passed, stakeholder approved. 33 full sites, 34 target; APEX next after review. No new media or main merge.
+
+### RESONANCE review
+17/17 dedicated browser cases passed on 83eed76; deployment and responsive checks passed. Reviewed real screenshot captures. Sticky live workbench places controls beside/below visible sculpture, plus audio lifecycle polish. Revision QA pending. Proceed to APEX on user authorization.

@@ -1,24 +1,24 @@
 <!doctype html>
 <html lang="en" data-sound-template>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101110"><meta name="description" content="RESONANCE — an interactive sound and standing-wave visual installation."><meta property="og:title" content="RESONANCE / Sound takes shape"><meta property="og:type" content="website"><title>RESONANCE — Sound takes shape</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css?v=1"><script defer src="script.js?v=1"></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101110"><meta name="description" content="RESONANCE — an interactive sound and standing-wave visual installation."><meta property="og:title" content="RESONANCE / Sound takes shape"><meta property="og:type" content="website"><title>RESONANCE — Sound takes shape</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css?v=2"><script defer src="script.js?v=2"></script></head>
 <body><a class="skip-link" href="#main">Skip to the instrument</a>
-<header class="mast"><a class="brand" href="#main">RESONANCE<span>®</span></a><span class="edition">STUDIES IN VIBRATION / 01</span><a class="exit" href="../../index.html">Index</a></header>
+<header class="mast"><a class="brand" href="#main">RESONANCE<span> / </span></a><span class="edition">STUDIES IN VIBRATION / 01</span><a class="exit" href="../../index.html">Index</a></header>
 <main id="main" tabindex="-1">
 <section class="installation" aria-labelledby="title">
- <div class="title-block"><p class="eyebrow">An instrument for the eyes</p><h1 id="title">Sound<br>takes shape.</h1><p class="intro">Nothing is still. Change a frequency and watch invisible vibrations arrange matter into form.</p></div>
- <figure class="field" id="field" data-renderer="static" data-frequency="220" data-mode="3:4" data-audio="off" data-motion="still" data-energy="0">
+ <div class="title-block"><p class="eyebrow">An instrument for the eyes</p><h1 id="title">Sound<br>takes shape.</h1><p class="intro">Nothing is still. Change a frequency and watch invisible vibrations arrange matter into form.</p><div class="side-note"><span>01 — FREQUENCY</span><p>Particles collect near nodal contours in an illustrative standing-wave field.</p></div></div>
+ <div class="workbench"><figure class="field" id="field" data-renderer="static" data-frequency="220" data-mode="3:4" data-audio="off" data-motion="still" data-energy="0">
  <div class="still" aria-hidden="true"><svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#a4a8a3" stroke-width="1.1" opacity=".85"><circle cx="300" cy="300" r="252" stroke="#343833"/><g transform="translate(300 300)"><path d="M-220 0Q-160 -175 0 -220Q175 -160 220 0Q160 175 0 220Q-175 160 -220 0Z"/><path d="M-194 0Q-134 -150 0 -194Q150 -134 194 0Q134 150 0 194Q-150 134 -194 0Z"/><path d="M-220 0Q-30 -220 0 0Q30 220 220 0Q30 -220 0 0Q-30 220 -220 0Z"/><path d="M0 -220Q220 -30 0 0Q-220 30 0 220Q220 30 0 0Q-220 -30 0 -220Z"/><path d="M-155 -155Q0 -50 155 155Q50 0 -155 -155M155 -155Q50 0 -155 155Q0 50 155 -155"/><circle r="90"/><circle r="54"/></g></g><g fill="#c1c5c0"><circle cx="300" cy="80" r="2"/><circle cx="520" cy="300" r="2"/><circle cx="80" cy="300" r="2"/><circle cx="300" cy="520" r="2"/></g></svg></div>
- <canvas id="sculpture" hidden aria-hidden="true"></canvas><figcaption><span>MODAL FIELD / <output id="mode-value">3:4</output></span><span id="field-status">SILENT STUDY</span></figcaption></figure>
- <div class="side-note"><span>01 — FREQUENCY</span><p>Particles collect near nodal contours in an illustrative standing-wave field.</p></div>
-</section>
-<section class="controls" aria-labelledby="control-title">
- <div class="control-intro"><p class="eyebrow">The instrument</p><h2 id="control-title">Compose a form.</h2><p>Explore silently, or enable a quiet synthesized tone. No microphone, recording or uploaded audio.</p><button id="audio" type="button" disabled aria-pressed="false">Enable sound</button><p id="audio-status" role="status">Sound off. Use a comfortable device volume.</p></div>
- <fieldset id="parameters" disabled><legend>Wave parameters</legend>
+ <canvas id="sculpture" hidden aria-hidden="true"></canvas><figcaption><span>MODAL FIELD / <output id="mode-value">3:4</output></span><span id="field-status">SILENT STUDY</span></figcaption></figure><div class="live-controls"><button id="audio" type="button" disabled aria-pressed="false">Enable sound</button><p id="audio-status" role="status">Sound off. Use a comfortable device volume.</p><fieldset id="parameters" disabled><legend>Wave parameters</legend>
  <label for="frequency">Frequency <output id="frequency-value" for="frequency">220 Hz</output></label><input id="frequency" type="range" min="110" max="660" step="5" value="220" aria-valuetext="220 hertz"><div class="range-labels" aria-hidden="true"><span>110 Hz</span><span>660 Hz</span></div>
  <label for="intensity">Intensity <output id="intensity-value" for="intensity">40%</output></label><input id="intensity" type="range" min="0" max="100" step="5" value="40" aria-valuetext="40 percent"><div class="range-labels" aria-hidden="true"><span>Quiet</span><span>Strong</span></div>
  <div class="presets" aria-label="Frequency presets"><button type="button" data-frequency="110">110</button><button type="button" data-frequency="220" aria-pressed="true">220</button><button type="button" data-frequency="440">440</button><button type="button" data-frequency="660">660 Hz</button></div>
  <div class="actions"><button type="button" id="motion" aria-pressed="false">Pause visuals</button><button type="button" id="reset">Reset study</button></div>
- </fieldset>
+ </fieldset></div></div>
+ 
+</section>
+<section class="controls" aria-labelledby="control-title">
+ <div class="control-intro"><p class="eyebrow">The instrument</p><h2 id="control-title">Compose a form.</h2><p>Explore silently, or enable a quiet synthesized tone. No microphone, recording or uploaded audio.</p></div>
+ 
  <div class="signal"><p class="eyebrow">Signal</p><div class="signal-bars" id="spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p id="signal-label">Silent frequency preview</p><p class="fine">The geometry uses idealized Chladni-style mode functions. Audio analysis modulates particle brightness and motion; this is not a calibrated physical experiment.</p></div>
 </section>
 </main>

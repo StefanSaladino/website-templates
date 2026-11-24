@@ -20,14 +20,14 @@ try{
  try{
  await page.goto(origin+'/templates/'+id+'/',{waitUntil:'domcontentloaded'});const field=page.locator('#field'),canvas=page.locator('#sculpture'),audio=page.locator('#audio'),frequency=page.locator('#frequency'),intensity=page.locator('#intensity');
  assert.equal(await field.getAttribute('data-audio'),'off');
- if(mode==='nojs'||mode==='fallback'){assert(await page.locator('.still').isVisible());assert(await frequency.isDisabled());}
+ if(mode==='nojs'||mode==='fallback'){assert(await page.locator('.still').isVisible());assert(await frequency.isDisabled());assert(await audio.isDisabled());}
  else{
  await page.waitForFunction(()=>document.querySelector('#field').dataset.renderedFrequency==='220');
  assert.equal(await page.evaluate(()=>window.__audioStarts),0,'Audio must not initialize before user activation');
  const capture=()=>canvas.evaluate(c=>c.toDataURL());
  if(mode==='motion'){const first=await capture(),t=Number(await field.getAttribute('data-frame-time'));await page.waitForFunction(t=>Number(document.querySelector('#field').dataset.frameTime)>t+.2,t);assert.notEqual(await capture(),first);await page.locator('#motion').click();await page.waitForFunction(()=>document.querySelector('#field').dataset.renderedPaused==='true');}
  else assert(await page.locator('#motion').isDisabled());
- const prior=await capture();await frequency.fill('440');await page.waitForFunction(()=>document.querySelector('#field').dataset.renderedFrequency==='440');assert.notEqual(await capture(),prior,'Frequency must change actual particle pixels');assert.notEqual(await field.getAttribute('data-rendered-mode'),'3:4');
+ const prior=await capture();await frequency.scrollIntoViewIfNeeded();assert(await field.evaluate(el=>{const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight&&Math.min(r.bottom,innerHeight)-Math.max(r.top,0)>Math.min(100,r.height*.5)}),'Live field must remain visible when tuning');await frequency.fill('440');await page.waitForFunction(()=>document.querySelector('#field').dataset.renderedFrequency==='440');assert.notEqual(await capture(),prior,'Frequency must change actual particle pixels');assert.notEqual(await field.getAttribute('data-rendered-mode'),'3:4');
  const preIntensity=await capture();await intensity.fill('80');await page.waitForFunction(()=>document.querySelector('#field').dataset.renderedIntensity==='80');assert.notEqual(await capture(),preIntensity);
  await audio.click();await page.waitForFunction(()=>document.querySelector('#field').dataset.audio==='on');assert.equal(await page.evaluate(()=>window.__audioStarts),1);await page.waitForFunction(()=>Number(document.querySelector('#field').dataset.energy)>.02);await audio.click();await page.waitForFunction(()=>document.querySelector('#field').dataset.audio==='off');assert.equal(await page.evaluate(()=>window.__audioCloses),1);assert.equal(await field.getAttribute('data-energy'),'0');
  await page.locator('#reset').click();await page.waitForFunction(()=>document.querySelector('#field').dataset.renderedFrequency==='220');assert.equal(await frequency.inputValue(),'220');assert.equal(await intensity.inputValue(),'40');
