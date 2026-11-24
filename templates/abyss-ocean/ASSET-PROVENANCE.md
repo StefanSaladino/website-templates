@@ -1,0 +1,2 @@
+# ABYSS original shader experience
+All visuals are rendered by the authored GPU fragment shader or original SVG fallback and thumbnail. No models, photos, videos, remote fonts or external runtimes. The marine snow, rays, caustic approximation, fish silhouettes, jellyfish-inspired analytic form and abyssal terrain are stylized visual effects, not physical or scientific simulation. Depth landmarks are illustrative commonly used ocean-zone boundaries. No real research organization or commercial service implied.

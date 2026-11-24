@@ -13,7 +13,7 @@ const server=spawn('python3',['-m','http.server',String(port),'--bind','127.0.0.
 const report={templates:ids,widths,cases:[],errors:[],physicalDeviceAcceptance:false};let browser;
 const checkState=async(page,s,state)=>{
  const stage=page.locator(s.stage);
- await stage.scrollIntoViewIfNeeded();
+ if(!s.fixedStage)await stage.scrollIntoViewIfNeeded();
  await page.waitForFunction(({sel,state})=>{const el=document.querySelector(sel);return el&&(el.dataset.renderError||Object.entries(state).every(([k,v])=>el.getAttribute(k)===v))},{sel:s.stage,state});
  if(Object.keys(state).some(k=>k.startsWith('data-rendered-'))){const err=await stage.getAttribute('data-render-error');assert(!err,'WebGL initialization failed: '+err);}
 };
@@ -68,13 +68,38 @@ try{
      }
      prior=current;
     }
-    await stage.screenshot({path:path.join(dir,id+'-'+width+'-interaction.png')});
+    if(s.qualityToggle){
+      const control=page.locator(s.qualityToggle),old=await stage.getAttribute('data-rendered-quality');
+      await control.click();await checkState(page,s,{'data-rendered-quality':old==='low'?'high':'low'});
+      const current=await pixels(canvas);assert(current.hash!==prior.hash,'Quality must affect rendered pixels');
+     }
+     if(s.fixedStage)await page.screenshot({path:path.join(dir,id+'-'+width+'-interaction.png')});
+     else await stage.screenshot({path:path.join(dir,id+'-'+width+'-interaction.png')});
     await page.locator(s.reset.selector).click();await checkState(page,s,s.reset.state);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
     assert.deepEqual(errors,[]);assert.deepEqual(remote,[]);
-    await page.screenshot({path:path.join(dir,id+'-'+width+'.png'),fullPage:true});
+    await page.screenshot({path:path.join(dir,id+'-'+width+'.png'),fullPage:!s.fixedStage});
     report.cases.push({id,width,webgl:true,pixelChanges:s.steps.length,noUnexpectedRemoteRequests:true,referenceImagesExcluded:allowedImages.size});
    }catch(e){report.errors.push(id+' '+width+': '+String(e));}finally{await page.close()}
+  }
+  if(s.animatedChecks){
+   const motionPage=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'no-preference'});
+   try{
+    await motionPage.goto(url);const stage=motionPage.locator(s.stage);
+    await checkState(motionPage,s,{'data-rendered-zone':'surface','data-rendered-paused':'false'});
+    const time=await stage.getAttribute('data-frame-time');
+    await motionPage.waitForFunction(({sel,time})=>document.querySelector(sel).dataset.frameTime!==time,{sel:s.stage,time});
+    await motionPage.locator('#motion').click();await checkState(motionPage,s,{'data-rendered-paused':'true'});
+    const stopped=await stage.getAttribute('data-frame-time');await motionPage.waitForTimeout(180);assert.equal(await stage.getAttribute('data-frame-time'),stopped,'Paused time advanced');
+    // Real native scroll, not just clicking chapter controls.
+    await motionPage.locator('#midnight').evaluate(el=>window.scrollTo(0,el.offsetTop));
+    await checkState(motionPage,s,{'data-rendered-zone':'midnight'});
+    await motionPage.locator('#surface').evaluate(el=>window.scrollTo(0,el.offsetTop));
+    await checkState(motionPage,s,{'data-rendered-zone':'surface'});
+    const supported=await motionPage.locator(s.canvas).evaluate(el=>{const ext=el.getContext('webgl')?.getExtension('WEBGL_lose_context');if(!ext)return false;window.__testContext=ext;ext.loseContext();return true});
+    if(supported){await checkState(motionPage,s,{'data-renderer':'static'});await motionPage.evaluate(()=>window.__testContext.restoreContext());await checkState(motionPage,s,{'data-renderer':'webgl'});}
+    report.cases.push({id,animated:true,paused:true,reversibleScroll:true,contextLossTested:supported});
+   }catch(e){report.errors.push(id+' animated: '+String(e))}finally{await motionPage.close()}
   }
   const page=await browser.newPage({viewport:{width:390,height:900},reducedMotion:'reduce'});
   try{
@@ -95,6 +120,6 @@ try{
   try{const page=await noJS.newPage();await page.goto(url);assert(await page.locator(s.fallback).isVisible());assert(await page.locator('main').isVisible());report.cases.push({id,noJavaScript:true})}
   catch(e){report.errors.push(id+' no JS: '+String(e))}finally{await noJS.close()}
  }
- if(report.cases.length!==ids.length*(widths.length+2))report.errors.push('Incomplete immersive case coverage');
+ if(report.cases.length!==ids.length*(widths.length+2)+Object.values(specs).filter(s=>s.animatedChecks).length)report.errors.push('Incomplete immersive case coverage');
 }catch(e){report.errors.push(String(e?.stack||e))}
 finally{await browser?.close();server.kill('SIGTERM');writeFileSync(path.join(dir,'results.json'),JSON.stringify(report,null,2));for(const e of report.errors)console.error('IMMERSIVE-FAIL',e);console.log('Immersive template QA:',report.cases.length,'passed,',report.errors.length,'failed');if(report.errors.length)process.exitCode=1}

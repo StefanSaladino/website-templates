@@ -188,5 +188,78 @@
       "https://images.pexels.com/photos/34658645/pexels-photo-34658645.jpeg",
       "https://images.pexels.com/photos/31446187/pexels-photo-31446187.jpeg"
     ]
+  },
+  "abyss-ocean": {
+    "stage": "#environment",
+    "canvas": "#ocean-canvas",
+    "fallback": ".fallback",
+    "initial": {
+      "data-rendered-zone": "surface",
+      "data-rendered-depth": "0",
+      "data-rendered-paused": "true"
+    },
+    "steps": [
+      {
+        "selector": "[data-jump=twilight]",
+        "action": "click",
+        "state": {
+          "data-rendered-zone": "twilight"
+        },
+        "controlState": {
+          "aria-current": "location"
+        }
+      },
+      {
+        "selector": "[data-jump=midnight]",
+        "action": "click",
+        "state": {
+          "data-rendered-zone": "midnight"
+        }
+      },
+      {
+        "selector": "[data-jump=deep]",
+        "action": "click",
+        "state": {
+          "data-rendered-zone": "deep"
+        }
+      },
+      {
+        "selector": "[data-jump=twilight]",
+        "action": "click",
+        "state": {
+          "data-rendered-zone": "twilight"
+        }
+      }
+    ],
+    "reset": {
+      "selector": "[data-jump=surface]",
+      "state": {
+        "data-rendered-zone": "surface",
+        "data-rendered-depth": "0"
+      }
+    },
+    "fallbackSteps": [
+      {
+        "selector": "[data-jump=midnight]",
+        "action": "click",
+        "state": {
+          "data-zone": "midnight"
+        }
+      },
+      {
+        "selector": "[data-jump=surface]",
+        "action": "click",
+        "state": {
+          "data-zone": "surface"
+        }
+      }
+    ],
+    "fallbackDisabled": [
+      "#motion",
+      "#quality"
+    ],
+    "fixedStage": true,
+    "animatedChecks": true,
+    "qualityToggle": "#quality"
   }
 }
