@@ -21,9 +21,9 @@ for(const [width,height] of [[390,844],[1440,900]]){
  const ctx=await browser.newContext({viewport:{width,height},deviceScaleFactor:width===390?3:1}),p=await ctx.newPage();await p.goto(url+'?motion-debug=1');const scene=p.locator('#scene');
  const wait=()=>p.waitForFunction(()=>document.querySelector('#scene').dataset.settled==='true');
  const set=async n=>{await p.locator('#openness').evaluate((el,n)=>{el.value=String(n);el.dispatchEvent(new Event('input',{bubbles:true}))},n);await wait()};
- const bounds=()=>scene.evaluate(s=>{const r=s.getBoundingClientRect(),nodes=[...s.querySelectorAll('.panel')],m=nodes.map(n=>new DOMMatrix(getComputedStyle(n).transform));let gap=0;for(let i=0;i<m.length-1;i++){const a=m[i].transformPoint(new DOMPoint(nodes[i].offsetWidth,0,0)),b=m[i+1].transformPoint(new DOMPoint(0,0,0));gap=Math.max(gap,Math.hypot(a.x-b.x,a.z-b.z))}const panels=nodes.map(n=>n.getBoundingClientRect());return {gap,within:panels.every(b=>b.left>=r.left-2&&b.right<=r.right+2&&b.top>=r.top-2&&b.bottom<=r.bottom+2),perspective:getComputedStyle(s).perspective}});
+ const bounds=()=>scene.evaluate(s=>{const r=s.getBoundingClientRect(),nodes=[...s.querySelectorAll('.panel')],m=nodes.map(n=>new DOMMatrix(getComputedStyle(n).transform));let gap=0;for(let i=0;i<m.length-1;i++){const a=m[i].transformPoint(new DOMPoint(nodes[i].offsetWidth,0,0)),b=m[i+1].transformPoint(new DOMPoint(0,0,0));gap=Math.max(gap,Math.hypot(a.x-b.x,a.z-b.z))}const panels=nodes.map(n=>n.getBoundingClientRect());const clearance=Math.min(...panels.map(b=>Math.min(b.left-r.left,r.right-b.right,b.top-r.top,r.bottom-b.bottom)));return {gap,within:clearance>=-2,clearance,scene:{width:r.width,height:r.height},perspective:getComputedStyle(s).perspective}});
  await wait();await set(0);
- for(const n of [0,10,25,45,65,85,100,65,25,0]){await set(n);const b=await bounds();assert(b.gap<1.5&&b.within,JSON.stringify({width,n,b}));assert.notEqual(b.perspective,'none')}
+ for(const n of [0,10,25,45,65,85,100,65,25,0]){await set(n);const b=await bounds();if(!(b.gap<1.5&&b.within)){const failure={width,n,b};issues.push(failure);console.error('FOLD crease/projection failure '+JSON.stringify(failure))}assert.notEqual(b.perspective,'none')}
  // Each sweep drives the real control; the trace is from actual paint callbacks.
  for(const reverse of [false,true]){
   await set(reverse?100:0);
@@ -49,6 +49,6 @@ const touch=await browser.newContext({viewport:{width:390,height:844},hasTouch:t
 const cdp=await touch.newCDPSession(tp);
 async function swipe(x,y,dx,dy){await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});for(let i=1;i<=12;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x+dx*i/12,y:y+dy*i/12}]});await tp.waitForTimeout(20)}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]})}
 const tr=await ts.boundingBox();await swipe(tr.x+tr.width*.22,tr.y+tr.height*.55,tr.width*.42,0);await tp.waitForFunction(()=>document.querySelector('#scene').dataset.settled==='true'&&+document.querySelector('#scene').dataset.openness>.7);const prior=await ts.getAttribute('data-openness'),y=await tp.evaluate(()=>scrollY);const tr2=await ts.boundingBox();await swipe(tr2.x+tr2.width*.55,tr2.y+tr2.height*.72,0,-Math.min(150,tr2.height*.6));await tp.waitForFunction(y=>scrollY>y+30,y);assert.equal(await ts.getAttribute('data-openness'),prior);await touch.close();
-assert.deepEqual(issues,[],'Separated plate containment failed; see per-width measurements');
+assert.deepEqual(issues,[],'Rendered projection or crease continuity failed; see per-width measurements');
 console.log('PASS FOLD four viewport sizes, connected CSS 3D geometry, two reversible interactions, cadence, touch, rapid reversals, resize, keyboard and preference recovery.');
 }finally{await browser?.close();server.kill()}
