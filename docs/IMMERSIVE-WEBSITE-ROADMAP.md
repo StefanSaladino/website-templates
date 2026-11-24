@@ -97,3 +97,6 @@ User reported animation stopped after setting 50% default. Chromium prior state 
 
 ### ESSENCE — restore original revision (current governing state)
 User rejected both subsequent optical changes and explicitly requested the original implementation. Restore the original ESSENCE HTML, CSS, JS, optical tests and cinematic workflow byte-for-byte from 6eea40c; strength starts at 0%, ripples are opt-in, reset restores the original inactive state, and original responsive composition is restored. The 50% default and later composited transform experiments are superseded. No further visual changes unless requested. Current rollback deployment and QA pending. Other templates and branch history remain intact.
+
+### ESSENCE — minimal automatic activation
+User approved the restored original and requested animation on by default. One-shot activation on first optical-section entry calls the existing Animate ripples button action, at its original 45% strength. No filter, timing formula, CSS, imagery, layout or reset changes. Manual controls cancel pending activation; no reactivation after reset or pause. Reduced-motion and no-JS stay inactive. Browser regression asserts original click behavior plus automatic first-entry start and one-shot reset. Version only the changed JS. No main merge.

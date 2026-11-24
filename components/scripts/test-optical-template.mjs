@@ -23,15 +23,21 @@ try{
    assert.equal(await page.locator('.shot img, .opening-photo img,.notes-photo img,.light-photo img').count(),4);
    if(mode==='nojs'){assert(await slider.isDisabled());assert.equal(await reflection.evaluate(e=>getComputedStyle(e).opacity),'0');}
    else{
-    assert.equal(await scene.getAttribute('data-strength'),'0');await slider.fill('100');assert.equal(await page.locator('#wave-displacement').getAttribute('scale'),'36.00');assert.equal(await scene.getAttribute('data-strength'),'100');assert.equal(await reflection.evaluate(e=>getComputedStyle(e).opacity),'1');
+    if(mode==='motion'){
+     await page.waitForFunction(()=>document.querySelector('#light-scene').dataset.motion==='running');
+     assert.equal(await slider.inputValue(),'45');assert.equal(await page.locator('#wave-displacement').getAttribute('scale'),'16.20');
+     const phase=Number(await scene.getAttribute('data-phase'));await page.waitForFunction(p=>Number(document.querySelector('#light-scene').dataset.phase)>p+.1,phase);
+     await motion.click();assert.equal(await scene.getAttribute('data-motion'),'still');
+    }else{assert.equal(await scene.getAttribute('data-strength'),'0');assert.equal(await scene.getAttribute('data-motion'),'still');}
+    await slider.fill('100');assert.equal(await page.locator('#wave-displacement').getAttribute('scale'),'36.00');assert.equal(await scene.getAttribute('data-strength'),'100');assert.equal(await reflection.evaluate(e=>getComputedStyle(e).opacity),'1');
     // Capture the underlying image area with UI excluded. Compare only photos,
     // after toggling reflection opacity; deterministic fixture, not real-media evidence.
-    const changed=await photo.screenshot();await page.locator('#reset').click();assert.equal(await page.locator('#wave-displacement').getAttribute('scale'),'0.00');const original=await photo.screenshot();assert(!changed.equals(original),'Optical pixels must change');
+    const changed=await photo.screenshot();await page.locator('#reset').click();assert.equal(await slider.inputValue(),'0');assert.equal(await scene.getAttribute('data-motion'),'still');assert.equal(await page.locator('#wave-displacement').getAttribute('scale'),'0.00');const original=await photo.screenshot();assert(!changed.equals(original),'Optical pixels must change');
     if(mode==='reduce'){assert(await motion.isDisabled());}else{
      await motion.click();assert.equal(await scene.getAttribute('data-motion'),'running');const phase=await scene.getAttribute('data-phase');await page.waitForFunction(p=>document.querySelector('#light-scene').dataset.phase!==p,phase);
      await motion.click();assert.equal(await scene.getAttribute('data-motion'),'still');const stopped=await scene.getAttribute('data-phase');await page.waitForTimeout(180);assert.equal(await scene.getAttribute('data-phase'),stopped);
      await motion.click();await page.locator('#opening').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));await page.waitForTimeout(150);const off=await scene.getAttribute('data-phase');await page.waitForTimeout(150);assert.equal(await scene.getAttribute('data-phase'),off,'Offscreen rendering must suspend');
-     await page.locator('#light').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));await page.locator('#reset').click();
+     await page.locator('#light').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));await page.locator('#reset').click();await page.locator('#opening').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));await page.locator('#light').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));await page.waitForTimeout(150);assert.equal(await scene.getAttribute('data-motion'),'still','Reset must not trigger auto-start again');assert.equal(await slider.inputValue(),'0');
     }
    }
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));assert.deepEqual(errors,[]);assert.deepEqual(unexpected,[]);await page.screenshot({path:path.join(dir,id+'-'+width+'-'+mode+'.png')});report.cases.push({width,mode,sourceImagesMocked:true});
