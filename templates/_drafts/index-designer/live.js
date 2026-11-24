@@ -39,10 +39,10 @@ if(track&&stage&&grid&&index&&stillButton){
 // No global fixed overlay or perpetual animation loop.
 const studio=document.querySelector('.luxury-studio');
 if(studio){
- const chapters=[...studio.querySelectorAll('[data-studio-chapter]')],shots=[...studio.querySelectorAll('[data-studio-shot]')],links=[...studio.querySelectorAll('[data-studio-jump]')],button=studio.querySelector('#studio-motion'),counter=studio.querySelector('.studio-counter'),heightGate=matchMedia('(min-height:621px)');
+ const chapters=[...studio.querySelectorAll('[data-studio-chapter]')],shots=[...studio.querySelectorAll('[data-studio-shot]')],button=document.querySelector('#studio-motion'),heightGate=matchMedia('(min-height:621px)');
  const clamp=n=>Math.max(0,Math.min(1,n)),ease=n=>n*n*(3-2*n),mix=(a,b,t)=>a+(b-a)*t;
  const poses=[{z:[1.07,1.23],x:[0,-.015],y:[.018,-.024]},{z:[1.12,1.28],x:[0,.017],y:[.012,-.025]},{z:[1.08,1.24],x:[-.01,.012],y:[.018,-.02]}];
- let still=false,raf=0,lastActive=-1;
+ let still=false,raf=0;
  function paintStudio(){
   raf=0;if(document.hidden)return;
   const rects=chapters.map(c=>c.getBoundingClientRect()),vh=innerHeight;
@@ -58,9 +58,7 @@ if(studio){
    shot.style.setProperty('--shot-y',mix(...pose.y,e)*vh*scale+'px');
   });
   chapters.forEach((c,j)=>{const distance=rects[j].top+rects[j].height*.5-vh*.5;c.style.setProperty('--studio-type-y',live?Math.max(-24,Math.min(24,distance*.065))+'px':'0px')});
-  studio.style.setProperty('--studio-progress',String(clamp((i+t)/chapters.length)));
   studio.dataset.studioChapter=String(i);studio.dataset.studioBlend=blend.toFixed(4);studio.dataset.studioProgress=((i+t)/chapters.length).toFixed(4);
-  if(i!==lastActive){lastActive=i;counter.textContent=String(i+1).padStart(2,'0')+' / 03';links.forEach((a,j)=>{if(j===i)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
  }
  function scheduleStudio(){if(!raf&&!document.hidden)raf=requestAnimationFrame(paintStudio)}
  function modeStudio(){const live=!still&&!motion.matches&&heightGate.matches;studio.dataset.studioMode=live?'motion':'static';button.hidden=motion.matches||!heightGate.matches;button.textContent=live?'Still view':'Motion view';button.setAttribute('aria-pressed',String(!live));scheduleStudio()}

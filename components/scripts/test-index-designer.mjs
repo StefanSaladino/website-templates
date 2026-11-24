@@ -11,6 +11,8 @@ assert.equal(await p.locator('.project-cover').count(),6);assert.equal(await p.l
 // P14: actual photographic parallax, cross-dissolve, reverse scroll and static alternative.
 assert.equal(await p.locator('.studio-specimen,.practice-item,.colophon-mark').count(),0);
 assert.equal(await p.locator('.studio-chapter').count(),3);
+assert.equal(await p.locator('.studio-controls,.studio-counter,.studio-progress,[data-studio-jump]').count(),0);
+assert.equal(await p.locator('.studio-colophon nav a').count(),3);assert.equal(await p.locator('.studio-colophon #studio-motion').count(),1);
 assert.equal(await p.locator('.studio-colophon .colophon-bottom a[href="#main"]').count(),1);
 assert.equal(await p.locator('.studio-colophon a[href="../../../index.html"]').count(),1);
 const studio=p.locator('.luxury-studio');await p.waitForFunction(()=>document.querySelector('.luxury-studio').dataset.studioMode==='motion');
@@ -22,7 +24,7 @@ await pose(0,.8);const blend=Number(await studio.getAttribute('data-studio-blend
 assert.equal(await pose(0,.1),startPose,'parallax not reversible');
 for(let i=0;i<3;i++){await pose(i,.13);assert.equal(await studio.getAttribute('data-studio-chapter'),String(i));assert(await studioChapters.nth(i).locator('.studio-chapter-link').isVisible());await p.screenshot({path:path.join(out,width+'-studio-chapter-'+i+'.png')})}
 await p.locator('#studio-motion').click();assert.equal(await studio.getAttribute('data-studio-mode'),'static');assert.equal(await p.locator('.studio-stage').evaluate(n=>getComputedStyle(n).display),'none');await p.locator('#studio-motion').click();
-for(const selector of ['.studio-chapters','.studio-controls','.studio-colophon']){const box=await p.locator(selector).boundingBox();assert(box&&box.x>=-1&&box.x+box.width<=width+1,'closing bounds '+selector)}
+for(const selector of ['.studio-chapters','.studio-colophon']){const box=await p.locator(selector).boundingBox();assert(box&&box.x>=-1&&box.x+box.width<=width+1,'closing bounds '+selector)}
 await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
 for(const img of await p.locator('.project-cover img,.case-card-photo img').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(n=>n.decode());assert(await img.evaluate(n=>n.naturalWidth>0))}
 await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await p.waitForTimeout(1100);const track=p.locator('#proof-track');assert.equal(await track.getAttribute('data-motion'),'live');const initial=await p.locator('.project-identity').evaluate(n=>getComputedStyle(n).transform);const span=await track.evaluate(n=>n.offsetHeight-n.querySelector('#proof-stage').offsetHeight);assert(span>100);const top=await track.evaluate(n=>n.getBoundingClientRect().top+scrollY);await p.evaluate(y=>scrollTo({top:y,behavior:'instant'}),top+span*.55);await p.waitForTimeout(150);const middle=await p.locator('.project-identity').evaluate(n=>getComputedStyle(n).transform);assert.notEqual(initial,middle);await p.screenshot({path:path.join(out,width+'-proof-mid.png')});await p.evaluate(y=>scrollTo({top:y,behavior:'instant'}),top+span);await p.waitForFunction(()=>+document.querySelector('#proof-track').dataset.progress>.98);const final=await p.locator('.project-identity').evaluate(n=>getComputedStyle(n).transform);assert.notEqual(middle,final);await p.screenshot({path:path.join(out,width+'-proof-aligned.png')});await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await p.waitForTimeout(120);assert.equal(await p.locator('.project-cover').count(),6);await p.screenshot({path:path.join(out,width+'-home.png')});
