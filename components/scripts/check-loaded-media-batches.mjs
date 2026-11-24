@@ -27,9 +27,8 @@ for(const [batch,entries] of Object.entries(data)){
   if(thirdParty.length!==entry.required){
    errors.push(id+': configured '+entry.required+' remote img tags, HTML has '+thirdParty.length);
   }
-  if(entry.poster){
-   if(!/<video\b[^>]*\bposter\s*=/.test(html))errors.push(id+': configured poster, but no video poster attribute in HTML');
-  }
+  const hasPoster=/<video\b[^>]*\bposter\s*=/.test(html);
+  if(Boolean(entry.poster)!==hasPoster)errors.push(id+': poster configuration differs from source HTML');
   if(!Array.isArray(entry.sections)||!entry.sections.length){errors.push(id+': no screenshot sections');continue;}
   const classes=new Set([...html.matchAll(/\bclass\s*=\s*(["'])(.*?)\1/g)].flatMap(m=>m[2].split(/\s+/).filter(Boolean)));
   for(const selector of entry.sections){

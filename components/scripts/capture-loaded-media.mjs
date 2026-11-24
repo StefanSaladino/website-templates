@@ -60,9 +60,7 @@ async function loadImageMedia(page){
     };
     const images=[...document.images].filter(img=>img.hasAttribute('src')||img.hasAttribute('srcset')||Boolean(img.currentSrc));
     const loaded=await Promise.all(images.map(decode));
-    const film=document.querySelector('#hero-film');
-    let poster=null;
-    if(film){
+    const posters=await Promise.all([...document.querySelectorAll('video[poster]')].map(async film=>{
       const posterUrl=film.poster;
       const image=new Image();
       image.src=posterUrl;
@@ -70,9 +68,9 @@ async function loadImageMedia(page){
         image.decode().then(()=>({ok:true}),error=>({ok:false,error:String(error)})),
         new Promise(resolve=>setTimeout(()=>resolve({ok:false,error:'poster decode timeout'}),12000))
       ]);
-      poster={url:posterUrl,naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight,...result};
-    }
-    return {images:loaded,poster};
+      return {url:posterUrl,naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight,...result};
+    }));
+    return {images:loaded,posters,poster:posters[0]||null};
   });
 }
 const sectionsToCapture=async(page,entry,width)=>{
@@ -116,16 +114,16 @@ try{
   for(const entry of templates){
     for(const width of sizes){
       const context=await browser.newContext({viewport:{width,height:900},deviceScaleFactor:1,
-        reducedMotion:entry.name==='creative-agency'||width===320?'reduce':'no-preference'});
+        reducedMotion:entry.poster||width===320?'reduce':'no-preference'});
       const page=await context.newPage();
       let videoRequests=0;
       page.on('request',request=>{
-        if(/^https:\/\/videos\.pexels\.com\//.test(request.url()))videoRequests++;
+        if(request.resourceType()==='media'||/^https:\/\/videos\.pexels\.com\//.test(request.url()))videoRequests++;
       });
       page.on('pageerror',error=>report.errors.push(entry.name+' '+width+' browser: '+String(error)));
       // No HD body or video headers are fetched, even if future code accidentally
       // attaches the source. A request attempt itself fails the QA ledger.
-      await page.route(/^https:\/\/videos\.pexels\.com\//,route=>route.abort('blockedbyclient'));
+      await page.route('**/*',route=>route.request().resourceType()==='media'||/^https:\/\/videos\.pexels\.com\//.test(route.request().url())?route.abort('blockedbyclient'):route.continue());
       const response=await page.goto(origin+entry.name+'/index.html',{waitUntil:'domcontentloaded',timeout:18000});
       await page.evaluate(()=>document.fonts.ready);
       const media=await loadImageMedia(page);
@@ -133,14 +131,14 @@ try{
         viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,
         bodyWidth:document.body.scrollWidth,
         heroTitle:document.querySelector('h1')?.textContent?.trim()?.replace(/\s+/g,' ')||'',
-        sourceAttached:!!document.querySelector('#hero-film source[src]'),
-        autoplay:document.querySelector('#hero-film')?.autoplay||false,
+        sourceAttached:!!document.querySelector('video[src],video source[src]'),
+        autoplay:[...document.querySelectorAll('video')].some(video=>video.autoplay),
         activeElement:document.activeElement?.tagName||null
       }));
       const remoteImages=media.images.filter(x=>/^https:\/\/(?:images\.unsplash\.com|images\.pexels\.com)\//.test(x.src));
       const localImages=media.images.filter(x=>!remoteImages.includes(x));
       const result={template:entry.name,width,httpStatus:response?.status()??null,
-        rendered:layout,remoteImages,localImages,poster:media.poster,videoRequests};
+        rendered:layout,remoteImages,localImages,poster:media.poster,posters:media.posters,videoRequests};
       for(const img of media.images){
         // Only a review flag: 60%+ of the source cropped may be intentional.
         if(img.ok&&img.visibleSourceFraction!==null&&img.visibleSourceFraction<0.4){
@@ -208,7 +206,8 @@ try{
       if(layout.scrollWidth>width+4)report.errors.push(entry.name+' '+width+' horizontal overflow '+layout.scrollWidth+'px');
       if(result.remoteImages.length!==entry.required)report.errors.push(entry.name+' '+width+' expected '+entry.required+' remote img elements, saw '+result.remoteImages.length);
       for(const img of media.images)if(!img.ok||img.naturalWidth<1)report.errors.push(entry.name+' '+width+' image failed: '+img.src+' '+(img.error||''));
-      if(entry.poster&&(!media.poster?.ok||media.poster.naturalWidth<1))report.errors.push(entry.name+' '+width+' poster did not decode: '+(media.poster?.error||'unknown'));
+      if(entry.poster&&!media.posters.length)report.errors.push(entry.name+' '+width+' missing required video poster');
+      for(const poster of media.posters)if(!poster.ok||poster.naturalWidth<1)report.errors.push(entry.name+' '+width+' poster did not decode: '+poster.url+' '+(poster.error||'unknown'));
       if(videoRequests>0||layout.sourceAttached||layout.autoplay)report.errors.push(entry.name+' '+width+' unexpected video network/activation during still capture');
       await sectionsToCapture(page,entry,width);
       await context.close();

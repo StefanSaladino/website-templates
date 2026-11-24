@@ -3104,7 +3104,7 @@ try{
   await runCase(item,'phone',1280,null,false);
  }
  // Accessibility gate: filter controls must preserve focus and announce only
- // concise result counts, never re-announce the entire rebuilt 157-card grid.
+ // concise result counts, never re-announce the entire rebuilt component grid.
  await page.setViewportSize({width:390,height:844});
  await page.goto(base+'index.html',{waitUntil:'domcontentloaded'});
  await page.waitForFunction(expected=>document.querySelectorAll('.cs-item--preview').length===expected,components.length);
@@ -3128,7 +3128,7 @@ try{
  await allFilter.press('Space');
  assert(await page.evaluate(()=>document.activeElement?.dataset.category==='all')
    &&await page.locator('.cs-item--preview').count()===components.length,
-   'catalogue keyboard-filter reset preserves focus and restores all 157 designs');
+   'catalogue keyboard-filter reset preserves focus and restores all registered designs');
  // Review status names the selected optional phone layout to assist screen readers.
  await page.goto(base+'review.html?id=NAV-03',{waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>document.querySelector('#review-highlight')?.disabled===false,{timeout:12000});

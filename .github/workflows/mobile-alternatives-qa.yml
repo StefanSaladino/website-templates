@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   mobile:
-    name: 44 alternate phone compositions at 320 and 390
+    name: All alternate phone compositions at 320 and 390
     runs-on: ubuntu-24.04
     timeout-minutes: 16
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Render independent alt layouts and check selected state
         working-directory: components
         run: npm run review:mobile-alternatives
-      - name: Save 88 screenshots and review ledger
+      - name: Save all alternative screenshots and review ledger
         if: always()
         uses: actions/upload-artifact@v4
         with:

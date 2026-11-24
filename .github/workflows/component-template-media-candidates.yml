@@ -1,195 +1,71 @@
 name: Original template photo candidate review
-# Push-triggered visual evidence batch: last unreviewed original-template stills (TM-010, TM-046, TM-053).
+# On-demand acquisition is separate from repeatable offline/source QA. Current
+# manifest membership determines candidates; retired IDs are never hardcoded.
 on:
   workflow_dispatch:
     inputs:
       template:
-        description: "Original template folder to inspect"
+        description: "Current full website template folder"
         required: true
         default: "frame-portfolio"
-        type: choice
-        options:
-          - frame-portfolio
-          - editorial-commerce
-          - muskoka-retreat
-          - creative-agency
-          - garage-detailing
-          - real-estate
-          - monolith-architecture
-          - woodworker
-          - event-launch
-          - custom-bakes
-          - storefront
-          - landscaping
-          - restaurant
-          - pools
-          - fitness-launch
-          - tattoo-studio
-          - architecture
-          - contractor
-          - law-firm
+        type: string
       limit:
-        description: "Maximum candidate identities for other templates"
+        description: "Maximum active candidate identities"
         required: true
-        default: "5"
-        type: choice
-        options: ["1", "3", "5", "10"]
-      frame_batch:
-        description: "FRAME photo batch (ignored for other templates)"
-        required: true
-        default: "remaining-six"
-        type: choice
-        options:
-          - first-five
-          - remaining-six
-          - all-eleven
-  push:
-    branches:
-      - feature/component-showroom
-    paths:
-      - '.github/workflows/component-template-media-candidates.yml'
-      - 'components/scripts/prepare-template-media-review.mjs'
-
+        default: "10"
+        type: string
 permissions:
   contents: read
-
 jobs:
   candidate-evidence:
-    name: Candidate images for local review only
+    name: Candidate media for local review only
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: components
     steps:
       - uses: actions/checkout@v4
-      - name: Node 22
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install isolated showroom dependencies
-        run: npm install --no-audit --no-fund
-      - name: Verify inventory and offline review behavior
-        run: npm run check:template-media && npm run check:template-media-review
-      - name: Generate candidate images (unapproved, not for redistribution)
+      - run: npm install --no-audit --no-fund
+      - run: npm run check:template-media && npm run check:template-media-review
+      - name: Generate current unapproved media candidates
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'remaining-media' }}
-          CANDIDATE_LIMIT: ${{ inputs.limit || '5' }}
-          FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
-        run: |
-          if [ "$TEMPLATE_NAME" = "remaining-media" ]; then
-            npm run review:template-media -- --ids=TM-010,TM-046,TM-053 --limit=3
-          elif [ "$TEMPLATE_NAME" = "frame-portfolio" ]; then
-            case "$FRAME_BATCH" in
-              first-five)
-                npm run review:template-media -- --ids=TM-002,TM-003,TM-004,TM-007,TM-009 --limit=5
-                ;;
-              remaining-six)
-                npm run review:template-media -- --ids=TM-012,TM-013,TM-014,TM-015,TM-016,TM-017 --limit=6
-                ;;
-              all-eleven)
-                npm run review:template-media -- --templates=frame-portfolio --limit=11
-                ;;
-              *)
-                echo "Unsupported FRAME batch: $FRAME_BATCH" >&2
-                exit 1
-                ;;
-            esac
-          else
-            npm run review:template-media -- --templates="$TEMPLATE_NAME" --limit="$CANDIDATE_LIMIT"
-          fi
-      - name: Verify all generated crop alternatives
-        if: success()
+          TEMPLATE_NAME: ${{ inputs.template }}
+          CANDIDATE_LIMIT: ${{ inputs.limit }}
+        run: npm run review:template-media -- --templates="$TEMPLATE_NAME" --limit="$CANDIDATE_LIMIT"
+      - name: Verify selection and generated crop alternatives against active inventory
         env:
-          TEMPLATE_NAME: ${{ inputs.template || 'remaining-media' }}
-          FRAME_BATCH: ${{ inputs.frame_batch || 'remaining-six' }}
+          TEMPLATE_NAME: ${{ inputs.template }}
+          CANDIDATE_LIMIT: ${{ inputs.limit }}
         run: |
           node --input-type=module -e '
           import {readFileSync,existsSync} from "node:fs";
           import assert from "node:assert/strict";
+          const manifest=JSON.parse(readFileSync("data/template-media-inventory.json","utf8"));
+          const limit=Number(process.env.CANDIDATE_LIMIT);
+          assert(Number.isInteger(limit)&&limit>0);
+          const expected=manifest.assets.filter(asset=>asset.usages.some(use=>use.templateId===process.env.TEMPLATE_NAME)).slice(0,limit);
+          assert(expected.length>0,"No active media for selected template");
           const report=JSON.parse(readFileSync("../stock-candidates/template-review/results.json","utf8"));
-          if(process.env.TEMPLATE_NAME==="remaining-media"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-010","TM-046","TM-053"],"Wrong final original-template image identities");
-            assert.equal(report.downloaded,3);
-          }
-          if(process.env.TEMPLATE_NAME==="architecture"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-042","TM-058"],"Wrong MORROW architecture photo identities");
-            assert.equal(report.downloaded,2);
-          }
-          if(process.env.TEMPLATE_NAME==="tattoo-studio"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-030","TM-040"],"Wrong BLACKLINE tattoo photo identities");
-            assert.equal(report.downloaded,2);
-          }
-          if(process.env.TEMPLATE_NAME==="fitness-launch"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-018","TM-068"],"Wrong YARD strength club photo identities");
-            assert.equal(report.downloaded,2);
-          }
-          if(process.env.TEMPLATE_NAME==="pools"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-064","TM-066","TM-069"],"Wrong TIDEFORM photo identities");
-            assert.equal(report.downloaded,3);
-          }
-          if(process.env.TEMPLATE_NAME==="restaurant"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-047","TM-059","TM-063"],"Wrong SERA restaurant photo identities");
-            assert.equal(report.downloaded,3);
-          }
-          if(process.env.TEMPLATE_NAME==="landscaping"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-035","TM-050","TM-051"],"Wrong BED & BORDER photo identities");
-            assert.equal(report.downloaded,3);
-          }
-          if(process.env.TEMPLATE_NAME==="storefront"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-034","TM-038","TM-067"],"Wrong MORA storefront photo identities");
-            assert.equal(report.downloaded,3);
-          }
-          if(process.env.TEMPLATE_NAME==="custom-bakes"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-029","TM-037","TM-060"],"Wrong DOT + CRUMB photo identities");
-            assert.equal(report.downloaded,3);
-          }
-          if(process.env.TEMPLATE_NAME==="event-launch"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-045","TM-049","TM-052","TM-056"],"Wrong AFTER DARK photo identities");
-            assert.equal(report.downloaded,4);
-          }
-          if(process.env.TEMPLATE_NAME==="woodworker"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-043","TM-054","TM-055"],"Wrong remaining woodworker photo identities");
-            assert.equal(report.downloaded,3);
-          }
-          if(process.env.TEMPLATE_NAME==="monolith-architecture"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-022","TM-023","TM-024","TM-025"],"Wrong MONOLITH photo identities");
-            assert.equal(report.downloaded,4);
-          }
-          if(process.env.TEMPLATE_NAME==="real-estate"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-011","TM-041","TM-057","TM-062"],"Wrong real-estate photo identities");
-            assert.equal(report.downloaded,4);
-          }
-          if(process.env.TEMPLATE_NAME==="garage-detailing"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-006","TM-019","TM-020","TM-033"],"Wrong garage-detailing photo identities");
-            assert.equal(report.downloaded,4);
-          }
-          if(process.env.TEMPLATE_NAME==="creative-agency"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-001","TM-071"],"Wrong creative agency media identities");
-            assert.equal(report.downloaded,1,"Expected poster only, never full video download");
-            assert.equal(report.assets[1].candidateStatus,"video-manual-review");
-            assert(report.assets[1].videoProbe,"Expected non-streaming video HEAD probe status");
-          }
-          if(process.env.TEMPLATE_NAME==="muskoka-retreat"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-036","TM-061","TM-070"],"Wrong remaining Muskoka batch");
-            assert.equal(report.downloaded,3);
-          }
-          if(process.env.TEMPLATE_NAME==="editorial-commerce"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-008","TM-026","TM-027","TM-028","TM-032","TM-039"],"Wrong remaining editorial-commerce batch");
-            assert.equal(report.downloaded,6);
-          }
-          if(process.env.TEMPLATE_NAME==="frame-portfolio" && process.env.FRAME_BATCH==="remaining-six"){
-            assert.deepEqual(report.assets.map(x=>x.id),["TM-012","TM-013","TM-014","TM-015","TM-016","TM-017"],"Wrong FRAME follow-up batch");
-            assert.equal(report.downloaded,6);
-          }
-          for(const item of report.assets.filter(x=>x.kind==="image")){
+          assert.deepEqual(report.assets.map(x=>x.id),expected.map(x=>x.id),"Candidate selection must match active inventory");
+          assert.equal(report.errors,0);
+          assert.equal(report.downloaded,expected.filter(x=>x.kind==="image").length);
+          for(const item of report.assets){
+            if(item.kind==="video"){
+              assert.equal(item.candidateStatus,"video-manual-review");
+              assert.equal(item.videoProbe.downloadedMediaBytes,0);
+              continue;
+            }
             assert.equal(item.candidateStatus,"downloaded-for-review");
             for(const field of ["original","wide","desktopPortrait","desktopLandscape","phoneCenter","phoneAttention","phoneFull","phoneTall"])
               assert(existsSync("../stock-candidates/template-review/"+item[field]),item.id+" missing "+field);
           }
-          console.log("Verified "+report.downloaded+" unapproved candidate photos with all phone crop alternatives");
+          console.log("Verified "+report.downloaded+" unapproved active image candidates and video HEAD-only records");
           '
-      - name: Preserve candidate contact sheet, crops and review ledger
+      - name: Preserve candidate review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:

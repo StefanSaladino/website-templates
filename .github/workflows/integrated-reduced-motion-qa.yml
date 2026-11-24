@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   motion:
-    name: 20 animations at phone and desktop with reduced motion
+    name: All integrated animations at phone and desktop with reduced motion
     runs-on: ubuntu-24.04
     timeout-minutes: 16
     steps:
@@ -30,7 +30,7 @@ jobs:
       - name: Install browser dependencies
         working-directory: components
         run: npm install --no-audit --no-fund
-      - name: Check 20 actual reduced-motion template animations
+      - name: Check all actual reduced-motion template animations
         working-directory: components
         run: npm run review:reduced-motion
       - name: Preserve animation screenshots and preference ledger
