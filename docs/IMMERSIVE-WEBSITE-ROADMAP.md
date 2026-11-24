@@ -121,3 +121,6 @@ Stakeholder requested inspection of RESONANCE followed by next. RESONANCE 83eed7
 
 ### Next priority — website configurator
 User requested a client-facing design selection flow before resuming QA. See [Website configurator roadmap](WEBSITE-CONFIGURATOR-ROADMAP.md). Prioritize that work over further immersive component extraction, while retaining all release gates and existing 34 template routes. Plan only; no source implementation in this checkpoint.
+
+## New authorized flagship — SHIFT / the moving card
+Latest stakeholder video supplies direct visual reference for an original scroll-driven card launch, distinct from the prior ten experiential builds. Single additional website, planned total 35. [Dedicated implementation roadmap](SHIFT-CARD-ROADMAP.md) defines storyboard, native procedural real-time scene, typography layering, responsive fallback, QA and catalogue gates; P1 next. No further sites or component extraction authorized by this plan. No source built yet.
