@@ -567,3 +567,6 @@ Stakeholder remains unconvinced by STRATA and requests moving on. STRATA revisio
 
 ## ORBIT — final cinematic website
 User liked ABYSS and requests real photography/video in last build. ABYSS e928850 passed immersive QA. ORBIT source implemented as native-scroll, reversible four-shot photographic film with independent Pexels and NASA Unsplash images, original programmatic pans/zoom/crossfades/type choreography, chapter links, still and no-JS modes. Exact publisher records TM-147–150, 80 active media identities, 9 high-priority and 71 follow-on, 0 rights approved. Dedicated cinematic tests and loaded-media capture configured. Current SHA QA pending, 28 templates; user visual acceptance pending ORBIT and STRATA; no main merge.
+
+## PRISM additional flagship
+User supplied inspiration recording and requested a different product, genuine immersive 3D. Original PRISM lens with procedural mechanical rings, radial knurling, glass groups and iris, full-viewport scene, scroll-driven camera/exploded optical sequence and live finish/rotation. Add to roadmap as 29th template; no external product model or video, no jacket copying. Browser pixel and continuous timeline QA registered, visual acceptance pending. ORBIT reverse-scroll assertion synchronization corrected. No main merge.

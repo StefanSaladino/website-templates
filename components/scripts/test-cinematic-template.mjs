@@ -33,7 +33,7 @@ try{
      const start=await sample();
      const scrub=()=>page.evaluate(sel=>{const f=document.querySelector(sel),c=f.querySelectorAll('[data-shot]');window.scrollTo({top:c[0].offsetHeight*.80,behavior:'instant'})},s.film);
      await scrub();await page.waitForFunction(sel=>+document.querySelector(sel).dataset.blend>.1,s.film);const mid=await sample();assert(+mid.blend<1);assert.notDeepEqual(mid.transform,start.transform);assert(+mid.opacity[1]>.1);
-     await go(s.chapters[0]);const back=await sample();assert.equal(back.progress,start.progress);assert.deepEqual(back.transform,start.transform);
+     await go(s.chapters[0]);await page.waitForFunction(({sel,p})=>document.querySelector(sel).dataset.progress===p,{sel:s.film,p:start.progress});const back=await sample();assert.equal(back.progress,start.progress);assert.deepEqual(back.transform,start.transform);
      await page.locator(s.mode).click();assert.equal(await film.getAttribute('data-cinematic'),'still');await page.locator(s.mode).click();assert.equal(await film.getAttribute('data-cinematic'),'motion');
      // Actual navigation clicks, not only scripted scroll.
      await page.locator('[data-jump="'+s.chapters[2]+'"]').click();await page.waitForFunction(({sel,c})=>document.querySelector(sel).dataset.chapter===c,{sel:s.film,c:s.chapters[2]});await go(s.chapters[0]);

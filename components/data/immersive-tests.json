@@ -261,5 +261,96 @@
     "fixedStage": true,
     "animatedChecks": true,
     "qualityToggle": "#quality"
+  },
+  "prism-optics": {
+    "stage": "#environment",
+    "canvas": "#lens",
+    "fallback": ".fallback",
+    "fixedStage": true,
+    "initial": {
+      "data-rendered-scene": "reveal",
+      "data-rendered-finish": "graphite",
+      "data-rendered-explode": "0.000"
+    },
+    "steps": [
+      {
+        "selector": "[data-jump=craft]",
+        "action": "click",
+        "state": {
+          "data-rendered-scene": "craft"
+        }
+      },
+      {
+        "selector": "[data-jump=optics]",
+        "action": "click",
+        "state": {
+          "data-rendered-scene": "optics",
+          "data-rendered-explode": "1.000"
+        }
+      },
+      {
+        "selector": "[data-jump=inspect]",
+        "action": "click",
+        "state": {
+          "data-rendered-scene": "inspect",
+          "data-rendered-explode": "0.000"
+        }
+      },
+      {
+        "selector": "button[data-finish=silver]",
+        "action": "click",
+        "state": {
+          "data-rendered-finish": "silver"
+        },
+        "controlState": {
+          "aria-pressed": "true"
+        }
+      },
+      {
+        "selector": "#rotation",
+        "action": "fill",
+        "value": "85",
+        "state": {
+          "data-rendered-angle": "85"
+        },
+        "controlState": {
+          "aria-valuetext": "85 degrees"
+        }
+      }
+    ],
+    "reset": {
+      "selector": "#reset",
+      "state": {
+        "data-rendered-finish": "graphite",
+        "data-rendered-angle": "0"
+      }
+    },
+    "fallbackDisabled": [
+      "#rotation"
+    ],
+    "fallbackSteps": [
+      {
+        "selector": "[data-jump=optics]",
+        "action": "click",
+        "state": {
+          "data-scene": "optics"
+        }
+      },
+      {
+        "selector": "[data-jump=inspect]",
+        "action": "click",
+        "state": {
+          "data-scene": "inspect"
+        }
+      },
+      {
+        "selector": "button[data-finish=bronze]",
+        "action": "click",
+        "state": {
+          "data-finish": "bronze"
+        }
+      }
+    ],
+    "productTimeline": true
   }
 }
