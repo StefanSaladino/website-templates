@@ -448,5 +448,13 @@
       "test-shift-components.mjs"
     ],
     "reason": "Recovery suite verifies continuous bounded composition, actual mesh projection and rendering, accessibility, model study and both reusable component examples."
+  },
+  "fold-paper-studio": {
+    "dedicated": true,
+    "workflow": ".github/workflows/fold-study.yml",
+    "scripts": [
+      "test-fold-study.mjs"
+    ],
+    "reason": "Dedicated suite verifies connected CSS 3D hinge geometry, printed plane separation, motion cadence, native touch, keyboard, reflow and preference recovery."
   }
 }

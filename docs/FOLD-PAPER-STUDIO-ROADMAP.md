@@ -38,3 +38,7 @@ Exact 3a02d25 Pages run 45467968089 passed; SELVEDGE removal deployed. Reduced-m
 
 ## F4 preparation — independent gated candidate
 Prepare a one-time candidate workflow, isolated from the existing draft and other 35 active cards. The exact registered route must pass the complete specialist, including desktop framing, cadence and actual touch, before a candidate branch is published. Actual opening capture and full build/explicit gallery-only membership checks are mandatory. Do not promote on failure or before inspecting candidate parent/diff. Workflow changes live in source commit, not the candidate push (avoids GitHub App workflow-write restriction). No source artwork changes, no main merge. Current bcfa8fd specialist still running when preparation began.
+
+
+## F4 — gallery-only registration candidate
+Standalone FOLD direction is independent from SHIFT and retired SELVEDGE. Register the exact geometric artwork, no external stock assets, maintain the existing 35 gallery cards/thumbnail bytes. Actual registered-route specialist, full offline build, exact opening capture and 36-gallery/35-selectable membership all required before promotion. Configurator status is explicitly gallery-only until actual native palette/expanded preview checks pass; no production or physical device sign-off, no main merge.

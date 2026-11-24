@@ -70,6 +70,13 @@
     "route": "../templates/fitness-launch/"
   },
   {
+    "slug": "fold-paper-studio",
+    "title": "FOLD / Paper has depth",
+    "route": "../templates/fold-paper-studio/",
+    "configuratorStatus": "gallery-only",
+    "configuratorBlocker": "Actual ready-made configurator palette and preview interaction verification pending"
+  },
+  {
     "slug": "frame-portfolio",
     "title": "Frame Portfolio",
     "route": "../templates/frame-portfolio/"

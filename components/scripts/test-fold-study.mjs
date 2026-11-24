@@ -1,9 +1,9 @@
-import assert from 'node:assert/strict';import {geometry,endOfPanel,advance,PANELS} from '../../templates/_drafts/fold-paper-studio/geometry.js';
+import assert from 'node:assert/strict';import {geometry,endOfPanel,advance,PANELS} from '../../templates/fold-paper-studio/geometry.js';
 for(const width of [20,64,120])for(let i=0;i<=1000;i++){const p=geometry(i/1000,width);assert.equal(p.length,PANELS);for(let j=0;j<p.length-1;j++){const e=endOfPanel(p[j],width);assert(Math.abs(e.x-p[j+1].x)<1e-8&&Math.abs(e.z-p[j+1].z)<1e-8,'Disconnected crease')}}
 assert(geometry(0,100).at(-1).x<geometry(1,100).at(-1).x);assert.equal(geometry(1,100).every(p=>p.angle===0&&p.z===0),true);assert(advance(.4,1,16)>.4);
 console.log('PASS 3003 connected fold geometries; no panel separation.');
 import {chromium} from 'playwright';import {spawn} from 'node:child_process';import {existsSync,mkdirSync,writeFileSync} from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),out=path.join(root,'components/fold-evidence'),url='http://127.0.0.1:4323/templates/_drafts/fold-paper-studio/';mkdirSync(out,{recursive:true});
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),out=path.join(root,'components/fold-evidence'),url='http://127.0.0.1:4323/templates/fold-paper-studio/';mkdirSync(out,{recursive:true});
 const server=spawn('python3',['-m','http.server','4323','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
 try{for(let i=0;i<50;i++){try{if((await fetch(url)).ok)break}catch{}await new Promise(r=>setTimeout(r,200))}
 browser=await chromium.launch({headless:true,executablePath:['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(existsSync),args:['--no-sandbox']});

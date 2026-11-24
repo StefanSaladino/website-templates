@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "f3a1fedae79cd2500787a78843cad539c22969a7",
+  "sourceCommit": "634453f4c61b92ee33077b575b9945b7e755149a",
   "viewport": {
     "width": 1440,
     "height": 900
@@ -189,6 +189,21 @@
       "sourceAssetIds": [],
       "reviewStatus": "needs-review",
       "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
+    },
+    {
+      "id": "fold-paper-studio",
+      "sourceCommit": "634453f4c61b92ee33077b575b9945b7e755149a",
+      "opening": {
+        "title": "Paperhas depth.",
+        "scrollY": 0,
+        "overflow": false,
+        "headingVisible": true,
+        "canvases": 0
+      },
+      "bytes": 28808,
+      "sha256": "f8da5242ec1e9ea6b92acf77f2728d64b844699413f071975cb37061dfb48b79",
+      "sourceAssetIds": [],
+      "reviewStatus": "needs-review"
     }
   ]
 }

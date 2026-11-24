@@ -8,7 +8,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
-const allIds=["apex-automotive","resonance-sound","event-horizon","essence-fragrance","calibre-watch","shift-card","prism-optics","orbit-cinema","abyss-ocean","strata-architecture","fulcrum-light"];
+const allIds=["apex-automotive","resonance-sound","event-horizon","essence-fragrance","calibre-watch","shift-card","prism-optics","orbit-cinema","abyss-ocean","strata-architecture","fulcrum-light","fold-paper-studio"];
 const only=process.argv.find(a=>a.startsWith('--only='))?.slice(7);
 if(only&&!allIds.includes(only))throw Error('Unknown capture id '+only);
 const ids=only?[only]:allIds;
@@ -38,6 +38,7 @@ try{
   assert(loaded.every(i=>i.width>0&&i.height>0),id+' unloaded image');
   const spec=specs[id];
   if(id==='shift-card')await page.waitForFunction(()=>{const s=document.querySelector('#composition');return s?.dataset.renderer==='webgl'&&s.dataset.motionSettled==='true'&&+s.dataset.progress===0},{},{timeout:15000});
+  else if(id==='fold-paper-studio')await page.waitForFunction(()=>{const s=document.querySelector('#scene');return s?.dataset.mode==='3d'&&s.dataset.settled==='true'&&s.dataset.openness==='0.450000'&&document.querySelectorAll('.panel').length===8},{},{timeout:15000});
   else if(spec?.stage&&id!=='strata-architecture')await page.waitForFunction(({sel,initial})=>{const s=document.querySelector(sel);return s&&Object.entries(initial).filter(([k])=>k!=='data-rendered-paused').every(([k,v])=>s.getAttribute(k)===v)},{sel:spec.stage,initial:spec.initial},{timeout:15000});
   const opening=await page.evaluate(()=>{const h=document.querySelector('h1'),r=h?.getBoundingClientRect(),cs=h&&getComputedStyle(h);return {title:h?.textContent?.trim().replace(/\s+/g,' '),scrollY,overflow:document.documentElement.scrollWidth>innerWidth+2,headingVisible:!!r&&r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&cs.visibility!=='hidden'&&cs.display!=='none',canvases:[...document.querySelectorAll('canvas')].filter(c=>{const r=c.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0}).length}});
   assert(opening.headingVisible&&!opening.overflow&&opening.scrollY===0,id+' opening viewport '+JSON.stringify(opening));
