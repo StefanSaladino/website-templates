@@ -4,6 +4,7 @@ import {renderSourcePage,isContextReference,escape as e} from './builder-compose
 import {themePreviewDocument} from './builder-theme.js?v20261124-native-palettes';
 const $=q=>document.querySelector(q),stage=$('#stage'),notice=$('#notice'),steps=['About your website','Choose a look','Pick designs','Make it yours','See your website'];
 let cat,s,showAll=false,width=1440,thumbs,resize,frameResize,dialogReturn=null,templatePage=0;
+let previewInert=[];
 const load=async p=>{const r=await fetch(p,{cache:'no-cache'});if(!r.ok)throw Error(p);return r.json()};
 const button=(label,attr='',secondary=false)=>'<button type="button" '+(secondary?'class="secondary" ':'')+attr+'>'+e(label)+'</button>';
 const heading=(title,description)=>'<h2 id="step-title" tabindex="-1">'+e(title)+'</h2><p class="help">'+e(description)+'</p>';
@@ -46,10 +47,49 @@ function liveLayout(){const id=current()?.page==='shared'?'home':current()?.page
 function refreshLive(){const fr=$('#live-layout-frame');if(!fr)return;const id=current()?.page==='shared'?'home':current()?.page||'home';const sections=pageEntries(s,id);const fit=()=>{const w=fr.parentElement.clientWidth;if(w>0){const scale=w/960;fr.style.transform='scale('+scale+')';fr.parentElement.style.height=Math.round(900*scale)+'px'}};renderSourcePage(fr,{palette:s.palette,sections,pageTitles:s.plan.pages.map(p=>p.title),purpose:s.purpose,width:960},cat);fr.closest('details').addEventListener('toggle',fit);fit();frameResize=new ResizeObserver(fit);frameResize.observe(fr.parentElement)}
 function previewPageTabs(){if(s.mode!=='custom'||s.plan.pages.length<2)return '';return '<div class="page-tabs" aria-label="Choose a page">'+s.plan.pages.map(p=>button(p.title,'data-page="'+e(p.id)+'" aria-pressed="'+(s.previewPage===p.id)+'"',true)).join('')+'</div><label class="expanded-page-select">Page <select id="expanded-page" aria-label="Preview page">'+s.plan.pages.map(p=>'<option value="'+e(p.id)+'" '+(s.previewPage===p.id?'selected':'')+'>'+e(p.title)+'</option>').join('')+'</select></label>'}
 function previewMarkup(){return '<dialog id="website-preview-dialog" class="preview-panel" open aria-label="Website preview"><div class="preview-toolbar">'+previewPageTabs()+'<div class="device-controls" aria-label="Screen size">'+[[1440,'Computer'],[768,'Tablet'],[390,'Phone']].map(([w,t])=>button(t,'data-width="'+w+'" aria-pressed="'+(width===w)+'"',true)).join('')+button('Expand preview','data-expand-preview aria-expanded="false"',true)+'</div></div><div class="frame-wrap"><div class="frame-shell"><iframe id="preview" title="Your website preview" sandbox="allow-scripts allow-same-origin"></iframe></div></div><p id="preview-note" class="small"></p></dialog>'}
-function fit(){const fr=$('#preview');if(!fr)return;const wrap=fr.closest('.frame-wrap'),dialog=fr.closest('dialog'),cs=getComputedStyle(wrap),padX=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight),padY=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom),available=Math.max(1,wrap.clientWidth-padX),scale=Math.min(1,available/width),base=width===390?780:900,h=dialog?.classList.contains('expanded-preview')?Math.max(1,Math.min(base,Math.floor((wrap.clientHeight-padY)/scale))):base;Object.assign(fr.style,{width:width+'px',height:h+'px',transform:'scale('+scale+')'});Object.assign(fr.parentElement.style,{width:Math.floor(width*scale)+'px',height:Math.floor(h*scale)+'px'})}
-function closeExpandedPreview(restore=true){const d=$('#website-preview-dialog');if(!d?.classList.contains('expanded-preview'))return;d.classList.remove('expanded-preview');document.body.classList.remove('preview-modal-open');if(d.open)d.close();if(restore){d.setAttribute('open','');const toggle=d.querySelector('[data-expand-preview]');toggle.textContent='Expand preview';toggle.setAttribute('aria-expanded','false');fit();toggle.focus({preventScroll:true})}}
-function openExpandedPreview(){const d=$('#website-preview-dialog');if(!d||d.classList.contains('expanded-preview'))return;const toggle=d.querySelector('[data-expand-preview]');if(d.open)d.close();d.classList.add('expanded-preview');document.body.classList.add('preview-modal-open');d.showModal();toggle.textContent='Close preview';toggle.setAttribute('aria-expanded','true');fit();toggle.focus({preventScroll:true})}
-function bindPreviewDialog(){const d=$('#website-preview-dialog'),fr=$('#preview');if(!d||!fr)return;d.addEventListener('cancel',ev=>{ev.preventDefault();closeExpandedPreview()});fr.addEventListener('load',()=>{try{fr.contentDocument?.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&d.classList.contains('expanded-preview')){ev.preventDefault();closeExpandedPreview()}},true)}catch{}})}
+function fit(){const fr=$('#preview');if(!fr)return;const wrap=fr.closest('.frame-wrap'),dialog=fr.closest('dialog'),cs=getComputedStyle(wrap),padX=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight),padY=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom),available=Math.max(1,wrap.clientWidth-padX),scale=Math.min(1,available/width),base=width===390?780:900,h=dialog?.classList.contains('expanded-preview')?Math.max(1,Math.min(base,Math.floor(Math.max(1,wrap.clientHeight-padY)/scale))):base;Object.assign(fr.style,{width:width+'px',height:h+'px',transform:'scale('+scale+')'});Object.assign(fr.parentElement.style,{width:Math.floor(width*scale)+'px',height:Math.floor(h*scale)+'px'})}
+// Keep the live iframe in place. Native modal top-layer input routing has
+// repeatedly blocked scrolling in both independent animated templates.
+// The nonmodal dialog becomes a fullscreen overlay; only its siblings are
+// inert. Do not inert an ancestor of the embedded browsing context.
+function isolatePreview(d){
+ previewInert=[];for(let node=d;node&&node!==document.body;node=node.parentElement){
+  const parent=node.parentElement;if(!parent)break;
+  for(const sibling of parent.children)if(sibling!==node&&!['SCRIPT','STYLE','LINK','TEMPLATE'].includes(sibling.tagName)){previewInert.push([sibling,sibling.inert]);sibling.inert=true}
+ }
+}
+function closeExpandedPreview(restore=true){
+ const d=$('#website-preview-dialog');if(!d?.classList.contains('expanded-preview'))return;
+ d.classList.remove('expanded-preview');d.removeAttribute('aria-modal');document.body.classList.remove('preview-modal-open');
+ for(const [node,was] of previewInert)node.inert=was;previewInert=[];
+ if(restore){const toggle=d.querySelector('[data-expand-preview]');toggle.textContent='Expand preview';toggle.setAttribute('aria-expanded','false');fit();toggle.focus({preventScroll:true})}
+}
+function openExpandedPreview(){
+ const d=$('#website-preview-dialog');if(!d||d.classList.contains('expanded-preview'))return;const toggle=d.querySelector('[data-expand-preview]');
+ // The existing inline <dialog open> stays open; no close/showModal cycle,
+ // reparenting, new browsing context, or native modal focus redirection.
+ d.classList.add('expanded-preview');d.setAttribute('aria-modal','true');document.body.classList.add('preview-modal-open');isolatePreview(d);
+ toggle.textContent='Close preview';toggle.setAttribute('aria-expanded','true');fit();toggle.focus({preventScroll:true});
+ requestAnimationFrame(()=>{if(d.classList.contains('expanded-preview'))fit()})
+}
+function bindPreviewDialog(){
+ const d=$('#website-preview-dialog'),fr=$('#preview');if(!d||!fr)return;
+ const active=()=>d.classList.contains('expanded-preview');
+ const controls=()=>[...d.querySelectorAll('button:not([disabled]),select:not([disabled]),iframe,a[href]')].filter(n=>n.getClientRects().length&&getComputedStyle(n).visibility!=='hidden');
+ // Focus sentinels wrap normal Tab traversal including the nested document;
+ // native iframe focus and scroll remain available.
+ for(const [side,edge] of [['start','last'],['end','first']]){
+  const n=document.createElement('span');n.className='preview-focus-sentinel';n.tabIndex=-1;n.dataset.previewSentinel=side;
+  n.addEventListener('focus',()=>{if(!active())return;const list=controls();(edge==='first'?list[0]:list.at(-1))?.focus({preventScroll:true})});
+  if(side==='start')d.prepend(n);else d.append(n)
+ }
+ const syncSentinels=()=>{for(const n of d.querySelectorAll('[data-preview-sentinel]'))n.tabIndex=active()?0:-1};
+ new MutationObserver(syncSentinels).observe(d,{attributes:true,attributeFilter:['class']});
+ const escape=ev=>{if(ev.key==='Escape'&&active()){ev.preventDefault();ev.stopPropagation();closeExpandedPreview()}};
+ d.addEventListener('keydown',escape,true);d.addEventListener('cancel',ev=>{ev.preventDefault();closeExpandedPreview()});
+ const bindChild=()=>{try{fr.contentDocument?.addEventListener('keydown',escape,true)}catch{}};
+ fr.addEventListener('load',bindChild);bindChild()
+}
 function selectPreviewPage(id){apply({type:'page',id},false);stage.querySelectorAll('[data-page]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.page===s.previewPage)));const picker=$('#expanded-page');if(picker)picker.value=s.previewPage;refreshPreview()}
 function sourceReferences(){if(s.mode!=='custom')return '';const currentEntries=pageEntries(s,s.previewPage),extra=slots().filter(x=>x.page==='shared'&&s.choices[x.id]&&isContextReference(cat.core.get(s.choices[x.id].coreId))).map(x=>({...s.choices[x.id],slotId:x.id}));const entries=[...currentEntries,...extra];return '<details class="advanced source-references"><summary>View exact design examples and interactions</summary><p class="small">The combined page preserves the selected section layouts. Original examples retain their source colours and include the full interactive and alternate phone behaviour; additional features are references, not extra content pages.</p>'+entries.map(x=>{const c=cat.core.get(x.coreId),m=variants(cat,c.id).find(m=>m.id===x.mobileId);return '<p><a href="'+e(m?.previewRoute||c.previewRoute)+'" target="_blank" rel="noopener">'+e(friendly(c))+'</a>'+ (isContextReference(c,x)?' · Additional feature':m?' · Selected phone example':'')+'</p>'+x.animationIds.map(id=>cat.core.get(id)).filter(Boolean).map(a=>'<p><a href="'+e(a.previewRoute)+'" target="_blank" rel="noopener">'+e(friendly(a))+'</a> · Motion reference</p>').join('')}).join('')+'</details>'}
 function refreshPreview(){const fr=$('#preview');if(!fr)return;fit();const note=$('#preview-note');if(s.mode==='template'){mountTemplateTheme(fr);note.textContent=s.paletteMode==='original'?'Original website example with its existing colours.':'Your chosen colours applied to the website example. Photographs and original illustrations retain their appearance.'}else{const sections=pageEntries(s,s.previewPage);note.textContent='Preparing your selected designs…';const reference=stage.querySelector('.source-references');if(reference){const open=reference.open;reference.outerHTML=sourceReferences();stage.querySelector('.source-references').open=open}renderSourcePage(fr,{palette:s.palette,sections,pageTitles:s.plan.pages.map(p=>p.title),purpose:s.purpose,width},cat,r=>{if(!note.isConnected)return;note.textContent=(r.errors?r.errors+' design(s) could not load. Your choices are still saved. ':'')+'Your original section layouts, with example content and imagery. Your chosen colour scheme is applied to interface surfaces, text and accents. Photos and original artwork retain their colours; some photo overlays and interactive states remain original. No forms send information.'})}frameResize?.disconnect();frameResize=new ResizeObserver(fit);frameResize.observe(fr.closest('.frame-wrap'))}

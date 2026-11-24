@@ -21,7 +21,7 @@ edit('components/builder-journey.js',"'storefront','editorial-commerce','custom-
 edit('components/builder.js','./builder-journey.js','./builder-journey.js'); // verify module exists; cache-bust below
 const builder=read('components/builder.js').replace(/(\.\/builder-journey\.js)(?:\?[^'"]*)?(?=['"])/g,'$1?v20261124-selvedge');
 write('components/builder.js',builder);
-edit('components/builder.html','builder.js?v20261124-native-palettes','builder.js?v20261124-selvedge');
+edit('components/builder.html','builder.js?v20261124-preview-overlay','builder.js?v20261124-selvedge');
 const source='https://images.pexels.com/photos/6044143/pexels-photo-6044143.jpeg',page='https://www.pexels.com/photo/modern-black-leather-jacket-on-white-background-6044143/';
 let count;
 json('components/data/template-media-inventory.json',m=>{assert(!m.assets.some(a=>a.id==='TM-157'||a.urlIdentity===source));m.assets.push({id:'TM-157',urlIdentity:source,kind:'image',usages:[{templateId:id,files:['index.html']}],linkedComponentStockId:null,sourcePageUrl:page,creator:'Skylar Kang',rightsReviewedAt:null,reviewStatus:'needs-review',localDerivative:null,sourcePageVerifiedAt:'2026-11-24',sourceVerificationNote:'Original Pexels publisher reference recorded 2026-11-24 in SELVEDGE draft; real folded black jacket photograph, source identity confirmed by actual browser image decoding and visual evidence. Same original reused for authentic detail crop, not a SELVEDGE product. No endorsement or rights approval. Final contextual/template redistribution and crop review remain open.'});count=m.assets.length});
