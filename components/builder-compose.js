@@ -69,6 +69,22 @@ function splitHeading(root,sel,parts){
  if(em){const copy=em.cloneNode(false);copy.textContent=parts[1];n.replaceChildren(parts[0],n.ownerDocument.createElement('br'),copy)}
  else n.replaceChildren(parts[0],n.ownerDocument.createElement('br'),parts[1]);
 }
+// Derive single-page menu labels from selected content, rather than repeating Home.
+const sectionLabels={services:'Services',projects:'Our work',galleries:'Our work',about:'About us',testimonials:'Reviews',products:'Products',menus:'Menu',booking:'Bookings','calls-to-action':'Get in touch',contact:'Contact',forms:'Contact',process:'How it works',locations:'Locations',pricing:'Pricing',teams:'Our team',articles:'Articles',events:'Events',careers:'Careers'};
+function navigationLabels(spec){
+ const pages=spec.pageTitles||['Home'];if(pages.length>1)return [...new Set(pages)];
+ const sections=spec.sections||[],labels=sections.map(x=>sectionLabels[spec.cat.core.get(x.coreId)?.category]).filter(Boolean);
+ const unique=[...new Set(labels)];const contact=unique.find(t=>['Contact','Get in touch'].includes(t)),body=unique.filter(t=>!['Contact','Get in touch'].includes(t));
+ return ['Home',...body,...(contact?[contact]:[])];
+}
+function bindNavigation(target,spec){
+ const titles=navigationLabels(spec);
+ const navs=target.matches('nav')?[target]:[...target.querySelectorAll('nav')];
+ for(const nav of navs){
+  const links=[...nav.querySelectorAll('a')].filter(a=>!a.matches('.v-logo,.brand,.n1-logo,.n3-brand,.n4-wordmark')&&!a.closest('.mega-detail'));
+  links.forEach((a,i)=>{if(i>=titles.length){a.hidden=true;return}a.textContent=titles[i]});
+ }
+}
 // Only explicitly reviewed copy bindings; don't guess at arbitrary demo text or remove evidence disclosures.
 function bindContent(target,c,spec){
  const p=neutral[spec.purpose]||neutral.other;
@@ -78,10 +94,7 @@ function bindContent(target,c,spec){
  if(c.id==='NAV-04'){setText(target,'.n4-wordmark>span:last-child','YOUR BUSINESS');const words=target.querySelectorAll('.n4-utility span');['YOUR BUSINESS','SERVICES & ENQUIRIES','SAMPLE WEBSITE'].forEach((v,i)=>{if(words[i])words[i].textContent=v})}
  if(c.id==='NAV-05')setText(target,'.brand','YB');
  if(c.id==='NAV-06'||c.id==='NAV-07')setText(target,'.brand','YOUR BUSINESS');
- if(c.category==='headers'){
-  const titles=spec.pageTitles||['Home','About','Contact'];const navs=[...target.querySelectorAll('nav')];
-  for(const nav of navs){const links=[...nav.querySelectorAll('a')].filter(a=>!a.closest('[hidden]')&&!a.classList.contains('v-logo'));links.forEach((a,i)=>{a.textContent=titles[i%titles.length]||'Home'})}
- }
+ if(c.category==='headers')bindNavigation(target,spec);
  if(c.id==='HERO-02'){splitHeading(target,'.h2-copy h1',p.hero);setText(target,'.h2-copy p',p.lead);setText(target,'.h2-copy a',p.action);setText(target,'.h2-copy small','YOUR BUSINESS / INTRODUCTION');const notes=target.querySelectorAll('.h2-copy small');if(notes[1])notes[1].textContent='WELCOME / 01'}
  if(c.id==='HERO-01'){splitHeading(target,'.h1-copy h1',p.hero);setText(target,'.h1-copy p','YOUR BUSINESS');setText(target,'.h1-copy a',p.action);setText(target,'.h1-mark','YOUR WEBSITE / 01');setText(target,'.h1-side','WELCOME')}
  if(c.id==='HERO-08'){splitHeading(target,'.type h1',p.hero);setText(target,'.type a',p.action)}
@@ -122,7 +135,7 @@ function mountSection(doc,parent,src,c,entry,spec){
  let mount=body;for(const ancestor of chain){const a=doc.createElement(ancestor.localName);copyAttributes(ancestor,a);if(ancestor.id)a.id=ancestor.id;mount.append(a);mount=a}
  const target=doc.importNode(src.target,true);target.dataset.sourceTarget='';scrub(target,src.url);bindContent(target,c,spec);mount.append(target);
  // Include only explicitly referenced sibling navigation panels, not demo page content.
- if(c.category==='headers'){for(const btn of target.querySelectorAll('[aria-controls]')){const id=btn.getAttribute('aria-controls');if(target.querySelector('[id="'+CSS.escape(id)+'"]'))continue;const panel=src.doc.getElementById(id);if(panel&&['nav','dialog'].includes(panel.localName)){const clone=doc.importNode(panel,true);scrub(clone,src.url);if(clone.localName==='dialog')continue;clone.hidden=true;mount.append(clone)}}}
+ if(c.category==='headers'){for(const btn of target.querySelectorAll('[aria-controls]')){const id=btn.getAttribute('aria-controls');if(target.querySelector('[id="'+CSS.escape(id)+'"]'))continue;const panel=src.doc.getElementById(id);if(panel&&['nav','dialog'].includes(panel.localName)){const clone=doc.importNode(panel,true);scrub(clone,src.url);if(clone.localName==='dialog')continue;bindNavigation(clone,spec);clone.hidden=true;mount.append(clone)}}}
  html.append(body);shadow.append(style,html);
  // Source image failures keep the original authored background/geometry and honest alt text.
  target.querySelectorAll('img').forEach(img=>{img.addEventListener('error',()=>{img.style.visibility='hidden';img.closest('.n3-scene,.h1-scene,.g2-photo,.s3-media,.c2-scene')?.classList.add('image-pending')},{once:true})});

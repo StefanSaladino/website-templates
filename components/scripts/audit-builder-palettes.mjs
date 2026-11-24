@@ -9,7 +9,7 @@ mkdirSync(dir,{recursive:true});const server=spawn('python3',['-m','http.server'
 const palettes=[['professional','#1B3556','#EDF1F6','#C69B54'],['dark','#252A31','#111318','#D5AF72'],['inverted','#E6E3DC','#182B3B','#E9825B'],['bold','#4A116E','#F5F1FC','#F5BD28'],['near-equal','#252525','#292929',null],['no-trim','#A02032','#FFF7EE',null]];
 const scenarios=[['business','multiple'],['work','single'],['products','single'],['booking','multiple']];
 const rgb=s=>s.match(/[\d.]+/g)?.slice(0,3).map(Number),hexRGB=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)),close=(a,b)=>a&&b&&a.every((v,i)=>Math.abs(v-b[i])<=1);
-const report={cases:[],scope:'Chromium; external network blocked; media identity/crop/filter checked, not licensed media delivery. Solid-background contrast is heuristic; gradients and photographs need human review.'};
+const report={cases:[],scope:'Chromium; external network blocked; media identity/crop/filter checked, not licensed media delivery. Solid-background contrast is heuristic, with native details expanded and paint settled; gradients and photographs need human review.'};
 try{
  for(let i=0;i<50;i++){try{if((await fetch(url)).ok)break}catch{}await new Promise(r=>setTimeout(r,200))}
  const executablePath=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/opt/google/chrome/chrome','/usr/bin/chromium'].find(existsSync);
@@ -28,7 +28,7 @@ try{
     for(const w of [390,768,1440]){
      await page.locator('[data-width="'+w+'"]').click();
      await page.waitForFunction(({k,w})=>{const f=document.querySelector('#preview'),d=f?.contentDocument;return d?.body?.dataset.previewReady==='true'&&d.body.dataset.previewPalette===k&&f.contentWindow.innerWidth===w},{k:key,w});
-     await page.locator('#preview').scrollIntoViewIfNeeded();await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));const result=await page.locator('#preview').evaluate(frame=>{
+     await page.locator('#preview').scrollIntoViewIfNeeded();await page.locator('#preview').evaluate(f=>{for(const h of f.contentDocument.querySelectorAll('[data-source-status=mounted]'))for(const details of h.shadowRoot.querySelectorAll('details'))details.open=true});await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));const result=await page.locator('#preview').evaluate(frame=>{
       const d=frame.contentDocument,win=frame.contentWindow,hosts=[...d.querySelectorAll('[data-source-status=mounted]')],rows=[],media=[],issues=[];
       const parse=s=>{const m=s.match(/^rgba?\(([^)]+)\)$/);return m?m[1].split(',').map(Number):null};
       const lum=c=>c.slice(0,3).map(x=>x/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4).reduce((a,x,i)=>a+x*[.2126,.7152,.0722][i],0);
