@@ -1,0 +1,50 @@
+// Register INDEX as a review-only catalogue entry, preserving the current design.
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync,renameSync,existsSync,readdirSync} from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),id='index-designer',src='templates/_drafts/'+id,dest='templates/'+id;
+const read=p=>readFileSync(path.join(root,p),'utf8'),write=(p,s)=>writeFileSync(path.join(root,p),s);
+function edit(p,a,b){const s=read(p);assert(s.includes(a),'Missing '+p+' '+a.slice(0,100));write(p,s.replace(a,b))}
+function json(p,fn){const x=JSON.parse(read(p));fn(x);write(p,JSON.stringify(x,null,2)+'\n')}
+assert(existsSync(path.join(root,src,'index.html'))&&!existsSync(path.join(root,dest)));
+renameSync(path.join(root,src),path.join(root,dest));
+edit(dest+'/index.html','href="../../../index.html"','href="../../index.html"');
+edit(dest+'/index.html','<html lang="en">','<html lang="en" data-immersive-template>');
+const credits={'11028403':'Yulia H.','7319334':'Angela Roma','6070384':'Jill Burrow','7815016':'Mikhail Nilov','8015724':'Cup of Couple','12256996':'Ayşegül Aytören','11485130':'Andrzej Gdula','18677608':'Yusuf Çelik'};
+const manifest=JSON.parse(read(dest+'/photo-sources.json'));
+for(const a of manifest.assets){const number=a.urlIdentity.match(/photos\/(\d+)\//)[1];a.photographer=credits[number];assert(a.photographer);a.reviewStatus='Official Pexels source page and creator checked 2026-11-24; commercial rights and crop review pending'}
+write(dest+'/photo-sources.json',JSON.stringify(manifest,null,2)+'\n');
+let home=read(dest+'/index.html');
+home=home.replace(/(<a href="https:\/\/www\.pexels\.com\/photo\/[^"]+-(\d+)\/">)([^<]+)<\/a>/g,(all,link,num,label)=>credits[num]?link+label.replace(/ — (?:Pexels(?: contributor)?|Ayşegül Aytören|Yusuf Çelik)$/,'')+' — '+credits[num]+'</a>':all);
+write(dest+'/index.html',home);
+const card='<article class="template-card is-live" data-category="creative experimental immersive" data-template="index-designer"><a aria-label="Open INDEX graphic design portfolio" class="thumb-link" href="templates/index-designer/"><div class="thumb" style="position:relative;background:#eeeae0"><img alt="" src="templates/index-designer/gallery-opening.webp" width="960" height="600" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain"/><span class="live-badge">Preview</span></div></a><div class="card-copy"><div><h3>INDEX / Selected work</h3></div><p>Creative · Graphic design portfolio</p><a class="card-live-link" href="templates/index-designer/">View template</a></div></article>\n';
+edit('index.html','<article class="template-card is-live" data-category="creative experimental immersive" data-template="fold-paper-studio">',card+'<article class="template-card is-live" data-category="creative experimental immersive" data-template="fold-paper-studio">');
+json('components/data/builder-templates.json',a=>{assert.equal(a.length,36);assert(!a.some(x=>x.slug===id));a.push({slug:id,title:'INDEX / Selected work',route:'../templates/'+id+'/',configuratorStatus:'gallery-only',configuratorBlocker:'Multi-page portfolio palette and expanded preview interactions need dedicated configurator verification'});a.sort((x,y)=>x.slug.localeCompare(y.slug))});
+json('components/data/immersive-tests.json',a=>{assert(!a[id]);a[id]={dedicated:true,workflow:'.github/workflows/index-designer-review.yml',scripts:['test-index-designer.mjs'],reason:'Dedicated ten-route browser suite covers proof alignment, study stacking, studio parallax, reverse scroll, actual photo decoding, footer navigation, preferences and no-JS fallback.'}});
+edit('components/scripts/check-immersive-contract.mjs',"{'shift-card':5,'fold-paper-studio':1},id","{'shift-card':5,'fold-paper-studio':1,'index-designer':1},id");
+edit('components/scripts/check-immersive-contract.mjs',"({'shift-card':5,'fold-paper-studio':1}[id])","({'shift-card':5,'fold-paper-studio':1,'index-designer':1}[id])");
+const test='components/scripts/test-index-designer.mjs';write(test,read(test).replaceAll('templates/_drafts/index-designer/','templates/index-designer/').replaceAll('../../../index.html','../../index.html'));
+edit('.github/workflows/index-designer-review.yml',"      - 'templates/_drafts/index-designer/**'","      - 'templates/_drafts/index-designer/**'\n      - 'templates/index-designer/**'");
+const scanner='components/scripts/check-template-media.mjs';
+edit(scanner," const files=readdirSync(dir).filter(filename=>/\\.(html|css|js)$/i.test(filename)&&statSync(path.join(dir,filename)).isFile());"," const collect=(folder,prefix='')=>readdirSync(folder,{withFileTypes:true}).flatMap(e=>e.isDirectory()?collect(path.join(folder,e.name),prefix+e.name+'/'):/\\.(html|css|js)$/i.test(e.name)?[prefix+e.name]:[]);\n const files=templateId==='index-designer'?collect(dir):readdirSync(dir).filter(filename=>/\\.(html|css|js)$/i.test(filename)&&statSync(path.join(dir,filename)).isFile());");
+const unique=[...new Map(manifest.assets.map(a=>[a.urlIdentity,a])).values()];
+assert.equal(unique.length,8);
+const stock=JSON.parse(read('components/data/stock-manifest.json'));
+const normalize=u=>{try{const x=new URL(u);return x.origin+x.pathname}catch{return null}};
+const sourceFiles=['index.html',...readdirSync(path.join(root,dest,'cases')).filter(x=>x.endsWith('.html')).map(x=>'cases/'+x),...readdirSync(path.join(root,dest,'collections')).filter(x=>x.endsWith('.html')).map(x=>'collections/'+x)];
+const records=[];
+json('components/data/template-media-inventory.json',m=>{assert.equal(m.assets.length,86);let max=Math.max(...m.assets.map(a=>Number(a.id.slice(3))),157);for(const a of unique){assert(!m.assets.some(x=>x.urlIdentity===a.urlIdentity));const linked=stock.assets.find(x=>['temporaryPreviewUrl','temporaryVideoUrl','productionUrl'].some(k=>normalize(x[k])===a.urlIdentity));const record={id:'TM-'+(++max),urlIdentity:a.urlIdentity,kind:'image',usages:[{templateId:id,files:sourceFiles.filter(f=>read(dest+'/'+f).includes(a.urlIdentity)).sort()}],linkedComponentStockId:linked?.id||null,sourcePageUrl:a.sourcePage,creator:a.photographer,rightsReviewedAt:null,reviewStatus:'needs-review',localDerivative:null,sourcePageVerifiedAt:'2026-11-24',sourceVerificationNote:'Official Pexels page displayed the exact photo identity, named creator and Free label; editorial reference only, no client-work claim. Original-file inspection and contextual rights clearance remain open.'};assert(record.usages[0].files.length);m.assets.push(record);records.push(record)}});
+const queue='docs/TEMPLATE-MEDIA-CLEARANCE-QUEUE.md';let q=read(queue).replace('86 active external media identities:','94 active external media identities:').replace('85 still/poster images','93 still/poster images').replace('All 86 remain','All 94 remain').replace('77 follow-on records','85 follow-on records').replace('Follow-on queue — 77 active records','Follow-on queue — 85 active records');
+const anchor='| TM-156 | apex-automotive | Pexels publisher page; Quentin Martinez | Independent bodywork macro; rights and crop review open |';
+assert(q.includes(anchor));q=q.replace(anchor,anchor+'\n'+records.map(a=>'| '+a.id+' | index-designer | Pexels publisher page; '+a.creator+' | Editorial stock reference; contextual rights and crop review open |').join('\n'));write(queue,q);
+json('components/data/loaded-media-review-batches.json',a=>{a['designer-portfolio']=[{name:id,sections:['.proof-stage','.study-stack','.luxury-studio'],required:[...home.matchAll(/<img\b[^>]*>/gi)].filter(m=>m[0].includes('images.pexels.com')).length,poster:false}]});
+const capture='components/scripts/capture-gallery-openings.mjs';
+edit(capture,'"fold-paper-studio"];','"fold-paper-studio","index-designer"];');
+edit(capture,"  const opening=await page.evaluate(()=>{const h=document.querySelector('h1')","  if(id==='index-designer')await page.waitForFunction(()=>document.querySelector('#proof-track')?.dataset.motion==='live'&&document.querySelectorAll('.project-cover').length===6&&[...document.querySelectorAll('.project-cover img')].every(i=>i.complete&&i.naturalWidth>0));\n  const opening=await page.evaluate(id=>{const h=document.querySelector(id==='index-designer'?'.brand':'h1')");
+edit(capture,"}).length}});\n  assert(opening.headingVisible","}).length}},id);\n  assert(opening.headingVisible");
+edit(capture,"'orbit-cinema','strata-architecture'].includes(id)","'orbit-cinema','strata-architecture','index-designer'].includes(id)");
+const rd='docs/INDEX-DESIGNER-ROADMAP.md';
+write(rd,read(rd)+'\n\n## P17 — gallery-only registration\nStakeholder authorized adding INDEX. P16 Pages 45506510105 and ten-route/four-width specialist 45506510239 passed. Move verified design into templates/index-designer, correct gallery return link, retain all nine child routes and register actual opening capture, dedicated immersive QA, eight publisher-attributed stock identities (including nested case-file usages), and loaded-photo review. Gallery-only; configurator enablement requires separate actual palette and expanded-preview QA. No main merge or commercial rights approval.\n');
+write('PROJECT-ROADMAP.md',read('PROJECT-ROADMAP.md')+'\n\n## INDEX / Selected work — review gallery registration\nINDEX P16 passed deployment and specialist review. P17 adds the 37th complete review website (35 configurator-selectable), actual opening thumbnail and dedicated multi-page specialist coverage; no main merge or production approval. See docs/INDEX-DESIGNER-ROADMAP.md.\n');
+console.log('Prepared INDEX registration; exact browser capture, build and registered-route tests must pass before promotion.');
