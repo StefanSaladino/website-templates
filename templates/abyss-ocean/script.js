@@ -119,7 +119,7 @@ function draw(now){frame=0;if(!gl||gl.isContextLost()||document.hidden)return;if
  if(!paused&&!media.matches)requestDraw();
 }
 function syncScroll(){
- scrollPending=false;const y=window.scrollY,offsets=chapters.map(el=>el.offsetTop),lastIndex=chapters.length-1;
+ scrollPending=false;const y=window.scrollY,offsets=chapters.map(el=>el.getBoundingClientRect().top+y),lastIndex=chapters.length-1;
  let i=0;while(i<lastIndex&&y>=offsets[i+1]-3)i++;
  const next=Math.min(i+1,lastIndex),span=Math.max(1,offsets[next]-offsets[i]),t=next===i?0:clamp((y-offsets[i])/span,0,1);
  depth=mix(Number(chapters[i].dataset.depth),Number(chapters[next].dataset.depth),t);

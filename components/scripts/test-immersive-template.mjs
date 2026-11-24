@@ -14,7 +14,7 @@ const report={templates:ids,widths,cases:[],errors:[],physicalDeviceAcceptance:f
 const checkState=async(page,s,state)=>{
  const stage=page.locator(s.stage);
  if(!s.fixedStage)await stage.scrollIntoViewIfNeeded();
- await page.waitForFunction(({sel,state})=>{const el=document.querySelector(sel);return el&&(el.dataset.renderError||Object.entries(state).every(([k,v])=>el.getAttribute(k)===v))},{sel:s.stage,state});
+ await page.waitForFunction(({sel,state})=>{const el=document.querySelector(sel);return el&&((Object.keys(state).some(k=>k.startsWith('data-rendered-'))&&el.dataset.renderError)||Object.entries(state).every(([k,v])=>el.getAttribute(k)===v))},{sel:s.stage,state});
  if(Object.keys(state).some(k=>k.startsWith('data-rendered-'))){const err=await stage.getAttribute('data-render-error');assert(!err,'WebGL initialization failed: '+err);}
 };
 const act=async(page,s,step)=>{
@@ -92,9 +92,9 @@ try{
     await motionPage.locator('#motion').click();await checkState(motionPage,s,{'data-rendered-paused':'true'});
     const stopped=await stage.getAttribute('data-frame-time');await motionPage.waitForTimeout(180);assert.equal(await stage.getAttribute('data-frame-time'),stopped,'Paused time advanced');
     // Real native scroll, not just clicking chapter controls.
-    await motionPage.locator('#midnight').evaluate(el=>window.scrollTo(0,el.offsetTop));
+    await motionPage.locator('#midnight').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));
     await checkState(motionPage,s,{'data-rendered-zone':'midnight'});
-    await motionPage.locator('#surface').evaluate(el=>window.scrollTo(0,el.offsetTop));
+    await motionPage.locator('#surface').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));
     await checkState(motionPage,s,{'data-rendered-zone':'surface'});
     const supported=await motionPage.locator(s.canvas).evaluate(el=>{const ext=el.getContext('webgl')?.getExtension('WEBGL_lose_context');if(!ext)return false;window.__testContext=ext;ext.loseContext();return true});
     if(supported){await checkState(motionPage,s,{'data-renderer':'static'});await motionPage.evaluate(()=>window.__testContext.restoreContext());await checkState(motionPage,s,{'data-renderer':'webgl'});}
