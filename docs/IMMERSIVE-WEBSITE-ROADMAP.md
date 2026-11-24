@@ -76,3 +76,6 @@ PRISM is the approved creative benchmark; ABYSS also received positive stakehold
 
 ### Release and sequencing
 Implement F1 first; F2–F5 remain planned until committed. Actual browser screenshots at 320/390/768/1440 and real test results before claiming completion, record current SHA and unresolved issues. Reuse engine primitives only where helpful; compositions must be different. Keep existing 157 core / 44 mobile alternatives / 20 integrated animations unchanged. After full-site acceptance, extract proven techniques into components; do not create placeholder component IDs. No main merge. Stock review remains separate and paused except any approved newly sourced assets. 
+
+### F1 implementation checkpoint
+CALIBRE source implemented in templates/calibre-watch/: distinct warm horology studio, skeleton case, bracelet, four synchronized external gears, balance, hands, axial exploded assembly, scroll camera, manual rotation, pause and advance. Common pure mechanism module is tested for pitch distances, signed tooth ratios and phase. Balance/escapement-inspired movement and hands share time but are illustrative, not mechanically validated. Real browser pixel and mechanical timeline tests added, current-SHA evidence pending. 30 implemented templates; F2 ESSENCE next after review. Main unchanged.

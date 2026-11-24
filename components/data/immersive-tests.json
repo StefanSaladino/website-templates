@@ -352,5 +352,87 @@
       }
     ],
     "productTimeline": true
+  },
+  "calibre-watch": {
+    "stage": "#environment",
+    "canvas": "#watch",
+    "fallback": ".fallback",
+    "fixedStage": true,
+    "initial": {
+      "data-rendered-scene": "reveal",
+      "data-rendered-time": "0.000",
+      "data-rendered-running": "false",
+      "data-rendered-explode": "0.000"
+    },
+    "steps": [
+      {
+        "selector": "[data-jump=movement]",
+        "action": "click",
+        "state": {
+          "data-rendered-scene": "movement"
+        }
+      },
+      {
+        "selector": "[data-jump=layers]",
+        "action": "click",
+        "state": {
+          "data-rendered-scene": "layers",
+          "data-rendered-explode": "1.000"
+        }
+      },
+      {
+        "selector": "[data-jump=inspect]",
+        "action": "click",
+        "state": {
+          "data-rendered-scene": "inspect",
+          "data-rendered-explode": "0.000"
+        }
+      },
+      {
+        "selector": "#advance",
+        "action": "click",
+        "state": {
+          "data-rendered-time": "10.000"
+        }
+      },
+      {
+        "selector": "#rotation",
+        "action": "fill",
+        "value": "65",
+        "state": {
+          "data-rendered-angle": "65"
+        }
+      }
+    ],
+    "reset": {
+      "selector": "#reset",
+      "state": {
+        "data-rendered-time": "0.000",
+        "data-rendered-angle": "0",
+        "data-rendered-running": "false"
+      }
+    },
+    "fallbackDisabled": [
+      "#rotation",
+      "#run",
+      "#advance"
+    ],
+    "fallbackSteps": [
+      {
+        "selector": "[data-jump=layers]",
+        "action": "click",
+        "state": {
+          "data-scene": "layers"
+        }
+      },
+      {
+        "selector": "[data-jump=inspect]",
+        "action": "click",
+        "state": {
+          "data-scene": "inspect"
+        }
+      }
+    ],
+    "mechanicalTimeline": true
   }
 }

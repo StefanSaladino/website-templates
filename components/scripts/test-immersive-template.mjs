@@ -95,6 +95,24 @@ try{
     report.cases.push({id,continuousProductTimeline:true,reversible:true});
    }catch(e){report.errors.push(id+' timeline: '+String(e))}finally{await page.close()}
   }
+  if(s.mechanicalTimeline){
+   const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'no-preference'});
+   try{
+    await page.goto(url);await checkState(page,s,{'data-rendered-scene':'reveal','data-rendered-running':'true'});
+    const stage=page.locator(s.stage),start=await stage.getAttribute('data-rendered-time');
+    await page.waitForFunction(({sel,start})=>Number(document.querySelector(sel).dataset.renderedTime)>Number(start),{sel:s.stage,start});
+    const go=async(id)=>{await page.locator('#'+id).evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:'instant'}));await checkState(page,s,{'data-rendered-scene':id});};
+    await go('movement');await page.locator('#movement').evaluate(el=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY+el.offsetHeight*.75,behavior:'instant'}));
+    await page.waitForFunction(sel=>{const n=Number(document.querySelector(sel).dataset.renderedExplode);return n>.1&&n<.9},s.stage);
+    await go('layers');await checkState(page,s,{'data-rendered-explode':'1.000'});await page.screenshot({path:path.join(dir,id+'-layers-mobile.png')});
+    await go('inspect');await page.locator('#run').click();await checkState(page,s,{'data-rendered-running':'false'});
+    const frozen=await stage.getAttribute('data-rendered-time'),gears=await stage.getAttribute('data-gear-angles');await page.waitForTimeout(180);assert.equal(await stage.getAttribute('data-rendered-time'),frozen);assert.equal(await stage.getAttribute('data-gear-angles'),gears);
+    await page.locator('#advance').click();await page.waitForFunction(({sel,frozen})=>Math.abs(Number(document.querySelector(sel).dataset.renderedTime)-Number(frozen)-10)<.002,{sel:s.stage,frozen});
+    assert.notEqual(await stage.getAttribute('data-gear-angles'),gears);
+    await page.locator('#run').click();await checkState(page,s,{'data-rendered-running':'true'});await go('reveal');await checkState(page,s,{'data-rendered-explode':'0.000'});
+    report.cases.push({id,mechanicalTimeline:true,pause:true,advance:true,reversible:true});
+   }catch(e){report.errors.push(id+' mechanism: '+String(e))}finally{await page.close()}
+  }
   if(s.animatedChecks){
    const motionPage=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'no-preference'});
    try{
@@ -133,6 +151,6 @@ try{
   try{const page=await noJS.newPage();await page.goto(url);assert(await page.locator(s.fallback).isVisible());assert(await page.locator('main').isVisible());report.cases.push({id,noJavaScript:true})}
   catch(e){report.errors.push(id+' no JS: '+String(e))}finally{await noJS.close()}
  }
- if(report.cases.length!==ids.length*(widths.length+2)+Object.values(specs).filter(s=>s.animatedChecks).length+Object.values(specs).filter(s=>s.productTimeline).length)report.errors.push('Incomplete immersive case coverage');
+ if(report.cases.length!==ids.length*(widths.length+2)+Object.values(specs).filter(s=>s.animatedChecks).length+Object.values(specs).filter(s=>s.productTimeline).length+Object.values(specs).filter(s=>s.mechanicalTimeline).length)report.errors.push('Incomplete immersive case coverage');
 }catch(e){report.errors.push(String(e?.stack||e))}
 finally{await browser?.close();server.kill('SIGTERM');writeFileSync(path.join(dir,'results.json'),JSON.stringify(report,null,2));for(const e of report.errors)console.error('IMMERSIVE-FAIL',e);console.log('Immersive template QA:',report.cases.length,'passed,',report.errors.length,'failed');if(report.errors.length)process.exitCode=1}

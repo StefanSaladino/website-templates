@@ -1,0 +1,2 @@
+# CALIBRE
+Original fictional skeleton-watch concept. All geometry, shaders, simulated gear train, gear phases, case, bracelet, hands and SVG illustration are authored in this folder. External gear train is an illustrative idealized model (not involute tooth engineering). The balance and escapement-inspired wheel and hands use the same timebase but are not mechanically coupled to an actual escapement. No actual watch accuracy, water resistance, engineering certification or manufacturer association is implied. No external assets.

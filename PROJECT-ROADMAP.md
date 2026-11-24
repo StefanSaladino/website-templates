@@ -573,3 +573,6 @@ User supplied inspiration recording and requested a different product, genuine i
 
 ## Five additional immersive flagships — approved
 Stakeholder liked PRISM and ABYSS and approved CALIBRE (mechanical animation), ESSENCE (optical/fluid effects), EVENT HORIZON (lensing shaders), RESONANCE (audio-reactive simulation), APEX (automotive/airflow) in that order. Governing detailed build/QA plan: docs/IMMERSIVE-WEBSITE-ROADMAP.md. 29 implemented sites, 34 target, no hardcoded validator count. PRISM 5c211f9 immersive/cinematic and Pages passed; STRATA visually unresolved. CALIBRE next; full sites first, then reviewed component extraction. No main merge.
+
+### CALIBRE source checkpoint
+First of five approved flagships implemented: full-screen skeleton watch with synchronized illustrative gear train, axial layer separation and scroll camera, pause/advance/rotation, responsive fallback. Mechanism math and actual pixel/scroll assertions registered; current SHA QA pending. 30 full templates; ESSENCE next after CALIBRE review.
