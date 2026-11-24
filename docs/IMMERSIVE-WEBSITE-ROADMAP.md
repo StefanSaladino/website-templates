@@ -173,3 +173,7 @@ Exact 11 gallery captures promoted at 01756f4; Pages 45452212390 passed. Stakeho
 
 ### New direction — FOLD
 Stakeholder rejected SELVEDGE as a reskinned SHIFT with unsuitable imagery. Visual acceptance withdrawn; keep gallery-only gate, do not extend the same pinned campaign architecture. Begin unrelated draft FOLD: continuous hinged-paper 3D deformation, native typography, explicit interactive folding/drag and natural page flow. No generated imagery, no product photography. See docs/FOLD-PAPER-STUDIO-ROADMAP.md. Require visual approval before registration. No main merge.
+
+
+### SELVEDGE retirement / FOLD continuation
+Stakeholder explicitly requested SELVEDGE removal. Retire its entire active template, thumbnail, metadata, media and test workflow references. Preserve all other templates and historical documentation. Gallery returns to 35 registered templates and 35 selectable options. FOLD remains an unregistered distinct draft; its tablet exploded print layout needs containment correction and subsequent specialist verification. No main merge.

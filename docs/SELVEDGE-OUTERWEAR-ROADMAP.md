@@ -46,3 +46,7 @@ S4 native palette specialist test completed successfully on fb842fe. Candidate m
 
 ## Stakeholder visual rejection
 Registered gallery-only at 231f290; stakeholder reviewed and rejected the concept as a reskin of SHIFT and unsuitable jacket imagery. Technical checks do not imply visual approval. Freeze this concept; do not enable configurator. New independent concept FOLD under separate draft. Keep gallery record until explicit retirement/replacement decision; no main merge.
+
+
+## Retired at stakeholder request
+Removed from active gallery, builder source catalogue, immersive coverage, image inventory, loaded-image batches, thumbnail manifest and public template route. Remove obsolete candidate and specialist workflows/scripts. Keep this historical record and Git history; do not reuse TM-157 or restore rejected visual direction. No main merge.

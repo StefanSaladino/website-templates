@@ -24,3 +24,7 @@
 /* Ensure separated plate edges remain in the scene, including the paper shadow. */
 @media(min-width:741px){.registration-scene{min-height:clamp(310px,44vw,570px)}.registration-stack{width:min(66%,710px)}}
 @media(max-width:740px){.registration-scene{min-height:clamp(235px,70vw,365px)}}
+
+/* Tablet uses its own projection budget: the desktop 90px foreground depth
+   was too aggressive for the narrower scene (verified 768px overflow). */
+@media(min-width:741px) and (max-width:1000px){.registration-scene{min-height:clamp(380px,53vw,490px);perspective:950px}.registration-stack{width:65%}.registration[data-separated=true] .substrate{transform:translate3d(-10%,19%,-35px)}.registration[data-separated=true] .ink-dark{transform:translate3d(-1%,-2%,18px)}.registration[data-separated=true] .ink-red{transform:translate3d(9%,-20%,55px)}}

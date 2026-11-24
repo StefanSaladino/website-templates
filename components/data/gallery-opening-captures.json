@@ -189,23 +189,6 @@
       "sourceAssetIds": [],
       "reviewStatus": "needs-review",
       "sourceCommit": "093fdd6b38b7902f40c266425d9fd143bcae0341"
-    },
-    {
-      "id": "selvedge-outerwear",
-      "sourceCommit": "f3a1fedae79cd2500787a78843cad539c22969a7",
-      "opening": {
-        "title": "Outsidethe ordinary.",
-        "scrollY": 0,
-        "overflow": false,
-        "headingVisible": true,
-        "canvases": 0
-      },
-      "bytes": 25442,
-      "sha256": "be8b596fcfbce29b9998c7396f595242393b58a0732fe5ba51d4eebbb8ff2a1a",
-      "sourceAssetIds": [
-        "TM-157"
-      ],
-      "reviewStatus": "needs-review"
     }
   ]
 }

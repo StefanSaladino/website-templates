@@ -86,6 +86,6 @@ export function themePreviewDocument(doc,p,original=false){
  if(!doc?.body)return;
  // A native animated theme owns its colour track. Generic inline !important
  // recolouring would freeze that track and override contrast changes.
- const native=doc.documentElement.dataset.nativePreviewPalette;if(native==='shift'||native==='selvedge'){const root=doc.documentElement;root.dataset.previewPaletteInput=original?'null':JSON.stringify(p);root.dispatchEvent(new doc.defaultView.Event(native+'-preview-palette'));return}
+ const native=doc.documentElement.dataset.nativePreviewPalette;if(native==='shift'){const root=doc.documentElement;root.dataset.previewPaletteInput=original?'null':JSON.stringify(p);root.dispatchEvent(new doc.defaultView.Event(native+'-preview-palette'));return}
  const hosts=[...doc.querySelectorAll('[data-source-status=mounted]')];if(hosts.length){doc.body.style.background=original?'':p.secondary;for(const h of hosts){const body=h.shadowRoot?.querySelector('[data-source-body]');if(body)themeTree(body,p,{original});h.dataset.palettePrimary=p.primary;h.dataset.paletteSecondary=p.secondary;h.dataset.paletteTrim=p.trim||''}}else themeTree(doc.body,p,{original});
 }
