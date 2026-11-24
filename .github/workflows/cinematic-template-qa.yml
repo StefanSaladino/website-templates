@@ -2,9 +2,9 @@ name: Cinematic website template QA
 on:
   push:
     branches: [feature/component-showroom]
-    paths: ['templates/**','components/data/cinematic-tests.json','components/scripts/test-cinematic-template.mjs','.github/workflows/cinematic-template-qa.yml']
+    paths: ['templates/**','components/data/cinematic-tests.json','components/scripts/test-cinematic-template.mjs','components/scripts/test-optical-template.mjs','.github/workflows/cinematic-template-qa.yml']
   pull_request:
-    paths: ['templates/**','components/data/cinematic-tests.json','components/scripts/test-cinematic-template.mjs','.github/workflows/cinematic-template-qa.yml']
+    paths: ['templates/**','components/data/cinematic-tests.json','components/scripts/test-cinematic-template.mjs','components/scripts/test-optical-template.mjs','.github/workflows/cinematic-template-qa.yml']
 permissions:
   contents: read
 concurrency:
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --no-audit --no-fund
-      - run: node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/test-cinematic-template.mjs
+      - run: node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/test-cinematic-template.mjs && node scripts/test-optical-template.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

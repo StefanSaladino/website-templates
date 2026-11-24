@@ -1778,6 +1778,48 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Publisher Free label, 4256 x 2832, original Free download verified and visually inspected on 2026-11-23: warmly illuminated mechanical movement with ruby jewel, machined metal and dark vignette. Case text visible; not evidence of the hero watch's specification or internals. Independent editorial use, no endorsement. Final redistribution and crop review pending."
+    },
+    {
+      "id": "TM-153",
+      "urlIdentity": "https://images.pexels.com/photos/7796322/pexels-photo-7796322.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "essence-fragrance",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/yellow-liquid-filled-clear-glass-bottle-7796322/",
+      "creator": "Alesia Kozik",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Publisher Free source page verified and original download visually inspected 2026-11-23: transparent oval spray bottle, gold collar and liquid, mirror and warm light. No apparent readable branding. Independent reference, not an ESSENCE manufactured product. Final rights and crop review pending."
+    },
+    {
+      "id": "TM-154",
+      "urlIdentity": "https://images.pexels.com/photos/20009566/pexels-photo-20009566.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "essence-fragrance",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/dark-mode-orange-photography-20009566/",
+      "creator": "Sarah AlAmeri",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Publisher Free source page verified and original download visually inspected 2026-11-23: sliced oranges on dark warm-toned surface. Sensory reference only, not proof of ingredients in photographed fragrance. Final rights and crop review pending."
     }
   ]
 }

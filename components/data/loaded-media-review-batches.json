@@ -239,6 +239,16 @@
       ],
       "required": 3,
       "poster": false
+    },
+    {
+      "name": "essence-fragrance",
+      "sections": [
+        ".opening",
+        ".notes",
+        ".light-scene"
+      ],
+      "required": 4,
+      "poster": false
     }
   ]
 }

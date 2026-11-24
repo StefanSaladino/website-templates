@@ -582,3 +582,6 @@ User rejected generated watch visual. Real brushed-steel skeleton watch and sepa
 
 ### CALIBRE — remove generated watch completely
 User rejected revision 2 because synthetic watch remained. Revision 3 removes all model code, simulation controls, SVG fallback and generated thumbnail; exclusively real photography, with scroll-directed film effects. Cinematic and still-media QA replace the retired mechanical-specific test. 30 sites unchanged, ESSENCE remains next after review. No new asset identity; 82 remain in rights review.
+
+### ESSENCE — F2 source checkpoint
+Real fragrance photography and citrus sensory editorial; actual photographic reflection distortion via SVG filter, bounded manual intensity and optional animated ripples. No synthetic product. Dedicated optical QA and media batch registered, 31 websites, 84 media identities. CALIBRE b8e3473 cinematic and Pages passed; correct stale gallery description. EVENT HORIZON next after review. No main merge.
