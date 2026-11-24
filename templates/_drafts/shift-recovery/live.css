@@ -50,3 +50,8 @@ html.motion-enabled{scroll-padding-top:0;scroll-behavior:auto}.composition .mast
 html{scroll-padding-top:0;scroll-behavior:auto}
 html.motion-enabled .story{height:calc(var(--stage-h) + var(--travel))}
 html.motion-enabled .composition{position:sticky;top:0;height:var(--stage-h);min-height:0}
+
+/* Independent media preference notification, without affecting document geometry. */
+.preference-probe{position:fixed;left:0;top:0;width:1px;height:1px;visibility:hidden;pointer-events:none;contain:strict}
+@media(prefers-reduced-motion:reduce){.preference-probe{width:2px}}
+@media(forced-colors:active){.preference-probe{height:2px}}
