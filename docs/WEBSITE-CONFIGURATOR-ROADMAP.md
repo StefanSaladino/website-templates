@@ -73,3 +73,7 @@ CI 45326728920 and customer report reproduced the colour-to-review failure: expa
 
 ### SHIFT native animated template palette integration
 The registered ready-made SHIFT example previously passed the reduced-motion builder path, but generic important inline recolouring can override dynamic stage CSS. Use its opt-in native palette contract to map the continuous colour track to selected primary/secondary colours and retain product artwork and contrast-safe text. Other templates and source composition behaviour remain unchanged. Add actual live WebGL desktop/phone expanded preview, reverse motion and original palette restoration regression coverage. Exact 49cb768 specialist, full builder CI and review passed before this correction; current revision verification pending. No main merge.
+
+
+### Expanded SHIFT live preview scroll regression
+Exact 1a3c3bb showroom CI 45445366791 reached the live desktop palette path but timed out on intermediate scroll pose; static SHIFT and general palette matrix passed. Source-level race correction prevents resize restoration from overwriting a new scroll request; regression now waits for stable child geometry, uses measured story coordinate and validates actual scroll/pose, with screenshot and state on timeout. Root cause of original timeout not conclusively established; rerun pending. No main merge.
