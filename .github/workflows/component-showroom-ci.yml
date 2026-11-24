@@ -54,6 +54,8 @@ jobs:
         run: node scripts/check-dist.mjs
       - name: Confirm preinstalled Chrome
         run: command -v google-chrome || command -v chromium
+      - name: Test shared site navigation at all viewports
+        run: npm run check:header-browser
       - name: Test viewer interactions and scrolling in Chromium
         run: npm run check:browser
       - name: Save browser review evidence

@@ -609,3 +609,6 @@ User requested guided component/full-layout selection, responsive and alternate 
 
 ### Configurator checkpoint 1
 Initial builder at components/builder.html: selection, responsive source preview, local draft, palette, ordered copy/text/JSON and seven explicit rough adapters. Remaining adapter coverage, comparison UX and browser QA. No main merge.
+
+### Shared library navigation — configurator priority
+Unified main gallery, component catalogue, individual review and builder with shared sticky lion-mark header, Main / Components / Design your own links, active state, responsive mobile menu, keyboard and no-JS fallback. All fictional preview headers remain intact. Source/browser regression gates registered; execution pending. Adapter expansion remains next. No main merge.

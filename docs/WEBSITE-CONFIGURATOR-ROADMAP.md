@@ -36,3 +36,6 @@ Not a finished website generator, not a quote engine, not a no-code publishing p
 
 ## Implementation checkpoint 1
 Initial functional selection-to-brief wizard: actual catalogue and full-template routes, local draft, add/replace/remove/order, compatible per-instance mobile choices, viewport preview, palette and ordered confirmation/copy/text/JSON. Seven explicit rough adapters (NAV-01, HERO-01/02, SRV-02, GAL-03, CTA-02, FOOT-01). Unmapped sections visibly labelled, still retain exact IDs and real source previews. No full-demo iframe stack. Full templates retain original palette; colour preferences recorded. Animation references are not applied to rough layout. Vite entry, dist file checks and pure model assertions registered. Next expand adapters, improve comparison UX, implement dedicated browser tests and inspect evidence before resuming QA. No main merge or status promotion.
+
+### Navigation consistency checkpoint
+Shared sticky header across gallery, catalogue, review and configurator; Main, Components and Design your own at every width. Progressive mobile menu with keyboard and no-JS fallback; source and Chromium regressions registered, execution pending. Resume adapter expansion next.

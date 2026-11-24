@@ -16,3 +16,8 @@ const templateSource=path.resolve(here,'../templates');
 const templateOutput=path.resolve(here,'../dist/templates');
 if(existsSync(templateSource))cpSync(templateSource,templateOutput,{recursive:true,force:true});
 console.log('Copied full website template examples for motion links to '+templateOutput);
+
+// Root gallery and shared raw header assets for isolated production QA.
+const rootSource=path.resolve(here,'..'),rootOutput=path.resolve(out,'..');
+for(const file of ['index.html','styles.css','script.js','custom-bakes-gallery.css'])cpSync(path.join(rootSource,file),path.join(rootOutput,file),{force:true});
+for(const file of ['site-header.css','site-header.js'])cpSync(path.join(here,file),path.join(out,file),{force:true});

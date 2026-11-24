@@ -8,17 +8,22 @@
   <title>Components — Boomer Automation</title>
   <link rel="stylesheet" href="./catalogue.css?v20261120i">
   <script type="module" src="./catalogue.js?v20261120i"></script>
+<link rel="stylesheet" href="./site-header.css?v20261123-nav1">
+<script type="module" src="./site-header.js?v20261123-nav1"></script>
 </head>
 <body>
   <a class="cs-skip" href="#catalogue">Skip to components</a>
-  <header class="cs-header">
-    <a class="cs-wordmark" href="../index.html" aria-label="Boomer Automation template gallery">BOOMER <span>AUTOMATION</span></a>
-    <nav class="cs-topnav" aria-label="Site navigation">
-      <a href="../index.html#library">Templates</a>
-      <span aria-current="page">Components</span><a href="./builder.html">Design your website</a>
+  <header class="ba-header" data-site-header>
+  <div class="ba-header-inner">
+    <a class="ba-header-brand" href="../index.html" aria-label="Boomer Automation — main template gallery"><img src="https://boomerautomation.com/assets/images/brand/boomer-automation-mark.png" width="34" height="34" alt=""><span><strong>Boomer Automation</strong><small>Design library</small></span></a>
+    <button class="ba-menu-toggle" type="button" aria-expanded="false" aria-controls="ba-primary-nav" hidden><span class="ba-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span><span class="ba-menu-label">Menu</span></button>
+    <nav class="ba-primary-nav" id="ba-primary-nav" aria-label="Primary navigation">
+      <a href="../index.html">Main</a>
+      <a href="./index.html" aria-current="page">Components</a>
+      <a class="ba-design-link" href="./builder.html">Design your own</a>
     </nav>
-    <a class="cs-header-link" href="../index.html#about">About the library</a>
-  </header>
+  </div>
+</header>
   <main>
     <section class="cs-intro" aria-labelledby="cs-title">
       <div class="cs-kicker">COMPONENT SHOWROOM <span> / DESIGN REFERENCE LIBRARY</span></div>
