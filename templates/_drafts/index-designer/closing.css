@@ -56,7 +56,9 @@ body[data-page=home] .luxury-studio .studio-chapter-copy h2,body[data-page=home]
 .studio-chapter-link svg{width:19px;height:19px;transition:transform .3s ease}
 .studio-chapter-link:hover svg{transform:translateX(4px)}
 .luxury-studio a:focus-visible,.luxury-studio button:focus-visible{outline:2px solid #dfc39a;outline-offset:5px}
-.luxury-studio[data-studio-mode=motion] .studio-stage{display:block;position:sticky;top:0;height:100svh;margin-bottom:-100svh;z-index:1;overflow:hidden;background:#181916;pointer-events:none}
+.luxury-studio[data-studio-mode=motion] .studio-cinema{display:grid;grid-template-columns:minmax(0,1fr)}
+.luxury-studio[data-studio-mode=motion] .studio-stage{display:block;grid-area:1/1;align-self:start;position:sticky;top:0;height:100svh;margin:0;z-index:1;overflow:hidden;background:#181916;pointer-events:none}
+.luxury-studio[data-studio-mode=motion] .studio-chapters{grid-area:1/1;min-width:0}
 .studio-shot{position:absolute;inset:0;opacity:var(--shot-opacity,0);overflow:hidden;background:#181916}
 .studio-shot:first-child{opacity:var(--shot-opacity,1)}
 .studio-shot img{transform:translate3d(var(--shot-x,0px),var(--shot-y,0px),0) scale(var(--shot-zoom,1.1));transform-origin:var(--shot-position,50% 50%)}
@@ -113,3 +115,14 @@ body[data-page=home] .studio-colophon small{color:#c7bfb3}
 .studio-colophon .colophon-bottom{border-color:#49463f}
 .studio-colophon #studio-motion{background:none;border:0;padding:0;min-height:44px;font:inherit;font-size:14px;color:inherit;text-decoration:underline;text-underline-offset:4px}
 .studio-colophon :is(a,button):focus-visible{outline-color:#dfc39a}
+
+/* P16 — explicit document-flow end to the bounded film, visible footer. */
+body[data-page=home] .luxury-studio{position:relative;isolation:isolate;z-index:0}
+.studio-footer-jump{display:flex;width:max-content;max-width:100%;align-items:center;gap:10px;min-height:44px;margin-top:12px;color:#e9d5b6;font-size:12px;text-decoration:underline;text-underline-offset:4px}
+.studio-footer-jump svg{width:16px;height:16px}
+body[data-page=home] .studio-colophon{position:relative;z-index:5;isolation:isolate;clear:both;display:block;background:#eae7df;color:#242521;border-top:1px solid #b9b7ab;padding:clamp(24px,4vw,52px) var(--pad) max(20px,env(safe-area-inset-bottom));scroll-margin-top:0}
+body[data-page=home] .studio-colophon small{color:#53564e}
+.studio-colophon .colophon-brand span{color:#873a30}
+.studio-colophon .colophon-bottom{border-color:#b9b7ab}
+.studio-colophon :is(a,button):focus-visible{outline-color:#873a30}
+body[data-page=home] .studio-colophon .photo-credits{max-width:1320px;margin:0 auto;padding:0;background:transparent;color:#53564e}

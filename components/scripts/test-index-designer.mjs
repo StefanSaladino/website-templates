@@ -24,6 +24,12 @@ await pose(0,.8);const blend=Number(await studio.getAttribute('data-studio-blend
 assert.equal(await pose(0,.1),startPose,'parallax not reversible');
 for(let i=0;i<3;i++){await pose(i,.13);assert.equal(await studio.getAttribute('data-studio-chapter'),String(i));assert(await studioChapters.nth(i).locator('.studio-chapter-link').isVisible());await p.screenshot({path:path.join(out,width+'-studio-chapter-'+i+'.png')})}
 await p.locator('#studio-motion').click();assert.equal(await studio.getAttribute('data-studio-mode'),'static');assert.equal(await p.locator('.studio-stage').evaluate(n=>getComputedStyle(n).display),'none');await p.locator('#studio-motion').click();
+// P16: the footer must be in actual document flow, visible and clickable at the end.
+const footer=p.locator('#site-footer');await p.evaluate(()=>scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));await p.waitForTimeout(200);
+assert(await footer.evaluate(n=>{const r=n.getBoundingClientRect(),studio=document.querySelector('.luxury-studio').getBoundingClientRect();return r.top>=studio.bottom-1&&r.bottom<=innerHeight+2&&r.bottom>0}),'footer not reachable after studio');
+for(const link of await footer.locator('nav a').all()){await link.scrollIntoViewIfNeeded();assert(await link.evaluate(n=>{const r=n.getBoundingClientRect();return n.contains(document.elementFromPoint(r.left+r.width/2,r.top+r.height/2))}),'footer link obscured')}
+await p.screenshot({path:path.join(out,width+'-footer.png')});
+await footer.locator('nav a[href="#work"]').click();await p.waitForFunction(()=>location.hash==='#work');await p.waitForTimeout(350);
 for(const selector of ['.studio-chapters','.studio-colophon']){const box=await p.locator(selector).boundingBox();assert(box&&box.x>=-1&&box.x+box.width<=width+1,'closing bounds '+selector)}
 await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
 for(const img of await p.locator('.project-cover img,.case-card-photo img').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(n=>n.decode());assert(await img.evaluate(n=>n.naturalWidth>0))}
