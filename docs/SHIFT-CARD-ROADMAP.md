@@ -1,6 +1,6 @@
 # SHIFT / the moving card — flagship template roadmap
 
-Status: **P1 static source implemented; visual review pending.** One additional complete, single-page website. Target catalogue total: 35, after all acceptance gates. Working slug: `shift-card`. Fictional payment-card brand; no actual financial service or application processing.
+Status: **P1 browser review complete; P2 standalone model source implemented, rendering QA pending.** One additional complete, single-page website. Target catalogue total: 35, after all acceptance gates. Working slug: `shift-card`. Fictional payment-card brand; no actual financial service or application processing.
 
 ## 1. Reference and creative thesis
 
@@ -85,3 +85,6 @@ P1: establish the chalk-stage opening and deep-ink material chapter as actual re
 
 ### SHIFT P1 source checkpoint
 Five responsive static editorial chapter compositions and original local SVG card artwork implemented in `templates/_drafts/shift-card/`. Deliberately outside discovered catalogue; no WebGL, motion engine or finish selector claim. Native chapter links and final local disclosure work without JS. Dedicated browser review workflow captures 30 chapter screenshots at six portrait/desktop/landscape viewports, checks decoded artwork, document overflow and no external requests. P1 visual review pending; next P2 only after actual visual inspection. 34 registered templates remain unchanged; no main merge.
+
+### P1 evidence and P2 model checkpoint
+Storyboard workflow 45384079163 passed all 30 chapter screenshots across six viewport configurations. Downloaded evidence and inspected all five desktop (1440) and mobile (390) chapters: desktop hero/final oversized artwork masked too much text; mobile object heading lost whitespace. Reduced/offset hero and final art, protected headline layout, fixed mobile heading, and removed decorative arrow characters. P2 standalone model at `templates/_drafts/shift-card/model.html`: closed procedural rounded card mesh with bevel and edge, generated front/back artwork, native WebGL directional/specular studio lighting, explicit views, rotation and light controls, demand-driven drawing and static fallback. Scene is not yet connected to scroll; next P2 actual render QA and P3 integration. Dedicated geometry and pixel-difference browser checks added, evidence pending. No catalogue registration or main merge.

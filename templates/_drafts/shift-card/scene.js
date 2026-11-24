@@ -1,0 +1,39 @@
+// Original rounded rectangular card, closed solid with separate face, bevel and edge surfaces.
+export const DIMENSIONS={width:2.8,height:1.766,depth:.052,radius:.115,bevel:.016};
+const norm=v=>{const l=Math.hypot(...v)||1;return v.map(x=>x/l)},cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+export function cardGeometry(d=DIMENSIONS){
+ const {width:w,height:h,depth:z,radius:r,bevel:b}=d,segments=16,rings=[];
+ const profiles=[[-z/2,b,-1],[-z/2+b,0,0],[z/2-b,0,0],[z/2,b,1]];
+ for(const [depth,inset,side] of profiles){const ring=[];for(let corner=0;corner<4;corner++){const cx=(corner===0||corner===3?1:-1)*(w/2-r),cy=(corner<2?1:-1)*(h/2-r);for(let i=0;i<=segments;i++){const a=(corner*90+i*90/segments)*Math.PI/180;const x=Math.cos(a),y=Math.sin(a),n=side?norm([x,y,side]):[x,y,0];ring.push({p:[cx+x*(r-inset),cy+y*(r-inset),depth],n})}}rings.push(ring)}
+ const data=[];function v(p,n,kind){data.push(...p,...n,p[0]/w+.5,p[1]/h+.5,kind)}
+ function tri(a,b,c,kind){for(const x of [a,b,c])v(x.p,x.n,kind)}
+ for(let j=0;j<rings.length-1;j++)for(let i=0;i<rings[j].length;i++){const k=(i+1)%rings[j].length,A=rings[j][i],B=rings[j][k],C=rings[j+1][k],D=rings[j+1][i];tri(A,B,C,1);tri(A,C,D,1)}
+ for(const [j,sign,kind] of [[0,-1,2],[3,1,0]]){const ring=rings[j],center={p:[0,0,sign*z/2],n:[0,0,sign]};for(let i=0;i<ring.length;i++){const a={p:ring[i].p,n:center.n},b={p:ring[(i+1)%ring.length].p,n:center.n};tri(center,...(sign>0?[a,b]:[b,a]),kind)}}
+ return new Float32Array(data);
+}
+// Original printed surface texture; no baked lighting, external imagery or financial identifiers.
+function artwork(back=false){const c=document.createElement('canvas');c.width=1024;c.height=646;const x=c.getContext('2d');x.fillStyle=back?'#24218f':'#302cc9';x.fillRect(0,0,c.width,c.height);x.strokeStyle='#aaa7f7';x.globalAlpha=.34;x.lineWidth=1.7;for(let i=0;i<11;i++){x.beginPath();x.moveTo(-100,450+i*23);x.bezierCurveTo(150,390+i*23,240,80+i*23,540,92+i*23);x.bezierCurveTo(780,82+i*23,900,250+i*23,1120,35+i*23);x.stroke()}x.globalAlpha=1;
+ x.fillStyle='#f0efea';x.font='900 116px Arial';x.fillText('SHIFT.',88,532);x.font='bold 17px Arial';x.fillText('DESIGN CONCEPT / 001',94,570);x.font='15px Arial';x.textAlign='right';x.fillText('NOT FOR PAYMENT',938,75);x.textAlign='left';
+ if(back){x.fillStyle='#161631';x.fillRect(0,126,1024,112);x.fillStyle='#d8f54b';x.font='bold 20px Arial';x.fillText('FICTIONAL PRODUCT STUDY',94,310)}else{x.fillStyle='#d8f54b';x.beginPath();x.roundRect(90,118,124,92,12);x.fill();x.strokeStyle='#637123';x.lineWidth=2.6;for(const y of [149,181]){x.beginPath();x.moveTo(90,y);x.lineTo(127,y);x.lineTo(143,165);x.lineTo(161,165);x.lineTo(177,y);x.lineTo(214,y);x.stroke()}for(const a of [127,177]){x.beginPath();x.moveTo(a,118);x.lineTo(a,149);x.moveTo(a,181);x.lineTo(a,210);x.stroke()}}
+ x.fillStyle='#d8f54b';for(const k of [0,32]){x.beginPath();x.moveTo(906+k,500);x.lineTo(929+k,500);x.lineTo(900+k,555);x.lineTo(877+k,555);x.fill()}return c}
+const vs=`precision mediump float;
+attribute vec3 aPosition,aNormal;attribute vec2 aUV;attribute float aKind;
+uniform vec3 uEye,uRight,uUp,uForward;uniform vec2 uTilt;uniform float uAspect,uFocal,uRoll;
+varying vec3 vPosition,vNormal;varying vec2 vUV;varying float vKind;
+vec3 rotate(vec3 p){float c=cos(uTilt.x),s=sin(uTilt.x);p=vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);c=cos(uTilt.y);s=sin(uTilt.y);p=vec3(p.x,c*p.y-s*p.z,s*p.y+c*p.z);c=cos(uRoll);s=sin(uRoll);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
+void main(){vec3 p=rotate(aPosition),d=p-uEye;float z=dot(d,uForward);vPosition=p;vNormal=rotate(aNormal);vUV=aUV;vKind=aKind;gl_Position=vec4(dot(d,uRight)*uFocal/uAspect,dot(d,uUp)*uFocal,1.006*z-.2,z);}`;
+const fs=`precision mediump float;
+uniform sampler2D uFront,uBack;uniform vec3 uEye,uLight;varying vec3 vPosition,vNormal;varying vec2 vUV;varying float vKind;
+void main(){vec3 n=normalize(vNormal),v=normalize(uEye-vPosition),l=normalize(uLight),h=normalize(l+v);float d=max(dot(n,l),0.),fill=max(dot(n,normalize(vec3(.8,-.2,.7))),0.);float spec=pow(max(dot(n,h),0.),vKind>.5&&vKind<1.5?38.:15.);float fresnel=pow(1.-abs(dot(n,v)),3.);vec3 r=reflect(-v,n);float strip=exp(-pow((r.x-.25)/.25,2.))*exp(-pow((r.y-.36)/.8,2.));vec3 base=vKind<.5?texture2D(uFront,vUV).rgb:(vKind<1.5?vec3(.35,.37,.49):texture2D(uBack,vec2(1.-vUV.x,vUV.y)).rgb);float metal=vKind>.5&&vKind<1.5?1.:0.;vec3 color=base*(.58+.44*d+.14*fill)+vec3(.82,.86,1.)*(spec*(.16+metal*.40)+strip*(.14+metal*.36)+fresnel*.10);gl_FragColor=vec4(clamp(color,0.,1.),1.);}`;
+export function createCardScene(canvas){
+ const gl=canvas.getContext('webgl',{alpha:true,antialias:true,powerPreference:'low-power',preserveDrawingBuffer:false});if(!gl)throw Error('WebGL unavailable');
+ let program,buffer,textures=[],shaders=[];const dispose=()=>{for(const t of textures)gl.deleteTexture(t);if(buffer)gl.deleteBuffer(buffer);if(program)gl.deleteProgram(program);for(const s of shaders)gl.deleteShader(s)};
+ try{function shader(type,code){const s=gl.createShader(type);shaders.push(s);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
+ program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vs));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
+ const data=cardGeometry();buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);gl.useProgram(program);
+ for(const [name,size,offset] of [['aPosition',3,0],['aNormal',3,12],['aUV',2,24],['aKind',1,32]]){const a=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,size,gl.FLOAT,false,36,offset)}
+ for(let i=0;i<2;i++){const t=gl.createTexture();textures.push(t);gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,t);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,artwork(i===1));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.uniform1i(gl.getUniformLocation(program,i?'uBack':'uFront'),i)}
+ const u=Object.fromEntries(['uEye','uRight','uUp','uForward','uTilt','uAspect','uFocal','uRoll','uLight'].map(k=>[k,gl.getUniformLocation(program,k)]));gl.enable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);
+ function draw({yaw=-28,pitch=13,roll=-19,light=-35}={}){if(gl.isContextLost())return false;const rect=canvas.getBoundingClientRect();if(rect.width<1||rect.height<1)return false;const scale=Math.min(devicePixelRatio||1,2,Math.sqrt(2500000/(rect.width*rect.height)));const w=Math.max(1,Math.round(rect.width*scale)),h=Math.max(1,Math.round(rect.height*scale));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h}const aspect=w/h,rad=Math.PI/180,eye=[0,0,6],forward=[0,0,-1],right=norm(cross(forward,[0,1,0])),up=cross(right,forward);gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniform3fv(u.uEye,eye);gl.uniform3fv(u.uRight,right);gl.uniform3fv(u.uUp,up);gl.uniform3fv(u.uForward,forward);gl.uniform2f(u.uTilt,yaw*rad,pitch*rad);gl.uniform1f(u.uAspect,aspect);gl.uniform1f(u.uFocal,Math.min(2.8,3.4*aspect));gl.uniform1f(u.uRoll,roll*rad);gl.uniform3fv(u.uLight,[Math.sin(light*rad),.52,Math.cos(light*rad)]);gl.drawArrays(gl.TRIANGLES,0,data.length/9);return true}
+ return {draw,dispose,vertices:data.length/9,gl};}catch(e){dispose();throw e}
+}
