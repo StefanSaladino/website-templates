@@ -234,43 +234,49 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
 @media(max-width:360px){.opening h1{font-size:clamp(48px,15vw,58px)}.presets button{padding-inline:8px}}
 @media(forced-colors:active){.edition-mark,.print-stripe{background:CanvasText}.crease-path,.crease-guide{stroke:CanvasText}.crease-dot{fill:CanvasText}}
 
-/* F9 — an abstract technical field inspired by the supplied motion reference.
-   No room, portal, stock photograph or imitation product. Fine graphite grid
-   and projected silver contours form a quiet, continuous environment. */
-:root{--paper:#131518;--ink:#f5f3ed;--muted:#c8c9cc;--line:#aeb4bd3c}
+/* F10 — minimal warm-stone studio. One broad, smooth folded ribbon.
+   No grid, line field, room, neon, or video. A single compositor transform
+   moves the artwork as a whole; the foreground has no shared animation. */
+:root{--paper:#f3f1ed;--ink:#262724;--muted:#555650;--line:#a6a39a7a;--print:#fffaf0;--red:#b84831}
 html,body{background:var(--paper)}
-.mast{background:#17191d;position:relative;z-index:2}
+.mast{background:var(--paper);position:relative;z-index:2;border-color:var(--line)}
 .opening,.study{position:relative;isolation:isolate}
-.exhibition-space,.print-space{position:absolute;z-index:-1;overflow:hidden;pointer-events:none;background:#15171b}
-.exhibition-space{inset:0 0 -90px}
-.print-space{inset:0 0 -90px}
-.spatial-set::before{content:"";position:absolute;inset:0;background-image:linear-gradient(#aeb6c50a 1px,transparent 1px),linear-gradient(90deg,#aeb6c50a 1px,transparent 1px);background-size:7px 7px;mask-image:radial-gradient(ellipse at 68% 48%,#000 22%,#0009 62%,transparent 100%)}
-.contour-field{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
-.spatial-set::after{content:"";position:absolute;inset:0;pointer-events:none}
-.exhibition-space::after{background:linear-gradient(90deg,#131518ed 0%,#131518b8 25%,#13151835 46%,transparent 64%),linear-gradient(0deg,var(--paper),transparent 18%)}
-.print-space::after{background:linear-gradient(180deg,var(--paper),#131518a0 13%,transparent 35%,transparent 65%,var(--paper))}
+.exhibition-space,.print-space{position:absolute;z-index:-1;overflow:hidden;pointer-events:none}
+.exhibition-space{inset:0 0 -65px}
+.print-space{inset:0 0 -70px}
+.ribbon-art{position:absolute;display:block;pointer-events:none;right:-4%;top:-18%;width:min(79vw,1320px);height:auto;aspect-ratio:5/4;overflow:visible;opacity:.83;transform-origin:65% 50%;transform:translate3d(0,0,0) rotate(-8deg);animation:ribbon-drift 20s ease-in-out infinite alternate;animation-play-state:paused}
+.spatial-set[data-running=true] .ribbon-art{animation-play-state:running}
+@keyframes ribbon-drift{0%{transform:translate3d(0,0,0) rotate(-8deg)}100%{transform:translate3d(25px,-16px,0) rotate(-3deg)}}
+.print-space .ribbon-art{right:-12%;top:10%;width:min(85vw,1300px);opacity:.54;animation-direction:alternate-reverse}
+.exhibition-space::after,.print-space::after{content:"";position:absolute;inset:0;pointer-events:none}
+.exhibition-space::after{background:linear-gradient(90deg,var(--paper) 0%,#f3f1edeb 24%,#f3f1ed28 47%,transparent 66%),linear-gradient(0deg,var(--paper),transparent 17%)}
+.print-space::after{background:linear-gradient(180deg,var(--paper),#f3f1ed6b 24%,transparent 40%,#f3f1ed6b 78%,var(--paper))}
 .opening-copy,.workbench,.under{position:relative;z-index:1}
-.opening-copy .index,.scene-meta,.fold-hint,.ends{color:#dedee0}
-.hero-description,.registration-head>p,.study-copy,.registration-foot>span{color:var(--muted)}
-.range-wrap input::-webkit-slider-runnable-track{background:#a9acb4}
-.range-wrap input::-moz-range-track{background:#a9acb4}
-.presets button{border-color:#8e949f}
-.paper-shadow,.plate-shadow{position:absolute;pointer-events:none;left:50%;top:76%;width:76%;height:22%;background:radial-gradient(ellipse,#050609a0 0%,#05060940 34%,transparent 72%);transform:translate(-50%,-50%);z-index:0}
+.opening-copy .index,.scene-meta,.fold-hint,.ends,.hero-description,.registration-head>p,.study-copy,.registration-foot>span{color:var(--muted)}
+.range-wrap input::-webkit-slider-runnable-track{background:#777971}
+.range-wrap input::-moz-range-track{background:#777971}
+.presets button,.registration-foot button{border-color:#88877f}
+.paper-shadow,.plate-shadow{position:absolute;pointer-events:none;left:50%;top:76%;width:76%;height:22%;background:radial-gradient(ellipse,#48453e40 0%,#48453e20 34%,transparent 72%);transform:translate(-50%,-50%);z-index:0}
 .paper-shadow{transform-origin:center}
 .scene .camera,.scene .static-print,.registration-stack{z-index:1}
-.plate-shadow{top:70%;width:70%;height:23%;opacity:.85}
+.plate-shadow{top:70%;width:70%;height:23%;opacity:.9}
+.substrate{background:#fffaf0;outline:1px solid #a6a39a}
+.registration[data-separated=true] .ink-dark,.registration[data-separated=true] .ink-red{outline-color:#a39e92;background:#f9f7efbb}
 .crease-interlude{position:relative}
+.crease-guide{stroke:#b5b2aa}
 .registration-head,.registration-foot{border-color:var(--line)}
 .ambient-toggle{margin-left:auto;min-height:44px;background:transparent;border:0;color:var(--muted);padding:8px 10px;text-decoration:underline;text-underline-offset:4px;font-size:12px;white-space:normal}
 .ambient-toggle:hover{color:var(--ink)}
-@media(max-width:1000px){.exhibition-space::after{background:linear-gradient(180deg,#131518ed 0%,#131518b0 26%,transparent 52%),linear-gradient(0deg,var(--paper),transparent 15%)}}
+@media(max-width:1000px){.ribbon-art{right:-17%;top:4%;width:115vw}.exhibition-space::after{background:linear-gradient(180deg,var(--paper),#f3f1edcb 27%,transparent 53%),linear-gradient(0deg,var(--paper),transparent 15%)}}
 @media(max-width:740px){
- .exhibition-space{inset:0 0 -65px}
- .exhibition-space::after{background:linear-gradient(180deg,#131518f5 0%,#131518b0 30%,transparent 54%),linear-gradient(0deg,var(--paper),transparent 17%)}
- .spatial-set::before{background-size:6px 6px;mask-image:radial-gradient(ellipse at 50% 60%,#000 28%,transparent 95%)}
+ .exhibition-space{inset:0 0 -55px}
+ .ribbon-art{right:-31%;top:27%;width:156vw;opacity:.8}
+ .exhibition-space::after{background:linear-gradient(180deg,var(--paper) 0%,#f3f1eded 28%,transparent 51%),linear-gradient(0deg,var(--paper),transparent 16%)}
  .paper-shadow{top:77%;width:87%;height:26%}
- .print-space{inset:0 0 -65px}
+ .print-space{inset:0 0 -55px}
+ .print-space .ribbon-art{right:-34%;top:30%;width:156vw;opacity:.57}
  .plate-shadow{width:90%;height:24%}
  .ambient-toggle{margin-left:0}
 }
+@media(prefers-reduced-motion:reduce){.ribbon-art{animation:none!important}}
 @media(forced-colors:active){.exhibition-space,.print-space,.paper-shadow,.plate-shadow{display:none!important}.mast{background:Canvas}}

@@ -1,5 +1,4 @@
 import {geometry,advance,clamp,PANELS} from './geometry.js?v=1';
-import {createContourField} from './ambient.js?v=1';
 const root=document.documentElement,scene=document.querySelector('#scene'),sheet=document.querySelector('#sheet'),controls=document.querySelector('#controls'),range=document.querySelector('#openness'),output=document.querySelector('#amount'),status=document.querySelector('#status'),reduce=matchMedia('(prefers-reduced-motion: reduce)'),forced=matchMedia('(forced-colors: active)');
 let target=.45,current=.45,pw=0,ph=0,raf=0,last=0,draws=0,drag=null,enabled=false;
 const trace=new URLSearchParams(location.search).has('motion-debug')?{frames:[]}:null;if(trace)window.__foldTrace=trace;
@@ -33,27 +32,16 @@ registrationToggle.addEventListener('click',()=>{separated=!separated;registrati
 function registrationPreference(){const available=CSS.supports('transform-style','preserve-3d')&&!forced.matches,focused=document.activeElement===registrationToggle;if(!available&&focused)document.querySelector('#registration-heading').focus({preventScroll:true});registrationToggle.hidden=!available;if(!available){separated=false;registrationState()}}
 forced.addEventListener('change',registrationPreference);registrationPreference();registrationState();
 
-// One bounded background loop for both original contour fields. Only visible
-// fields animate, at <=24 fps. Foreground controls keep their own 60Hz track.
-const fields=[...document.querySelectorAll('.spatial-set')].map(createContourField).filter(Boolean),ambientToggle=document.querySelector('#ambient-toggle'),visibleSpaces=new Set();
-let ambientPaused=false,ambientRaf=0,ambientLast=0,ambientPhase=0;
-function ambientTick(now){
- ambientRaf=0;
- if(document.hidden||ambientPaused||reduce.matches||forced.matches)return;
- if(!ambientLast)ambientLast=now;
- if(now-ambientLast>=1000/24){ambientPhase=(ambientPhase+Math.min(100,now-ambientLast)/1000*.25)%(Math.PI*2);ambientLast=now;for(const field of fields)if(visibleSpaces.has(field.node))field.draw(ambientPhase+(field.node.id==='ink-space'?1.2:0))}
- if(visibleSpaces.size)ambientRaf=requestAnimationFrame(ambientTick);
-}
+// One original vector sculpture per visible section. CSS compositor
+// animation only; no canvas, JS animation loop or continuous rasterization.
+const spaces=[...document.querySelectorAll('.spatial-set')],ambientToggle=document.querySelector('#ambient-toggle'),visibleSpaces=new Set();
+let ambientPaused=false;
 function ambientState(){
- const allowed=fields.length>0&&!reduce.matches&&!forced.matches&&'IntersectionObserver' in window;
+ const allowed=!reduce.matches&&!forced.matches&&'IntersectionObserver' in window;
  if(!allowed&&document.activeElement===ambientToggle)document.querySelector('#title').focus({preventScroll:true});
  ambientToggle.hidden=!allowed;ambientToggle.setAttribute('aria-pressed',String(ambientPaused));ambientToggle.textContent=ambientPaused?'Resume atmosphere':'Pause atmosphere';
- const running=allowed&&!ambientPaused&&!document.hidden;
- for(const {node} of fields)node.dataset.running=String(running&&visibleSpaces.has(node));
- if(running&&visibleSpaces.size){if(!ambientRaf){ambientLast=0;ambientRaf=requestAnimationFrame(ambientTick)}}else{cancelAnimationFrame(ambientRaf);ambientRaf=0;ambientLast=0}
+ for(const node of spaces)node.dataset.running=String(allowed&&!ambientPaused&&!document.hidden&&visibleSpaces.has(node));
 }
 ambientToggle.addEventListener('click',()=>{ambientPaused=!ambientPaused;ambientState()});
-const backgroundResize=new ResizeObserver(entries=>{for(const entry of entries){const f=fields.find(f=>f.node===entry.target);if(f?.size())f.draw(ambientPhase+(f.node.id==='ink-space'?1.2:0))}});
-for(const f of fields){if(f.size())f.draw(f.node.id==='ink-space'?1.2:0);backgroundResize.observe(f.node)}
-if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting)visibleSpaces.add(e.target);else visibleSpaces.delete(e.target)}ambientState()},{threshold:.01});for(const f of fields)observer.observe(f.node)}
+if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting)visibleSpaces.add(e.target);else visibleSpaces.delete(e.target)}ambientState()},{threshold:.01});for(const node of spaces)observer.observe(node)}
 reduce.addEventListener('change',ambientState);forced.addEventListener('change',ambientState);document.addEventListener('visibilitychange',ambientState);ambientState();
