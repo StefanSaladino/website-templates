@@ -600,3 +600,6 @@ Original standing-wave particle sculpture and opt-in Web Audio sine tone, live a
 
 ### RESONANCE review
 17/17 dedicated browser cases passed on 83eed76; deployment and responsive checks passed. Reviewed real screenshot captures. Sticky live workbench places controls beside/below visible sculpture, plus audio lifecycle polish. Revision QA pending. Proceed to APEX on user authorization.
+
+### APEX — F5 source checkpoint
+Genuine automotive photography plus aligned, illustrative animated streamlines/wake overlay, relative speed, pause/reset, reduced-motion and no-JS. Source identity TM-155/156 verified; rights open. 34/34 planned full-site implementations; current APEX and RESONANCE workbench QA pending. No claims of CFD, actual wind tunnel data, generated car, manufacturer endorsement or 3D model. Next review and reusable technique extraction, not main merge.

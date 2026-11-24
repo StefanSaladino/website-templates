@@ -2,9 +2,9 @@ name: Immersive website template QA
 on:
   push:
     branches: [feature/component-showroom]
-    paths: ['templates/**','components/data/immersive-tests.json','components/scripts/test-immersive-template.mjs','components/scripts/test-sound-template.mjs','components/scripts/check-immersive-contract.mjs','components/scripts/template-catalogue.mjs','.github/workflows/immersive-template-qa.yml']
+    paths: ['templates/**','components/data/immersive-tests.json','components/scripts/test-immersive-template.mjs','components/scripts/test-sound-template.mjs','components/scripts/test-airflow-template.mjs','components/scripts/check-immersive-contract.mjs','components/scripts/template-catalogue.mjs','.github/workflows/immersive-template-qa.yml']
   pull_request:
-    paths: ['templates/**','components/data/immersive-tests.json','components/scripts/test-immersive-template.mjs','components/scripts/test-sound-template.mjs','components/scripts/check-immersive-contract.mjs','components/scripts/template-catalogue.mjs','.github/workflows/immersive-template-qa.yml']
+    paths: ['templates/**','components/data/immersive-tests.json','components/scripts/test-immersive-template.mjs','components/scripts/test-sound-template.mjs','components/scripts/test-airflow-template.mjs','components/scripts/check-immersive-contract.mjs','components/scripts/template-catalogue.mjs','.github/workflows/immersive-template-qa.yml']
 permissions:
   contents: read
 concurrency:
@@ -24,7 +24,7 @@ jobs:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: node scripts/check-template-scripts.mjs && node scripts/check-template-a11y.mjs && node scripts/check-gallery-integrity.mjs && node scripts/check-immersive-contract.mjs
-      - run: node scripts/test-immersive-template.mjs && node scripts/test-sound-template.mjs
+      - run: node scripts/test-immersive-template.mjs && node scripts/test-sound-template.mjs && node scripts/test-airflow-template.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -249,6 +249,16 @@
       ],
       "required": 4,
       "poster": false
+    },
+    {
+      "name": "apex-automotive",
+      "sections": [
+        ".hero-figure",
+        ".form",
+        ".wind"
+      ],
+      "required": 3,
+      "poster": false
     }
   ]
 }

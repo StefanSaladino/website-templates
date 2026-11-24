@@ -1820,6 +1820,48 @@
       "localDerivative": null,
       "sourcePageVerifiedAt": "2026-11-23",
       "sourceVerificationNote": "Publisher Free source page verified and original download visually inspected 2026-11-23: sliced oranges on dark warm-toned surface. Sensory reference only, not proof of ingredients in photographed fragrance. Final rights and crop review pending."
+    },
+    {
+      "id": "TM-155",
+      "urlIdentity": "https://images.pexels.com/photos/35101711/pexels-photo-35101711.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "apex-automotive",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/dynamic-motion-shot-of-sports-car-on-highway-35101711/",
+      "creator": "Abdullah Dawud",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Pexels source page Free label, original linked download visually inspected; real side-profile moving silver sports car, left-facing, blurred background, wheels visible. Page records camera and capture information. Editorial reference only; third-party vehicle design and marks remain subject to contextual rights review. Original linked download verified. Final rights/crop review open."
+    },
+    {
+      "id": "TM-156",
+      "urlIdentity": "https://images.pexels.com/photos/30360249/pexels-photo-30360249.jpeg",
+      "kind": "image",
+      "usages": [
+        {
+          "templateId": "apex-automotive",
+          "files": [
+            "index.html"
+          ]
+        }
+      ],
+      "linkedComponentStockId": null,
+      "sourcePageUrl": "https://www.pexels.com/photo/sleek-black-and-white-sports-car-design-close-up-30360249/",
+      "creator": "Quentin Martinez",
+      "rightsReviewedAt": null,
+      "reviewStatus": "needs-review",
+      "localDerivative": null,
+      "sourcePageVerifiedAt": "2026-11-23",
+      "sourceVerificationNote": "Pexels source page Free label and original linked download visually inspected. Independent monochrome photograph of mirror and sculpted sports-car panel; not the same vehicle as the hero. No claimed brand relationship. Original linked download verified. Final rights/crop review open."
     }
   ]
 }

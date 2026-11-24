@@ -4,10 +4,10 @@ _23 November 2026 · `feature/component-showroom` · current JSON-derived workin
 
 ## Release-blocking inventory
 
-- **84 active external media identities:** 83 still/poster images and 1 HD hero video (conditional muted autoplay)
+- **86 active external media identities:** 85 still/poster images and 1 HD hero video (conditional muted autoplay)
 - **0 without verified/recorded source-page links** and **0 without recorded creator credits**. Every recorded original photo page requires its own exact-link verification date; source identity verification still does not establish rights approval.
-- **0 rights-approved assets.** All 84 remain `needs-review`
-- **9 first-priority review records** with people, branding, replacement or video-related flags; 75 follow-on records
+- **0 rights-approved assets.** All 86 remain `needs-review`
+- **9 first-priority review records** with people, branding, replacement or video-related flags; 77 follow-on records
 - MORA's TM-034/TM-038/TM-067 third-party branded photos and other retired IDs are **not active candidates**. Do not resurrect them
 
 The canonical record and enforceable usage scanner are `components/data/template-media-inventory.json` and `components/scripts/check-template-media.mjs`. Attribution is not legal approval. Unsplash's broad copyright license does not automatically grant rights to recognizable people, brands, artwork, or private property, and stock packs used in products/templates require contextual review.
@@ -26,10 +26,12 @@ The canonical record and enforceable usage scanner are `components/data/template
 | TM-075 | muskoka-retreat | Pexels publisher page; Matheus Bertelli | Unrelated cabin bedroom, not a Morrow House suite; property/affiliation review open |
 | TM-076 | muskoka-retreat | Pexels publisher page; Courtney RA | Winter lakeside cabin photo, not an actual Morrow House property; attribution/crop release open |
 
-## Follow-on queue — 75 active records
+## Follow-on queue — 77 active records
 
 | Asset | Original template usage | Current provenance | Recorded issue clues |
 | --- | --- | --- | --- |
+| TM-155 | apex-automotive | Pexels publisher page; Abdullah Dawud | Recognizable real sports car; independent editorial, trademark/design rights and crops open |
+| TM-156 | apex-automotive | Pexels publisher page; Quentin Martinez | Independent bodywork macro; rights and crop review open |
 | TM-153 | essence-fragrance | Pexels publisher page; Alesia Kozik | Unbranded real fragrance bottle, independent reference; template rights and crop review open |
 | TM-154 | essence-fragrance | Pexels publisher page; Sarah AlAmeri | Citrus sensory reference only, rights and crop review open |
 | TM-151 | calibre-watch | Pexels publisher page; Tony Litvyak | Real watch editorial reference, third-party design/crop/template rights open |
