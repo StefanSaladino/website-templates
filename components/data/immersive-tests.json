@@ -97,5 +97,92 @@
       }
     ],
     "requireFraming": true
+  },
+  "strata-architecture": {
+    "stage": ".stage",
+    "canvas": "#architecture",
+    "fallback": ".fallback",
+    "initial": {
+      "data-rendered-view": "exterior",
+      "data-rendered-light": "day"
+    },
+    "steps": [
+      {
+        "selector": "button[data-view=courtyard]",
+        "action": "click",
+        "state": {
+          "data-rendered-view": "courtyard"
+        },
+        "controlState": {
+          "aria-pressed": "true"
+        }
+      },
+      {
+        "selector": "button[data-view=plan]",
+        "action": "click",
+        "state": {
+          "data-rendered-view": "plan"
+        },
+        "controlState": {
+          "aria-pressed": "true"
+        }
+      },
+      {
+        "selector": "button[data-light=dusk]",
+        "action": "click",
+        "state": {
+          "data-rendered-light": "dusk"
+        },
+        "controlState": {
+          "aria-pressed": "true"
+        }
+      },
+      {
+        "selector": "button[data-view=exterior]",
+        "action": "click",
+        "state": {
+          "data-rendered-view": "exterior"
+        },
+        "controlState": {
+          "aria-pressed": "true"
+        }
+      }
+    ],
+    "reset": {
+      "selector": "#reset",
+      "state": {
+        "data-rendered-view": "exterior",
+        "data-rendered-light": "day"
+      }
+    },
+    "fallbackSteps": [
+      {
+        "selector": "button[data-view=plan]",
+        "action": "click",
+        "state": {
+          "data-view": "plan"
+        },
+        "controlState": {
+          "aria-pressed": "true"
+        }
+      },
+      {
+        "selector": "button[data-light=dusk]",
+        "action": "click",
+        "state": {
+          "data-light": "dusk"
+        },
+        "controlState": {
+          "aria-pressed": "true"
+        }
+      },
+      {
+        "selector": "button[data-view=courtyard]",
+        "action": "click",
+        "state": {
+          "data-view": "courtyard"
+        }
+      }
+    ]
   }
 }

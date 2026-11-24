@@ -1118,3 +1118,6 @@ See [Immersive website roadmap](IMMERSIVE-WEBSITE-ROADMAP.md). User explicitly r
 
 ## Code-only experiential expansion (supersedes six-site plan)
 Follow [IMMERSIVE-WEBSITE-ROADMAP.md](IMMERSIVE-WEBSITE-ROADMAP.md): eleven planned complete websites (one implemented), all buildable via repository code alone, no Blender or manual video editing required. Cinematic continuous experiences and advanced effects are developed in full templates first; extract tested 3D-01..12 and additional proven techniques only after the website foundation. Existing component/mobile records remain unchanged. 35 is a planning target for website count, not a validator constraint. No release until separate acceptance gates.
+
+## Current experiential scope (supersedes eleven-site proposal)
+User requested only three more full websites beyond FULCRUM: STRATA (procedural modelling; source implemented), ABYSS (shader programming), ORBIT (programmatic cinematic sequences). See [IMMERSIVE-WEBSITE-ROADMAP.md](IMMERSIVE-WEBSITE-ROADMAP.md). Extract actual tested capabilities after all three; no predetermined new component count or placeholders. Existing component catalogue unchanged.

@@ -1,0 +1,2 @@
+# STRATA original procedural architecture
+The residence, terrace, roof, interior fixtures, plant geometry, water plane, shadows, shader materials, architectural diagrams, SVG fallback, icon and thumbnail are original conceptual assets generated in this directory. No model, image, font, video, texture, or remote runtime is required. All dimensions are illustrative scene units, not architectural drawings, real property or engineering specifications. The fictional studio name is not asserted trademark-cleared. No external stock inventory entries required.

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-immersive-template>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e6e4dc">
+<meta name="description" content="STRATA — a fictional architectural practice. Explore an original, procedurally modelled courtyard residence from exterior, courtyard and plan views.">
+<meta property="og:type" content="website"><meta property="og:title" content="STRATA — A house around the light"><meta property="og:description" content="An architectural study in stone, shade and water.">
+<title>STRATA — A house around the light</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css?v=1"><script defer src="script.js?v=1"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to project</a>
+<header class="mast"><a class="brand" href="#main">STRATA<span> /</span></a><nav aria-label="Main navigation"><a href="#project">Project</a><a href="#principles">Principles</a><a href="#practice">Practice</a></nav><a class="index-link" href="../../index.html">Template index</a></header>
+<main id="main" tabindex="-1">
+<section class="hero" id="project" aria-labelledby="project-title">
+<div class="project-meta"><span>Architecture &amp; space</span><span>Study 01 — Courtyard residence</span></div>
+<h1 id="project-title">A house around<br>the light.</h1>
+<div class="stage" data-renderer="static">
+ <div class="scene-label"><span>01 / THE COURTYARD HOUSE</span><span id="scene-label">Exterior</span></div>
+ <div class="fallback" aria-hidden="true">
+  <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+  <g class="fallback-exterior"><path d="M62 279 427 83 742 241 384 440Z" fill="#b1aa92"/><path d="M62 279 384 440 384 453 62 293Z" fill="#7b7665"/><path d="M384 440 742 241 742 255 384 453Z" fill="#918872"/>
+  <path d="M142 261 422 109 615 206 338 358Z" fill="#dad2be"/><path d="M142 261v-83l196 98v82Z" fill="#b9ad94"/><path d="M338 276 615 124v82L338 358Z" fill="#817b67"/><path d="M142 178 422 26 615 124 338 276Z" fill="#e9e1ce"/>
+  <path d="M338 358 482 280 607 343 462 423Z" fill="#d6cbb5"/><path d="M365 352 474 293 553 333 444 393Z" fill="#779b99"/>
+  <path d="M482 280v-78l125 63v78Z" fill="#7a7562"/><path d="M607 265 701 214v78l-94 51Z" fill="#9a9078"/><path d="M482 202 576 151 701 214 607 265Z" fill="#e1d8c2"/>
+  <g stroke="#665a48" stroke-width="3"><path d="M353 269v79M397 245v78M441 221v78M485 197v78M529 173v78M573 149v78"/></g>
+  <g fill="#66735b"><ellipse cx="147" cy="321" rx="24" ry="14"/><ellipse cx="180" cy="338" rx="17" ry="10"/><ellipse cx="648" cy="320" rx="23" ry="13"/><ellipse cx="687" cy="298" rx="18" ry="11"/></g></g>
+  <g class="fallback-courtyard" display="none"><path d="M72 345 397 144 733 345 409 458Z" fill="#c2b8a0"/><path d="M74 104h658v241H74Z" fill="#cfc5af"/><path d="M96 133h385v183H96Z" fill="#5e665f"/><g stroke="#b7ae98" stroke-width="9"><path d="M180 133v183M278 133v183M380 133v183"/></g><path d="M494 133h215v183H494Z" fill="#a39479"/><path d="M112 116h596v19H112Z" fill="#e3dbc7"/><path d="M249 338 410 255 590 338 425 420Z" fill="#749693"/><path d="M239 338 410 247 601 338" fill="none" stroke="#eee4ce" stroke-width="9"/><g fill="#707c61"><ellipse cx="148" cy="347" rx="36" ry="18"/><ellipse cx="650" cy="347" rx="38" ry="18"/></g></g>
+  <g class="fallback-plan" display="none"><rect x="116" y="46" width="568" height="388" fill="#c8bfa9"/><path d="M161 89H639V389H489V230H161Z" fill="#e7decb" stroke="#776f5c" stroke-width="12"/><path d="M160 166H639M374 89V230M489 305H639" stroke="#8c816c" stroke-width="7"/><rect x="199" y="267" width="244" height="88" fill="#7d9d97" stroke="#f2e9d4" stroke-width="7"/><g fill="#998a70"><rect x="184" y="108" width="128" height="36"/><rect x="421" y="107" width="146" height="34"/><rect x="509" y="252" width="90" height="28"/><rect x="509" y="329" width="103" height="38"/></g><g fill="#69755c"><circle cx="156" cy="387" r="19"/><circle cx="443" cy="394" r="16"/><circle cx="650" cy="74" r="15"/></g></g>
+  </svg>
+ </div>
+ <canvas id="architecture" width="1000" height="620" aria-hidden="true" hidden></canvas>
+ <div class="scene-foot"><span id="render-caption">Original architectural illustration</span><span>CONCEPT / NOT TO SCALE</span></div>
+</div>
+<fieldset id="views" disabled><legend class="sr-only">Architecture viewing options</legend><div class="view-group" role="group" aria-label="Camera view"><button type="button" data-view="exterior" aria-pressed="true">Exterior</button><button type="button" data-view="courtyard" aria-pressed="false">Courtyard</button><button type="button" data-view="plan" aria-pressed="false">Plan</button></div><div class="light-group" role="group" aria-label="Time of day"><button type="button" data-light="day" aria-pressed="true">Daylight</button><button type="button" data-light="dusk" aria-pressed="false">Dusk</button></div><button type="button" id="reset">Reset view</button></fieldset>
+<p class="scene-description" id="scene-description" aria-live="polite">Two wings enclose a terrace and reflecting pool. A continuous roof establishes a horizontal line against the landscape.</p>
+</section>
+<section class="essay" id="principles" aria-labelledby="essay-title"><p class="section-no">02 / Spatial principles</p><h2 id="essay-title">The courtyard<br>is the room.</h2><div class="essay-copy"><p>Rather than filling the plot, the house makes space for an absence. Living spaces turn towards water, stone and a sheltered garden, with the roof extending into the landscape.</p><p>Light becomes a material. The depth of the overhang changes how the spaces are experienced throughout the day.</p></div><figure class="diagram"><svg viewBox="0 0 440 245" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#494d43" fill="none" stroke-width="1.2"><path d="M26 199h388M47 172V62H392V172H342V102H96V172Z"/><path d="M47 76H392M96 102H342M96 172H342M122 181h188"/><path d="M96 102l44 70m34-70 44 70m34-70 44 70"/><path d="M47 48h345m-345-5v10m345-10v10"/></g><path d="M142 181h137" stroke="#688b86" stroke-width="5"/><g font-family="Arial" font-size="10" fill="#494d43"><text x="219" y="37" text-anchor="middle">CONTINUOUS ROOF</text><text x="220" y="222" text-anchor="middle">WATER / TERRACE / SHADE</text></g></svg><figcaption>Section study — roof, threshold and water.</figcaption></figure></section>
+<section class="material" aria-labelledby="material-title"><p class="section-no">03 / Material language</p><h2 id="material-title">Stone. Timber.<br>Water.</h2><div class="material-strips"><div><span class="sample stone"></span><h3>Mineral surfaces</h3><p>Quiet, warm-toned concrete.</p></div><div><span class="sample timber"></span><h3>Warm thresholds</h3><p>Vertical timber screens and joinery.</p></div><div><span class="sample water"></span><h3>Reflecting pool</h3><p>A cool plane at the centre of the house.</p></div></div></section>
+<section class="practice" id="practice"><p class="section-no">04 / STRATA studio</p><h2>Architecture<br>as restraint.</h2><div><p>A fictional practice exploring the intersection of landscape, structure and everyday life.</p><a class="action" href="#project">Revisit the residence</a></div></section>
+</main>
+<footer><span>STRATA / Fictional architecture concept. No real project or services offered.</span><a href="../../index.html">Return to the library</a></footer>
+</body></html>
