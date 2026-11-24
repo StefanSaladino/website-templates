@@ -1,12 +1,11 @@
-// Collection links open a stable inline subsection; cases use native details,
-// so their content is closed on initial load even without JavaScript.
-const panels=[...document.querySelectorAll('.project-subsection')],covers=[...document.querySelectorAll('.project-cover')],cases=[...document.querySelectorAll('.case-disclosure')],motion=matchMedia('(prefers-reduced-motion: reduce)');
-function scrollToNode(node){node.scrollIntoView({block:'start',behavior:motion.matches?'instant':'smooth'})}
-function update(id,focus=false){for(const panel of panels){const active=panel.id===id;panel.hidden=!active;if(active){if(focus&&!motion.matches){panel.removeAttribute('data-opening');void panel.offsetWidth;panel.setAttribute('data-opening','')}if(focus){panel.querySelector('h2').focus({preventScroll:true});scrollToNode(panel)}}}for(const cover of covers)cover.setAttribute('aria-expanded',String(cover.hash==='#'+id))}
-function openCase(id,focus=false){const item=cases.find(c=>c.id===id);if(!item)return;for(const c of cases)c.open=c===item;if(focus){item.querySelector('.case-preview-row').focus({preventScroll:true});scrollToNode(item)}}
-function sync(){const id=location.hash.slice(1);if(panels.some(p=>p.id===id))update(id);else if(!id||id==='work')update('');if(cases.some(c=>c.id===id))openCase(id);else if(id.startsWith('story-'))openCase('case-'+id.slice(6))}
-for(const p of panels){const close=p.querySelector('.close-collection');close.hidden=false;close.addEventListener('click',()=>{history.replaceState(null,'','#work');update('');covers.find(c=>c.hash==='#'+p.id)?.focus({preventScroll:true});scrollToNode(document.querySelector('#work'))})}
-for(const cover of covers)cover.addEventListener('click',e=>{e.preventDefault();if(location.hash!==cover.hash)history.pushState(null,'',cover.hash);update(cover.hash.slice(1),true)});
-for(const c of cases){const summary=c.querySelector('summary'),close=c.querySelector('.close-case');close.hidden=false;summary.addEventListener('click',()=>{if(!c.open){for(const other of cases)if(other!==c)other.open=false}else if(location.hash==='#'+c.id||location.hash==='#story-'+c.id.slice(5)){history.replaceState(null,'','#cases')}});close.addEventListener('click',()=>{c.open=false;history.replaceState(null,'','#cases');summary.focus({preventScroll:true});scrollToNode(summary)})}
-document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#case-"]');if(!a||!cases.some(c=>c.id===a.hash.slice(1)))return;e.preventDefault();if(location.hash!==a.hash)history.pushState(null,'',a.hash);openCase(a.hash.slice(1),true)});
-addEventListener('hashchange',sync);addEventListener('popstate',sync);update('');sync();
+// Normal document navigation works without JavaScript. Native shared-element
+// transitions are optional; respect the live motion preference.
+const motion=matchMedia('(prefers-reduced-motion: reduce)');
+addEventListener('pageswap',e=>{if(motion.matches)e.viewTransition?.skipTransition()});
+addEventListener('pagereveal',e=>{if(motion.matches)e.viewTransition?.skipTransition()});
+const film=document.querySelector('.case-film');
+if(film){const button=document.querySelector('#film-still'),counter=document.querySelector('#film-counter'),links=[...document.querySelectorAll('.film-rail nav a')],chapters=links.map(a=>document.querySelector(a.hash));let still=false,raf=0;
+function mode(){film.dataset.still=String(still||motion.matches);button.hidden=false;button.disabled=motion.matches;button.textContent=still||motion.matches?'Motion mode':'Still mode';button.setAttribute('aria-pressed',String(still||motion.matches))}
+function paint(){raf=0;let i=0;for(let j=0;j<chapters.length;j++)if(chapters[j].getBoundingClientRect().top<=innerHeight*.42)i=j;counter.textContent=String(i+1).padStart(2,'0')+' / 04';links.forEach((a,j)=>{if(j===i)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
+function queue(){if(!raf&&!document.hidden)raf=requestAnimationFrame(paint)}
+button.addEventListener('click',()=>{still=!still;mode()});motion.addEventListener('change',mode);addEventListener('scroll',queue,{passive:true});addEventListener('resize',queue,{passive:true});document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0}else queue()});mode();paint()}
