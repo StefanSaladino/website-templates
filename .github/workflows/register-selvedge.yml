@@ -36,14 +36,14 @@ jobs:
       - name: Verify registered photographic motion
         working-directory: components
         run: node scripts/test-selvedge-storyboard.mjs
-      - name: Verify real ready-made configurator
-        working-directory: components
-        run: node scripts/test-selvedge-registration.mjs
       - name: Verify loaded photos at all four widths
         working-directory: components
         env:
           MEDIA_BATCH: selvedge
         run: node scripts/capture-loaded-media.mjs
+      - name: Verify real ready-made configurator
+        working-directory: components
+        run: node scripts/test-selvedge-registration.mjs
       - name: Preserve screenshot and browser evidence
         if: always()
         uses: actions/upload-artifact@v4

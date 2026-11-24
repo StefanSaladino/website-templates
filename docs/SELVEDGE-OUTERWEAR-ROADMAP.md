@@ -30,3 +30,7 @@ Exact 9f0087d specialist 45462393937 passed rotation, preference/focus, reading-
 
 ### S5b — shared expanded preview blocker
 Registration 45463454790 passed real 1440x900 opening capture (25,442-byte WebP, TM-157), offline build and full registered motion specialist (median 16.7ms, zero >34ms). Failed actual configurator wheel with scrollY=0 and a correctly loaded photograph; loaded media review and promotion skipped. Same failure in SHIFT, although independent sandboxed iframe passed. Shared preview overlay input-routing fix and diagnostic tests in next commit; keep candidate promotion gated. No SELVEDGE runtime/image changes or main merge.
+
+
+### S5c — isolate frame scaling and native scrolling
+45464076558 passed capture, production build and registered motion again but failed actual configurator native wheel with correct parent hit target. Overlay alone did not resolve it. Shared frame scaling now uses layout zoom for expanded previews where supported, no transform hit-test layer, with independent direct-child-scroll and actual wheel-delivery diagnostics. Run loaded stills before configurator to retain their evidence independently. No registration promotion until final gate passes; no image or campaign runtime changes.

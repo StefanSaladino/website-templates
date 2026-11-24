@@ -26,3 +26,6 @@ main{max-width:1500px;margin:auto;padding:36px var(--pad) 60px}.intro{max-width:
 
 /* Keep absolute focus sentinels out of the grid; they only wrap Tab in the expanded overlay. */
 .preview-focus-sentinel{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);pointer-events:none}.preview-panel:not(.expanded-preview) .preview-focus-sentinel{display:none}.preview-panel.expanded-preview .frame-wrap{box-sizing:border-box;min-width:0;min-height:0}.preview-panel.expanded-preview .frame-shell{align-self:flex-start}
+
+/* Expanded preview: no transform layer on the live iframe when layout zoom is supported. Clip without creating a competing scroll container. */
+.preview-panel.expanded-preview .frame-wrap,.preview-panel.expanded-preview .frame-shell{overflow:clip}.preview-panel.expanded-preview .frame-shell iframe[data-preview-scale-mode="layout-zoom"]{position:relative;inset:auto;transform:none;max-width:none}
