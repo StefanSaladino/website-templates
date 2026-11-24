@@ -4,6 +4,7 @@ on:
     branches: [feature/component-showroom]
     paths:
       - 'templates/_drafts/fold-paper-studio/**'
+      - 'templates/fold-paper-studio/**'
       - 'components/scripts/test-fold-study.mjs'
       - '.github/workflows/fold-study.yml'
   workflow_dispatch:

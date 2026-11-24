@@ -1,0 +1,57 @@
+name: Prepare FOLD gallery registration
+on:
+  push:
+    branches: [feature/component-showroom]
+    paths:
+      - '.github/workflows/register-fold.yml'
+      - 'components/scripts/prepare-fold-registration.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: fold-registration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  candidate:
+    if: github.ref == 'refs/heads/feature/component-showroom'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+        working-directory: components
+      - name: Prepare gallery-only source
+        working-directory: components
+        run: node scripts/prepare-fold-registration.mjs
+      - name: Capture exact registered opening
+        working-directory: components
+        run: node scripts/capture-gallery-openings.mjs --only=fold-paper-studio --apply
+      - name: Verify complete build and membership gate
+        working-directory: components
+        run: |
+          npm run build
+          node --input-type=module -e "import {readFileSync} from 'node:fs';import assert from 'node:assert/strict';import {catalogue} from './builder-model.js';const data=JSON.parse(readFileSync('data/builder-templates.json'));assert.equal(data.length,36);assert.equal(data.find(x=>x.slug==='fold-paper-studio').configuratorStatus,'gallery-only');assert.equal(catalogue([],[],data,[]).templates.size,35);assert(!data.some(x=>x.slug==='selvedge-outerwear'));"
+      - name: Verify both actual registered interactions and native touch
+        working-directory: components
+        run: node scripts/test-fold-study.mjs
+      - name: Preserve browser evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fold-registration-evidence
+          path: |
+            components/gallery-opening-evidence/
+            components/fold-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Commit validated review candidate for deliberate promotion
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- templates index.html components/data/builder-templates.json components/data/gallery-opening-captures.json components/data/immersive-tests.json components/scripts/check-immersive-contract.mjs components/scripts/capture-gallery-openings.mjs components/scripts/test-fold-study.mjs docs/FOLD-PAPER-STUDIO-ROADMAP.md
+          git diff --cached --stat
+          git commit -m "feat(gallery): register FOLD with exact browser opening"
+          git push origin HEAD:refs/heads/fold-registration/${GITHUB_SHA}
