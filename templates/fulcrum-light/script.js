@@ -5,13 +5,13 @@
   const fallback = document.querySelector('.fallback');
   const controls = document.querySelector('#model-controls');
   const rotation = document.querySelector('#rotation');
-  const assembly = document.querySelector('#assembly');
+  const brightness = document.querySelector('#brightness');
   const status = document.querySelector('#model-status');
   const mode = document.querySelector('#view-mode');
   const finishes = {ochre: [0.65,0.34,0.20], chalk:[0.87,0.84,0.78], graphite:[0.24,0.26,0.24]};
   const fallbackColors = {ochre:'#a55d3b',chalk:'#e3ded2',graphite:'#393d39'};
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  let finish = 'ochre', angle = -25, exploded = 0, userRotated = false, frame = 0, visible = true;
+  let finish = 'ochre', angle = -25, lightLevel = 60, userRotated = false, frame = 0, visible = true;
   let gl, program, meshes = [], uniforms, dragging = null, observer, resizeObserver;
   const TAU = 2 * Math.PI;
   const clamp = (v, min, max) => Math.min(max, Math.max(min,v));
@@ -58,10 +58,10 @@
     if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS)){const reason=gl.getShaderInfoLog(shader);gl.deleteShader(shader);throw Error(reason);}
     return shader;
   }
-  function mesh(data, material, shift){
+  function mesh(data, material){
     const buffer=gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);
-    meshes.push({buffer,count:data.length/6,material,shift});
+    meshes.push({buffer,count:data.length/6,material});
   }
   function useFallback(){
     stage.dataset.renderer='static';canvas.hidden=true;fallback.hidden=false;
@@ -73,22 +73,28 @@
       if(!gl)throw Error('WebGL unavailable');
       const vs=compile(gl.VERTEX_SHADER,`
         attribute vec3 aPosition;attribute vec3 aNormal;
-        uniform float uAngle;uniform float uAspect;uniform float uShift;
+        uniform float uAngle;uniform float uAspect;
         varying vec3 vNormal;varying vec3 vPosition;varying vec3 vLocal;
         vec3 yaw(vec3 p,float t){return vec3(cos(t)*p.x+sin(t)*p.z,p.y,-sin(t)*p.x+cos(t)*p.z);}
         vec3 tilt(vec3 p){return vec3(p.x,.960*p.y-.280*p.z,.280*p.y+.960*p.z);}
         void main(){
-          vec3 p=tilt(yaw(aPosition+vec3(0.,uShift,0.),uAngle));
+          vec3 p=tilt(yaw(aPosition,uAngle));
           vPosition=p;vLocal=aPosition;vNormal=tilt(yaw(aNormal,uAngle));
           float depth=6.6-p.z;
-          float scale=min(2.48,2.95*uAspect);
+          float scale=min(3.12,3.25*uAspect);
           gl_Position=vec4(p.x*scale/uAspect,(p.y+.13)*scale,depth*1.018-.22,depth);
         }`);
       const fs=compile(gl.FRAGMENT_SHADER,`
         precision mediump float;
-        uniform vec3 uColor;uniform float uGloss;uniform float uShadow;
+        uniform vec3 uColor;uniform float uGloss;uniform float uShadow;uniform float uLight;uniform float uEmitter;
         varying vec3 vNormal;varying vec3 vPosition;varying vec3 vLocal;
         void main(){
+          if(uShadow>1.5){
+            vec2 q=(vLocal.xz-vec2(.64,0.))/vec2(1.6,1.45);
+            float d=length(q);
+            float a=.57*uLight*exp(-2.6*d*d)*(1.-smoothstep(.65,1.,d));
+            gl_FragColor=vec4(1.,.76,.43,a);return;
+          }
           if(uShadow>.5){
             vec2 q=(vLocal.xz-vec2(-.58,0.))/vec2(1.28,1.03);
             float d=length(q);
@@ -101,29 +107,32 @@
           float spec=pow(max(dot(n,normalize(l+eye)),0.),mix(15.,56.,uGloss))*(.10+.25*uGloss);
           float edge=pow(1.-max(dot(n,eye),0.),3.);
           vec3 color=uColor*(.55+.68*diff+.24*rim)+vec3(spec+.06*edge);
+          if(uEmitter>.5)color=mix(vec3(.45,.44,.40),vec3(1.,.92,.72),uLight);
           gl_FragColor=vec4(clamp(color,0.,1.),1.);
         }`);
       program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
       gl.deleteShader(vs);gl.deleteShader(fs);
       if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
       gl.useProgram(program);
-      uniforms=Object.fromEntries(['uAngle','uAspect','uShift','uColor','uGloss','uShadow'].map(k=>[k,gl.getUniformLocation(program,k)]));
-      // Fixed ground plane and support. Only the optical head components move.
+      uniforms=Object.fromEntries(['uAngle','uAspect','uColor','uGloss','uShadow','uLight','uEmitter'].map(k=>[k,gl.getUniformLocation(program,k)]));
+      // Permanently assembled geometry. Brightness alters illumination, never transforms.
       const baseX=-.58, headX=.64;
       const shadowVerts=[[-2.0,-1.486,-1.12],[.84,-1.486,-1.12],[.84,-1.486,1.12],[-2.0,-1.486,-1.12],[.84,-1.486,1.12],[-2.0,-1.486,1.12]].flatMap(v=>[...v,0,1,0]);
-      mesh(shadowVerts,'shadow',0);
-      mesh(lathe([[0,-1.48],[.79,-1.48],[.85,-1.46],[.87,-1.42],[.87,-1.35],[.85,-1.32],[.81,-1.30],[0,-1.30]],[baseX,0,0],96),'paint',0);
-      mesh(lathe([[0,-1.486],[.77,-1.486],[.79,-1.48],[0,-1.48]],[baseX,0,0],96),'dark',0);
-      mesh(lathe([[0,-1.30],[.13,-1.30],[.14,-1.28],[.12,-1.24],[0,-1.24]],[baseX,0,0],64),'metal',0);
-      mesh(rod([baseX,-1.26,0],[baseX,.92,0],.057),'metal',0);
-      mesh(sphere([baseX,.92,0],.062),'metal',0);
-      mesh(rod([baseX,.92,0],[headX,.92,0],.054),'metal',0);
-      mesh(rod([headX,.92,0],[headX,.74,0],.061),'metal',0);
-      mesh(lathe([[0,.66],[.095,.66],[.105,.68],[.105,.77],[.08,.80],[0,.80]],[headX,0,0],56),'dark',0);
+      const poolVerts=[[-.96,-1.49,-1.45],[2.24,-1.49,-1.45],[2.24,-1.49,1.45],[-.96,-1.49,-1.45],[2.24,-1.49,1.45],[-.96,-1.49,1.45]].flatMap(v=>[...v,0,1,0]);
+      mesh(poolVerts,'pool');
+      mesh(shadowVerts,'shadow');
+      mesh(lathe([[0,-1.48],[.79,-1.48],[.85,-1.46],[.87,-1.42],[.87,-1.35],[.85,-1.32],[.81,-1.30],[0,-1.30]],[baseX,0,0],96),'paint');
+      mesh(lathe([[0,-1.486],[.77,-1.486],[.79,-1.48],[0,-1.48]],[baseX,0,0],96),'dark');
+      mesh(lathe([[0,-1.30],[.13,-1.30],[.14,-1.28],[.12,-1.24],[0,-1.24]],[baseX,0,0],64),'metal');
+      mesh(rod([baseX,-1.26,0],[baseX,.92,0],.057),'metal');
+      mesh(sphere([baseX,.92,0],.062),'metal');
+      mesh(rod([baseX,.92,0],[headX,.92,0],.054),'metal');
+      mesh(rod([headX,.92,0],[headX,.74,0],.061),'metal');
+      mesh(lathe([[0,.66],[.095,.66],[.105,.68],[.105,.77],[.08,.80],[0,.80]],[headX,0,0],56),'dark');
       // Rolled rim, shallow curved shell and continuous inner surface.
-      mesh(lathe([[.77,.39],[.795,.405],[.80,.425],[.77,.48],[.69,.57],[.55,.665],[.39,.727],[.22,.765],[.12,.77],[.10,.75],[.20,.745],[.38,.706],[.54,.64],[.67,.548],[.75,.46],[.77,.425],[.755,.411],[.77,.39]],[headX,0,0],96),'paint',.50);
-      mesh(lathe([[0,.405],[.68,.405],[.73,.412],[.74,.425],[.72,.445],[0,.445]],[headX,0,0],96),'diffuser',-.40);
-      mesh(lathe([[.70,.41],[.74,.41],[.75,.42],[.74,.44],[.70,.44],[.70,.41]],[headX,0,0],96),'dark',-.40);
+      mesh(lathe([[.77,.39],[.795,.405],[.80,.425],[.77,.48],[.69,.57],[.55,.665],[.39,.727],[.22,.765],[.12,.77],[.10,.75],[.20,.745],[.38,.706],[.54,.64],[.67,.548],[.75,.46],[.77,.425],[.755,.411],[.77,.39]],[headX,0,0],96),'paint');
+      mesh(lathe([[0,.405],[.68,.405],[.73,.412],[.74,.425],[.72,.445],[0,.445]],[headX,0,0],96),'diffuser');
+      mesh(lathe([[.70,.41],[.74,.41],[.75,.42],[.74,.44],[.70,.44],[.70,.41]],[headX,0,0],96),'dark');
       gl.enable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);
       stage.dataset.renderer='webgl';canvas.hidden=false;fallback.hidden=true;rotation.disabled=false;
       mode.textContent='Interactive 3D · drag to rotate';
@@ -143,38 +152,39 @@
     gl.uniform1f(uniforms.uAngle,angle*Math.PI/180);gl.uniform1f(uniforms.uAspect,w/h);
     const p=gl.getAttribLocation(program,'aPosition'),n=gl.getAttribLocation(program,'aNormal');
     gl.enableVertexAttribArray(p);gl.enableVertexAttribArray(n);
-    const materials={paint:finishes[finish],metal:[.34,.36,.34],dark:[.18,.19,.17],diffuser:[.91,.88,.79],shadow:[0,0,0]};
+    const materials={paint:finishes[finish],metal:[.34,.36,.34],dark:[.18,.19,.17],diffuser:[.91,.88,.79],shadow:[0,0,0],pool:[1,.76,.43]};
+    gl.uniform1f(uniforms.uLight,lightLevel/100);
     for(const item of meshes){
       gl.bindBuffer(gl.ARRAY_BUFFER,item.buffer);
       gl.vertexAttribPointer(p,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(n,3,gl.FLOAT,false,24,12);
-      const isShadow=item.material==='shadow';
-      gl.uniform1f(uniforms.uShadow,isShadow?1:0);
+      const isShadow=item.material==='shadow'||item.material==='pool';
+      gl.uniform1f(uniforms.uShadow,item.material==='pool'?2:isShadow?1:0);
+      gl.uniform1f(uniforms.uEmitter,item.material==='diffuser'?1:0);
       gl.uniform3fv(uniforms.uColor,materials[item.material]);gl.uniform1f(uniforms.uGloss,item.material==='metal'?.72:.38);
       if(isShadow){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);}
-      gl.uniform1f(uniforms.uShift,item.shift*exploded/100);gl.drawArrays(gl.TRIANGLES,0,item.count);
+      gl.drawArrays(gl.TRIANGLES,0,item.count);
       if(isShadow){gl.depthMask(true);gl.disable(gl.BLEND);}
 
     }
-    stage.dataset.renderedAngle=String(Math.round(angle));stage.dataset.renderedFinish=finish;stage.dataset.renderedAssembly=String(exploded);
+    stage.dataset.renderedAngle=String(Math.round(angle));stage.dataset.renderedFinish=finish;stage.dataset.renderedBrightness=String(lightLevel);
   }
   function update(announce=true){
     stage.style.setProperty('--fallback-paint',fallbackColors[finish]);
-    stage.style.setProperty('--shade-shift',(-exploded*.52)+'px');
-    stage.style.setProperty('--diffuser-shift',(exploded*.39)+'px');
-    stage.dataset.finish=finish;stage.dataset.assembly=String(exploded);
-    rotation.value=String(Math.round(angle));assembly.value=String(exploded);
-    document.querySelector('#rotation-value').value=Math.round(angle)+'°';document.querySelector('#assembly-value').value=exploded+'%';
-    assembly.setAttribute('aria-valuetext',exploded===0?'Assembled':exploded===100?'Fully separated':exploded+' percent separated');
+    stage.style.setProperty('--light-level',String(lightLevel/100));
+    const t=lightLevel/100;stage.style.setProperty('--diffuser-color','rgb('+[115+140*t,112+123*t,102+82*t].map(Math.round).join(',')+')');
+    stage.dataset.finish=finish;stage.dataset.brightness=String(lightLevel);
+    rotation.value=String(Math.round(angle));brightness.value=String(lightLevel);
+    document.querySelector('#rotation-value').value=Math.round(angle)+'°';document.querySelector('#brightness-value').value=lightLevel+'%';
+    brightness.setAttribute('aria-valuetext',lightLevel===0?'Off':lightLevel+' percent brightness');
     for(const b of controls.querySelectorAll('button[data-finish]'))b.setAttribute('aria-pressed',String(b.dataset.finish===finish));
-    if(announce)status.textContent=finish[0].toUpperCase()+finish.slice(1)+' finish, '+assembly.getAttribute('aria-valuetext').toLowerCase()+'.';
+    if(announce)status.textContent=finish[0].toUpperCase()+finish.slice(1)+' finish, '+brightness.getAttribute('aria-valuetext').toLowerCase()+'.';
     requestDraw();
   }
   controls.disabled=false;init();update(false);
   for(const b of controls.querySelectorAll('button[data-finish]'))b.addEventListener('click',()=>{finish=b.dataset.finish;update();});
   rotation.addEventListener('input',()=>{userRotated=true;angle=Number(rotation.value);update(false);});
-  assembly.addEventListener('input',()=>{exploded=Number(assembly.value);userRotated=true;update();});
-  document.querySelector('#reset').addEventListener('click',()=>{finish='ochre';angle=-25;exploded=0;userRotated=true;update();});
-  document.querySelector('#explore-assembly').addEventListener('click',()=>{exploded=100;userRotated=true;update();});
+  brightness.addEventListener('input',()=>{lightLevel=Number(brightness.value);userRotated=true;update();});
+  document.querySelector('#reset').addEventListener('click',()=>{finish='ochre';angle=-25;lightLevel=60;userRotated=true;update();});
   canvas.addEventListener('pointerdown',e=>{if(e.button!==0||stage.dataset.renderer!=='webgl')return;dragging={id:e.pointerId,x:e.clientX,angle};userRotated=true;canvas.setPointerCapture(e.pointerId);});
   canvas.addEventListener('pointermove',e=>{if(!dragging||dragging.id!==e.pointerId)return;angle=clamp(dragging.angle+(e.clientX-dragging.x)*.65,-180,180);update(false);});
   for(const event of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(event,()=>{dragging=null;});

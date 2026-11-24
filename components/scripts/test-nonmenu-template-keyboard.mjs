@@ -61,8 +61,8 @@ try{
     const chalk=page.locator('button[data-finish="chalk"]');
     await chalk.focus();await page.keyboard.press('Enter');
     ensure(await chalk.getAttribute('aria-pressed')==='true','Finish can be selected with Enter');
-    const assembly=page.locator('#assembly');await assembly.focus();await page.keyboard.press('End');
-    ensure(await assembly.getAttribute('aria-valuetext')==='Fully separated','Keyboard assembly slider works');
+    const brightness=page.locator('#brightness');await brightness.focus();await page.keyboard.press('End');
+    ensure(await brightness.getAttribute('aria-valuetext')==='100 percent brightness','Keyboard brightness slider reaches full output');await page.keyboard.press('Home');ensure(await brightness.getAttribute('aria-valuetext')==='Off','Keyboard brightness slider turns light off');
     await page.locator('#reset').focus();await page.keyboard.press('Enter');
     ensure(await page.locator('button[data-finish="ochre"]').getAttribute('aria-pressed')==='true','Reset returns initial finish');
    }else{

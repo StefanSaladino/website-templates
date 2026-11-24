@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#181a18">
-  <meta name="description" content="FULCRUM 01 — a fictional lighting design concept with an interactive 3D product study, finish options and an exploded assembly.">
+  <meta name="description" content="FULCRUM 01 — a fictional lighting design concept with an interactive 3D product study, finish options and adjustable light intensity.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="FULCRUM 01 — Light, in balance.">
   <meta property="og:description" content="Explore a fictional adjustable lighting concept in three dimensions.">
   <title>FULCRUM 01 — Light, in balance.</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=studio-03">
-  <script defer src="script.js?v=studio-03"></script>
+  <link rel="stylesheet" href="styles.css?v=studio-04">
+  <script defer src="script.js?v=studio-04"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to product</a>
@@ -36,9 +36,9 @@
             <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
  <defs>
   <linearGradient id="fallback-metal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#313431"/><stop offset=".46" stop-color="#777973"/><stop offset="1" stop-color="#292c29"/></linearGradient>
-  <radialGradient id="fallback-shadow"><stop stop-color="#393a36" stop-opacity=".27"/><stop offset="1" stop-color="#393a36" stop-opacity="0"/></radialGradient>
+  <radialGradient id="fallback-light"><stop stop-color="#ffe4ac" stop-opacity=".72"/><stop offset=".58" stop-color="#edb571" stop-opacity=".26"/><stop offset="1" stop-color="#edb571" stop-opacity="0"/></radialGradient><radialGradient id="fallback-shadow"><stop stop-color="#393a36" stop-opacity=".27"/><stop offset="1" stop-color="#393a36" stop-opacity="0"/></radialGradient>
  </defs>
- <ellipse cx="170" cy="401" rx="132" ry="29" fill="url(#fallback-shadow)"/>
+ <ellipse class="fallback-light-pool" cx="325" cy="399" rx="130" ry="40" fill="url(#fallback-light)"/><ellipse cx="170" cy="401" rx="132" ry="29" fill="url(#fallback-shadow)"/>
  <g class="fallback-base">
   <path class="fallback-paint" d="M75 382v10c0 13 43 24 96 24s96-11 96-24v-10Z" fill="#a55d3b"/>
   <ellipse class="fallback-paint" cx="171" cy="382" rx="96" ry="24" fill="#a55d3b"/>
@@ -71,10 +71,10 @@
           </div>
           <div class="view-controls">
             <div><label for="rotation">02 / Rotate <output id="rotation-value" for="rotation">−25°</output></label><input id="rotation" type="range" min="-180" max="180" value="-25" step="1"></div>
-            <div><label for="assembly">03 / Shade assembly <output id="assembly-value" for="assembly">0%</output></label><input id="assembly" type="range" min="0" max="100" value="0" step="1" aria-valuetext="Assembled"></div>
+            <div><label for="brightness">03 / Brightness <output id="brightness-value" for="brightness">60%</output></label><input id="brightness" type="range" min="0" max="100" value="60" step="1" aria-valuetext="60 percent brightness"></div>
             <button type="button" id="reset">Reset</button>
           </div>
-          <p class="assembly-note">Shade and diffuser only. The support remains attached to the base.</p><p id="model-status" class="sr-only" role="status" aria-live="polite">Ochre finish, assembled.</p>
+          <p class="lighting-note">Adjust the light from off to full brightness.</p><p id="model-status" class="sr-only" role="status" aria-live="polite">Ochre finish, 60 percent brightness.</p>
         </fieldset>
       </div>
     </section>
@@ -84,7 +84,7 @@
       <div class="design-drawing" aria-hidden="true"><svg viewBox="0 0 300 230"><g fill="none" stroke="currentColor" stroke-width="1.2"><path d="M35 200H265M82 181V51H180V78M142 78H218L246 126H114Z"/><ellipse cx="82" cy="181" rx="46" ry="10"/><path d="M82 51h-26m26 130H56M60 51v130m-5-130h10m-10 130h10M114 140v8h132v-8"/></g><text x="44" y="120" transform="rotate(-90 44 120)" font-size="8">HEIGHT STUDY</text><text x="180" y="159" text-anchor="middle" font-size="8">SHADE PROFILE</text></svg></div>
     </section>
     <section class="construction" id="construction" aria-labelledby="construction-title">
-      <div class="section-intro"><p class="eyebrow">02 / The construction</p><h2 id="construction-title">Nothing<br>extraneous.</h2><p>Inspect the shade and recessed diffuser separately, with the support fixed to its weighted base. A concept study, not a manufacturing specification.</p><a class="primary secondary" href="#model" id="explore-assembly">Open assembly view</a></div>
+      <div class="section-intro"><p class="eyebrow">02 / The construction</p><h2 id="construction-title">Nothing<br>extraneous.</h2><p>A spun shell, recessed diffuser and continuous graphite support. The construction detail below illustrates the optical layers without altering the product model.</p><a class="primary secondary" href="#model">Try the light</a><figure class="optical-detail"><svg viewBox="0 0 360 180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#b5bbad" stroke-width="1.2"><path d="M42 112Q75 51 152 51Q229 51 262 112"/><path d="M49 112Q81 59 152 59Q223 59 255 112"/><path d="M49 112h206M58 116h188v5H58Z"/><path d="M152 51V28h114M245 119h21v21h-66"/><path d="M152 51v8" stroke="#d28d68" stroke-width="3"/></g><g fill="#d3d6cc" font-size="10" font-family="Arial,sans-serif"><text x="270" y="31">SHELL</text><text x="202" y="154">DIFFUSER</text><text x="42" y="165">SECTION / CONCEPT</text></g></svg><figcaption>Optical head section — illustrative, not a manufacturing drawing.</figcaption></figure></div>
       <ol class="parts"><li><span>01</span><div><h3>Spun shade</h3><p>A shallow, rolled-edge metal shell conceals the source.</p></div></li><li><span>02</span><div><h3>Recessed diffuser</h3><p>A separate optical disc softens the light under the shade.</p></div></li><li><span>03</span><div><h3>Anchored support</h3><p>The graphite arm stays fixed to the low weighted base throughout the study.</p></div></li></ol>
     </section>
     <section class="closing"><p class="eyebrow">FULCRUM / Concept collection</p><h2>Designed to<br>disappear.</h2><a class="primary" href="#model">Return to the model</a></section>

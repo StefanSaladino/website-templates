@@ -13,7 +13,7 @@ Updated 23 November 2026. This is the controlling plan for the immersive expansi
 
 | Order | Template / level | Integrated concept and code-only production | Status |
 |---|---|---|---|
-| A1 | FULCRUM / II | Procedural lathe-and-rod lamp, orbit, finish controls, exploded assembly and restrained scroll response | Implemented; 6 immersive browser cases passed, visual/native review open; specialist keyboard selector correction in this checkpoint |
+| A1 | FULCRUM / II | Procedural lathe-and-rod lamp, orbit, finish controls, dimmable light and restrained scroll response | Implemented; 6 immersive browser cases passed, visual/native review open; specialist keyboard selector correction in this checkpoint |
 | A2 | STRATA / III | Procedural courtyard residence built from slabs, walls, glazing, interior geometry and plants; arrival, camera approach, roof separation/plan, cutaway, interior journey, reconstruction and evening lighting. Native scroll timeline, manual chapter controls, static diagrams | Next; planned |
 | A3 | PRESSURE / II–III | Creative agency with original extruded vector letterforms, material deformation, pointer response, typographic fracture/reassembly and scene-linked portfolio compositions; no external font geometry required | Planned |
 | A4 | TERRAIN / III | Seeded heightfield, procedural rock, forest, water and sky; continuous valley-to-summit journey, changing elevation, lighting, weather and environmental particles; reduced-motion chapter stills | Planned |
@@ -33,7 +33,7 @@ Level I: enhanced CSS/SVG/DOM motion; Level II: interactive real-time models and
 | Seamless scene transitions and reversible timeline | STRATA, TERRAIN, ORBIT |
 | Scroll-controlled camera, depth-aware parallax | STRATA, TERRAIN, ABYSS, ORBIT |
 | Spatial navigation and portal-style transitions | OBJECT ROOM, ORBIT |
-| Object morphing and scroll-driven assembly | FULCRUM, ESSENCE, CALIBRE |
+| Object morphing and scroll-driven assembly | ESSENCE, CALIBRE |
 | Interactive cutaway and reconstruction | STRATA, CALIBRE, APEX |
 | Typography deformation and image displacement | PRESSURE, TYPEFORM |
 | Fluid/ink/water simulation and refraction | ESSENCE, TERRAIN, ABYSS |
@@ -66,3 +66,6 @@ Original stock remediation is paused at FRAME 7e32171: 74/74 attributed external
 User requested sleeker design and correction of assembly lifting the lamp off its base. Real prior CI screenshots reviewed: refine stage, scale, lighting and physical proportions, keep base and support anchored, separate only shade/diffuser. Actual rendered-pixel invariance tests and matching SVG fallback assertions added; verify current revision before moving to STRATA.
 
 Studio 03 checkpoint: user requested more visible refinement. Wide dark studio replaces split layout, camera framing corrected, asset versions explicit, actual geometry bounds checked in browser. Await current-SHA visual/CI acceptance.
+
+### FULCRUM Studio 04
+User's iPhone screenshot showed the exposed floating disc during assembly. Replace the assembly slider with brightness (off to full) and separate static construction illustration; no moving part transforms in FULCRUM. Preserve rotation, materials, code-only generation, and automated geometry/fallback checks. Move the proposed exploded-assembly extraction to CALIBRE/APEX; do not claim FULCRUM demonstrates it. Current QA pending.

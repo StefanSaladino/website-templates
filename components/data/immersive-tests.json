@@ -5,7 +5,7 @@
     "fallback": ".fallback",
     "initial": {
       "data-rendered-finish": "ochre",
-      "data-rendered-assembly": "0"
+      "data-rendered-brightness": "60"
     },
     "steps": [
       {
@@ -24,35 +24,35 @@
         }
       },
       {
-        "selector": "#assembly",
+        "selector": "#brightness",
         "action": "fill",
-        "value": "50",
+        "value": "0",
         "state": {
-          "data-rendered-assembly": "50"
+          "data-rendered-brightness": "0"
         },
         "controlState": {
-          "aria-valuetext": "50 percent separated"
+          "aria-valuetext": "Off"
         },
-        "stableBottomFraction": 0.34
+        "stableGeometry": true
       },
       {
-        "selector": "#assembly",
+        "selector": "#brightness",
         "action": "fill",
         "value": "100",
         "state": {
-          "data-rendered-assembly": "100"
+          "data-rendered-brightness": "100"
         },
         "controlState": {
-          "aria-valuetext": "Fully separated"
+          "aria-valuetext": "100 percent brightness"
         },
-        "stableBottomFraction": 0.34
+        "stableGeometry": true
       }
     ],
     "reset": {
       "selector": "#reset",
       "state": {
         "data-rendered-finish": "ochre",
-        "data-rendered-assembly": "0",
+        "data-rendered-brightness": "60",
         "data-rendered-angle": "-25"
       }
     },
@@ -68,15 +68,31 @@
         }
       },
       {
-        "selector": "#assembly",
+        "selector": "#brightness",
         "action": "fill",
-        "value": "100",
+        "value": "0",
         "state": {
-          "data-assembly": "100"
+          "data-brightness": "0"
         },
         "fixedSelectors": [
           ".fallback-base",
-          ".fallback-post"
+          ".fallback-post",
+          ".fallback-shade",
+          ".fallback-diffuser"
+        ]
+      },
+      {
+        "selector": "#brightness",
+        "action": "fill",
+        "value": "100",
+        "state": {
+          "data-brightness": "100"
+        },
+        "fixedSelectors": [
+          ".fallback-base",
+          ".fallback-post",
+          ".fallback-shade",
+          ".fallback-diffuser"
         ]
       }
     ],
