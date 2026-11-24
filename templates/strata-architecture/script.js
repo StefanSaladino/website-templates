@@ -3,9 +3,9 @@
 const stage=document.querySelector('.stage'),canvas=document.querySelector('#architecture'),fallback=document.querySelector('.fallback'),controls=document.querySelector('#views'),caption=document.querySelector('#render-caption'),label=document.querySelector('#scene-label'),description=document.querySelector('#scene-description');
 const motion=matchMedia('(prefers-reduced-motion: reduce)');
 const views={
- exterior:{label:'Exterior',eye:[9.6,7.1,11.5],target:[0,.25,0],span:11.5,copy:'Two wings enclose a terrace and reflecting pool. A continuous roof establishes a horizontal line against the landscape.'},
- courtyard:{label:'Courtyard',eye:[4.1,2.55,8.4],target:[-.65,1.05,-1.2],span:8.6,copy:'From the terrace, the timber screens and deep overhang shelter a glazed living room. Water forms the foreground.'},
- plan:{label:'Roof-off plan',eye:[0,15,.0001],target:[0,0,0],span:11.1,copy:'The roof is hidden in this drawing view. The L-shaped arrangement encloses the garden; interior furniture indicates how each wing is occupied.'}
+ exterior:{label:'Exterior',eye:[9.6,7.1,11.5],target:[0,.25,0],span:11.5,fit:1,copy:'Two wings enclose a terrace and reflecting pool. A continuous roof establishes a horizontal line against the landscape.'},
+ courtyard:{label:'Courtyard',eye:[4.1,2.55,8.4],target:[-.65,1.05,-1.2],span:8.6,fit:0,copy:'From the terrace, the timber screens and deep overhang shelter a glazed living room. Water forms the foreground.'},
+ plan:{label:'Roof-off plan',eye:[0,15,.0001],target:[0,0,0],span:11.1,fit:1,copy:'The roof is hidden in this drawing view. The L-shaped arrangement encloses the garden; interior furniture indicates how each wing is occupied.'}
 };
 let view='exterior',light='day',gl,program,uniforms,buffers=[],frame=0,visible=true,observer,resizeObserver,transition=null,pose=views.exterior,manual=false,disposed=false;
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),mix=(a,b,t)=>a+(b-a)*t;
@@ -73,7 +73,7 @@ function scene(){
  for(let i=0;i<12;i++)box(B,1.75,.28,1.33+i*.165,.15,1.91,.052,palette.wood,0,true);
  for(const [x,z] of [[-4.35,-.95],[-1.12,-.95],[1.2,-.95],[1.70,3.5]])box(B,x,.28,z,.09,1.91,.09,palette.dark,0,true);
  box(R,-.25,2.19,-2.55,8.85,.20,3.05,palette.roof,0,true);
- box(R,3.0,2.19,.77,2.65,.20,6.2,palette.roof,0,true);
+ box(R,3.0,2.19,1.4225,2.65,.20,4.895,palette.roof,0,true);
  box(R,-.25,2.39,-3.94,8.85,.09,.14,palette.edge);
  box(R,4.26,2.39,.77,.14,.09,6.2,palette.edge);
  // Furniture and built-in cabinetry retained when the roof is hidden in plan mode.
@@ -113,14 +113,14 @@ function init(){
  gl=canvas.getContext('webgl',{alpha:true,antialias:true,powerPreference:'low-power'});if(!gl)throw Error('WebGL unavailable');
  const vs=compile(gl.VERTEX_SHADER,`
  attribute vec3 aPosition;attribute vec3 aNormal;attribute vec3 aColor;attribute float aKind;
- uniform vec3 uEye,uRight,uUp,uForward;uniform vec2 uSpan;uniform float uPlan;
+ uniform vec3 uEye,uRight,uUp,uForward;uniform vec2 uSpan,uCenter;uniform float uPlan;
  varying vec3 vPos,vNormal,vColor;varying float vKind;
  void main(){
   vec3 d=aPosition-uEye;
   vPos=aPosition;vNormal=aNormal;vColor=aColor;vKind=aKind;
   float depth=dot(d,uForward);
   float perspective=mix(1.0,clamp(depth/13.0,.65,1.5),1.0-uPlan);
-  gl_Position=vec4(dot(d,uRight)*2.0/uSpan.x,dot(d,uUp)*2.0/uSpan.y,(depth-15.0)/25.0*perspective,perspective);
+  gl_Position=vec4(dot(d,uRight)*2.0/uSpan.x-uCenter.x*perspective,dot(d,uUp)*2.0/uSpan.y-uCenter.y*perspective,(depth-15.0)/25.0*perspective,perspective);
  }`);
  const fs=compile(gl.FRAGMENT_SHADER,`
  precision mediump float;
@@ -144,7 +144,7 @@ function init(){
   gl_FragColor=vec4(clamp(lit,0.,1.),1.);
  }`);
  program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);gl.deleteShader(vs);gl.deleteShader(fs);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
- uniforms=Object.fromEntries(['uEye','uRight','uUp','uForward','uSpan','uPlan','uDusk'].map(k=>[k,gl.getUniformLocation(program,k)]));
+ uniforms=Object.fromEntries(['uEye','uRight','uUp','uForward','uSpan','uCenter','uPlan','uDusk'].map(k=>[k,gl.getUniformLocation(program,k)]));
  buffers=Object.entries(scene()).map(([name,data])=>{const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);return{name,buffer,count:data.length/10}});
  gl.enable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);stage.dataset.renderer='webgl';canvas.hidden=false;fallback.hidden=true;caption.textContent='Live procedural 3D / no imported model';requestDraw();
  }catch{fallbackMode();}
@@ -154,16 +154,21 @@ function draw(now){
  frame=0;if(!gl||gl.isContextLost()||stage.dataset.renderer!=='webgl')return;
  if(transition){
   const t=clamp((now-transition.start)/650,0,1),e=t*t*(3-2*t),a=transition.from,b=transition.to;
-  pose={eye:a.eye.map((x,i)=>mix(x,b.eye[i],e)),target:a.target.map((x,i)=>mix(x,b.target[i],e)),span:mix(a.span,b.span,e)};
+  pose={eye:a.eye.map((x,i)=>mix(x,b.eye[i],e)),target:a.target.map((x,i)=>mix(x,b.target[i],e)),span:mix(a.span,b.span,e),fit:mix(a.fit||0,b.fit||0,e)};
   if(t>=1){pose=b;transition=null}
  }
  const rect=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,1.55,1200/Math.max(rect.width,rect.height,1)),w=Math.max(1,Math.round(rect.width*dpr)),h=Math.max(1,Math.round(rect.height*dpr));
  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
  const forward=norm(sub(pose.target,pose.eye)),right=norm(cross(forward,[0,1,0])),up=cross(right,forward),aspect=w/h;
- const span=pose.span*Math.max(1,1.20/aspect),horizontal=span*aspect;
+ // Fit the actual projected site envelope into the whole canvas, not a fixed desktop zoom.
+ const projected=[];for(const x of [-5.5,5.5])for(const y of [-.6,2.5])for(const z of [-4.6,4.6]){const d=sub([x,y,z],pose.eye),depth=dot(d,forward),perspective=view==='plan'?1:clamp(depth/13,.65,1.5);projected.push([dot(d,right)/perspective,dot(d,up)/perspective]);}
+ const xs=projected.map(p=>p[0]),ys=projected.map(p=>p[1]),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys),fit=pose.fit||0;
+ const fittedSpan=Math.max((maxX-minX)/aspect,maxY-minY)*1.10;
+ const span=mix(pose.span*Math.max(1,1.15/aspect),fittedSpan,fit),horizontal=span*aspect;
+ const center=[fit*(maxX+minX)/horizontal,fit*(maxY+minY)/span];
  gl.viewport(0,0,w,h);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(program);
  for(const [k,v] of Object.entries({uEye:pose.eye,uRight:right,uUp:up,uForward:forward}))gl.uniform3fv(uniforms[k],v);
- gl.uniform2f(uniforms.uSpan,horizontal,span);gl.uniform1f(uniforms.uPlan,view==='plan'?1:0);gl.uniform1f(uniforms.uDusk,light==='dusk'?1:0);
+ gl.uniform2f(uniforms.uSpan,horizontal,span);gl.uniform2fv(uniforms.uCenter,center);gl.uniform1f(uniforms.uPlan,view==='plan'?1:0);gl.uniform1f(uniforms.uDusk,light==='dusk'?1:0);
  for(const item of buffers){
   if(view==='plan'&&(item.name==='roof'||item.name==='shadow'))continue;
   gl.bindBuffer(gl.ARRAY_BUFFER,item.buffer);
