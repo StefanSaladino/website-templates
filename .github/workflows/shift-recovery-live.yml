@@ -2,7 +2,7 @@ name: SHIFT recovery live composition
 on:
   push:
     branches: [feature/component-showroom]
-    paths: ['templates/_drafts/shift-recovery/**','components/scripts/test-shift-recovery-live.mjs','.github/workflows/shift-recovery-live.yml']
+    paths: ['templates/_drafts/shift-recovery/**','components/scripts/test-shift-recovery-live.mjs','components/scripts/test-shift-recovery-projection.mjs','.github/workflows/shift-recovery-live.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --no-audit --no-fund
+      - run: node scripts/test-shift-recovery-projection.mjs
+      - run: npx playwright install ffmpeg
       - run: node scripts/test-shift-recovery-live.mjs
       - uses: actions/upload-artifact@v4
         if: always()

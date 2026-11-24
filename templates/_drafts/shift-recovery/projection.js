@@ -1,6 +1,6 @@
 // Exact CPU equivalent of the existing WebGL vertex transform. Use actual mesh
 // vertices rather than an axis-aligned approximation; no changes to shared scene API.
-import {cardGeometry,DIMENSIONS} from '../../shift-card/scene.js';
+import {cardGeometry,DIMENSIONS} from './studio-scene.js';
 const mesh=cardGeometry(),points=[];for(let i=0;i<mesh.length;i+=9)points.push([mesh[i],mesh[i+1],mesh[i+2]]);
 const rad=Math.PI/180;
 export function projectedUnitBounds({yaw,pitch,roll,distance}){const cy=Math.cos(yaw*rad),sy=Math.sin(yaw*rad),cx=Math.cos(pitch*rad),sx=Math.sin(pitch*rad),cz=Math.cos(roll*rad),sz=Math.sin(roll*rad);let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;for(const [x,y,z] of points){const a=cy*x+sy*z,c=-sy*x+cy*z,b=cx*y-sx*c,d=sx*y+cx*c,px=cz*a-sz*b,py=sz*a+cz*b,k=distance/((distance-d)*DIMENSIONS.width);left=Math.min(left,px*k);right=Math.max(right,px*k);top=Math.min(top,-py*k);bottom=Math.max(bottom,-py*k)}return {left,right,top,bottom}}

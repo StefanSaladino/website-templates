@@ -8,3 +8,7 @@
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:999px) and (orientation:portrait){.composition .ground{top:calc(var(--ground-y,68)*1%);filter:blur(12px)}}
 @media(max-height:500px){.composition .ground{display:none}}
+
+/* R4: subtle shadow and unboxed, in-flow material choices. */
+.composition .ground{left:calc(var(--shadow-x,var(--x))*1%);filter:blur(calc(var(--shadow-blur,18)*1px));height:2.4%;opacity:var(--shadow);transform:translateX(-50%)}
+.material-picker{border:0;margin:24px 0 0;padding:0;min-width:0}.material-picker[hidden]{display:none}.material-picker legend{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:7px}.material-picker>div{display:flex;flex-wrap:wrap;gap:4px 15px}.material-picker button{font:600 12px Arial,sans-serif;background:none;color:var(--ink);border:0;border-bottom:1px solid transparent;min-height:44px;display:inline-flex;align-items:center;gap:6px;padding:6px 0;cursor:pointer}.material-picker button i{width:15px;height:15px;background:var(--swatch);display:block;border-radius:50%;border:1px solid #8e8e85}.material-picker button[aria-pressed=true]{border-bottom-color:currentColor}.material-picker button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}.detail-art figcaption{max-width:calc(100% - 44px);line-height:1.4}
