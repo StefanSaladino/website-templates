@@ -1,0 +1,58 @@
+/* INDEX P13 — distinctive editorial type system. The artwork itself retains
+   its original typefaces. Web fonts are optional; system fallbacks stay legible. */
+:root{
+ --index-display:"Bricolage Grotesque","Avenir Next","Trebuchet MS",sans-serif;
+ --index-text:"DM Sans","Avenir Next",Arial,sans-serif;
+}
+body[data-page]{font-family:var(--index-text);font-weight:400;line-height:1.55}
+body[data-page] .brand,body[data-page] .colophon-top .colophon-brand{
+ font-family:var(--index-display);font-weight:800;letter-spacing:-.065em;font-optical-sizing:auto;
+}
+body[data-page] .mast-note{letter-spacing:0;font-size:12px}
+body[data-page] .mast nav a{font-weight:500}
+body[data-page] .eyebrow,body[data-page] .archive-kicker,body[data-page] .studio-overline{
+ font-family:var(--index-text);font-size:12px;font-weight:600;letter-spacing:.045em;
+}
+body[data-page] .study-cases .case-index h2,body[data-page] .gallery-heading h1{
+ font-family:var(--index-display);font-weight:600;letter-spacing:-.045em;line-height:1.02;font-optical-sizing:auto;
+}
+body[data-page] .study-copy strong{
+ font-family:var(--index-display);font-weight:650;letter-spacing:-.045em;line-height:.98;
+}
+body[data-page] .studio-heading h2{
+ font-family:var(--index-display);font-weight:500;letter-spacing:-.045em;line-height:1.02;
+}
+body[data-page] .practice-item summary{
+ font-family:var(--index-display);font-weight:500;letter-spacing:-.035em;line-height:1.15;
+}
+body[data-page] .practice-item summary small{font-family:var(--index-text)}
+body[data-page] .proof-top,body[data-page] .proof-bottom,body[data-page] .study-header{letter-spacing:.055em;font-weight:500}
+body[data-page] .study-description,body[data-page] .studio-copy{line-height:1.65}
+body[data-page] .opening-stage .film-copy h1{
+ font-family:var(--index-display);font-weight:650;letter-spacing:-.045em;line-height:.96;
+ font-size:clamp(66px,12vw,172px);max-width:100%;overflow-wrap:anywhere;
+}
+body[data-page] .film-chapter h2{
+ font-family:var(--index-display);font-weight:500;letter-spacing:-.04em;line-height:1.03;
+}
+body[data-page] .film-chapter h3{font-family:var(--index-display);font-weight:600;letter-spacing:-.025em}
+body[data-page] .film-label{font-family:var(--index-text);letter-spacing:.07em;font-weight:600}
+body[data-page=case] .opening-stage .film-copy{min-width:0;max-width:min(85%,1050px)}
+/* Preserve the original fictional marks and typography inside artwork. */
+body[data-page] .logo-art,body[data-page] .mark-only,body[data-page] .design-board{font-family:Arial,Helvetica,sans-serif}
+body[data-page] .wordmark{font-family:Arial,Helvetica,sans-serif}
+body[data-page] :is(.mark-vessa,.mark-noor,.mark-olio){font-family:Georgia,serif}
+@media(max-width:740px){
+ body[data-page=home] .mast nav a{font-size:12px}
+ body[data-page] .study-cases .case-index h2{font-size:clamp(42px,10.5vw,72px)}
+ body[data-page] .study-copy strong{font-size:clamp(37px,10vw,58px)}
+ body[data-page] .studio-heading h2{font-size:clamp(36px,8.5vw,62px);overflow-wrap:normal}
+ body[data-page=case] .opening-stage{padding-top:136px;padding-bottom:clamp(184px,25svh,220px)}
+ body[data-page=case] .opening-stage .film-copy{max-width:100%;width:100%}
+ body[data-page=case] .opening-stage .film-copy h1{font-size:clamp(44px,14vw,100px);margin-bottom:16px}
+ body[data-page=case] .opening-stage .film-credit{bottom:122px}
+}
+@media(max-height:580px) and (orientation:landscape){
+ body[data-page=case] .opening-stage{padding-top:100px;padding-bottom:92px}
+ body[data-page=case] .opening-stage .film-copy h1{font-size:clamp(42px,9vw,100px)}
+}
