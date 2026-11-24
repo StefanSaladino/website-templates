@@ -7075,5 +7075,99 @@
       ],
       "fitReason": "Intentional progression supports the narrative without trapping the user."
     }
+  },
+  {
+    "id": "ANIM-21",
+    "category": "animations",
+    "title": "Scroll-linked 3D product reveal",
+    "status": "in-review",
+    "exampleContext": "SHIFT / original fictional product design study",
+    "previewRoute": "./previews/ANIM-21/",
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [
+      "native-scroll",
+      "webgl-product",
+      "layered-type",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "interaction",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Original procedural product specimen and full-page integration. Custom geometry and implementation required for a new product; physical device review outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-21",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/shift-card/index.html#opening",
+    "fullTemplateName": "SHIFT / The moving card",
+    "showcase": {
+      "label": "Immersive product motion",
+      "focus": "Single real-time object and layered typography",
+      "summary": "Native scrolling rotates a procedural card between three camera poses; oversized outlined text remains behind the object. Static chapter copy and artwork remain when motion or graphics are disabled.",
+      "desktop": "Scroll or use the controls and inspect the actual full-page example.",
+      "mobile": "Compact sticky visual above readable chapters; native chapter links and static artwork.",
+      "lookFor": [
+        "Single real-time object and layered typography",
+        "Working controls and static fallback"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Native scrolling rotates a procedural card between three camera poses; oversized outlined text remains behind the object. Static chapter copy and artwork remain when motion or graphics are disabled.",
+      "bestFor": [
+        "Product launches",
+        "High-end brand storytelling"
+      ],
+      "fitReason": "An authored product experience, not an automatically applicable effect."
+    }
+  },
+  {
+    "id": "ANIM-22",
+    "category": "animations",
+    "title": "Interactive 3D material study",
+    "status": "in-review",
+    "exampleContext": "SHIFT / original fictional product design study",
+    "previewRoute": "./previews/ANIM-22/",
+    "thumbnail": null,
+    "stockAssetIds": [],
+    "interactions": [
+      "webgl-material",
+      "finish-selector",
+      "light-control",
+      "reduced-motion"
+    ],
+    "integrationLevel": "interactive",
+    "designTags": [
+      "animation",
+      "interaction",
+      "responsive",
+      "template-integrated"
+    ],
+    "hasMobileLayout": true,
+    "notes": "Original procedural product specimen and full-page integration. Custom geometry and implementation required for a new product; physical device review outstanding.",
+    "reviewRoute": "./review.html?id=ANIM-22",
+    "mobileTreatmentIds": [],
+    "fullTemplateRoute": "../templates/shift-card/index.html#finish",
+    "fullTemplateName": "SHIFT / The moving card",
+    "showcase": {
+      "label": "Immersive product motion",
+      "focus": "Surface finishes and moving studio light",
+      "summary": "Three genuine material finishes and an adjustable studio light change the original mesh's textures and shader values. Static artwork changes too.",
+      "desktop": "Scroll or use the controls and inspect the actual full-page example.",
+      "mobile": "The product precedes touch-friendly finish controls; reduced motion uses matching still artwork.",
+      "lookFor": [
+        "Surface finishes and moving studio light",
+        "Working controls and static fallback"
+      ],
+      "focusAnchor": "motion-showcase",
+      "explain": "Three genuine material finishes and an adjustable studio light change the original mesh's textures and shader values. Static artwork changes too.",
+      "bestFor": [
+        "Product and material showcases",
+        "Premium product customization"
+      ],
+      "fitReason": "An authored product experience, not an automatically applicable effect."
+    }
   }
 ]

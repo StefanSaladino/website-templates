@@ -84,6 +84,7 @@ export function change(s,a,cat){const n=clone(s);n.confirmed=false;switch(a.type
  case 'palette':if(a.value&&Object.keys(DEFAULT).every(k=>hex(a.value[k])||k==='trim'&&a.value[k]===null)){n.palette=Object.fromEntries(Object.keys(DEFAULT).map(k=>[k,a.value[k]]));n.paletteMode=a.mode||'custom'}break;
  case 'original':n.paletteMode='original';break;
  case 'motion':if(['still','subtle','dynamic'].includes(a.value))n.motion=a.value;break;
+ case 'animation-reference':{const x=allSlots(n.plan).find(x=>x.id===a.id),c=x&&n.choices[x.id];if(n.mode!=='custom'||!c||cat.core.get(a.value)?.category!=='animations')return s;const ids=new Set(c.animationIds||[]);if(a.checked)ids.add(a.value);else ids.delete(a.value);c.animationIds=[...ids];break}
  case 'mobile':{const x=allSlots(n.plan).find(x=>x.id===a.id),c=x&&n.choices[x.id];if(!c||a.value!==null&&!variants(cat,c.coreId).some(m=>m.id===a.value))return s;c.mobileId=a.value;break}
  case 'page':if(n.plan.pages.some(p=>p.id===a.id))n.previewPage=a.id;break;
  case 'step':if(a.value>=0&&a.value<=4&&(a.value<2||n.mode)&&(a.value<3||ready(n)))n.step=a.value;break;
