@@ -4,6 +4,7 @@ on:
     branches: [feature/component-showroom]
     paths:
       - 'templates/_drafts/selvedge-outerwear/**'
+      - 'templates/selvedge-outerwear/**'
       - 'components/scripts/test-selvedge-storyboard.mjs'
       - '.github/workflows/selvedge-storyboard.yml'
   workflow_dispatch:

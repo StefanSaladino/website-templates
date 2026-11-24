@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- templates index.html components/data/builder-templates.json components/data/template-media-inventory.json components/data/loaded-media-review-batches.json components/data/immersive-tests.json components/data/gallery-opening-captures.json components/builder-journey.js components/builder.js components/builder.html components/scripts/check-immersive-contract.mjs components/scripts/test-selvedge-storyboard.mjs components/scripts/capture-gallery-openings.mjs .github/workflows/selvedge-storyboard.yml docs/TEMPLATE-MEDIA-CLEARANCE-QUEUE.md docs/SELVEDGE-OUTERWEAR-ROADMAP.md
+          git add -A -- templates index.html components/data/builder-templates.json components/data/template-media-inventory.json components/data/loaded-media-review-batches.json components/data/immersive-tests.json components/data/gallery-opening-captures.json components/builder-journey.js components/builder.js components/builder.html components/scripts/check-immersive-contract.mjs components/scripts/test-selvedge-storyboard.mjs components/scripts/capture-gallery-openings.mjs docs/TEMPLATE-MEDIA-CLEARANCE-QUEUE.md docs/SELVEDGE-OUTERWEAR-ROADMAP.md
           git diff --cached --stat
           git commit -m "feat(gallery): register SELVEDGE as gallery-only with exact opening capture"
           git push origin HEAD:refs/heads/selvedge-registration/${GITHUB_SHA}

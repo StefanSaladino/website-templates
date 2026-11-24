@@ -31,7 +31,7 @@ json('components/data/loaded-media-review-batches.json',m=>{assert(!m['selvedge'
 json('components/data/immersive-tests.json',m=>{assert(!m[id]);m[id]={dedicated:true,workflow:'.github/workflows/selvedge-storyboard.yml',scripts:['test-selvedge-storyboard.mjs'],reason:'Specialist verifies real photographic crop, native wheel, reversible continuous motion, cadence, responsive recovery and native embedded palette.'}});
 edit('components/scripts/check-immersive-contract.mjs',"if(id!=='shift-card'||!Array.isArray(s.scripts)||s.scripts.length!==5||!s.workflow)","if(!Object.hasOwn({'shift-card':5,'selvedge-outerwear':1},id)||!Array.isArray(s.scripts)||s.scripts.length!==({'shift-card':5,'selvedge-outerwear':1}[id])||!s.workflow)");
 const test='components/scripts/test-selvedge-storyboard.mjs';write(test,read(test).replaceAll('templates/_drafts/selvedge-outerwear/','templates/selvedge-outerwear/'));
-edit('.github/workflows/selvedge-storyboard.yml',"'templates/_drafts/selvedge-outerwear/**'","'templates/selvedge-outerwear/**'");
+assert(read('.github/workflows/selvedge-storyboard.yml').includes("'templates/selvedge-outerwear/**'"),'Registered route must already be covered by workflow');
 const capture='components/scripts/capture-gallery-openings.mjs';
 edit(capture,'const ids=[','const allIds=[');
 edit(capture,'"fulcrum-light"];','"fulcrum-light","selvedge-outerwear"];\nconst only=process.argv.find(a=>a.startsWith(\'--only=\'))?.slice(7);\nif(only&&!allIds.includes(only))throw Error(\'Unknown capture id \'+only);\nconst ids=only?[only]:allIds;');
