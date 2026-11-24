@@ -234,83 +234,43 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
 @media(max-width:360px){.opening h1{font-size:clamp(48px,15vw,58px)}.presets button{padding-inline:8px}}
 @media(forced-colors:active){.edition-mark,.print-stripe{background:CanvasText}.crease-path,.crease-guide{stroke:CanvasText}.crease-dot{fill:CanvasText}}
 
-/* F8 — a literal three-dimensional exhibition chamber. Each wall/floor
-   is a separate oriented CSS plane. The portal ribs occupy three different
-   z positions. Camera rotation gives physical differential parallax, not
-   translated layers of a flat illustration. The artwork camera is independent. */
-:root{--paper:#191b19;--ink:#f5f2e8;--muted:#d0d2c9;--line:#b9bfb04f}
+/* F9 — an abstract technical field inspired by the supplied motion reference.
+   No room, portal, stock photograph or imitation product. Fine graphite grid
+   and projected silver contours form a quiet, continuous environment. */
+:root{--paper:#131518;--ink:#f5f3ed;--muted:#c8c9cc;--line:#aeb4bd3c}
 html,body{background:var(--paper)}
-.mast{background:#22251f;position:relative;z-index:2}
+.mast{background:#17191d;position:relative;z-index:2}
 .opening,.study{position:relative;isolation:isolate}
-.exhibition-space,.print-space{position:absolute;z-index:-1;overflow:hidden;pointer-events:none}
-.exhibition-space{inset:0 0 -100px;background:#20241e}
-.print-space{inset:0 0 -120px;background:#23251f}
-.spatial-set{--room-w:clamp(720px,95vw,1750px);--room-h:clamp(520px,67vw,1120px);--room-d:760px;--room-mid:calc(var(--room-d)*-.5);--room-back:calc(var(--room-d)*-1);--frame-w:74%;--frame-h:87%;--frame-edge:clamp(14px,2vw,32px);--frame-thick:24px}
-.depth-viewport{position:absolute;inset:0;perspective:1000px;perspective-origin:65% 46%;overflow:hidden}
-.depth-camera{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-2deg) rotateY(-5deg);transform-origin:65% 48%;animation:chamber-drift 22s ease-in-out infinite alternate;animation-play-state:paused}
-.depth-room{position:absolute;left:65%;top:48%;width:var(--room-w);height:var(--room-h);margin-left:calc(var(--room-w)*-.5);margin-top:calc(var(--room-h)*-.5);transform-style:preserve-3d;transform:translateZ(-70px)}
-.depth-face{position:absolute;backface-visibility:visible}
-.depth-back{inset:0;transform:translateZ(var(--room-back));background:linear-gradient(135deg,#5f6556 0%,#383e34 46%,#252c25 100%);box-shadow:inset 0 0 120px #0b100b80}
-.depth-floor,.depth-ceiling{left:0;width:100%;height:var(--room-d);top:50%;margin-top:calc(var(--room-d)*-.5)}
-.depth-floor{transform:translate3d(0,calc(var(--room-h)*.5),var(--room-mid)) rotateX(90deg);background:linear-gradient(180deg,#252920,#626b57 44%,#30362c);border:1px solid #79816c45}
-.depth-ceiling{transform:translate3d(0,calc(var(--room-h)*-.5),var(--room-mid)) rotateX(90deg);background:linear-gradient(180deg,#383f32,#1c211b)}
-.depth-left,.depth-right{top:0;width:var(--room-d);height:100%;left:50%;margin-left:calc(var(--room-d)*-.5)}
-.depth-left{transform:translate3d(calc(var(--room-w)*-.5),0,var(--room-mid)) rotateY(90deg);background:linear-gradient(90deg,#1c211b,#424b3b)}
-.depth-right{transform:translate3d(calc(var(--room-w)*.5),0,var(--room-mid)) rotateY(90deg);background:linear-gradient(90deg,#747c66,#293229)}
-/* Each portal is an open arch, not a filled or transparent card. Its top and
-   two jambs have solid thickness from independently rotated edge surfaces. */
-.depth-frame{position:absolute;left:50%;top:50%;width:var(--frame-w);height:var(--frame-h);margin-left:calc(var(--frame-w)*-.5);margin-top:calc(var(--frame-h)*-.5);transform-style:preserve-3d;pointer-events:none}
-.depth-frame-far{transform:translateZ(-610px);--rib:#67705d;--edge:#323c2e}
-.depth-frame-mid{transform:translateZ(-385px);--rib:#777d6b;--edge:#343b30}
-.depth-frame-near{transform:translateZ(-150px);--rib:#555d4e;--edge:#252e25}
-.depth-frame i{position:absolute;display:block;background:var(--rib);transform-style:preserve-3d}
-.depth-frame i:nth-child(1){top:0;left:0;width:100%;height:var(--frame-edge);box-shadow:0 1px #b3b7a34d}
-.depth-frame i:nth-child(2){top:var(--frame-edge);bottom:0;left:0;width:var(--frame-edge);box-shadow:1px 0 #b3b7a34d}
-.depth-frame i:nth-child(3){top:var(--frame-edge);bottom:0;right:0;width:var(--frame-edge);box-shadow:-1px 0 #b3b7a34d}
-.depth-frame i::after{content:"";position:absolute;background:var(--edge);backface-visibility:visible}
-.depth-frame i:nth-child(1)::after{left:0;right:0;top:100%;height:var(--frame-thick);transform-origin:top;transform:rotateX(-90deg)}
-.depth-frame i:nth-child(2)::after{top:0;bottom:0;left:100%;width:var(--frame-thick);transform-origin:left;transform:rotateY(90deg)}
-.depth-frame i:nth-child(3)::after{top:0;bottom:0;right:100%;width:var(--frame-thick);transform-origin:right;transform:rotateY(-90deg)}
-.depth-light{position:absolute;left:20%;top:0;width:42%;height:100%;background:linear-gradient(105deg,transparent 5%,#e4dfb525 46%,#e4dfb50b 66%,transparent 88%);transform:translate3d(0,0,-745px);opacity:.8;animation:chamber-light 26s ease-in-out infinite alternate;animation-play-state:paused;pointer-events:none}
-.spatial-set[data-running=true] .depth-camera,.spatial-set[data-running=true] .depth-light{animation-play-state:running}
-@keyframes chamber-drift{0%{transform:rotateX(-2deg) rotateY(-5deg) translate3d(0,0,0)}100%{transform:rotateX(.3deg) rotateY(1.5deg) translate3d(18px,-7px,0)}}
-@keyframes chamber-light{0%{transform:translate3d(-12%,0,-745px);opacity:.45}100%{transform:translate3d(43%,0,-745px);opacity:.95}}
-.exhibition-space::after,.print-space::after{content:"";position:absolute;inset:0;pointer-events:none}
-.exhibition-space::after{background:linear-gradient(90deg,#191b19f5 0%,#191b19dc 20%,#191b1970 43%,transparent 69%),linear-gradient(0deg,var(--paper) 0%,transparent 21%)}
-.print-space::after{background:linear-gradient(180deg,var(--paper),#191b1980 20%,transparent 48%,#191b1970 78%,var(--paper)),linear-gradient(90deg,#191b19ad,transparent 66%)}
-.print-space .depth-viewport{perspective-origin:50% 52%}
-.print-space .depth-room{left:50%;top:52%}
-.print-space .depth-camera{transform-origin:50% 52%;animation-direction:alternate-reverse}
+.exhibition-space,.print-space{position:absolute;z-index:-1;overflow:hidden;pointer-events:none;background:#15171b}
+.exhibition-space{inset:0 0 -90px}
+.print-space{inset:0 0 -90px}
+.spatial-set::before{content:"";position:absolute;inset:0;background-image:linear-gradient(#aeb6c50a 1px,transparent 1px),linear-gradient(90deg,#aeb6c50a 1px,transparent 1px);background-size:7px 7px;mask-image:radial-gradient(ellipse at 68% 48%,#000 22%,#0009 62%,transparent 100%)}
+.contour-field{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.spatial-set::after{content:"";position:absolute;inset:0;pointer-events:none}
+.exhibition-space::after{background:linear-gradient(90deg,#131518ed 0%,#131518b8 25%,#13151835 46%,transparent 64%),linear-gradient(0deg,var(--paper),transparent 18%)}
+.print-space::after{background:linear-gradient(180deg,var(--paper),#131518a0 13%,transparent 35%,transparent 65%,var(--paper))}
 .opening-copy,.workbench,.under{position:relative;z-index:1}
-.opening-copy .index,.scene-meta,.fold-hint,.ends{color:#e2e3d8}
-.hero-description,.registration-head>p,.study-copy,.registration-foot>span{color:#d0d2c9}
-.range-wrap input::-webkit-slider-runnable-track{background:#c0c5b3}
-.range-wrap input::-moz-range-track{background:#c0c5b3}
-.presets button{border-color:#a8af9d}
-.paper-shadow,.plate-shadow{position:absolute;pointer-events:none;left:50%;top:76%;width:76%;height:22%;background:radial-gradient(ellipse,#090c08b8 0%,#090c0866 34%,transparent 72%);transform:translate(-50%,-50%);z-index:0}
+.opening-copy .index,.scene-meta,.fold-hint,.ends{color:#dedee0}
+.hero-description,.registration-head>p,.study-copy,.registration-foot>span{color:var(--muted)}
+.range-wrap input::-webkit-slider-runnable-track{background:#a9acb4}
+.range-wrap input::-moz-range-track{background:#a9acb4}
+.presets button{border-color:#8e949f}
+.paper-shadow,.plate-shadow{position:absolute;pointer-events:none;left:50%;top:76%;width:76%;height:22%;background:radial-gradient(ellipse,#050609a0 0%,#05060940 34%,transparent 72%);transform:translate(-50%,-50%);z-index:0}
 .paper-shadow{transform-origin:center}
 .scene .camera,.scene .static-print,.registration-stack{z-index:1}
 .plate-shadow{top:70%;width:70%;height:23%;opacity:.85}
 .crease-interlude{position:relative}
-.registration-head,.registration-foot{border-color:#bcc6a747}
+.registration-head,.registration-foot{border-color:var(--line)}
 .ambient-toggle{margin-left:auto;min-height:44px;background:transparent;border:0;color:var(--muted);padding:8px 10px;text-decoration:underline;text-underline-offset:4px;font-size:12px;white-space:normal}
 .ambient-toggle:hover{color:var(--ink)}
-@media(max-width:1000px){
- .depth-viewport{perspective-origin:54% 56%}
- .depth-room{left:54%;top:56%}
- .exhibition-space::after{background:linear-gradient(180deg,#191b19f5 0%,#191b19c0 28%,transparent 56%),linear-gradient(0deg,var(--paper),transparent 17%)}
-}
+@media(max-width:1000px){.exhibition-space::after{background:linear-gradient(180deg,#131518ed 0%,#131518b0 26%,transparent 52%),linear-gradient(0deg,var(--paper),transparent 15%)}}
 @media(max-width:740px){
- .exhibition-space{inset:0 0 -70px}
- .spatial-set{--room-w:clamp(580px,145vw,950px);--room-h:clamp(650px,150vw,1000px);--frame-w:78%;--frame-h:83%;--frame-edge:16px}
- .depth-viewport{perspective:850px;perspective-origin:50% 60%}
- .depth-room{left:50%;top:60%}
- .depth-camera{transform-origin:50% 60%}
- .exhibition-space::after{background:linear-gradient(180deg,#191b19f5 0%,#191b19c9 29%,#191b1912 58%),linear-gradient(0deg,var(--paper),transparent 18%)}
+ .exhibition-space{inset:0 0 -65px}
+ .exhibition-space::after{background:linear-gradient(180deg,#131518f5 0%,#131518b0 30%,transparent 54%),linear-gradient(0deg,var(--paper),transparent 17%)}
+ .spatial-set::before{background-size:6px 6px;mask-image:radial-gradient(ellipse at 50% 60%,#000 28%,transparent 95%)}
  .paper-shadow{top:77%;width:87%;height:26%}
- .print-space{inset:0 0 -80px}
+ .print-space{inset:0 0 -65px}
  .plate-shadow{width:90%;height:24%}
  .ambient-toggle{margin-left:0}
 }
-@media(prefers-reduced-motion:reduce){.depth-camera,.depth-light{animation:none!important}}
 @media(forced-colors:active){.exhibition-space,.print-space,.paper-shadow,.plate-shadow{display:none!important}.mast{background:Canvas}}

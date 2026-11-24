@@ -1,4 +1,5 @@
 import {geometry,advance,clamp,PANELS} from './geometry.js?v=1';
+import {createContourField} from './ambient.js?v=1';
 const root=document.documentElement,scene=document.querySelector('#scene'),sheet=document.querySelector('#sheet'),controls=document.querySelector('#controls'),range=document.querySelector('#openness'),output=document.querySelector('#amount'),status=document.querySelector('#status'),reduce=matchMedia('(prefers-reduced-motion: reduce)'),forced=matchMedia('(forced-colors: active)');
 let target=.45,current=.45,pw=0,ph=0,raf=0,last=0,draws=0,drag=null,enabled=false;
 const trace=new URLSearchParams(location.search).has('motion-debug')?{frames:[]}:null;if(trace)window.__foldTrace=trace;
@@ -16,7 +17,7 @@ function measure(){if(!enabled)return;const w=scene.clientWidth,h=scene.clientHe
  const compact=innerWidth<=740,roll=8*Math.PI/180,tilt=18*Math.PI/180;
  const verticalEnvelope=(3.1*Math.cos(roll)+8*Math.sin(roll))*Math.cos(tilt)+Math.sin(tilt);
  const next=Math.max(12,Math.min(w*(compact?.88:.82)/8,h*(compact?.88:.84)/verticalEnvelope));if(Math.abs(pw-next)<.01)return;pw=next;ph=pw*3.1;sheet.style.setProperty('--pw',pw+'px');sheet.style.setProperty('--ph',ph+'px');paint()}
-function select(value,announce=false){target=Math.round(clamp(value,0,1)*100)/100;range.value=String(Math.round(target*100));output.value=range.value+'%';for(const b of controls.querySelectorAll('[data-open]'))b.setAttribute('aria-pressed',String(+b.dataset.open===+range.value));if(reduce.matches){cancelAnimationFrame(raf);raf=0;last=0;if(current!==target){current=target;paint()}}else if(current!==target)queue();if(announce)status.textContent='Sheet '+range.value+' percent open.'}
+function select(value,announce=false){target=Math.round(clamp(value,0,1)*100)/100;scene.dataset.target=target.toFixed(6);scene.dataset.settled=String(current===target);range.value=String(Math.round(target*100));output.value=range.value+'%';for(const b of controls.querySelectorAll('[data-open]'))b.setAttribute('aria-pressed',String(+b.dataset.open===+range.value));if(reduce.matches){cancelAnimationFrame(raf);raf=0;last=0;if(current!==target){current=target;paint()}}else if(current!==target)queue();if(announce)status.textContent='Sheet '+range.value+' percent open.'}
 function configure(){const focused=controls.contains(document.activeElement);enabled=CSS.supports('transform-style','preserve-3d')&&!forced.matches;if(!enabled&&focused)document.querySelector('#title').focus({preventScroll:true});root.classList.toggle('interactive',enabled);controls.hidden=!enabled;scene.dataset.mode=enabled?'3d':'static';cancelAnimationFrame(raf);raf=0;last=0;if(!enabled){drag=null;scene.dataset.settled='true';return}measure();if(reduce.matches)current=target;select(target);paint()}
 range.addEventListener('input',()=>select(+range.value/100));range.addEventListener('change',()=>select(+range.value/100,true));controls.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b)select(+b.dataset.open/100,true)});
 // Horizontal drag is optional. Native vertical touch scrolling remains enabled.
@@ -32,22 +33,27 @@ registrationToggle.addEventListener('click',()=>{separated=!separated;registrati
 function registrationPreference(){const available=CSS.supports('transform-style','preserve-3d')&&!forced.matches,focused=document.activeElement===registrationToggle;if(!available&&focused)document.querySelector('#registration-heading').focus({preventScroll:true});registrationToggle.hidden=!available;if(!available){separated=false;registrationState()}}
 forced.addEventListener('change',registrationPreference);registrationPreference();registrationState();
 
-// Ambient scene is a separate CSS 3D space. No JS frame loop. Only visible
-// chambers animate; reduced-motion, forced colours and background tabs stop it.
-const spaces=[...document.querySelectorAll('.spatial-set')],ambientToggle=document.querySelector('#ambient-toggle'),visibleSpaces=new Set();
-let ambientPaused=false;
+// One bounded background loop for both original contour fields. Only visible
+// fields animate, at <=24 fps. Foreground controls keep their own 60Hz track.
+const fields=[...document.querySelectorAll('.spatial-set')].map(createContourField).filter(Boolean),ambientToggle=document.querySelector('#ambient-toggle'),visibleSpaces=new Set();
+let ambientPaused=false,ambientRaf=0,ambientLast=0,ambientPhase=0;
+function ambientTick(now){
+ ambientRaf=0;
+ if(document.hidden||ambientPaused||reduce.matches||forced.matches)return;
+ if(!ambientLast)ambientLast=now;
+ if(now-ambientLast>=1000/24){ambientPhase=(ambientPhase+Math.min(100,now-ambientLast)/1000*.25)%(Math.PI*2);ambientLast=now;for(const field of fields)if(visibleSpaces.has(field.node))field.draw(ambientPhase+(field.node.id==='ink-space'?1.2:0))}
+ if(visibleSpaces.size)ambientRaf=requestAnimationFrame(ambientTick);
+}
 function ambientState(){
- const allowed=CSS.supports('transform-style','preserve-3d')&&!reduce.matches&&!forced.matches;
- const focused=document.activeElement===ambientToggle;
- if(!allowed&&focused)document.querySelector('#title').focus({preventScroll:true});
- ambientToggle.hidden=!allowed;
- ambientToggle.setAttribute('aria-pressed',String(ambientPaused));
- ambientToggle.textContent=ambientPaused?'Resume atmosphere':'Pause atmosphere';
- for(const node of spaces)node.dataset.running=String(allowed&&!ambientPaused&&!document.hidden&&visibleSpaces.has(node));
+ const allowed=fields.length>0&&!reduce.matches&&!forced.matches&&'IntersectionObserver' in window;
+ if(!allowed&&document.activeElement===ambientToggle)document.querySelector('#title').focus({preventScroll:true});
+ ambientToggle.hidden=!allowed;ambientToggle.setAttribute('aria-pressed',String(ambientPaused));ambientToggle.textContent=ambientPaused?'Resume atmosphere':'Pause atmosphere';
+ const running=allowed&&!ambientPaused&&!document.hidden;
+ for(const {node} of fields)node.dataset.running=String(running&&visibleSpaces.has(node));
+ if(running&&visibleSpaces.size){if(!ambientRaf){ambientLast=0;ambientRaf=requestAnimationFrame(ambientTick)}}else{cancelAnimationFrame(ambientRaf);ambientRaf=0;ambientLast=0}
 }
 ambientToggle.addEventListener('click',()=>{ambientPaused=!ambientPaused;ambientState()});
-if('IntersectionObserver' in window){
- const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting)visibleSpaces.add(entry.target);else visibleSpaces.delete(entry.target)}ambientState()},{threshold:0.01});
- for(const node of spaces)observer.observe(node);
-}
+const backgroundResize=new ResizeObserver(entries=>{for(const entry of entries){const f=fields.find(f=>f.node===entry.target);if(f?.size())f.draw(ambientPhase+(f.node.id==='ink-space'?1.2:0))}});
+for(const f of fields){if(f.size())f.draw(f.node.id==='ink-space'?1.2:0);backgroundResize.observe(f.node)}
+if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting)visibleSpaces.add(e.target);else visibleSpaces.delete(e.target)}ambientState()},{threshold:.01});for(const f of fields)observer.observe(f.node)}
 reduce.addEventListener('change',ambientState);forced.addEventListener('change',ambientState);document.addEventListener('visibilitychange',ambientState);ambientState();
