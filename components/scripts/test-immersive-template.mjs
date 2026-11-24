@@ -22,15 +22,17 @@ const act=async(page,s,step)=>{
  await checkState(page,s,step.state);
  for(const [key,value] of Object.entries(step.controlState||{}))assert.equal(await control.getAttribute(key),value);
 };
-const pixels=async(canvas)=>canvas.evaluate(async el=>{
+const pixels=async(canvas,bottomFraction=.34)=>canvas.evaluate(async (el,bottomFraction)=>{
  const gl=el.getContext('webgl')||el.getContext('webgl2');
  if(!gl)throw Error('No actual WebGL context');
  const raw=new Uint8Array(gl.drawingBufferWidth*gl.drawingBufferHeight*4);
  gl.readPixels(0,0,gl.drawingBufferWidth,gl.drawingBufferHeight,gl.RGBA,gl.UNSIGNED_BYTE,raw);
  let opaque=0;for(let i=3;i<raw.length;i+=4)if(raw[i]>0)opaque++;
- const digest=await crypto.subtle.digest('SHA-256',raw);
- return {opaque,hash:[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')};
-});
+ const hex=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(x=>x.toString(16).padStart(2,'0')).join('');
+ const bottom=raw.subarray(0,Math.floor(gl.drawingBufferHeight*bottomFraction)*gl.drawingBufferWidth*4);
+ let bottomOpaque=0;for(let i=3;i<bottom.length;i+=4)if(bottom[i]>200)bottomOpaque++;
+ return {opaque,hash:await hex(raw),bottomOpaque,bottomHash:await hex(bottom)};
+},bottomFraction);
 try{
  let ready=false;for(let i=0;i<50;i++){try{if((await fetch(base+ids[0]+'/')).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,200))}
  if(!ready)throw Error('Immersive HTTP server unavailable');
@@ -49,8 +51,15 @@ try{
     await checkState(page,s,s.initial);assert.equal(await stage.getAttribute('data-renderer'),'webgl');
     let prior=await pixels(canvas);assert(prior.opaque>100,'Model must render actual visible pixels');
     for(const step of s.steps){
+     const before=step.stableBottomFraction?await pixels(canvas,step.stableBottomFraction):prior;
      await act(page,s,step);
-     const current=await pixels(canvas);assert(current.opaque>100&&current.hash!==prior.hash,'Rendered pixels must change: '+step.selector);prior=current;
+     const current=await pixels(canvas,step.stableBottomFraction||.34);
+     assert(current.opaque>100&&current.hash!==prior.hash,'Rendered pixels must change: '+step.selector);
+     if(step.stableBottomFraction){
+       assert(before.bottomOpaque>100,'Grounded base must be visible in the tested region');
+       assert.equal(current.bottomHash,before.bottomHash,'Assembly must not move or redraw grounded base/support pixels');
+     }
+     prior=current;
     }
     await stage.screenshot({path:path.join(dir,id+'-'+width+'-interaction.png')});
     await page.locator(s.reset.selector).click();await checkState(page,s,s.reset.state);
@@ -66,7 +75,12 @@ try{
    await page.goto(url,{waitUntil:'domcontentloaded'});
    assert.equal(await page.locator(s.stage).getAttribute('data-renderer'),'static');assert(await page.locator(s.fallback).isVisible());
    for(const selector of s.fallbackDisabled||[])assert(await page.locator(selector).isDisabled());
-   for(const step of s.fallbackSteps)await act(page,s,step);
+   const relative=async sel=>page.locator(sel).evaluate(el=>{const b=el.getBoundingClientRect(),p=el.closest('.stage').getBoundingClientRect();return [b.x-p.x,b.y-p.y,b.width,b.height].map(v=>Math.round(v*100)/100)});
+   for(const step of s.fallbackSteps){
+    const fixed=await Promise.all((step.fixedSelectors||[]).map(relative));
+    await act(page,s,step);
+    assert.deepEqual(await Promise.all((step.fixedSelectors||[]).map(relative)),fixed,'Fallback grounded base/support must stay fixed');
+   }
    await page.screenshot({path:path.join(dir,id+'-static-fallback.png'),fullPage:true});
    report.cases.push({id,fallback:true,controls:true});
   }catch(e){report.errors.push(id+' fallback: '+String(e))}finally{await page.close()}

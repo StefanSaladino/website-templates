@@ -26,13 +26,26 @@
       {
         "selector": "#assembly",
         "action": "fill",
+        "value": "50",
+        "state": {
+          "data-rendered-assembly": "50"
+        },
+        "controlState": {
+          "aria-valuetext": "50 percent separated"
+        },
+        "stableBottomFraction": 0.34
+      },
+      {
+        "selector": "#assembly",
+        "action": "fill",
         "value": "100",
         "state": {
           "data-rendered-assembly": "100"
         },
         "controlState": {
           "aria-valuetext": "Fully separated"
-        }
+        },
+        "stableBottomFraction": 0.34
       }
     ],
     "reset": {
@@ -60,7 +73,11 @@
         "value": "100",
         "state": {
           "data-assembly": "100"
-        }
+        },
+        "fixedSelectors": [
+          ".fallback-base",
+          ".fallback-post"
+        ]
       }
     ]
   }
