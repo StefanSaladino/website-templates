@@ -1,0 +1,51 @@
+name: Capture exact immersive gallery previews
+on:
+  push:
+    branches: [feature/component-showroom]
+    paths:
+      - '.github/workflows/capture-gallery-openings.yml'
+      - 'components/scripts/capture-gallery-openings.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: gallery-opening-capture-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  capture:
+    if: github.ref == 'refs/heads/feature/component-showroom'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install capture dependencies
+        working-directory: components
+        run: npm install --no-audit --no-fund
+      - name: Capture actual websites and prepare local gallery images
+        working-directory: components
+        run: node scripts/capture-gallery-openings.mjs --apply
+      - name: Verify gallery routes and media inventory
+        working-directory: components
+        run: |
+          npm run check:gallery
+          npm run check:template-media
+          npm run check:media-provenance
+      - name: Preserve original screenshots and capture ledger
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-gallery-opening-evidence
+          path: components/gallery-opening-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish validated capture commit for promotion
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html components/data/gallery-opening-captures.json templates/*/gallery-opening.webp
+          git diff --cached --stat
+          git commit -m "fix(gallery): replace immersive thumbnails with actual opening captures"
+          git push origin HEAD:refs/heads/gallery-capture/${GITHUB_SHA}
