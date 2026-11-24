@@ -18,3 +18,57 @@ body[data-page=case]{--paper:#171817;--ink:#f1eee7;--muted:#c0beb5;--line:#4d4d4
 @media(max-width:360px){.mast nav{gap:12px}.mast nav a{font-size:13px}.film-rail nav{gap:6px}.film-rail nav a{font-size:11px}.wordmark{font-size:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
 @media(forced-colors:active){.logo-art,.mark-only{border:1px solid CanvasText}.film-opening,.film-chapter{background:Canvas;color:CanvasText}.film-image,.film-shade{display:none}.film-copy,.film-credit,.film-label{color:CanvasText}}
+
+/* P6 — MONOLITH-inspired case file stack. The tab is part of the real link,
+   not an independent toggle. Sticky positioning keeps each sheet in normal
+   document flow; the next file naturally covers the previous one. */
+.folder-cases{--folder-tab-h:48px;--folder-top:22px;--folder-offset:46px}
+.folder-cases .case-index{margin-bottom:18px}
+.folder-index{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border-block:1px solid var(--line);margin:0 0 32px}
+.folder-index a{min-height:44px;display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);text-decoration:none}
+.folder-index a span{font-size:11px;font-variant-numeric:tabular-nums}
+.folder-index a[aria-current=step]{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+.case-folder-stack{position:relative;isolation:isolate;display:block;padding:0 0 2px}
+.folder-marker{height:0;scroll-margin-top:calc(var(--folder-top) + var(--folder-offset)*var(--index,0))}
+.folder-marker[data-folder-marker="1"]{--index:1}.folder-marker[data-folder-marker="2"]{--index:2}
+.case-folder{--index:0;--folder:#e5d9cb;--folder-ink:#352d27;--tab-start:0%;position:relative;display:block;min-width:0;color:var(--folder-ink);margin-bottom:30px}
+.folder-canto{--index:1;--folder:#8d4137;--folder-ink:#fff6e7;--tab-start:22%}
+.folder-arc{--index:2;--folder:#d6d2e5;--folder-ink:#302d42;--tab-start:44%}
+.folder-tab{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:var(--folder-tab-h);width:min(51%,360px);margin-left:var(--tab-start);padding:9px 18px;background:var(--folder);color:var(--folder-ink);border-radius:10px 10px 0 0;font-size:11px;letter-spacing:.08em;font-weight:600;overflow-wrap:anywhere}
+.folder-tab span:first-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+.folder-sheet{position:relative;display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:clamp(20px,4vw,60px);align-items:stretch;background:var(--folder);min-height:clamp(340px,48vw,560px);padding:clamp(24px,3.5vw,56px);border-radius:0 4px 4px 4px;box-shadow:0 12px 24px #24211d17}
+.folder-copy{display:flex;flex-direction:column;align-items:start;justify-content:center;min-width:0;padding:8px 0}
+.folder-label{font-size:11px;letter-spacing:.11em;text-transform:uppercase}
+.folder-copy strong{font:400 clamp(54px,7.4vw,114px)/.94 Georgia,serif;letter-spacing:-.08em;overflow-wrap:anywhere;margin:clamp(25px,4vw,56px) 0 18px}
+.folder-discipline{font-size:clamp(15px,1.6vw,22px);line-height:1.4;max-width:25ch}
+.folder-open{margin-top:clamp(26px,5vw,60px);display:inline-flex;align-items:center;gap:20px;min-height:44px;font-size:13px;border-bottom:1px solid currentColor}
+.folder-open svg{width:17px;height:17px;transition:transform .35s var(--ease)}
+.case-folder:hover .folder-open svg{transform:translate(3px,-3px)}
+.case-folder .case-card-photo{min-height:0;min-width:0;aspect-ratio:auto;background:var(--folder);align-self:stretch;position:relative}
+.case-folder .case-card-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.case-folder:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+@media(min-width:901px) and (min-height:690px) and (prefers-reduced-motion:no-preference){
+ .folder-cases[data-stack=enabled] .case-folder{position:sticky;top:calc(var(--folder-top) + var(--index)*var(--folder-offset));z-index:calc(2 + var(--index));margin-bottom:clamp(35px,6vh,66px)}
+ .folder-cases[data-stack=enabled] .folder-sheet{min-height:clamp(340px,calc(100svh - 235px),570px)}
+ .folder-cases[data-stack=enabled] .case-folder:last-child{margin-bottom:0}
+}
+@media(max-width:900px){
+ .folder-tab{width:min(55%,310px);margin-left:0}
+ .folder-sheet{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);min-height:340px;padding:22px;gap:20px}
+ .folder-copy strong{font-size:clamp(43px,8.4vw,74px)}
+ .case-folder{margin-bottom:22px}
+}
+@media(max-width:740px){
+ .folder-cases{--folder-tab-h:42px}
+ .folder-index{gap:10px;margin-bottom:24px}
+ .folder-index a{font-size:12px}
+ .folder-tab{width:64%;padding:8px 12px;font-size:10px}
+ .folder-sheet{grid-template-columns:minmax(0,1fr);padding:16px;gap:18px;min-height:0}
+ .folder-copy{padding:8px 0 0;order:2}
+ .folder-copy strong{margin:16px 0 9px;font-size:clamp(50px,12vw,76px)}
+ .folder-discipline{font-size:15px}
+ .folder-open{margin-top:14px}
+ .case-folder .case-card-photo{aspect-ratio:1.65;order:1}
+}
+@media(prefers-reduced-motion:reduce){.case-folder{position:relative!important;top:auto!important}.folder-open svg{transition:none!important}}
+@media(forced-colors:active){.folder-tab,.folder-sheet{border:1px solid CanvasText;background:Canvas;color:CanvasText}}
