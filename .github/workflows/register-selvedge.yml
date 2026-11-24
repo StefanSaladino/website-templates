@@ -1,0 +1,66 @@
+name: Prepare SELVEDGE gallery registration
+on:
+  push:
+    branches: [feature/component-showroom]
+    paths:
+      - '.github/workflows/register-selvedge.yml'
+      - 'components/scripts/prepare-selvedge-registration.mjs'
+      - 'components/scripts/test-selvedge-registration.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: selvedge-registration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  candidate:
+    if: github.ref == 'refs/heads/feature/component-showroom'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+        working-directory: components
+      - name: Prepare complete candidate source
+        working-directory: components
+        run: node scripts/prepare-selvedge-registration.mjs
+      - name: Capture actual registered opening
+        working-directory: components
+        run: node scripts/capture-gallery-openings.mjs --only=selvedge-outerwear --apply
+      - name: Verify all offline contracts and build
+        working-directory: components
+        run: npm run build
+      - name: Verify registered photographic motion
+        working-directory: components
+        run: node scripts/test-selvedge-storyboard.mjs
+      - name: Verify real ready-made configurator
+        working-directory: components
+        run: node scripts/test-selvedge-registration.mjs
+      - name: Verify loaded photos at all four widths
+        working-directory: components
+        env:
+          MEDIA_BATCH: selvedge
+        run: node scripts/capture-loaded-media.mjs
+      - name: Preserve screenshot and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selvedge-registration-evidence
+          path: |
+            components/gallery-opening-evidence/
+            components/selvedge-evidence/
+            components/selvedge-registration-evidence/
+            components/loaded-media-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Commit candidate for deliberate review and promotion
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- templates index.html components/data/builder-templates.json components/data/template-media-inventory.json components/data/loaded-media-review-batches.json components/data/immersive-tests.json components/data/gallery-opening-captures.json components/builder-journey.js components/builder.js components/builder.html components/scripts/check-immersive-contract.mjs components/scripts/test-selvedge-storyboard.mjs components/scripts/capture-gallery-openings.mjs .github/workflows/selvedge-storyboard.yml docs/TEMPLATE-MEDIA-CLEARANCE-QUEUE.md docs/SELVEDGE-OUTERWEAR-ROADMAP.md
+          git diff --cached --stat
+          git commit -m "feat(gallery): register SELVEDGE with actual opening capture"
+          git push origin HEAD:refs/heads/selvedge-registration/${GITHUB_SHA}
