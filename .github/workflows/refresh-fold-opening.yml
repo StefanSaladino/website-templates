@@ -1,0 +1,51 @@
+name: Refresh FOLD gallery opening
+on:
+  push:
+    branches: [feature/component-showroom]
+    paths:
+      - 'templates/fold-paper-studio/index.html'
+      - 'templates/fold-paper-studio/styles.css'
+      - 'templates/fold-paper-studio/live.js'
+      - '.github/workflows/refresh-fold-opening.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: fold-opening-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  review:
+    if: github.ref == 'refs/heads/feature/component-showroom'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+        working-directory: components
+      - name: Capture only the actual revised FOLD opening
+        working-directory: components
+        run: node scripts/capture-gallery-openings.mjs --only=fold-paper-studio --apply
+      - name: Verify build and specialist interactions
+        working-directory: components
+        run: |
+          npm run build
+          node scripts/test-fold-study.mjs
+      - name: Preserve exact opening and browser evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fold-editorial-review
+          path: |
+            components/gallery-opening-evidence/
+            components/fold-evidence/
+          if-no-files-found: warn
+      - name: Publish validated thumbnail candidate
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add templates/fold-paper-studio/gallery-opening.webp components/data/gallery-opening-captures.json
+          git commit -m "fix(gallery): capture revised FOLD editorial opening"
+          git push origin HEAD:refs/heads/fold-opening/${GITHUB_SHA}
