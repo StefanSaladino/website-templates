@@ -900,3 +900,6 @@ T14a exact revision 6c06363c52855d1e72362d916506ff3fd7daffc5: all nineteen Node 
 
 ## THRESHOLD — T15 spatial typography exit
 T14b exact full browser 45697728287 and Pages 45697727794 passed. T14 verified. Scroll-owned wordmark and copy exits, projected mask follows transformed bounds, no added scroll range or separate clock. Static fallback restores complete composition; header navigation remains. Exact T15 checks pending; T16 after gate. No shared/catalogue changes.
+
+## THRESHOLD — T16 physical portal crossing
+T15 exact browser 45698671940 and Pages 45698670900 passed; actual typography frames reviewed. Native camera passes through red cut to s4.8 with matched depth tangent, continuous aim and no new world geometry. Clip departing typography behind header/footer. Numerical 16,008-pose clearance preflight passed. Actual T16 tests and rendered evidence pending; T17 gated. No shared/catalogue changes.

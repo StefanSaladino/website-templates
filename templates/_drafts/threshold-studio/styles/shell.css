@@ -108,3 +108,9 @@ footer { opacity: var(--footer-opacity, 1); }
   .display-wordmark, .opening-copy { translate: none; opacity: 1; }
   footer { opacity: 1; }
 }
+
+/* Keep outgoing editorial layers behind the persistent masthead/footer.
+   The canvas is a sibling, never clipped by the typography window. */
+.type-window { position: absolute; inset: 0; pointer-events: none;
+  clip-path: inset(var(--type-top, 0px) 0 var(--type-bottom, 0px) 0); }
+.opening-copy { pointer-events: auto; }

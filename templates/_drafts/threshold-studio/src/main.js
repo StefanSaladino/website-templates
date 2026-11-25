@@ -1,19 +1,19 @@
-import {RELEASE} from './config.js?v=T15';
-import {createRenderer} from './renderer.js?v=T15';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,openingComposition} from './camera.js?v=T15';
-import {createScheduler} from './lifecycle.js?v=T15';
-import {wordmarkOcclusion} from './wordmark.js?v=T15';
-import {createAmbientClock} from './ambient.js?v=T15';
-import {readProgress} from './scroll.js?v=T15';
-import {typographyPose} from './typography.js?v=T15';
+import {RELEASE} from './config.js?v=T16';
+import {createRenderer} from './renderer.js?v=T16';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,approachProgress,openingComposition} from './camera.js?v=T16';
+import {createScheduler} from './lifecycle.js?v=T16';
+import {wordmarkOcclusion} from './wordmark.js?v=T16';
+import {createAmbientClock} from './ambient.js?v=T16';
+import {readProgress} from './scroll.js?v=T16';
+import {typographyPose} from './typography.js?v=T16';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
   const study=document.querySelector('#scene-study'),surface=study.querySelector('.scene-surface'),canvas=study.querySelector('canvas');
   const mark=document.querySelector('.display-wordmark'),occluder=document.querySelector('#wordmark-occluder');
-  const stage=document.querySelector('.journey-stage');
+  const stage=document.querySelector('.journey-stage'),header=stage.querySelector('.masthead'),footer=stage.querySelector('footer');
   let lastType='';
-  function applyTypography(progress,width,height){
+  function applyTypography(progress,width,height,rect=null){
     const wide=desktopComposition.matches||width/height>=1.2;
     const t=typographyPose(progress,wide);
     const values={
@@ -22,7 +22,9 @@ function start(){
       '--copy-x':(t.copyX*width).toFixed(3)+'px',
       '--copy-y':(t.copyY*height).toFixed(3)+'px',
       '--copy-opacity':t.copyOpacity.toFixed(6),
-      '--footer-opacity':t.footerOpacity.toFixed(6)
+      '--footer-opacity':t.footerOpacity.toFixed(6),
+      '--type-top':rect?Math.max(0,header.getBoundingClientRect().bottom-rect.top).toFixed(3)+'px':'0px',
+      '--type-bottom':rect?Math.max(0,rect.bottom-footer.getBoundingClientRect().top).toFixed(3)+'px':'0px'
     };
     const key=Object.values(values).join(',');
     if(key!==lastType){for(const [name,value] of Object.entries(values))stage.style.setProperty(name,value);lastType=key}
@@ -33,6 +35,7 @@ function start(){
   const reflectionEnabled=flags.get('reflection')!=='off',lightingEnabled=flags.get('lighting')!=='off',floorMask=flags.get('floorMask')==='on';
   const ambientEnabled=flags.get('ambient')!=='off'&&lightingEnabled&&!floorMask;
   const journeyRequested=flags.get('journey')!=='off'&&!floorMask;
+  const approachOnly=flags.get('track')==='approach';
   let journeyActive=false;
   function setJourney(active){
     if(journeyActive===active&&root.dataset.journey)return;
@@ -62,7 +65,7 @@ function start(){
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
       const r=surface.getBoundingClientRect();
       const progress=journeyActive?readProgress(document.scrollingElement):0;
-      const pose=approachPose(r.width/r.height,desktopComposition.matches,progress);
+      const pose=(approachOnly?approachPose:crossingPose)(r.width/r.height,desktopComposition.matches,progress);
       const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose);
       if(!result){staticView('not-ready');return}
       // The rendered pose and the reported progress always belong to the same sample.
@@ -82,7 +85,7 @@ function start(){
       study.dataset.floorMask=result.floorMask?'on':'off';
       study.dataset.composition=openingComposition(r.width/r.height,desktopComposition.matches);
       // Apply text displacement before deriving the portal mask in its new local coordinates.
-      const type=applyTypography(progress,r.width,r.height);
+      const type=applyTypography(approachOnly?progress:approachProgress(progress),r.width,r.height,r);
       const points=desktopComposition.matches&&type.markOpacity>0?wordmarkOcclusion(pose.vp,r,mark.getBoundingClientRect()):'';
       occluder.setAttribute('points',points);mark.dataset.depth=points?'projected':'flat';
       study.dataset.renderer='webgl';delete study.dataset.reason;canvas.hidden=false;

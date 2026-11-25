@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01–T14 verified; T15 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01–T15 verified; T16 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -59,7 +59,7 @@ HARD GATE: opening must be exceptional on desktop and portrait and explicitly ac
 ### Phase 3 — Crossing (T13–T18)
 - [x] T13 — Deterministic native-scroll engine and reachable progress endpoints; pure tests.
 - [x] T14 — Continuous camera approach toward portal; projected scale, path and clearance tests.
-- [ ] T15 — Spatial typography exit; preserve legibility before intentional exit.
+- [x] T15 — Spatial typography exit; preserve legibility before intentional exit.
 - [ ] T16 — Physical passage through portal; near-plane and geometry clearance checks.
 - [ ] T17 — Reveal bone-white environment through opening; no unrelated scene swap.
 - [ ] T18 — Forward/reverse/intermediate audit, actual motion and rendered evidence.
@@ -283,3 +283,6 @@ T14a exact revision 6c06363c52855d1e72362d916506ff3fd7daffc5: all nineteen Node 
 
 ## T15 — Spatial typography exit
 T14b exact revision 678e0e11e4f5238c21785e2028063a29dd1e1097: nineteen Node tests, full browser 45697728287 and Pages 45697727794 succeeded (artifact 15060893957). Native Home/End, ambient reduced-motion switching, reversal and recovery all passed. T14 closed. User approved the camera approach. T15 uses one stateless progress mapping on the existing draw scheduler: preserve opening through .12; mark rises .12–.65 with opacity held through .28; copy retreats left in wide or downward in portrait .28–.76, opacity held through .36; small footer recedes .46–.76 while header navigation remains. No separate animation clock or CSS transition, no world geometry/camera/material changes, no timeline. Main clips displaced visual overflow without clipping sticky ancestor or header. Wordmark mask is recalculated against transformed SVG bounds using the exact camera VP, removed once fully transparent. Reset all typography in static fallback; semantic h1 remains in document. Actual authored pure mapping checked at 6,006 samples in six layout configurations; two new Node tests plus five-viewport actual motion, bounds, complete composition forward/reverse captures and static restore verification added. Exact T15 CI and rendered inspection pending; physical crossing T16 after gate. No catalogue/shared changes.
+
+## T16 — Physical portal crossing
+T15 exact revision fbad7e0d52549de8a7a586e8cc1759105d4f4024: 21 Node tests, full browser 45698671940 and Pages 45698670900 passed. Artifact 15061449127 downloaded; actual 1440/390 full typography sequences inspected, matching forward/reverse composition. Intermediate type overlapped masthead/footer in captures; add bounded clip window behind persistent header/footer, leaving canvas and initial layout unchanged. T15 verified. T16 extends the camera through the existing red portal (s0–2) to s4.8 within the throat (s2–6), not into ivory. No geometry, material, framebuffer or dependency changes. Temporary full track uses approach 0–.45 and crossing .45–1; approach typography mapped to local approach interval, fully exited before crossing. Hermite depth with matched nonzero tangent at junction prevents stop/restart; lateral/vertical/aim/lens channels retain smooth endpoints. Forward aim follows actual depth, never degenerates at plane z0. Pure numerical preflight against actual source geometry sampled 16,008 positions across eight widths, min solid clearance 2.4 and matched join velocity; new Node tests include near-plane corners, reverse pose and mirror alignment. Keep T15 diagnostic track=approach to preserve all prior browser checks; add default actual crossing at five widths, forward/reverse screenshots and physical depth assertions. Exact T16 Node/browser/Pages and actual rendered visual review pending. T17 ivory reveal gated; physical device/compositor cadence still unverified. No catalogue/shared changes.

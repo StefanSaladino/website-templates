@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=T15';
+import { worldPoint } from './config.js?v=T16';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -77,5 +77,41 @@ export function approachPose(aspect,desktopComposition=false,progress=0){
   const fov=mix(start.fov,targetFov,e);
   const lens=perspective(fov,aspect);
   lens[8]=mix(start.shiftX,0,e);lens[9]=mix(start.shiftY,0,e);
+  return {eye,aim,fov,shiftX:lens[8],shiftY:lens[9],vp:multiply(lens,lookAt(eye,aim))};
+}
+
+// T16: physically traverse the red cut and stop inside its throat, before
+// the ivory reveal. Hermite depth has matching nonzero tangent at the join.
+export const APPROACH_END=.45, THROAT_END_Z=-4.8;
+export function approachProgress(progress){
+  return clamp01((Number.isFinite(progress)?progress:0)/APPROACH_END);
+}
+function hermite(t,m0,m1){
+  return t*t*(3-2*t)+m0*t*(1-t)*(1-t)+m1*t*t*(t-1);
+}
+export function crossingPose(aspect,desktopComposition=false,progress=0){
+  const p=Number.isFinite(progress)?clamp01(progress):0;
+  const first=openingPose(aspect,desktopComposition);
+  if(p===0)return first;
+  const middle=approachPose(aspect,desktopComposition,1);
+  const a=first.eye[2]-middle.eye[2],b=middle.eye[2]-THROAT_END_Z;
+  const velocity=Math.min(2*a/APPROACH_END,2*b/(1-APPROACH_END),(a+b)*1.1);
+  let eye,aim,fov,shiftX,shiftY;
+  if(p<=APPROACH_END){
+    const t=p/APPROACH_END,prior=approachPose(aspect,desktopComposition,t);
+    eye=[...prior.eye];
+    eye[2]=first.eye[2]-a*hermite(t,0,velocity*APPROACH_END/a);
+    ({aim,fov,shiftX,shiftY}=prior);
+  }else{
+    const t=(p-APPROACH_END)/(1-APPROACH_END),e=t*t*(3-2*t);
+    const travel=b*hermite(t,velocity*(1-APPROACH_END)/b,0);
+    const r=clamp01(travel/2),ramp=r*r*(3-2*r);
+    eye=[0,2.25,middle.eye[2]-travel];
+    // Aim moves into the same room; no look-at reversal as Z passes zero.
+    aim=[0,3-.35*e,-travel*ramp];
+    fov=middle.fov;shiftX=shiftY=0;
+  }
+  const lens=perspective(fov,aspect);
+  lens[8]=shiftX;lens[9]=shiftY;
   return {eye,aim,fov,shiftX:lens[8],shiftY:lens[9],vp:multiply(lens,lookAt(eye,aim))};
 }
