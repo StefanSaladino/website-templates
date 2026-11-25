@@ -94,7 +94,7 @@ try{
    await page.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return original.call(this,k,k==='webgl2'?{...o,preserveDrawingBuffer:true}:o)}});
    await page.goto(url,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>+document.querySelector('#atlas-stage').dataset.draws>0||document.querySelector('#atlas-stage').dataset.renderError,{},{timeout:45000});
    const stage=page.locator('#atlas-stage');assert.equal(await stage.getAttribute('data-renderer'),'webgl');
-   const view={width,height,release:await page.locator('html').getAttribute('data-atlas-release'),frames:[],sweeps:[]};assert.equal(view.release,'A31');report.views.push(view);
+   const view={width,height,release:await page.locator('html').getAttribute('data-atlas-release'),frames:[],sweeps:[]};assert.equal(view.release,'A32');report.views.push(view);
    const scroll=async(f)=>{await page.evaluate(f=>{const t=document.querySelector('#expedition-track'),s=document.querySelector('#atlas-stage');scrollTo({top:t.getBoundingClientRect().top+scrollY+(t.offsetHeight-s.offsetHeight)*f,behavior:'instant'});},f);
      await page.waitForFunction(f=>Math.abs(+document.querySelector('#atlas-stage').dataset.renderedProgress-f)<.006&&document.querySelector('#atlas-stage').dataset.settled==='true',f,{timeout:45000});};
    const pixelState=()=>page.locator('#atlas-canvas').evaluate(c=>{

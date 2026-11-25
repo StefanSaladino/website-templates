@@ -7,9 +7,9 @@
  * - Still view, reduced-motion, visibility suspension, and WebGL2 fallback handling
  */
 
-import { AtlasRenderer } from './renderer.js?v=31';
-import { createMotionController } from './motion.js?v=31';
-import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=31';
+import { AtlasRenderer } from './renderer.js?v=32';
+import { createMotionController } from './motion.js?v=32';
+import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=32';
 
 const rootEl = document.documentElement;
 rootEl.classList.remove('atlas-no-js');
@@ -221,6 +221,9 @@ const renderer = new AtlasRenderer(canvasEl, stageEl, {
 });
 
 const motion = createMotionController({
+  // Scroll events wake the loop; active camera frames sample the actual position
+  // to avoid waiting for a coalesced/delayed Safari scroll event.
+  readNativeProgress: getScrollProgress,
   onFrame(progress, timeSec, yaw, pitch, isMoving) {
     if(isStaticLayoutMode()){updateDomForState(null,progress);return null;}
     try {
@@ -513,5 +516,5 @@ void scrollLockCheck;
 
 // Physical-device QA only; the ordinary expedition neither downloads nor runs this module.
 if(new URLSearchParams(location.search).get('device-review')==='1'){
-  import('./device-review.js?v=31').then(({mountDeviceReview})=>mountDeviceReview({stage:stageEl,canvas:canvasEl,getState:()=>motion.getState(),getNativeProgress:getScrollProgress,isSoftwareRenderer:()=>renderer.isSoftwareRenderer,scrollToProgress})).catch(error=>console.warn('ATLAS device review unavailable',error));
+  import('./device-review.js?v=32').then(({mountDeviceReview})=>mountDeviceReview({stage:stageEl,canvas:canvasEl,getState:()=>motion.getState(),getNativeProgress:getScrollProgress,isSoftwareRenderer:()=>renderer.isSoftwareRenderer,scrollToProgress})).catch(error=>console.warn('ATLAS device review unavailable',error));
 }

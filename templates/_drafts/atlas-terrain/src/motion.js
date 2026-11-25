@@ -12,6 +12,7 @@ function clamp(v, lo, hi) {
 export function createMotionController(options) {
   const {
     onFrame,
+    readNativeProgress = null,
     onSettleChange = () => {},
     onAmbientChange = () => {},
     clock = { now:()=>performance.now(), raf:fn=>requestAnimationFrame(fn), cancelRaf:id=>cancelAnimationFrame(id), timer:(fn,ms)=>setTimeout(fn,ms), cancelTimer:id=>clearTimeout(id) },
@@ -19,6 +20,7 @@ export function createMotionController(options) {
 
   let targetProgress = 0;
   let currentProgress = 0;
+  let followNative = false;
   let targetYaw = 0;
   let currentYaw = 0;
   let targetPitch = 0;
@@ -103,6 +105,12 @@ export function createMotionController(options) {
     lastTickMs = now;
     const dt = clamp(rawDt, 0.001, 0.05);
 
+    // Read layout before any frame writes. Only poll during a native scroll
+    // follow; never start an idle RAF or override explicit immediate poses.
+    if(followNative&&!reducedMotion&&readNativeProgress){
+      const native=readNativeProgress();
+      if(Number.isFinite(native))targetProgress=clamp(native,0,1);
+    }
     const prevP = currentProgress;
     const prevY = currentYaw;
     const prevX = currentPitch;
@@ -124,7 +132,9 @@ export function createMotionController(options) {
     if(Math.abs(targetProgress-currentProgress)<.00015)currentProgress=targetProgress;
     if(Math.abs(targetYaw-currentYaw)<1e-4)currentYaw=targetYaw;
     if(Math.abs(targetPitch-currentPitch)<1e-4)currentPitch=targetPitch;
-    const motionPending=currentProgress!==targetProgress||currentYaw!==targetYaw||currentPitch!==targetPitch;
+    const progressPending=currentProgress!==targetProgress;
+    if(!progressPending)followNative=false;
+    const motionPending=progressPending||currentYaw!==targetYaw||currentPitch!==targetPitch;
 
     const moved =
       dirty ||
@@ -146,6 +156,7 @@ export function createMotionController(options) {
     setTargetProgress(p, immediate = false) {
       const next = clamp(p, 0, 1);
       if (immediate || reducedMotion) {
+        followNative=false;
         targetProgress = next;
         currentProgress = next;
         dirty = true;
@@ -157,6 +168,7 @@ export function createMotionController(options) {
         return;
       }
       if (Math.abs(next - targetProgress) > 1e-6) {
+        followNative=Boolean(readNativeProgress);
         targetProgress = next;
         setSettled(false);
         schedule();
@@ -197,6 +209,7 @@ export function createMotionController(options) {
       reducedMotion = Boolean(nextReduced);
       cancelIdle();cancelFrame();
       if (reducedMotion) {
+        followNative=false;
         currentProgress = targetProgress;
         currentYaw = targetYaw;
         currentPitch = targetPitch;
