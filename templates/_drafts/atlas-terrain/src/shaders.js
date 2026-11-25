@@ -14,32 +14,51 @@ uniform vec3 uMistOrigin;
 uniform vec3 uMistExtent;
 uniform float uMistStrength;
 uniform float uMistTime;
+uniform highp sampler3D uSummitInversion;
+uniform vec3 uInversionOrigin;
+uniform vec3 uInversionExtent;
+uniform float uInversionMix;
 vec3 applyMist(vec3 scene,vec3 eye,vec3 ray,float surfaceDistance,vec3 sun,float golden){
   if(uMistStrength<.005||surfaceDistance<.1)return scene;
   vec3 safeRay=vec3(ray.x<0.?min(ray.x,-.00001):max(ray.x,.00001),
                     ray.y<0.?min(ray.y,-.00001):max(ray.y,.00001),
                     ray.z<0.?min(ray.z,-.00001):max(ray.z,.00001));
-  vec3 a=(uMistOrigin-eye)/safeRay;
-  vec3 b=(uMistOrigin+uMistExtent-eye)/safeRay;
+  bool inversion=uInversionMix>.005;
+  vec3 origin=inversion?uInversionOrigin:uMistOrigin;
+  vec3 extent=inversion?uInversionExtent:uMistExtent;
+  vec3 a=(origin-eye)/safeRay;
+  vec3 b=(origin+extent-eye)/safeRay;
   vec3 lo=min(a,b),hi=max(a,b);
   float enter=max(0.,max(lo.x,max(lo.y,lo.z)));
   float exit=min(surfaceDistance,min(hi.x,min(hi.y,hi.z)));
   exit=min(exit,enter+105.);
   if(exit<=enter)return scene;
-  float dt=(exit-enter)/12.;
+  int steps=inversion?16:12;
+  float dt=(exit-enter)/float(steps);
   float transmission=1.;
   vec3 scatter=vec3(0.);
   float sunward=pow(max(dot(ray,sun),0.),3.);
-  vec3 underside=mix(vec3(.60,.70,.77),vec3(.49,.51,.57),golden);
-  vec3 lit=mix(vec3(.90,.93,.95),vec3(.96,.79,.62),golden);
-  for(int i=0;i<12;i++){
+  vec3 underside=mix(vec3(.60,.70,.77),vec3(.58,.61,.68),golden);
+  vec3 lit=mix(vec3(.90,.93,.95),vec3(.98,.86,.72),golden);
+  for(int i=0;i<16;i++){
+    if(i>=steps)break;
     vec3 point=eye+ray*(enter+(float(i)+.5)*dt);
-    vec3 uv=(point-uMistOrigin)/uMistExtent;
-    float density=texture(uMistVolume,uv).r;
+    vec3 uv=(point-origin)/extent;
+    vec3 lowUV=(point-uMistOrigin)/uMistExtent;
+    float low=0.;
+    if(all(greaterThanEqual(lowUV,vec3(0.)))&&all(lessThanEqual(lowUV,vec3(1.))))low=texture(uMistVolume,lowUV).r;
+    float density=low;
+    float upper=smoothstep(.18,.84,uv.y);
+    if(inversion){
+      float high=texture(uSummitInversion,uv).r;
+      density=mix(low,high,uInversionMix);
+      vec3 sunUV=uv+sun*vec3(1.8,2.0,1.8)/extent;
+      float above=texture(uSummitInversion,clamp(sunUV,0.,1.)).r;
+      upper=mix(upper,clamp(.45+.55*upper-.42*above,0.,1.),uInversionMix);
+    }
     // Gentle internal billow, anchored to world coordinates, no drifting through rock.
     density*=.96+.04*sin(point.x*.12+point.z*.08+point.y*.32+uMistTime*.23);
-    float opacity=1.-exp(-density*uMistStrength*.30*dt);
-    float upper=smoothstep(.18,.84,uv.y);
+    float opacity=1.-exp(-density*uMistStrength*mix(.30,.34,uInversionMix)*dt);
     vec3 light=mix(underside,lit,clamp(upper*.72+sunward*.28,0.,1.));
     scatter+=transmission*opacity*light;
     transmission*=1.-opacity;

@@ -742,3 +742,27 @@ export function buildMistVolume(td=buildTerrainData()){
   canonicalMist=Object.freeze({dims:Object.freeze(dims),origin:Object.freeze(origin),extent:Object.freeze(extent),data});
   return canonicalMist;
 }
+
+
+// Summit inversion: continuous terrain-cleared cloud bank, separate from valley mist.
+let canonicalInversion=null;
+export function buildSummitInversion(td=buildTerrainData()){
+  if(canonicalInversion)return canonicalInversion;
+  const dims=[96,48,96],origin=[-108,4,-108],extent=[216,17,216];
+  const [nx,ny,nz]=dims,data=new Uint8Array(nx*ny*nz);
+  const n=(x,z)=>noise2DWithDeriv(x,z)[0];
+  for(let z=0;z<nz;z++)for(let x=0;x<nx;x++){
+    const wx=origin[0]+(x+.5)/nx*extent[0],wz=origin[2]+(z+.5)/nz*extent[2],g=td.sampleHeight(wx,wz);
+    const a=n(wx*.035+7,wz*.035-11),b=n(wx*.10-4,wz*.10+6);
+    const edge=1-smoothstep(.83,.99,Math.max(Math.abs(wx),Math.abs(wz))/108);
+    const top=15.1+3.1*a+1.6*b,base=6.2+2*a;
+    for(let y=0;y<ny;y++){
+      const wy=origin[1]+(y+.5)/ny*extent[1];
+      const profile=smoothstep(base,base+1.4,wy)*(1-smoothstep(top-2.3,top,wy));
+      const clear=smoothstep(.10,1.25,wy-g),billow=n(wx*.18+wy*.14,wz*.18-wy*.12);
+      data[(z*ny+y)*nx+x]=Math.round(255*Math.min(1,profile*clear*edge*(.65+.35*a)*(.66+.46*billow)));
+    }
+  }
+  canonicalInversion=Object.freeze({dims:Object.freeze(dims),origin:Object.freeze(origin),extent:Object.freeze(extent),data});
+  return canonicalInversion;
+}

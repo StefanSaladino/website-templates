@@ -5,7 +5,7 @@
  * responsive desktop & portrait mobile framing, and terrain collision safety.
  */
 
-import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js?v=18';
+import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js?v=19';
 
 export const CHAPTERS = Object.freeze([
   {
@@ -142,12 +142,12 @@ function smoothstep(e0, e1, x) {
 }
 
 // Nonuniform-time cubic Hermite spline with a shared derivative at each key.
-function sampleSpline(progress) {
+function sampleSpline(progress,keys=SPLINE_KEYS) {
   const p=clamp(progress,0,1);
-  let i=0;while(i<SPLINE_KEYS.length-2&&p>SPLINE_KEYS[i+1].t)i++;
-  const k=SPLINE_KEYS[i],n=SPLINE_KEYS[i+1],span=n.t-k.t,u=clamp((p-k.t)/span,0,1),u2=u*u,u3=u2*u;
+  let i=0;while(i<keys.length-2&&p>keys[i+1].t)i++;
+  const k=keys[i],n=keys[i+1],span=n.t-k.t,u=clamp((p-k.t)/span,0,1),u2=u*u,u3=u2*u;
   const tangent=(j,field,axis)=>{
-    const a=SPLINE_KEYS[Math.max(0,j-1)],b=SPLINE_KEYS[Math.min(SPLINE_KEYS.length-1,j+1)];
+    const a=keys[Math.max(0,j-1)],b=keys[Math.min(keys.length-1,j+1)];
     const v=x=>axis===null?x[field]:x[field][axis];return (v(b)-v(a))/(b.t-a.t);
   };
   const interpolate=(field,axis)=>{
@@ -157,6 +157,12 @@ function sampleSpline(progress) {
   return {pos:[0,1,2].map(j=>interpolate('pos',j)),look:[0,1,2].map(j=>interpolate('look',j)),fov:interpolate('fov',null)};
 }
 
+const SUMMIT_KEYS=SPLINE_KEYS.map(k=>{
+  if(k.t===.72)return {...k,pos:[-2,13,23],look:[3,12,-21]};
+  if(k.t===.78)return {...k,pos:[5,27,22],look:[2,15,-44],fov:48};
+  if(k.t===.84)return {...k,pos:[10,35,19],look:[2,12,-48],fov:48};
+  return k;
+});
 export function getChapterForProgress(progress) {
   const p = clamp(progress, 0, 1);
   for (let i = CHAPTERS.length - 1; i >= 0; i--) {
@@ -170,7 +176,7 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
 
   // 1. Relief & cartography envelope
   const rise = smoothstep(0.06, 0.28, p);
-  const archiveReturn = smoothstep(0.86, 0.985, p);
+  const archiveReturn = smoothstep(0.88, 0.985, p);
 
   const relief = lerp(rise, 0.0, archiveReturn);
   const mapFadeOut = 1.0 - smoothstep(0.09, 0.27, p);
@@ -178,8 +184,9 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
 
   // 2. Environmental lighting & cloud envelope
   const valleyWeight = smoothstep(0.46, 0.56, p) * (1.0 - smoothstep(0.68, 0.78, p));
-  const goldenWeight = smoothstep(0.70, 0.81, p) * (1.0 - smoothstep(0.86, 0.95, p));
-  const cloudAlpha = smoothstep(0.56, 0.71, p) * (1.0 - smoothstep(0.85, 0.94, p)) * 0.57;
+  const goldenWeight = smoothstep(0.70, 0.81, p) * (1.0 - smoothstep(0.88, 0.95, p));
+  const cloudAlpha = smoothstep(0.56, 0.71, p) * (1.0 - smoothstep(0.88, 0.94, p)) * 0.57;
+  const inversionMix=smoothstep(.665,.745,p)*(1-smoothstep(.90,.94,p));
 
   // Sun sweeps from bright SE alpine morning (illuminating northern cirque & lake!)
   // to raking WNW golden hour alpenglow in Summit
@@ -206,11 +213,11 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
   const fogDensity = lerp(0.0027, 0.0035, valleyWeight) * (1.0 - goldenWeight * 0.12);
 
   // 3. Camera spline + deliberate portrait mobile framing
-  const spline = sampleSpline(p);
-  const pos = [...spline.pos];
-  const look = [...spline.look];
-
-  let fovDeg = spline.fov;
+  const spline=sampleSpline(p),summit=sampleSpline(p,SUMMIT_KEYS);
+  const summitBlend=smoothstep(.64,.72,p)*(1-smoothstep(.94,1,p));
+  const pos=lerpVec3(spline.pos,summit.pos,summitBlend);
+  const look=lerpVec3(spline.look,summit.look,summitBlend);
+  let fovDeg=lerp(spline.fov,summit.fov,summitBlend);
   if (aspect < 0.86) {
     const portrait = clamp((0.86 - aspect) / 0.48, 0, 1);
     const descentFraming=smoothstep(0.20,0.39,p)*(1-smoothstep(0.47,0.56,p));
@@ -273,6 +280,7 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
     valleyWeight,
     goldenWeight,
     cloudAlpha,
+    inversionMix,
     fogDensity,
     sunDir,
     skyZenith,

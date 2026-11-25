@@ -13,7 +13,8 @@ import {
   buildDetailShadowField,
   buildWaterMesh,
   buildMistVolume,
-} from './terrain.js?v=18';
+  buildSummitInversion,
+} from './terrain.js?v=19';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -23,8 +24,8 @@ import {
   WATER_FRAG,
   DETAIL_VERT,
   DETAIL_FRAG,
-} from './shaders.js?v=18';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=18';
+} from './shaders.js?v=19';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=19';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -276,13 +277,25 @@ export class AtlasRenderer {
     gl.pixelStorei(gl.UNPACK_ALIGNMENT,4);
     gl.bindTexture(gl.TEXTURE_3D,null);gl.activeTexture(gl.TEXTURE0);
 
+    const inversion=buildSummitInversion(td),inversionTex=gl.createTexture();
+    gl.activeTexture(gl.TEXTURE4);gl.bindTexture(gl.TEXTURE_3D,inversionTex);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_WRAP_R,gl.CLAMP_TO_EDGE);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT,1);
+    gl.texImage3D(gl.TEXTURE_3D,0,gl.R8,...inversion.dims,0,gl.RED,gl.UNSIGNED_BYTE,inversion.data);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT,4);
+    gl.bindTexture(gl.TEXTURE_3D,null);gl.activeTexture(gl.TEXTURE0);
     this.resources = {
+      inversionTex,inversionOrigin:inversion.origin,inversionExtent:inversion.extent,
       mistTex,mistOrigin:mist.origin,mistExtent:mist.extent,
       detailShadowTex,detailShadowBounds:detailShadowField.bounds,reflection:null,
       skyProg,
       skyU: getUniforms(gl, skyProg, [
         'uCamRight', 'uCamUp', 'uCamForward', 'uTanHalfFov', 'uAspect',
-        'uSunDir', 'uMapMix', 'uGolden', 'uValley', 'uSkyZenith', 'uSkyHorizon','uMistEye','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime',
+        'uSunDir', 'uMapMix', 'uGolden', 'uValley', 'uSkyZenith', 'uSkyHorizon','uMistEye','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime','uSummitInversion','uInversionOrigin','uInversionExtent','uInversionMix',
       ]),
       skyVao,
 
@@ -290,20 +303,20 @@ export class AtlasRenderer {
       terrainU: getUniforms(gl, terrainProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uFolioHalf', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix',
-        'uDetailShadows','uDetailShadowBounds','uDetailGrowth','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime',
+        'uDetailShadows','uDetailShadowBounds','uDetailGrowth','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime','uSummitInversion','uInversionOrigin','uInversionExtent','uInversionMix',
         'uGolden', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon',
       ]),
       terrainVao,
       terrainIndexCount: td.indices.length,
       buffers: [posBuf, normBuf, geoBuf, idxBuf, wPosBuf, wIdxBuf, ...detailBuffers],
       detailProg,detailBatches,
-      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime']),
+      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime','uSummitInversion','uInversionOrigin','uInversionExtent','uInversionMix']),
 
       waterProg,
       waterU: getUniforms(gl, waterProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix', 'uGolden',
-        'uTime', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon','uReflection','uScreenSize','uReflectionReady','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime',
+        'uTime', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon','uReflection','uScreenSize','uReflectionReady','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime','uSummitInversion','uInversionOrigin','uInversionExtent','uInversionMix',
       ]),
       waterVao,
       waterIndexCount: this.waterData.indices.length,
@@ -374,7 +387,7 @@ export class AtlasRenderer {
 
     const r = this.resources;
     this.environmentTime=timeSec;
-    gl.activeTexture(gl.TEXTURE3);gl.bindTexture(gl.TEXTURE_3D,r.mistTex);gl.activeTexture(gl.TEXTURE0);
+    gl.activeTexture(gl.TEXTURE3);gl.bindTexture(gl.TEXTURE_3D,r.mistTex);gl.activeTexture(gl.TEXTURE4);gl.bindTexture(gl.TEXTURE_3D,r.inversionTex);gl.activeTexture(gl.TEXTURE0);
     gl.viewport(0, 0, pxW, pxH);
     gl.depthMask(true);gl.clearDepth(1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.CULL_FACE);
@@ -437,7 +450,8 @@ export class AtlasRenderer {
     }
 
     this.stageEl.dataset.mistStrength=this._mistStrength(state).toFixed(4);
-    this.stageEl.dataset.mistSamples='12';
+    this.stageEl.dataset.mistSamples=state.inversionMix>.005?'16':'12';
+    this.stageEl.dataset.inversionMix=state.inversionMix.toFixed(4);
     
     gl.depthMask(true);
     gl.disable(gl.BLEND);
@@ -456,7 +470,7 @@ export class AtlasRenderer {
   }
 
   _mistStrength(state){
-    return state.cloudAlpha*(.42+1.20*state.goldenWeight)*(1-state.mapMix);
+    return state.cloudAlpha*(.42+1.20*state.goldenWeight+.65*state.inversionMix*(1-state.goldenWeight))*(1-state.mapMix);
   }
   _setMist(u,state){
     const gl=this.gl,r=this.resources;
@@ -464,6 +478,7 @@ export class AtlasRenderer {
     gl.uniform3fv(u.uMistOrigin,r.mistOrigin);gl.uniform3fv(u.uMistExtent,r.mistExtent);
     gl.uniform1f(u.uMistStrength,this._mistStrength(state));
     gl.uniform1f(u.uMistTime,this.environmentTime||0);
+    gl.uniform1i(u.uSummitInversion,4);gl.uniform3fv(u.uInversionOrigin,r.inversionOrigin);gl.uniform3fv(u.uInversionExtent,r.inversionExtent);gl.uniform1f(u.uInversionMix,state.inversionMix);
   }
 
   _drawOpaque(state,viewProj,tanHalfFov,aspect,growth,reflected){
@@ -600,7 +615,7 @@ export class AtlasRenderer {
     for (const buf of r.buffers) gl.deleteBuffer(buf);
     gl.deleteTexture(r.heightTex);
     gl.deleteTexture(r.detailShadowTex);
-    gl.deleteTexture(r.mistTex);
+    gl.deleteTexture(r.mistTex);gl.deleteTexture(r.inversionTex);
     this.resources = null;
   }
 
