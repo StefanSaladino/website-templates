@@ -11,7 +11,7 @@ import {
   buildTerrainData,
   buildWaterMesh,
   buildCloudDeckMesh,
-} from './terrain.js?v=7';
+} from './terrain.js?v=8';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -21,8 +21,8 @@ import {
   WATER_FRAG,
   CLOUD_VERT,
   CLOUD_FRAG,
-} from './shaders.js?v=7';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=7';
+} from './shaders.js?v=8';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=8';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -156,9 +156,8 @@ export class AtlasRenderer {
   }
 
   _buildTerrainGeometry() {
-    const res = this.quality === 'high' && !this.isSoftwareRenderer ? 256 : 176;
-    if (this.terrainData && this.terrainData.resolution === res) return;
-    this.terrainData = buildTerrainData(res);
+    if(this.terrainData)return;
+    this.terrainData=buildTerrainData();
   }
 
   _initResources() {
@@ -292,10 +291,7 @@ export class AtlasRenderer {
     if (next === this.quality) return;
     this.quality = next;
     this.stageEl.setAttribute('data-rendered-quality', this.quality);
-    if (this.gl && !this.contextLost) {
-      this._destroyResources();
-      this._initResources();
-    }
+    // Same mesh, texture, and shader programs: only the drawing-buffer budget changes.
   }
 
   resizeIfNeeded(isMoving = false) {
@@ -467,6 +463,7 @@ export class AtlasRenderer {
     this.stageEl.setAttribute('data-draws', String(this.drawCount));
     this.stageEl.setAttribute('data-rendered-progress', state.progress.toFixed(4));
     this.stageEl.setAttribute('data-rendered-chapter', state.chapter.id);
+    this.stageEl.dataset.terrainResolution=String(this.terrainData.resolution);
     this.stageEl.dataset.cameraClearance=(state.pos[1]-this.sampleTerrainHeight(state.pos[0],state.pos[2])*state.relief).toFixed(4);
 
     return state;

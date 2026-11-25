@@ -316,8 +316,12 @@ function applyGeologicalErosion(heights, N, step, iterations = 14) {
   return flow;
 }
 
-export function buildTerrainData(resolution = 256) {
-  const N = resolution;
+export const CANONICAL_RESOLUTION = 256;
+let canonicalTerrain = null;
+
+export function buildTerrainData() {
+  if(canonicalTerrain)return canonicalTerrain;
+  const N = CANONICAL_RESOLUTION;
   const vertCount = N * N;
   const half = WORLD_SIZE * 0.5;
   const step = WORLD_SIZE / (N - 1);
@@ -331,7 +335,7 @@ export function buildTerrainData(resolution = 256) {
     }
   }
 
-  const flowRaw = applyGeologicalErosion(heights, N, step, resolution >= 220 ? 14 : 10);
+  const flowRaw = applyGeologicalErosion(heights, N, step, 14);
 
   // Measure actual range inside folio & full world so elevation meters align cleanly
   let maxH = 0;
@@ -456,7 +460,7 @@ export function buildTerrainData(resolution = 256) {
     }
   }
 
-  return {
+  canonicalTerrain = {
     resolution: N,
     positions,
     normals,
@@ -469,6 +473,7 @@ export function buildTerrainData(resolution = 256) {
     heightTexData,
     sampleHeight: sampleAt,
   };
+  return canonicalTerrain;
 }
 
 function createHeightSampler(heights, N) {
@@ -482,9 +487,8 @@ function createHeightSampler(heights, N) {
     const fx = gx - ix;
     const fz = gz - iz;
     const i00 = iz * N + ix;
-    const a = heights[i00] + (heights[i00 + 1] - heights[i00]) * fx;
-    const b = heights[i00 + N] + (heights[i00 + N + 1] - heights[i00 + N]) * fx;
-    return a + (b - a) * fz;
+    const a=heights[i00],b=heights[i00+1],c=heights[i00+N],d=heights[i00+N+1];
+    return fx+fz<=1 ? a+(b-a)*fx+(c-a)*fz : d+(c-d)*(1-fx)+(b-d)*(1-fz);
   };
 }
 

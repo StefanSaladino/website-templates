@@ -183,14 +183,14 @@ float decodeHeight(vec4 enc) {
 float sampleTexHeight(vec2 xz) {
   vec2 uv = xz / uWorldSize + 0.5;
   if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) return 0.0;
-  return decodeHeight(texture(uHeightTex, uv));
+  return decodeHeight(texture(uHeightTex, (uv*(vec2(textureSize(uHeightTex,0))-1.0)+0.5)/vec2(textureSize(uHeightTex,0))));
 }
 
 // Smooth bicubic-like height reconstruction so cartographic contour lines are razor-clean vector curves
 float sampleSmoothHeight(vec2 xz) {
   vec2 uv = xz / uWorldSize + 0.5;
-  float texRes = 512.0;
-  vec2 st = uv * texRes - 0.5;
+  float texRes = float(textureSize(uHeightTex,0).x);
+  vec2 st = clamp(uv,0.0,1.0) * (texRes - 1.0);
   vec2 i = floor(st);
   vec2 f = fract(st);
   vec2 w = f * f * (3.0 - 2.0 * f);
@@ -229,9 +229,11 @@ void main() {
 
   // Use bicubically smoothed height for razor-clean printed contours
   float smoothH = sampleSmoothHeight(vWorldPos.xz);
-  float rawH = mix(smoothH, vRawElev, 0.35);
+  float rawH = vRawElev; // actual interpolated terrain triangle height
 
-  vec4 texMeta = texture(uHeightTex, vWorldPos.xz / uWorldSize + 0.5);
+  vec2 metaUV=vWorldPos.xz/uWorldSize+0.5;
+  vec2 texSize=vec2(textureSize(uHeightTex,0));
+  vec4 texMeta=texture(uHeightTex,(metaUV*(texSize-1.0)+0.5)/texSize);
   float ao = vGeo.y;
   float drainage = max(vGeo.z, texMeta.b);
   float ridgeCurv = mix(vGeo.w, texMeta.a, 0.5);
@@ -253,18 +255,18 @@ void main() {
   mapTint *= mix(0.94, 1.015, imhofLight);
 
   // Refined glacial Lake Vireo bathymetry with multi-ring depth tint
-  float lakeFill = (1.0-smoothstep(uWaterLevel - 0.18,uWaterLevel + 0.08,smoothH));
+  float lakeFill = (1.0-smoothstep(uWaterLevel - 0.18,uWaterLevel + 0.08,rawH));
   vec3 shallowTint = vec3(0.60, 0.75, 0.81);
   vec3 deepTint = vec3(0.30, 0.52, 0.59);
-  vec3 lakeCarto = mix(shallowTint, deepTint, (1.0-smoothstep(0.45,uWaterLevel,smoothH)));
+  vec3 lakeCarto = mix(shallowTint, deepTint, (1.0-smoothstep(0.45,uWaterLevel,rawH)));
   mapTint = mix(mapTint, lakeCarto, lakeFill);
 
   // Clean vector-grade contour hierarchy (minor + index + lake shoreline)
-  float landMask = smoothstep(uWaterLevel - 0.02, uWaterLevel + 0.10, smoothH);
+  float landMask = smoothstep(uWaterLevel - 0.02, uWaterLevel + 0.10, rawH);
   float minorContour = contourMask(smoothH, 0.92, 0.78) * landMask;
   float indexContour = contourMask(smoothH, 4.60, 1.10) * landMask;
   float shoreContour = contourMask(smoothH - uWaterLevel, 0.55, 1.2) * (1.0 - landMask) * smoothstep(0.45, 1.9, smoothH);
-  float shoreEdge = 1.0 - smoothstep(0.0, 0.16, abs(smoothH - uWaterLevel));
+  float shoreEdge = 1.0 - smoothstep(0.0, 0.16, abs(rawH - uWaterLevel));
 
   // Subtle folio survey graticule inside printed sheet
   vec2 gridCoord = vWorldPos.xz / 24.0;
@@ -461,7 +463,7 @@ float noise2(vec2 p) {
 float sampleTexHeight(vec2 xz) {
   vec2 uv = xz / uWorldSize + 0.5;
   if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) return 0.0;
-  vec4 enc = texture(uHeightTex, uv);
+  vec4 enc = texture(uHeightTex, (uv*(vec2(textureSize(uHeightTex,0))-1.0)+0.5)/vec2(textureSize(uHeightTex,0)));
   return ((enc.r * 255.0 * 256.0 + enc.g * 255.0) / 65535.0) * uMaxTexHeight;
 }
 
@@ -654,7 +656,7 @@ float cloudFbm(vec2 p) {
 float sampleTexHeight(vec2 xz) {
   vec2 uv = xz / uWorldSize + 0.5;
   if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) return 0.0;
-  vec4 enc = texture(uHeightTex, uv);
+  vec4 enc = texture(uHeightTex, (uv*(vec2(textureSize(uHeightTex,0))-1.0)+0.5)/vec2(textureSize(uHeightTex,0)));
   return ((enc.r * 255.0 * 256.0 + enc.g * 255.0) / 65535.0) * uMaxTexHeight;
 }
 
