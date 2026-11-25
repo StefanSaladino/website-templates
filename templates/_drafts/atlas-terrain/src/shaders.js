@@ -38,8 +38,8 @@ vec3 applyMist(vec3 scene,vec3 eye,vec3 ray,float surfaceDistance,vec3 sun,float
   float transmission=1.;
   vec3 scatter=vec3(0.);
   float sunward=pow(max(dot(ray,sun),0.),3.);
-  vec3 underside=mix(vec3(.60,.70,.77),vec3(.58,.61,.68),golden);
-  vec3 lit=mix(vec3(.90,.93,.95),vec3(.98,.86,.72),golden);
+  vec3 underside=mix(vec3(.60,.70,.77),vec3(.49,.56,.66),golden);
+  vec3 lit=mix(vec3(.90,.93,.95),vec3(1.,.94,.84),golden);
   for(int i=0;i<16;i++){
     if(i>=steps)break;
     vec3 point=eye+ray*(enter+(float(i)+.5)*dt);
@@ -49,20 +49,28 @@ vec3 applyMist(vec3 scene,vec3 eye,vec3 ray,float surfaceDistance,vec3 sun,float
     if(all(greaterThanEqual(lowUV,vec3(0.)))&&all(lessThanEqual(lowUV,vec3(1.))))low=texture(uMistVolume,lowUV).r;
     float density=low;
     float upper=smoothstep(.18,.84,uv.y);
+    float illumination=clamp(upper*.72+sunward*.28,0.,1.);
     if(inversion){
       float high=texture(uSummitInversion,uv).r;
       density=mix(low,high,uInversionMix);
-      vec3 sunUV=uv+sun*vec3(1.8,2.0,1.8)/extent;
-      float above=texture(uSummitInversion,clamp(sunUV,0.,1.)).r;
-      upper=mix(upper,clamp(.45+.55*upper-.42*above,0.,1.),uInversionMix);
+      if(high>.012){
+        // Directional density integration: an exposed lobe is bright, a sheltered
+        // lobe cool and darker. Probes use real world-unit offsets and the same volume.
+        float ahead=texture(uSummitInversion,clamp(uv+sun*1.6/extent,0.,1.)).r;
+        float farther=texture(uSummitInversion,clamp(uv+sun*4.2/extent,0.,1.)).r;
+        float lightTrans=exp(-1.35*ahead-.95*farther);
+        float rim=clamp((high-ahead)*2.8,0.,1.);
+        float cloudLight=clamp(.18+lightTrans*.69+rim*.23+sunward*.10,0.,1.);
+        illumination=mix(illumination,cloudLight,uInversionMix);
+      }
     }
     // Gentle internal billow, anchored to world coordinates, no drifting through rock.
     density*=.96+.04*sin(point.x*.12+point.z*.08+point.y*.32+uMistTime*.23);
     float opacity=1.-exp(-density*uMistStrength*mix(.30,.34,uInversionMix)*dt);
-    vec3 light=mix(underside,lit,clamp(upper*.72+sunward*.28,0.,1.));
+    vec3 light=mix(underside,lit,illumination);
     scatter+=transmission*opacity*light;
     transmission*=1.-opacity;
-    if(transmission<.025)break;
+    if(transmission<.018)break;
   }
   return scene*transmission+scatter;
 }
@@ -113,15 +121,15 @@ void main() {
 
   float h = clamp(rd.y, -0.25, 1.0);
   float horizonBand = pow(1.0 - clamp(abs(h), 0.0, 1.0), 3.4);
-  float upperGrad = smoothstep(-0.04, 0.55, h);
+  float upperGrad = mix(smoothstep(-0.04,0.55,h),smoothstep(-.025,.30,h),uGolden);
 
   vec3 sky = mix(uSkyHorizon, uSkyZenith, upperGrad);
 
   // Crisp solar disc + Mie golden-hour / morning scattering
   vec3 L = normalize(uSunDir);
   float sunDot = max(dot(rd, L), 0.0);
-  vec3 sunWarm = mix(vec3(1.0, 0.98, 0.94), vec3(1.0, 0.72, 0.42), uGolden);
-  float mieGlow = pow(sunDot, mix(12.0, 4.5, uGolden)) * mix(0.24, 0.68, uGolden);
+  vec3 sunWarm = mix(vec3(1.0, 0.98, 0.94), vec3(1.0, 0.82, 0.60), uGolden);
+  float mieGlow = pow(sunDot, mix(12.0, 7.0, uGolden)) * mix(0.24, 0.48, uGolden);
   float sunDisc = smoothstep(0.9982, 0.9996, sunDot) * mix(0.55, 1.0, uGolden);
   sky += sunWarm * (mieGlow + sunDisc) * (1.0 - uMapMix * 0.9);
 
@@ -463,7 +471,13 @@ void main() {
   float specPow = mix(16.0, 72.0, 1.0 - roughness);
   float spec = pow(max(dot(rockN, H), 0.0), specPow) * mix(0.018, 0.16, 1.0 - roughness);
 
-  vec3 litGeology = albedo * (ambient + sunColor * diffuse * shadow) + sunColor * spec * shadow;
+  // Bright cloud ocean supplies diffuse upward bounce on summit faces.
+  // Preserve directional relief in shaded rock rather than flattening it with exposure.
+  float cloudBounce=uGolden*uInversionMix*(.40+.60*(1.-rockN.y));
+  vec3 reflectedCloud=vec3(.47,.49,.53)*cloudBounce*(.65+.35*ao);
+  vec3 litGeology = albedo * (ambient + reflectedCloud + sunColor * diffuse * shadow) + sunColor * spec * shadow;
+  float grain=clamp((fineN-.5)*.11+(crownStipple-.5)*.08,-.10,.10);
+  litGeology*=1.+grain*uGolden*(1.-snowMask);
 
   // Residual contour dissolve during Ascent
   float residualInk = (indexContour * 0.48 + minorContour * 0.18) * smoothstep(0.0, 0.52, uMapMix);
@@ -473,7 +487,7 @@ void main() {
   float camDist = length(uCamPos - vWorldPos);
   float heightFalloff = exp(-max(0.0, vWorldPos.y - 1.5) * 0.062);
   float aerialDistance=max(0.,camDist-9.0);
-  float fogAmount=1.0-exp(-aerialDistance*uFogDensity*mix(.43,1.0,heightFalloff));
+  float fogAmount=1.0-exp(-aerialDistance*uFogDensity*mix(.43,1.0,heightFalloff)*(1.+uGolden*.55*smoothstep(28.,105.,camDist)));
   fogAmount = clamp(fogAmount * (1.0 - uMapMix * 0.94), 0.0, 0.88);
 
   vec3 viewDir = normalize(vWorldPos - uCamPos);

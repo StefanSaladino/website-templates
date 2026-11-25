@@ -5,7 +5,7 @@
  * responsive desktop & portrait mobile framing, and terrain collision safety.
  */
 
-import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js?v=19';
+import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js?v=20';
 
 export const CHAPTERS = Object.freeze([
   {
@@ -202,8 +202,8 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
   const morningHorizon = [0.65, 0.76, 0.83];
   const valleyZenith = [0.17, 0.34, 0.49];
   const valleyHorizon = [0.68, 0.78, 0.84];
-  const summitZenith = [0.12, 0.20, 0.31];
-  const summitHorizon = [0.86, 0.70, 0.55];
+  const summitZenith = [0.18, 0.29, 0.43];
+  const summitHorizon = [0.79, 0.70, 0.62];
 
   let skyZenith = lerpVec3(morningZenith, valleyZenith, valleyWeight);
   let skyHorizon = lerpVec3(morningHorizon, valleyHorizon, valleyWeight);

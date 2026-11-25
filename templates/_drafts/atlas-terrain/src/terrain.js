@@ -748,19 +748,29 @@ export function buildMistVolume(td=buildTerrainData()){
 let canonicalInversion=null;
 export function buildSummitInversion(td=buildTerrainData()){
   if(canonicalInversion)return canonicalInversion;
-  const dims=[96,48,96],origin=[-108,4,-108],extent=[216,17,216];
+  const dims=[128,48,128],origin=[-108,4,-108],extent=[216,17,216];
   const [nx,ny,nz]=dims,data=new Uint8Array(nx*ny*nz);
   const n=(x,z)=>noise2DWithDeriv(x,z)[0];
   for(let z=0;z<nz;z++)for(let x=0;x<nx;x++){
     const wx=origin[0]+(x+.5)/nx*extent[0],wz=origin[2]+(z+.5)/nz*extent[2],g=td.sampleHeight(wx,wz);
     const a=n(wx*.035+7,wz*.035-11),b=n(wx*.10-4,wz*.10+6);
     const edge=1-smoothstep(.83,.99,Math.max(Math.abs(wx),Math.abs(wz))/108);
-    const top=15.1+3.1*a+1.6*b,base=6.2+2*a;
+    // Layered, correlated billows: broad inversion plus smaller raised lobes.
+    const c=n(wx*.185+19,wz*.185-7),d=n(wx*.32-9,wz*.32+14);
+    const lobe=smoothstep(.18,.82,b*.55+c*.45);
+    const top=14.0+2.5*a+2.8*lobe+1.05*d,base=6.2+2*a;
     for(let y=0;y<ny;y++){
       const wy=origin[1]+(y+.5)/ny*extent[1];
-      const profile=smoothstep(base,base+1.4,wy)*(1-smoothstep(top-2.3,top,wy));
-      const clear=smoothstep(.10,1.25,wy-g),billow=n(wx*.18+wy*.14,wz*.18-wy*.12);
-      data[(z*ny+y)*nx+x]=Math.round(255*Math.min(1,profile*clear*edge*(.65+.35*a)*(.66+.46*billow)));
+      const crown=smoothstep(top-3.5,top-1.0,wy);
+      const billow=n(wx*.22+wy*.23+5,wz*.22-wy*.18-4);
+      const fine=n(wx*.34-wy*.22,wz*.34+wy*.21);
+      // Carve soft scallops into the upper surface without punching holes in the deep bank.
+      const localTop=top+(billow-.5)*1.25+(fine-.5)*.50;
+      const profile=smoothstep(base,base+1.4,wy)*(1-smoothstep(localTop-1.65,localTop,wy));
+      const clear=smoothstep(.10,1.25,wy-g);
+      const body=(.68+.32*a)*(.76+.24*billow);
+      const surface=lerp(body,body*(.62+.55*billow),crown);
+      data[(z*ny+y)*nx+x]=Math.round(255*Math.min(1,profile*clear*edge*surface));
     }
   }
   canonicalInversion=Object.freeze({dims:Object.freeze(dims),origin:Object.freeze(origin),extent:Object.freeze(extent),data});

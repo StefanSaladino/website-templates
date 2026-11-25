@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'templates/_drafts/atlas-terrain/src/**'
       - 'components/scripts/test-atlas-summit.mjs'
       - '.github/workflows/atlas-summit-acceptance.yml'
   workflow_dispatch:
