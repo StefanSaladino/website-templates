@@ -1,14 +1,14 @@
-import {RELEASE} from './config.js?v=T24d';
-import {createRenderer} from './renderer.js?v=T24d';
-import {loadDavid} from './david.js?v=T24d';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T24d';
-import {createScheduler} from './lifecycle.js?v=T24d';
-import {wordmarkOcclusion} from './wordmark.js?v=T24d';
-import {createAmbientClock} from './ambient.js?v=T24d';
-import {readProgress} from './scroll.js?v=T24d';
-import {typographyPose} from './typography.js?v=T24d';
-import {FOLDS,foldAmount} from './sculptures.js?v=T24d';
-import {perspectivePose,perspectivePresence} from './editorial.js?v=T24d';
+import {RELEASE} from './config.js?v=T24e';
+import {createRenderer} from './renderer.js?v=T24e';
+import {loadDavid} from './david.js?v=T24e';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T24e';
+import {createScheduler} from './lifecycle.js?v=T24e';
+import {wordmarkOcclusion} from './wordmark.js?v=T24e';
+import {createAmbientClock} from './ambient.js?v=T24e';
+import {readProgress} from './scroll.js?v=T24e';
+import {typographyPose} from './typography.js?v=T24e';
+import {FOLDS,foldAmount} from './sculptures.js?v=T24e';
+import {perspectivePose,perspectivePresence} from './editorial.js?v=T24e';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 async function start(){

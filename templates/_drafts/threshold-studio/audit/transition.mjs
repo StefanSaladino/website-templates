@@ -7,7 +7,7 @@ const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
 const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'T24d',verification:'T24d',viewports:[]};
+const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'T24e',verification:'T24e',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}
 async function sample(page,offset){
   await page.evaluate(y=>{document.scrollingElement.scrollTop=y},offset);
