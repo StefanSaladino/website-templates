@@ -12,7 +12,9 @@ permissions:
 jobs:
   browser:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    # Four SwiftShader viewports, intermediate captures and real context recovery.
+    # Prior runs exhausted ten minutes during desktop, not an assertion failure.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
