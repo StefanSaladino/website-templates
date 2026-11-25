@@ -231,3 +231,21 @@ footer { opacity: var(--footer-opacity, 1); }
   :root[data-journey="on"] .perspective-editorial h2 { font-size: clamp(1.3rem, 5vh, 1.9rem); }
   :root[data-journey="on"] .perspective-capabilities { font-size: .63rem; }
 }
+
+/* T23a — the narrow, short portrait label must fit its reserved lower third.
+   Keep all three capabilities and readable text; reclaim padding/line spacing
+   and width rather than clipping content or covering the installation. */
+@media (max-aspect-ratio: 1199/1000) and (max-height: 640px) {
+  :root[data-journey="on"] .perspective-editorial {
+    inset-inline-start: max(.65rem, env(safe-area-inset-left));
+    inline-size: calc(100% - max(.65rem, env(safe-area-inset-left)) - max(.65rem, env(safe-area-inset-right)));
+    max-inline-size: none;
+    inset-block-end: max(.45rem, env(safe-area-inset-bottom));
+    padding: .5rem .65rem;
+    line-height: 1.25;
+  }
+  :root[data-journey="on"] .perspective-index { margin-bottom: .2rem; font-size: .625rem; }
+  :root[data-journey="on"] .perspective-editorial h2 { font-size: clamp(1.25rem, 5.5vw, 1.65rem); line-height: 1.03; margin-bottom: .25rem; }
+  :root[data-journey="on"] .perspective-statement { font-size: .75rem; line-height: 1.3; max-width: 38ch; }
+  :root[data-journey="on"] .perspective-capabilities { font-size: .68rem; line-height: 1.25; gap: .15rem .55rem; margin-top: .35rem; padding-top: .3rem; }
+}
