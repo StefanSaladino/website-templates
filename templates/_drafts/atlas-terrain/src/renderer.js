@@ -12,8 +12,8 @@ import {
   buildLandscapeDetails,
   buildDetailShadowField,
   buildWaterMesh,
-  buildCloudDeckMesh,
-} from './terrain.js?v=13';
+  buildMistVolume,
+} from './terrain.js?v=14';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -21,12 +21,10 @@ import {
   TERRAIN_FRAG,
   WATER_VERT,
   WATER_FRAG,
-  CLOUD_VERT,
-  CLOUD_FRAG,
   DETAIL_VERT,
   DETAIL_FRAG,
-} from './shaders.js?v=13';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=13';
+} from './shaders.js?v=14';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=14';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -91,7 +89,6 @@ export class AtlasRenderer {
 
     this.terrainData = null;
     this.waterData = buildWaterMesh();
-    this.cloudDeck = buildCloudDeckMesh(7.6, 208, 32);
 
     this.gl = null;
     this.resources = null;
@@ -182,7 +179,6 @@ export class AtlasRenderer {
     const skyProg = createProgram(gl, SKY_VERT, SKY_FRAG);
     const terrainProg = createProgram(gl, TERRAIN_VERT, TERRAIN_FRAG);
     const waterProg = createProgram(gl, WATER_VERT, WATER_FRAG);
-    const cloudProg = createProgram(gl, CLOUD_VERT, CLOUD_FRAG);
     const detailProg = createProgram(gl, DETAIL_VERT, DETAIL_FRAG);
 
     const skyVao = gl.createVertexArray();
@@ -224,18 +220,6 @@ export class AtlasRenderer {
     const wIdxBuf = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wIdxBuf);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.waterData.indices, gl.STATIC_DRAW);
-
-    // Cloud Deck VAO
-    const cloudVao = gl.createVertexArray();
-    gl.bindVertexArray(cloudVao);
-    const cPosBuf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, cPosBuf);
-    gl.bufferData(gl.ARRAY_BUFFER, this.cloudDeck.positions, gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(0);
-    gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
-    const cIdxBuf = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cIdxBuf);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.cloudDeck.indices, gl.STATIC_DRAW);
 
     // Two instanced batches; instance positions remain fixed across all render qualities.
     const detailBuffers=[];
@@ -280,12 +264,25 @@ export class AtlasRenderer {
     gl.texImage2D(gl.TEXTURE_2D,0,gl.RG8,detailShadowField.size,detailShadowField.size,0,gl.RG,gl.UNSIGNED_BYTE,detailShadowField.data);
     gl.generateMipmap(gl.TEXTURE_2D);gl.bindTexture(gl.TEXTURE_2D,null);
 
+    const mist=buildMistVolume(td),mistTex=gl.createTexture();
+    gl.activeTexture(gl.TEXTURE3);gl.bindTexture(gl.TEXTURE_3D,mistTex);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_3D,gl.TEXTURE_WRAP_R,gl.CLAMP_TO_EDGE);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT,1);
+    gl.texImage3D(gl.TEXTURE_3D,0,gl.R8,...mist.dims,0,gl.RED,gl.UNSIGNED_BYTE,mist.data);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT,4);
+    gl.bindTexture(gl.TEXTURE_3D,null);gl.activeTexture(gl.TEXTURE0);
+
     this.resources = {
+      mistTex,mistOrigin:mist.origin,mistExtent:mist.extent,
       detailShadowTex,detailShadowBounds:detailShadowField.bounds,reflection:null,
       skyProg,
       skyU: getUniforms(gl, skyProg, [
         'uCamRight', 'uCamUp', 'uCamForward', 'uTanHalfFov', 'uAspect',
-        'uSunDir', 'uMapMix', 'uGolden', 'uValley', 'uSkyZenith', 'uSkyHorizon',
+        'uSunDir', 'uMapMix', 'uGolden', 'uValley', 'uSkyZenith', 'uSkyHorizon','uMistEye','uMistVolume','uMistOrigin','uMistExtent','uMistStrength',
       ]),
       skyVao,
 
@@ -293,32 +290,23 @@ export class AtlasRenderer {
       terrainU: getUniforms(gl, terrainProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uFolioHalf', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix',
-        'uDetailShadows','uDetailShadowBounds','uDetailGrowth','uClipBelow',
+        'uDetailShadows','uDetailShadowBounds','uDetailGrowth','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength',
         'uGolden', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon',
       ]),
       terrainVao,
       terrainIndexCount: td.indices.length,
-      buffers: [posBuf, normBuf, geoBuf, idxBuf, wPosBuf, wIdxBuf, cPosBuf, cIdxBuf,...detailBuffers],
+      buffers: [posBuf, normBuf, geoBuf, idxBuf, wPosBuf, wIdxBuf, ...detailBuffers],
       detailProg,detailBatches,
-      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex','uClipBelow']),
+      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength']),
 
       waterProg,
       waterU: getUniforms(gl, waterProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix', 'uGolden',
-        'uTime', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon','uReflection','uScreenSize','uReflectionReady',
+        'uTime', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon','uReflection','uScreenSize','uReflectionReady','uMistVolume','uMistOrigin','uMistExtent','uMistStrength',
       ]),
       waterVao,
       waterIndexCount: this.waterData.indices.length,
-
-      cloudProg,
-      cloudU: getUniforms(gl, cloudProg, [
-        'uViewProj', 'uAltitudeOffset', 'uCamPos', 'uSunDir', 'uHeightTex',
-        'uWorldSize', 'uMaxTexHeight', 'uRelief', 'uMapMix', 'uGolden',
-        'uTime', 'uCloudAlpha', 'uLayerSeed',
-      ]),
-      cloudVao,
-      cloudIndexCount: this.cloudDeck.indices.length,
 
       heightTex,
     };
@@ -385,6 +373,7 @@ export class AtlasRenderer {
     );
 
     const r = this.resources;
+    gl.activeTexture(gl.TEXTURE3);gl.bindTexture(gl.TEXTURE_3D,r.mistTex);gl.activeTexture(gl.TEXTURE0);
     gl.viewport(0, 0, pxW, pxH);
     gl.depthMask(true);gl.clearDepth(1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.CULL_FACE);
@@ -423,6 +412,7 @@ export class AtlasRenderer {
       gl.disable(gl.CULL_FACE);
 
       gl.useProgram(r.waterProg);
+      this._setMist(r.waterU,state);
       gl.bindVertexArray(r.waterVao);
       gl.uniformMatrix4fv(r.waterU.uViewProj, false, viewProj);
       gl.uniform1f(r.waterU.uRelief, state.relief);
@@ -445,37 +435,9 @@ export class AtlasRenderer {
       gl.enable(gl.CULL_FACE);
     }
 
-    // 4. 5-Layer Atmospheric Sea of Clouds Pass
-    if (state.cloudAlpha > 0.01 && state.relief > 0.45 && state.mapMix < 0.62) {
-      gl.enable(gl.BLEND);
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-      gl.depthMask(false);
-      gl.disable(gl.CULL_FACE);
-
-      gl.useProgram(r.cloudProg);
-      gl.bindVertexArray(r.cloudVao);
-      gl.uniformMatrix4fv(r.cloudU.uViewProj, false, viewProj);
-      gl.uniform3fv(r.cloudU.uCamPos, state.pos);
-      gl.uniform3fv(r.cloudU.uSunDir, state.sunDir);
-      gl.uniform1i(r.cloudU.uHeightTex, 0);
-      gl.uniform1f(r.cloudU.uWorldSize, WORLD_SIZE);
-      gl.uniform1f(r.cloudU.uMaxTexHeight, this.terrainData.maxTexHeight);
-      gl.uniform1f(r.cloudU.uRelief, state.relief);
-      gl.uniform1f(r.cloudU.uMapMix, state.mapMix);
-      gl.uniform1f(r.cloudU.uGolden, state.goldenWeight);
-      gl.uniform1f(r.cloudU.uTime, timeSec);
-      gl.uniform1f(r.cloudU.uCloudAlpha, state.cloudAlpha);
-
-      const offsets = [-1.2, 1.2, 3.6];
-      for (let i = 0; i < offsets.length; i++) {
-        gl.uniform1f(r.cloudU.uAltitudeOffset, offsets[i]);
-        gl.uniform1f(r.cloudU.uLayerSeed, 1.0 + i * 1.87);
-        gl.drawElements(gl.TRIANGLES, r.cloudIndexCount, gl.UNSIGNED_SHORT, 0);
-      }
-
-      gl.enable(gl.CULL_FACE);
-    }
-
+    this.stageEl.dataset.mistStrength=this._mistStrength(state).toFixed(4);
+    this.stageEl.dataset.mistSamples='12';
+    
     gl.depthMask(true);
     gl.disable(gl.BLEND);
     gl.bindVertexArray(null);
@@ -490,6 +452,16 @@ export class AtlasRenderer {
     return state;
   }
 
+  _mistStrength(state){
+    return state.cloudAlpha*(.42+1.20*state.goldenWeight)*(1-state.mapMix);
+  }
+  _setMist(u,state){
+    const gl=this.gl,r=this.resources;
+    gl.uniform1i(u.uMistVolume,3);
+    gl.uniform3fv(u.uMistOrigin,r.mistOrigin);gl.uniform3fv(u.uMistExtent,r.mistExtent);
+    gl.uniform1f(u.uMistStrength,this._mistStrength(state));
+  }
+
   _drawOpaque(state,viewProj,tanHalfFov,aspect,growth,reflected){
     const gl=this.gl,r=this.resources;
     // 1. Sky Pass
@@ -497,6 +469,7 @@ export class AtlasRenderer {
     gl.depthMask(false);
     gl.disable(gl.BLEND);
     gl.useProgram(r.skyProg);
+    this._setMist(r.skyU,state);gl.uniform3fv(r.skyU.uMistEye,state.pos);
     gl.bindVertexArray(r.skyVao);
     gl.uniform3fv(r.skyU.uCamRight, state.right);
     gl.uniform3fv(r.skyU.uCamUp, state.up);
@@ -523,6 +496,7 @@ export class AtlasRenderer {
     gl.depthFunc(gl.LESS);
     gl.depthMask(true);
     gl.useProgram(r.terrainProg);
+    this._setMist(r.terrainU,state);
     gl.bindVertexArray(r.terrainVao);
     gl.uniformMatrix4fv(r.terrainU.uViewProj, false, viewProj);
     gl.uniform1f(r.terrainU.uRelief, state.relief);
@@ -547,7 +521,7 @@ export class AtlasRenderer {
     // Reveal physical details and their ground shadows with the same envelope.
     let detailInstances=0;
     if(growth>.001){
-      gl.useProgram(r.detailProg);gl.disable(gl.CULL_FACE);
+      gl.useProgram(r.detailProg);this._setMist(r.detailU,state);gl.disable(gl.CULL_FACE);
       gl.uniformMatrix4fv(r.detailU.uViewProj,false,viewProj);
       gl.uniform1f(r.detailU.uClipBelow,reflected?WATER_LEVEL*state.relief-.012:-1000);
       gl.uniform1f(r.detailU.uRelief,state.relief);gl.uniform1f(r.detailU.uGrowth,growth);
@@ -614,16 +588,15 @@ export class AtlasRenderer {
     gl.deleteProgram(r.skyProg);
     gl.deleteProgram(r.terrainProg);
     gl.deleteProgram(r.waterProg);
-    gl.deleteProgram(r.cloudProg);
     gl.deleteProgram(r.detailProg);
     for(const batch of r.detailBatches)gl.deleteVertexArray(batch.vao);
     gl.deleteVertexArray(r.skyVao);
     gl.deleteVertexArray(r.terrainVao);
     gl.deleteVertexArray(r.waterVao);
-    gl.deleteVertexArray(r.cloudVao);
     for (const buf of r.buffers) gl.deleteBuffer(buf);
     gl.deleteTexture(r.heightTex);
     gl.deleteTexture(r.detailShadowTex);
+    gl.deleteTexture(r.mistTex);
     this.resources = null;
   }
 

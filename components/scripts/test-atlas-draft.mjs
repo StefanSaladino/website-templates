@@ -20,17 +20,17 @@ try {
   await p.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return original.call(this,k,k==='webgl2'?{...o,preserveDrawingBuffer:true}:o)}});
   await p.goto(url,{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>+document.querySelector('#atlas-stage').dataset.draws>0||document.querySelector('#atlas-stage').dataset.renderError,{},{timeout:25000});
   const stage=p.locator('#atlas-stage');assert.equal(await stage.getAttribute('data-renderer'),'webgl',await stage.getAttribute('data-render-error')||'WebGL initialization');
-  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A13');
+  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A14');
   assert.equal(await p.locator('html').getAttribute('data-atlas-ready'),'true','scroll listeners must be installed after initialization');
-  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='13'),'mixed module releases '+moduleUrls.join(' '));
+  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='14'),'mixed module releases '+moduleUrls.join(' '));
   const invariant=await p.evaluate(async()=>{
-    const m=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=13');
+    const m=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=14');
     const a=m.buildTerrainData(176),b=m.buildTerrainData(256);
     return {same:a===b,res:a.resolution,sameTexture:a.heightTexData===b.heightTexData,sameMesh:a.positions===b.positions,peak:a.sampleHeight(11.5,-18.5)};
   });assert(invariant.peak>20.5,'Kestrel crown lost');assert.deepEqual({...invariant,peak:undefined},{same:true,res:256,sameTexture:true,sameMesh:true,peak:undefined});
   const framing=await p.evaluate(async()=>{
-    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=13');
-    const {evaluateWorldState}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=13');
+    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=14');
+    const {evaluateWorldState}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=14');
     const td=buildTerrainData(),aspect=innerWidth/innerHeight;
     let last=null,speeds=[],clearance=Infinity,near=0,shots={};
     for(let i=0;i<=1000;i++){
@@ -45,28 +45,40 @@ try {
     return {clearance,near,ratio:Math.max(...speeds)/speeds.sort((a,b)=>a-b)[500],shots,folio:a.pos.every((v,i)=>Math.abs(v-b.pos[i])<1e-8)&&a.look.every((v,i)=>Math.abs(v-b.look[i])<1e-8)&&b.relief===0&&b.mapMix===1};
   });assert(framing.clearance>=1.8);assert.equal(framing.near,0);assert(framing.ratio<=2.2);assert(Math.abs(framing.shots[440].peak[0])<.9);assert(Math.abs(framing.shots[620].lake[0])<.6);assert(Math.abs(framing.shots[620].peak[1])<.95);assert(framing.folio);console.log('ATLAS FRAMING',width,JSON.stringify(framing));
   const details=await p.evaluate(async()=>{
-    const {buildTerrainData,buildLandscapeDetails,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=13');
+    const {buildTerrainData,buildLandscapeDetails,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=14');
     const td=buildTerrainData(),b=buildLandscapeDetails(td);let triangles=0,wet=0,invalid=0;
     for(const m of b){triangles+=m.vertices.length/27*m.count;for(let i=0;i<m.instances.length;i+=8){const [x,y,z]=m.instances.subarray(i,i+3),h=td.sampleHeight(x,z);if(h<=WATER_LEVEL)wet++;if(Math.abs(y-h)>.0201)invalid++;}}
     return {triangles,wet,invalid,counts:b.map(m=>m.count),same:b===buildLandscapeDetails(td)};
   });assert(details.same);assert.equal(details.wet,0);assert.equal(details.invalid,0);assert(details.counts.every(n=>n>0));assert(details.triangles<=65000);console.log('ATLAS DETAILS',width,JSON.stringify(details));
   const shadows=await p.evaluate(async()=>{
-    const {buildTerrainData,buildLandscapeDetails,buildDetailShadowField}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=13');
+    const {buildTerrainData,buildLandscapeDetails,buildDetailShadowField}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=14');
     const td=buildTerrainData(),f=buildDetailShadowField(td);let different=0,total=0,anchored=0;
     for(let i=0;i<f.data.length;i+=2)if(f.data[i]!==f.data[i+1])different++;
     for(const b of buildLandscapeDetails(td))for(let i=0;i<b.instances.length;i+=8){total++;const [x,y,z]=b.instances.subarray(i,i+3),[bx,bz,sx,sz]=f.bounds;const j=(Math.floor((z-bz)/sz*f.size)*f.size+Math.floor((x-bx)/sx*f.size))*2;if(f.data[j]>0&&f.data[j+1]>0)anchored++;}
     return {bytes:f.data.length,same:f===buildDetailShadowField(td),different,total,anchored};
   });assert(shadows.same);assert.equal(shadows.bytes,2097152);assert(shadows.different>1000);assert.equal(shadows.total,shadows.anchored);
   const reflectionMath=await p.evaluate(async()=>{
-    const {mirrorLakeView}=await import('/templates/_drafts/atlas-terrain/src/renderer.js?v=13');
-    const {evaluateWorldState,buildViewProjMatrix}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=13');
-    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=13');
+    const {mirrorLakeView}=await import('/templates/_drafts/atlas-terrain/src/renderer.js?v=14');
+    const {evaluateWorldState,buildViewProjMatrix}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=14');
+    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=14');
     const td=buildTerrainData(),aspect=innerWidth/innerHeight,s=evaluateWorldState(.62,aspect,td.sampleHeight);
     const m=buildViewProjMatrix(s.pos,s.look,[0,1,0],s.fovDeg,aspect).viewProj,plane=WATER_LEVEL*s.relief,r=mirrorLakeView(s,m,plane);
     const project=(m,v)=>Array.from({length:4},(_,i)=>v.reduce((sum,x,j)=>sum+m[j*4+i]*x,0));
     let err=0;for(const v of [[-4,plane,3,1],[4,plane,-3,1],[8,plane+11,-15,1]]){const a=project(r.matrix,v),b=project(m,[v[0],2*plane-v[1],v[2],1]);err=Math.max(err,...a.map((x,i)=>Math.abs(x-b[i])));}
     return {err,eye:r.state.pos[1]+s.pos[1]-2*plane};
   });assert(reflectionMath.err<.0001);assert(Math.abs(reflectionMath.eye)<1e-8);
+  const mist=await p.evaluate(async()=>{
+    const {buildTerrainData,buildMistVolume}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=14');
+    const td=buildTerrainData(),m=buildMistVolume(td),[nx,ny,nz]=m.dims;
+    let occupied=0,buried=0,edge=0;
+    for(let z=0;z<nz;z++)for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){
+      if(!m.data[(z*ny+y)*nx+x])continue;occupied++;
+      const wx=m.origin[0]+(x+.5)/nx*m.extent[0],wy=m.origin[1]+(y+.5)/ny*m.extent[1],wz=m.origin[2]+(z+.5)/nz*m.extent[2];
+      if(wy<=td.sampleHeight(wx,wz))buried++;
+      if(x===0||z===0||x===nx-1||z===nz-1||y===0||y===ny-1)edge++;
+    }
+    return {dims:m.dims,bytes:m.data.length,same:m===buildMistVolume(td),occupied,buried,edge};
+  });assert.deepEqual(mist.dims,[96,32,96]);assert(mist.same);assert(mist.occupied>1000);assert.equal(mist.buried,0);assert.equal(mist.edge,0);console.log('ATLAS MIST',width,JSON.stringify(mist));
   const hashes=[];let firstBuffer=null;
   for(const [i,f] of [0,.12,.24,.44,.62,.82,.96,.44,0].entries()){
    await p.evaluate(f=>{const t=document.querySelector('#expedition-track'),s=document.querySelector('#atlas-stage');scrollTo({top:t.getBoundingClientRect().top+scrollY+(t.offsetHeight-s.offsetHeight)*f,behavior:'instant'})},f);
@@ -75,6 +87,7 @@ try {
    console.log('ATLAS',width,f,JSON.stringify(stats));assert(stats.colors>25,'flat/blank render');assert.equal(stats.error,0);assert(!stats.overflow);hashes.push(stats.hash);if(!firstBuffer)firstBuffer=[stats.w,stats.h];else assert.deepEqual([stats.w,stats.h],firstBuffer,'resolution changed while scrolling');assert(+await stage.getAttribute('data-camera-clearance')>=1.8,'terrain collision');assert.equal(await p.locator('.chapter-card:not([inert])').count(),1);
    const instances=+await stage.getAttribute('data-detail-instances');if(f===0)assert.equal(instances,0);if(f===.44||f===.62||f===.82)assert.equal(instances,details.counts.reduce((a,b)=>a+b,0));
    const reflection=await stage.getAttribute('data-reflection-ready');if(f===0)assert.equal(reflection,'false');if(f===.44||f===.62){assert.equal(reflection,'true');const [rw,rh]=(await stage.getAttribute('data-reflection-size')).split('x').map(Number);assert(rw*rh<=231500&&Math.max(rw,rh)<=640);}
+   const mistStrength=+await stage.getAttribute('data-mist-strength');assert.equal(await stage.getAttribute('data-mist-samples'),'12');if(f===0||f===.24||f===.44||f===.96)assert.equal(mistStrength,0);if(f===.82)assert(mistStrength>.65);
    await p.screenshot({path:path.join(out,width+'-'+i+'.png'),timeout:30000});
   }
   assert(new Set(hashes).size>=6,'world does not change');assert.deepEqual(errors,[]);

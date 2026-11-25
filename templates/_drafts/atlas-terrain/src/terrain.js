@@ -600,46 +600,6 @@ export function buildWaterMesh() {
   return { positions, indices };
 }
 
-/**
- * Generates subdivided undulating cloud deck mesh for soft volumetric-look sea of clouds.
- */
-export function buildCloudDeckMesh(altitude = 8.4, span = 208, segs = 32) {
-  const N = segs + 1;
-  const half = span * 0.5;
-  const positions = new Float32Array(N * N * 3);
-  const indices = new Uint16Array(segs * segs * 6);
-
-  for (let iz = 0; iz < N; iz++) {
-    const z = lerp(-half, half, iz / segs);
-    for (let ix = 0; ix < N; ix++) {
-      const x = lerp(-half, half, ix / segs);
-      const idx = iz * N + ix;
-      // Subtle undulation so cloud sea never looks like a flat planar card
-      const swell = Math.sin(x * 0.045) * Math.cos(z * 0.045) * 0.9;
-      positions[idx * 3] = x;
-      positions[idx * 3 + 1] = altitude + swell;
-      positions[idx * 3 + 2] = z;
-    }
-  }
-
-  let ptr = 0;
-  for (let iz = 0; iz < segs; iz++) {
-    for (let ix = 0; ix < segs; ix++) {
-      const a = iz * N + ix;
-      const b = a + 1;
-      const c = a + N;
-      const d = c + 1;
-      indices[ptr++] = a;
-      indices[ptr++] = c;
-      indices[ptr++] = b;
-      indices[ptr++] = b;
-      indices[ptr++] = c;
-      indices[ptr++] = d;
-    }
-  }
-  return { positions, indices, altitude };
-}
-
 export function terrainUnitsToMeters(y) {
   const clamped = Math.max(0, y - WATER_LEVEL);
   // 0 above water -> 1,890 m; peak ~20 above water -> 3,420 m
@@ -751,4 +711,34 @@ export function buildDetailShadowField(td=buildTerrainData()){
   }
   canonicalDetailShadows=Object.freeze({size,bounds:Object.freeze(bounds),data});
   return canonicalDetailShadows;
+}
+
+
+// R4b: one actual 3D density field, cached independently of render quality.
+// R8, x fastest, then y, then z. Bounds are in canonical world units.
+let canonicalMist=null;
+export function buildMistVolume(td=buildTerrainData()){
+  if(canonicalMist)return canonicalMist;
+  const dims=[96,32,96], origin=[-96,4,-96], extent=[192,10,192];
+  const [nx,ny,nz]=dims,data=new Uint8Array(nx*ny*nz);
+  for(let iz=0;iz<nz;iz++)for(let ix=0;ix<nx;ix++){
+    const x=origin[0]+(ix+.5)/nx*extent[0],z=origin[2]+(iz+.5)/nz*extent[2];
+    const ground=td.sampleHeight(x,z);
+    const edge=1-smoothstep(.70,.99,Math.max(Math.abs(x),Math.abs(z))/96);
+    const n=noise2DWithDeriv(x*.044+7.2,z*.044-11.4)[0];
+    const secondary=noise2DWithDeriv(x*.089-12,z*.089+3.5)[0];
+    const base=4.25+1.65*n;
+    const top=8.1+4.25*n+1.0*secondary;
+    const bank=smoothstep(.29,.76,n*.75+secondary*.25);
+    for(let iy=0;iy<ny;iy++){
+      const y=origin[1]+(iy+.5)/ny*extent[1];
+      const profile=smoothstep(base,base+1.15,y)*(1-smoothstep(top-2.0,top,y));
+      const clearance=smoothstep(.05,1.35,y-ground);
+      const billow=noise2DWithDeriv(x*.128+y*.085+19,z*.128-y*.11-6)[0];
+      const cell=clamp(bank*profile*clearance*edge*(.43+.78*billow),0,1);
+      data[(iz*ny+iy)*nx+ix]=Math.round(cell*255);
+    }
+  }
+  canonicalMist=Object.freeze({dims:Object.freeze(dims),origin:Object.freeze(origin),extent:Object.freeze(extent),data});
+  return canonicalMist;
 }

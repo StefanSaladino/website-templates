@@ -3,8 +3,48 @@
  * - Atmospheric Rayleigh/Mie Sky Dome + Archival Paper Blend
  * - Bicubic Smooth Swiss Contours + Eroded Micro-Normal Rock/Forest/Snow Terrain
  * - Bright Glacial Lake with Raymarched Mountain Reflections & Shorelines
- * - 5-Layer Volumetric-Look Sea of Clouds with Golden-Hour Rim Scattering
+ * - Bounded terrain-aware 3D mist with depth-terminated transmittance
  */
+
+// A bounded, shared world-space volume. Surface distance terminates the ray,
+// so opaque ridges occlude mist naturally. Twelve fixed samples; no temporal jitter.
+const MIST_GLSL = `
+uniform highp sampler3D uMistVolume;
+uniform vec3 uMistOrigin;
+uniform vec3 uMistExtent;
+uniform float uMistStrength;
+vec3 applyMist(vec3 scene,vec3 eye,vec3 ray,float surfaceDistance,vec3 sun,float golden){
+  if(uMistStrength<.005||surfaceDistance<.1)return scene;
+  vec3 safeRay=vec3(ray.x<0.?min(ray.x,-.00001):max(ray.x,.00001),
+                    ray.y<0.?min(ray.y,-.00001):max(ray.y,.00001),
+                    ray.z<0.?min(ray.z,-.00001):max(ray.z,.00001));
+  vec3 a=(uMistOrigin-eye)/safeRay;
+  vec3 b=(uMistOrigin+uMistExtent-eye)/safeRay;
+  vec3 lo=min(a,b),hi=max(a,b);
+  float enter=max(0.,max(lo.x,max(lo.y,lo.z)));
+  float exit=min(surfaceDistance,min(hi.x,min(hi.y,hi.z)));
+  exit=min(exit,enter+105.);
+  if(exit<=enter)return scene;
+  float dt=(exit-enter)/12.;
+  float transmission=1.;
+  vec3 scatter=vec3(0.);
+  float sunward=pow(max(dot(ray,sun),0.),3.);
+  vec3 underside=mix(vec3(.60,.70,.77),vec3(.49,.51,.57),golden);
+  vec3 lit=mix(vec3(.90,.93,.95),vec3(.96,.79,.62),golden);
+  for(int i=0;i<12;i++){
+    vec3 point=eye+ray*(enter+(float(i)+.5)*dt);
+    vec3 uv=(point-uMistOrigin)/uMistExtent;
+    float density=texture(uMistVolume,uv).r;
+    float opacity=1.-exp(-density*uMistStrength*.30*dt);
+    float upper=smoothstep(.18,.84,uv.y);
+    vec3 light=mix(underside,lit,clamp(upper*.72+sunward*.28,0.,1.));
+    scatter+=transmission*opacity*light;
+    transmission*=1.-opacity;
+    if(transmission<.025)break;
+  }
+  return scene*transmission+scatter;
+}
+`;
 
 export const SKY_VERT = `#version 300 es
 precision highp float;
@@ -27,6 +67,7 @@ precision highp float;
 in vec2 vNdc;
 out vec4 fragColor;
 
+uniform vec3 uMistEye;
 uniform vec3 uCamRight;
 uniform vec3 uCamUp;
 uniform vec3 uCamForward;
@@ -39,6 +80,7 @@ uniform float uGolden;
 uniform float uValley;
 uniform vec3 uSkyZenith;
 uniform vec3 uSkyHorizon;
+${MIST_GLSL}
 
 void main() {
   vec3 rd = normalize(
@@ -74,6 +116,7 @@ void main() {
   vec3 paperCol = mix(paperCenter, paperMargin, clamp(length(vNdc) * 0.45, 0.0, 1.0));
   sky = mix(sky, paperCol, clamp(uMapMix * 1.08, 0.0, 1.0));
 
+  sky=applyMist(sky,uMistEye,rd,340.,L,uGolden);
   fragColor = vec4(sky, 1.0);
 }
 `;
@@ -137,6 +180,7 @@ uniform float uGolden;
 uniform float uFogDensity;
 uniform vec3 uSkyZenith;
 uniform vec3 uSkyHorizon;
+${MIST_GLSL}
 
 float hash21(vec2 p) {
   p = fract(p * vec2(123.34, 456.21));
@@ -417,6 +461,7 @@ void main() {
   mapped = clamp(mapped, 0.0, 1.0);
 
   vec3 finalCol = mix(mapped, cartoColor, clamp(uMapMix, 0.0, 1.0));
+  finalCol=applyMist(finalCol,uCamPos,viewDir,camDist,L,uGolden);
   fragColor = vec4(finalCol, 1.0);
 }
 `;
@@ -460,6 +505,7 @@ uniform vec3 uSkyHorizon;
 uniform sampler2D uReflection;
 uniform vec2 uScreenSize;
 uniform float uReflectionReady;
+${MIST_GLSL}
 
 float hash21(vec2 p) {
   p = fract(p * vec2(127.1, 311.7));
@@ -565,121 +611,10 @@ void main() {
   float edgeWidth=clamp(fwidth(depth)*1.05,.008,.085);
   float edgeAlpha=smoothstep(.004,.004+edgeWidth,depth)*waterVis;
   col=clamp(col,0.,1.);
+  col=applyMist(col,uCamPos,-V,camDist,L,uGolden);
   fragColor = vec4(col, edgeAlpha);
 }
 `;
-
-export const CLOUD_VERT = `#version 300 es
-precision highp float;
-
-layout(location = 0) in vec3 aPosition;
-uniform mat4 uViewProj;
-uniform float uAltitudeOffset;
-
-out vec3 vWorldPos;
-
-void main() {
-  vec3 pos = vec3(aPosition.x, aPosition.y + uAltitudeOffset, aPosition.z);
-  vWorldPos = pos;
-  gl_Position = uViewProj * vec4(pos, 1.0);
-}
-`;
-
-export const CLOUD_FRAG = `#version 300 es
-precision highp float;
-
-in vec3 vWorldPos;
-out vec4 fragColor;
-
-uniform vec3 uCamPos;
-uniform vec3 uSunDir;
-uniform sampler2D uHeightTex;
-uniform float uWorldSize;
-uniform float uMaxTexHeight;
-uniform float uRelief;
-uniform float uMapMix;
-uniform float uGolden;
-uniform float uTime;
-uniform float uCloudAlpha;
-uniform float uLayerSeed;
-
-float hash21(vec2 p) {
-  p = fract(p * vec2(234.12, 567.89));
-  p += dot(p, p + 41.7);
-  return fract(p.x * p.y);
-}
-
-float noise2(vec2 p) {
-  vec2 i = floor(p);
-  vec2 f = fract(p);
-  vec2 u = f * f * (3.0 - 2.0 * f);
-  return mix(
-    mix(hash21(i), hash21(i + vec2(1.0, 0.0)), u.x),
-    mix(hash21(i + vec2(0.0, 1.0)), hash21(i + vec2(1.0, 1.0)), u.x),
-    u.y
-  );
-}
-
-float cloudFbm(vec2 p) {
-  float v = 0.0;
-  float a = 0.54;
-  mat2 rot = mat2(0.8, 0.6, -0.6, 0.8);
-  for (int i = 0; i < 3; i++) {
-    v += a * noise2(p);
-    p = rot * p * 2.04 + vec2(9.1, 4.3);
-    a *= 0.48;
-  }
-  return v;
-}
-
-float sampleTexHeight(vec2 xz) {
-  vec2 uv = xz / uWorldSize + 0.5;
-  if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) return 0.0;
-  vec4 enc = texture(uHeightTex, (uv*(vec2(textureSize(uHeightTex,0))-1.0)+0.5)/vec2(textureSize(uHeightTex,0)));
-  return ((enc.r * 255.0 * 256.0 + enc.g * 255.0) / 65535.0) * uMaxTexHeight;
-}
-
-void main() {
-  float visibility = uCloudAlpha * smoothstep(0.45, 0.9, uRelief) * (1.0 - smoothstep(0.22, 0.62, uMapMix));
-  if (visibility <= 0.01) discard;
-
-  float radial = length(vWorldPos.xz) / (uWorldSize * 0.46);
-  float edgeMask = 1.0 - smoothstep(0.68, 1.0, radial);
-
-  // Clouds gather thickly inside valleys & saddle troughs, parting cleanly against steep peaks
-  float terrH = sampleTexHeight(vWorldPos.xz) * uRelief;
-  float terrainClearance = smoothstep(-0.15, 2.2, vWorldPos.y - terrH);
-
-  // Soft camera altitude fade when passing straight through the cloud layer
-  float camAltDist = abs(uCamPos.y - vWorldPos.y);
-  float camProximity = smoothstep(0.4, 3.0, camAltDist);
-
-  // Domain-warped billowy stratus clouds blanket the valley trough during Summit
-  vec2 baseUv = vWorldPos.xz * 0.046 + vec2(uTime * 0.018 + uLayerSeed * 11.7, -uTime * 0.010);
-  vec2 warp = vec2(cloudFbm(baseUv), cloudFbm(baseUv + vec2(4.2, 8.7))) * 0.92;
-  float f = cloudFbm(baseUv + warp);
-
-  // A little summit mist gathers preferentially in the basin, not over foreground peaks.
-  // Use ascending smoothstep edges (reversed edges are undefined in GLSL).
-  float basinMist = (1.0-smoothstep(2.2,7.5,terrH)) * 0.22 * uGolden;
-  float valleyBlanket = mix(0.23, 0.86, uGolden);
-  float density = (smoothstep(0.32, 0.72, f) + basinMist) * edgeMask * terrainClearance * mix(0.18, 1.0, camProximity);
-  float alpha = clamp(density * mix(0.50, 0.86, uGolden) * visibility, 0.0, 0.78) * valleyBlanket;
-  if (alpha <= 0.005) discard;
-
-  vec3 viewDir = normalize(vWorldPos - uCamPos);
-  vec3 L = normalize(uSunDir);
-  float sunForward = pow(max(dot(viewDir, L), 0.0), 3.0);
-
-  vec3 coolUnder = mix(vec3(0.58, 0.68, 0.78), vec3(0.38, 0.42, 0.54), uGolden);
-  vec3 sunlitTop = mix(vec3(0.95, 0.97, 0.99), vec3(1.0, 0.78, 0.54), uGolden);
-
-  float illumination = smoothstep(0.34, 0.76, f) * 0.75 + sunForward * 0.45;
-  vec3 cloudCol = mix(coolUnder, sunlitTop, clamp(illumination, 0.0, 1.0));
-  fragColor = vec4(cloudCol, alpha);
-}
-`;
-
 
 // Actual opaque world-space details share the terrain's light direction and aerial perspective.
 export const DETAIL_VERT = `#version 300 es
@@ -724,6 +659,7 @@ uniform float uClipBelow;
 uniform float uWorldSize;
 uniform float uMaxTexHeight;
 uniform sampler2D uHeightTex;
+${MIST_GLSL}
 float ground(vec2 xz){
   vec2 uv=xz/uWorldSize+.5;
   vec2 sz=vec2(textureSize(uHeightTex,0));
@@ -749,6 +685,8 @@ void main(){
   vec3 fogCol=mix(uSkyHorizon,vec3(.94,.72,.48),pow(max(dot(viewDir,l),0.),3.)*uGolden*.55);
   col=mix(col,fogCol,clamp(fog,0.,.88))*.89;
   col=(col*(2.51*col+.03))/(col*(2.43*col+.59)+.14);
-  fragColor=vec4(pow(clamp(col,0.,1.),vec3(.96)),1.);
+  col=pow(clamp(col,0.,1.),vec3(.96));
+  col=applyMist(col,uCamPos,viewDir,dist,l,uGolden);
+  fragColor=vec4(col,1.);
 }
 `;
