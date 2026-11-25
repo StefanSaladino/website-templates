@@ -7,9 +7,9 @@
  * - Still view, reduced-motion, visibility suspension, and WebGL2 fallback handling
  */
 
-import { AtlasRenderer } from './renderer.js?v=16';
-import { createMotionController } from './motion.js?v=16';
-import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=16';
+import { AtlasRenderer } from './renderer.js?v=17';
+import { createMotionController } from './motion.js?v=17';
+import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=17';
 
 const rootEl = document.documentElement;
 rootEl.classList.remove('atlas-no-js');
@@ -25,6 +25,8 @@ const viewpointButtons = [...document.querySelectorAll('[data-viewpoint]')];
 const stillToggle = document.getElementById('still-toggle');
 const qualityToggle = document.getElementById('quality-toggle');
 const inspectBar = document.getElementById('inspect-bar');
+const inspectToggle=document.getElementById('inspect-toggle');
+const inspectOptions=document.getElementById('inspect-options');
 const inspectLeftBtn = document.getElementById('inspect-left');
 const inspectRightBtn = document.getElementById('inspect-right');
 const inspectResetBtn = document.getElementById('inspect-reset');
@@ -41,6 +43,11 @@ let inspectYaw = 0;
 let inspectPitch = 0;
 let lastInspectChapter = '';
 let activeViewpoint = '';
+let pendingViewFocus=null;
+let inspectExpanded=false;
+function selectViewpoint(id){activeViewpoint=id;for(const b of viewpointButtons){if(b.dataset.viewpoint===id)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');}}
+function setInspectExpanded(expanded){inspectExpanded=Boolean(expanded);inspectToggle?.setAttribute('aria-expanded',String(inspectExpanded));if(inspectOptions)inspectOptions.hidden=!inspectExpanded;}
+function focusWithoutScroll(el){if(el&&!el.hidden)el.focus({preventScroll:true});}
 
 function clamp(v, lo, hi) {
   return v < lo ? lo : v > hi ? hi : v;
@@ -150,6 +157,7 @@ function updateDomForState(state, progress) {
     card.style.setProperty('--chapter-alpha',alpha.toFixed(4));
     card.style.setProperty('--chapter-rise',((1-alpha)*7).toFixed(2)+'px');
     const accessible=isActive||isStaticLayoutMode();
+    if(!accessible&&card.contains(document.activeElement))focusWithoutScroll(stageEl);
     card.setAttribute('aria-hidden',String(!accessible));card.inert=!accessible;
   }
 
@@ -166,7 +174,9 @@ function updateDomForState(state, progress) {
   const webglActive = stageEl.getAttribute('data-renderer') === 'webgl' && !isStillMode;
   const showInspect = webglActive && (chapter.id === 'descent' || chapter.id === 'valley' || chapter.id === 'summit');
   if (inspectBar) {
+    if(!showInspect&&inspectBar.contains(document.activeElement))focusWithoutScroll(stageEl);
     inspectBar.hidden = !showInspect;
+    if(!showInspect)setInspectExpanded(false);
   }
 
   if (returnArchiveBtn) {
@@ -215,6 +225,10 @@ const motion = createMotionController({
   onAmbientChange(active){stageEl.dataset.ambientRunning=String(active);},
   onSettleChange(isSettled) {
     stageEl.setAttribute('data-settled', isSettled ? 'true' : 'false');
+    if(isSettled&&pendingViewFocus&&!isStaticLayoutMode()){
+      const pending=pendingViewFocus;
+      if(rootEl.dataset.activeChapter===pending.chapter){pendingViewFocus=null;focusWithoutScroll(pending.element);}
+    }
   },
 });
 
@@ -318,7 +332,7 @@ for (const link of navLinks) {
     e.preventDefault();
     const href = link.getAttribute('href') || '';
     const chId = href.startsWith('#') ? href.slice(1) : link.getAttribute('data-chapter-link');
-    activeViewpoint = '';
+    selectViewpoint('');pendingViewFocus=null;setInspectExpanded(false);
     inspectYaw = 0;
     inspectPitch = 0;
     motion.resetInspect(false);
@@ -328,27 +342,33 @@ for (const link of navLinks) {
 
 // Archive Viewpoint buttons
 for (const btn of viewpointButtons) {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (event) => {
+    event.preventDefault();
     const p = Number(btn.getAttribute('data-target-progress'));
     const vpId = btn.getAttribute('data-viewpoint') || '';
     const vpObj = VIEWPOINTS.find((v) => v.id === vpId);
-    activeViewpoint = vpId;
+    selectViewpoint(vpId);setInspectExpanded(false);
     inspectYaw = 0;
     inspectPitch = 0;
     motion.resetInspect(true);
-    for (const other of viewpointButtons) {
-      other.setAttribute('aria-pressed', String(other === btn));
+    const chapter=vpObj?.chapter||'valley';
+    if(isStaticLayoutMode()){
+      scrollToChapterOrProgress(chapter,p);
+      focusWithoutScroll(document.getElementById('title-'+chapter));
+    }else{
+      pendingViewFocus={chapter,element:returnArchiveBtn};
+      scrollToChapterOrProgress(chapter,p);
     }
-    scrollToChapterOrProgress(vpObj ? vpObj.chapter : 'valley', p);
   });
 }
 
 if (returnArchiveBtn) {
   returnArchiveBtn.addEventListener('click', () => {
-    activeViewpoint = '';
-    inspectYaw = 0;
-    inspectPitch = 0;
-    motion.resetInspect(false);
+    const previous=viewpointButtons.find(b=>b.dataset.viewpoint===activeViewpoint);
+    selectViewpoint('');setInspectExpanded(false);
+    pendingViewFocus={chapter:'archive',element:previous||viewpointButtons[0]};
+    focusWithoutScroll(stageEl);
+    inspectYaw=0;inspectPitch=0;motion.resetInspect(false);
     scrollToProgress(0.96);
   });
 }
@@ -358,6 +378,7 @@ if (stillToggle) {
   stillToggle.addEventListener('click', () => {
     if (reducedMotionQuery.matches) return;
     const chapter=CHAPTERS.find(c=>c.id===rootEl.dataset.activeChapter)||CHAPTERS[0];
+    pendingViewFocus=null;setInspectExpanded(false);
     isStillMode = !isStillMode;
     updateControlStates();
     updateDomForState(null, getScrollProgress());
@@ -435,6 +456,7 @@ window.addEventListener('pointerup', endDrag, { passive: true });
 window.addEventListener('pointercancel', endDrag, { passive: true });
 
 // Keyboard & button inspection controls
+inspectToggle?.addEventListener('click',()=>setInspectExpanded(!inspectExpanded));
 function nudgeInspect(dyaw, dpitch = 0) {
   if (!isInspectPermitted()) return;
   inspectYaw = clamp(inspectYaw + dyaw, -0.78, 0.78);
@@ -458,17 +480,12 @@ if (inspectResetBtn) {
 
 window.addEventListener('keydown', (e) => {
   if (!isInspectPermitted()) return;
-  const activeTag = document.activeElement?.tagName;
-  if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
-  if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
-    nudgeInspect(-0.12, 0);
-  } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
-    nudgeInspect(0.12, 0);
-  } else if (e.key === 'r' || e.key === 'R') {
-    inspectYaw = 0;
-    inspectPitch = 0;
-    motion.resetInspect(false);
-  }
+  // Shortcuts only while focus is intentionally inside the inspection controls.
+  if(!inspectBar?.contains(document.activeElement)||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;
+  if(e.key==='Escape'&&inspectExpanded){e.preventDefault();setInspectExpanded(false);focusWithoutScroll(inspectToggle);return;}
+  if(!inspectExpanded)return;
+  if(e.key==='ArrowLeft'){e.preventDefault();nudgeInspect(-.12,0);}
+  else if(e.key==='ArrowRight'){e.preventDefault();nudgeInspect(.12,0);}
 });
 
 // Prevent unused lint warnings cleanly

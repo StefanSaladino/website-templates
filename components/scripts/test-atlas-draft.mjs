@@ -20,18 +20,18 @@ try {
   await p.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return original.call(this,k,k==='webgl2'?{...o,preserveDrawingBuffer:true}:o)}});
   await p.goto(url,{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>+document.querySelector('#atlas-stage').dataset.draws>0||document.querySelector('#atlas-stage').dataset.renderError,{},{timeout:25000});
   const stage=p.locator('#atlas-stage');assert.equal(await stage.getAttribute('data-renderer'),'webgl',await stage.getAttribute('data-render-error')||'WebGL initialization');
-  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A16');
+  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A17');
   assert.equal(await p.locator('html').getAttribute('data-atlas-ready'),'true','scroll listeners must be installed after initialization');
   assert.equal(await p.locator('html').getAttribute('data-first-frame'),'true');assert(!await p.locator('html').evaluate(e=>e.classList.contains('atlas-booting')));
-  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='16'),'mixed module releases '+moduleUrls.join(' '));
+  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='17'),'mixed module releases '+moduleUrls.join(' '));
   const invariant=await p.evaluate(async()=>{
-    const m=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=16');
+    const m=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=17');
     const a=m.buildTerrainData(176),b=m.buildTerrainData(256);
     return {same:a===b,res:a.resolution,sameTexture:a.heightTexData===b.heightTexData,sameMesh:a.positions===b.positions,peak:a.sampleHeight(11.5,-18.5)};
   });assert(invariant.peak>20.5,'Kestrel crown lost');assert.deepEqual({...invariant,peak:undefined},{same:true,res:256,sameTexture:true,sameMesh:true,peak:undefined});
   const framing=await p.evaluate(async()=>{
-    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=16');
-    const {evaluateWorldState}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=16');
+    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=17');
+    const {evaluateWorldState}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=17');
     const td=buildTerrainData(),aspect=innerWidth/innerHeight;
     let last=null,speeds=[],clearance=Infinity,near=0,shots={};
     for(let i=0;i<=1000;i++){
@@ -46,22 +46,22 @@ try {
     return {clearance,near,ratio:Math.max(...speeds)/speeds.sort((a,b)=>a-b)[500],shots,folio:a.pos.every((v,i)=>Math.abs(v-b.pos[i])<1e-8)&&a.look.every((v,i)=>Math.abs(v-b.look[i])<1e-8)&&b.relief===0&&b.mapMix===1};
   });assert(framing.clearance>=1.8);assert.equal(framing.near,0);assert(framing.ratio<=2.2);assert(Math.abs(framing.shots[440].peak[0])<.9);assert(Math.abs(framing.shots[620].lake[0])<.6);assert(Math.abs(framing.shots[620].peak[1])<.95);assert(framing.folio);console.log('ATLAS FRAMING',width,JSON.stringify(framing));
   const details=await p.evaluate(async()=>{
-    const {buildTerrainData,buildLandscapeDetails,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=16');
+    const {buildTerrainData,buildLandscapeDetails,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=17');
     const td=buildTerrainData(),b=buildLandscapeDetails(td);let triangles=0,wet=0,invalid=0;
     for(const m of b){triangles+=m.vertices.length/27*m.count;for(let i=0;i<m.instances.length;i+=8){const [x,y,z]=m.instances.subarray(i,i+3),h=td.sampleHeight(x,z);if(h<=WATER_LEVEL)wet++;if(Math.abs(y-h)>.0201)invalid++;}}
     return {triangles,wet,invalid,counts:b.map(m=>m.count),same:b===buildLandscapeDetails(td)};
   });assert(details.same);assert.equal(details.wet,0);assert.equal(details.invalid,0);assert(details.counts.every(n=>n>0));assert(details.triangles<=65000);console.log('ATLAS DETAILS',width,JSON.stringify(details));
   const shadows=await p.evaluate(async()=>{
-    const {buildTerrainData,buildLandscapeDetails,buildDetailShadowField}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=16');
+    const {buildTerrainData,buildLandscapeDetails,buildDetailShadowField}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=17');
     const td=buildTerrainData(),f=buildDetailShadowField(td);let different=0,total=0,anchored=0;
     for(let i=0;i<f.data.length;i+=2)if(f.data[i]!==f.data[i+1])different++;
     for(const b of buildLandscapeDetails(td))for(let i=0;i<b.instances.length;i+=8){total++;const [x,y,z]=b.instances.subarray(i,i+3),[bx,bz,sx,sz]=f.bounds;const j=(Math.floor((z-bz)/sz*f.size)*f.size+Math.floor((x-bx)/sx*f.size))*2;if(f.data[j]>0&&f.data[j+1]>0)anchored++;}
     return {bytes:f.data.length,same:f===buildDetailShadowField(td),different,total,anchored};
   });assert(shadows.same);assert.equal(shadows.bytes,2097152);assert(shadows.different>1000);assert.equal(shadows.total,shadows.anchored);
   const reflectionMath=await p.evaluate(async()=>{
-    const {mirrorLakeView}=await import('/templates/_drafts/atlas-terrain/src/renderer.js?v=16');
-    const {evaluateWorldState,buildViewProjMatrix}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=16');
-    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=16');
+    const {mirrorLakeView}=await import('/templates/_drafts/atlas-terrain/src/renderer.js?v=17');
+    const {evaluateWorldState,buildViewProjMatrix}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=17');
+    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=17');
     const td=buildTerrainData(),aspect=innerWidth/innerHeight,s=evaluateWorldState(.62,aspect,td.sampleHeight);
     const m=buildViewProjMatrix(s.pos,s.look,[0,1,0],s.fovDeg,aspect).viewProj,plane=WATER_LEVEL*s.relief,r=mirrorLakeView(s,m,plane);
     const project=(m,v)=>Array.from({length:4},(_,i)=>v.reduce((sum,x,j)=>sum+m[j*4+i]*x,0));
@@ -69,7 +69,7 @@ try {
     return {err,eye:r.state.pos[1]+s.pos[1]-2*plane};
   });assert(reflectionMath.err<.0001);assert(Math.abs(reflectionMath.eye)<1e-8);
   const mist=await p.evaluate(async()=>{
-    const {buildTerrainData,buildMistVolume}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=16');
+    const {buildTerrainData,buildMistVolume}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=17');
     const td=buildTerrainData(),m=buildMistVolume(td),[nx,ny,nz]=m.dims;
     let occupied=0,buried=0,edge=0;
     for(let z=0;z<nz;z++)for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){
@@ -81,7 +81,7 @@ try {
     return {dims:m.dims,bytes:m.data.length,same:m===buildMistVolume(td),occupied,buried,edge};
   });assert.deepEqual(mist.dims,[96,32,96]);assert(mist.same);assert(mist.occupied>1000);assert.equal(mist.buried,0);assert.equal(mist.edge,0);console.log('ATLAS MIST',width,JSON.stringify(mist));
   const ambientChecks=await p.evaluate(async()=>{
-    const {createMotionController}=await import('/templates/_drafts/atlas-terrain/src/motion.js?v=16');
+    const {createMotionController}=await import('/templates/_drafts/atlas-terrain/src/motion.js?v=17');
     const simulate=function simulate(create){
   let now=1000,id=0,q=new Map(),frames=[],statuses=[];
   const add=(fn,ms)=>{q.set(++id,{fn,at:now+ms});return id;};
@@ -113,11 +113,27 @@ try {
    const reflection=await stage.getAttribute('data-reflection-ready');if(f===0)assert.equal(reflection,'false');if(f===.44||f===.62){assert.equal(reflection,'true');const [rw,rh]=(await stage.getAttribute('data-reflection-size')).split('x').map(Number);assert(rw*rh<=231500&&Math.max(rw,rh)<=640);}
    const mistStrength=+await stage.getAttribute('data-mist-strength');assert.equal(await stage.getAttribute('data-mist-samples'),'12');if(f===0||f===.24||f===.44||f===.96)assert.equal(mistStrength,0);if(f===.82)assert(mistStrength>.65);
    if(f===.62){assert.notEqual(await stage.getAttribute('data-ambient-running'),'true','software reference must not animate at idle');}
+   if(f===.96){
+     const fit=await p.locator('#archive .chapter-inner').evaluate(e=>({scroll:e.scrollHeight,client:e.clientHeight}));
+     assert(fit.scroll<=fit.client+2,'archive requires nested scrolling at '+width+' '+JSON.stringify(fit));
+     assert.equal(await p.locator('#archive [data-viewpoint]:visible').count(),3);
+   }
+   if(f===.62){assert(await p.locator('#inspect-toggle').isVisible());assert(!await p.locator('#inspect-options').isVisible());}
    await p.screenshot({path:path.join(out,width+'-'+i+'.png'),timeout:30000});
   }
   assert(new Set(hashes).size>=6,'world does not change');assert.deepEqual(errors,[]);
   await p.locator('#map .chapter-cue').click();await p.waitForFunction(()=>Math.abs(+document.querySelector('#atlas-stage').dataset.renderedProgress-.24)<.006&&document.querySelector('#atlas-stage').dataset.settled==='true',{},{timeout:45000});
   assert.equal(await p.locator('#atlas-stage').getAttribute('data-rendered-chapter'),'ascent');
+  if(width===390){
+    await p.locator('.mast-archive-link').click();await p.waitForFunction(()=>document.querySelector('html').dataset.activeChapter==='archive'&&document.querySelector('#atlas-stage').dataset.settled==='true',{},{timeout:45000});
+    await p.locator('[data-viewpoint="tarn-overlook"]').click();await p.waitForFunction(()=>document.querySelector('html').dataset.activeChapter==='valley'&&document.querySelector('#atlas-stage').dataset.settled==='true',{},{timeout:45000});
+    assert(await p.locator('#return-archive').isVisible());assert.equal(await p.locator('[data-viewpoint="tarn-overlook"]').getAttribute('aria-current'),'true');
+    await p.locator('#inspect-toggle').click();assert(await p.locator('#inspect-options').isVisible());await p.keyboard.press('Escape');assert(!await p.locator('#inspect-options').isVisible());
+    await p.locator('#return-archive').click();await p.waitForFunction(()=>document.querySelector('html').dataset.activeChapter==='archive'&&document.querySelector('#atlas-stage').dataset.settled==='true',{},{timeout:45000});
+    assert.equal(await p.evaluate(()=>document.activeElement.dataset.viewpoint),'tarn-overlook');
+    await p.locator('.atlas-brand').click();await p.waitForFunction(()=>document.querySelector('html').dataset.activeChapter==='map'&&document.querySelector('#atlas-stage').dataset.settled==='true',{},{timeout:45000});
+    await p.locator('#map .chapter-cue').click();await p.waitForFunction(()=>Math.abs(+document.querySelector('#atlas-stage').dataset.renderedProgress-.24)<.006&&document.querySelector('#atlas-stage').dataset.settled==='true',{},{timeout:45000});
+  }
   const beforeQuality=await stage.getAttribute('data-rendered-quality');
   const beforeClearance=+await stage.getAttribute('data-camera-clearance');
   const beforeDraws=+await stage.getAttribute('data-draws');
@@ -135,7 +151,7 @@ try {
   await p.close();
  }
  const startup=await browser.newPage({viewport:{width:390,height:844}});
- await startup.route('**/src/main.js?v=16',async route=>{await new Promise(r=>setTimeout(r,1800));await route.continue()});
+ await startup.route('**/src/main.js?v=17',async route=>{await new Promise(r=>setTimeout(r,1800));await route.continue()});
  await startup.goto(url,{waitUntil:'commit'});
  await startup.waitForFunction(()=>document.documentElement.classList.contains('atlas-booting')&&!!document.querySelector('.opening-plate'));
  assert(await startup.locator('.opening-plate').isVisible());assert.equal(await startup.locator('.static-plate:visible').count(),0);

@@ -1,5 +1,5 @@
 <!doctype html>
-<html data-atlas-release="A16" lang="en" class="atlas-no-js" data-polarity="light" data-active-chapter="map" data-still="false">
+<html data-atlas-release="A17" lang="en" class="atlas-no-js" data-polarity="light" data-active-chapter="map" data-still="false">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@
       },12000);
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=16">
+  <link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
   <a class="skip-link" href="#expedition-track">Skip to expedition</a>
@@ -46,7 +46,7 @@
 
   <main id="main" tabindex="-1">
     <div class="expedition-track" id="expedition-track">
-      <div class="atlas-stage" id="atlas-stage" data-renderer="static" data-rendered-chapter="map" data-rendered-progress="0.0000" data-rendered-quality="high" data-draws="0" data-settled="true">
+      <div class="atlas-stage" id="atlas-stage" tabindex="-1" data-renderer="static" data-rendered-chapter="map" data-rendered-progress="0.0000" data-rendered-quality="high" data-draws="0" data-settled="true">
         <div class="opening-plate" aria-hidden="true"></div>
         <canvas id="atlas-canvas" aria-label="Interactive three-dimensional alpine terrain and cartographic relief" hidden></canvas>
         <div class="stage-scrim" aria-hidden="true"></div>
@@ -56,7 +56,7 @@
           <article class="chapter-card is-active" id="map" data-chapter="map" aria-labelledby="title-map">
             <div class="chapter-inner">
               <p class="chapter-meta"><span>01</span><span aria-hidden="true">·</span><span>Folio VII / Alpine survey</span></p>
-              <h1 class="chapter-title" id="title-map">Beyond<br>the <em>contour.</em></h1>
+              <h1 class="chapter-title" id="title-map" tabindex="-1">Beyond<br>the <em>contour.</em></h1>
               <p class="chapter-body">From the lines of a map into a world of stone, ice and water.</p>
               <div class="map-legend">
                 <span><strong>Kestrel Spire</strong> 3,420 m</span>
@@ -91,7 +91,7 @@
           <article class="chapter-card" id="ascent" data-chapter="ascent" aria-labelledby="title-ascent">
             <div class="chapter-inner">
               <p class="chapter-meta"><span>02</span><span aria-hidden="true">·</span><span>The Ascent</span><span aria-hidden="true">·</span><span>Stratified Massif</span></p>
-              <h2 class="chapter-title" id="title-ascent">Contours lift<br>into <em>granite.</em></h2>
+              <h2 class="chapter-title" id="title-ascent" tabindex="-1">Contours lift<br>into <em>granite.</em></h2>
               <p class="chapter-body">From a quiet survey sheet, the massif rises into light.</p>
             </div>
             <figure class="static-plate">
@@ -120,7 +120,7 @@
           <article class="chapter-card" id="descent" data-chapter="descent" aria-labelledby="title-descent">
             <div class="chapter-inner">
               <p class="chapter-meta"><span>03</span><span aria-hidden="true">·</span><span>The Descent</span><span aria-hidden="true">·</span><span>Meridian Gorge · 2,410 m</span></p>
-              <h2 class="chapter-title" id="title-descent">Through the<br><em>glacial pass.</em></h2>
+              <h2 class="chapter-title" id="title-descent" tabindex="-1">Through the<br><em>glacial pass.</em></h2>
               <p class="chapter-body">Follow the carved valley between the steep shoulders of Meridian Saddle.</p>
             </div>
             <figure class="static-plate">
@@ -139,7 +139,7 @@
           <article class="chapter-card" id="valley" data-chapter="valley" aria-labelledby="title-valley">
             <div class="chapter-inner">
               <p class="chapter-meta"><span>04</span><span aria-hidden="true">·</span><span>The Valley</span><span aria-hidden="true">·</span><span>Lake Vireo · 1,890 m</span></p>
-              <h2 class="chapter-title" id="title-valley">Still meltwater<br>below <em>frost.</em></h2>
+              <h2 class="chapter-title" id="title-valley" tabindex="-1">Still meltwater<br>below <em>frost.</em></h2>
               <p class="chapter-body">Mineral-rich water mirrors the cliffs and snowfields. Drag or use the view controls to explore.</p>
             </div>
             <figure class="static-plate">
@@ -172,7 +172,7 @@
           <article class="chapter-card" id="summit" data-chapter="summit" aria-labelledby="title-summit">
             <div class="chapter-inner">
               <p class="chapter-meta"><span>05</span><span aria-hidden="true">·</span><span>The Summit</span><span aria-hidden="true">·</span><span>Kestrel Spire · 3,420 m</span></p>
-              <h2 class="chapter-title" id="title-summit">Above the clouds,<br>at <em>last light.</em></h2>
+              <h2 class="chapter-title" id="title-summit" tabindex="-1">Above the clouds,<br>at <em>last light.</em></h2>
               <p class="chapter-body">Beyond the valley, distant ridges catch the last warmth of the sun.</p>
             </div>
             <figure class="static-plate">
@@ -200,29 +200,29 @@
               <div class="archive-head">
                 <div>
                   <p class="chapter-meta"><span>06</span><span aria-hidden="true">·</span><span>The Archive</span><span aria-hidden="true">·</span><span>Cartographic Exhibition Index</span></p>
-                  <h2 class="chapter-title" id="title-archive">Return to the <em>folio.</em></h2>
+                  <h2 class="chapter-title" id="title-archive" tabindex="-1">Return to the <em>folio.</em></h2>
                 </div>
                 <p class="chapter-body">Revisit a viewpoint in the fictional alpine survey.</p>
               </div>
               <div class="viewpoints-list" role="group" aria-label="Selectable expedition viewpoints">
-                <button type="button" class="viewpoint-btn" data-viewpoint="tarn-overlook" data-target-progress="0.62" aria-pressed="false">
+                <a href="#valley" class="viewpoint-btn" data-viewpoint="tarn-overlook" data-target-progress="0.62">
                   <span class="vp-index">VIEWPOINT I</span>
                   <span class="vp-name">Tarn Overlook</span>
                   <span class="vp-sub">Lake Vireo Basin · 1,890 m</span>
                   <span class="vp-desc">Glacial meltwater reflecting the northern cirque wall beneath lingering valley mist.</span>
-                </button>
-                <button type="button" class="viewpoint-btn" data-viewpoint="meridian-pass" data-target-progress="0.44" aria-pressed="false">
+                </a>
+                <a href="#descent" class="viewpoint-btn" data-viewpoint="meridian-pass" data-target-progress="0.44">
                   <span class="vp-index">VIEWPOINT II</span>
                   <span class="vp-name">Meridian Gorge</span>
                   <span class="vp-sub">North Ridge Approach · 2,410 m</span>
                   <span class="vp-desc">Steep moraine shoulders and granite strata descending toward the subalpine basin.</span>
-                </button>
-                <button type="button" class="viewpoint-btn" data-viewpoint="kestrel-crest" data-target-progress="0.82" aria-pressed="false">
+                </a>
+                <a href="#summit" class="viewpoint-btn" data-viewpoint="kestrel-crest" data-target-progress="0.82">
                   <span class="vp-index">VIEWPOINT III</span>
                   <span class="vp-name">Kestrel Crest</span>
                   <span class="vp-sub">Golden Hour Panorama · 3,420 m</span>
                   <span class="vp-desc">Above the stratus cloud deck in warm raking light across the full horseshoe massif.</span>
-                </button>
+                </a>
               </div>
             </div>
           </article>
@@ -230,11 +230,13 @@
 
         <!-- Non-blocking viewpoint inspection controls -->
         <div class="inspect-bar" id="inspect-bar" hidden>
-          <span class="inspect-label">Inspect view</span>
+          <button type="button" class="inspect-btn inspect-toggle" id="inspect-toggle" aria-expanded="false" aria-controls="inspect-options">Explore view</button>
+          <div id="inspect-options" class="inspect-options" hidden>
           <button type="button" class="inspect-btn" id="inspect-left" aria-label="Look left">Look left</button>
           <button type="button" class="inspect-btn" id="inspect-right" aria-label="Look right">Look right</button>
           <button type="button" class="inspect-btn" id="inspect-reset" disabled>Reset angle</button>
-          <button type="button" class="inspect-btn" id="return-archive" hidden>Archive index</button>
+          </div>
+          <button type="button" class="inspect-btn" id="return-archive" hidden>Back to index</button>
         </div>
 
         <!-- Unobtrusive Expedition Rail -->
@@ -267,6 +269,6 @@
     </nav>
   </footer>
 
-  <script type="module" src="src/main.js?v=16"></script>
+  <script type="module" src="src/main.js?v=17"></script>
 </body>
 </html>
