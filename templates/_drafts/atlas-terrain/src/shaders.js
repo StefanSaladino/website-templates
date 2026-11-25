@@ -209,10 +209,10 @@ float sampleSmoothHeight(vec2 xz) {
 
 // Stratified granite ledges + vertical fracture seams for crisp rock cliffs without blobby artifacts
 float rockMicroHeight(vec2 xz, float rawH, float slope) {
-  float beds = sin(rawH * 3.8 + fbmRock(xz * 0.38) * 3.2) * 0.5 + 0.5;
-  float verticalSeam = 1.0 - abs(noise2(vec2(xz.x * 1.45 + xz.y * 0.55, xz.y * 1.45 - xz.x * 0.55)) * 2.0 - 1.0);
-  float fineGrit = noise2(xz * 3.4);
-  return (beds * 0.48 + verticalSeam * verticalSeam * 0.36 + fineGrit * 0.16) * smoothstep(0.14, 0.62, slope);
+  float f1 = abs(noise2(xz * 2.2) - 0.5);
+  float f2 = abs(noise2(vec2(xz.x * 4.8 - xz.y * 2.1, xz.y * 4.8 + xz.x * 2.1)) - 0.5);
+  float strata = abs(fract(rawH * 1.35 + noise2(xz * 0.45) * 0.55) - 0.5);
+  return (f1 * 0.42 + f2 * 0.34 + strata * 0.24) * smoothstep(0.16, 0.65, slope);
 }
 
 float contourMask(float h, float interval, float widthPx) {
@@ -291,11 +291,13 @@ void main() {
   if(uMapMix>=0.999){fragColor=vec4(cartoColor,1.0);return;}
   // --- 2. PHYSICAL ALPINE GEOLOGICAL MATERIALS ---
   // Compute stratified granite cliff micro-normal
-  float eps = 0.28;
+  float eps = 0.18;
   float mh0 = rockMicroHeight(vWorldPos.xz, rawH, slope);
   float mhx = rockMicroHeight(vWorldPos.xz + vec2(eps, 0.0), rawH, slope);
   float mhz = rockMicroHeight(vWorldPos.xz + vec2(0.0, eps), rawH, slope);
-  float bumpAmp = 0.25 * smoothstep(0.14, 0.85, uRelief);
+  // Fade subpixel fracture detail at distance to avoid crawling textures in motion.
+  float footprint = max(length(dFdx(vWorldPos.xz)),length(dFdy(vWorldPos.xz)));
+  float bumpAmp = 0.22 * smoothstep(0.16, 0.85, uRelief) * (1.0-smoothstep(0.09,0.46,footprint));
   vec3 rockN = normalize(N + vec3((mh0 - mhx) / eps, 0.0, (mh0 - mhz) / eps) * bumpAmp);
 
   float detailN = fbmRock(vWorldPos.xz * 0.34);
@@ -304,14 +306,14 @@ void main() {
   float crag = ridgedRock(vWorldPos.xz * 0.52);
 
   // Material A: Glacial shore pebbles & pale moraine granite cobble
-  vec3 shoreStone = mix(vec3(0.28, 0.31, 0.34), vec3(0.50, 0.52, 0.53), fineN * 0.65 + crownStipple * 0.35);
+  vec3 shoreStone = mix(vec3(0.16, 0.18, 0.20), vec3(0.32, 0.33, 0.34), fineN * 0.65 + crownStipple * 0.35);
 
   // Material B: Subalpine conifer forest & alpine meadow breaks
-  vec3 meadowTurf = mix(vec3(0.20, 0.27, 0.17), vec3(0.29, 0.34, 0.20), fineN);
-  vec3 spruceDeep = vec3(0.055, 0.135, 0.095);
-  vec3 spruceLit = vec3(0.135, 0.235, 0.155);
+  vec3 meadowTurf = mix(vec3(0.18, 0.24, 0.15), vec3(0.26, 0.30, 0.18), fineN);
+  vec3 spruceDeep = vec3(0.050, 0.125, 0.088);
+  vec3 spruceLit = vec3(0.120, 0.215, 0.145);
   vec3 coniferCanopy = mix(spruceDeep, spruceLit, crownStipple * 0.72 + crag * 0.28);
-  float forestPatch = smoothstep(0.32, 0.58, detailN + (crownStipple - 0.5) * 0.24);
+  float forestPatch = smoothstep(0.30, 0.58, detailN + (crownStipple - 0.5) * 0.24);
   vec3 vegCol = mix(meadowTurf, coniferCanopy, forestPatch);
 
   // Material C: Stratified alpine granite, dark gneiss crevices & talus scree
@@ -326,8 +328,8 @@ void main() {
   vec3 snowCol = mix(vec3(0.58, 0.65, 0.71), vec3(0.83, 0.85, 0.85), fineN * 0.7 + 0.25);
 
   // Natural elevation + slope + drainage biome blending
-  float wetShore = 1.0 - smoothstep(uWaterLevel - 0.06, uWaterLevel + 0.46, rawH);
-  float timberBand = smoothstep(uWaterLevel + 0.12, uWaterLevel + 0.95, rawH) * (1.0 - smoothstep(6.2, 9.6, rawH));
+  float wetShore = 1.0 - smoothstep(uWaterLevel - 0.04, uWaterLevel + 0.24, rawH);
+  float timberBand = smoothstep(uWaterLevel + 0.06, uWaterLevel + 0.65, rawH) * (1.0 - smoothstep(6.2, 9.6, rawH));
   float vegSlope = 1.0 - smoothstep(0.20, 0.42, slope + (detailN - 0.5) * 0.16);
   float vegMask = timberBand * vegSlope * (1.0 - drainage * 0.58) * (1.0 - smoothstep(0.58, 0.78, crag));
 
@@ -555,9 +557,9 @@ void main() {
   }
 
   // Luminous glacial meltwater color: turquoise-emerald shallows -> deep alpine teal
-  vec3 shallowTurq = vec3(0.15, 0.48, 0.51);
-  vec3 midGlacial = vec3(0.10, 0.34, 0.42);
-  vec3 deepTarn = vec3(0.048, 0.165, 0.225);
+  vec3 shallowTurq = mix(vec3(0.15, 0.48, 0.51), vec3(0.18, 0.21, 0.27), uGolden * 0.88);
+  vec3 midGlacial = mix(vec3(0.10, 0.34, 0.42), vec3(0.13, 0.16, 0.21), uGolden * 0.90);
+  vec3 deepTarn = mix(vec3(0.048, 0.165, 0.225), vec3(0.08, 0.11, 0.16), uGolden * 0.92);
   vec3 waterBody = mix(shallowTurq, midGlacial, smoothstep(0.04, 0.55, depth));
   waterBody = mix(waterBody, deepTarn, smoothstep(0.55, 1.45, depth));
 
@@ -571,8 +573,8 @@ void main() {
   vec3 col = mix(waterBody, reflColor, reflMix) + sunSpecCol * spec;
 
   // Subtle wet granite shore transition
-  float shoreRim = (1.0 - smoothstep(0.005, 0.10, depth)) * 0.34;
-  col = mix(col, vec3(0.56, 0.72, 0.76), shoreRim);
+  float shoreRim = (1.0 - smoothstep(0.005, 0.08, depth)) * 0.22 * (1.0 - uGolden);
+  col = mix(col, vec3(0.48, 0.62, 0.66), shoreRim);
 
   float camDist = length(uCamPos - vWorldPos);
   float fogAmt = 1.0 - exp(-camDist * uFogDensity * 0.72);
@@ -676,8 +678,11 @@ void main() {
   vec2 warp = vec2(cloudFbm(baseUv), cloudFbm(baseUv + vec2(4.2, 8.7))) * 0.92;
   float f = cloudFbm(baseUv + warp);
 
-  float valleyBlanket = mix(0.23, 0.78, uGolden);
-  float density = smoothstep(0.34, 0.74, f) * edgeMask * terrainClearance * mix(0.18, 1.0, camProximity);
+  // A little summit mist gathers preferentially in the basin, not over foreground peaks.
+  // Use ascending smoothstep edges (reversed edges are undefined in GLSL).
+  float basinMist = (1.0-smoothstep(2.2,7.5,terrH)) * 0.22 * uGolden;
+  float valleyBlanket = mix(0.23, 0.86, uGolden);
+  float density = (smoothstep(0.32, 0.72, f) + basinMist) * edgeMask * terrainClearance * mix(0.18, 1.0, camProximity);
   float alpha = clamp(density * mix(0.50, 0.86, uGolden) * visibility, 0.0, 0.78) * valleyBlanket;
   if (alpha <= 0.005) discard;
 

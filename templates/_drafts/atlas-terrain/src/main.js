@@ -7,9 +7,9 @@
  * - Still view, reduced-motion, visibility suspension, and WebGL2 fallback handling
  */
 
-import { AtlasRenderer } from './renderer.js?v=6';
-import { createMotionController } from './motion.js?v=6';
-import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=6';
+import { AtlasRenderer } from './renderer.js?v=7';
+import { createMotionController } from './motion.js?v=7';
+import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=7';
 
 const rootEl = document.documentElement;
 rootEl.classList.remove('atlas-no-js');
