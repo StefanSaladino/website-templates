@@ -129,8 +129,7 @@ function updateDomForState(state, progress) {
   }
 
   if (elevationReadout) {
-    const meters = state ? state.cameraAltMeters : Math.round(1650 + progress * 1770);
-    elevationReadout.textContent = `${meters.toLocaleString('en-US')} m · ${chapter.coords}`;
+    elevationReadout.textContent = 'Fictional alpine survey';
   }
 
   // Activate the closest chapter overlay smoothly in live WebGL mode
@@ -138,7 +137,8 @@ function updateDomForState(state, progress) {
     const id = card.getAttribute('data-chapter');
     const isActive = id === chapter.id;
     card.classList.toggle('is-active', isActive);
-    card.setAttribute('aria-hidden', isActive || isStaticLayoutMode() ? 'false' : 'true');
+    const accessible=isActive||isStaticLayoutMode();
+    card.setAttribute('aria-hidden',String(!accessible));card.inert=!accessible;
   }
 
   for (const link of navLinks) {
@@ -181,7 +181,8 @@ const renderer = new AtlasRenderer(canvasEl, stageEl, {
 
 const motion = createMotionController({
   onFrame(progress, timeSec, yaw, pitch, isMoving) {
-    const state = renderer.render(progress, timeSec, yaw, pitch, isMoving);
+    if(isStaticLayoutMode()){updateDomForState(null,progress);return null;}
+    const state = renderer.render(progress, progress*14, yaw, pitch, isMoving);
     updateDomForState(state, progress);
     return state;
   },
@@ -225,7 +226,7 @@ updateDomForState(null, initialP);
 let scrollLockCheck = 0;
 function onNativeScroll() {
   const p = getScrollProgress();
-  motion.setTargetProgress(p, false);
+  if(!isStaticLayoutMode())motion.setTargetProgress(p,false);
 
   const ch = getChapterForProgress(p);
   if (ch.id !== lastInspectChapter) {
@@ -325,10 +326,12 @@ if (returnArchiveBtn) {
 if (stillToggle) {
   stillToggle.addEventListener('click', () => {
     if (reducedMotionQuery.matches) return;
+    const chapter=CHAPTERS.find(c=>c.id===rootEl.dataset.activeChapter)||CHAPTERS[0];
     isStillMode = !isStillMode;
     updateControlStates();
     updateDomForState(null, getScrollProgress());
-    if (!isStillMode) motion.forceRedraw();
+    if(isStillMode)scrollToChapterOrProgress(chapter.id,chapter.anchor,true);
+    else{scrollToProgress(chapter.anchor,true);motion.setTargetProgress(chapter.anchor,true);motion.forceRedraw();}
   });
 }
 

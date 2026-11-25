@@ -89,7 +89,7 @@ export function createMotionController(options) {
       Math.abs(currentPitch - prevX) > 1e-6;
 
     // Gentle ambient water ripples & cloud drift only when visible, unpaused, and active in middle chapters
-    const shouldAnimateAmbient = !paused && !reducedMotion && ambientActive;
+    const shouldAnimateAmbient = false; // deterministic scroll choreography
     let ambientTick = false;
 
     if (shouldAnimateAmbient) {
@@ -112,7 +112,7 @@ export function createMotionController(options) {
     if (motionPending) {
       setSettled(false);
       rafId = requestAnimationFrame(loop);
-    } else if (!paused && !reducedMotion && ambientActive && visible) {
+    } else if (shouldAnimateAmbient && visible) {
       setSettled(true);
       rafId = requestAnimationFrame(loop);
     } else {

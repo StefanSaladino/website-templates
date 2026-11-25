@@ -121,7 +121,7 @@ export class AtlasRenderer {
       depth: true,
       powerPreference: 'high-performance',
     };
-    const gl = this.canvas.getContext('webgl2', attrs);
+    let gl;try{gl=this.canvas.getContext('webgl2',attrs)}catch{gl=null}
     if (!gl) {
       this.stageEl.setAttribute('data-renderer', 'static');
       this.canvas.hidden = true;
@@ -306,15 +306,10 @@ export class AtlasRenderer {
     const cssW = Math.max(1, Math.round(rect.width));
     const cssH = Math.max(1, Math.round(rect.height));
 
-    const nativeDpr = Math.min(window.devicePixelRatio || 1, 2);
-    let targetDpr;
-    if (this.quality === 'low') {
-      targetDpr = isMoving ? 0.72 : Math.min(nativeDpr, 1.0);
-    } else if (this.isSoftwareRenderer) {
-      targetDpr = isMoving ? 0.75 : 1.0;
-    } else {
-      targetDpr = isMoving ? Math.min(nativeDpr, 1.2) : Math.min(nativeDpr, 1.65);
-    }
+    const nativeDpr=Math.min(window.devicePixelRatio||1,2);
+    const budget=this.isSoftwareRenderer?1050000:this.quality==='low'?1100000:1900000;
+    const cap=this.isSoftwareRenderer?1:this.quality==='low'?1.2:1.55;
+    const targetDpr=Math.min(nativeDpr,cap,Math.sqrt(budget/(cssW*cssH)));
 
     const pxW = Math.max(2, Math.round(cssW * targetDpr));
     const pxH = Math.max(2, Math.round(cssH * targetDpr));
@@ -479,6 +474,7 @@ export class AtlasRenderer {
     this.stageEl.setAttribute('data-draws', String(this.drawCount));
     this.stageEl.setAttribute('data-rendered-progress', state.progress.toFixed(4));
     this.stageEl.setAttribute('data-rendered-chapter', state.chapter.id);
+    this.stageEl.dataset.cameraClearance=(state.pos[1]-this.sampleTerrainHeight(state.pos[0],state.pos[2])*state.relief).toFixed(4);
 
     return state;
   }

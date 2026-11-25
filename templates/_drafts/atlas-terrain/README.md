@@ -29,3 +29,6 @@ To package `atlas-terrain` cleanly for standalone export:
 ```bash
 cd templates/_drafts && zip -r atlas-terrain.zip atlas-terrain
 ```
+
+## A2 — first visual and stability refinement
+A1 Pages deployment passed. A1 browser test rendered all nine samples at 320px with no GL errors or horizontal overflow, then incorrectly expected six static illustrations (there are five illustrations plus the archive). A2 separates the editorial opening from the visual survey, reduces heavy contour/grid contrast, refines typography and water/rock colors, replaces nonuniform-time spline speed discontinuities, removes the scroll-triggered resolution drop, softens collision correction, prevents invisible chapters intercepting input, and uses a deterministic world timeline. Tests now check stable framebuffer size and terrain clearance. Visual quality and real-device cadence still require review. No existing registered template changes.

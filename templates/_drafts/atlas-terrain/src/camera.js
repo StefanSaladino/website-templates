@@ -135,55 +135,21 @@ function smoothstep(e0, e1, x) {
   return t * t * (3 - 2 * t);
 }
 
-// Uniform Catmull-Rom interpolation across scalar control points
-function catmullScalar(p0, p1, p2, p3, t) {
-  const t2 = t * t;
-  const t3 = t2 * t;
-  return 0.5 * (
-    (2 * p1) +
-    (-p0 + p2) * t +
-    (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 +
-    (-p0 + 3 * p1 - 3 * p2 + p3) * t3
-  );
-}
-
+// Nonuniform-time cubic Hermite interpolation: shared velocity at each key.
 function sampleSpline(progress) {
-  const p = clamp(progress, 0, 1);
-  let i1 = 0;
-  for (let i = 0; i < SPLINE_KEYS.length - 1; i++) {
-    if (p >= SPLINE_KEYS[i].t && p <= SPLINE_KEYS[i + 1].t) {
-      i1 = i;
-      break;
-    }
-  }
-  const i0 = Math.max(0, i1 - 1);
-  const i2 = Math.min(SPLINE_KEYS.length - 1, i1 + 1);
-  const i3 = Math.min(SPLINE_KEYS.length - 1, i1 + 2);
-
-  const span = SPLINE_KEYS[i2].t - SPLINE_KEYS[i1].t || 1;
-  const u = clamp((p - SPLINE_KEYS[i1].t) / span, 0, 1);
-
-  const k0 = SPLINE_KEYS[i0];
-  const k1 = SPLINE_KEYS[i1];
-  const k2 = SPLINE_KEYS[i2];
-  const k3 = SPLINE_KEYS[i3];
-
-  const pos = [
-    catmullScalar(k0.pos[0], k1.pos[0], k2.pos[0], k3.pos[0], u),
-    catmullScalar(k0.pos[1], k1.pos[1], k2.pos[1], k3.pos[1], u),
-    catmullScalar(k0.pos[2], k1.pos[2], k2.pos[2], k3.pos[2], u),
-  ];
-
-  const look = [
-    catmullScalar(k0.look[0], k1.look[0], k2.look[0], k3.look[0], u),
-    catmullScalar(k0.look[1], k1.look[1], k2.look[1], k3.look[1], u),
-    catmullScalar(k0.look[2], k1.look[2], k2.look[2], k3.look[2], u),
-  ];
-
-  const fov = catmullScalar(k0.fov, k1.fov, k2.fov, k3.fov, u);
-  return { pos, look, fov };
+  const p=clamp(progress,0,1);
+  let i=0;while(i<SPLINE_KEYS.length-2&&p>SPLINE_KEYS[i+1].t)i++;
+  const k=SPLINE_KEYS[i],n=SPLINE_KEYS[i+1],span=n.t-k.t,u=clamp((p-k.t)/span,0,1),u2=u*u,u3=u2*u;
+  const tangent=(j,field,axis)=>{
+    const a=SPLINE_KEYS[Math.max(0,j-1)],b=SPLINE_KEYS[Math.min(SPLINE_KEYS.length-1,j+1)];
+    const v=x=>axis===null?x[field]:x[field][axis];return (v(b)-v(a))/(b.t-a.t);
+  };
+  const interpolate=(field,axis)=>{
+    const v=x=>axis===null?x[field]:x[field][axis];
+    return (2*u3-3*u2+1)*v(k)+(u3-2*u2+u)*span*tangent(i,field,axis)+(-2*u3+3*u2)*v(n)+(u3-u2)*span*tangent(i+1,field,axis);
+  };
+  return {pos:[0,1,2].map(j=>interpolate('pos',j)),look:[0,1,2].map(j=>interpolate('look',j)),fov:interpolate('fov',null)};
 }
-
 export function getChapterForProgress(progress) {
   const p = clamp(progress, 0, 1);
   for (let i = CHAPTERS.length - 1; i >= 0; i--) {
@@ -214,7 +180,7 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
   // 2. Environmental phases (Valley mist, Golden hour summit, Cloud layers)
   const valleyWeight = smoothstep(0.46, 0.56, p) * (1.0 - smoothstep(0.68, 0.78, p));
   const goldenWeight = smoothstep(0.69, 0.82, p) * (1.0 - smoothstep(0.86, 0.96, p));
-  const cloudAlpha = smoothstep(0.48, 0.62, p) * (1.0 - smoothstep(0.84, 0.95, p));
+  const cloudAlpha = smoothstep(0.50, 0.65, p) * (1.0 - smoothstep(0.84, 0.95, p)) * 0.72;
 
   // Sun sweeps smoothly from crisp morning azimuth toward warm low golden-hour elevation
   const sunElev = lerp(0.56, 0.20, goldenWeight);
@@ -238,7 +204,7 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
   skyZenith = lerpVec3(skyZenith, summitZenith, goldenWeight);
   skyHorizon = lerpVec3(skyHorizon, summitHorizon, goldenWeight);
 
-  const fogDensity = lerp(0.0085, 0.0155, valleyWeight) * (1.0 - goldenWeight * 0.32);
+  const fogDensity = lerp(0.0065, 0.0105, valleyWeight) * (1.0 - goldenWeight * 0.26);
 
   // 3. Camera spline + responsive mobile FOV/pullback compensation
   const spline = sampleSpline(p);
@@ -254,11 +220,18 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
     const dx = pos[0] - look[0];
     const dy = pos[1] - look[1];
     const dz = pos[2] - look[2];
-    const pull = 1.0 + portraitFactor * 0.14 * (1.0 - valleyWeight * 0.45);
+    const pull = 1.0 + portraitFactor * 0.055 * (1.0 - valleyWeight * 0.75);
     pos[0] = look[0] + dx * pull;
     pos[1] = look[1] + dy * pull;
     pos[2] = look[2] + dz * pull;
   }
+
+  // The opening is a designed survey plate, not an arbitrary camera crop.
+  // Move the entire camera rig, preserving perspective and geographic scale.
+  const opening=1-smoothstep(.015,.18,p);
+  const shiftX=-12*opening*smoothstep(.85,1.45,aspect);
+  const shiftZ=8*opening*(1-smoothstep(.55,1.05,aspect));
+  pos[0]+=shiftX;look[0]+=shiftX;pos[2]+=shiftZ;look[2]+=shiftZ;
 
   // 4. Optional Viewpoint Drag/Keyboard Inspection Offset (applied smoothly to look direction)
   if (Math.abs(inspectYaw) > 0.0005 || Math.abs(inspectPitch) > 0.0005) {
@@ -279,18 +252,15 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
 
   // 5. Strict Terrain & Water Collision Avoidance
   if (typeof sampleHeight === 'function') {
-    const groundY = sampleHeight(pos[0], pos[2]) * relief;
-    const minSafeY = Math.max(groundY + 1.85, WATER_LEVEL * relief + 1.15);
-    if (pos[1] < minSafeY) {
-      const lift = minSafeY - pos[1];
-      pos[1] = minSafeY;
-      look[1] += lift * 0.45;
-    }
+    const groundY=Math.max(...[[0,0],[-1.4,0],[1.4,0],[0,-1.4],[0,1.4]].map(([dx,dz])=>sampleHeight(pos[0]+dx,pos[2]+dz)))*relief;
+    const delta=Math.max(groundY+2,WATER_LEVEL*relief+1.35)-pos[1],soft=.65;
+    const lift=delta<=-soft?0:delta>=soft?delta:(delta+soft)**2/(4*soft);
+    pos[1]+=lift;look[1]+=lift*.32;
   }
 
   // Camera basis vectors (useful for both View matrix and Sky ray shader)
   const forward = normalizeVec3([look[0] - pos[0], look[1] - pos[1], look[2] - pos[2]]);
-  const worldUp = Math.abs(forward[1]) > 0.97 ? [0, 0, -1] : [0, 1, 0];
+  const worldUp = [0, 1, 0];
   const right = normalizeVec3(crossVec3(forward, worldUp));
   const up = normalizeVec3(crossVec3(right, forward));
 
@@ -338,7 +308,7 @@ function normalizeVec3(v) {
 
 export function buildViewProjMatrix(pos, look, worldUpRef, fovDeg, aspect, near = 0.35, far = 240.0) {
   const f = normalizeVec3([look[0] - pos[0], look[1] - pos[1], look[2] - pos[2]]);
-  const upHint = Math.abs(f[1]) > 0.97 ? [0, 0, -1] : worldUpRef;
+  const upHint = worldUpRef;
   const s = normalizeVec3(crossVec3(f, upHint));
   const u = crossVec3(s, f);
 

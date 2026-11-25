@@ -97,7 +97,7 @@ void main() {
   vec3 worldPos = vec3(aPosition.x, morphedY, aPosition.z);
 
   vec3 flatN = vec3(0.0, 1.0, 0.0);
-  vec3 morphedN = normalize(mix(flatN, aNormal, smoothstep(0.0, 0.42, uRelief)));
+  vec3 morphedN = normalize(vec3(aNormal.x*uRelief,aNormal.y,aNormal.z*uRelief));
 
   vWorldPos = worldPos;
   vNormal = morphedN;
@@ -191,7 +191,7 @@ void main() {
   // Micro-geological detail Perturbation
   float rockNoise = fbmDetail(vWorldPos.xz * 0.42);
   float microGrain = fbmDetail(vWorldPos.xz * 1.95);
-  float strata = sin(rawH * 3.8 + rockNoise * 3.2) * 0.5 + 0.5;
+  float strata = sin(rawH * 2.4 + rockNoise * 6.0 + vWorldPos.x*.09) * 0.5 + 0.5;
 
   // Slightly perturb shading normal for sharp alpine rock crags when 3D relief rises
   vec3 microN = normalize(N + vec3(
@@ -206,23 +206,23 @@ void main() {
   vec3 hypsoMid = vec3(0.768, 0.815, 0.840);  // Glacial slate wash
   vec3 hypsoHigh = vec3(0.968, 0.960, 0.945); // Snow crest ivory
 
-  vec3 mapTint = mix(paperBase, hypsoLow, smoothstep(1.8, 5.5, rawH));
-  mapTint = mix(mapTint, hypsoMid, smoothstep(5.5, 11.0, rawH) * 0.72);
+  vec3 mapTint = mix(paperBase, hypsoLow, smoothstep(1.8, 5.5, rawH)*0.56);
+  mapTint = mix(mapTint, hypsoMid, smoothstep(5.5, 11.0, rawH) * 0.40);
   mapTint = mix(mapTint, hypsoHigh, smoothstep(11.5, 16.5, rawH));
 
   // Lake Vireo bathymetry in Map & Archive views
-  float lakeMask = smoothstep(uWaterLevel + 0.12, uWaterLevel - 0.35, rawH);
-  vec3 lakeBathymetry = mix(vec3(0.675, 0.775, 0.820), vec3(0.365, 0.525, 0.608), smoothstep(uWaterLevel, 0.4, rawH));
+  float lakeMask = (1.0 - smoothstep(uWaterLevel - 0.35, uWaterLevel + 0.12, rawH));
+  vec3 lakeBathymetry = mix(vec3(0.72, 0.81, 0.82), vec3(0.45, 0.64, 0.68), (1.0 - smoothstep(0.4, uWaterLevel, rawH)));
   mapTint = mix(mapTint, lakeBathymetry, lakeMask);
 
   // Subtle Swiss shaded-relief hillshade on cartographic sheet
   float cartoShade = clamp(dot(normalize(mix(vec3(0.0, 1.0, 0.0), vNormal, 0.55)), normalize(vec3(-0.65, 0.72, -0.45))), 0.0, 1.0);
-  mapTint *= mix(0.91, 1.04, cartoShade);
+  mapTint *= mix(0.97, 1.01, cartoShade);
 
   // Multi-tier anti-aliased contours (skip submerged basin interior except shoreline contour)
   float landMask = smoothstep(uWaterLevel - 0.05, uWaterLevel + 0.12, rawH);
-  float minorContour = contourMask(rawH, 0.55, 1.2) * landMask;
-  float indexContour = contourMask(rawH, 2.75, 1.65) * landMask;
+  float minorContour = contourMask(rawH, 0.85, 0.75) * landMask;
+  float indexContour = contourMask(rawH, 4.25, 1.05) * landMask;
   float shoreContour = contourMask(rawH - uWaterLevel + 0.01, 0.45, 1.35) * (1.0 - landMask) * smoothstep(0.35, 1.4, rawH);
 
   // Architectural coordinate graticule grid (every 16 units)
@@ -235,15 +235,16 @@ void main() {
   vec3 inkLake = vec3(0.25, 0.43, 0.52);
 
   vec3 cartoColor = mapTint;
-  cartoColor = mix(cartoColor, inkMajor, gridLine * 0.11);
-  cartoColor = mix(cartoColor, inkMinor, minorContour * 0.36);
-  cartoColor = mix(cartoColor, inkMajor, indexContour * 0.74);
-  cartoColor = mix(cartoColor, inkLake, shoreContour * 0.48);
+  cartoColor = mix(cartoColor, inkMajor, gridLine * 0.045);
+  cartoColor = mix(cartoColor, inkMinor, minorContour * 0.23);
+  cartoColor = mix(cartoColor, inkMajor, indexContour * 0.52);
+  cartoColor = mix(cartoColor, inkLake, shoreContour * 0.24);
 
   // Crisp subtle border around archival sheet
   float edgeBorder = smoothstep(uWorldSize * 0.482, uWorldSize * 0.492, max(abs(vWorldPos.x), abs(vWorldPos.z)));
   cartoColor = mix(cartoColor, paperBase, edgeBorder);
 
+  if(uMapMix>=0.999){fragColor=vec4(cartoColor,1.0);return;}
   // --- 2. PHYSICAL GEOLOGICAL SURFACE MATERIALS ---
   // Material A: Glacial shore & wet siltstone
   vec3 wetStone = mix(vec3(0.16, 0.20, 0.23), vec3(0.32, 0.38, 0.42), microGrain);
@@ -253,7 +254,7 @@ void main() {
   // Material C: Stratified alpine granite & talus scree
   vec3 graniteDark = vec3(0.21, 0.235, 0.265);
   vec3 graniteLight = vec3(0.47, 0.495, 0.52);
-  vec3 rockCol = mix(graniteDark, graniteLight, strata * 0.55 + microGrain * 0.45);
+  vec3 rockCol = mix(graniteDark, graniteLight, strata * 0.24 + microGrain * 0.76);
   rockCol = mix(rockCol, vec3(0.30, 0.33, 0.35), drainage * 0.38);
 
   // Material D: Firn & crisp alpine snowpack
@@ -314,6 +315,7 @@ void main() {
   float spec = pow(max(dot(microN, H), 0.0), specPow) * mix(0.05, 0.34, 1.0 - roughness);
 
   vec3 litGeology = albedo * (ambient + sunColor * diffuse * shadow) + sunColor * spec * shadow;
+  litGeology=pow(clamp(litGeology,0.0,1.0),vec3(0.78));
 
   // Fade remaining faint contour traces along cliffs during ascent before vanishing completely
   float residualContour = (indexContour * 0.52 + minorContour * 0.22) * smoothstep(0.0, 0.55, uMapMix);

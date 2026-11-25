@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
   <a class="skip-link" href="#expedition-track">Skip to expedition</a>
@@ -40,15 +40,15 @@
           <!-- 01. THE MAP -->
           <article class="chapter-card is-active" id="map" data-chapter="map" aria-labelledby="title-map">
             <div class="chapter-inner">
-              <p class="chapter-meta"><span>01</span><span aria-hidden="true">·</span><span>Sheet VII — Topographic Survey</span><span aria-hidden="true">·</span><span>46°34′N 07°58′E</span></p>
+              <p class="chapter-meta"><span>01</span><span aria-hidden="true">·</span><span>Folio VII / Alpine survey</span></p>
               <h1 class="chapter-title" id="title-map">Beyond<br>the <em>contour.</em></h1>
-              <p class="chapter-body">Every ridge begins as ink on rag paper. Beneath these measured elevation intervals lies a folded granite massif, a glacial trough, and a high basin holding winter meltwater.</p>
+              <p class="chapter-body">A journey from the lines of a map into a world of stone, ice and water.</p>
               <div class="map-legend">
                 <span><strong>Kestrel Spire</strong> 3,420 m</span>
                 <span><strong>Meridian Saddle</strong> 2,640 m</span>
                 <span><strong>Lake Vireo</strong> 1,890 m</span>
               </div>
-              <a class="chapter-cue" href="#ascent" data-jump-progress="0.24">Scroll to raise the relief <span aria-hidden="true">↓</span></a>
+              <a class="chapter-cue" href="#ascent" data-jump-progress="0.24">Begin the expedition</a>
             </div>
             <figure class="static-plate">
               <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Topographic contour survey showing Kestrel Spire, Meridian Saddle, and Lake Vireo">
@@ -229,7 +229,7 @@
           </div>
           <div class="rail-readout">
             <span class="rail-chapter" id="chapter-readout">01 / The Map</span>
-            <span class="rail-elevation" id="elevation-readout">3,420 m Max · 46°34′N 07°58′E</span>
+            <span class="rail-elevation" id="elevation-readout">Fictional alpine survey</span>
           </div>
           <div class="rail-controls">
             <button type="button" class="rail-btn" id="quality-toggle" aria-pressed="false">High detail</button>
@@ -252,6 +252,6 @@
     </nav>
   </footer>
 
-  <script type="module" src="src/main.js"></script>
+  <script type="module" src="src/main.js?v=2"></script>
 </body>
 </html>
