@@ -989,6 +989,19 @@ html.matter-no-js .scroll-hairline,html.matter-no-js .stage-scroll-cue{display:n
  .chapter-card{scroll-margin-top:calc(var(--header-h) + 20px)}
  .exhibition-anchors{display:none}
 }
+/* M3: make the editorial copy feel like one continuous gallery wall,
+   not competing panels. The actual geometry stays in the camera-safe slot. */
+.backdrop-word{font-size:clamp(4.5rem,15.2vw,14.5rem);line-height:.86}
+.backdrop-word--indent{padding-left:clamp(1rem,8vw,8.5rem)}
+@media(min-width:821px){
+ .foreground-layer{grid-template-columns:minmax(0,32ch) 1fr auto}
+ .chapter-body{max-width:30ch}
+}
+@media(max-width:820px){
+ .backdrop-word{font-size:clamp(3.1rem,14.2vw,5.8rem)}
+ .foreground-layer::before{height:39%}
+ .chapter-title{font-size:clamp(1.85rem,7.3vw,2.45rem)}
+}
 </style>
   <script>document.documentElement.classList.remove('matter-no-js');</script>
 </head>
@@ -1989,21 +2002,22 @@ float noise3(vec3 x) {
 
 vec3 sampleEnv(vec3 dir, float blurRoughness) {
   vec3 d = normalize(dir);
-  float u = atan(d.z, d.x) / (2.0 * PI) + 0.5;
+  float u = fract(atan(d.z, d.x) / (2.0 * PI) + 1.0);
   float v = acos(clamp(d.y, -1.0, 1.0)) / PI;
   // Soft multi-tap studio environment filtering approximating roughness mip-blend
   float spread = blurRoughness * 0.045;
-  vec3 c0 = texture(uEnvMap, vec2(u, v)).rgb;
-  vec3 c1 = texture(uEnvMap, vec2(u + spread, clamp(v + spread * 0.5, 0.02, 0.98))).rgb;
-  vec3 c2 = texture(uEnvMap, vec2(u - spread, clamp(v - spread * 0.5, 0.02, 0.98))).rgb;
+  float lod = blurRoughness * 4.0;
+  vec3 c0 = textureLod(uEnvMap, vec2(u, v), lod).rgb;
+  vec3 c1 = textureLod(uEnvMap, vec2(u + spread, clamp(v + spread * 0.5, 0.02, 0.98)), lod).rgb;
+  vec3 c2 = textureLod(uEnvMap, vec2(u - spread, clamp(v - spread * 0.5, 0.02, 0.98)), lod).rgb;
   vec3 col = (c0 * 0.5 + c1 * 0.25 + c2 * 0.25);
   return pow(col, vec3(2.2)) * 1.45; // back to linear HDR
 }
 
 void main() {
   // Coherent organic wavefront dissolution / reassembly mask
-  float grainNoise = noise3(vLocalPos * 4.8) * 0.11 + noise3(vLocalPos * 12.5) * 0.045;
-  float threshold = vSeed + grainNoise - 0.06;
+  float grainNoise = noise3(vLocalPos * 4.8) * 0.045 + noise3(vLocalPos * 12.5) * 0.018;
+  float threshold = clamp(vSeed + grainNoise - 0.03, 0.0, 1.0);
 
   float edgeGlow = 0.0;
   if (uAssembleMode < 0.5) {
@@ -2022,7 +2036,7 @@ void main() {
   vec3 N = normalize(vWorldNormal);
   if (!gl_FrontFacing) N = -N;
   vec3 V = normalize(uCamPos - vWorldPos);
-  float NdotV = max(dot(N, V), 0.001);
+  float NdotV = clamp(dot(N, V), 0.001, 1.0);
 
   // Studio 3-point directional vectors
   vec3 Lkey = normalize(vec3(0.65, 0.78, 0.55));
@@ -2042,13 +2056,13 @@ void main() {
   vec3 metalTint = uAssembleMode > 0.5
     ? mix(vec3(0.54, 0.41, 0.28), vec3(0.78, 0.64, 0.48), brushedGrain * 0.35)
     : mix(vec3(0.62, 0.55, 0.46), vec3(0.82, 0.76, 0.67), brushedGrain * 0.28);
-  vec3 R = reflect(-V, normalize(N + vec3(brushedGrain - 0.5) * 0.03));
-  vec3 envMetal = sampleEnv(R, 0.16 + 0.08 * brushedGrain);
+  vec3 R = reflect(-V, normalize(N + vec3(brushedGrain - 0.5) * 0.008));
+  vec3 envMetal = sampleEnv(R, 0.12 + 0.035 * brushedGrain);
   vec3 F0metal = metalTint;
   vec3 Fmetal = F0metal + (1.0 - F0metal) * pow(1.0 - NdotV, 5.0);
   vec3 Hkey = normalize(Lkey + V);
   float specMetal = pow(max(dot(N, Hkey), 0.0), 48.0) * 1.1;
-  vec3 colMetal = envMetal * Fmetal * 1.12 + metalTint * (keyDiff * 0.22 + specMetal * 0.48) + vec3(0.85, 0.78, 0.68) * rimTerm * 0.35;
+  vec3 colMetal = envMetal * Fmetal * 1.30 + metalTint * (keyDiff * 0.10 + specMetal * 0.34) + vec3(0.85, 0.83, 0.78) * rimTerm * 0.21;
 
   // --- MATERIAL 2: Matte Kaolin Stone Ceramic ---
   vec3 ceramicBase = uAssembleMode > 0.5
@@ -2059,7 +2073,7 @@ void main() {
   vec3 envSoft = sampleEnv(N, 0.92);
   float ceramicSheen = pow(1.0 - NdotV, 4.0) * 0.14;
   vec3 colCeramic =
-    ceramicBase * cavityAO * (wrapDiff * 0.72 + fillDiff * 0.22 + envSoft * 0.26) +
+    ceramicBase * cavityAO * (0.10 + wrapDiff * 0.68 + fillDiff * 0.14 + envSoft * 0.24) +
     vec3(0.97, 0.94, 0.89) * (ceramicSheen + rimTerm * 0.28);
 
   // --- MATERIAL 3: Translucent Smoked Alabaster / Optical Quartz ---
@@ -2077,7 +2091,7 @@ void main() {
   float fresnelGlass = 0.05 + 0.95 * pow(1.0 - NdotV, 4.2);
   vec3 envGlassSpec = sampleEnv(reflect(-V, N), 0.04);
   float specGlass = pow(max(dot(N, Hkey), 0.0), 120.0) * 1.5;
-  vec3 colGlass = refracted * absorption * 0.82 + internalGlow + envGlassSpec * fresnelGlass * 1.18 + vec3(1.0, 0.97, 0.92) * specGlass;
+  vec3 colGlass = refracted * absorption * 0.92 + internalGlow * 0.68 + envGlassSpec * fresnelGlass * 1.05 + vec3(1.0, 0.97, 0.92) * specGlass * 0.65;
 
   // Blend across MaterialMix (0->1->2)
   float m1 = clamp(uMaterialMix, 0.0, 1.0);
@@ -2099,7 +2113,7 @@ void main() {
   mapped = pow(clamp(mapped, 0.0, 1.0), vec3(1.0 / 2.2));
 
   // Alpha softly translucent in Material 3 so background gallery display type softly peeks through optical quartz
-  float alpha = mix(1.0, clamp(0.62 + fresnelGlass * 0.45 + specGlass * 0.25, 0.62, 0.99), m2);
+  float alpha = mix(1.0, clamp(0.88 + fresnelGlass * 0.12 + specGlass * 0.10, 0.88, 1.0), m2);
   if (uAssembleMode > 0.5) {
     alpha = clamp(uFormBOpacity, 0.0, 1.0);
   }
@@ -2152,9 +2166,9 @@ void main() {
   vec3 nB = normalize(mat3(uModelB) * aNormB);
 
   // Particle detaches right as Form A's solid erosion front reaches aSeedA
-  float birth = smoothstep(aSeedA - 0.06, aSeedA + 0.09, uDissolve * 1.18 - 0.02);
+  float birth = smoothstep(aSeedA - 0.045, aSeedA + 0.055, uDissolve * 1.18 - 0.04);
   // Particle settles and vanishes cleanly into Form B's solid surface once Form B locks over aSeedB
-  float locked = smoothstep(aSeedB - 0.05, aSeedB + 0.11, uReassemble * 1.18 - 0.04);
+  float locked = smoothstep(aSeedB - 0.045, aSeedB + 0.055, uReassemble * 1.18 - 0.04);
 
   float activeAmp = birth * (1.0 - locked);
   vVisible = activeAmp;
@@ -2169,20 +2183,19 @@ void main() {
   }
 
   // Reversible parametric flight between Form A and Form B
-  float flight = smoothstep(0.05, 0.95, clamp(uReassemble * 1.08 + (uDissolve - 0.55) * 0.52, 0.0, 1.0));
+  // A grain starts at its parent surface, drifts only after detaching,
+  // and arrives at its own destination before that patch becomes solid.
+  float arrival = clamp((aSeedB + 0.04) / 1.18, 0.075, 0.98);
+  float flight = smoothstep(0.0, arrival, uReassemble);
   vec3 basePos = mix(worldA, worldB, flight);
-  vec3 baseNorm = normalize(mix(nA, nB, flight));
-
-  // Helical curl arch peaking midway between dissolution and reassembly
-  float scatterBell = sin(clamp(flight * 0.86 + birth * 0.14, 0.0, 1.0) * 3.14159);
-  float swell = pow(max(0.0, scatterBell), 0.82) * (0.48 + 0.72 * aRand.x);
-
-  // Deterministic outward lift along surface normal + curl vortex field
-  vec3 swirl = curlOffset(basePos, aRand.x, uTime * 0.35 + flight * 2.2);
-  vec3 pos = basePos + baseNorm * (0.14 * birth * (1.0 - flight) + 0.25 * swell) + swirl * swell;
-
-  // Gentle orbital drift in mid-flight without losing reversibility
-  float orbAngle = swell * (aRand.y - 0.5) * 0.75;
+  vec3 baseNorm = mix(nA, nB, flight);
+  baseNorm = length(baseNorm) > 0.001 ? normalize(baseNorm) : nB;
+  float detached = smoothstep(aSeedA, aSeedA + 0.18, uDissolve * 1.18 - 0.04);
+  float scatterBell = max(0.0, sin(flight * 3.14159265));
+  float swell = (0.20 * detached + 0.25 * scatterBell) * (1.0 - flight) * (0.65 + 0.35 * aRand.x);
+  vec3 swirl = curlOffset(basePos, aRand.x, uTime * 0.30 + flight * 2.0);
+  vec3 pos = basePos + baseNorm * (0.12 * detached * (1.0 - flight) + 0.12 * swell) + swirl * swell;
+  float orbAngle = swell * (aRand.y - 0.5) * 0.30;
   float co = cos(orbAngle);
   float so = sin(orbAngle);
   pos.xz = mat2(co, -so, so, co) * pos.xz;
@@ -2191,7 +2204,7 @@ void main() {
   gl_Position = uProj * viewPos;
 
   float dist = max(-viewPos.z, 0.8);
-  float basePt = mix(2.2, 5.4, aRand.z) * (0.65 + 0.65 * scatterBell);
+  float basePt = mix(2.1, 4.4, aRand.z) * (0.82 + 0.45 * scatterBell);
   gl_PointSize = clamp((basePt * uPixelRatio * 4.2) / dist, 1.25, uMaxPointSize);
 
   vec3 Lkey = normalize(vec3(0.65, 0.78, 0.55));
@@ -2361,10 +2374,10 @@ function evaluateExhibitionState(pRaw, isCompactLayout = false) {
   const dissolve = smoothstep(0.57, 0.77, p);
 
   // Stage V: Coherent particle flight & solid Form B crystallization
-  const reassemble = smoothstep(0.75, 0.91, p);
-  const formBSolidify = smoothstep(0.78, 0.93, p);
-  const formBOpacity = smoothstep(0.76, 0.82, p);
-  const formAOpacity = 1.0 - smoothstep(0.74, 0.80, p);
+  const reassemble = smoothstep(0.76, 0.93, p);
+  const formBSolidify = reassemble;
+  const formBOpacity = reassemble > 0.002 ? 1.0 : 0.0;
+  const formAOpacity = 1.0 - dissolve;
 
   // Tonal room envelope: warm museum ivory (0..0.52) -> obsidian chamber (0.56..0.88) -> charcoal stone index (0.89..1.0)
   // Smoothly timed so foreground typography switches cleanly across ink polarity with high WCAG contrast.
@@ -2407,7 +2420,7 @@ function evaluateExhibitionState(pRaw, isCompactLayout = false) {
   else if (p >= 0.14) activeStage = 1;
 
   // Subtle living suspension amplitude fades out while Form A is dissolved or in Still mode
-  const breathStrength = (1.0 - smoothstep(0.58, 0.72, p)) * 0.65 + smoothstep(0.84, 0.94, p) * 0.45;
+  const breathStrength = (1.0 - smoothstep(0.50, 0.57, p)) * 0.35;
 
   return {
     p,
@@ -2683,6 +2696,7 @@ class MatterRenderer {
     // 1. Procedural geometry
     const formA = buildFormAMesh(132, 54);
     const formB = buildFormBMesh(82, 44);
+    this.frameGeometry = {base:formA.posBase,morph:formA.posMorph,second:formB.pos};
     const maxParticles = 14400;
     const bridge = buildParticleBridge(formA, formB, maxParticles);
     this.particleActiveCount = this.isSoftwareGl ? 5600 : maxParticles;
@@ -2942,23 +2956,14 @@ class MatterRenderer {
     this.frameCallback?.(state);
 
     const aspect = Math.max(0.25, (this.cssWidth || 1) / (this.cssHeight || 1));
-    const fov = this.isCompact ? 0.72 : 0.62;
-    mat4Perspective(this.projMat, fov, aspect, 0.1, 40.0);
-
-    const az = state.orbitAzimuth + this.dragOrbit + this.pointerX * 0.22;
-    const el = state.orbitElevation + this.pointerY * 0.14;
-    const dist = state.camDist;
-
-    const targetX = -state.offsetX * dist * 0.34;
-    const targetY = -state.offsetY * dist * 0.28;
-    const eyeX = targetX + Math.cos(el) * Math.sin(az) * dist;
-    const eyeY = targetY + Math.sin(el) * dist;
-    const eyeZ = Math.cos(el) * Math.cos(az) * dist;
-
-    this.camPos[0] = eyeX;
-    this.camPos[1] = eyeY;
-    this.camPos[2] = eyeZ;
-    mat4LookAt(this.viewMat, this.camPos, [targetX, targetY, 0], [0, 1, 0]);
+    mat4Perspective(this.projMat, 0.78, aspect, 0.1, 40.0);
+    const az = state.orbitAzimuth + this.dragOrbit + this.pointerX * 0.17;
+    const el = state.orbitElevation + this.pointerY * 0.10;
+    const dist = 7.4;
+    this.camPos[0] = Math.cos(el) * Math.sin(az) * dist;
+    this.camPos[1] = Math.sin(el) * dist;
+    this.camPos[2] = Math.cos(el) * Math.cos(az) * dist;
+    mat4LookAt(this.viewMat, this.camPos, [0, 0, 0], [0, 1, 0]);
 
     const tAmbient = state.p * 6.0; // reproducible geometry and particles in both scroll directions
     const breath = this.stillMode ? 0 : state.breathStrength;
@@ -2986,6 +2991,47 @@ class MatterRenderer {
       state.sculptureScale * 0.98
     );
 
+    // Fit sampled true geometry in camera space, not a world-axis target offset
+    // that changes apparent framing as the camera orbits. Reserve a safe stage
+    // for the sculpture above mobile copy and beside desktop copy.
+    const bounds = (base, morph, amount, model) => {
+      let left=Infinity,right=-Infinity,bottom=Infinity,top=-Infinity;
+      const v=this.viewMat, p=this.projMat;
+      for(let i=0;i<base.length;i+=21){
+        const x=base[i]+(morph[i]-base[i])*amount;
+        const y=base[i+1]+(morph[i+1]-base[i+1])*amount;
+        const z=base[i+2]+(morph[i+2]-base[i+2])*amount;
+        const wx=model[0]*x+model[4]*y+model[8]*z+model[12];
+        const wy=model[1]*x+model[5]*y+model[9]*z+model[13];
+        const wz=model[2]*x+model[6]*y+model[10]*z+model[14];
+        const vx=v[0]*wx+v[4]*wy+v[8]*wz+v[12];
+        const vy=v[1]*wx+v[5]*wy+v[9]*wz+v[13];
+        const d=Math.max(0.1,-(v[2]*wx+v[6]*wy+v[10]*wz+v[14]));
+        const px=p[0]*vx/d,py=p[5]*vy/d;
+        left=Math.min(left,px);right=Math.max(right,px);
+        bottom=Math.min(bottom,py);top=Math.max(top,py);
+      }
+      return [left,right,bottom,top];
+    };
+    const a=this.frameGeometry;
+    const ba=bounds(a.base,a.morph,state.morph,this.modelAMat);
+    const bb=bounds(a.second,a.second,0,this.modelBMat);
+    const both=[Math.min(ba[0],bb[0]),Math.max(ba[1],bb[1]),Math.min(ba[2],bb[2]),Math.max(ba[3],bb[3])];
+    const {smoothstep,mix}=__matter_motion;
+    const enter=smoothstep(0.56,0.72,state.p),exit=smoothstep(0.88,0.95,state.p);
+    const b=ba.map((n,i)=>mix(mix(n,both[i],enter),bb[i],exit));
+    // Reserve a continuous extra margin while particles are airborne.
+    const airborne=smoothstep(0.57,0.68,state.p)*(1-smoothstep(0.86,0.95,state.p));
+    const padY=0.045+0.32*airborne, padX=padY/aspect;
+    b[0]-=padX;b[1]+=padX;b[2]-=padY;b[3]+=padY;
+    const mobile=this.isCompact;
+    const cx=mobile?0:0.24*(1-0.45*airborne), cy=mobile?0.25:0.035;
+    const availableW=mobile?1.72:1.14,availableH=mobile?0.84:1.45;
+    const zoom=Math.min(2.4,availableW/Math.max(.01,b[1]-b[0]),availableH/Math.max(.01,b[3]-b[2]));
+    this.projMat[0]*=zoom;this.projMat[5]*=zoom;
+    this.projMat[8]=(b[0]+b[1])*0.5*zoom-cx;
+    this.projMat[9]=(b[2]+b[3])*0.5*zoom-cy;
+
     gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -3003,8 +3049,8 @@ class MatterRenderer {
       gl.uniformMatrix4fv(this.shadowUniforms.uView, false, this.viewMat);
       gl.uniformMatrix4fv(this.shadowUniforms.uProj, false, this.projMat);
       gl.uniform3f(this.shadowUniforms.uShadowCenter, 0, -1.62 * state.sculptureScale, 0);
-      gl.uniform1f(this.shadowUniforms.uShadowRadius, 1.95 * state.sculptureScale);
-      gl.uniform1f(this.shadowUniforms.uOpacity, shadowOpacity);
+      gl.uniform1f(this.shadowUniforms.uShadowRadius, 1.38 * state.sculptureScale);
+      gl.uniform1f(this.shadowUniforms.uOpacity, shadowOpacity * 0.65);
       gl.uniform1f(this.shadowUniforms.uDarkStage, state.darkStage);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
@@ -3018,8 +3064,8 @@ class MatterRenderer {
 
     // 2. Render Form A surface while visible & before total dissolution
     if (state.formAOpacity > 0.01 && state.dissolve < 0.995) {
-      const translucentOrEroding = state.materialMix > 1.05 || state.dissolve > 0.005;
-      if (translucentOrEroding) gl.disable(gl.CULL_FACE);
+      const eroding = state.dissolve > 0.005;
+      if (eroding) gl.disable(gl.CULL_FACE);
       else gl.enable(gl.CULL_FACE);
 
       gl.useProgram(this.surfaceProg);
@@ -3051,7 +3097,7 @@ class MatterRenderer {
       gl.uniformMatrix4fv(this.surfaceUniforms.uView, false, this.viewMat);
       gl.uniformMatrix4fv(this.surfaceUniforms.uProj, false, this.projMat);
       gl.uniform1f(this.surfaceUniforms.uMorph, 0.0);
-      gl.uniform1f(this.surfaceUniforms.uBreath, breath * 0.4);
+      gl.uniform1f(this.surfaceUniforms.uBreath, 0.0);
       gl.uniform1f(this.surfaceUniforms.uTime, tAmbient);
       gl.uniform1i(this.surfaceUniforms.uEnvMap, 0);
       gl.uniform3fv(this.surfaceUniforms.uCamPos, this.camPos);

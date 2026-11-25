@@ -12,8 +12,8 @@ let browser;
 try{
  for(let i=0;i<50;i++){try{if((await fetch(url)).ok)break}catch{}await new Promise(r=>setTimeout(r,150))}
  browser=await chromium.launch({headless:true,executablePath:['/usr/bin/google-chrome','/usr/bin/chromium'].find(existsSync),args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
- for(const width of [390,1440]){
- const height=width===390?844:900;
+ for(const width of [320,390,768,1440]){
+ const height=width===320?568:width===1440?900:844;
  const p=await browser.newPage({viewport:{width,height}});
  const errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error'&&/shader|program link|WebGL/i.test(m.text()))errors.push(m.text())});
  await p.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(kind,opts){return original.call(this,kind,kind==='webgl2'?{...opts,preserveDrawingBuffer:true}:opts)}});
@@ -21,12 +21,14 @@ try{
  assert(!await p.locator('html').evaluate(n=>n.classList.contains('no-webgl')),'WebGL init failed '+JSON.stringify(errors));
  assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'overflow');
  const frames=[];
- for(const f of [0,.24,.48,.69,.85,.96,.48,0]){
+ for(const f of [0,.12,.24,.36,.48,.60,.69,.76,.85,.92,.96,.48,0]){
  await p.evaluate(f=>{const t=document.querySelector('#exhibition-track'),s=document.querySelector('#exhibition-sticky');scrollTo({top:t.offsetTop+(t.offsetHeight-s.offsetHeight)*f,behavior:'instant'})},f);
  await p.waitForFunction(f=>Math.abs(Number(document.documentElement.style.getPropertyValue('--progress'))-f)<.005,f,{timeout:20000});
  const stats=await p.locator('#matter-canvas').evaluate(c=>{const gl=c.getContext('webgl2'),w=gl.drawingBufferWidth,h=gl.drawingBufferHeight,pixels=new Uint8Array(w*h*4);gl.readPixels(0,0,w,h,gl.RGBA,gl.UNSIGNED_BYTE,pixels);let count=0,hash=2166136261,minX=w,maxX=0,minY=h,maxY=0;for(let y=0;y<h;y+=3)for(let x=0;x<w;x+=3){let i=(y*w+x)*4;if(pixels[i+3]>48){count++;minX=Math.min(x,minX);maxX=Math.max(x,maxX);minY=Math.min(y,minY);maxY=Math.max(y,maxY);hash=Math.imul(hash^pixels[i]^pixels[i+1]<<8^pixels[i+2]<<16,16777619)}}return {count,hash,minX,maxX,minY,maxY,w,h,error:gl.getError(),bounds:c.getBoundingClientRect().toJSON()}});
  console.log('MATTER',width,f,JSON.stringify(stats));assert(stats.count>30,'blank frame '+f);assert.equal(stats.error,0,'GL error');
  assert(stats.bounds.width<=width+1&&stats.bounds.height<=height+1,'canvas exceeds stage');
+ assert(stats.minX>=stats.w*.025&&stats.maxX<=stats.w*.975&&stats.minY>=stats.h*.025&&stats.maxY<=stats.h*.975,'sculpture or particle field clipped at '+width+' / '+f+' '+JSON.stringify(stats));
+ if(width<=820)assert(stats.minY>=stats.h*.23&&stats.maxY<=stats.h*.92,'sculpture overlaps protected mobile margin '+width+' / '+f);
  frames.push(stats);await p.screenshot({path:path.join(out,width+'-'+frames.length+'.png')});
  }
  assert(new Set(frames.map(x=>x.hash)).size>=5,'scenes fail to change');
