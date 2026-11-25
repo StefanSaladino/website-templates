@@ -442,34 +442,50 @@ void main() {
   vec3 P=vec3(vWorldPos.x,rawH,vWorldPos.z);
   float surfaceFootprint=max(length(dFdx(P)),length(dFdy(P)));
   float alpineDetail=smoothstep(10.,17.,rawH)*cliffWeight;
-  vec2 faceX=vec2(P.z+P.y*.31,P.y-P.z*.19);
-  vec2 faceZ=vec2(P.x-P.y*.24,P.y+P.x*.17);
+  // One continuous tilted bedding coordinate crosses both cliff projections.
+  // Low-frequency geological variation bends the beds, rather than producing
+  // closed noise-isoline loops that look like outlined cobblestones.
+  float bed=P.y+.28*P.x-.19*P.z+(detailN-.5)*1.6;
+  vec2 faceX=vec2(P.z+P.y*.31,bed);
+  vec2 faceZ=vec2(P.x-P.y*.24,bed);
   vec2 faceWeights=pow(abs(N.xz),vec2(4.));
   faceWeights/=max(faceWeights.x+faceWeights.y,.0001);
-  float blocksX=noise2(faceX*vec2(1.7,2.5)+vec2(12.7,8.2));
-  float blocksZ=noise2(faceZ*vec2(1.7,2.5)+vec2(4.3,21.8));
-  float chipsX=noise2(faceX*vec2(5.1,6.4)+vec2(8.4,3.7));
-  float chipsZ=noise2(faceZ*vec2(5.1,6.4)+vec2(18.1,2.9));
+  // Anisotropy along the bedding plane; offsets keep both projections distinct.
+  float blocksX=noise2(faceX*vec2(.74,2.8)+vec2(12.7,8.2));
+  float blocksZ=noise2(faceZ*vec2(.74,2.8)+vec2(4.3,21.8));
+  float chipsX=noise2(vec2(faceX.x+bed*.27,bed)*vec2(3.1,6.4)+vec2(8.4,3.7));
+  float chipsZ=noise2(vec2(faceZ.x-bed*.31,bed)*vec2(3.1,6.4)+vec2(18.1,2.9));
   float blocks=dot(vec2(blocksX,blocksZ),faceWeights);
   float chips=dot(vec2(chipsX,chipsZ),faceWeights);
   float blockAA=1.-smoothstep(.10,.38,surfaceFootprint);
   float chipAA=1.-smoothstep(.035,.14,surfaceFootprint);
   float blockRelief=(blocks-.5)*blockAA;
   float chipRelief=(chips-.5)*chipAA;
-  float seam=(1.-smoothstep(.025,.13,abs(blocks-.48)))*blockAA*alpineDetail;
-  vec3 cliffMineral=mix(vec3(.13,.145,.158),vec3(.36,.355,.338),clamp(.5+blockRelief*.85+chipRelief*.36,0.,1.));
+  float bedPhase=bed*6.2+(blocks-.5)*1.5;
+  float bedWave=sin(bedPhase);
+  float bedAA=1.-smoothstep(.45,2.8,fwidth(bedPhase));
+  // Broken ledges, not dark outlines: discontinuity comes from the face noise.
+  float ledge=smoothstep(.64,.94,bedWave)*bedAA*mix(.35,1.,blocks);
+  float seam=ledge*alpineDetail;
+  float mineralTone=clamp(.49+bedVariation*.14+blockRelief*.30+chipRelief*.18+bedWave*bedAA*.09,0.,1.);
+  vec3 cliffMineral=mix(vec3(.15,.16,.171),vec3(.34,.335,.318),mineralTone);
   graniteBase=mix(graniteBase,cliffMineral,.78*alpineDetail);
-  graniteBase*=1.-seam*.20;
-  snowMask*=1.-seam*.46;
+  graniteBase*=1.-seam*.11;
+  // Retain firn in sheltered gullies/ledges, never on near-vertical walls.
+  float firnCatch=smoothstep(.42,.78,drainage+max(0.,sheltered)*.15)*
+                  (1.-smoothstep(.24,.47,slope))*snowAlt;
+  snowMask=clamp(snowMask+firnCatch*.16*(1.-snowMask),0.,1.);
+  snowMask*=1.-seam*.24;
   // Surface-gradient bump: differentiate raw noise before filtering.
   vec3 dpdx=dFdx(vWorldPos),dpdy=dFdy(vWorldPos);
   vec3 rx=cross(dpdy,N),ry=cross(N,dpdx);
   float determinant=dot(dpdx,rx);
-  vec2 grad=vec2(dFdx(blocks),dFdy(blocks))*.050*blockAA+
-            vec2(dFdx(chips),dFdy(chips))*.012*chipAA;
+  vec2 grad=vec2(dFdx(blocks),dFdy(blocks))*.027*blockAA+
+            vec2(dFdx(chips),dFdy(chips))*.009*chipAA+
+            vec2(dFdx(bedWave),dFdy(bedWave))*.023*bedAA;
   vec3 perturb=sign(determinant)*(rx*grad.x+ry*grad.y)/max(abs(determinant),.000001);
   // Bound perturbation at silhouette/degenerate derivative quads.
-  perturb*=min(1.,.36/max(length(perturb),.000001));
+  perturb*=min(1.,.24/max(length(perturb),.000001));
   rockN=normalize(rockN-perturb*alpineDetail*smoothstep(.60,.95,uRelief));
 
   vec3 albedo = graniteBase;
