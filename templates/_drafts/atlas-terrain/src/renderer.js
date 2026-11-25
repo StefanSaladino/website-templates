@@ -10,9 +10,10 @@ import {
   WATER_LEVEL,
   buildTerrainData,
   buildLandscapeDetails,
+  buildDetailShadowField,
   buildWaterMesh,
   buildCloudDeckMesh,
-} from './terrain.js?v=11';
+} from './terrain.js?v=12';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -24,8 +25,8 @@ import {
   CLOUD_FRAG,
   DETAIL_VERT,
   DETAIL_FRAG,
-} from './shaders.js?v=11';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=11';
+} from './shaders.js?v=12';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=12';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -261,7 +262,18 @@ export class AtlasRenderer {
     );
     gl.bindTexture(gl.TEXTURE_2D, null);
 
+    const detailShadowField=buildDetailShadowField(td);
+    const detailShadowTex=gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D,detailShadowTex);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RG8,detailShadowField.size,detailShadowField.size,0,gl.RG,gl.UNSIGNED_BYTE,detailShadowField.data);
+    gl.generateMipmap(gl.TEXTURE_2D);gl.bindTexture(gl.TEXTURE_2D,null);
+
     this.resources = {
+      detailShadowTex,detailShadowBounds:detailShadowField.bounds,
       skyProg,
       skyU: getUniforms(gl, skyProg, [
         'uCamRight', 'uCamUp', 'uCamForward', 'uTanHalfFov', 'uAspect',
@@ -273,6 +285,7 @@ export class AtlasRenderer {
       terrainU: getUniforms(gl, terrainProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uFolioHalf', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix',
+        'uDetailShadows','uDetailShadowBounds','uDetailGrowth',
         'uGolden', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon',
       ]),
       terrainVao,
@@ -391,6 +404,10 @@ export class AtlasRenderer {
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, r.heightTex);
 
+    const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);};
+    const growth=smooth(.43,.94,state.relief)*(1-smooth(.06,.62,state.mapMix));
+    gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,r.detailShadowTex);gl.activeTexture(gl.TEXTURE0);
+
     // 2. Terrain Pass
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LESS);
@@ -402,6 +419,9 @@ export class AtlasRenderer {
     gl.uniform3fv(r.terrainU.uCamPos, state.pos);
     gl.uniform3fv(r.terrainU.uSunDir, state.sunDir);
     gl.uniform1i(r.terrainU.uHeightTex, 0);
+    gl.uniform1i(r.terrainU.uDetailShadows,1);
+    gl.uniform4fv(r.terrainU.uDetailShadowBounds,r.detailShadowBounds);
+    gl.uniform1f(r.terrainU.uDetailGrowth,growth);
     gl.uniform1f(r.terrainU.uWorldSize, WORLD_SIZE);
     gl.uniform1f(r.terrainU.uFolioHalf, state.folioHalf);
     gl.uniform1f(r.terrainU.uMaxTexHeight, this.terrainData.maxTexHeight);
@@ -413,9 +433,7 @@ export class AtlasRenderer {
     gl.uniform3fv(r.terrainU.uSkyHorizon, state.skyHorizon);
     gl.drawElements(gl.TRIANGLES, r.terrainIndexCount, gl.UNSIGNED_INT, 0);
 
-    // Reveal physical details smoothly with relief; exact map and archive stay clean.
-    const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);};
-    const growth=smooth(.43,.94,state.relief)*(1-smooth(.06,.62,state.mapMix));
+    // Reveal physical details and their ground shadows with the same envelope.
     let detailInstances=0;
     if(growth>.001){
       gl.useProgram(r.detailProg);gl.disable(gl.CULL_FACE);
@@ -519,6 +537,7 @@ export class AtlasRenderer {
     gl.deleteVertexArray(r.cloudVao);
     for (const buf of r.buffers) gl.deleteBuffer(buf);
     gl.deleteTexture(r.heightTex);
+    gl.deleteTexture(r.detailShadowTex);
     this.resources = null;
   }
 

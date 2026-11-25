@@ -124,6 +124,9 @@ uniform vec3 uSunDir;
 uniform sampler2D uHeightTex;
 uniform float uWorldSize;
 uniform float uFolioHalf;
+uniform sampler2D uDetailShadows;
+uniform vec4 uDetailShadowBounds;
+uniform float uDetailGrowth;
 uniform float uMaxTexHeight;
 uniform float uWaterLevel;
 
@@ -365,6 +368,14 @@ void main() {
     shadow = 1.0 - occ * 0.64 * smoothstep(0.25, 0.65, uRelief);
   }
 
+  vec2 detailUV=(vWorldPos.xz-uDetailShadowBounds.xy)/uDetailShadowBounds.zw;
+  float detailOcc=0.0;
+  if(uDetailGrowth>.001 && all(greaterThanEqual(detailUV,vec2(0.))) && all(lessThanEqual(detailUV,vec2(1.)))){
+    vec2 detailShadow=texture(uDetailShadows,detailUV).rg;
+    detailOcc=mix(detailShadow.r,detailShadow.g,uGolden)*uDetailGrowth*landMask;
+  }
+  shadow*=1.0-detailOcc*.65;
+
   float NdotL = max(dot(rockN, L), 0.0);
   float snowWrap = max((dot(rockN, L) + 0.22) / 1.22, 0.0) * snowMask;
   float diffuse = mix(NdotL, max(NdotL, snowWrap * 0.78), snowMask);
@@ -374,7 +385,7 @@ void main() {
   vec3 groundFill = mix(vec3(0.15, 0.19, 0.21), vec3(0.19, 0.15, 0.14), uGolden);
 
   float hemi = rockN.y * 0.5 + 0.5;
-  vec3 ambient = mix(groundFill, skyFill, hemi) * mix(0.38,1.0,ao) * mix(0.80, 0.74, uGolden);
+  vec3 ambient = mix(groundFill, skyFill, hemi) * mix(0.38,1.0,ao) * mix(0.80, 0.74, uGolden) * (1.0-detailOcc*.24);
 
   vec3 H = normalize(L + V);
   float specPow = mix(16.0, 72.0, 1.0 - roughness);

@@ -705,3 +705,50 @@ export function buildLandscapeDetails(td=buildTerrainData()){
   ]);
   return canonicalDetails;
 }
+
+
+// R3b: local, mipmapped two-channel contact / approximate directional shadow field.
+// Both lighting endpoints are baked from exactly the same persistent instance placements.
+// This is a bounded terrain projection, not a replacement for full dynamic shadow maps.
+let canonicalDetailShadows=null;
+export function buildDetailShadowField(td=buildTerrainData()){
+  if(canonicalDetailShadows)return canonicalDetailShadows;
+  const size=1024, bounds=[-42,-35,84,86], data=new Uint8Array(size*size*2);
+  const [minX,minZ,spanX,spanZ]=bounds,stepX=spanX/size,stepZ=spanZ/size;
+  const lights=[[.69,.72],[.30,-.48]]; // camera.js daylight / golden hour elevation and azimuth
+  function splat(cx,cz,rx,rz,angle,opacity,channel){
+    const extent=Math.max(rx,rz),c=Math.cos(angle),s=Math.sin(angle);
+    const ix0=Math.max(0,Math.floor((cx-extent-minX)/stepX)),ix1=Math.min(size-1,Math.ceil((cx+extent-minX)/stepX));
+    const iz0=Math.max(0,Math.floor((cz-extent-minZ)/stepZ)),iz1=Math.min(size-1,Math.ceil((cz+extent-minZ)/stepZ));
+    for(let iz=iz0;iz<=iz1;iz++)for(let ix=ix0;ix<=ix1;ix++){
+      const dx=minX+(ix+.5)*stepX-cx,dz=minZ+(iz+.5)*stepZ-cz;
+      const u=(dx*c+dz*s)/rx,v=(-dx*s+dz*c)/rz,d=u*u+v*v;
+      if(d>=1)continue;
+      const k=(iz*size+ix)*2+channel,a=opacity*(1-d)*(1-d);
+      data[k]=Math.round(255*(1-(1-data[k]/255)*(1-a)));
+    }
+  }
+  const details=buildLandscapeDetails(td);
+  for(const batch of details)for(let i=0;i<batch.instances.length;i+=8){
+    const [x,y,z,height,width]=batch.instances.subarray(i,i+5);
+    const tree=batch.kind==='spruce', radius=Math.max(.085,height*width*(tree?.55:.65));
+    for(let ch=0;ch<2;ch++){
+      const [elev,az]=lights[ch],dx=-Math.cos(az),dz=-Math.sin(az);
+      // Contact darkening always present at the base; projected crown is softly tapered.
+      splat(x,z,radius*1.65,radius*1.65,0,tree?.48:.56,ch);
+      const length=Math.min(1.3,height/Math.tan(elev));
+      const steps=Math.max(2,Math.ceil(length/.065));
+      for(let j=1;j<=steps;j++){
+        const t=j/steps,px=x+dx*length*t,pz=z+dz*length*t;
+        // Do not paint a shadow across water or onto a taller intervening ridge.
+        const g=td.sampleHeight(px,pz);
+        if(g<=WATER_LEVEL)continue;
+        if(g>y+height*(1-t)+.16)break;
+        const r=Math.max(.070,radius*(1-.60*t));
+        splat(px,pz,r*1.30,r,Math.atan2(dz,dx),(.19+.08*(1-t))*(tree?1:.85),ch);
+      }
+    }
+  }
+  canonicalDetailShadows=Object.freeze({size,bounds:Object.freeze(bounds),data});
+  return canonicalDetailShadows;
+}
