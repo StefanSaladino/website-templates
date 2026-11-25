@@ -990,3 +990,21 @@ html[data-polarity="dark"] .chapter-title{color:#fff; text-shadow:0 2px 12px rgb
  .chapter-card[data-chapter="archive"] .chapter-inner{max-height:calc(100svh - var(--header-h) - 100px)}
  .rail-btn,.inspect-btn{min-height:40px}
 }
+
+/* A16 R5a — same-geography opening handoff and scroll-authored editorial timing. */
+.opening-plate{position:absolute;inset:0;z-index:2;pointer-events:none;background:#f4f0e8 url("opening-wide.svg?v=16") center/cover no-repeat;opacity:0;visibility:hidden;transition:opacity 180ms ease,visibility 0s linear 180ms}
+html.atlas-booting .opening-plate{opacity:1;visibility:visible;transition:none}
+html.atlas-booting #atlas-canvas{visibility:hidden}
+html.atlas-booting .chapter-card:not([data-chapter="map"]){visibility:hidden;pointer-events:none}
+html.atlas-booting .chapter-card[data-chapter="map"]{opacity:1;transform:none}
+html.atlas-no-js .opening-plate,html.atlas-no-webgl .opening-plate,html[data-still="true"] .opening-plate{display:none}
+html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .chapter-card{transition:none;opacity:var(--chapter-alpha,0);transform:translateY(var(--chapter-rise,0px))}
+html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .chapter-card.is-active{opacity:var(--chapter-alpha,1);transform:translateY(var(--chapter-rise,0px))}
+html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .chapter-card.is-active:focus-within{opacity:1;transform:none}
+html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .stage-scrim{transition:none;opacity:var(--atlas-darkness,0);background:linear-gradient(to bottom,rgba(14,19,25,.44),transparent 32%,transparent 60%,rgba(14,19,25,.45))}
+html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .rail-elevation{display:none}
+@media(max-width:820px){
+ .opening-plate{background-image:url("opening-portrait.svg?v=16")}
+ html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .stage-scrim{background:linear-gradient(to bottom,rgba(14,19,25,.66),rgba(14,19,25,.27) 17%,transparent 38%)}
+}
+@media(prefers-reduced-motion:reduce){.opening-plate{transition:none}}

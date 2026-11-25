@@ -5,7 +5,7 @@
  * responsive desktop & portrait mobile framing, and terrain collision safety.
  */
 
-import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js?v=15';
+import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js?v=16';
 
 export const CHAPTERS = Object.freeze([
   {
@@ -61,7 +61,7 @@ export const CHAPTERS = Object.freeze([
     number: '05',
     title: 'The Summit',
     start: 0.70,
-    end: 0.86,
+    end: 0.91,
     anchor: 0.82,
     inspectable: true,
     polarity: 'dark',
@@ -72,7 +72,7 @@ export const CHAPTERS = Object.freeze([
     id: 'archive',
     number: '06',
     title: 'The Archive',
-    start: 0.86,
+    start: 0.91,
     end: 1.00,
     anchor: 0.96,
     inspectable: false,

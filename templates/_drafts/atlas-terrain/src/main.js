@@ -7,9 +7,9 @@
  * - Still view, reduced-motion, visibility suspension, and WebGL2 fallback handling
  */
 
-import { AtlasRenderer } from './renderer.js?v=15';
-import { createMotionController } from './motion.js?v=15';
-import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=15';
+import { AtlasRenderer } from './renderer.js?v=16';
+import { createMotionController } from './motion.js?v=16';
+import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=16';
 
 const rootEl = document.documentElement;
 rootEl.classList.remove('atlas-no-js');
@@ -102,6 +102,13 @@ function scrollToProgress(progress, instant = false) {
   window.scrollTo({ top: y, behavior });
 }
 
+export function editorialEnvelope(chapter,progress){
+  const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);};
+  // No overlapping text at chapter boundaries; progress, not time, determines opacity.
+  const inAlpha=chapter.start===0?1:smooth(chapter.start,chapter.start+.025,progress);
+  const outAlpha=chapter.end===1?1:1-smooth(chapter.end-.025,chapter.end,progress);
+  return Math.max(.12,inAlpha*outAlpha);
+}
 function updateDomForState(state, progress) {
   const chapter = state
     ? state.chapter
@@ -115,10 +122,12 @@ function updateDomForState(state, progress) {
     chapter.id === 'map' ||
     chapter.id === 'archive' ||
     progress < 0.13 ||
-    progress > 0.87;
+    progress > 0.91;
   rootEl.setAttribute('data-polarity', isLightPolar ? 'light' : 'dark');
   rootEl.setAttribute('data-active-chapter', chapter.id);
   rootEl.style.setProperty('--atlas-progress', progress.toFixed(4));
+  const sm=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
+  rootEl.style.setProperty('--atlas-darkness',(sm(.10,.24,progress)*(1-sm(.86,.96,progress))).toFixed(4));
 
   if (progressBarFill) {
     progressBarFill.style.transform = `scaleX(${progress.toFixed(4)})`;
@@ -137,6 +146,9 @@ function updateDomForState(state, progress) {
     const id = card.getAttribute('data-chapter');
     const isActive = id === chapter.id;
     card.classList.toggle('is-active', isActive);
+    const alpha=isActive?editorialEnvelope(chapter,progress):0;
+    card.style.setProperty('--chapter-alpha',alpha.toFixed(4));
+    card.style.setProperty('--chapter-rise',((1-alpha)*7).toFixed(2)+'px');
     const accessible=isActive||isStaticLayoutMode();
     card.setAttribute('aria-hidden',String(!accessible));card.inert=!accessible;
   }
@@ -171,6 +183,7 @@ const renderer = new AtlasRenderer(canvasEl, stageEl, {
   initialQuality: currentQuality,
   onRendererChange(mode) {
     rootEl.classList.toggle('atlas-no-webgl', mode !== 'webgl');
+    if(mode!=='webgl')rootEl.classList.remove('atlas-booting');
     updateControlStates();
     updateDomForState(null, getScrollProgress());
     if (mode === 'webgl') {
@@ -184,6 +197,7 @@ const motion = createMotionController({
     if(isStaticLayoutMode()){updateDomForState(null,progress);return null;}
     try {
       const state = renderer.render(progress, progress*14+timeSec, yaw, pitch, isMoving);
+      if(state&&renderer.drawCount>0){rootEl.dataset.firstFrame='true';rootEl.classList.remove('atlas-booting');}
       stageEl.dataset.ambientTime=timeSec.toFixed(4);
       updateDomForState(state, progress);
       return state;
@@ -192,7 +206,7 @@ const motion = createMotionController({
       stageEl.dataset.renderError=String(error?.message||error);
       stageEl.dataset.renderer='static';
       canvasEl.hidden=true;
-      rootEl.classList.add('atlas-no-webgl');
+      rootEl.classList.add('atlas-no-webgl');rootEl.classList.remove('atlas-booting');
       updateControlStates();
       updateDomForState(null,progress);
       return null;
@@ -207,6 +221,7 @@ const motion = createMotionController({
 function updateControlStates() {
   const hasWebgl = stageEl.getAttribute('data-renderer') === 'webgl';
   rootEl.setAttribute('data-still', isStillMode ? 'true' : 'false');
+  if(isStillMode)rootEl.classList.remove('atlas-booting');
 
   if (stillToggle) {
     stillToggle.setAttribute('aria-pressed', String(isStillMode));
@@ -252,9 +267,7 @@ function onNativeScroll() {
       motion.resetInspect(false);
     }
   }
-  if (ch.id === 'archive') {
-    activeViewpoint = '';
-  }
+  // A viewpoint selection begins inside the archive; keep it until explicit navigation/return.
   if (isStaticLayoutMode()) {
     updateDomForState(null, p);
   }
