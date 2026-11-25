@@ -25,3 +25,21 @@ export function sculptureBounds(fold){
   const points=foldTriangles(fold).flatMap(t=>t.points);
   return {id:fold.id,min:[0,1,2].map(k=>Math.min(...points.map(v=>v[k]))),max:[0,1,2].map(k=>Math.max(...points.map(v=>v[k])))};
 }
+
+// T21: fixed terminal cross-sections and a continuous reshape of the
+// intermediate folds. Both sides of every ring move together, preserving
+// thickness and connectivity; this is an authored morph, not rigid hinges.
+const SHIFTS=Object.freeze({crease:[0,-.65,.80,0],offset:[0,.85,-.70,0]});
+export function foldAmount(fold,progress){
+  const [start,end]=fold.id==='crease'?[.76,.96]:[.80,1];
+  const t=Math.max(0,Math.min(1,((Number.isFinite(progress)?progress:0)-start)/(end-start)));
+  return t*t*(3-2*t);
+}
+export function foldPose(fold,progress){
+  const e=foldAmount(fold,progress);
+  if(e===0)return fold;
+  return {...fold,sections:fold.sections.map(([ax,as,bx,bs,h],i)=>{
+    const dx=SHIFTS[fold.id][i]*e;
+    return [ax+dx,as,bx+dx,bs,h];
+  })};
+}

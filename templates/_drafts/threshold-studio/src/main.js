@@ -1,11 +1,12 @@
-import {RELEASE} from './config.js?v=T20';
-import {createRenderer} from './renderer.js?v=T20';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T20';
-import {createScheduler} from './lifecycle.js?v=T20';
-import {wordmarkOcclusion} from './wordmark.js?v=T20';
-import {createAmbientClock} from './ambient.js?v=T20';
-import {readProgress} from './scroll.js?v=T20';
-import {typographyPose} from './typography.js?v=T20';
+import {RELEASE} from './config.js?v=T21';
+import {createRenderer} from './renderer.js?v=T21';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T21';
+import {createScheduler} from './lifecycle.js?v=T21';
+import {wordmarkOcclusion} from './wordmark.js?v=T21';
+import {createAmbientClock} from './ambient.js?v=T21';
+import {readProgress} from './scroll.js?v=T21';
+import {typographyPose} from './typography.js?v=T21';
+import {FOLDS,foldAmount} from './sculptures.js?v=T21';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -36,6 +37,7 @@ function start(){
   const ambientEnabled=flags.get('ambient')!=='off'&&lightingEnabled&&!floorMask;
   const journeyRequested=flags.get('journey')!=='off'&&!floorMask;
   const approachOnly=flags.get('track')==='approach',crossingOnly=flags.get('track')==='crossing';
+  const foldsEnabled=flags.get('fold')!=='off';
   let journeyActive=false;
   function setJourney(active){
     if(journeyActive===active&&root.dataset.journey)return;
@@ -66,7 +68,8 @@ function start(){
       const r=surface.getBoundingClientRect();
       const progress=journeyActive?readProgress(document.scrollingElement):0;
       const pose=(approachOnly?approachPose:crossingOnly?crossingPose:revealPose)(r.width/r.height,desktopComposition.matches,progress);
-      const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose);
+      const foldProgress=foldsEnabled&&!approachOnly&&!crossingOnly?progress:0;
+      const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose,foldProgress);
       if(!result){staticView('not-ready');return}
       // The rendered pose and the reported progress always belong to the same sample.
       const wasActive=journeyActive;
@@ -75,6 +78,8 @@ function start(){
       study.dataset.progress=progress.toFixed(6);
       // The navigation adopts ink only after the camera has cleared the red throat.
       stage.dataset.room=pose.eye[2]<=-7.2?'perspective':'arrival';
+      study.dataset.folds=FOLDS.map(f=>foldAmount(f,foldProgress).toFixed(6)).join(',');
+      study.dataset.sculptureUploads=String(result.sculptureUploads);
       study.dataset.eye=pose.eye.map(v=>v.toFixed(6)).join(',');
       study.dataset.fov=pose.fov.toFixed(6);
       study.dataset.frames=String(++frames);

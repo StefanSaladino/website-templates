@@ -7,12 +7,12 @@ const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
 const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'T20',verification:'T20',viewports:[]};
+const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'T21',verification:'T21',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}
 async function sample(page,offset){
   await page.evaluate(y=>{document.scrollingElement.scrollTop=y},offset);
   await page.waitForFunction(y=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return Math.abs(s.scrollTop-y)<=.5&&Math.abs(+d.progress-s.scrollTop/(s.scrollHeight-s.clientHeight))<.000002},offset);
-  return page.evaluate(()=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,p:+d.progress,eye:d.eye,fov:d.fov,frames:+d.frames,renderer:d.renderer,mark:getComputedStyle(document.querySelector('.display-wordmark')).opacity,copy:getComputedStyle(document.querySelector('.opening-copy')).opacity,mask:document.querySelector('#wordmark-occluder').getAttribute('points'),width:s.scrollWidth,clientWidth:s.clientWidth,stageTop:document.querySelector('.journey-stage').getBoundingClientRect().top}});
+  return page.evaluate(()=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,p:+d.progress,eye:d.eye,fov:d.fov,folds:d.folds,frames:+d.frames,renderer:d.renderer,mark:getComputedStyle(document.querySelector('.display-wordmark')).opacity,copy:getComputedStyle(document.querySelector('.opening-copy')).opacity,mask:document.querySelector('#wordmark-occluder').getAttribute('points'),width:s.scrollWidth,clientWidth:s.clientWidth,stageTop:document.querySelector('.journey-stage').getBoundingClientRect().top}});
 }
 try{
   for(const [width,height] of [[390,844],[1440,900],[844,390]]){
@@ -37,7 +37,7 @@ try{
     entry.status='reverse';save();
     for(const offset of offsets.slice().reverse()){
       const state=await sample(page,offset),prior=forward.get(offset);
-      for(const key of ['p','eye','fov','mark','copy','mask','range'])assert.equal(state[key],prior.state[key],'reverse '+key+' at '+offset);
+      for(const key of ['p','eye','fov','folds','mark','copy','mask','range'])assert.equal(state[key],prior.state[key],'reverse '+key+' at '+offset);
       const screenshot=await page.screenshot();
       const pixels=await sharp(screenshot).removeAlpha().raw().toBuffer(),priorPixels=await sharp(prior.image).removeAlpha().raw().toBuffer();
       assert.equal(pixels.length,priorPixels.length);
