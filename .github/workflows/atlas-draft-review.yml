@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'templates/_drafts/atlas-terrain/**'
+      - 'templates/atlas-terrain/**'
       - 'components/scripts/test-atlas-draft.mjs'
       - '.github/workflows/atlas-draft-review.yml'
   workflow_dispatch:
