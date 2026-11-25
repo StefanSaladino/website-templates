@@ -12,7 +12,7 @@ test('camera basis and perspective conventions',()=>{
   assert.throws(()=>lookAt([0,0,0],[0,0,0]),RangeError);
 });
 test('mesh and bounded buffers',()=>{
-  const data=buildStudy();assert.equal(data.length,358*3*6);assert.ok([...data].every(Number.isFinite));
+  const data=buildStudy();assert.equal(data.length,466*3*6);assert.ok([...data].every(Number.isFinite));
   for(const [w,h,d] of [[320,568,3],[390,844,3],[1920,1080,2],[7680,4320,4],[1,100000,4],[100000,1,4]]){
     const b=bufferSize(w,h,d);assert.ok(b.width*b.height<=MAX_PIXELS&&b.width<=4096&&b.height<=4096);
   }
@@ -31,7 +31,7 @@ test('one pending frame, suspend, resume and dispose',()=>{
 test('architectural cut is traversable and all solids have valid dimensions',()=>{
   assert.deepEqual(PORTAL,{width:6,height:7.2,clearWidth:4.8,clearHeight:6,depth:2});
   const solids=architecturalSolids();
-  assert.equal(solids.length,25);
+  assert.equal(solids.length,34);
   for(const {min,max} of solids)assert.ok(min.every((v,i)=>Number.isFinite(v)&&max[i]>v));
   const find=id=>solids.find(s=>s.id===id);
   assert.deepEqual(find('portal-left').max,[-2.4,6,2]);

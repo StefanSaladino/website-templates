@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=T23a';
+import { worldPoint } from './config.js?v=T24';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -119,16 +119,31 @@ export function crossingPose(aspect,desktopComposition=false,progress=0,exitVelo
 // T17: continuous extension from the enclosed throat into Perspective.
 // Temporary draft allocation, before the exhibition and final room are built.
 export const REVEAL_JOIN=.72,REVEAL_END_Z=-11.5,REVEAL_VELOCITY=17;
-export function revealPose(aspect,desktopComposition=false,progress=0){
+export function revealPose(aspect,desktopComposition=false,progress=0,exitVelocity=0){
   const p=Number.isFinite(progress)?clamp01(progress):0;
   const localVelocity=REVEAL_VELOCITY*REVEAL_JOIN;
   if(p<=REVEAL_JOIN)return crossingPose(aspect,desktopComposition,p/REVEAL_JOIN,localVelocity);
   const start=crossingPose(aspect,desktopComposition,1,localVelocity),t=(p-REVEAL_JOIN)/(1-REVEAL_JOIN),e=t*t*(3-2*t),distance=start.eye[2]-REVEAL_END_Z;
-  const travel=distance*hermite(t,REVEAL_VELOCITY*(1-REVEAL_JOIN)/distance,0);
+  const travel=distance*hermite(t,REVEAL_VELOCITY*(1-REVEAL_JOIN)/distance,Math.max(0,exitVelocity)*(1-REVEAL_JOIN)/distance);
   const wide=desktopComposition||aspect>=1.2,eye=[mix(start.eye[0],wide?-.8:-1.1,e),mix(start.eye[1],wide?2.5:2.3,e),start.eye[2]-travel];
   const offset=start.aim.map((v,i)=>v-start.eye[i]),targetAim=wide?[4.1,2.5,-16.5]:[4.6,1.6,-15.8],targetEye=[wide?-.8:-1.1,wide?2.5:2.3,REVEAL_END_Z];
   const aim=eye.map((v,i)=>v+mix(offset[i],targetAim[i]-targetEye[i],e));
   let endFov=wide?64:83;if(!wide&&aspect<.46)endFov=2*Math.atan(Math.tan(endFov*Math.PI/360)*.46/aspect)*180/Math.PI;
   const fov=mix(start.fov,endFov,e),lens=perspective(fov,aspect);
   return {eye,aim,fov,shiftX:0,shiftY:0,vp:multiply(lens,lookAt(eye,aim))};
+}
+
+// T24: physical exit from Perspective, with continuous depth velocity.
+export const EXHIBITION_JOIN=.60,EXHIBITION_END_Z=-25.5,EXHIBITION_VELOCITY=12;
+export function exhibitionPose(aspect,desktopComposition=false,progress=0){
+  const p=Number.isFinite(progress)?clamp01(progress):0;
+  if(p<=EXHIBITION_JOIN)return revealPose(aspect,desktopComposition,p/EXHIBITION_JOIN,EXHIBITION_VELOCITY*EXHIBITION_JOIN);
+  const start=revealPose(aspect,desktopComposition,1,EXHIBITION_VELOCITY*EXHIBITION_JOIN),t=(p-EXHIBITION_JOIN)/(1-EXHIBITION_JOIN);
+  const d=start.eye[2]-EXHIBITION_END_Z,travel=d*hermite(t,EXHIBITION_VELOCITY*(1-EXHIBITION_JOIN)/d,0);
+  const centering=clamp01(t/.48),e=centering*centering*(3-2*centering),wide=desktopComposition||aspect>=1.2;
+  const eye=[mix(start.eye[0],0,e),mix(start.eye[1],2.3,e),start.eye[2]-travel];
+  const offset=start.aim.map((v,i)=>v-start.eye[i]),aim=eye.map((v,i)=>v+mix(offset[i],[0,.8,-9][i],e));
+  let fovTarget=wide?54:65;if(!wide&&aspect<.46)fovTarget=2*Math.atan(Math.tan(fovTarget*Math.PI/360)*.46/aspect)*180/Math.PI;
+  const fov=mix(start.fov,fovTarget,e);
+  return {eye,aim,fov,shiftX:0,shiftY:0,vp:multiply(perspective(fov,aspect),lookAt(eye,aim))};
 }

@@ -6,3 +6,10 @@ export function perspectivePose(progress){
   const e=t*t*(3-2*t);
   return {opacity:e,rise:20*(1-e)};
 }
+
+// Retire the Perspective label before the connector.
+export function perspectivePresence(progress){
+  const p=Number.isFinite(progress)?clamp(progress):0;
+  const t=clamp((p-.60)/.08);
+  return 1-t*t*(3-2*t);
+}

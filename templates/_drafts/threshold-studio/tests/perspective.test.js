@@ -4,7 +4,7 @@ import {architecturalSolids,buildStudy} from '../src/geometry.js';
 import {revealPose,project} from '../src/camera.js';
 test('six architectural gallery masses preserve lane, original shell and future sculpture space',()=>{
   const solids=architecturalSolids(),gallery=solids.filter(s=>s.id.startsWith('perspective-'));
-  assert.equal(gallery.length,6);assert.equal(solids.length,25);assert.equal(buildStudy().length,358*18);
+  assert.equal(gallery.length,6);assert.equal(solids.length,34);assert.equal(buildStudy().length,466*18);
   for(const s of gallery){
     assert.ok(s.min[2]>=6&&s.max[2]<=20&&s.min[1]>=0&&s.max[1]<=10);
     assert.ok(s.max[0]<=-2.6||s.min[0]>=2.6||s.min[1]>=8.5,s.id);

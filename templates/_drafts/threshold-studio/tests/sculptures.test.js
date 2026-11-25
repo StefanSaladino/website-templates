@@ -26,7 +26,7 @@ test('folded installations are closed, nondegenerate and isolated from architect
     assert.ok(architecturalSolids().every(s=>!overlap(bounds,s)),fold.id+' architectural clearance');
   }
   assert.ok(!overlap(...FOLDS.map(sculptureBounds)));
-  assert.equal(buildStudy().length,358*18);
+  assert.equal(buildStudy().length,466*18);
 });
 test('both folded forms have projected sightlines along the actual responsive reveal track',()=>{
   for(const [w,h] of [[320,568],[320,844],[390,844],[768,1024],[1440,900],[844,390]]){

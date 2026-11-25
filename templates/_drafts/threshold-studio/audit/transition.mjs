@@ -7,12 +7,12 @@ const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
 const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'T23a',verification:'T23a',viewports:[]};
+const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'T24',verification:'T24',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}
 async function sample(page,offset){
   await page.evaluate(y=>{document.scrollingElement.scrollTop=y},offset);
   await page.waitForFunction(y=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return Math.abs(s.scrollTop-y)<=.5&&Math.abs(+d.progress-s.scrollTop/(s.scrollHeight-s.clientHeight))<.000002},offset);
-  return page.evaluate(()=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,p:+d.progress,eye:d.eye,fov:d.fov,folds:d.folds,editorial:d.editorial,frames:+d.frames,renderer:d.renderer,mark:getComputedStyle(document.querySelector('.display-wordmark')).opacity,copy:getComputedStyle(document.querySelector('.opening-copy')).opacity,mask:document.querySelector('#wordmark-occluder').getAttribute('points'),width:s.scrollWidth,clientWidth:s.clientWidth,stageTop:document.querySelector('.journey-stage').getBoundingClientRect().top}});
+  return page.evaluate(()=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,p:+d.progress,eye:d.eye,fov:d.fov,folds:d.folds,editorial:d.editorial,room:document.querySelector('.journey-stage').dataset.room,frames:+d.frames,renderer:d.renderer,mark:getComputedStyle(document.querySelector('.display-wordmark')).opacity,copy:getComputedStyle(document.querySelector('.opening-copy')).opacity,mask:document.querySelector('#wordmark-occluder').getAttribute('points'),width:s.scrollWidth,clientWidth:s.clientWidth,stageTop:document.querySelector('.journey-stage').getBoundingClientRect().top}});
 }
 try{
   for(const [width,height] of [[390,844],[1440,900],[844,390]]){
@@ -21,7 +21,7 @@ try{
     await page.goto(base+'?ambient=off');
     await page.waitForFunction(()=>document.documentElement.dataset.journey==='on'&&document.querySelector('#scene-study').dataset.renderer==='webgl');
     const range=await page.evaluate(()=>document.scrollingElement.scrollHeight-document.scrollingElement.clientHeight);
-    const offsets=Array.from(new Set([...Array.from({length:21},(_,i)=>Math.round(range*i/20)),...([.24624,.324,.525,.549,.72,.77225].flatMap(p=>[-2,0,2].map(d=>Math.max(0,Math.min(range,Math.round(range*p)+d)))))] )).sort((a,b)=>a-b);
+    const offsets=Array.from(new Set([...Array.from({length:21},(_,i)=>Math.round(range*i/20)),...([.147744,.1944,.315,.3294,.432,.46335,.6,.68,.792,.84,.90].flatMap(p=>[-2,0,2].map(d=>Math.max(0,Math.min(range,Math.round(range*p)+d)))))] )).sort((a,b)=>a-b);
     const canvas=await page.locator('#scene-canvas').elementHandle(),forward=new Map();
     const states=[];let priorDepth=Infinity,maxReverseDelta=0;
     const entry={width,height,range,offsetCount:offsets.length,states,status:'sampling'};report.viewports.push(entry);save();
@@ -37,7 +37,7 @@ try{
     entry.status='reverse';save();
     for(const offset of offsets.slice().reverse()){
       const state=await sample(page,offset),prior=forward.get(offset);
-      for(const key of ['p','eye','fov','folds','editorial','mark','copy','mask','range'])assert.equal(state[key],prior.state[key],'reverse '+key+' at '+offset);
+      for(const key of ['p','eye','fov','folds','editorial','room','mark','copy','mask','range'])assert.equal(state[key],prior.state[key],'reverse '+key+' at '+offset);
       const screenshot=await page.screenshot();
       const pixels=await sharp(screenshot).removeAlpha().raw().toBuffer(),priorPixels=await sharp(prior.image).removeAlpha().raw().toBuffer();
       assert.equal(pixels.length,priorPixels.length);

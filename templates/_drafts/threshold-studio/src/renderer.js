@@ -1,8 +1,8 @@
-import {openingPose,multiply} from './camera.js?v=T23a';
-import {buildStudy,buildSculptureVertices} from './geometry.js?v=T23a';
-import {bufferSize} from './lifecycle.js?v=T23a';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T23a';
-import {LIGHTING_GLSL} from './lighting.js?v=T23a';
+import {openingPose,multiply} from './camera.js?v=T24';
+import {buildStudy,buildSculptureVertices} from './geometry.js?v=T24';
+import {bufferSize} from './lifecycle.js?v=T24';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T24';
+import {LIGHTING_GLSL} from './lighting.js?v=T24';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -88,7 +88,13 @@ void main(){
   galleryStone=mix(galleryStone,alloySurface,alloy);
   vec3 ivory=mix(color*(.90+.20*diffuse)+vec3(.055,.027,.012)*spill+roomLight,galleryStone,gallery);
   vec3 result=mix(mix(dark,ivory,isIvory),luminous*intensity,isRed);
-  result=haze(result,length(uViewEye-world),mix(.55,.18,isRed));
+  // Spatially fixed cobalt material, independent of camera progress.
+  float blue=step(color.r*1.8,color.b)*step(color.g*1.5,color.b)*step(.25,color.b);
+  vec3 blueKey=normalize(vec3(-4.0,9.4,-30.0)-world);
+  float blueDiffuse=.3+.7*max(dot(n,blueKey),0.0);
+  vec3 cobalt=(color*(.68+.40*blueDiffuse)+vec3(.025,.040,.095))*galleryContact;
+  result=mix(result,cobalt,blue);
+  result=haze(result,length(uViewEye-world),mix(mix(.55,.18,isRed),.23,blue));
   outColor=vec4(clamp(result,0.0,1.0),1.0);
 }`;
 // Only the real ground mesh samples the reflected architecture. No recursive floor.
@@ -115,6 +121,7 @@ void main(){
   vec2 stepSize=uTexel*roughness;
   // The polished graphite ends at the physical ivory-room threshold.
   float stone=smoothstep(6.0,6.65,-world.z);
+  float cobaltFloor=smoothstep(20.4,21.1,-world.z);
   vec3 base=vec3(.105,.108,.115);
   if(uLighting>.5){
     float spill=floorSpill(world)*ambientIntensity(world,uAmbientPhase);
@@ -127,6 +134,8 @@ void main(){
     float mortar=1.0-smoothstep(.012,.012+seamAA,seam);
     limestone-=vec3(.032,.031,.028)*mortar;
     base=mix(base,limestone,stone);
+    vec3 blueStone=vec3(.09,.145,.45)+vec3(.012,.015,.035)*sin(world.x*.5+world.z*.35);
+    base=mix(base,blueStone,cobaltFloor);
   }
   vec3 c=texture(uReflection,uv).rgb*.24;
   c+=(texture(uReflection,uv+vec2(stepSize.x,0)).rgb+texture(uReflection,uv-vec2(stepSize.x,0)).rgb)*.12;
@@ -136,7 +145,7 @@ void main(){
   // Reflection fades towards the viewer instead of competing with lower copy.
   float nearFade=mix(1.0,.25,smoothstep(2.5,12.0,world.z));
   float strength=uEnabled*edge*(.15+.40*pow(grazing,2.0))*exp(-distanceToEye*.025)*nearFade;
-  if(uLighting>.5)strength*=mix(1.0,.28,stone);
+  if(uLighting>.5)strength*=mix(mix(1.0,.28,stone),.40,cobaltFloor);
   // Graphite finish; this is an artistic color-space mix, not a calibrated BRDF.
   vec3 finish=mix(base,c,strength);
   if(uLighting>.5)finish=haze(finish,distanceToEye,.35);

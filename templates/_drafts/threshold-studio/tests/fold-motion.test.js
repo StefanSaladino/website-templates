@@ -34,7 +34,7 @@ test('continuous grounded fold morph preserves terminal sections, topology, aisl
 });
 test('sculpture-only buffer tail, smooth endpoint velocities and deterministic restore',()=>{
   const base=buildStudy(),initial=buildSculptureVertices(0),end=buildSculptureVertices(1);
-  assert.equal(base.length,358*18);assert.equal(initial.length,56*18);assert.deepEqual(base.slice(-initial.length),initial);
+  assert.equal(base.length,466*18);assert.equal(initial.length,56*18);assert.deepEqual(base.slice(-initial.length),initial);
   assert.notDeepEqual(initial,end);assert.deepEqual(initial,buildSculptureVertices(.75));
   for(const p of [0,.76,.8,.88,.96,1])assert.deepEqual(buildSculptureVertices(p),buildSculptureVertices(p));
   for(const f of FOLDS){
