@@ -215,6 +215,7 @@ const webglReady = renderer.init();
 if (!webglReady) {
   rootEl.classList.add('atlas-no-webgl');
 }
+motion.setSoftwareThrottle(renderer.isSoftwareRenderer);
 motion.setReducedMotion(reducedMotionQuery.matches);
 updateControlStates();
 
@@ -241,7 +242,7 @@ function onNativeScroll() {
   if (ch.id === 'archive') {
     activeViewpoint = '';
   }
-  if (stageEl.getAttribute('data-renderer') !== 'webgl' || isStillMode || reducedMotionQuery.matches) {
+  if (!webglReady || isStillMode || reducedMotionQuery.matches) {
     updateDomForState(null, p);
   }
 }
@@ -318,7 +319,7 @@ if (returnArchiveBtn) {
     inspectYaw = 0;
     inspectPitch = 0;
     motion.resetInspect(false);
-    scrollToChapterOrProgress('archive', 0.96);
+    scrollToProgress(0.96);
   });
 }
 

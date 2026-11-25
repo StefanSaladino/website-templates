@@ -1,40 +1,26 @@
 /**
- * ATLAS — Geological Terrain Synthesis Engine
- * Procedural alpine massif, glacial cirque, U-shaped valley trough,
- * Lake Vireo tarn basin, drainage gullies, horizon ambient occlusion,
- * and O(1) bilinear height sampling for spline collision avoidance.
+ * ATLAS — A3 Geological Terrain Synthesis & Erosion Engine
+ * Builds an expansive multi-range alpine world (220x220 units):
+ * - Domain-warped tectonic horseshoe massif + asymmetric glaciated peaks
+ * - Secondary & tertiary distant mountain chains for atmospheric horizon depth
+ * - S-curved Lake Vireo glacial tarn & U-shaped approach valley
+ * - Vectorized thermal slippage + hydraulic gully erosion passes
+ * - 512x512 16-bit height + drainage/curvature map for bicubic contours,
+ *   self-shadowing, and raymarched glacial water reflections
  */
 
-export const WORLD_SIZE = 136; // World span [-68, +68] in X and Z (~13.6 km across)
-export const WATER_LEVEL = 1.68; // Glacial lake elevation (~1,890 m)
-export const BASE_METERS = 1650;
-export const METERS_PER_UNIT = 97.5; // Maps peak ~18.15 units -> ~3,420 m
+export const WORLD_SIZE = 220;
+export const FOLIO_HALF = 56; // Printed cartographic survey sheet extent [-56, +56]
+export const WATER_LEVEL = 2.05; // Lake Vireo surface (1,890 m)
+export const PEAK_TARGET_METERS = 3420;
+export const LAKE_METERS = 1890;
 
 export const LANDMARKS = Object.freeze([
-  {
-    id: 'kestrel',
-    name: 'Kestrel Spire',
-    elevationM: 3420,
-    x: 13.5,
-    z: -15.5,
-  },
-  {
-    id: 'saddle',
-    name: 'Meridian Saddle',
-    elevationM: 2640,
-    x: -17.0,
-    z: -8.5,
-  },
-  {
-    id: 'tarn',
-    name: 'Lake Vireo',
-    elevationM: 1890,
-    x: -2.0,
-    z: 4.5,
-  },
+  { id: 'kestrel', name: 'Kestrel Spire', elevationM: 3420, x: 11.5, z: -18.5 },
+  { id: 'saddle', name: 'Meridian Saddle', elevationM: 2640, x: -20.0, z: -10.0 },
+  { id: 'tarn', name: 'Lake Vireo', elevationM: 1890, x: -2.5, z: 3.5 },
 ]);
 
-// Deterministic 2D hash & gradient value noise (zero external dependencies)
 function hash2(ix, iz) {
   let n = Math.imul(ix, 374761393) + Math.imul(iz, 668265263);
   n = Math.imul(n ^ (n >>> 13), 1274126177);
@@ -58,7 +44,6 @@ function smoothstep(e0, e1, x) {
   return t * t * (3 - 2 * t);
 }
 
-// Value noise + analytical spatial derivatives [value, dx, dz]
 function noise2DWithDeriv(x, z) {
   const ix = Math.floor(x);
   const iz = Math.floor(z);
@@ -87,15 +72,12 @@ function noise2DWithDeriv(x, z) {
   ];
 }
 
-// Rotated multi-octave fBm with gradient accumulation (erosion suppression on steep slopes)
-function fbmGeological(x, z, octaves = 6) {
+function fbm(x, z, octaves = 5) {
   let sum = 0;
   let dxAcc = 0;
   let dzAcc = 0;
   let amp = 0.5;
   let freq = 1.0;
-
-  // Orthonormal rotation matrix per octave to break grid alignment
   const cosR = 0.8;
   const sinR = 0.6;
   let px = x;
@@ -103,32 +85,28 @@ function fbmGeological(x, z, octaves = 6) {
 
   for (let i = 0; i < octaves; i++) {
     const [n, gx, gz] = noise2DWithDeriv(px * freq, pz * freq);
-    // Remap [0, 1] -> [-1, 1]
     const val = n * 2 - 1;
     dxAcc += gx * 2;
     dzAcc += gz * 2;
-    // Swiss turbulence slope damping: steeper flanks retain sharp gullies, valleys fill softly
-    const slopeMag = dxAcc * dxAcc + dzAcc * dzAcc;
-    const damp = 1.0 / (1.0 + 0.35 * slopeMag);
+    const damp = 1.0 / (1.0 + 0.42 * (dxAcc * dxAcc + dzAcc * dzAcc));
     sum += amp * val * damp;
 
     const nx = px * cosR - pz * sinR;
     const nz = px * sinR + pz * cosR;
-    px = nx + 13.7;
-    pz = nz - 7.3;
-    freq *= 2.07;
+    px = nx + 17.3;
+    pz = nz - 9.1;
+    freq *= 2.08;
     amp *= 0.48;
   }
   return sum;
 }
 
-// Sharp ridged multifractal for alpine arêtes and cirque crests
-function ridgedAlpine(x, z, octaves = 5) {
+// Crisp asymmetric alpine ridge synthesis (sharp arêtes + glacial horns)
+function sharpRidged(x, z, octaves = 6) {
   let sum = 0;
-  let amp = 0.52;
+  let amp = 0.55;
   let freq = 1.0;
   let weight = 1.0;
-
   const cosR = 0.866;
   const sinR = 0.5;
   let px = x;
@@ -136,22 +114,23 @@ function ridgedAlpine(x, z, octaves = 5) {
 
   for (let i = 0; i < octaves; i++) {
     const [n] = noise2DWithDeriv(px * freq, pz * freq);
-    let signal = 1.0 - Math.abs(n * 2 - 1);
-    signal = signal * signal * weight;
-    weight = clamp(signal * 1.85, 0.08, 1.0);
-    sum += signal * amp;
+    // Asymmetric folding creates steep north faces and sloped southern flanks
+    const raw = n * 2 - 1;
+    let sig = 1.0 - Math.abs(raw);
+    sig = Math.pow(sig, 1.38) * weight;
+    weight = clamp(sig * 1.9, 0.08, 1.0);
+    sum += sig * amp;
 
     const nx = px * cosR - pz * sinR;
     const nz = px * sinR + pz * cosR;
-    px = nx - 5.1;
-    pz = nz + 11.9;
-    freq *= 2.13;
+    px = nx - 6.7;
+    pz = nz + 13.4;
+    freq *= 2.11;
     amp *= 0.49;
   }
   return sum;
 }
 
-// Evaluate distance to a line segment for curved mountain chains and valley troughs
 function distToSegment(px, pz, ax, az, bx, bz) {
   const abx = bx - ax;
   const abz = bz - az;
@@ -161,134 +140,209 @@ function distToSegment(px, pz, ax, az, bx, bz) {
   const t = clamp((apx * abx + apz * abz) / denom, 0, 1);
   const cx = ax + abx * t;
   const cz = az + abz * t;
-  const dx = px - cx;
-  const dz = pz - cz;
-  return [Math.hypot(dx, dz), t];
+  return [Math.hypot(px - cx, pz - cz), t];
+}
+
+// Skewed ridge distance for sharp asymmetric alpine horns
+function ridgePeak(x, z, cx, cz, rx, rz, angleRad, amp, sharp) {
+  const dx = x - cx;
+  const dz = z - cz;
+  const ca = Math.cos(angleRad);
+  const sa = Math.sin(angleRad);
+  const u = (dx * ca - dz * sa) / rx;
+  const v = (dx * sa + dz * ca) / rz;
+  const r = Math.hypot(u, v);
+  return amp * Math.exp(-Math.pow(r, sharp));
+}
+
+function evaluateBaseGeology(x, z) {
+  // Tectonic folding warp
+  const warpX = fbm(x * 0.018 + 3.1, z * 0.018 - 2.4, 3) * 10.5;
+  const warpZ = fbm(x * 0.018 - 5.2, z * 0.018 + 4.7, 3) * 10.5;
+  const wx = x + warpX;
+  const wz = z + warpZ;
+
+  // 1. Primary Cirque Horseshoe Spine (sharp, sweeping alpine amphitheater)
+  const [dNorth] = distToSegment(wx, wz, -26.0, -18.0, 13.0, -20.5);
+  const [dEast] = distToSegment(wx, wz, 13.0, -20.5, 34.0, 11.0);
+  const [dWest] = distToSegment(wx, wz, -26.0, -18.0, -35.0, 16.0);
+  const horseDist = Math.min(dNorth, dEast * 1.02, dWest * 1.05);
+  const horseEnv = Math.exp(-Math.pow(horseDist / 16.5, 1.75));
+
+  // Hero Peaks with sharp asymmetric ridgelines (offset micro-spurs prevent flat contour rectangles)
+  const kestrel = ridgePeak(wx, wz, 12.0, -19.0, 11.5, 7.6, -0.48, 13.0, 1.38);
+  const westHorn = ridgePeak(wx, wz, -18.5, -15.5, 10.5, 7.0, 0.52, 10.2, 1.36);
+  const northButtress = ridgePeak(wx, wz, -3.5, -24.5, 11.4, 6.4, 0.28, 10.6, 1.34);
+  const eastShoulder = ridgePeak(wx, wz, 29.0, -3.0, 9.5, 12.0, -0.25, 8.8, 1.44);
+  const westShoulder = ridgePeak(wx, wz, -31.0, 8.0, 9.0, 13.0, 0.3, 8.2, 1.44);
+
+  // Foreground corridor portal hills framing Descent (chapter 3)
+  const portalW = ridgePeak(wx, wz, -23.0, 30.0, 13.0, 9.5, 0.4, 5.8, 1.55);
+  const portalE = ridgePeak(wx, wz, 28.0, 29.0, 13.5, 10.0, -0.35, 6.2, 1.55);
+
+  // 2. Layered Distant Mountain Ranges (creates genuine 3-tier alpine horizon)
+  const [dRange2] = distToSegment(wx, wz, -92.0, -48.0, 92.0, -46.0);
+  const [dRange3] = distToSegment(wx, wz, -108.0, -84.0, 108.0, -80.0);
+  const [dWingW] = distToSegment(wx, wz, -74.0, -55.0, -78.0, 58.0);
+  const [dWingE] = distToSegment(wx, wz, 76.0, -52.0, 78.0, 62.0);
+  const [dSouthHorizon] = distToSegment(wx, wz, -95.0, 82.0, 95.0, 86.0);
+
+  const distantEnv =
+    Math.exp(-Math.pow(dRange2 / 18.0, 1.7)) * 10.5 +
+    Math.exp(-Math.pow(dRange3 / 21.0, 1.7)) * 13.2 +
+    Math.exp(-Math.pow(dWingW / 20.0, 1.8)) * 9.8 +
+    Math.exp(-Math.pow(dWingE / 20.0, 1.8)) * 10.2 +
+    Math.exp(-Math.pow(dSouthHorizon / 22.0, 1.8)) * 7.5;
+
+  // Multi-scale tectonic ridges & micro crags
+  const ridges = sharpRidged(wx * 0.036 + 1.9, wz * 0.036 - 2.3, 6);
+  const detailRidges = sharpRidged(x * 0.11 - 4.1, z * 0.11 + 2.8, 4);
+  const macro = fbm(wx * 0.025, wz * 0.025, 4);
+
+  let h =
+    2.45 +
+    horseEnv * (5.2 + ridges * 10.8) +
+    (kestrel + westHorn + northButtress + eastShoulder + westShoulder) * (0.48 + ridges * 0.64) +
+    (portalW + portalE) * (0.48 + ridges * 0.44) +
+    distantEnv * (0.46 + ridges * 0.68) +
+    detailRidges * 1.65 * smoothstep(3.0, 11.5, horseEnv * 10.0 + kestrel + distantEnv) +
+    Math.max(0, macro) * 2.1;
+
+  // 3. Glacial Valley Trough & Organic Multi-Cove Lake Vireo Basin
+  const [dTroughA] = distToSegment(x + macro * 2.4, z, 11.0, 66.0, -3.5, 11.5);
+  const [dTroughB] = distToSegment(x + macro * 1.8, z, -3.5, 11.5, -11.5, 4.0);
+  const [dTroughC] = distToSegment(x + macro * 1.8, z, -11.5, 4.0, 6.5, -5.5);
+
+  const valleyDist = Math.min(dTroughA * 1.08, dTroughB * 0.92, dTroughC * 0.96);
+  const valleyCarve = smoothstep(17.5, 2.2, valleyDist);
+  h = lerp(h, 2.55 + Math.abs(macro) * 0.65, valleyCarve * 0.88);
+
+  // Domain-warped natural shoreline so Lake Vireo has organic glacial bays, a rocky headland, and tapered outlets
+  const coveWarpX = fbm(x * 0.11 + 4.2, z * 0.11 - 1.9, 3) * 3.4 + (detailRidges - 0.45) * 1.9;
+  const coveWarpZ = fbm(x * 0.11 - 3.6, z * 0.11 + 5.1, 3) * 3.1 + (detailRidges - 0.45) * 1.7;
+  const lx = x + coveWarpX;
+  const lz = z + coveWarpZ;
+
+  const [dLake1, t1] = distToSegment(lx, lz, -13.5, 8.5, -2.0, 2.0);
+  const [dLake2, t2] = distToSegment(lx, lz, -2.0, 2.0, 8.6, -5.2);
+  const [dLakeBay, tb] = distToSegment(lx, lz, -2.5, 2.0, -7.2, -3.8);
+  const r1 = lerp(3.4, 7.2, t1);
+  const r2 = lerp(7.2, 3.2, t2);
+  const rBay = lerp(4.6, 2.4, tb);
+  const lakeNorm = Math.min(dLake1 / r1, dLake2 / r2, dLakeBay / rBay);
+  const lakeBasin = smoothstep(1.30, 0.24, lakeNorm);
+
+  // Deepen lake center cleanly below WATER_LEVEL (2.05 -> ~0.35), leaving visible shore benches
+  h = lerp(h, 0.34 + Math.abs(macro) * 0.22, lakeBasin * 0.94);
+
+  // Subtle rocky moraine peninsula jutting from northern shore + southern outlet sill
+  const peninsula = Math.exp(-Math.pow((x + 0.5) / 2.6, 2) - Math.pow((z + 1.8) / 2.2, 2)) * 1.45;
+  const outletSill =
+    Math.exp(-Math.pow((z - 16.5) / 4.2, 2)) *
+    Math.exp(-Math.pow((x + 2.0) / 11.0, 2)) *
+    0.85;
+  h += outletSill + peninsula;
+
+  return Math.max(0.2, h);
 }
 
 /**
- * Evaluates credible geological elevation at world coordinate (x, z).
- * Returns [heightUnits, drainageChannel, glacialMask]
+ * Vectorized thermal slippage + hydraulic gully carving across the heightfield.
+ * Produces crisp concave talus fans and natural erosion channels instead of rounded blobs.
  */
-function evaluateGeology(x, z) {
-  // Tectonic domain warp (alpine folding)
-  const wx = x + fbmGeological(x * 0.024 + 4.2, z * 0.024 - 1.7, 3) * 8.5;
-  const wz = z + fbmGeological(x * 0.024 - 6.1, z * 0.024 + 3.4, 3) * 8.5;
+function applyGeologicalErosion(heights, N, step, iterations = 14) {
+  const next = new Float32Array(heights.length);
+  const flow = new Float32Array(heights.length);
+  const talusAngle = 0.72; // Maximum stable rock slope threshold
 
-  // 1. Primary horseshoe massif spine wrapping the north, east, and west of the cirque
-  const [dEast, tEast] = distToSegment(wx, wz, 22, 16, 13.5, -16.5);
-  const [dNorth] = distToSegment(wx, wz, 13.5, -16.5, -18.0, -19.5);
-  const [dWest] = distToSegment(wx, wz, -18.0, -19.5, -31.0, 14.0);
-  const [dFarNorth] = distToSegment(wx, wz, -44.0, -40.0, 44.0, -38.0);
+  for (let it = 0; it < iterations; it++) {
+    next.set(heights);
+    const rainStrength = 0.018 * (1 - it / (iterations * 1.4));
 
-  const spineDist = Math.min(dEast, dNorth * 1.04, dWest * 1.08);
-  const spineEnvelope = Math.exp(-(spineDist * spineDist) / (2 * 14.5 * 14.5));
-  const farRangeEnvelope = Math.exp(-(dFarNorth * dFarNorth) / (2 * 18.0 * 18.0)) * 0.72;
+    for (let z = 1; z < N - 1; z++) {
+      for (let x = 1; x < N - 1; x++) {
+        const idx = z * N + x;
+        const hC = heights[idx];
+        // Skip submerged lake interior
+        if (hC < WATER_LEVEL - 0.15) continue;
 
-  // Kestrel Spire hero massif around (13.5, -15.5)
-  const dk = Math.hypot(x - 13.5, z + 15.5);
-  const kestrelMass = Math.exp(-(dk * dk) / (2 * 11.5 * 11.5)) * 7.4;
+        const nL = idx - 1;
+        const nR = idx + 1;
+        const nD = idx - N;
+        const nU = idx + N;
+        const nLD = idx - N - 1;
+        const nRD = idx - N + 1;
+        const nLU = idx + N - 1;
+        const nRU = idx + N + 1;
 
-  // Meridian Saddle western spur around (-17, -8.5)
-  const dm = Math.hypot(x + 17.5, z + 8.5);
-  const meridianMass = Math.exp(-(dm * dm) / (2 * 12.0 * 12.0)) * 5.6;
+        const nbrs = [nL, nR, nD, nU, nLD, nRD, nLU, nRU];
+        const dists = [1, 1, 1, 1, 1.414, 1.414, 1.414, 1.414];
 
-  // South-west & south-east portal shoulders framing the Descent corridor
-  const dsw = Math.hypot(x + 21.0, z - 22.0);
-  const dse = Math.hypot(x - 26.0, z - 20.0);
-  const portalShoulders =
-    Math.exp(-(dsw * dsw) / (2 * 11.0 * 11.0)) * 4.9 +
-    Math.exp(-(dse * dse) / (2 * 12.5 * 12.5)) * 5.2 +
-    tEast * 0.15;
+        let maxDrop = 0;
+        let steepestIdx = -1;
+        let avgH = 0;
 
-  // Multi-scale ridged arêtes + dendritic valleys
-  const ridges = ridgedAlpine(wx * 0.044 + 2.3, wz * 0.044 - 1.4, 5);
-  const macroFbm = fbmGeological(wx * 0.032 - 3.1, wz * 0.032 + 5.7, 5);
-  const strataDetail = fbmGeological(x * 0.14, z * 0.14, 3);
+        for (let k = 0; k < 8; k++) {
+          const nh = heights[nbrs[k]];
+          avgH += nh;
+          const drop = (hC - nh) / (dists[k] * step);
+          if (drop > maxDrop) {
+            maxDrop = drop;
+            steepestIdx = nbrs[k];
+          }
+        }
 
-  // Subtle sedimentary/metamorphic terrace banding along high flanks
-  const baseMass =
-    spineEnvelope * (8.6 + ridges * 8.4) +
-    farRangeEnvelope * (7.2 + ridges * 7.8) +
-    kestrelMass * (0.76 + ridges * 0.52) +
-    meridianMass * (0.72 + ridges * 0.48) +
-    portalShoulders * (0.75 + ridges * 0.42) +
-    Math.max(0, macroFbm) * 2.4;
+        // Hydraulic gully incision along active steep drainage
+        if (steepestIdx !== -1 && maxDrop > 0.22) {
+          const transfer = Math.min(0.16, (maxDrop - 0.22) * rainStrength);
+          next[idx] -= transfer;
+          next[steepestIdx] += transfer * 0.72;
+          flow[steepestIdx] += transfer * 4.5;
+        }
 
-  // 2. Glacial Valley & U-Shaped Approach Trough
-  // Curves gently from southern approach pass (4, 40) -> corridor (2, 20) -> Lake Vireo (-2, 4.5)
-  const [dCorridor, tCorridor] = distToSegment(x + macroFbm * 1.4, z, 5.5, 48.0, -2.0, 5.0);
-  const corridorWidth = lerp(7.8, 12.0, tCorridor);
-  const corridorCarve = Math.exp(-Math.pow(dCorridor / corridorWidth, 2.4));
-
-  // Lake Vireo glacial tarn basin centered at (-2.0, 4.5)
-  const lx = (x + 2.0 + macroFbm * 1.25) / 11.4;
-  const lz = (z - 4.5 + strataDetail * 0.85) / 8.8;
-  const tarnR = Math.hypot(lx, lz);
-  const tarnBasin = smoothstep(1.38, 0.12, tarnR);
-
-  // Subtle moraine sill along the south outlet of the lake so water sits naturally inside a bowl
-  const moraineLip = Math.exp(-Math.pow((z - 15.8) / 3.8, 2)) * Math.exp(-Math.pow((x - 0.5) / 9.5, 2)) * 1.05;
-
-  // Combine elevation and carve glacial basin
-  let elevation = baseMass + moraineLip + 1.9;
-  // Carve valley corridor smoothly down toward valley floor (~2.45 units)
-  elevation = lerp(elevation, 2.25 + Math.abs(strataDetail) * 0.42, corridorCarve * 0.84);
-  // Carve tarn lake bed below WATER_LEVEL (1.68 -> ~0.35 at center)
-  elevation = lerp(elevation, 0.32 + strataDetail * 0.18, tarnBasin * 0.94);
-
-  // Soft outer border apron so the cartographic sheet sits neatly framed in Map & Archive views
-  const edgeR = Math.max(Math.abs(x), Math.abs(z)) / (WORLD_SIZE * 0.5);
-  const apron = 1.0 - smoothstep(0.76, 0.99, edgeR);
-  elevation = lerp(1.55, elevation, apron);
-
-  // Subtle rock shelf strata modulation at high elevations
-  const shelf = Math.sin(elevation * 2.15 + strataDetail * 1.8) * 0.11 * smoothstep(4.5, 11.0, elevation);
-  elevation += shelf + strataDetail * 0.18 * smoothstep(2.0, 8.0, elevation);
-
-  // Dendritic gully / drainage cue for sediment shading
-  const drainage = clamp(1.0 - Math.abs(fbmGeological(x * 0.095, z * 0.095, 3)) * 2.2, 0, 1);
-
-  return [Math.max(0.15, elevation), drainage, tarnBasin];
+        // Thermal talus relaxation above critical angle of repose
+        if (maxDrop > talusAngle && steepestIdx !== -1) {
+          const slip = Math.min(0.12, (maxDrop - talusAngle) * 0.08);
+          next[idx] -= slip;
+          next[steepestIdx] += slip * 0.85;
+        } else if (hC < WATER_LEVEL + 1.8) {
+          // Gentle valley alluvium smoothing near lake shores
+          next[idx] = lerp(next[idx], avgH * 0.125, 0.06);
+        }
+      }
+    }
+    heights.set(next);
+  }
+  return flow;
 }
 
-export function elevationToMeters(y) {
-  return Math.round(BASE_METERS + Math.max(0, y) * METERS_PER_UNIT);
-}
-
-/**
- * Generates high-resolution terrain geometry, vertex attributes,
- * analytical normals, horizon ambient occlusion, and 256x256 height texture.
- */
-export function buildTerrainData(resolution = 192) {
+export function buildTerrainData(resolution = 256) {
   const N = resolution;
   const vertCount = N * N;
   const half = WORLD_SIZE * 0.5;
   const step = WORLD_SIZE / (N - 1);
 
   const heights = new Float32Array(vertCount);
-  const drainage = new Float32Array(vertCount);
-  const positions = new Float32Array(vertCount * 3);
-  const normals = new Float32Array(vertCount * 3);
-  const geoAttr = new Float32Array(vertCount * 4); // [normElev, horizonAO, drainage, slope]
-
-  let maxH = 0;
   for (let gz = 0; gz < N; gz++) {
     const z = -half + gz * step;
     for (let gx = 0; gx < N; gx++) {
       const x = -half + gx * step;
-      const idx = gz * N + gx;
-      const [h, dr] = evaluateGeology(x, z);
-      heights[idx] = h;
-      drainage[idx] = dr;
-      if (h > maxH) maxH = h;
-      positions[idx * 3] = x;
-      positions[idx * 3 + 1] = h;
-      positions[idx * 3 + 2] = z;
+      heights[gz * N + gx] = evaluateBaseGeology(x, z);
     }
   }
 
-  // Compute exact central-difference normals, slope, and multi-direction horizon AO
+  const flowRaw = applyGeologicalErosion(heights, N, step, resolution >= 220 ? 14 : 10);
+
+  // Measure actual range inside folio & full world so elevation meters align cleanly
+  let maxH = 0;
+  for (let i = 0; i < vertCount; i++) {
+    if (heights[i] > maxH) maxH = heights[i];
+  }
+
+  const positions = new Float32Array(vertCount * 3);
+  const normals = new Float32Array(vertCount * 3);
+  const geoAttr = new Float32Array(vertCount * 4); // [normElev, horizonAO, erosionFlow, curvature]
+
   const inv2Step = 1 / (2 * step);
   const aoDirs = [
     [1, 0], [-1, 0], [0, 1], [0, -1],
@@ -296,12 +350,19 @@ export function buildTerrainData(resolution = 192) {
   ];
 
   for (let gz = 0; gz < N; gz++) {
+    const z = -half + gz * step;
     const z0 = Math.max(0, gz - 1);
     const z1 = Math.min(N - 1, gz + 1);
     for (let gx = 0; gx < N; gx++) {
+      const x = -half + gx * step;
       const x0 = Math.max(0, gx - 1);
       const x1 = Math.min(N - 1, gx + 1);
       const idx = gz * N + gx;
+      const hC = heights[idx];
+
+      positions[idx * 3] = x;
+      positions[idx * 3 + 1] = hC;
+      positions[idx * 3 + 2] = z;
 
       const hL = heights[gz * N + x0];
       const hR = heights[gz * N + x1];
@@ -323,14 +384,13 @@ export function buildTerrainData(resolution = 192) {
       normals[idx * 3 + 1] = ny;
       normals[idx * 3 + 2] = nz;
 
-      // Horizon AO: sample 8 compass rays at 2 radii to find valley enclosure
-      const hC = heights[idx];
+      // Horizon ambient occlusion for deep cirques and couloirs
       let occ = 0;
       for (let d = 0; d < aoDirs.length; d++) {
         const dx = aoDirs[d][0];
         const dz = aoDirs[d][1];
         let maxSin = 0;
-        for (let r = 3; r <= 9; r += 3) {
+        for (let r = 3; r <= 12; r += 3) {
           const sx = clamp(Math.round(gx + dx * r), 0, N - 1);
           const sz = clamp(Math.round(gz + dz * r), 0, N - 1);
           const dist = Math.hypot((sx - gx) * step, (sz - gz) * step);
@@ -342,17 +402,20 @@ export function buildTerrainData(resolution = 192) {
         }
         occ += clamp(maxSin, 0, 1);
       }
-      const ao = clamp(1.0 - (occ / aoDirs.length) * 0.92, 0.24, 1.0);
-      const slope = clamp(1.0 - ny, 0, 1);
+      const ao = clamp(1.0 - (occ / aoDirs.length) * 0.82, 0.30, 1.0);
+
+      // Laplacian curvature: + ridges/arêtes, - eroded couloirs/valleys
+      const lap = (hL + hR + hD + hU) * 0.25 - hC;
+      const ridgeCurvature = clamp(0.5 - lap * 1.4, 0, 1);
+      const flowNorm = clamp(flowRaw[idx] * 0.85, 0, 1);
 
       geoAttr[idx * 4] = clamp(hC / Math.max(maxH, 1), 0, 1);
       geoAttr[idx * 4 + 1] = ao;
-      geoAttr[idx * 4 + 2] = drainage[idx];
-      geoAttr[idx * 4 + 3] = slope;
+      geoAttr[idx * 4 + 2] = flowNorm;
+      geoAttr[idx * 4 + 3] = ridgeCurvature;
     }
   }
 
-  // Build triangle index buffer (Uint32 for >65k vertices)
   const quadCount = (N - 1) * (N - 1);
   const indices = new Uint32Array(quadCount * 6);
   let ptr = 0;
@@ -371,11 +434,13 @@ export function buildTerrainData(resolution = 192) {
     }
   }
 
-  // Pack 256x256 16-bit RG height + B horizon AO texture for GPU raymarched water reflections & terrain shadows
-  const texSize = 256;
+  // 512x512 RGBA8 height + drainage/curvature texture for bicubic contours, cast shadows & lake reflections
+  const texSize = 512;
   const heightTexData = new Uint8Array(texSize * texSize * 4);
-  const maxTexH = Math.max(24.0, Math.ceil(maxH + 1.5));
+  const maxTexH = Math.max(28.0, Math.ceil(maxH + 2.0));
   const sampleAt = createHeightSampler(heights, N);
+  const sampleFlow = createAttrSampler(geoAttr, N, 2);
+  const sampleCurv = createAttrSampler(geoAttr, N, 3);
 
   for (let tz = 0; tz < texSize; tz++) {
     const z = -half + (tz / (texSize - 1)) * WORLD_SIZE;
@@ -384,10 +449,10 @@ export function buildTerrainData(resolution = 192) {
       const h = sampleAt(x, z);
       const q = clamp(Math.round((h / maxTexH) * 65535), 0, 65535);
       const pIdx = (tz * texSize + tx) * 4;
-      heightTexData[pIdx] = (q >>> 8) & 255; // High byte
-      heightTexData[pIdx + 1] = q & 255;     // Low byte
-      heightTexData[pIdx + 2] = clamp(Math.round((h > WATER_LEVEL ? 1.0 : 0.0) * 255), 0, 255);
-      heightTexData[pIdx + 3] = 255;
+      heightTexData[pIdx] = (q >>> 8) & 255;
+      heightTexData[pIdx + 1] = q & 255;
+      heightTexData[pIdx + 2] = clamp(Math.round(sampleFlow(x, z) * 255), 0, 255);
+      heightTexData[pIdx + 3] = clamp(Math.round(sampleCurv(x, z) * 255), 0, 255);
     }
   }
 
@@ -416,38 +481,48 @@ function createHeightSampler(heights, N) {
     const iz = Math.floor(gz);
     const fx = gx - ix;
     const fz = gz - iz;
-
     const i00 = iz * N + ix;
-    const i10 = i00 + 1;
-    const i01 = i00 + N;
-    const i11 = i01 + 1;
-
-    const a = heights[i00] + (heights[i10] - heights[i00]) * fx;
-    const b = heights[i01] + (heights[i11] - heights[i01]) * fx;
+    const a = heights[i00] + (heights[i00 + 1] - heights[i00]) * fx;
+    const b = heights[i00 + N] + (heights[i00 + N + 1] - heights[i00 + N]) * fx;
     return a + (b - a) * fz;
   };
 }
 
-/**
- * Generates glacial water plane mesh sized strictly over Lake Vireo's carved basin.
- */
+function createAttrSampler(attr, N, offset) {
+  const half = WORLD_SIZE * 0.5;
+  const invSize = (N - 1) / WORLD_SIZE;
+  return function sampleAttr(x, z) {
+    const gx = clamp((x + half) * invSize, 0, N - 1.0001);
+    const gz = clamp((z + half) * invSize, 0, N - 1.0001);
+    const ix = Math.floor(gx);
+    const iz = Math.floor(gz);
+    const fx = gx - ix;
+    const fz = gz - iz;
+    const i00 = (iz * N + ix) * 4 + offset;
+    const i10 = i00 + 4;
+    const i01 = i00 + N * 4;
+    const i11 = i01 + 4;
+    const a = attr[i00] + (attr[i10] - attr[i00]) * fx;
+    const b = attr[i01] + (attr[i11] - attr[i01]) * fx;
+    return a + (b - a) * fz;
+  };
+}
+
 export function buildWaterMesh() {
-  const nx = 48;
-  const nz = 48;
-  const minX = -20;
-  const maxX = 16;
-  const minZ = -10;
-  const maxZ = 20;
+  const nx = 64;
+  const nz = 64;
+  const minX = -24;
+  const maxX = 20;
+  const minZ = -14;
+  const maxZ = 18;
 
   const positions = new Float32Array(nx * nz * 3);
   const indices = new Uint16Array((nx - 1) * (nz - 1) * 6);
 
   for (let iz = 0; iz < nz; iz++) {
-    const tz = iz / (nz - 1);
-    const z = lerp(minZ, maxZ, tz);
+    const z = lerp(minZ, maxZ, iz / (nz - 1));
     for (let ix = 0; ix < nx; ix++) {
-      const tx = ix / (nx - 1);
-      const x = lerp(minX, maxX, tx);
+      const x = lerp(minX, maxX, ix / (nx - 1));
       const idx = iz * nx + ix;
       positions[idx * 3] = x;
       positions[idx * 3 + 1] = WATER_LEVEL;
@@ -470,21 +545,51 @@ export function buildWaterMesh() {
       indices[ptr++] = d;
     }
   }
-
   return { positions, indices };
 }
 
 /**
- * Generates dual atmospheric cloud stratus decks spanning the alpine basin.
+ * Generates subdivided undulating cloud deck mesh for soft volumetric-look sea of clouds.
  */
-export function buildCloudDeckMesh(altitude = 9.4, span = 132) {
+export function buildCloudDeckMesh(altitude = 8.4, span = 208, segs = 32) {
+  const N = segs + 1;
   const half = span * 0.5;
-  const positions = new Float32Array([
-    -half, altitude, -half,
-     half, altitude, -half,
-    -half, altitude,  half,
-     half, altitude,  half,
-  ]);
-  const indices = new Uint16Array([0, 2, 1, 1, 2, 3]);
+  const positions = new Float32Array(N * N * 3);
+  const indices = new Uint16Array(segs * segs * 6);
+
+  for (let iz = 0; iz < N; iz++) {
+    const z = lerp(-half, half, iz / segs);
+    for (let ix = 0; ix < N; ix++) {
+      const x = lerp(-half, half, ix / segs);
+      const idx = iz * N + ix;
+      // Subtle undulation so cloud sea never looks like a flat planar card
+      const swell = Math.sin(x * 0.045) * Math.cos(z * 0.045) * 0.9;
+      positions[idx * 3] = x;
+      positions[idx * 3 + 1] = altitude + swell;
+      positions[idx * 3 + 2] = z;
+    }
+  }
+
+  let ptr = 0;
+  for (let iz = 0; iz < segs; iz++) {
+    for (let ix = 0; ix < segs; ix++) {
+      const a = iz * N + ix;
+      const b = a + 1;
+      const c = a + N;
+      const d = c + 1;
+      indices[ptr++] = a;
+      indices[ptr++] = c;
+      indices[ptr++] = b;
+      indices[ptr++] = b;
+      indices[ptr++] = c;
+      indices[ptr++] = d;
+    }
+  }
   return { positions, indices, altitude };
+}
+
+export function terrainUnitsToMeters(y) {
+  const clamped = Math.max(0, y - WATER_LEVEL);
+  // 0 above water -> 1,890 m; peak ~20 above water -> 3,420 m
+  return Math.round(LAKE_METERS + clamped * ((PEAK_TARGET_METERS - LAKE_METERS) / 17.5));
 }

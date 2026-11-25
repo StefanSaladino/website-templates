@@ -1,11 +1,11 @@
 /**
- * ATLAS — Continuous Spatial Camera Spline & Environmental Choreography
- * Catmull-Rom 3D camera path, collision avoidance above terrain & glacial lake,
- * responsive mobile/desktop framing, optional viewpoint inspection offset,
- * and continuous chapter/lighting parameters.
+ * ATLAS — A3 Continuous Spatial Camera Spline & Environmental Choreography
+ * Deliberate foreground / middle-ground / distant compositions across all 6 chapters,
+ * bright alpine morning lighting in Valley, glowing golden hour in Summit,
+ * responsive desktop & portrait mobile framing, and terrain collision safety.
  */
 
-import { WATER_LEVEL, elevationToMeters } from './terrain.js';
+import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js';
 
 export const CHAPTERS = Object.freeze([
   {
@@ -18,6 +18,7 @@ export const CHAPTERS = Object.freeze([
     inspectable: false,
     polarity: 'light',
     coords: '46°34′N · 07°58′E',
+    displayMeters: 3420,
   },
   {
     id: 'ascent',
@@ -28,7 +29,8 @@ export const CHAPTERS = Object.freeze([
     anchor: 0.24,
     inspectable: false,
     polarity: 'light-to-dark',
-    coords: '2,180 m – 2,940 m',
+    coords: '2,180 m – 3,120 m',
+    displayMeters: 2890,
   },
   {
     id: 'descent',
@@ -39,7 +41,8 @@ export const CHAPTERS = Object.freeze([
     anchor: 0.44,
     inspectable: true,
     polarity: 'dark',
-    coords: 'Meridian Gorge · 2,410 m',
+    coords: 'Meridian Gorge · North Pass',
+    displayMeters: 2410,
   },
   {
     id: 'valley',
@@ -50,7 +53,8 @@ export const CHAPTERS = Object.freeze([
     anchor: 0.62,
     inspectable: true,
     polarity: 'dark',
-    coords: 'Lake Vireo · 1,890 m',
+    coords: 'Lake Vireo Cirque',
+    displayMeters: 1890,
   },
   {
     id: 'summit',
@@ -61,7 +65,8 @@ export const CHAPTERS = Object.freeze([
     anchor: 0.82,
     inspectable: true,
     polarity: 'dark',
-    coords: 'Kestrel Spire · 3,420 m',
+    coords: 'Kestrel Spire Massif',
+    displayMeters: 3420,
   },
   {
     id: 'archive',
@@ -73,6 +78,7 @@ export const CHAPTERS = Object.freeze([
     inspectable: true,
     polarity: 'light',
     coords: 'Survey Folio · VII',
+    displayMeters: 3420,
   },
 ]);
 
@@ -82,7 +88,7 @@ export const VIEWPOINTS = Object.freeze([
     index: 'I',
     title: 'Tarn Overlook',
     subtitle: 'Lake Vireo Basin · 1,890 m',
-    description: 'Glacial meltwater reflecting the northern cirque wall beneath lingering valley mist.',
+    description: 'Turquoise glacial meltwater mirroring Kestrel Spire and sunlit snow ridges.',
     progress: 0.62,
     chapter: 'valley',
   },
@@ -91,7 +97,7 @@ export const VIEWPOINTS = Object.freeze([
     index: 'II',
     title: 'Meridian Gorge',
     subtitle: 'North Ridge Approach · 2,410 m',
-    description: 'Steep moraine shoulders and granite strata descending toward the subalpine basin.',
+    description: 'Aerial corridor descending past pine-lined spurs toward the gleaming cirque floor.',
     progress: 0.44,
     chapter: 'descent',
   },
@@ -100,26 +106,26 @@ export const VIEWPOINTS = Object.freeze([
     index: 'III',
     title: 'Kestrel Crest',
     subtitle: 'Golden Hour Panorama · 3,420 m',
-    description: 'Above the stratus cloud deck in warm raking light across the full horseshoe massif.',
+    description: 'Elevated above the valley cloud sea in warm amber light across three mountain ranges.',
     progress: 0.82,
     chapter: 'summit',
   },
 ]);
 
-// Keyframes carefully spaced across progress [0, 1] for Catmull-Rom spatial continuity
+// Deliberately composed Catmull-Rom flight path framing foreground, midground & horizon
 const SPLINE_KEYS = [
-  { t: 0.00, pos: [0.0,  58.0,  11.0], look: [0.0,   0.0,  -3.0], fov: 39 }, // I. Flat overhead map
-  { t: 0.07, pos: [7.5,  50.5,  26.5], look: [0.0,   1.0,  -3.5], fov: 41 }, // I->II. Smooth tilt-down arc
-  { t: 0.14, pos: [17.0, 40.0,  42.0], look: [0.0,   2.4,  -4.0], fov: 43 }, // II. Map tilts & begins rising
-  { t: 0.30, pos: [26.0, 21.5,  33.0], look: [0.5,   6.5,  -7.0], fov: 45 }, // II. Full alpine massifs revealed
-  { t: 0.44, pos: [11.5, 11.2,  21.5], look: [-1.5,  4.5,  -8.0], fov: 47 }, // III. Descending into gorge pass
-  { t: 0.56, pos: [-2.5,  4.4,  15.5], look: [0.5,   4.6, -12.0], fov: 46 }, // IV. Valley entry
-  { t: 0.64, pos: [-3.2,  3.85, 13.0], look: [2.2,   4.9, -13.5], fov: 46 }, // IV. Lake Vireo shoreline reflections
-  { t: 0.72, pos: [4.0,   9.6,   6.5], look: [7.5,   9.5, -13.5], fov: 46 }, // V. Climbing through lower cloud deck
-  { t: 0.78, pos: [14.5, 22.8,   0.5], look: [6.5,  13.0, -11.0], fov: 45 }, // V. Rising above eastern ridge shoulder
-  { t: 0.84, pos: [24.5, 26.2,  -4.8], look: [-3.5,  8.5,  -5.5], fov: 44 }, // V. Golden hour summit panorama
-  { t: 0.92, pos: [12.5, 40.5,   9.5], look: [-1.5,  3.6,  -4.0], fov: 42 }, // V->VI. Smooth ascent to archive plate
-  { t: 1.00, pos: [0.0,  53.0,  21.0], look: [0.0,   0.8,  -3.0], fov: 40 }, // VI. Cartographic exhibition archive
+  { t: 0.00, pos: [-9.0,  76.0,   6.0], look: [-9.0,  0.0,  -2.0], fov: 39 }, // I. Overhead archival folio (left negative space)
+  { t: 0.08, pos: [6.0,   62.0,  28.0], look: [-3.0,  1.5,  -4.0], fov: 41 }, // I->II. Smooth oblique tilt
+  { t: 0.16, pos: [26.0,  42.0,  46.0], look: [-1.0,  4.0,  -6.0], fov: 43 }, // II. Map lifts cleanly into peaks
+  { t: 0.28, pos: [28.0,  25.5,  38.0], look: [-1.5,  6.5, -10.5], fov: 45 }, // II. Sweeping sunlit massif
+  { t: 0.44, pos: [12.5,  16.0,  31.5], look: [-2.0,  5.2, -13.0], fov: 47 }, // III. Aerial glide over pass toward lake & peaks
+  { t: 0.56, pos: [-11.0,  6.2,  19.0], look: [1.5,   4.8, -14.5], fov: 46 }, // IV. Entering Lake Vireo amphitheater
+  { t: 0.64, pos: [-14.0,  4.35, 15.2], look: [3.2,   5.2, -14.5], fov: 46 }, // IV. Glacial lake reflections & Kestrel Spire framing
+  { t: 0.72, pos: [-2.0,  13.2,  11.5], look: [3.5,   9.4, -16.0], fov: 46 }, // V. Climbing up through sunlit stratus deck
+  { t: 0.78, pos: [19.0,  24.5,  17.0], look: [-1.0, 11.2, -17.0], fov: 46 }, // V. Breaking above clouds over eastern ridge
+  { t: 0.84, pos: [27.0,  29.0,  21.0], look: [-4.0, 11.2, -20.0], fov: 45 }, // V. Golden hour panorama above sea of clouds
+  { t: 0.92, pos: [12.0,  52.0,  19.0], look: [-5.0,  3.5,  -4.0], fov: 42 }, // V->VI. Ascending smoothly to archive folio
+  { t: 1.00, pos: [-7.0,  68.0,  16.0], look: [-7.0,  0.5,  -2.0], fov: 40 }, // VI. Cartographic exhibition archive
 ];
 
 function clamp(v, lo, hi) {
@@ -135,7 +141,7 @@ function smoothstep(e0, e1, x) {
   return t * t * (3 - 2 * t);
 }
 
-// Nonuniform-time cubic Hermite interpolation: shared velocity at each key.
+// Nonuniform-time cubic Hermite spline with a shared derivative at each key.
 function sampleSpline(progress) {
   const p=clamp(progress,0,1);
   let i=0;while(i<SPLINE_KEYS.length-2&&p>SPLINE_KEYS[i+1].t)i++;
@@ -150,6 +156,7 @@ function sampleSpline(progress) {
   };
   return {pos:[0,1,2].map(j=>interpolate('pos',j)),look:[0,1,2].map(j=>interpolate('look',j)),fov:interpolate('fov',null)};
 }
+
 export function getChapterForProgress(progress) {
   const p = clamp(progress, 0, 1);
   for (let i = CHAPTERS.length - 1; i >= 0; i--) {
@@ -158,82 +165,69 @@ export function getChapterForProgress(progress) {
   return CHAPTERS[0];
 }
 
-/**
- * Evaluates full world-state parameters (terrain morph, map ink mix,
- * golden hour, fog, sky palette, camera pose, and terrain collision clamping)
- * at scroll progress p in [0, 1].
- */
 export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 0, inspectPitch = 0) {
   const p = clamp(progress, 0, 1);
 
-  // 1. Continuous relief morph & cartographic ink mix:
-  //    Map (0.00-0.08): flat parchment (relief 0, mapMix 1)
-  //    Ascent (0.08-0.34): smoothly rises to 1.0, ink dissolves to 0.0
-  //    Archive (0.86-1.00): eases gracefully into a raised relief folio plate (relief ~0.26, mapMix ~0.86)
-  const rise = smoothstep(0.06, 0.30, p);
-  const archiveReturn = smoothstep(0.85, 0.985, p);
+  // 1. Relief & cartography envelope
+  const rise = smoothstep(0.06, 0.28, p);
+  const archiveReturn = smoothstep(0.86, 0.985, p);
 
-  const relief = lerp(rise, 0.26, archiveReturn);
-  const mapFadeOut = 1.0 - smoothstep(0.09, 0.29, p);
-  const mapMix = clamp(Math.max(mapFadeOut, archiveReturn * 0.88), 0, 1);
+  const relief = lerp(rise, 0.22, archiveReturn);
+  const mapFadeOut = 1.0 - smoothstep(0.09, 0.27, p);
+  const mapMix = clamp(Math.max(mapFadeOut, archiveReturn * 0.90), 0, 1);
 
-  // 2. Environmental phases (Valley mist, Golden hour summit, Cloud layers)
+  // 2. Environmental lighting & cloud envelope
   const valleyWeight = smoothstep(0.46, 0.56, p) * (1.0 - smoothstep(0.68, 0.78, p));
-  const goldenWeight = smoothstep(0.69, 0.82, p) * (1.0 - smoothstep(0.86, 0.96, p));
-  const cloudAlpha = smoothstep(0.50, 0.65, p) * (1.0 - smoothstep(0.84, 0.95, p)) * 0.72;
+  const goldenWeight = smoothstep(0.70, 0.81, p) * (1.0 - smoothstep(0.86, 0.95, p));
+  const cloudAlpha = smoothstep(0.56, 0.71, p) * (1.0 - smoothstep(0.85, 0.94, p)) * 0.82;
 
-  // Sun sweeps smoothly from crisp morning azimuth toward warm low golden-hour elevation
-  const sunElev = lerp(0.56, 0.20, goldenWeight);
-  const sunAz = lerp(-0.92, -1.78, goldenWeight);
+  // Sun sweeps from bright SE alpine morning (illuminating northern cirque & lake!)
+  // to raking WNW golden hour alpenglow in Summit
+  const sunElev = lerp(0.57, 0.24, goldenWeight);
+  const sunAz = lerp(1.10, -0.78, goldenWeight);
   const sunDir = normalizeVec3([
     Math.cos(sunElev) * Math.cos(sunAz),
     Math.sin(sunElev),
     Math.cos(sunElev) * Math.sin(sunAz),
   ]);
 
-  // Sky zenith & horizon colors smoothly interpolate across phases
-  const morningZenith = [0.22, 0.37, 0.49];
-  const morningHorizon = [0.76, 0.83, 0.87];
-  const valleyZenith = [0.18, 0.32, 0.44];
-  const valleyHorizon = [0.74, 0.82, 0.85];
-  const summitZenith = [0.14, 0.21, 0.31];
-  const summitHorizon = [0.85, 0.62, 0.41];
+  const morningZenith = [0.19, 0.36, 0.51];
+  const morningHorizon = [0.78, 0.86, 0.90];
+  const valleyZenith = [0.17, 0.34, 0.49];
+  const valleyHorizon = [0.80, 0.88, 0.91];
+  const summitZenith = [0.12, 0.20, 0.31];
+  const summitHorizon = [0.86, 0.70, 0.55];
 
   let skyZenith = lerpVec3(morningZenith, valleyZenith, valleyWeight);
   let skyHorizon = lerpVec3(morningHorizon, valleyHorizon, valleyWeight);
   skyZenith = lerpVec3(skyZenith, summitZenith, goldenWeight);
   skyHorizon = lerpVec3(skyHorizon, summitHorizon, goldenWeight);
 
-  const fogDensity = lerp(0.0065, 0.0105, valleyWeight) * (1.0 - goldenWeight * 0.26);
+  const fogDensity = lerp(0.0052, 0.0068, valleyWeight) * (1.0 - goldenWeight * 0.25);
 
-  // 3. Camera spline + responsive mobile FOV/pullback compensation
+  // 3. Camera spline + deliberate portrait mobile framing
   const spline = sampleSpline(p);
   const pos = [...spline.pos];
   const look = [...spline.look];
 
-  // On portrait mobile (aspect < 0.82), widen vertical FOV gracefully & add subtle pullback
-  // so hero ridges and the cartographic sheet remain unclipped horizontally.
   let fovDeg = spline.fov;
-  if (aspect < 0.88) {
-    const portraitFactor = clamp((0.88 - aspect) / 0.50, 0, 1);
-    fovDeg += portraitFactor * 16.5;
-    const dx = pos[0] - look[0];
-    const dy = pos[1] - look[1];
-    const dz = pos[2] - look[2];
-    const pull = 1.0 + portraitFactor * 0.055 * (1.0 - valleyWeight * 0.75);
-    pos[0] = look[0] + dx * pull;
-    pos[1] = look[1] + dy * pull;
-    pos[2] = look[2] + dz * pull;
+  if (aspect < 0.86) {
+    const portrait = clamp((0.86 - aspect) / 0.48, 0, 1);
+    fovDeg += portrait * 16.0;
+
+    // On portrait mobile in Map & Archive, center on the massif & Lake Vireo cleanly
+    // while pulling back slightly so peaks sit in upper frame above lower editorial type
+    const mapOrArchive = Math.max(1.0 - smoothstep(0.04, 0.22, p), smoothstep(0.86, 0.98, p));
+    pos[0] = lerp(pos[0], 0.0, mapOrArchive * 0.85 * portrait);
+    look[0] = lerp(look[0], 0.0, mapOrArchive * 0.85 * portrait);
+    pos[2] += mapOrArchive * 8.0 * portrait;
+    look[2] += mapOrArchive * 8.0 * portrait;
+
+    // In Valley on mobile, nudge sightline slightly toward Lake Vireo & Kestrel Spire center
+    pos[0] = lerp(pos[0], -8.5, valleyWeight * portrait * 0.45);
   }
 
-  // The opening is a designed survey plate, not an arbitrary camera crop.
-  // Move the entire camera rig, preserving perspective and geographic scale.
-  const opening=1-smoothstep(.015,.18,p);
-  const shiftX=-12*opening*smoothstep(.85,1.45,aspect);
-  const shiftZ=8*opening*(1-smoothstep(.55,1.05,aspect));
-  pos[0]+=shiftX;look[0]+=shiftX;pos[2]+=shiftZ;look[2]+=shiftZ;
-
-  // 4. Optional Viewpoint Drag/Keyboard Inspection Offset (applied smoothly to look direction)
+  // 4. Optional Viewpoint Inspection Offset
   if (Math.abs(inspectYaw) > 0.0005 || Math.abs(inspectPitch) > 0.0005) {
     const vx = look[0] - pos[0];
     const vy = look[1] - pos[1];
@@ -250,22 +244,22 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
     look[2] = pos[2] + Math.cos(pitch) * Math.sin(yaw) * dist;
   }
 
-  // 5. Strict Terrain & Water Collision Avoidance
+  // 5. Terrain & Water Collision Avoidance Safety Net
   if (typeof sampleHeight === 'function') {
     const groundY=Math.max(...[[0,0],[-1.4,0],[1.4,0],[0,-1.4],[0,1.4]].map(([dx,dz])=>sampleHeight(pos[0]+dx,pos[2]+dz)))*relief;
-    const delta=Math.max(groundY+2,WATER_LEVEL*relief+1.35)-pos[1],soft=.65;
+    const delta=Math.max(groundY+2.0,WATER_LEVEL*relief+1.35)-pos[1],soft=.65;
     const lift=delta<=-soft?0:delta>=soft?delta:(delta+soft)**2/(4*soft);
     pos[1]+=lift;look[1]+=lift*.32;
   }
 
-  // Camera basis vectors (useful for both View matrix and Sky ray shader)
   const forward = normalizeVec3([look[0] - pos[0], look[1] - pos[1], look[2] - pos[2]]);
   const worldUp = [0, 1, 0];
   const right = normalizeVec3(crossVec3(forward, worldUp));
   const up = normalizeVec3(crossVec3(right, forward));
 
   const chapter = getChapterForProgress(p);
-  const cameraAltMeters = elevationToMeters(pos[1]);
+  const targetGround = typeof sampleHeight === 'function' ? sampleHeight(look[0], look[2]) : WATER_LEVEL;
+  const focusAltMeters = mapMix > 0.5 ? chapter.displayMeters : terrainUnitsToMeters(Math.max(targetGround, WATER_LEVEL));
 
   return {
     progress: p,
@@ -285,7 +279,8 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
     forward,
     right,
     up,
-    cameraAltMeters,
+    focusAltMeters,
+    folioHalf: FOLIO_HALF,
   };
 }
 
@@ -306,13 +301,12 @@ function normalizeVec3(v) {
   return [v[0] / len, v[1] / len, v[2] / len];
 }
 
-export function buildViewProjMatrix(pos, look, worldUpRef, fovDeg, aspect, near = 0.35, far = 240.0) {
+export function buildViewProjMatrix(pos, look, worldUpRef, fovDeg, aspect, near = 0.4, far = 340.0) {
   const f = normalizeVec3([look[0] - pos[0], look[1] - pos[1], look[2] - pos[2]]);
   const upHint = worldUpRef;
   const s = normalizeVec3(crossVec3(f, upHint));
   const u = crossVec3(s, f);
 
-  // View matrix (column-major Float32Array)
   const view = new Float32Array([
     s[0], u[0], -f[0], 0,
     s[1], u[1], -f[1], 0,
@@ -336,7 +330,6 @@ export function buildViewProjMatrix(pos, look, worldUpRef, fovDeg, aspect, near 
     0, 0, 2 * far * near * nf, 0,
   ]);
 
-  // Multiply proj * view (column-major)
   const out = new Float32Array(16);
   for (let col = 0; col < 4; col++) {
     for (let row = 0; row < 4; row++) {

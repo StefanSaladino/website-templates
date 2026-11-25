@@ -34,6 +34,7 @@ export function createMotionController(options) {
   let visible = true;
   let ambientActive = false; // True only when water/clouds are visible and not still
   let mobileCap30 = typeof window !== 'undefined' && window.innerWidth <= 820;
+  let softwareThrottle = false;
 
   function setSettled(next) {
     if (settled === next) return;
@@ -89,11 +90,11 @@ export function createMotionController(options) {
       Math.abs(currentPitch - prevX) > 1e-6;
 
     // Gentle ambient water ripples & cloud drift only when visible, unpaused, and active in middle chapters
-    const shouldAnimateAmbient = false; // deterministic scroll choreography
+    const shouldAnimateAmbient = false; // deterministic scroll timeline; settled frames do not churn
     let ambientTick = false;
 
     if (shouldAnimateAmbient) {
-      const interval = mobileCap30 ? 32 : 16;
+      const interval = softwareThrottle ? 360 : (mobileCap30 ? 32 : 16);
       if (moved || now - lastAmbientDrawMs >= interval) {
         ambientTime += dt;
         lastAmbientDrawMs = now;
@@ -133,7 +134,7 @@ export function createMotionController(options) {
           ambientActive = state.relief > 0.28 && state.mapMix < 0.78;
         }
         setSettled(true);
-        if (!paused && !reducedMotion && ambientActive && visible) schedule();
+        if (dirty && visible) schedule();
         return;
       }
       if (Math.abs(next - targetProgress) > 1e-6) {
@@ -203,6 +204,10 @@ export function createMotionController(options) {
 
     setMobileRate(isMobile) {
       mobileCap30 = Boolean(isMobile);
+    },
+
+    setSoftwareThrottle(enabled) {
+      softwareThrottle = Boolean(enabled);
     },
 
     forceRedraw() {

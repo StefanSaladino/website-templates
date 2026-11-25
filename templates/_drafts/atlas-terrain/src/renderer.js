@@ -77,11 +77,9 @@ export class AtlasRenderer {
     this.lastHeight = 0;
     this.activeDprScale = 1.0;
 
-    // Terrain CPU data built cleanly per quality tier (never rebuilt during scroll)
     this.terrainData = null;
     this.waterData = buildWaterMesh();
-    this.cloudLower = buildCloudDeckMesh(8.2, 130);
-    this.cloudUpper = buildCloudDeckMesh(10.8, 132);
+    this.cloudDeck = buildCloudDeckMesh(7.6, 208, 32);
 
     this.gl = null;
     this.resources = null;
@@ -131,7 +129,6 @@ export class AtlasRenderer {
 
     this.gl = gl;
 
-    // Detect software rasterizer so mobile/headless environments stay crisp and responsive
     const dbg = gl.getExtension('WEBGL_debug_renderer_info');
     if (dbg) {
       const rendererName = String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '');
@@ -159,7 +156,7 @@ export class AtlasRenderer {
   }
 
   _buildTerrainGeometry() {
-    const res = this.quality === 'high' && !this.isSoftwareRenderer ? 192 : 128;
+    const res = this.quality === 'high' && !this.isSoftwareRenderer ? 256 : 176;
     if (this.terrainData && this.terrainData.resolution === res) return;
     this.terrainData = buildTerrainData(res);
   }
@@ -216,21 +213,21 @@ export class AtlasRenderer {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wIdxBuf);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.waterData.indices, gl.STATIC_DRAW);
 
-    // Cloud Deck VAO (shared quad geometry positioned in vertex shader via uAltitudeOffset)
+    // Cloud Deck VAO
     const cloudVao = gl.createVertexArray();
     gl.bindVertexArray(cloudVao);
     const cPosBuf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, cPosBuf);
-    gl.bufferData(gl.ARRAY_BUFFER, this.cloudLower.positions, gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, this.cloudDeck.positions, gl.STATIC_DRAW);
     gl.enableVertexAttribArray(0);
     gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
     const cIdxBuf = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cIdxBuf);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.cloudLower.indices, gl.STATIC_DRAW);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.cloudDeck.indices, gl.STATIC_DRAW);
 
     gl.bindVertexArray(null);
 
-    // Upload 16-bit packed RG heightmap texture
+    // Upload 512x512 16-bit packed RG height + drainage/curvature texture
     const heightTex = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, heightTex);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
@@ -261,8 +258,8 @@ export class AtlasRenderer {
       terrainProg,
       terrainU: getUniforms(gl, terrainProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
-        'uWorldSize', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix', 'uGolden',
-        'uFogDensity', 'uSkyZenith', 'uSkyHorizon',
+        'uWorldSize', 'uFolioHalf', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix',
+        'uGolden', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon',
       ]),
       terrainVao,
       terrainIndexCount: td.indices.length,
@@ -284,7 +281,7 @@ export class AtlasRenderer {
         'uTime', 'uCloudAlpha', 'uLayerSeed',
       ]),
       cloudVao,
-      cloudIndexCount: this.cloudLower.indices.length,
+      cloudIndexCount: this.cloudDeck.indices.length,
 
       heightTex,
     };
@@ -306,6 +303,7 @@ export class AtlasRenderer {
     const cssW = Math.max(1, Math.round(rect.width));
     const cssH = Math.max(1, Math.round(rect.height));
 
+    // Stable pixel budget: never change resolution just because scrolling begins.
     const nativeDpr=Math.min(window.devicePixelRatio||1,2);
     const budget=this.isSoftwareRenderer?1050000:this.quality==='low'?1100000:1900000;
     const cap=this.isSoftwareRenderer?1:this.quality==='low'?1.2:1.55;
@@ -348,19 +346,17 @@ export class AtlasRenderer {
       [0, 1, 0],
       state.fovDeg,
       aspect,
-      0.35,
-      240.0
+      0.4,
+      340.0
     );
 
     const r = this.resources;
     gl.viewport(0, 0, pxW, pxH);
-    gl.depthMask(true);
-    gl.clearDepth(1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.depthMask(true);gl.clearDepth(1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.CULL_FACE);
     gl.cullFace(gl.BACK);
 
-    // 1. Sky Pass (depth test off, write off)
+    // 1. Sky Pass
     gl.disable(gl.DEPTH_TEST);
     gl.depthMask(false);
     gl.disable(gl.BLEND);
@@ -379,7 +375,6 @@ export class AtlasRenderer {
     gl.uniform3fv(r.skyU.uSkyHorizon, state.skyHorizon);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
 
-    // Bind shared heightfield texture
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, r.heightTex);
 
@@ -395,6 +390,7 @@ export class AtlasRenderer {
     gl.uniform3fv(r.terrainU.uSunDir, state.sunDir);
     gl.uniform1i(r.terrainU.uHeightTex, 0);
     gl.uniform1f(r.terrainU.uWorldSize, WORLD_SIZE);
+    gl.uniform1f(r.terrainU.uFolioHalf, state.folioHalf);
     gl.uniform1f(r.terrainU.uMaxTexHeight, this.terrainData.maxTexHeight);
     gl.uniform1f(r.terrainU.uWaterLevel, WATER_LEVEL);
     gl.uniform1f(r.terrainU.uMapMix, state.mapMix);
@@ -405,7 +401,7 @@ export class AtlasRenderer {
     gl.drawElements(gl.TRIANGLES, r.terrainIndexCount, gl.UNSIGNED_INT, 0);
 
     // 3. Glacial Lake Water Pass
-    if (state.relief > 0.27 && state.mapMix < 0.78) {
+    if (state.relief > 0.30 && state.mapMix < 0.74) {
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
       gl.depthMask(false);
@@ -432,8 +428,8 @@ export class AtlasRenderer {
       gl.enable(gl.CULL_FACE);
     }
 
-    // 4. Layered Atmospheric Cloud Deck Pass
-    if (state.cloudAlpha > 0.01 && state.relief > 0.45 && state.mapMix < 0.65) {
+    // 4. 5-Layer Atmospheric Sea of Clouds Pass
+    if (state.cloudAlpha > 0.01 && state.relief > 0.45 && state.mapMix < 0.62) {
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
       gl.depthMask(false);
@@ -453,15 +449,12 @@ export class AtlasRenderer {
       gl.uniform1f(r.cloudU.uTime, timeSec);
       gl.uniform1f(r.cloudU.uCloudAlpha, state.cloudAlpha);
 
-      // Lower valley stratus layer
-      gl.uniform1f(r.cloudU.uAltitudeOffset, 0.0);
-      gl.uniform1f(r.cloudU.uLayerSeed, 1.0);
-      gl.drawElements(gl.TRIANGLES, r.cloudIndexCount, gl.UNSIGNED_SHORT, 0);
-
-      // Upper ridge stratus layer
-      gl.uniform1f(r.cloudU.uAltitudeOffset, 2.6);
-      gl.uniform1f(r.cloudU.uLayerSeed, 2.7);
-      gl.drawElements(gl.TRIANGLES, r.cloudIndexCount, gl.UNSIGNED_SHORT, 0);
+      const offsets = [-1.2, 1.2, 3.6];
+      for (let i = 0; i < offsets.length; i++) {
+        gl.uniform1f(r.cloudU.uAltitudeOffset, offsets[i]);
+        gl.uniform1f(r.cloudU.uLayerSeed, 1.0 + i * 1.87);
+        gl.drawElements(gl.TRIANGLES, r.cloudIndexCount, gl.UNSIGNED_SHORT, 0);
+      }
 
       gl.enable(gl.CULL_FACE);
     }
