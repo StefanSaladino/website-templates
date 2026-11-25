@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=T22';
+import { worldPoint } from './config.js?v=T23';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -125,10 +125,10 @@ export function revealPose(aspect,desktopComposition=false,progress=0){
   if(p<=REVEAL_JOIN)return crossingPose(aspect,desktopComposition,p/REVEAL_JOIN,localVelocity);
   const start=crossingPose(aspect,desktopComposition,1,localVelocity),t=(p-REVEAL_JOIN)/(1-REVEAL_JOIN),e=t*t*(3-2*t),distance=start.eye[2]-REVEAL_END_Z;
   const travel=distance*hermite(t,REVEAL_VELOCITY*(1-REVEAL_JOIN)/distance,0);
-  const wide=desktopComposition||aspect>=1.2,eye=[mix(start.eye[0],wide?-.8:.1,e),mix(start.eye[1],wide?2.5:2.3,e),start.eye[2]-travel];
-  const offset=start.aim.map((v,i)=>v-start.eye[i]),targetAim=[wide?2.4:4.6,3.8,-18.4],targetEye=[wide?-.8:.1,wide?2.5:2.3,REVEAL_END_Z];
+  const wide=desktopComposition||aspect>=1.2,eye=[mix(start.eye[0],wide?-.8:-1.1,e),mix(start.eye[1],wide?2.5:2.3,e),start.eye[2]-travel];
+  const offset=start.aim.map((v,i)=>v-start.eye[i]),targetAim=wide?[4.1,2.5,-16.5]:[4.6,1.6,-15.8],targetEye=[wide?-.8:-1.1,wide?2.5:2.3,REVEAL_END_Z];
   const aim=eye.map((v,i)=>v+mix(offset[i],targetAim[i]-targetEye[i],e));
-  let endFov=wide?49:68;if(!wide&&aspect<.46)endFov=2*Math.atan(Math.tan(endFov*Math.PI/360)*.46/aspect)*180/Math.PI;
+  let endFov=wide?64:83;if(!wide&&aspect<.46)endFov=2*Math.atan(Math.tan(endFov*Math.PI/360)*.46/aspect)*180/Math.PI;
   const fov=mix(start.fov,endFov,e),lens=perspective(fov,aspect);
   return {eye,aim,fov,shiftX:0,shiftY:0,vp:multiply(lens,lookAt(eye,aim))};
 }

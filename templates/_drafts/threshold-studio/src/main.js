@@ -1,13 +1,13 @@
-import {RELEASE} from './config.js?v=T22';
-import {createRenderer} from './renderer.js?v=T22';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T22';
-import {createScheduler} from './lifecycle.js?v=T22';
-import {wordmarkOcclusion} from './wordmark.js?v=T22';
-import {createAmbientClock} from './ambient.js?v=T22';
-import {readProgress} from './scroll.js?v=T22';
-import {typographyPose} from './typography.js?v=T22';
-import {FOLDS,foldAmount} from './sculptures.js?v=T22';
-import {perspectivePose} from './editorial.js?v=T22';
+import {RELEASE} from './config.js?v=T23';
+import {createRenderer} from './renderer.js?v=T23';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T23';
+import {createScheduler} from './lifecycle.js?v=T23';
+import {wordmarkOcclusion} from './wordmark.js?v=T23';
+import {createAmbientClock} from './ambient.js?v=T23';
+import {readProgress} from './scroll.js?v=T23';
+import {typographyPose} from './typography.js?v=T23';
+import {FOLDS,foldAmount} from './sculptures.js?v=T23';
+import {perspectivePose} from './editorial.js?v=T23';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){

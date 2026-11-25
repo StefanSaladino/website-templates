@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01–T21 verified; T22 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01–T22 verified; T23 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -69,7 +69,7 @@ Gate: feels like traversing one actual space; no jumps, awkward clipped states o
 - [x] T19 — Bone-white architectural environment.
 - [x] T20 — Abstract sculpture geometry and materials.
 - [x] T21 — Continuous architectural transformations.
-- [ ] T22 — Integrate philosophy/capabilities with spatial typography; no service-card grid.
+- [x] T22 — Integrate philosophy/capabilities with spatial typography; no service-card grid.
 - [ ] T23 — Portrait composition and actual visual audit.
 Gate: distinct room with shared world and coherent transition.
 
@@ -304,3 +304,6 @@ T20 exact revision aa1052c64deac57216c361aad5a996aa209fc8d5: 28 Node tests, full
 
 ## T22 — Perspective editorial content
 T21 exact revision 43fe78e1a49fa2dc2af5d82b5697308094bd8a85: 30 Node tests, both foundation and transition jobs 45704066044 and Pages 45704065207 passed. Actual artifacts 15064881344 and 15063243671 downloaded and inspected; dense 39/39/38 offsets, zero reverse differences above threshold. Same-camera fold captures changed 137,488/399,179 RGB channels above threshold 5 at 390/1440 widths; no idle uploads. Portrait sculpture framing remains a T23 issue. T21 verified. T22 introduces one semantic Perspective section, compact exhibition label with philosophy and three capability names (Digital environments, Interactive brand experiences, Creative technology), no invented clients or proof, no card grid or extra interaction. Native progress .83–.96 controls opacity/rise, same deterministic draw sample, no new clock/camera/geometry. A single matte stone label protects text legibility on variable geometry, placed in lower left on wide and lower portrait margin; T23 will refine actual layout and framing. Same content is in normal document flow below Arrival for no JS, reduced motion and graphics-unavailable fallback (intentionally extends static document only by actual content; old empty-travel assertion updated to verify contiguous content and no extra blank scroll). Diagnostic journey=off retains single-screen geometry. Existing raw canvas audits hide editorial text; full composition dense reversal retained and adds editorial state. New semantic/motion tests, five viewport label bounds/size, static flow checks and actual captures. Exact T22 Node/browser/Pages and visual review pending; T23 after gate. No shared/catalogue changes.
+
+## T23 — Perspective composition refinement
+T22 exact revision 402f18b5709d932707bb3f4e4afb66559dde3d5e: all 32 Node tests, both browser jobs 45704735404 and Pages 45704733987 passed. Transition artifact 15065490459 downloaded, report verified 39/39/38 offsets with max reverse difference 0; inspected actual 80–100% portrait/desktop/landscape frames. OFFSET was cropped on right, dark exit dominated wide composition, and large white editorial rectangle competed with sculpture. T22 verified. T23 reframes only the late reveal via existing eased endpoint: portrait eye x=-1.1, aim [4.6,1.6,-15.8], fov83 with narrow-aspect correction; wide eye unchanged, aim [4.1,2.5,-16.5], fov64. Same endpoint depth and matched earlier tangent; no portal/crossing, mesh, shader or deformation changes. Smaller matte editorial label with compact portrait typography, reserved lower margin, subtle upper rule, and wide left placement. Exact-source mathematical preflight: 18,009 camera samples, minimum architecture clearance 2.279, all unfolded OFFSET projected vertices fit nine viewport sizes, portrait max y<.67. Projection is not proof of visual occlusion or composition; actual rendered T23 evidence required. New Node framing test and actual label/sculpture-zone separation checks; existing full browser and dense reversal retained. No catalogue/shared changes. T23 pending verification and visual review before T24 cobalt transition.

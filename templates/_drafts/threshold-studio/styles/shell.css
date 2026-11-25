@@ -196,3 +196,38 @@ footer { opacity: var(--footer-opacity, 1); }
 @media (max-width: 899px) and (min-aspect-ratio: 6/5), (max-height: 479px) and (min-aspect-ratio: 6/5) {
   :root:not([data-journey="on"]) .journey-stage:has(.scene-study[data-renderer="static"]) footer { inset-block-start: max(330px, 100svh); }
 }
+
+/* T23: a restrained exhibition label with a smaller footprint.
+   Preserve a dedicated lower margin in portrait; keep the sculpture to the
+   right of the editorial zone in wide views. No new scroll or overlay controls. */
+:root[data-journey="on"] .perspective-editorial {
+  background: #eeece5;
+  border-block-start: 1px solid #918c80;
+  inline-size: min(30vw, 22rem);
+  padding: .85rem 1rem;
+}
+:root[data-journey="on"] .perspective-editorial h2 {
+  font-size: clamp(1.65rem, min(3.2vw, 5vh), 3.1rem);
+}
+:root[data-journey="on"] .perspective-capabilities {
+  font-size: .68rem; gap: .2rem .7rem; margin-top: .55rem; padding-top: .5rem;
+}
+@media (max-aspect-ratio: 1199/1000) {
+  :root[data-journey="on"] .perspective-editorial {
+    inline-size: min(calc(100% - 2rem), 25rem);
+    inset-block-end: max(1.5vh, .65rem, env(safe-area-inset-bottom));
+    padding: .65rem .8rem;
+  }
+  :root[data-journey="on"] .perspective-index { margin-bottom: .35rem; }
+  :root[data-journey="on"] .perspective-editorial h2 {
+    font-size: clamp(1.55rem, 6vw, 2.15rem); margin-bottom: .3rem;
+  }
+  :root[data-journey="on"] .perspective-editorial h2 br { display: none; }
+  :root[data-journey="on"] .perspective-statement { font-size: .76rem; line-height: 1.4; }
+  :root[data-journey="on"] .perspective-capabilities { margin-top: .45rem; padding-top: .4rem; }
+}
+@media (max-height: 479px) and (min-aspect-ratio: 6/5) {
+  :root[data-journey="on"] .perspective-editorial { inline-size: min(32vw, 20rem); padding: .5rem .7rem; }
+  :root[data-journey="on"] .perspective-editorial h2 { font-size: clamp(1.3rem, 5vh, 1.9rem); }
+  :root[data-journey="on"] .perspective-capabilities { font-size: .63rem; }
+}
