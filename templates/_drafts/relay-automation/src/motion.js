@@ -6,7 +6,7 @@
  * on inactive chapters, and restores static accessibility under reduced motion.
  */
 
-import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=7';
+import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=8';
 
 const DARK_PAGE = [18, 20, 18]; // #121412
 const LIGHT_PAGE = [239, 236, 228]; // #EFECE4
@@ -40,6 +40,7 @@ function legibleInk(bg, muted=false) {
   return y>.179?[0,0,0]:[255,255,255];
 }
 const rgbString=rgb=>`rgb(${rgb.map(Math.round).join(', ')})`;
+const setVar=(el,key,value)=>{if(el&&el.style.getPropertyValue(key)!==value)el.style.setProperty(key,value);};
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
 export class MotionController {
@@ -315,26 +316,26 @@ export class MotionController {
 
     // 1. Update persistent 3D rig variables cleanly (GPU transform-only updates)
     if (this.rigEl) {
-      this.rigEl.style.setProperty('--rig-x', `${state.xPct.toFixed(2)}%`);
-      this.rigEl.style.setProperty('--rig-y', `${state.yPct.toFixed(2)}%`);
-      this.rigEl.style.setProperty('--rig-scale', state.scale.toFixed(4));
-      this.rigEl.style.setProperty('--rig-rx', `${state.rotX.toFixed(2)}deg`);
-      this.rigEl.style.setProperty('--rig-ry', `${state.rotY.toFixed(2)}deg`);
-      this.rigEl.style.setProperty('--sep', state.sep.toFixed(4));
-      this.rigEl.style.setProperty('--monitor', state.monitor.toFixed(4));
-      this.rigEl.style.setProperty('--execution-focus', state.focus.amount.toFixed(4));
-      this.rigEl.style.setProperty('--portrait-room', state.portraitRoom.toFixed(4));
+      setVar(this.rigEl,'--rig-x', `${state.xPct.toFixed(2)}%`);
+      setVar(this.rigEl,'--rig-y', `${state.yPct.toFixed(2)}%`);
+      setVar(this.rigEl,'--rig-scale', state.scale.toFixed(4));
+      setVar(this.rigEl,'--rig-rx', `${state.rotX.toFixed(2)}deg`);
+      setVar(this.rigEl,'--rig-ry', `${state.rotY.toFixed(2)}deg`);
+      setVar(this.rigEl,'--sep', state.sep.toFixed(4));
+      setVar(this.rigEl,'--monitor', state.monitor.toFixed(4));
+      setVar(this.rigEl,'--execution-focus', state.focus.amount.toFixed(4));
+      setVar(this.rigEl,'--portrait-room', state.portraitRoom.toFixed(4));
     }
 
     // Readability scrim blend during Scene 03 close-up zoom
     if (this.stageEl) {
       const zoomScrim = Math.max(0, Math.min(1, (state.scale - 1.12) / 0.2));
-      this.stageEl.style.setProperty('--zoom-scrim', zoomScrim.toFixed(3));
-      this.stageEl.style.setProperty('--hero-split', state.heroSplit.toFixed(3));
-      this.stageEl.style.setProperty('--brand-alpha', this.sandboxOpen ? '0' : (1-state.heroSplit).toFixed(3));
-      this.stageEl.style.setProperty('--brand-rise', `${(-state.heroSplit*110).toFixed(1)}px`);
+      setVar(this.stageEl,'--zoom-scrim', zoomScrim.toFixed(3));
+      setVar(this.stageEl,'--hero-split', state.heroSplit.toFixed(3));
+      setVar(this.stageEl,'--brand-alpha', this.sandboxOpen ? '0' : (1-state.heroSplit).toFixed(3));
+      setVar(this.stageEl,'--brand-rise', `${(-state.heroSplit*110).toFixed(1)}px`);
       this.stageEl.dataset.progress = progress.toFixed(4);
-      this.stageEl.dataset.scene = String(state.activeScene+1);
+      if(this.stageEl.dataset.scene!==String(state.activeScene+1))this.stageEl.dataset.scene=String(state.activeScene+1);
       this._updateSignal(progress, isMobile, state.light);
     }
 
@@ -384,7 +385,7 @@ export class MotionController {
     }
 
     const interactive = state.monitor >= .95;
-    if(this.monitorPanel){this.monitorPanel.inert=!interactive;this.monitorPanel.setAttribute('aria-hidden',String(!interactive));}
+    if(this.monitorPanel){if(this.monitorPanel.inert===interactive)this.monitorPanel.inert=!interactive;if(this.monitorPanel.getAttribute('aria-hidden')!==String(!interactive))this.monitorPanel.setAttribute('aria-hidden',String(!interactive));}
     // The opaque monitor covers these controls, so they must not remain tabbable.
     for(const panel of [this.graphPanel,this.historyPanel])if(panel)panel.inert=interactive;
     this.lastMonitor=state.monitor;
@@ -402,18 +403,15 @@ export class MotionController {
       const isActive = idx === state.activeScene && !this.sandboxOpen;
       const isInteractive = isActive && w >= 0.35;
       secEl.classList.toggle('is-active', isActive);
-      secEl.style.setProperty('--scene-alpha', w.toFixed(3));
+      setVar(secEl,'--scene-alpha', w.toFixed(3));
       const shift = isActive ? state.copyShift : 0;
-      secEl.style.setProperty('--scene-shift-y', `${shift.toFixed(1)}px`);
-      secEl.dataset.interactive = isInteractive ? 'true' : 'false';
+      setVar(secEl,'--scene-shift-y', `${shift.toFixed(1)}px`);
+      if(secEl.dataset.interactive!==String(isInteractive))secEl.dataset.interactive=String(isInteractive);
 
       // Keyboard & screen-reader isolation on hidden chapters
-      secEl.inert = !isInteractive;
-      if (isInteractive) {
-        secEl.removeAttribute('aria-hidden');
-      } else {
-        secEl.setAttribute('aria-hidden', 'true');
-      }
+      if(secEl.inert===isInteractive)secEl.inert=!isInteractive;
+      if(isInteractive){if(secEl.hasAttribute('aria-hidden'))secEl.removeAttribute('aria-hidden');}
+      else if(secEl.getAttribute('aria-hidden')!=='true')secEl.setAttribute('aria-hidden','true');
     });
 
 

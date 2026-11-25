@@ -5,8 +5,8 @@
  * unified execution monitoring & recovery.
  */
 
-import { executionNodeWeight } from './scenes.js?v=7';
-import { blendEdges } from './connectors.js?v=7';
+import { executionNodeWeight } from './scenes.js?v=8';
+import { blendEdges } from './connectors.js?v=8';
 
 export const SCENARIOS = {
   inbound: {
@@ -495,6 +495,9 @@ export class WorkflowController {
     this.connectors = connectors;
     this.canvasBoard = document.getElementById('canvas-board');
     this.nodeEls = Array.from(document.querySelectorAll('.wf-node'));
+    this.geometryCache=null;
+    this.staticGraphKey=null;
+    document.fonts?.addEventListener('loadingdone',()=>{this.geometryCache=null;this.staticGraphKey=null;});
     this.titleEl = document.getElementById('ws-workflow-title');
     this.statusEl = document.getElementById('ws-status-text');
     this.revisionEl = document.getElementById('ws-revision');
@@ -659,6 +662,14 @@ export class WorkflowController {
         ? Math.min(5, Math.floor(execStep))
         : -1;
 
+    // A stationary graph does not need rerendering while its ancestor camera moves.
+    // Include dimensions, viewport and mode so resize/sandbox/font changes invalidate it.
+    const geometryKey=[boardW,boardH,window.innerWidth,window.innerHeight,displaySc.id,activeIdx,
+      document.documentElement.classList.contains('is-sandbox-open'),document.documentElement.classList.contains('is-reduced-motion')].join('|');
+    const staticKey=!snapshot&&fromSc.id===toSc.id&&execStep<0&&this.manualExecutionStep<0&&!(focus?.amount)
+      ?`${geometryKey}|${edgeDraw}`:null;
+    if(staticKey!==null&&this.staticGraphKey===staticKey&&!changedDisplay)return;
+    this.staticGraphKey=staticKey;
     // Update layout-affecting text first, then measure the graph in one read phase.
     // Transforms are applied only after every node has been measured.
     for (let i=0;i<this.nodeEls.length;i++) {
@@ -690,11 +701,13 @@ export class WorkflowController {
       }
 
     }
-    const metrics=this.nodeEls.map(el=>{
+    const metrics=this.geometryCache?.key===geometryKey?this.geometryCache.metrics:this.nodeEls.map(el=>{
       const baseW=el.offsetWidth||(isMobile?136:134),baseH=el.offsetHeight||(isMobile?56:68);
       const port=selector=>{const e=el.querySelector(selector);return e?{x:el.clientLeft+e.offsetLeft+e.offsetWidth/2,y:el.clientTop+e.offsetTop+e.offsetHeight/2}:null;};
       return {baseW,baseH,inputPort:port('.wf-port-in'),outputPort:port('.wf-port-out')};
     });
+
+    this.geometryCache={key:geometryKey,metrics};
 
     // Slight scale pop on emerging / morphing nodes mid-transition
     const morphDip = Math.sin(t * Math.PI) * 0.04;
@@ -769,7 +782,7 @@ export class WorkflowController {
     }
 
     // Common paths remain intact; only new/retiring edges change weight.
-    let edges=blendEdges(fromSc.edges,toSc.edges,t);
+    let edges=fromSc.id===toSc.id?fromSc.edges:blendEdges(fromSc.edges,toSc.edges,t);
     if(snapshot)edges=blendEdges(snapshot.edges,edges,handoffMix);
     this.graphSnapshot={scenarioId:displaySc.id,nodes:layout,edges};
     this.connectors.setEdges(edges);

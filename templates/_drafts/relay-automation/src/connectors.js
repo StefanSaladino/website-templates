@@ -24,6 +24,28 @@ export function portCurve(a,b) {
   return [x1,y1,x1+handle,y1,x2-handle,y2,x2,y2];
 }
 
+// Sample arc length in JavaScript; evaluate the actual cubic for signal positions.
+// Avoid synchronous SVG geometry queries during scroll and ambient RAFs.
+export function curvePoint(q,t) {
+  const u=1-t, a=u*u*u, b=3*u*u*t, c=3*u*t*t, d=t*t*t;
+  return {x:a*q[0]+b*q[2]+c*q[4]+d*q[6],y:a*q[1]+b*q[3]+c*q[5]+d*q[7]};
+}
+export function curveMetrics(q) {
+  const n=48, distances=new Float64Array(n+1);
+  let prev=curvePoint(q,0);
+  for(let i=1;i<=n;i++) {const pt=curvePoint(q,i/n);distances[i]=distances[i-1]+Math.hypot(pt.x-prev.x,pt.y-prev.y);prev=pt;}
+  return {q,distances,length:distances[n]};
+}
+export function pointAtDistance(metrics,distance) {
+  const {q,distances,length}=metrics,n=distances.length-1;
+  const d=Math.max(0,Math.min(length,distance));
+  if(d===0)return curvePoint(q,0);
+  if(d===length)return curvePoint(q,1);
+  let lo=0,hi=n;while(hi-lo>1){const mid=(lo+hi)>>1;if(distances[mid]<d)lo=mid;else hi=mid;}
+  const span=distances[hi]-distances[lo];
+  return curvePoint(q,(lo+(span>0?(d-distances[lo])/span:0))/n);
+}
+const setStyle=(el,key,value)=>{if(el.style[key]!==value)el.style[key]=value;};
 export class ConnectorEngine {
   constructor(svgEl,boardEl) {
     this.svgEl=svgEl; this.boardEl=boardEl;
@@ -64,9 +86,11 @@ export class ConnectorEngine {
     this.setEdgeCatalog(edges);
     const weights=new Map(edges.map(e=>[edgeIdentity(e),clamp(e.weight??1)]));
     for(const [key,entry] of this.entries){
-      entry.weight=weights.get(key)??0;
-      entry.group.dataset.weight=entry.weight.toFixed(5);
-      entry.group.style.opacity=String(entry.weight);
+      const weight=weights.get(key)??0;
+      if(entry.weight===weight)continue;
+      entry.weight=weight;
+      entry.group.dataset.weight=weight.toFixed(5);
+      entry.group.style.opacity=String(weight);
     }
   }
   updateFromBoxes(boxes,opts={}) {
@@ -79,16 +103,14 @@ export class ConnectorEngine {
       const a=boxes[entry.edge.from],b=boxes[entry.edge.to];if(!a||!b)continue;
       const q=portCurve(a,b).map(v=>v.toFixed(2));
       const d=`M ${q[0]} ${q[1]} C ${q[2]} ${q[3]}, ${q[4]} ${q[5]}, ${q[6]} ${q[7]}`;
-      if(d!==entry.d){entry.d=d;entry.basePath.setAttribute('d',d);entry.activePath.setAttribute('d',d);entry.length=entry.basePath.getTotalLength();}
+      if(d!==entry.d){entry.d=d;entry.basePath.setAttribute('d',d);entry.activePath.setAttribute('d',d);entry.metrics=curveMetrics(q.map(Number));entry.length=entry.metrics.length;}
       const len=entry.length||1;
       const visible=entry.edge.dashed?len:len*this.drawProgress*entry.weight;
       entry.visibleLength=visible;
-      entry.basePath.style.strokeDasharray=entry.edge.dashed?'4 4':`${visible.toFixed(3)} ${len.toFixed(3)}`;
-      entry.basePath.style.strokeDashoffset='0';
+      setStyle(entry.basePath,'strokeDasharray',entry.edge.dashed?'4 4':`${visible.toFixed(3)} ${len.toFixed(3)}`);
       const active=this.activeNodeIdx>=0&&entry.edge.primary&&(entry.edge.to<=this.activeNodeIdx||entry.edge.from===this.activeNodeIdx-1);
       entry.activePath.classList.toggle('is-active',active);
-      entry.activePath.style.strokeDasharray=`${visible.toFixed(3)} ${len.toFixed(3)}`;
-      entry.activePath.style.strokeDashoffset='0';
+      setStyle(entry.activePath,'strokeDasharray',`${visible.toFixed(3)} ${len.toFixed(3)}`);
     }
     this._updateSignals();this._syncAmbientLoop();
   }
@@ -97,9 +119,9 @@ export class ConnectorEngine {
     this.edgePaths.forEach((entry,idx)=>{
       if(entry.weight<=0||entry.visibleLength<=0)return;
       const active=this.activeNodeIdx<0||(entry.edge.primary&&entry.edge.to<=Math.max(1,this.activeNodeIdx+1));
-      entry.signal.style.opacity=!active&&entry.edge.dashed?'0.2':entry.edge.primary?'0.96':'0.42';
+      setStyle(entry.signal,'opacity',!active&&entry.edge.dashed?'0.2':entry.edge.primary?'0.96':'0.42');
       const t=(this.signalPhase+idx*.21)%1;
-      const pt=entry.basePath.getPointAtLength(t*entry.visibleLength);
+      const pt=pointAtDistance(entry.metrics,t*entry.visibleLength);
       entry.signal.setAttribute('cx',pt.x.toFixed(2));entry.signal.setAttribute('cy',pt.y.toFixed(2));
     });
   }
