@@ -28,6 +28,7 @@ export function createMotionController(options) {
   let lastTickMs = 0;
   let lastAmbientDrawMs = 0;
   let idleTimer=0;
+  let ambientRafId=0;
   let ambientReported=false;
   let rafId = 0;
   let settled = true;
@@ -46,12 +47,13 @@ export function createMotionController(options) {
     onSettleChange(settled);
   }
 
-  function canAnimate(){return visible&&!paused&&!reducedMotion&&!softwareThrottle&&ambientActive;}
+  function canAnimate(){return visible&&!paused&&!reducedMotion&&!softwareThrottle&&ambientActive&&settled;}
   function reportAmbient(next){
     if(ambientReported!==next){ambientReported=next;onAmbientChange(next);}
   }
   function cancelIdle(){
     if(idleTimer){clock.cancelTimer(idleTimer);idleTimer=0;}
+    if(ambientRafId){clock.cancelRaf(ambientRafId);ambientRafId=0;}
     lastAmbientDrawMs=0;reportAmbient(false);
   }
   function cancelFrame(){if(rafId){clock.cancelRaf(rafId);rafId=0;}}
@@ -62,15 +64,15 @@ export function createMotionController(options) {
   }
   function scheduleAmbient(){
     if(!canAnimate()){cancelIdle();return;}
-    if(idleTimer||rafId)return;
+    if(idleTimer||rafId||ambientRafId)return;
     if(!lastAmbientDrawMs)lastAmbientDrawMs=clock.now();
     reportAmbient(true);
     const interval=mobileCap30?1000/12:1000/18;
     idleTimer=clock.timer(()=>{
       idleTimer=0;
       if(!canAnimate()){cancelIdle();return;}
-      rafId=clock.raf(now=>{
-        rafId=0;
+      ambientRafId=clock.raf(now=>{
+        ambientRafId=0;
         if(!canAnimate()){cancelIdle();return;}
         // Freeze elapsed time across suspension and bound long-frame catch-up.
         ambientTime+=clamp((now-lastAmbientDrawMs)*.001,0,.15);
@@ -116,7 +118,10 @@ export function createMotionController(options) {
       currentPitch = stepFollow(currentPitch, targetPitch, dt, 10.0);
     }
 
-    if(Math.abs(targetProgress-currentProgress)<1e-5)currentProgress=targetProgress;
+    // Do not spend another ~14 frames chasing subpixel scroll differences.
+    // At the last observed mobile track length this is less than one CSS px.
+    // Keep the exact final pose, the active-motion rate and all angle thresholds.
+    if(Math.abs(targetProgress-currentProgress)<.00015)currentProgress=targetProgress;
     if(Math.abs(targetYaw-currentYaw)<1e-4)currentYaw=targetYaw;
     if(Math.abs(targetPitch-currentPitch)<1e-4)currentPitch=targetPitch;
     const motionPending=currentProgress!==targetProgress||currentYaw!==targetYaw||currentPitch!==targetPitch;

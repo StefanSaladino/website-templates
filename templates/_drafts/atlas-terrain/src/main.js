@@ -7,9 +7,9 @@
  * - Still view, reduced-motion, visibility suspension, and WebGL2 fallback handling
  */
 
-import { AtlasRenderer } from './renderer.js?v=30';
-import { createMotionController } from './motion.js?v=30';
-import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=30';
+import { AtlasRenderer } from './renderer.js?v=31';
+import { createMotionController } from './motion.js?v=31';
+import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=31';
 
 const rootEl = document.documentElement;
 rootEl.classList.remove('atlas-no-js');
@@ -513,5 +513,5 @@ void scrollLockCheck;
 
 // Physical-device QA only; the ordinary expedition neither downloads nor runs this module.
 if(new URLSearchParams(location.search).get('device-review')==='1'){
-  import('./device-review.js?v=30').then(({mountDeviceReview})=>mountDeviceReview({stage:stageEl,canvas:canvasEl,getState:()=>motion.getState(),getNativeProgress:getScrollProgress,isSoftwareRenderer:()=>renderer.isSoftwareRenderer,scrollToProgress})).catch(error=>console.warn('ATLAS device review unavailable',error));
+  import('./device-review.js?v=31').then(({mountDeviceReview})=>mountDeviceReview({stage:stageEl,canvas:canvasEl,getState:()=>motion.getState(),getNativeProgress:getScrollProgress,isSoftwareRenderer:()=>renderer.isSoftwareRenderer,scrollToProgress})).catch(error=>console.warn('ATLAS device review unavailable',error));
 }
