@@ -1,13 +1,13 @@
-import {RELEASE} from './config.js?v=T24';
-import {createRenderer} from './renderer.js?v=T24';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T24';
-import {createScheduler} from './lifecycle.js?v=T24';
-import {wordmarkOcclusion} from './wordmark.js?v=T24';
-import {createAmbientClock} from './ambient.js?v=T24';
-import {readProgress} from './scroll.js?v=T24';
-import {typographyPose} from './typography.js?v=T24';
-import {FOLDS,foldAmount} from './sculptures.js?v=T24';
-import {perspectivePose,perspectivePresence} from './editorial.js?v=T24';
+import {RELEASE} from './config.js?v=T24a';
+import {createRenderer} from './renderer.js?v=T24a';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T24a';
+import {createScheduler} from './lifecycle.js?v=T24a';
+import {wordmarkOcclusion} from './wordmark.js?v=T24a';
+import {createAmbientClock} from './ambient.js?v=T24a';
+import {readProgress} from './scroll.js?v=T24a';
+import {typographyPose} from './typography.js?v=T24a';
+import {FOLDS,foldAmount} from './sculptures.js?v=T24a';
+import {perspectivePose,perspectivePresence} from './editorial.js?v=T24a';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){

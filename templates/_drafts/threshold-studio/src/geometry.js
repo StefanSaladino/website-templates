@@ -1,7 +1,7 @@
 // T05 geometry preserved: one continuous architectural shell. All authored dimensions use (x,y,s).
 // Face colors are flat geometry-study identifiers, not the final light/material model.
-import {worldPoint} from './config.js?v=T24';
-import {FOLDS,foldTriangles,foldPose} from './sculptures.js?v=T24';
+import {worldPoint} from './config.js?v=T24a';
+import {FOLDS,foldTriangles,foldPose} from './sculptures.js?v=T24a';
 export const PORTAL=Object.freeze({width:6,height:7.2,clearWidth:4.8,clearHeight:6,depth:2});
 const coal=[.105,.11,.12], wing=[.055,.06,.068], red=[.80,.18,.115], redDeep=[.53,.105,.07], ivory=[.70,.68,.63], ivorySide=[.59,.57,.53];
 const solid=(id,min,max,color,faces={})=>({id,min,max,color,faces});
