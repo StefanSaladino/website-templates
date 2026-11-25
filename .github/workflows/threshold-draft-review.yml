@@ -39,7 +39,8 @@ jobs:
           import sharp from 'sharp';
           import {mkdirSync,writeFileSync} from 'node:fs';
           mkdirSync('/tmp/threshold-evidence',{recursive:true});
-          const url='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
+          const baseURL='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
+          const url=baseURL+'?ambient=off';
           const captureStyle='.masthead,.opening-copy,.display-wordmark,footer,.skip-link{visibility:hidden!important} main{outline:none!important}';
           const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
           try {
@@ -50,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T09');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T10');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -125,7 +126,7 @@ jobs:
               }
               if(width===1440||width===390){
                 const plain=await browser.newPage({viewport:{width,height},deviceScaleFactor:width<=390?3:2});
-                await plain.goto(url+'?reflection=off');
+                await plain.goto(url+'&reflection=off');
                 await plain.locator('#scene-study').scrollIntoViewIfNeeded();
                 await plain.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
                 const off=await plain.locator('#scene-canvas').screenshot({style:captureStyle,path:'/tmp/threshold-evidence/matte-'+width+'.png'});
@@ -133,7 +134,7 @@ jobs:
                 assert.equal(mi.width,info.width);assert.equal(mi.height,info.height);
                 // Ground is now illuminated, so classify floor with an independent
                 // depth-tested green mask instead of assuming a single matte RGB.
-                await plain.goto(url+'?floorMask=on&reflection=off');
+                await plain.goto(url+'&floorMask=on&reflection=off');
                 await plain.locator('#scene-study').scrollIntoViewIfNeeded();
                 await plain.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl'&&document.querySelector('#scene-study').dataset.floorMask==='on');
                 const maskShot=await plain.locator('#scene-canvas').screenshot({style:captureStyle,path:'/tmp/threshold-evidence/floor-mask-'+width+'.png'});
@@ -149,7 +150,7 @@ jobs:
                 console.log('Reflection '+width, {changed,redReflection,wallChanges});
                 assert(changed>150&&redReflection>50,'actual red floor reflection');
                 assert(wallChanges<Math.max(100,changed*.06),'reflection confined to floor apart from antialias edges');
-                await plain.goto(url+'?lighting=off&reflection=off');
+                await plain.goto(url+'&lighting=off&reflection=off');
                 await plain.locator('#scene-study').scrollIntoViewIfNeeded();
                 await plain.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl'&&document.querySelector('#scene-study').dataset.lighting==='off');
                 const flatShot=await plain.locator('#scene-canvas').screenshot({style:captureStyle,path:'/tmp/threshold-evidence/unlit-'+width+'.png'});
@@ -225,6 +226,40 @@ jobs:
               assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
               await page.close();
             }
+            // Run the default animated route separately from deterministic material comparisons.
+            const moving=await browser.newPage({viewport:{width:1024,height:768},deviceScaleFactor:1});
+            const movingErrors=[];moving.on('pageerror',e=>movingErrors.push(e.message));
+            await moving.goto(baseURL);
+            const movingStage=moving.locator('#scene-study'),movingCanvas=moving.locator('#scene-canvas');
+            await moving.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl'&&document.querySelector('#scene-study').dataset.ambient==='on');
+            const maskBefore=await moving.locator('#wordmark-occluder').getAttribute('points');
+            const early=await movingCanvas.screenshot({style:captureStyle,path:'/tmp/threshold-evidence/ambient-early.png'});
+            const start=Number(await movingStage.getAttribute('data-ambient-elapsed'));
+            const firstFrames=Number(await movingStage.getAttribute('data-frames'));
+            await moving.waitForFunction(n=>Number(document.querySelector('#scene-study').dataset.ambientElapsed)>n+2500,start,{timeout:20000});
+            const later=await movingCanvas.screenshot({style:captureStyle,path:'/tmp/threshold-evidence/ambient-later.png'});
+            assert(Number(await movingStage.getAttribute('data-frames'))>firstFrames+10);
+            assert.equal(await moving.locator('#wordmark-occluder').getAttribute('points'),maskBefore,'fixed camera projection');
+            const a=await sharp(early).removeAlpha().raw().toBuffer({resolveWithObject:true}),b=await sharp(later).removeAlpha().raw().toBuffer({resolveWithObject:true});
+            assert.equal(a.info.width,b.info.width);assert.equal(a.info.height,b.info.height);
+            let changed=0,maxDelta=0;
+            for(let i=0;i<a.data.length;i+=a.info.channels){
+              const d=Math.max(...[0,1,2].map(k=>Math.abs(a.data[i+k]-b.data[i+k])));
+              if(d>=2)changed++;maxDelta=Math.max(maxDelta,d);
+            }
+            console.log('Ambient pixel change',{changed,maxDelta});
+            assert(changed>100&&maxDelta<=26,'subtle actual illumination motion');
+            await moving.emulateMedia({reducedMotion:'reduce'});
+            await moving.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='reduced-motion');
+            const frozen=Number(await movingStage.getAttribute('data-ambient-elapsed')),frozenFrames=await movingStage.getAttribute('data-frames');
+            await moving.waitForTimeout(500);
+            assert.equal(await movingStage.getAttribute('data-frames'),frozenFrames);
+            assert.equal(Number(await movingStage.getAttribute('data-ambient-elapsed')),frozen);
+            await moving.emulateMedia({reducedMotion:'no-preference'});
+            await moving.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
+            const resumed=Number(await movingStage.getAttribute('data-ambient-elapsed'));
+            assert(resumed>=frozen&&resumed-frozen<350,'no phase catch-up');
+            assert.deepEqual(movingErrors,[]);await moving.close();
             // Desktop static fallback retains the same full viewport and usable copy.
             for(const opts of [{javaScriptEnabled:false},{reducedMotion:'reduce'}]){
               const staticDesktop=await browser.newPage({viewport:{width:1440,height:900},...opts});
@@ -252,12 +287,12 @@ jobs:
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T09',verification:'T09',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T10',verification:'T10',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-identity-evidence
+          name: threshold-ambient-evidence
           path: /tmp/threshold-evidence/

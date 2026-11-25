@@ -873,3 +873,6 @@ T07 exact browser 45688633040 and Pages 45688631092 passed; actual lighting arti
 
 ## THRESHOLD — T09 editorial identity
 T08 exact browser 45692932673 and Pages 45692930891 passed; desktop composition artifact 15060090676 inspected. Original oversized local-system-font SVG wordmark, projected lower-glyph occlusion, readable header mark, truthful navigation and concise studio copy. Preserve renderer/pose/materials; add projection and actual mask-pixel checks. Exact T09 verification pending. Next T10; no catalogue/shared changes.
+
+## THRESHOLD — T10 ambient motion
+T09 exact browser 45693686179 and Pages 45693685608 passed; identity evidence 15058854884 inspected. Add bounded active-time light cycle, fixed camera and geometry, coherent reflection and spill; single scheduler and suspension without catch-up. Prior static comparisons preserved via ambient=off; default route temporal pixel and pause/resume checks plus two pure tests pending. T11 after verification; T12 refine aggressive wordmark mask. No gallery/shared changes.

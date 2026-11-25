@@ -1,6 +1,9 @@
 // T07: restrained architectural light study, in display color space.
 // Analytic aperture spill, not ray-traced global illumination or volumetric fog.
 export const LIGHTING_GLSL=`
+float ambientIntensity(vec3 p,float phase){
+  return phase<0.0?1.0:1.0+.045*sin(phase+p.z*.75+p.y*.26);
+}
 float apertureSpill(vec3 p){
   float x=max(abs(p.x)-2.05,0.0);
   float z=abs(p.z+.6);
