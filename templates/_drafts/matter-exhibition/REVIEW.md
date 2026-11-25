@@ -1,0 +1,3 @@
+# MATTER — isolated draft review
+M1: AI Studio export was published as a standalone HTML draft, outside the 37 registered templates.
+M2: local Chromium cannot create a WebGL2 context; fallback scroll/DOM state checked at 390/1440. This is not evidence that the user's GPU fails. Source review identified context loss, duplicate RAF scheduling during adaptive resize, nondeterministic idle rotation, same fallback drawing at all stages, and still/reduced-motion navigation issues. Correct these without altering the underlying geometry, use explicit per-stage fallback studies, and run a dedicated GitHub WebGL pixel/DOM test. Full rendering, device cadence, real-device art direction, registration and original modular-source restoration remain outstanding.
