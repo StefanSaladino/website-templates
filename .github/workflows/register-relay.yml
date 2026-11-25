@@ -1,0 +1,57 @@
+name: Register RELAY review template
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/register-relay.yml','templates/relay-automation/**','components/scripts/test-relay-registration.mjs']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: register-relay
+  cancel-in-progress: false
+jobs:
+  candidate:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+        working-directory: components
+      - run: npx playwright install chromium
+        working-directory: components
+      - name: Prepare registration if still a draft
+        run: |
+          if [ ! -d templates/relay-automation ]; then
+            node components/scripts/prepare-relay-registration.mjs
+          fi
+      - run: node scripts/test-relay-registration.mjs
+        working-directory: components
+      - name: Capture actual opening
+        if: hashFiles('templates/relay-automation/gallery-opening.webp') == ''
+        run: node scripts/capture-gallery-openings.mjs --only=relay-automation --apply
+        working-directory: components
+      - run: npm run build
+        working-directory: components
+      - name: Verify gallery-only membership
+        working-directory: components
+        run: |
+          node --input-type=module -e "import {readFileSync} from 'node:fs';import assert from 'node:assert/strict';import {catalogue} from './builder-model.js';const data=JSON.parse(readFileSync('data/builder-templates.json'));assert.equal(data.length,40);assert.equal(data.find(x=>x.slug==='relay-automation').configuratorStatus,'gallery-only');assert.equal(catalogue([],[],data,[]).templates.size,35);"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relay-registration-evidence
+          path: |
+            components/relay-registration-evidence/
+            components/gallery-opening-evidence/
+      - name: Commit verified candidate without modifying main
+        run: |
+          if git cat-file -e HEAD:templates/relay-automation/index.html 2>/dev/null; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- templates index.html components/data components/scripts PROJECT-ROADMAP.md
+          git commit -m "feat(gallery): register RELAY immersive automation preview"
+          git push origin HEAD:refs/heads/relay-registration/${GITHUB_SHA}
