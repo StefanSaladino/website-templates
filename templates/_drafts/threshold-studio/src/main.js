@@ -1,6 +1,6 @@
-import {RELEASE} from './config.js?v=T04b';
-import {createRenderer} from './renderer.js?v=T04b';
-import {createScheduler} from './lifecycle.js?v=T04b';
+import {RELEASE} from './config.js?v=T05';
+import {createRenderer} from './renderer.js?v=T05';
+import {createScheduler} from './lifecycle.js?v=T05';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){

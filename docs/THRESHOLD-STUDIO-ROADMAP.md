@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01–T03 verified; T04 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01–T04 verified; T05 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -42,7 +42,7 @@ Only proceed when preceding evidence is reviewed and blockers resolved. A failed
 - [x] T01 — Repository orientation, roadmap, baseline SHA. Documentation only; confirmed 40/35 membership from registry. Completion requires committed roadmap and main index entry.
 - [x] T02 — Author creative direction, spatial storyboard and architectural proportions. Define world axes, rooms, opening sightline, camera key poses, desktop/portrait framing and text safe zones; document reference sketches/targets, no renderer.
 - [x] T03 — Isolated draft scaffold and stack decision. Justify native WebGL vs pinned local Three.js, native scroll vs GSAP; establish module graph/static Pages compatibility, dependency provenance and initial semantic shell. No elaborate visuals.
-- [ ] T04 — Persistent 3D scene, camera and render lifecycle. Basic geometry only; verify actual rendering/fallback, bounded buffer, resize, visibility and no duplicate scheduling.
+- [x] T04 — Persistent 3D scene, camera and render lifecycle. Basic geometry only; verify actual rendering/fallback, bounded buffer, resize, visibility and no duplicate scheduling.
 Gate: clean extensible foundation; no elaborate visual or choreography work.
 
 ### Phase 2 — Opening experience (T05–T12)
@@ -241,3 +241,6 @@ Exact T04 browser run 45686395150 failed at inline line 59 waiting for renderer=
 
 ## T04b — Fix GPU object generation on context restoration
 T04a browser 45686683301 reproduced the failure with definitive diagnostics: lost=1, restored=1, contextLost=false, renderer=static, reason=graphics-error. Chromium logged INVALID_OPERATION deleting buffer, vertex array and program objects from the lost generation; rebuild's final getError then failed. This is a renderer defect, not simply test timing. Add abandon() (clear stale CPU handles without GL calls) on loss, and restore() (discard handles defensively before rebuilding); normal disposal still deletes current-generation resources. Preserve static fallback, dirty scheduler, geometry, camera and framebuffer limits. Bump the complete runtime import graph to T04b. Keep the strengthened actual restoration and recovered pixel checks, add explicit no residual GL error. T04a Pages 45686682733 and Node checks passed; original 320/390 screenshots inspected and show both diagnostic solids and floor. T04b exact browser and deployment results pending; T05 gated. No final portal artwork or gallery changes.
+
+## T05 — Architectural cut geometry study
+T04b exact browser run 45686886741 completed its full browser step successfully, including actual restored context/new pixels/no residual GL error, seven viewport captures, idle/resize/offscreen and static alternatives. Node tests passed; Pages 45686886086 passed. T04 foundation gate verified. T05 replaces diagnostic blocks with 19 explicitly dimensioned solids plus continuous floor (230 triangles); real 6×7.2 outer portal, 4.8×6 clear aperture, 2-unit cut, recessed wing walls, overhead plane, offset fin, 4-unit throat and partial bone-white gallery with open far exit. Face colours identify inward surfaces and depth only; no emission, reflection, lighting, scroll motion, final typography or final full-viewport layout. Static SVG updated to match the architectural study. Camera samples T02 desktop/tablet/phone targets blended continuously by actual study surface aspect; final framing remains T08/T11. Pure tests verify clear aisle and projected outer corners; dedicated browser suite retains lifecycle/recovery checks, requires visible red and ivory pixels, captures exact revision. T05 rendered verification and visual inspection pending, no artistic acceptance claim. T06 only after gate. No shared runtime, gallery or configurator change.

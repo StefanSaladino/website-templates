@@ -858,3 +858,6 @@ Browser run 45686395150 timed out at simulated restoration after initial two vie
 
 ## THRESHOLD — T04b renderer recovery fix
 T04a exact run 45686683301 confirmed the context restored but stale GPU handle deletion generated INVALID_OPERATION. Abandon invalid handles on loss and before restoration rebuild; preserve normal disposal and all pixel/lifecycle checks. Runtime version T04b. Exact rerun pending; T05 held.
+
+## THRESHOLD — T05 architectural geometry
+T04b exact browser step 45686886741 and Pages 45686886086 passed. T05 replaces diagnostic cubes with a real 19-solid architectural cut, continuous floor, red inward faces, throat and partial ivory gallery; 230 triangles. Static fallback and geometric clearance/framing tests updated. No final materials, illumination, reflection, motion or composition; T05 browser/visual evidence pending. Next T06 after verification. No gallery/configurator/shared code changes.

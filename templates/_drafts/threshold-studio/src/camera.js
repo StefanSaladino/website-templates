@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=T04b';
+import { worldPoint } from './config.js?v=T05';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -22,8 +22,12 @@ export function project(m,p){
   const v=[...p,1],q=[0,0,0,0];
   for(let r=0;r<4;r++)for(let c=0;c<4;c++)q[r]+=m[c*4+r]*v[c];return q;
 }
-// Temporary diagnostic camera, not final storyboard framing.
+// T05 static study camera uses the T02 authored endpoints with continuous aspect blending.
+// The in-flow surface is not final full-viewport framing (T08/T11).
 export function studyCamera(aspect){
-  const p=Math.max(0,Math.min(1,(1.4-aspect)/.65));
-  return multiply(perspective(48+p*8,aspect),lookAt(worldPoint(-2.5+p*1.5,2.7,-10-p*2),worldPoint(0,1.5,0)));
+  const phone=[.6,2.2,-15,0,3.9,0,57], tablet=[.3,2.4,-12.8,-.15,3.65,0,49], desktop=[-2.4,2.4,-12,-.65,2.9,0,47];
+  const a=aspect<.75?phone:tablet,b=aspect<.75?tablet:desktop;
+  const t=Math.max(0,Math.min(1,aspect<.75?(aspect-.46)/.29:(aspect-.75)/.70));
+  const p=a.map((v,i)=>v+(b[i]-v)*t);
+  return multiply(perspective(p[6],aspect),lookAt(worldPoint(...p.slice(0,3)),worldPoint(...p.slice(3,6))));
 }
