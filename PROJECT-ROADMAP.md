@@ -861,3 +861,6 @@ T04a exact run 45686683301 confirmed the context restored but stale GPU handle d
 
 ## THRESHOLD — T05 architectural geometry
 T04b exact browser step 45686886741 and Pages 45686886086 passed. T05 replaces diagnostic cubes with a real 19-solid architectural cut, continuous floor, red inward faces, throat and partial ivory gallery; 230 triangles. Static fallback and geometric clearance/framing tests updated. No final materials, illumination, reflection, motion or composition; T05 browser/visual evidence pending. Next T06 after verification. No gallery/configurator/shared code changes.
+
+## THRESHOLD — T06 planar reflection
+T05 exact browser 45687139012 and deployment 45687138586 passed; seven actual captures reviewed. Add one bounded same-context planar reflection target and graphite floor shader, real mirror projection, roughness and depth-confined composite; no final light or motion. Preserve geometry, lifecycle and camera. Eight pure tests plus reflection on/off pixel comparison and recovery checks pending on T06 revision. Next T07 after review; no gallery or shared changes.

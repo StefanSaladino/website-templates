@@ -1,11 +1,12 @@
-import {RELEASE} from './config.js?v=T05';
-import {createRenderer} from './renderer.js?v=T05';
-import {createScheduler} from './lifecycle.js?v=T05';
+import {RELEASE} from './config.js?v=T06';
+import {createRenderer} from './renderer.js?v=T06';
+import {createScheduler} from './lifecycle.js?v=T06';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
   const study=document.querySelector('#scene-study'),surface=study.querySelector('.scene-surface'),canvas=study.querySelector('canvas');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  const reflectionEnabled=new URLSearchParams(location.search).get('reflection')!=='off';
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
   function staticView(reason){canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason}
   function eligible(){return !disposed&&!suspended&&!failed&&!lost&&!reduced.matches&&!document.hidden&&visible}
@@ -13,11 +14,13 @@ function start(){
     try{
       if(!renderer)renderer=createRenderer(canvas);
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
-      const r=surface.getBoundingClientRect(),result=renderer.draw(r.width,r.height,devicePixelRatio);
+      const r=surface.getBoundingClientRect(),result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled);
       if(!result){staticView('not-ready');return}
       study.dataset.frames=String(++frames);
       study.dataset.buffer=result.width+'x'+result.height;
       study.dataset.triangles=String(result.triangles);
+      study.dataset.reflectionBuffer=result.reflectionWidth+'x'+result.reflectionHeight;
+      study.dataset.reflection=result.reflectionEnabled?'on':'off';
       study.dataset.renderer='webgl';delete study.dataset.reason;canvas.hidden=false;
     }catch(e){failed=true;renderer?.release();renderer=null;staticView('graphics-error');console.warn('THRESHOLD renderer:',e)}
   }

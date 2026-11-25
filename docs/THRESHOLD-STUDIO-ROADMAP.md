@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01–T04 verified; T05 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01–T05 verified; T06 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -46,7 +46,7 @@ Only proceed when preceding evidence is reviewed and blockers resolved. A failed
 Gate: clean extensible foundation; no elaborate visual or choreography work.
 
 ### Phase 2 — Opening experience (T05–T12)
-- [ ] T05 — Portal geometry/proportions and surrounding architecture; evaluate silhouette and depth, not effects.
+- [x] T05 — Portal geometry/proportions and surrounding architecture; evaluate silhouette and depth, not effects.
 - [ ] T06 — Ground materials and environmental reflections; verify reflection alignment, allocation bound and no detached mirror art.
 - [ ] T07 — Portal illumination, lighting and atmospheric depth; control exposure/contrast, preserve geometry.
 - [ ] T08 — Desktop camera composition and architectural framing; inspect full viewport and wide aspect.
@@ -244,3 +244,6 @@ T04a browser 45686683301 reproduced the failure with definitive diagnostics: los
 
 ## T05 — Architectural cut geometry study
 T04b exact browser run 45686886741 completed its full browser step successfully, including actual restored context/new pixels/no residual GL error, seven viewport captures, idle/resize/offscreen and static alternatives. Node tests passed; Pages 45686886086 passed. T04 foundation gate verified. T05 replaces diagnostic blocks with 19 explicitly dimensioned solids plus continuous floor (230 triangles); real 6×7.2 outer portal, 4.8×6 clear aperture, 2-unit cut, recessed wing walls, overhead plane, offset fin, 4-unit throat and partial bone-white gallery with open far exit. Face colours identify inward surfaces and depth only; no emission, reflection, lighting, scroll motion, final typography or final full-viewport layout. Static SVG updated to match the architectural study. Camera samples T02 desktop/tablet/phone targets blended continuously by actual study surface aspect; final framing remains T08/T11. Pure tests verify clear aisle and projected outer corners; dedicated browser suite retains lifecycle/recovery checks, requires visible red and ivory pixels, captures exact revision. T05 rendered verification and visual inspection pending, no artistic acceptance claim. T06 only after gate. No shared runtime, gallery or configurator change.
+
+## T06 — Graphite ground and bounded planar reflection
+T05 exact revision 98e0a97e63cdb78c1050925c33031c42933341af: browser run 45687139012, Pages 45687138586, all six Node tests passed. Downloaded artifact 15056043725 and inspected all seven actual study captures: clear recessed red throat, ivory far reveal, continuous floor and no unexpected clipping of opening; desktop and tablet are still in-flow diagnostic aspect, not final compositions. T05 verified. T06 preserves 19 solids and existing camera geometry. Added reflection.js with a single RGBA8 texture/depth16 framebuffer within the same context, maximum half main dimensions / 375k pixels / 1024 edge / hardware limits. Reflect actual world vertices across Y=0 using the same VP (exclude floor), draw direct architecture with depth, then composite only visible floor fragments with a nine-tap distance-scaled roughness kernel and grazing-angle response. Artistic graphite color mix, not a calibrated BRDF. No glow/lighting, animation or layout changes. Reuse targets until size changes; abandon all handles on context loss, recreate during recovery. Diagnostic ?reflection=off uses same geometry/camera and matte floor for screenshot comparison. Pure tests validate mirror/floor intersection and target bounds; browser checks compare reflected vs matte pixels at 390 and 1440, bound framebuffer and retain recovery/previous checks. T06 exact results and actual capture review pending; T07 held. No gallery/shared dependency changes.
