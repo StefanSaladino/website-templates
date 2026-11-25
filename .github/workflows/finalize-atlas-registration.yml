@@ -1,0 +1,77 @@
+name: Finalize approved ATLAS registration
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/finalize-atlas-registration.yml']
+  workflow_run:
+    workflows: ['Register ATLAS review template']
+    types: [completed]
+permissions:
+  contents: write
+  pull-requests: read
+  pages: write
+concurrency:
+  group: finalize-approved-atlas-registration
+  cancel-in-progress: false
+jobs:
+  finalize:
+    if: github.event_name == 'push' || (github.event.workflow_run.id == 45622444868 && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_sha == '6dc61989dd21f05b6ebe9d0234485ea29522a137')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Delete only audited, unchanged, merged branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          cleanup() {
+            local branch="$1" expected="$2" actual
+            actual=$(git ls-remote --heads origin "refs/heads/$branch" | cut -f1)
+            if [ -z "$actual" ]; then echo "Already absent: $branch"; return; fi
+            if [ "$actual" != "$expected" ]; then echo "Preserved moved branch: $branch"; return; fi
+            if ! git merge-base --is-ancestor "$actual" origin/main; then echo "Preserved unmerged branch: $branch"; return; fi
+            if [ "$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --head "$branch" --json number --jq length)" != 0 ]; then echo "Preserved active PR branch: $branch"; return; fi
+            git push --force-with-lease="refs/heads/$branch:$expected" origin ":refs/heads/$branch"
+            echo "Deleted merged branch: $branch"
+          }
+          cleanup feature/component-showroom ef2a04d8bd2f90e694bfd708876994c19a929833
+          cleanup matter-registration/7af5ab3dba8b03e32823cdf13fdc8db8f0f3a559 d997cf403349a22595dac4c41327eaf1252c4174
+      - name: Promote the exact successfully validated candidate
+        if: github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          base=6dc61989dd21f05b6ebe9d0234485ea29522a137
+          branch="atlas-registration/$base"
+          git fetch origin main "refs/heads/$branch"
+          candidate=$(git rev-parse FETCH_HEAD)
+          test "$(git rev-parse "$candidate^")" = "$base"
+          test "$(git rev-list --count "$base..$candidate")" = 1
+          git merge-base --is-ancestor "$base" origin/main
+          git diff --name-only "$base" "$candidate" | while IFS= read -r file; do
+            case "$file" in
+              templates/atlas-terrain/*|templates/_drafts/atlas-terrain/*|index.html|PROJECT-ROADMAP.md|components/data/builder-templates.json|components/data/immersive-tests.json|components/data/gallery-opening-captures.json|components/scripts/check-immersive-contract.mjs|components/scripts/test-atlas-draft.mjs|components/scripts/test-atlas-summit.mjs|components/scripts/capture-gallery-openings.mjs) ;;
+              *) echo "Unexpected candidate file: $file"; exit 1 ;;
+            esac
+          done
+          git show "$candidate:index.html" | grep -q 'data-template="atlas-terrain"'
+          git cat-file -e "$candidate:templates/atlas-terrain/gallery-opening.webp"
+          git show "$candidate:components/data/builder-templates.json" | python3 -c 'import json,sys; a=json.load(sys.stdin); assert len(a)==39; assert sum(x.get("slug")=="atlas-terrain" and x.get("configuratorStatus")=="gallery-only" for x in a)==1'
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B main origin/main
+          git merge --no-ff --no-edit "$candidate"
+          git push origin HEAD:refs/heads/main
+          git fetch origin main
+          git merge-base --is-ancestor "$candidate" origin/main
+          git push --force-with-lease="refs/heads/$branch:$candidate" origin ":refs/heads/$branch"
+          echo "ATLAS candidate promoted to main; merged candidate branch removed."
+          # A GITHUB_TOKEN push may not trigger branch-source Pages automatically.
+          # Request an explicit branch-source Pages build and fail visibly if denied.
+          gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
