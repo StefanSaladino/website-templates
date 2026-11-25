@@ -14,7 +14,7 @@ import {
   buildWaterMesh,
   buildMistVolume,
   buildSummitInversion,
-} from './terrain.js?v=24';
+} from './terrain.js?v=25';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -24,8 +24,8 @@ import {
   WATER_FRAG,
   DETAIL_VERT,
   DETAIL_FRAG,
-} from './shaders.js?v=24';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=24';
+} from './shaders.js?v=25';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=25';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -416,11 +416,14 @@ export class AtlasRenderer {
     gl.viewport(0,0,pxW,pxH);gl.depthMask(true);
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
     this.stageEl.dataset.detailInstances=String(this._drawOpaque(state,viewProj,tanHalfFov,aspect,growth,false));
+    this.stageEl.dataset.lakeInFrame=String(lakeInFrame);
     this.stageEl.dataset.reflectionReady=String(reflectionReady);
     this.stageEl.dataset.reflectionSize=reflectionReady?r.reflection.w+'x'+r.reflection.h:'0x0';
 
-    // 3. Glacial Lake Water Pass
-    if (waterVisible) {
+    // The same conservative projected bounds used for reflection cover
+    // every water mesh vertex. Skip the water draw when entirely off-screen.
+    // A visible lake must still render if reflection allocation fails.
+    if (lakeInFrame) {
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
       gl.depthMask(false);

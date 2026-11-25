@@ -313,10 +313,67 @@ void main() {
   vec3 V = normalize(uCamPos - vWorldPos);
   vec3 L = normalize(uSunDir);
 
-  // Use bicubically smoothed height for razor-clean printed contours
-  float smoothH = sampleSmoothHeight(vWorldPos.xz);
   float rawH = vRawElev; // actual interpolated terrain triangle height
+  float landMask = smoothstep(uWaterLevel - 0.02, uWaterLevel + 0.10, rawH);
+  vec3 inkIndex = vec3(0.13, 0.16, 0.19);
+  vec3 cartoColor = vec3(0.);
+  float minorContour=0.,indexContour=0.;
+  // uMapMix is uniform across the draw. Fully physical scenes have zero
+  // cartographic contribution, including residual ink; skip all map work.
+  // Derivatives remain in uniform control flow.
+  if(uMapMix>0.){
+    float smoothH = sampleSmoothHeight(vWorldPos.xz);
+    // --- 1. SWISS PRINTED CARTOGRAPHIC ATLAS (Map & Archive) ---
+    vec3 paper = vec3(0.957, 0.941, 0.910); // #f4f0e8 cotton rag paper
+    vec3 hypsoMeadow = vec3(0.892, 0.905, 0.878);
+    vec3 hypsoRock = vec3(0.818, 0.846, 0.862);
+    vec3 hypsoPeak = vec3(0.976, 0.972, 0.962);
 
+    vec3 mapTint = mix(paper, hypsoMeadow, smoothstep(2.4, 6.8, smoothH) * 0.85);
+    mapTint = mix(mapTint, hypsoRock, smoothstep(6.8, 12.8, smoothH) * 0.72);
+    mapTint = mix(mapTint, hypsoPeak, smoothstep(13.2, 18.5, smoothH));
+
+    // Eduard Imhof NW oblique Swiss hillshade wash
+    vec3 cartoN = normalize(mix(vec3(0.0, 1.0, 0.0), N, 0.65));
+    float imhofLight = dot(cartoN, normalize(vec3(-0.68, 0.72, -0.45))) * 0.5 + 0.5;
+    mapTint *= mix(0.94, 1.015, imhofLight);
+
+    // Refined glacial Lake Vireo bathymetry with multi-ring depth tint
+    float lakeFill = (1.0-smoothstep(uWaterLevel - 0.18,uWaterLevel + 0.08,rawH));
+    vec3 shallowTint = vec3(0.60, 0.75, 0.81);
+    vec3 deepTint = vec3(0.30, 0.52, 0.59);
+    vec3 lakeCarto = mix(shallowTint, deepTint, (1.0-smoothstep(0.45,uWaterLevel,rawH)));
+    mapTint = mix(mapTint, lakeCarto, lakeFill);
+
+    // Clean vector-grade contour hierarchy (minor + index + lake shoreline)
+    minorContour = contourMask(smoothH, 0.92, 0.78) * landMask;
+    indexContour = contourMask(smoothH, 4.60, 1.10) * landMask;
+    float shoreContour = contourMask(smoothH - uWaterLevel, 0.55, 1.2) * (1.0 - landMask) * smoothstep(0.45, 1.9, smoothH);
+    float shoreEdge = 1.0 - smoothstep(0.0, 0.16, abs(rawH - uWaterLevel));
+
+    // Subtle folio survey graticule inside printed sheet
+    vec2 gridCoord = vWorldPos.xz / 24.0;
+    vec2 gridDist = abs(fract(gridCoord - 0.5) - 0.5) / max(fwidth(gridCoord), 0.0005);
+    float gridLine = 1.0 - smoothstep(0.0, 0.95, min(gridDist.x, gridDist.y));
+
+    vec3 inkSoft = vec3(0.31, 0.35, 0.38);
+    vec3 inkShore = vec3(0.18, 0.36, 0.46);
+
+    cartoColor = mapTint;
+    cartoColor = mix(cartoColor, inkIndex, gridLine * 0.042);
+    cartoColor = mix(cartoColor, inkSoft, minorContour * 0.17);
+    cartoColor = mix(cartoColor, inkIndex, indexContour * 0.48);
+    cartoColor = mix(cartoColor, inkShore, max(shoreContour * 0.23, shoreEdge * 0.48));
+
+    // Print sheet border & deliberate negative-space margin fade outside [-uFolioHalf, +uFolioHalf]
+    float sheetDist = max(abs(vWorldPos.x), abs(vWorldPos.z));
+    float sheetFrame = 1.0 - smoothstep(0.0, 0.38, abs(sheetDist - uFolioHalf));
+    float outsideSheet = smoothstep(uFolioHalf, uFolioHalf + 4.0, sheetDist);
+    cartoColor = mix(cartoColor, inkIndex, sheetFrame * 0.42);
+    cartoColor = mix(cartoColor, paper, outsideSheet * 0.96);
+    if(uMapMix>=0.999){fragColor=vec4(cartoColor,1.0);return;}
+  }
+  // Material metadata is not used by the fully cartographic return above.
   vec2 metaUV=vWorldPos.xz/uWorldSize+0.5;
   vec2 texSize=vec2(textureSize(uHeightTex,0));
   vec4 texMeta=texture(uHeightTex,(metaUV*(texSize-1.0)+0.5)/texSize);
@@ -325,58 +382,6 @@ void main() {
   float ridgeCurv = mix(vGeo.w, texMeta.a, 0.5);
   float slope = clamp(1.0 - N.y, 0.0, 1.0);
 
-  // --- 1. SWISS PRINTED CARTOGRAPHIC ATLAS (Map & Archive) ---
-  vec3 paper = vec3(0.957, 0.941, 0.910); // #f4f0e8 cotton rag paper
-  vec3 hypsoMeadow = vec3(0.892, 0.905, 0.878);
-  vec3 hypsoRock = vec3(0.818, 0.846, 0.862);
-  vec3 hypsoPeak = vec3(0.976, 0.972, 0.962);
-
-  vec3 mapTint = mix(paper, hypsoMeadow, smoothstep(2.4, 6.8, smoothH) * 0.85);
-  mapTint = mix(mapTint, hypsoRock, smoothstep(6.8, 12.8, smoothH) * 0.72);
-  mapTint = mix(mapTint, hypsoPeak, smoothstep(13.2, 18.5, smoothH));
-
-  // Eduard Imhof NW oblique Swiss hillshade wash
-  vec3 cartoN = normalize(mix(vec3(0.0, 1.0, 0.0), N, 0.65));
-  float imhofLight = dot(cartoN, normalize(vec3(-0.68, 0.72, -0.45))) * 0.5 + 0.5;
-  mapTint *= mix(0.94, 1.015, imhofLight);
-
-  // Refined glacial Lake Vireo bathymetry with multi-ring depth tint
-  float lakeFill = (1.0-smoothstep(uWaterLevel - 0.18,uWaterLevel + 0.08,rawH));
-  vec3 shallowTint = vec3(0.60, 0.75, 0.81);
-  vec3 deepTint = vec3(0.30, 0.52, 0.59);
-  vec3 lakeCarto = mix(shallowTint, deepTint, (1.0-smoothstep(0.45,uWaterLevel,rawH)));
-  mapTint = mix(mapTint, lakeCarto, lakeFill);
-
-  // Clean vector-grade contour hierarchy (minor + index + lake shoreline)
-  float landMask = smoothstep(uWaterLevel - 0.02, uWaterLevel + 0.10, rawH);
-  float minorContour = contourMask(smoothH, 0.92, 0.78) * landMask;
-  float indexContour = contourMask(smoothH, 4.60, 1.10) * landMask;
-  float shoreContour = contourMask(smoothH - uWaterLevel, 0.55, 1.2) * (1.0 - landMask) * smoothstep(0.45, 1.9, smoothH);
-  float shoreEdge = 1.0 - smoothstep(0.0, 0.16, abs(rawH - uWaterLevel));
-
-  // Subtle folio survey graticule inside printed sheet
-  vec2 gridCoord = vWorldPos.xz / 24.0;
-  vec2 gridDist = abs(fract(gridCoord - 0.5) - 0.5) / max(fwidth(gridCoord), 0.0005);
-  float gridLine = 1.0 - smoothstep(0.0, 0.95, min(gridDist.x, gridDist.y));
-
-  vec3 inkSoft = vec3(0.31, 0.35, 0.38);
-  vec3 inkIndex = vec3(0.13, 0.16, 0.19);
-  vec3 inkShore = vec3(0.18, 0.36, 0.46);
-
-  vec3 cartoColor = mapTint;
-  cartoColor = mix(cartoColor, inkIndex, gridLine * 0.042);
-  cartoColor = mix(cartoColor, inkSoft, minorContour * 0.17);
-  cartoColor = mix(cartoColor, inkIndex, indexContour * 0.48);
-  cartoColor = mix(cartoColor, inkShore, max(shoreContour * 0.23, shoreEdge * 0.48));
-
-  // Print sheet border & deliberate negative-space margin fade outside [-uFolioHalf, +uFolioHalf]
-  float sheetDist = max(abs(vWorldPos.x), abs(vWorldPos.z));
-  float sheetFrame = 1.0 - smoothstep(0.0, 0.38, abs(sheetDist - uFolioHalf));
-  float outsideSheet = smoothstep(uFolioHalf, uFolioHalf + 4.0, sheetDist);
-  cartoColor = mix(cartoColor, inkIndex, sheetFrame * 0.42);
-  cartoColor = mix(cartoColor, paper, outsideSheet * 0.96);
-
-  if(uMapMix>=0.999){fragColor=vec4(cartoColor,1.0);return;}
   // --- 2. PHYSICAL ALPINE GEOLOGICAL MATERIALS ---
   // Compute stratified granite cliff micro-normal
   float eps = 0.18;
