@@ -711,3 +711,6 @@ A3 AI Studio export (2026-11-24 23:25) contains a ten-file modular draft and sub
 
 ### ATLAS A5 — frozen opening recovery
 A4 Pages 45548089454 passed; stakeholder reports frozen first scene and no apparent visual change. A4 only versioned entry module; A2 cached dependencies can fail initialization before scroll listeners. A5 versions the entire dependency graph and CSS, guards initialization, adds static fallback on draw failure, resyncs restored pages and tests actual cue progression, six-module version coherence and ready marker. Keep A4 visual source; verify actual release and motion before another visual overhaul. Exact device cause not yet confirmed.
+
+### ATLAS A6 — mobile visual refinement
+A5 deployed; stakeholder phone recording confirms forward traversal through all chapters, but requests further polish. A6 targets washed-out terrain, repetitive camera compositions, insufficient summit payoff and verbose overlays; preserve A5 version coherence and working native-scroll path. Source implementation committed; exact A6 browser evidence and stakeholder visual approval pending. No registration or other template changes.

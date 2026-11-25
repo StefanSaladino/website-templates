@@ -977,3 +977,16 @@ html[data-polarity="dark"] .chapter-inner{text-shadow:0 1px 8px rgba(12,18,23,.7
 @media(max-width:820px) and (max-height:650px){.chapter-body{font-size:.83rem;line-height:1.45}.chapter-meta{font-size:10px;margin-bottom:7px}.chapter-title{margin-bottom:8px}.chapter-card[data-chapter="archive"] .chapter-title{font-size:1.9rem}.chapter-card[data-chapter="archive"] .vp-sub{font-size:10px}}
 html.atlas-no-js .atlas-rail,html.atlas-no-webgl .atlas-rail,html[data-still="true"] .atlas-rail{background:#f4f0e8}
 @media(prefers-reduced-motion:reduce){.chapter-card{transition:none}.stage-scrim{display:none!important}}
+
+/* A6 — portrait landscape direction, restrained type and clearer horizon. */
+html[data-polarity="dark"] .chapter-body{color:#f4f0e8;text-shadow:0 1px 5px #10151a}
+html[data-polarity="dark"] .chapter-meta{color:#ece9e1}
+html[data-polarity="dark"] .chapter-title{color:#fff; text-shadow:0 2px 12px rgba(8,14,20,.85)}
+@media(max-width:820px){
+ html[data-polarity="dark"] .stage-scrim,html[data-active-chapter="valley"] .stage-scrim{background:linear-gradient(to bottom,rgba(12,19,25,.72) 0%,rgba(12,19,25,.34) 16%,transparent 36%)}
+ .chapter-card:not([data-chapter="map"]):not([data-chapter="archive"]){padding-inline:22px}
+ .chapter-card:not([data-chapter="map"]):not([data-chapter="archive"]) .chapter-title{font-size:clamp(2.15rem,9vw,3.25rem);letter-spacing:-.035em}
+ .chapter-card:not([data-chapter="map"]):not([data-chapter="archive"]) .chapter-inner{max-width:34ch}
+ .chapter-card[data-chapter="archive"] .chapter-inner{max-height:calc(100svh - var(--header-h) - 100px)}
+ .rail-btn,.inspect-btn{min-height:40px}
+}

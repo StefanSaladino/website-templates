@@ -5,7 +5,7 @@
  * responsive desktop & portrait mobile framing, and terrain collision safety.
  */
 
-import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js?v=5';
+import { WATER_LEVEL, FOLIO_HALF, terrainUnitsToMeters } from './terrain.js?v=6';
 
 export const CHAPTERS = Object.freeze([
   {
@@ -117,13 +117,13 @@ const SPLINE_KEYS = [
   { t: 0.00, pos: [-9.0,  76.0,   6.0], look: [-9.0,  0.0,  -2.0], fov: 39 }, // I. Overhead archival folio (left negative space)
   { t: 0.08, pos: [6.0,   62.0,  28.0], look: [-3.0,  1.5,  -4.0], fov: 41 }, // I->II. Smooth oblique tilt
   { t: 0.16, pos: [26.0,  42.0,  46.0], look: [-1.0,  4.0,  -6.0], fov: 43 }, // II. Map lifts cleanly into peaks
-  { t: 0.28, pos: [28.0,  25.5,  38.0], look: [-1.5,  6.5, -10.5], fov: 45 }, // II. Sweeping sunlit massif
-  { t: 0.44, pos: [12.5,  16.0,  31.5], look: [-2.0,  5.2, -13.0], fov: 47 }, // III. Aerial glide over pass toward lake & peaks
+  { t: 0.28, pos: [35.0,  35.0,  48.0], look: [-3.0,  8.0, -13.0], fov: 44 }, // II. Sweeping sunlit massif
+  { t: 0.44, pos: [10.0,  14.5,  29.0], look: [-2.0,  6.0, -16.0], fov: 46 }, // III. Aerial glide over pass toward lake & peaks
   { t: 0.56, pos: [-11.0,  6.2,  19.0], look: [1.5,   4.8, -14.5], fov: 46 }, // IV. Entering Lake Vireo amphitheater
   { t: 0.64, pos: [-14.0,  4.35, 15.2], look: [3.2,   5.2, -14.5], fov: 46 }, // IV. Glacial lake reflections & Kestrel Spire framing
   { t: 0.72, pos: [-2.0,  13.2,  11.5], look: [3.5,   9.4, -16.0], fov: 46 }, // V. Climbing up through sunlit stratus deck
-  { t: 0.78, pos: [19.0,  24.5,  17.0], look: [-1.0, 11.2, -17.0], fov: 46 }, // V. Breaking above clouds over eastern ridge
-  { t: 0.84, pos: [27.0,  29.0,  21.0], look: [-4.0, 11.2, -20.0], fov: 45 }, // V. Golden hour panorama above sea of clouds
+  { t: 0.78, pos: [19.0,  32.0,  12.0], look: [-3.0, 17.0, -44.0], fov: 49 }, // V. Breaking above clouds over eastern ridge
+  { t: 0.84, pos: [29.0,  37.0,  12.0], look: [-4.0, 19.0, -58.0], fov: 48 }, // V. Golden hour panorama above sea of clouds
   { t: 0.92, pos: [12.0,  52.0,  19.0], look: [-5.0,  3.5,  -4.0], fov: 42 }, // V->VI. Ascending smoothly to archive folio
   { t: 1.00, pos: [-7.0,  68.0,  16.0], look: [-7.0,  0.5,  -2.0], fov: 40 }, // VI. Cartographic exhibition archive
 ];
@@ -179,12 +179,12 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
   // 2. Environmental lighting & cloud envelope
   const valleyWeight = smoothstep(0.46, 0.56, p) * (1.0 - smoothstep(0.68, 0.78, p));
   const goldenWeight = smoothstep(0.70, 0.81, p) * (1.0 - smoothstep(0.86, 0.95, p));
-  const cloudAlpha = smoothstep(0.56, 0.71, p) * (1.0 - smoothstep(0.85, 0.94, p)) * 0.82;
+  const cloudAlpha = smoothstep(0.56, 0.71, p) * (1.0 - smoothstep(0.85, 0.94, p)) * 0.57;
 
   // Sun sweeps from bright SE alpine morning (illuminating northern cirque & lake!)
   // to raking WNW golden hour alpenglow in Summit
-  const sunElev = lerp(0.57, 0.24, goldenWeight);
-  const sunAz = lerp(1.10, -0.78, goldenWeight);
+  const sunElev = lerp(0.69, 0.30, goldenWeight);
+  const sunAz = lerp(0.72, -0.48, goldenWeight);
   const sunDir = normalizeVec3([
     Math.cos(sunElev) * Math.cos(sunAz),
     Math.sin(sunElev),
@@ -192,9 +192,9 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
   ]);
 
   const morningZenith = [0.19, 0.36, 0.51];
-  const morningHorizon = [0.78, 0.86, 0.90];
+  const morningHorizon = [0.65, 0.76, 0.83];
   const valleyZenith = [0.17, 0.34, 0.49];
-  const valleyHorizon = [0.80, 0.88, 0.91];
+  const valleyHorizon = [0.68, 0.78, 0.84];
   const summitZenith = [0.12, 0.20, 0.31];
   const summitHorizon = [0.86, 0.70, 0.55];
 
@@ -203,7 +203,7 @@ export function evaluateWorldState(progress, aspect, sampleHeight, inspectYaw = 
   skyZenith = lerpVec3(skyZenith, summitZenith, goldenWeight);
   skyHorizon = lerpVec3(skyHorizon, summitHorizon, goldenWeight);
 
-  const fogDensity = lerp(0.0052, 0.0068, valleyWeight) * (1.0 - goldenWeight * 0.25);
+  const fogDensity = lerp(0.0027, 0.0035, valleyWeight) * (1.0 - goldenWeight * 0.12);
 
   // 3. Camera spline + deliberate portrait mobile framing
   const spline = sampleSpline(p);

@@ -255,14 +255,14 @@ void main() {
   // Refined glacial Lake Vireo bathymetry with multi-ring depth tint
   float lakeFill = (1.0-smoothstep(uWaterLevel - 0.18,uWaterLevel + 0.08,smoothH));
   vec3 shallowTint = vec3(0.60, 0.75, 0.81);
-  vec3 deepTint = vec3(0.35, 0.54, 0.64);
+  vec3 deepTint = vec3(0.30, 0.52, 0.59);
   vec3 lakeCarto = mix(shallowTint, deepTint, (1.0-smoothstep(0.45,uWaterLevel,smoothH)));
   mapTint = mix(mapTint, lakeCarto, lakeFill);
 
   // Clean vector-grade contour hierarchy (minor + index + lake shoreline)
   float landMask = smoothstep(uWaterLevel - 0.02, uWaterLevel + 0.10, smoothH);
-  float minorContour = contourMask(smoothH, 0.72, 1.05) * landMask;
-  float indexContour = contourMask(smoothH, 3.60, 1.45) * landMask;
+  float minorContour = contourMask(smoothH, 0.92, 0.78) * landMask;
+  float indexContour = contourMask(smoothH, 4.60, 1.10) * landMask;
   float shoreContour = contourMask(smoothH - uWaterLevel, 0.55, 1.2) * (1.0 - landMask) * smoothstep(0.45, 1.9, smoothH);
   float shoreEdge = 1.0 - smoothstep(0.0, 0.16, abs(smoothH - uWaterLevel));
 
@@ -277,9 +277,9 @@ void main() {
 
   vec3 cartoColor = mapTint;
   cartoColor = mix(cartoColor, inkIndex, gridLine * 0.042);
-  cartoColor = mix(cartoColor, inkSoft, minorContour * 0.19);
+  cartoColor = mix(cartoColor, inkSoft, minorContour * 0.17);
   cartoColor = mix(cartoColor, inkIndex, indexContour * 0.48);
-  cartoColor = mix(cartoColor, inkShore, max(shoreContour * 0.38, shoreEdge * 0.68));
+  cartoColor = mix(cartoColor, inkShore, max(shoreContour * 0.23, shoreEdge * 0.48));
 
   // Print sheet border & deliberate negative-space margin fade outside [-uFolioHalf, +uFolioHalf]
   float sheetDist = max(abs(vWorldPos.x), abs(vWorldPos.z));
@@ -316,8 +316,8 @@ void main() {
 
   // Material C: Stratified alpine granite, dark gneiss crevices & talus scree
   float strataBand = sin(rawH * 2.9 + detailN * 3.1) * 0.5 + 0.5;
-  vec3 graniteDark = vec3(0.20, 0.23, 0.26);
-  vec3 graniteLight = vec3(0.45, 0.47, 0.50);
+  vec3 graniteDark = vec3(0.15, 0.17, 0.20);
+  vec3 graniteLight = vec3(0.43, 0.44, 0.45);
   vec3 graniteBase = mix(graniteDark, graniteLight, crag * 0.45 + strataBand * 0.30 + fineN * 0.25);
   graniteBase = mix(graniteBase, vec3(0.36, 0.35, 0.33), drainage * 0.48); // Talus fans in gullies
   graniteBase = mix(graniteBase, vec3(0.46, 0.40, 0.35), smoothstep(8.5, 16.0, rawH) * (1.0 - crag) * 0.28);
@@ -363,8 +363,8 @@ void main() {
   float snowWrap = max((dot(rockN, L) + 0.22) / 1.22, 0.0) * snowMask;
   float diffuse = mix(NdotL, max(NdotL, snowWrap * 0.78), snowMask);
 
-  vec3 sunColor = mix(vec3(0.84, 0.82, 0.78), vec3(0.98, 0.73, 0.49), uGolden);
-  vec3 skyFill = mix(vec3(0.42, 0.48, 0.54), vec3(0.36, 0.39, 0.46), uGolden);
+  vec3 sunColor = mix(vec3(1.08, 1.02, 0.92), vec3(1.22, 0.82, 0.47), uGolden);
+  vec3 skyFill = mix(vec3(0.36, 0.43, 0.49), vec3(0.30, 0.35, 0.42), uGolden);
   vec3 groundFill = mix(vec3(0.15, 0.19, 0.21), vec3(0.19, 0.15, 0.14), uGolden);
 
   float hemi = rockN.y * 0.5 + 0.5;
@@ -392,9 +392,9 @@ void main() {
   litGeology = mix(litGeology, fogColor, fogAmount);
 
   // ACES Filmic Tone Mapping preserves crisp snow ridge shadows without blowing out white
-  vec3 exposed=litGeology*0.84;
+  vec3 exposed=litGeology*0.89;
   vec3 mapped=(exposed*(2.51*exposed+0.03))/(exposed*(2.43*exposed+0.59)+0.14);
-  mapped=pow(clamp(mapped,0.0,1.0),vec3(0.87));
+  mapped=pow(clamp(mapped,0.0,1.0),vec3(0.96));
   mapped = clamp(mapped, 0.0, 1.0);
 
   vec3 finalCol = mix(mapped, cartoColor, clamp(uMapMix, 0.0, 1.0));
@@ -555,7 +555,7 @@ void main() {
   }
 
   // Luminous glacial meltwater color: turquoise-emerald shallows -> deep alpine teal
-  vec3 shallowTurq = vec3(0.18, 0.52, 0.57);
+  vec3 shallowTurq = vec3(0.15, 0.48, 0.51);
   vec3 midGlacial = vec3(0.10, 0.34, 0.42);
   vec3 deepTarn = vec3(0.048, 0.165, 0.225);
   vec3 waterBody = mix(shallowTurq, midGlacial, smoothstep(0.04, 0.55, depth));
@@ -678,7 +678,7 @@ void main() {
 
   float valleyBlanket = mix(0.23, 0.78, uGolden);
   float density = smoothstep(0.34, 0.74, f) * edgeMask * terrainClearance * mix(0.18, 1.0, camProximity);
-  float alpha = clamp(density * mix(0.68, 0.92, uGolden) * visibility, 0.0, 0.88) * valleyBlanket;
+  float alpha = clamp(density * mix(0.50, 0.86, uGolden) * visibility, 0.0, 0.78) * valleyBlanket;
   if (alpha <= 0.005) discard;
 
   vec3 viewDir = normalize(vWorldPos - uCamPos);

@@ -20,9 +20,9 @@ try {
   await p.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return original.call(this,k,k==='webgl2'?{...o,preserveDrawingBuffer:true}:o)}});
   await p.goto(url,{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>+document.querySelector('#atlas-stage').dataset.draws>0||document.querySelector('#atlas-stage').dataset.renderError,{},{timeout:25000});
   const stage=p.locator('#atlas-stage');assert.equal(await stage.getAttribute('data-renderer'),'webgl',await stage.getAttribute('data-render-error')||'WebGL initialization');
-  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A5');
+  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A6');
   assert.equal(await p.locator('html').getAttribute('data-atlas-ready'),'true','scroll listeners must be installed after initialization');
-  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='5'),'mixed module releases '+moduleUrls.join(' '));
+  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='6'),'mixed module releases '+moduleUrls.join(' '));
   const hashes=[];let firstBuffer=null;
   for(const [i,f] of [0,.12,.24,.44,.62,.82,.96,.44,0].entries()){
    await p.evaluate(f=>{const t=document.querySelector('#expedition-track'),s=document.querySelector('#atlas-stage');scrollTo({top:t.getBoundingClientRect().top+scrollY+(t.offsetHeight-s.offsetHeight)*f,behavior:'instant'})},f);
