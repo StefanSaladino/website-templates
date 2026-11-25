@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ATLAS topographic monogram">
+  <rect width="64" height="64" fill="#161b20"/>
+  <path d="M12 45 C18 33 24 23 32 18 C40 23 46 33 52 45" fill="none" stroke="#f3efe7" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M18 45 C23 36 27 29 32 26 C37 29 41 36 46 45" fill="none" stroke="#8db4c6" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M25 45 C28 40 30 37 32 35 C34 37 36 40 39 45" fill="none" stroke="#d7a36b" stroke-width="1.6" stroke-linecap="round"/>
+</svg>
