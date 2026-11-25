@@ -1,0 +1,48 @@
+name: Register MATTER review template
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/register-matter.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: register-matter
+  cancel-in-progress: true
+jobs:
+  candidate:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+        working-directory: components
+      - run: node components/scripts/prepare-matter-registration.mjs
+      - run: node scripts/test-matter-draft.mjs
+        working-directory: components
+      - run: node scripts/capture-gallery-openings.mjs --only=matter-exhibition --apply
+        working-directory: components
+      - run: npm run build
+        working-directory: components
+      - name: Verify gallery-only membership
+        working-directory: components
+        run: |
+          node --input-type=module -e "import {readFileSync} from 'node:fs';import assert from 'node:assert/strict';import {catalogue} from './builder-model.js';const data=JSON.parse(readFileSync('data/builder-templates.json'));assert.equal(data.length,38);assert.equal(data.find(x=>x.slug==='matter-exhibition').configuratorStatus,'gallery-only');assert.equal(catalogue([],[],data,[]).templates.size,35);"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: matter-registration-evidence
+          path: |
+            components/matter-evidence/
+            components/gallery-opening-evidence/
+      - name: Commit candidate without modifying workflows
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- templates index.html components/data components/scripts PROJECT-ROADMAP.md
+          git commit -m "feat(gallery): register MATTER immersive exhibition preview"
+          git push origin HEAD:refs/heads/matter-registration/${GITHUB_SHA}

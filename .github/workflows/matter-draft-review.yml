@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'templates/_drafts/matter-exhibition/**'
+      - 'templates/matter-exhibition/**'
       - 'components/scripts/test-matter-draft.mjs'
       - '.github/workflows/matter-draft-review.yml'
   workflow_dispatch:

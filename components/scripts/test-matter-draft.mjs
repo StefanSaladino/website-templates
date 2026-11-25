@@ -1,16 +1,19 @@
 import assert from 'node:assert/strict';
 import {chromium} from 'playwright';
 import {spawn} from 'node:child_process';
+import http from 'node:http';
 import {mkdirSync,existsSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const out=path.join(root,'components/matter-evidence');mkdirSync(out,{recursive:true});
-const url='http://127.0.0.1:4339/templates/_drafts/matter-exhibition/index.html';
+const registered=existsSync(path.join(root,'templates/matter-exhibition/index.html'));
+const url='http://127.0.0.1:4339'+(registered?'/templates/matter-exhibition/':'/templates/_drafts/matter-exhibition/')+'index.html';
 const server=spawn('python3',['-m','http.server','4339','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 let browser;
 try{
- for(let i=0;i<50;i++){try{if((await fetch(url)).ok)break}catch{}await new Promise(r=>setTimeout(r,150))}
+ const ready=()=>new Promise(resolve=>{const req=http.request(url,{method:'HEAD',agent:false},res=>{res.resume();resolve(res.statusCode===200)});req.on('error',()=>resolve(false));req.setTimeout(1000,()=>req.destroy());req.end()});
+ let listening=false;for(let i=0;i<60;i++){if(await ready()){listening=true;break}await new Promise(r=>setTimeout(r,150))}assert(listening,'MATTER server failed readiness');
  browser=await chromium.launch({headless:true,executablePath:['/usr/bin/google-chrome','/usr/bin/chromium'].find(existsSync),args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  for(const width of [320,390,768,1440]){
  const height=width===320?568:width===1440?900:844;
