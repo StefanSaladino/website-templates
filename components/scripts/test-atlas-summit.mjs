@@ -49,7 +49,21 @@ function auditSummit(terrain,volume,state,aspect){
  }
  return {visible:visible/total,moderate:moderate/total,strong:strong/total,sky:sky/total,mean:mean/total,upperStrong:upperStrong/(total/2),lowerStrong:lowerStrong/(total/2)};
 }
-const report={note:'Software-browser reference only. Settled screenshots and sampled scroll response do not establish physical-device frame rate.',coverage:[],views:[]};
+const report={note:'Software-browser reference only. Draw-counter observations, not GPU completion or physical-device frame rate.',commit:process.env.GITHUB_SHA||null,run:process.env.GITHUB_RUN_ID||null,coverage:[],views:[]};
+function summarizeSweep(samples,from,to){
+ const deltas=[],gaps=[];let reversals=0,maxStep=0,unobservedDraws=0;
+ const dir=Math.sign(to-from);
+ for(let i=1;i<samples.length;i++){
+   const a=samples[i-1],b=samples[i],delta=b.progress-a.progress;
+   assert(Number.isFinite(b.progress)&&Number.isFinite(b.ms)&&Number.isFinite(b.target),'Invalid sweep observation');
+   assert(b.draws>a.draws&&b.ms>=a.ms,'Non-monotonic draw observations');
+   unobservedDraws+=Math.max(0,b.draws-a.draws-1);
+   if(dir*delta<-.006)reversals++;
+   maxStep=Math.max(maxStep,Math.abs(delta));deltas.push(Math.abs(delta));gaps.push(b.ms-a.ms);
+ }
+ const percentile=(xs,p)=>{const sorted=[...xs].sort((a,b)=>a-b);return sorted[Math.max(0,Math.ceil(p*sorted.length)-1)]??0;};
+ return {durationMs:samples.at(-1).ms-samples[0].ms,observations:samples.length,unobservedDraws,maxStep,p95Step:percentile(deltas,.95),p50GapMs:percentile(gaps,.50),p95GapMs:percentile(gaps,.95),maxGapMs:Math.max(0,...gaps),maxTargetLag:Math.max(...samples.map(s=>Math.abs(s.target-s.progress))),reversals};
+}
 const anchors=[.64,.665,.69,.71,.73,.745,.76,.78,.80,.82,.84,.86,.88,.90,.92,.94,.96];
 let browser;
 try{
@@ -71,7 +85,7 @@ try{
    await page.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return original.call(this,k,k==='webgl2'?{...o,preserveDrawingBuffer:true}:o)}});
    await page.goto(url,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>+document.querySelector('#atlas-stage').dataset.draws>0||document.querySelector('#atlas-stage').dataset.renderError,{},{timeout:45000});
    const stage=page.locator('#atlas-stage');assert.equal(await stage.getAttribute('data-renderer'),'webgl');
-   const view={width,height,release:await page.locator('html').getAttribute('data-atlas-release'),frames:[],sweeps:[]};report.views.push(view);
+   const view={width,height,release:await page.locator('html').getAttribute('data-atlas-release'),frames:[],sweeps:[]};assert.equal(view.release,'A22');report.views.push(view);
    const scroll=async(f)=>{await page.evaluate(f=>{const t=document.querySelector('#expedition-track'),s=document.querySelector('#atlas-stage');scrollTo({top:t.getBoundingClientRect().top+scrollY+(t.offsetHeight-s.offsetHeight)*f,behavior:'instant'});},f);
      await page.waitForFunction(f=>Math.abs(+document.querySelector('#atlas-stage').dataset.renderedProgress-f)<.006&&document.querySelector('#atlas-stage').dataset.settled==='true',f,{timeout:45000});};
    const pixelState=()=>page.locator('#atlas-canvas').evaluate(c=>{
@@ -92,16 +106,20 @@ try{
      const samples=await page.evaluate(async({to})=>{
        const stage=document.querySelector('#atlas-stage'),track=document.querySelector('#expedition-track'),initial=performance.now(),samples=[];
        let last=-1;
-       function collect(){const d=stage.dataset,n=+d.draws;if(n!==last){samples.push({ms:Math.round(performance.now()-initial),progress:+d.renderedProgress,draws:n});last=n;}}
-       const top=track.getBoundingClientRect().top+scrollY+(track.offsetHeight-stage.offsetHeight)*to;
+       const trackTop=track.getBoundingClientRect().top+scrollY,travel=Math.max(1,track.offsetHeight-stage.offsetHeight);
+       function collect(){const d=stage.dataset,n=+d.draws;if(n!==last){samples.push({ms:Math.round(performance.now()-initial),progress:+d.renderedProgress,draws:n,target:Math.max(0,Math.min(1,(scrollY-trackTop)/travel))});last=n;}}
+       collect(); // include the actual start pose before native scrolling
+       const top=trackTop+travel*to;
        scrollTo({top,behavior:'smooth'});
        await new Promise((resolve,reject)=>{function frame(){collect();if(Math.abs(+stage.dataset.renderedProgress-to)<.006&&stage.dataset.settled==='true'){resolve();return;}if(performance.now()-initial>45000){reject(new Error('sweep did not settle'));return;}requestAnimationFrame(frame);}requestAnimationFrame(frame);});
        return samples;
      },{to});
      assert(samples.length>1);assert(Math.abs(samples.at(-1).progress-to)<.006);
-     const dir=Math.sign(to-from);let reversals=0,maxStep=0;for(let i=1;i<samples.length;i++){const delta=samples[i].progress-samples[i-1].progress;if(dir*delta<-.006)reversals++;maxStep=Math.max(maxStep,Math.abs(delta));}
-     assert.equal(reversals,0,'Unexpected reversal during native smooth sweep');
-     view.sweeps.push({from,to,samples,maxStep,reversals});
+     assert(Math.abs(samples[0].progress-from)<.006,'Sweep did not record its start pose');
+     const summary=summarizeSweep(samples,from,to);
+     assert.equal(summary.reversals,0,'Unexpected reversal during native smooth sweep');
+     view.sweeps.push({from,to,samples,...summary});
+     console.log('ATLAS SWEEP',width,from,to,JSON.stringify(summary));
    }
    await scroll(.82);const repeated=await pixelState();assert.equal(repeated.hash,view.frames.find(x=>x.requested===.82).hash,'Settled summit differs on revisit in deterministic software renderer');
    assert.deepEqual(errors,[]);view.revisit=repeated;const video=page.video();await page.close();if(video)await video.saveAs(path.join(out,width+'-summit-traversal.webm'));

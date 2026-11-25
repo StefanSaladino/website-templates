@@ -7,9 +7,9 @@
  * - Still view, reduced-motion, visibility suspension, and WebGL2 fallback handling
  */
 
-import { AtlasRenderer } from './renderer.js?v=21';
-import { createMotionController } from './motion.js?v=21';
-import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=21';
+import { AtlasRenderer } from './renderer.js?v=22';
+import { createMotionController } from './motion.js?v=22';
+import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=22';
 
 const rootEl = document.documentElement;
 rootEl.classList.remove('atlas-no-js');
@@ -191,12 +191,30 @@ function updateDomForState(state, progress) {
 
 const renderer = new AtlasRenderer(canvasEl, stageEl, {
   initialQuality: currentQuality,
-  onRendererChange(mode) {
+  onRendererChange(mode, reason) {
+    // Static cards and the sticky live track have different scroll coordinates.
+    // Capture the meaningful chapter BEFORE changing layout, not the old scrollY.
+    const alreadyStill=isStillMode||reducedMotionQuery.matches;
+    const lost=reason==='context-lost';
+    const restored=reason==='context-restored';
+    const chapter=lost?getChapterForProgress(motion.getState().currentProgress):
+      restored?getVisibleStaticChapter():null;
     rootEl.classList.toggle('atlas-no-webgl', mode !== 'webgl');
     if(mode!=='webgl')rootEl.classList.remove('atlas-booting');
     updateControlStates();
+    if(lost&&!alreadyStill){
+      pendingViewFocus=null;setInspectExpanded(false);
+      inspectYaw=0;inspectPitch=0;motion.resetInspect(true);
+      scrollToChapterOrProgress(chapter.id,chapter.anchor,true);
+    }
+    if(restored&&!alreadyStill){
+      inspectYaw=0;inspectPitch=0;motion.resetInspect(true);
+      scrollToProgress(chapter.anchor,true);
+      syncMotionVisibility();
+      motion.setTargetProgress(getScrollProgress(),true);
+    }
     updateDomForState(null, getScrollProgress());
-    if (mode === 'webgl') {
+    if (mode === 'webgl'&&!alreadyStill) {
       motion.forceRedraw();
     }
   },

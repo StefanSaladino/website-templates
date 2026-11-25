@@ -14,7 +14,7 @@ import {
   buildWaterMesh,
   buildMistVolume,
   buildSummitInversion,
-} from './terrain.js?v=21';
+} from './terrain.js?v=22';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -24,8 +24,8 @@ import {
   WATER_FRAG,
   DETAIL_VERT,
   DETAIL_FRAG,
-} from './shaders.js?v=21';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=21';
+} from './shaders.js?v=22';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=22';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -109,6 +109,7 @@ export class AtlasRenderer {
         this._initResources();
         this.canvas.hidden = false;
         this.stageEl.setAttribute('data-renderer', 'webgl');
+        this.stageEl.removeAttribute('data-render-error');
         this.onRendererChange('webgl', 'context-restored');
       } catch (err) {
         this.stageEl.setAttribute('data-renderer', 'static');
