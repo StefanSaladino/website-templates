@@ -1,10 +1,10 @@
-import {RELEASE} from './config.js?v=T13';
-import {createRenderer} from './renderer.js?v=T13';
-import {DESKTOP_COMPOSITION_QUERY,openingPose,openingComposition} from './camera.js?v=T13';
-import {createScheduler} from './lifecycle.js?v=T13';
-import {wordmarkOcclusion} from './wordmark.js?v=T13';
-import {createAmbientClock} from './ambient.js?v=T13';
-import {readProgress} from './scroll.js?v=T13';
+import {RELEASE} from './config.js?v=T14';
+import {createRenderer} from './renderer.js?v=T14';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,openingComposition} from './camera.js?v=T14';
+import {createScheduler} from './lifecycle.js?v=T14';
+import {wordmarkOcclusion} from './wordmark.js?v=T14';
+import {createAmbientClock} from './ambient.js?v=T14';
+import {readProgress} from './scroll.js?v=T14';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -33,12 +33,18 @@ function start(){
     try{
       if(!renderer)renderer=createRenderer(canvas);
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
-      const r=surface.getBoundingClientRect(),result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase);
-      if(!result){staticView('not-ready');return}
-      // Only a working renderer enables the long native-scroll stage.
-      setJourney(journeyRequested&&!reduced.matches);
+      const r=surface.getBoundingClientRect();
       const progress=journeyActive?readProgress(document.scrollingElement):0;
+      const pose=approachPose(r.width/r.height,desktopComposition.matches,progress);
+      const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose);
+      if(!result){staticView('not-ready');return}
+      // The rendered pose and the reported progress always belong to the same sample.
+      const wasActive=journeyActive;
+      setJourney(journeyRequested&&!reduced.matches);
+      if(wasActive!==journeyActive)invalidate();
       study.dataset.progress=progress.toFixed(6);
+      study.dataset.eye=pose.eye.map(v=>v.toFixed(6)).join(',');
+      study.dataset.fov=pose.fov.toFixed(6);
       study.dataset.frames=String(++frames);
       study.dataset.ambient=ambientEnabled?'on':'off';study.dataset.ambientElapsed=sample.elapsed.toFixed(2);
       study.dataset.buffer=result.width+'x'+result.height;
@@ -48,7 +54,7 @@ function start(){
       study.dataset.lighting=result.lightingEnabled?'on':'off';
       study.dataset.floorMask=result.floorMask?'on':'off';
       study.dataset.composition=openingComposition(r.width/r.height,desktopComposition.matches);
-      const points=desktopComposition.matches?wordmarkOcclusion(openingPose(r.width/r.height,true).vp,r,mark.getBoundingClientRect()):'';
+      const points=desktopComposition.matches?wordmarkOcclusion(pose.vp,r,mark.getBoundingClientRect()):'';
       occluder.setAttribute('points',points);mark.dataset.depth=points?'projected':'flat';
       study.dataset.renderer='webgl';delete study.dataset.reason;canvas.hidden=false;
       if(ambientEnabled)scheduler.invalidate();

@@ -888,3 +888,6 @@ T12 browser 45695011597 and Pages 45695010380 passed; artifact 15059449307 revie
 
 ## THRESHOLD — T13 native scroll foundation
 Final T12a browser 45695722511 and Pages 45695721871 passed, evidence inspected; user approved moving on. T12 closed. Native document travel with one sticky stage, measured reversible 0–1 progress, static fallback without empty travel; no camera motion yet. Two pure tests preflight passed; exact T13 browser/Pages pending. T14 after verification; no shared/catalogue changes.
+
+## THRESHOLD — T14 continuous approach
+T13 browser 45696229120, Pages 45696228459 passed; native-scroll artifact 15060223802 inspected. One measured scroll sample drives continuous eye/aim/FOV/lens from approved opening to centered pre-portal pose; reflection and mask share VP. Full draft scroll mapped temporarily to approach; no typography exit/crossing yet. Nineteen pure tests and forward/reverse rendered evidence pending exact T14. No shared/catalogue changes.

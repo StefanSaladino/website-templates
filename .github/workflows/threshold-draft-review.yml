@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T13');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T14');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -276,7 +276,7 @@ jobs:
               assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
               await page.close();
             }
-            // Actual native document travel, with a stationary opening camera for T13.
+            // Actual native document travel, with the continuous approach camera, forward and reverse.
             const scrollEvidence=[];
             for(const [width,height] of [[320,568],[390,844],[768,1024],[1440,900],[844,390]]){
               const travel=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
@@ -285,6 +285,7 @@ jobs:
               await travel.waitForFunction(()=>document.documentElement.dataset.journey==='on'&&document.querySelector('#scene-study').dataset.renderer==='webgl');
               const original=await travel.locator('#scene-canvas').elementHandle();
               const identity=await travel.locator('#wordmark-occluder').getAttribute('points');
+              const forwardImages=new Map(),camera=travel.locator('#scene-canvas');
               const states=[];
               async function measure(fraction){
                 await travel.evaluate(f=>{const s=document.scrollingElement;s.scrollTop=(s.scrollHeight-s.clientHeight)*f},fraction);
@@ -294,7 +295,7 @@ jobs:
                 },fraction);
                 return travel.evaluate(()=>{
                   const s=document.scrollingElement,stage=document.querySelector('.journey-stage'),canvas=document.querySelector('#scene-canvas'),d=document.querySelector('#scene-study').dataset;
-                  return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,progress:Number(d.progress),top:stage.getBoundingClientRect().top,height:stage.getBoundingClientRect().height,canvasTop:canvas.getBoundingClientRect().top,frames:Number(d.frames)};
+                  return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,progress:Number(d.progress),top:stage.getBoundingClientRect().top,height:stage.getBoundingClientRect().height,canvasTop:canvas.getBoundingClientRect().top,frames:Number(d.frames),eye:d.eye.split(',').map(Number),fov:Number(d.fov),mask:document.querySelector('#wordmark-occluder').getAttribute('points')};
                 });
               }
               for(const fraction of [0,.25,.5,.75,1,.75,.5,.25,0]){
@@ -303,9 +304,27 @@ jobs:
                 assert(Math.abs(state.top)<2&&Math.abs(state.canvasTop)<2,'single sticky stage');
                 assert(Math.abs(state.height-height)<2,'stable stage height');
                 assert(await original.evaluate(el=>el===document.querySelector('#scene-canvas')),'same canvas identity');
-                assert.equal(await travel.locator('#wordmark-occluder').getAttribute('points'),identity,'opening pose unchanged in T13');
+                assert(state.eye[2]>0&&state.eye[1]>=1.8&&state.eye[1]<=2.6,'approach remains outside cut');
+                if(states.length<=4){
+                  if(states.length)assert(state.eye[2]<states.at(-1).eye[2],'monotone forward travel');
+                  const frame=await camera.screenshot({style:captureStyle,path:'/tmp/threshold-evidence/approach-'+width+'-'+String(Math.round(fraction*100)).padStart(3,'0')+'.png'});
+                  forwardImages.set(fraction,frame);
+                  if(width===390||width===1440)await travel.screenshot({path:'/tmp/threshold-evidence/approach-full-'+width+'-'+String(Math.round(fraction*100)).padStart(3,'0')+'.png'});
+                }else{
+                  const prior=states[8-states.length];
+                  assert.deepEqual(state.eye,prior.eye);assert.equal(state.fov,prior.fov);assert.equal(state.mask,prior.mask);
+                  if(fraction===0||fraction===.5){
+                    const reverse=await camera.screenshot({style:captureStyle,path:'/tmp/threshold-evidence/reverse-'+width+'-'+Math.round(fraction*100)+'.png'});
+                    const a=await sharp(forwardImages.get(fraction)).removeAlpha().raw().toBuffer(),b=await sharp(reverse).removeAlpha().raw().toBuffer();
+                    assert.equal(a.length,b.length);
+                    let changed=0;for(let i=0;i<a.length;i++)if(Math.abs(a[i]-b[i])>3)changed++;
+                    assert(changed<a.length*.001,'same rendered view on reverse');
+                  }
+                }
                 states.push(state);
               }
+              assert.equal(states[0].mask,identity);assert.equal(states.at(-1).mask,identity);
+              assert(Math.abs(states[4].eye[0])<.000001&&states[4].eye[2]<states[0].eye[2]-4,'centered approach endpoint');
               assert.equal(states[0].progress,0);assert.equal(states[4].progress,1);assert.equal(states.at(-1).progress,0);
               for(let i=1;i<4;i++)assert.equal(states[i].progress,states[8-i].progress,'exact reversible native progress');
               // Native keyboard scrolling, no interception, no substitute scroll track.
@@ -406,12 +425,12 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T13',verification:'T13',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T14',verification:'T14',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-native-scroll-evidence
+          name: threshold-approach-evidence
           path: /tmp/threshold-evidence/

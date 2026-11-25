@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01–T12 verified; opening approved for continuation; T13 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01–T13 verified; T14 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -57,7 +57,7 @@ Gate: clean extensible foundation; no elaborate visual or choreography work.
 HARD GATE: opening must be exceptional on desktop and portrait and explicitly accepted. A generic glowing rectangle fails even with passing tests. No crossing work before approval.
 
 ### Phase 3 — Crossing (T13–T18)
-- [ ] T13 — Deterministic native-scroll engine and reachable progress endpoints; pure tests.
+- [x] T13 — Deterministic native-scroll engine and reachable progress endpoints; pure tests.
 - [ ] T14 — Continuous camera approach toward portal; projected scale, path and clearance tests.
 - [ ] T15 — Spatial typography exit; preserve legibility before intentional exit.
 - [ ] T16 — Physical passage through portal; near-plane and geometry clearance checks.
@@ -271,3 +271,6 @@ T12 exact revision ebeb5b4fd17d77630e98e10cadbf97b1be9d948c: all fifteen Node te
 
 ## T13 — Native scroll ownership and reachable endpoints
 T12a exact revision 88af335de5e5682dc8ab61e559d448dbd9d5dfbd: fifteen Node tests, browser 45695722511 and Pages 45695721871 passed. Artifact 15061830327 downloaded; seven final opening screenshots inspected, portrait near/far reflected pixel difference 11.30/14.10, temporal delta max 12/255. Stakeholder explicitly requested to move on for now after final refinement; opening accepted for this phase, revisit in connected journey. T12 completed. T13 wraps existing header/main/footer in one sticky stage within a native document range initially 500svh (four viewport lengths of travel); no wheel/touch handlers, scroll hijack, smooth-scroll proxy, timeline, camera interpolation, geometry, typography exit or new visual scene. Progress is pure clamped scrollTop/(scrollHeight-clientHeight) from real scroller measurements on the existing scheduler; same offset yields same progress forward/reverse; recompute on resize and visualViewport resize. Default journey enabled only after successful WebGL draw; reduced/no-JS/no-graphics use the original one-screen static layout; context-loss preserves native position for recovery. Diagnostic journey=off preserves prior opening/lifecycle/material/ambient regression routes. Two new pure tests preflight passed locally; CI adds actual native scroll endpoints, reversible samples, same canvas and stationary mask, sticky stage, keyboard/wheel, resized range and reduced-motion collapse at five viewports. Exact T13 browser and Pages results pending; no actual camera travel until T14. Physical Safari/touch and compositor cadence not certified. No catalogue/shared changes.
+
+## T14 — Continuous camera approach
+T13 exact revision 55d8f9fcc8ddcbb38fc401fba2510da277babb0e: seventeen Node tests, browser 45696229120 and Pages 45696228459 passed; artifact 15060223802 native-scroll.json inspected, exact endpoints, reversible samples, stable sticky stage and same canvas. T13 verified. T14 adds pure approachPose with the exact approved opening at p0, smoothstep eye/aim/FOV and off-axis lens interpolation, centered endpoint in front of the cut (wide z5.8; portrait z6.5–8.1; no crossing). The temporary approach-only track uses the full reachable native travel rather than leaving a blank 80% hold; later chapters extend/remap it. Single measured progress sample determines one pose shared by direct/reflected geometry and projected wordmark mask; ambient clock remains independent. No geometry/material/typography exit changes, no new contexts/targets/dependencies. Two pure tests densely sample seven aspect configurations, actual solid clearance, monotone aperture width, endpoint velocity and mirror projection; browser retains native scroll and existing opening regressions, records forward intermediate actual canvas/full-page frames and reverse pixel comparisons at matching offsets. Exact T14 results and visual motion review pending; actual device cadence not certified. T15 handles typography exit; T16 physical crossing only afterward. No shared runtime/catalogue changes.

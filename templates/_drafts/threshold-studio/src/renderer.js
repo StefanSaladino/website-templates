@@ -1,8 +1,8 @@
-import {openingPose,multiply} from './camera.js?v=T13';
-import {buildStudy} from './geometry.js?v=T13';
-import {bufferSize} from './lifecycle.js?v=T13';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T13';
-import {LIGHTING_GLSL} from './lighting.js?v=T13';
+import {openingPose,multiply} from './camera.js?v=T14';
+import {buildStudy} from './geometry.js?v=T14';
+import {bufferSize} from './lifecycle.js?v=T14';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T14';
+import {LIGHTING_GLSL} from './lighting.js?v=T14';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -164,12 +164,12 @@ export function createRenderer(canvas){
     }catch(e){release();throw e}
     finally{if(vs)gl.deleteShader(vs);if(fs)gl.deleteShader(fs);if(floorFS)gl.deleteShader(floorFS)}
   }
-  function draw(width,height,dpr,reflectionEnabled=true,lightingEnabled=true,floorMask=false,desktopComposition=false,ambientPhase=-1){
+  function draw(width,height,dpr,reflectionEnabled=true,lightingEnabled=true,floorMask=false,desktopComposition=false,ambientPhase=-1,pose=null){
     if(!program||gl.isContextLost())return null;
     const size=bufferSize(width,height,dpr,limit);if(!size)return null;
     if(canvas.width!==size.width)canvas.width=size.width;
     if(canvas.height!==size.height)canvas.height=size.height;
-    const dw=gl.drawingBufferWidth,dh=gl.drawingBufferHeight,{eye,vp}=openingPose(width/height,desktopComposition);
+    const dw=gl.drawingBufferWidth,dh=gl.drawingBufferHeight,{eye,vp}=pose??openingPose(width/height,desktopComposition);
     const target=reflection.ensure(dw,dh,textureLimit);
     gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.BLEND);gl.disable(gl.CULL_FACE);
     if(lightingEnabled)gl.clearColor(.045,.047,.052,1);else gl.clearColor(.09,.098,.106,1);
