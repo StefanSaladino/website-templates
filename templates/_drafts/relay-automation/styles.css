@@ -2506,3 +2506,6 @@ html.has-motion:not(.is-reduced-motion) .wf-node:focus-visible { opacity:1; outl
  html.has-motion:not(.is-reduced-motion) .ws-canvas { transform:translate3d(0,calc(var(--sep) * -10px),calc(var(--sep) * 20px + var(--execution-focus) * 22px)); }
  html.has-motion:not(.is-reduced-motion) .ws-history { opacity:clamp(0,calc(1 - var(--monitor) * 2.5 - var(--execution-focus) * .18),1); }
 }
+
+/* R4 — topology weights and reveal lengths belong to the master geometry. */
+.connector-path-active { transition:none; }

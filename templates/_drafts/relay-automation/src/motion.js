@@ -6,7 +6,7 @@
  * on inactive chapters, and restores static accessibility under reduced motion.
  */
 
-import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=3';
+import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=4';
 
 const DARK_PAGE = [18, 20, 18]; // #121412
 const LIGHT_PAGE = [239, 236, 228]; // #EFECE4
@@ -62,6 +62,8 @@ export class MotionController {
     this.signalPacket = document.getElementById('signal-packet');
     this.signalMobile = null;
     this.manualScenario = null;
+    this.scrollHandoff=null;
+    this.lastProgress=null;
     this.sandboxOpen = false;
     this.reducedMotion = false;
     this.isOffscreen = false;
@@ -85,6 +87,7 @@ export class MotionController {
     if (this.mql.addEventListener) {
       this.mql.addEventListener('change', () => {
         this.reducedMotion = this.mql.matches;
+        this.workflow.cancelManualWork();this.manualScenario=null;this.scrollHandoff=null;
         this._applyMotionPreference();
       });
     }
@@ -177,16 +180,15 @@ export class MotionController {
   }
 
   setManualScenario(scenarioId) {
-    this.manualScenario = scenarioId;
-    this.workflow.transitionToScenario(scenarioId, false);
+    this.scrollHandoff=null;
+    this.manualScenario=scenarioId;
+    this.workflow.transitionToScenario(scenarioId,this.reducedMotion);
   }
 
   setSandboxMode(active) {
-    this.sandboxOpen = Boolean(active);
-    this.root.classList.toggle('is-sandbox-open', this.sandboxOpen);
-    if (!this.sandboxOpen) {
-      this.manualScenario = null;
-    }
+    this.workflow.cancelManualWork();this.manualScenario=null;this.scrollHandoff=null;
+    this.sandboxOpen=Boolean(active);
+    this.root.classList.toggle('is-sandbox-open',this.sandboxOpen);
     this.updateNow();
   }
 
@@ -245,12 +247,20 @@ export class MotionController {
   updateNow() {
     if (this.reducedMotion) {
       this._resetReducedStyles();
-      this.workflow.transitionToScenario(this.workflow.activeScenarioId, true);
+      if(this.workflow.manualRunOwned)this.workflow.renderGraphBlend(this.workflow.activeScenarioId,this.workflow.activeScenarioId,1,this.workflow.manualExecutionStep,1);
+      else this.workflow.renderGraphBlend(this.workflow.activeScenarioId,this.workflow.activeScenarioId,1);
       return;
     }
 
     const isMobile = window.innerWidth < 1024;
     const progress = this.readNormalizedProgress();
+    const moved=this.lastProgress!==null&&Math.abs(progress-this.lastProgress)>1e-6;
+    if(!this.sandboxOpen&&moved&&(this.manualScenario||this.workflow.manualRunOwned||this.workflow.tweenRaf!==null)){
+      this.scrollHandoff={snapshot:this.workflow.graphSnapshot,origin:this.lastProgress,distance:0};
+      this.manualScenario=null;this.workflow.cancelManualWork();
+    }
+    if(this.scrollHandoff&&moved)this.scrollHandoff.distance+=Math.abs(progress-this.lastProgress);
+    this.lastProgress=progress;
     const state = this.sandboxOpen
       ? {
           ...evaluateSceneState(0.365, isMobile),
@@ -321,42 +331,18 @@ export class MotionController {
     // 3. Exploded Scene 02 architectural guide connectors
     this._updateExplodedGuides(state.sep, isMobile);
 
-    // 4. Synchronous shared-geometry workflow morph & execution rendering
-    if (this.sandboxOpen) {
-      if (!this.workflow.tweenRaf) {
-        this.workflow.renderGraphBlend(
-          this.workflow.activeScenarioId,
-          this.workflow.activeScenarioId,
-          1,
-          -1,
-          1
-        );
-      }
-    } else {
-      if (state.activeScene !== 3 && (progress < 0.45 || progress > 0.68)) {
-        this.manualScenario = null;
-      }
-
-      if (state.activeScene === 3 && this.manualScenario) {
-        if (!this.workflow.tweenRaf) {
-          this.workflow.renderGraphBlend(
-            this.manualScenario,
-            this.manualScenario,
-            1,
-            state.execStep,
-            state.edgeDraw
-          );
-        }
-      } else {
-        this.workflow.renderGraphBlend(
-          state.scenarioFrom,
-          state.scenarioTo,
-          state.scenarioBlend,
-          state.execStep,
-          state.edgeDraw,
-          state.focus
-        );
-      }
+    // 4. Exactly one graph owner: manual tween/run, sandbox, or timeline.
+    if(this.workflow.tweenRaf!==null){
+      // The existing manual RAF owns the graph until input explicitly releases it.
+    }else if(this.workflow.manualRunOwned){
+      this.workflow.renderGraphBlend(this.workflow.activeScenarioId,this.workflow.activeScenarioId,1,this.workflow.manualExecutionStep,1);
+    }else if(this.sandboxOpen||this.manualScenario){
+      const id=this.manualScenario||this.workflow.activeScenarioId;
+      this.workflow.renderGraphBlend(id,id,1);
+    }else{
+      const handoff=this.scrollHandoff&&{snapshot:this.scrollHandoff.snapshot,amount:Math.min(1,this.scrollHandoff.distance/.025)};
+      this.workflow.renderGraphBlend(state.scenarioFrom,state.scenarioTo,state.scenarioBlend,state.execStep,state.edgeDraw,state.focus,handoff);
+      if(handoff?.amount>=1)this.scrollHandoff=null;
     }
 
     // 5. Switch active sidebar item coherently for Scene 05 monitoring

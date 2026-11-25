@@ -5,7 +5,8 @@
  * unified execution monitoring & recovery.
  */
 
-import { executionNodeWeight } from './scenes.js?v=3';
+import { executionNodeWeight } from './scenes.js?v=4';
+import { blendEdges } from './connectors.js?v=4';
 
 export const SCENARIOS = {
   inbound: {
@@ -529,6 +530,9 @@ export class WorkflowController {
     this.tweenToId = 'inbound';
     this.tweenProgress = 1;
     this.tweenRaf = null;
+    this.manualRunOwned = false;
+    this.graphSnapshot = null;
+    this.connectors.setEdgeCatalog(Object.values(SCENARIOS).flatMap(s => s.edges));
 
     this._bindInteractions();
     this.renderGraphBlend('inbound', 'inbound', 1, -1, 1);
@@ -601,14 +605,16 @@ export class WorkflowController {
    * Interpolates every node's exact (x, y) directly from fromId -> toId at blend t [0..1]
    * and feeds the exact same boxes synchronously to ConnectorEngine.
    */
-  renderGraphBlend(fromId, toId, blendT, execStep = -1, edgeDraw = 1, focus = null) {
+  renderGraphBlend(fromId, toId, blendT, execStep = -1, edgeDraw = 1, focus = null, handoff = null) {
     if (!this.canvasBoard) return;
     const fromSc = SCENARIOS[fromId] || SCENARIOS.inbound;
     const toSc = SCENARIOS[toId] || SCENARIOS.inbound;
     const t = smoothstep01(blendT);
 
     // Pick display scenario metadata past midpoint so text & inspector stay coherent
-    const displaySc = t >= 0.5 ? toSc : fromSc;
+    const handoffMix=handoff?smoothstep01(handoff.amount):1;
+    const snapshot=handoff?.snapshot;
+    const displaySc = snapshot && handoffMix < .5 ? SCENARIOS[snapshot.scenarioId] : t >= .5 ? toSc : fromSc;
     const changedDisplay = this.activeScenarioId !== displaySc.id;
     this.activeScenarioId = displaySc.id;
 
@@ -644,7 +650,7 @@ export class WorkflowController {
 
     // Slight scale pop on emerging / morphing nodes mid-transition
     const morphDip = Math.sin(t * Math.PI) * 0.04;
-    const boxes = [];
+    const boxes = [], layout = [];
 
     for (let i = 0; i < this.nodeEls.length; i++) {
       const el = this.nodeEls[i];
@@ -652,25 +658,25 @@ export class WorkflowController {
       const bNode = toSc.nodes[i];
       const dNode = displaySc.nodes[i];
 
-      const aCoords = isMobile ? aNode.mobile : aNode.desktop;
-      const bCoords = isMobile ? bNode.mobile : bNode.desktop;
-
-      const xFrac = lerp(aCoords.x, bCoords.x, t);
-      const yFrac = lerp(aCoords.y, bCoords.y, t);
-      const xPx = xFrac * boardW;
-      const weight = executionNodeWeight(i, focus);
-      const yPx = yFrac * boardH - weight * (isMobile ? 2 : 7);
-
-      const isStepRunning = activeIdx === i;
-      const isStepDone = activeIdx >= 0 && i < activeIdx;
-      // During the cinematic sweep, focus moves continuously, not on status flips.
-      const nodeScale = focus
-        ? 1.0 - morphDip + weight * (isMobile ? 0.055 : 0.16)
-        : isStepRunning ? 1.07 : 1.0 - morphDip;
-      el.style.setProperty('--node-focus', weight.toFixed(4));
-      el.style.setProperty('--node-context', ((focus?.amount || 0) * (1 - weight)).toFixed(4));
-
-      el.style.transform = `translate3d(${xPx.toFixed(1)}px, ${yPx.toFixed(1)}px, 0) scale(${nodeScale.toFixed(3)})`;
+      const geometry={};
+      for(const profile of ['desktop','mobile']) {
+        const a=aNode[profile], b=bNode[profile];
+        let x=lerp(a.x,b.x,t), y=lerp(a.y,b.y,t);
+        if(snapshot){x=lerp(snapshot.nodes[i][profile].x,x,handoffMix);y=lerp(snapshot.nodes[i][profile].y,y,handoffMix);}
+        geometry[profile]={x,y};
+      }
+      const coords=geometry[isMobile?'mobile':'desktop'];
+      let weight=executionNodeWeight(i,focus),context=(focus?.amount||0)*(1-weight);
+      const isStepRunning=activeIdx===i, isStepDone=activeIdx>=0&&i<activeIdx;
+      let nodeScale=focus?1-morphDip+weight*(isMobile?.055:.16):isStepRunning?1.07:1-morphDip;
+      if(snapshot){weight=lerp(snapshot.nodes[i].weight,weight,handoffMix);context=lerp(snapshot.nodes[i].context,context,handoffMix);nodeScale=lerp(snapshot.nodes[i].scale,nodeScale,handoffMix);}
+      const xPx=Number((coords.x*boardW).toFixed(1));
+      const yPx=Number((coords.y*boardH-weight*(isMobile?2:7)).toFixed(1));
+      nodeScale=Number(nodeScale.toFixed(3));
+      layout.push({...geometry,scale:nodeScale,weight,context});
+      el.style.setProperty('--node-focus',weight.toFixed(4));
+      el.style.setProperty('--node-context',context.toFixed(4));
+      el.style.transform=`translate3d(${xPx}px, ${yPx}px, 0) scale(${nodeScale})`;
       el.classList.toggle('is-done', isStepDone);
       el.classList.toggle('is-running', isStepRunning);
 
@@ -704,17 +710,22 @@ export class WorkflowController {
       const dxOffset = (baseW - scaledW) * 0.5;
       const dyOffset = (baseH - scaledH) * 0.5;
 
-      boxes.push({
-        x: xPx + dxOffset,
-        y: yPx + dyOffset,
-        w: scaledW,
-        h: scaledH,
-      });
+      // Port offsets are layout-space values (unaffected by the ancestor 3D rig).
+      // Apply exactly the same center-origin scale and rounded translation as CSS.
+      const portCenter=selector=>{
+        const port=el.querySelector(selector);
+        if(!port)return null;
+        return {x:xPx+baseW/2+(el.clientLeft+port.offsetLeft+port.offsetWidth/2-baseW/2)*nodeScale,
+          y:yPx+baseH/2+(el.clientTop+port.offsetTop+port.offsetHeight/2-baseH/2)*nodeScale};
+      };
+      const input=portCenter('.wf-port-in'),output=portCenter('.wf-port-out');
+      boxes.push({x:xPx+dxOffset,y:yPx+dyOffset,w:scaledW,h:scaledH,
+        inX:input?.x,inY:input?.y,outX:output?.x,outY:output?.y});
     }
 
     // Update execution trace caption & bar if running Scene 03
     if (execStep >= 0 || this.manualExecutionStep >= 0) {
-      const idx = Math.max(0, activeIdx);
+      const idx = Math.min(5, Math.max(0, activeIdx));
       if (this.manualExecutionStep < 0 && this.selectedNodeIndex !== idx) {
         this.selectNode(idx);
       }
@@ -733,60 +744,34 @@ export class WorkflowController {
       this.traceFill.style.transform = 'scaleX(0.14)';
     }
 
-    // Smoothly retract and extend branching edges mid-transition so restructuring feels alive
-    const transitionDraw = t > 0 && t < 1 ? 1 - Math.sin(t * Math.PI) * 0.45 : 1;
-    const effectiveDraw = Math.min(edgeDraw, transitionDraw);
-
-    // Synchronize connectors with the EXACT same computed node boxes in the same frame!
-    this.connectors.setEdges(displaySc.edges, false);
-    this.connectors.updateFromBoxes(boxes, {
-      drawProgress: effectiveDraw,
-      activeNodeIdx: activeIdx,
-      isMobile,
-      boardW,
-      boardH,
-    });
+    // Common paths remain intact; only new/retiring edges change weight.
+    let edges=blendEdges(fromSc.edges,toSc.edges,t);
+    if(snapshot)edges=blendEdges(snapshot.edges,edges,handoffMix);
+    this.graphSnapshot={scenarioId:displaySc.id,nodes:layout,edges};
+    this.connectors.setEdges(edges);
+    this.connectors.updateFromBoxes(boxes,{drawProgress:edgeDraw,activeNodeIdx:activeIdx,isMobile,boardW,boardH});
   }
 
-  /**
-   * Smoothly animates between scenarios when triggered by manual clicks (tabs or sandbox)
-   * using the exact same shared geometry & connector pipeline.
-   */
-  transitionToScenario(targetId, immediate = false) {
-    const nextId = SCENARIOS[targetId] ? targetId : 'inbound';
-    if (this.tweenRaf) {
-      cancelAnimationFrame(this.tweenRaf);
-      this.tweenRaf = null;
-    }
+  cancelManualWork() {
+    if(this.tweenRaf!==null)cancelAnimationFrame(this.tweenRaf);
+    if(this.manualStepTimer!==null)clearInterval(this.manualStepTimer);
+    this.tweenRaf=null;this.manualStepTimer=null;this.manualExecutionStep=-1;this.manualRunOwned=false;
+  }
 
-    if (immediate) {
-      this.tweenFromId = nextId;
-      this.tweenToId = nextId;
-      this.tweenProgress = 1;
-      this.renderGraphBlend(nextId, nextId, 1, -1, 1);
-      return;
-    }
-
-    this.tweenFromId = this.activeScenarioId;
-    this.tweenToId = nextId;
-    if (this.tweenFromId === this.tweenToId) {
-      this.renderGraphBlend(nextId, nextId, 1, -1, 1);
-      return;
-    }
-
-    const start = performance.now();
-    const dur = 420;
-    const step = (now) => {
-      const t = Math.min(1, (now - start) / dur);
-      this.tweenProgress = t;
-      this.renderGraphBlend(this.tweenFromId, this.tweenToId, t, -1, 1);
-      if (t < 1) {
-        this.tweenRaf = requestAnimationFrame(step);
-      } else {
-        this.tweenRaf = null;
-      }
+  // Start from the actual visible interpolated geometry, not the nearest label.
+  transitionToScenario(targetId, immediate=false) {
+    const nextId=SCENARIOS[targetId]?targetId:'inbound';
+    const snapshot=this.graphSnapshot;
+    this.cancelManualWork();
+    this.tweenToId=nextId;
+    if(immediate||!snapshot){this.renderGraphBlend(nextId,nextId,1);return;}
+    const start=performance.now();
+    const step=now=>{
+      const t=Math.max(0,Math.min(1,(now-start)/420));
+      this.renderGraphBlend(nextId,nextId,1,-1,1,null,{snapshot,amount:t});
+      this.tweenRaf=t<1?requestAnimationFrame(step):null;
     };
-    this.tweenRaf = requestAnimationFrame(step);
+    this.tweenRaf=requestAnimationFrame(step);
   }
 
   selectNode(index) {
@@ -821,29 +806,19 @@ export class WorkflowController {
   }
 
   playManualTestRun() {
-    if (this.manualStepTimer) {
-      clearInterval(this.manualStepTimer);
-      this.manualStepTimer = null;
-    }
-    this.manualExecutionStep = 0;
-    this.selectNode(0);
-    this.renderGraphBlend(this.activeScenarioId, this.activeScenarioId, 1, 0, 1);
-
-    let step = 0;
-    this.manualStepTimer = setInterval(() => {
-      step += 1;
-      if (step > 5) {
-        clearInterval(this.manualStepTimer);
-        this.manualStepTimer = null;
-        this.manualExecutionStep = -1;
-        this.renderGraphBlend(this.activeScenarioId, this.activeScenarioId, 1, 5.8, 1);
-        if (this.stampEl) this.stampEl.textContent = 'Last run just now';
-        return;
-      }
-      this.manualExecutionStep = step;
-      this.selectNode(step);
-      this.renderGraphBlend(this.activeScenarioId, this.activeScenarioId, 1, step, 1);
-    }, 340);
+    // Running a test is an explicit manual graph owner until scrolling resumes.
+    const id=this.tweenRaf!==null?this.tweenToId:this.activeScenarioId;
+    this.cancelManualWork();this.manualRunOwned=true;this.manualExecutionStep=0;
+    this.selectNode(0);this.renderGraphBlend(id,id,1,0,1);this.selectNode(0);
+    let step=0;
+    this.manualStepTimer=setInterval(()=>{
+      step+=1;
+      this.manualExecutionStep=step;
+      this.selectNode(Math.min(5,step));
+      this.renderGraphBlend(id,id,1,step,1);
+      if(step>=6){clearInterval(this.manualStepTimer);this.manualStepTimer=null;
+        if(this.stampEl)this.stampEl.textContent='Last run just now';}
+    },340);
   }
 
   renderMonitorRun(runId) {

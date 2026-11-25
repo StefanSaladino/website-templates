@@ -5,10 +5,10 @@
  * scenario tabs, and interactive workspace sandbox mode.
  */
 
-import { ConnectorEngine } from './connectors.js?v=3';
-import { WorkflowController } from './workflow.js?v=3';
-import { MotionController } from './motion.js?v=3';
-import { SCENE_ANCHORS } from './scenes.js?v=3';
+import { ConnectorEngine } from './connectors.js?v=4';
+import { WorkflowController } from './workflow.js?v=4';
+import { MotionController } from './motion.js?v=4';
+import { SCENE_ANCHORS } from './scenes.js?v=4';
 
 function initApp() {
   const shellEl = document.getElementById('relay-shell');
@@ -189,7 +189,7 @@ function initApp() {
   document.querySelectorAll('[data-sandbox-scenario]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const scenarioId = btn.dataset.sandboxScenario;
-      if (scenarioId) workflow.transitionToScenario(scenarioId, false);
+      if (scenarioId) motion.setManualScenario(scenarioId);
     });
   });
 }
