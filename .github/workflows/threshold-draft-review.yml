@@ -9,7 +9,7 @@ on:
 permissions:
   contents: read
 jobs:
-  scaffold:
+  foundation:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -23,7 +23,7 @@ jobs:
         working-directory: components
       - run: npx playwright install --with-deps chromium
         working-directory: components
-      - name: Check static draft route
+      - name: Check draft route and WebGL foundation
         working-directory: components
         run: |
           python3 -m http.server 4381 --bind 127.0.0.1 --directory .. >/tmp/threshold-server.log 2>&1 &
@@ -36,11 +36,14 @@ jobs:
           node --input-type=module <<'JS'
           import assert from 'node:assert/strict';
           import {chromium} from 'playwright';
+          import sharp from 'sharp';
+          import {mkdirSync,writeFileSync} from 'node:fs';
+          mkdirSync('/tmp/threshold-evidence',{recursive:true});
           const url='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
-          const browser=await chromium.launch();
+          const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
           try {
             for(const [width,height] of [[320,568],[390,844],[768,1024],[1024,768],[1440,900],[1920,1080],[844,390]]) {
-              const page=await browser.newPage({viewport:{width,height}});
+              const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:width<=390?3:2});
               const errors=[], failures=[];
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
@@ -54,6 +57,43 @@ jobs:
               assert(await page.locator('.skip-link').evaluate(el=>el===document.activeElement));
               await page.keyboard.press('Enter');
               assert(await page.locator('#main').evaluate(el=>el===document.activeElement));
+              const stage=page.locator('#scene-study'),canvas=page.locator('#scene-canvas');
+              await stage.scrollIntoViewIfNeeded();
+              await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
+              const [bw,bh]=(await stage.getAttribute('data-buffer')).split('x').map(Number);
+              assert(bw*bh<=1500000);assert.equal(await stage.getAttribute('data-triangles'),'26');
+              const image=await canvas.screenshot({path:'/tmp/threshold-evidence/study-'+width+'x'+height+'.png'});
+              const {data,info}=await sharp(image).removeAlpha().raw().toBuffer({resolveWithObject:true});
+              let red=0,neutral=0;
+              for(let i=0;i<data.length;i+=info.channels){const [r,g,b]=[data[i],data[i+1],data[i+2]];if(r>90&&r>1.6*g&&r>1.8*b)red++;if(g>105&&Math.abs(r-g)<25&&Math.abs(b-g)<25)neutral++}
+              assert(red>100&&neutral>100,'visible diagnostic meshes');
+              await page.waitForTimeout(150);
+              const before=await stage.getAttribute('data-frames');
+              await page.waitForTimeout(300);
+              assert.equal(await stage.getAttribute('data-frames'),before,'idle frame loop');
+              if(width===390){
+                await page.setViewportSize({width:430,height:932});
+                await page.waitForFunction(n=>Number(document.querySelector('#scene-study').dataset.frames)>n,Number(before));
+                await page.emulateMedia({reducedMotion:'reduce'});
+                await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='reduced-motion');
+                assert(await page.locator('.scene-fallback').isVisible());
+                await page.emulateMedia({reducedMotion:'no-preference'});
+                await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
+                // Move the surface fully below viewport, then verify no resize draw while offscreen.
+                await page.evaluate(()=>{const el=document.querySelector('#scene-study');el.style.marginTop='250vh';window.scrollTo(0,0)});
+                await page.waitForTimeout(250);
+                const off=await stage.getAttribute('data-frames');
+                await page.setViewportSize({width:420,height:930});
+                await page.waitForTimeout(250);assert.equal(await stage.getAttribute('data-frames'),off);
+                await stage.scrollIntoViewIfNeeded();
+                await page.waitForFunction(n=>Number(document.querySelector('#scene-study').dataset.frames)>n,Number(off));
+                const supported=await canvas.evaluate(el=>{const ext=el.getContext('webgl2').getExtension('WEBGL_lose_context');if(!ext)return false;window.__thresholdLoss=ext;ext.loseContext();return true});
+                assert(supported,'context-loss extension required for CI');
+                await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='context-lost');
+                assert(await page.locator('.scene-fallback').isVisible());
+                await page.evaluate(()=>window.__thresholdLoss.restoreContext());
+                await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
+              }
               assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
               await page.close();
             }
@@ -61,9 +101,22 @@ jobs:
               const page=await browser.newPage({viewport:{width:390,height:844},...opts});
               assert((await page.goto(url)).ok());
               assert(await page.locator('h1').isVisible());
-              assert.equal(await page.locator('canvas').count(),0);
+              assert(await page.locator('#scene-canvas').isHidden());
+              assert(await page.locator('.scene-fallback').isVisible());
               await page.close();
             }
-            console.log('PASS: seven viewport and two static/preference checks');
+            const unavailable=await browser.newPage({viewport:{width:390,height:844}});
+            await unavailable.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl2'?null:original.call(this,type,...args)}});
+            await unavailable.goto(url);
+            await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
+            await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
+            assert(await unavailable.locator('.scene-fallback').isVisible());await unavailable.close();
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T04',viewports:7,pixelChecks:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: threshold-foundation-evidence
+          path: /tmp/threshold-evidence/

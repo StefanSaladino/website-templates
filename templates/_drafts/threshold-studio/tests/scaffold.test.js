@@ -16,8 +16,9 @@ test('release and local assets agree', () => {
     assert.ok(existsSync(new URL(path, root)));
   }
   assert.equal([...html.matchAll(/(?:href|src)="(?:styles|src)\//g)].length, 3);
-  assert.match(read('src/main.js'), /config\.js\?v=T03/);
-  assert.doesNotMatch(html, /<canvas\b|(?:src|href)="https?:\/\//i);
+  assert.match(read('src/main.js'), /config\.js\?v=T04/);
+  assert.match(html, /<canvas[^>]+hidden/);
+  assert.doesNotMatch(html, /(?:src|href)="https?:\/\//i);
 });
 test('storyboard forward depth converts to world Z', () => {
   assert.deepEqual(worldPoint(-2.4, 2.4, -12), [-2.4, 2.4, 12]);

@@ -1,5 +1,5 @@
 # THRESHOLD — isolated draft
-T03 / semantic scaffold only. Not a registered template or finished opening.
+T04 / diagnostic 3D foundation only. Not a registered template or finished opening.
 Design specification: [THRESHOLD roadmap](../../../docs/THRESHOLD-STUDIO-ROADMAP.md).
 Baseline: bae30bc87bb96c64b7dacce3d67d1d057fc00b83.
 
@@ -18,3 +18,6 @@ T04 will add renderer/camera/lifecycle modules with basic test geometry and a st
 
 ## T03 evidence
 Local Node v22.16.0: two scaffold tests passed; main syntax check passed. Local Chromium refused loopback URL with ERR_BLOCKED_BY_ADMINISTRATOR, not a site failure. Dedicated browser workflow checks actual static route, assets, keyboard skip, six target sizes plus landscape, reduced motion and JS-disabled static content. CI result and Pages deployment are separate pending checks at commit time; no visual or GPU claim. No changes to other templates, gallery, configurator or shared package files.
+
+## T03 verified / T04 implementation
+T03 exact browser 45685800817 and Pages 45685799566 passed. T04 adds camera, geometry, lifecycle and renderer ES modules; one WebGL2 canvas, 26 diagnostic triangles, depth test, single draw submission, 1.5M pixel / 1.75 DPR / device-limit bounds. Static SVG stays available until successful draw; reduced motion, no JS, no graphics and context loss use the fallback. Demand-driven invalidation only, visibility/offscreen suspension, pagehide cleanup and persisted-page resume. Context restoration rebuilds GPU objects. No final portal, reflection, lighting, animation or scroll path. Temporary in-flow diagnostic layout is not the final art direction. Five Node tests and dedicated browser pixel, resize, idle, preference, offscreen and context-loss/restoration checks are queued for exact revision; no new runtime verification claimed before CI. T05 after T04 evidence review.

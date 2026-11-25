@@ -849,3 +849,6 @@ Authored a shared-world architectural cut, fixed room adjacency, 6×7.2 outer po
 
 ## THRESHOLD — T03 isolated scaffold
 Native WebGL2 and native scrolling selected; no new dependencies. Semantic static draft at `templates/_drafts/threshold-studio/`, local versioned modules/styles, coordinate conversion and two passing local Node tests. Local browser loopback blocked; dedicated scoped browser workflow added, exact revision verification pending. No gallery/configurator/shared runtime changes. Next verify T03 browser gate, then T04 basic renderer lifecycle; no opening artwork yet.
+
+## THRESHOLD — T04 rendering foundation
+T03 browser 45685800817 and Pages 45685799566 passed. T04 adds persistent WebGL2, perspective matrices, 26-triangle diagnostic scene, static fallback, bounded framebuffer and demand-driven lifecycle with recovery. Extended scoped tests and visual captures; exact revision results pending. No final opening artwork or motion; next T05 after T04 verification. No catalogue/shared code change.

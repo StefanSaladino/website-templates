@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01 and T02 complete; T03 scaffold implemented, browser gate pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01–T03 verified; T04 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -41,7 +41,7 @@ Only proceed when preceding evidence is reviewed and blockers resolved. A failed
 ### Phase 1 — Foundation (T01–T04)
 - [x] T01 — Repository orientation, roadmap, baseline SHA. Documentation only; confirmed 40/35 membership from registry. Completion requires committed roadmap and main index entry.
 - [x] T02 — Author creative direction, spatial storyboard and architectural proportions. Define world axes, rooms, opening sightline, camera key poses, desktop/portrait framing and text safe zones; document reference sketches/targets, no renderer.
-- [ ] T03 — Isolated draft scaffold and stack decision. Justify native WebGL vs pinned local Three.js, native scroll vs GSAP; establish module graph/static Pages compatibility, dependency provenance and initial semantic shell. No elaborate visuals.
+- [x] T03 — Isolated draft scaffold and stack decision. Justify native WebGL vs pinned local Three.js, native scroll vs GSAP; establish module graph/static Pages compatibility, dependency provenance and initial semantic shell. No elaborate visuals.
 - [ ] T04 — Persistent 3D scene, camera and render lifecycle. Basic geometry only; verify actual rendering/fallback, bounded buffer, resize, visibility and no duplicate scheduling.
 Gate: clean extensible foundation; no elaborate visual or choreography work.
 
@@ -232,3 +232,6 @@ Select local, pinned rendering stack based on actual requirements: simple opaque
 
 ## T03 — Native rendering stack and isolated shell
 Input baseline `bae30bc87bb96c64b7dacce3d67d1d057fc00b83`. Choose native WebGL2/GLSL, modular ES source and native scroll/RAF when implemented; no Three.js, GSAP or other runtime dependency. Fixed architectural geometry and bounded reflections favor explicit renderer control; native deterministic progress avoids multiple clocks. The existing static postbuild copies all templates; no shared build change. Created isolated draft semantic shell, base/shell styles, release and coordinate helper, bootstrap and dependency-free tests. System font is temporary; no canvas, renderer, lighting or scroll motion yet. Two local Node tests and entry syntax check passed; local Chromium loopback blocked by administrator, so dedicated real-route GitHub browser workflow added; its result and Pages deployment pending at commit time. T03 implementation recorded; verify exact-revision browser gate before T04. See draft README. No gallery or builder registration.
+
+## T04 — Persistent rendering foundation
+T03 commit 4475f4e6615c00bf7176df419f110e4cd41b6e16 passed dedicated browser run 45685800817 and Pages run 45685799566. T04 introduces one persistent WebGL2 canvas, static fallback, perspective camera matrices, diagnostic 26-triangle mesh, depth testing, coalesced demand-driven scheduling, bounded framebuffer (1.5M pixels, DPR <=1.75 and hardware limits), visibility/offscreen suspension, resource disposal and context restoration. No final portal, materials, reflections, scroll or animation. Temporary neutral study camera and in-flow test surface are not opening compositions. Extended pure tests and dedicated real-route browser checks for visible pixels, seven sizes, resize, idle, offscreen, reduced motion, disabled graphics/JS and actual context loss/recovery; actual results pending. T04 remains unchecked until exact revision verification. Next T05 only after review. No shared runtime, catalogue or dependencies changed.
