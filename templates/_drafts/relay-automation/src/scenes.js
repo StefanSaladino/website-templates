@@ -65,7 +65,7 @@ const MOBILE_KEYS = [
 // Short sequential fades: only one narrative can occupy a shared text region.
 // At the exact handoff the persistent product is intentionally the sole subject.
 const COPY_HANDOFFS = [0.112, 0.223, 0.458, 0.668, 0.854];
-const COPY_HALF_WINDOW = 0.007;
+const COPY_HALF_WINDOW = 0.014;
 
 export function evaluateNarrative(progress) {
   const p = clamp01(progress);

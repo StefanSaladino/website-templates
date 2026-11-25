@@ -98,8 +98,7 @@ export class ConnectorEngine {
       if(entry.weight<=0||entry.visibleLength<=0)return;
       const active=this.activeNodeIdx<0||(entry.edge.primary&&entry.edge.to<=Math.max(1,this.activeNodeIdx+1));
       entry.signal.style.opacity=!active&&entry.edge.dashed?'0.2':entry.edge.primary?'0.96':'0.42';
-      const speed=this.activeNodeIdx>=0?.65:.40;
-      const t=(this.signalPhase*speed+idx*.21)%1;
+      const t=(this.signalPhase+idx*.21)%1;
       const pt=entry.basePath.getPointAtLength(t*entry.visibleLength);
       entry.signal.setAttribute('cx',pt.x.toFixed(2));entry.signal.setAttribute('cy',pt.y.toFixed(2));
     });
@@ -108,7 +107,7 @@ export class ConnectorEngine {
     const shouldRun=!this.reducedMotion&&!this.isAmbientPaused&&this.edgePaths.some(e=>e.weight>0);
     if(shouldRun&&this.rafId===null){
       this.lastTime=performance.now();
-      const tick=now=>{this.rafId=null;const dt=Math.min(.05,(now-this.lastTime)/1000);this.lastTime=now;this.signalPhase+=dt;this._updateSignals();
+      const tick=now=>{this.rafId=null;const dt=Math.min(.05,(now-this.lastTime)/1000);this.lastTime=now;this.signalPhase+=dt*(this.activeNodeIdx>=0?.65:.40);this._updateSignals();
         if(!this.reducedMotion&&!this.isAmbientPaused)this.rafId=requestAnimationFrame(tick);};
       this.rafId=requestAnimationFrame(tick);
     }else if(!shouldRun&&this.rafId!==null){cancelAnimationFrame(this.rafId);this.rafId=null;}

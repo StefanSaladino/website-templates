@@ -6,7 +6,7 @@
  * on inactive chapters, and restores static accessibility under reduced motion.
  */
 
-import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=5';
+import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=6';
 
 const DARK_PAGE = [18, 20, 18]; // #121412
 const LIGHT_PAGE = [239, 236, 228]; // #EFECE4
@@ -64,6 +64,12 @@ export class MotionController {
     this.scrollHandoff=null;
     this.lastProgress=null;
     this.sandboxOpen = false;
+    this.sandboxModule='workflows';
+    this.workflow.onModuleChange=module=>{
+      if(module!=='workflows'&&module!=='activity')return;
+      if(this.sandboxOpen||this.reducedMotion)this.showSandboxModule(module);
+      else this.scrollToSceneIndex(module==='activity'?4:2);
+    };
     this.reducedMotion = false;
     this.isOffscreen = false;
     this.pendingRaf = null;
@@ -187,9 +193,17 @@ export class MotionController {
     this.workflow.transitionToScenario(scenarioId,this.reducedMotion);
   }
 
+  showSandboxModule(module) {
+    this.sandboxModule=module;
+    this.workflow.setSidebarModule(module);
+    if(this.reducedMotion&&!this.sandboxOpen)return;
+    this.updateNow();
+  }
+
   setSandboxMode(active) {
     this.workflow.cancelManualWork();this.manualScenario=null;this.scrollHandoff=null;
     this.sandboxOpen=Boolean(active);
+    this.sandboxModule='workflows';this.lastSidebarMode=null;this.workflow.setSidebarModule('workflows');
     this.root.classList.toggle('is-sandbox-open',this.sandboxOpen);
     this.updateNow();
   }
@@ -247,7 +261,7 @@ export class MotionController {
   }
 
   updateNow() {
-    if (this.reducedMotion) {
+    if (this.reducedMotion&&!this.sandboxOpen) {
       this._resetReducedStyles();
       if(this.workflow.manualRunOwned)this.workflow.renderGraphBlend(this.workflow.activeScenarioId,this.workflow.activeScenarioId,1,this.workflow.manualExecutionStep,1);
       else this.workflow.renderGraphBlend(this.workflow.activeScenarioId,this.workflow.activeScenarioId,1);
@@ -267,12 +281,12 @@ export class MotionController {
       ? {
           ...evaluateSceneState(0.365, isMobile),
           xPct: 0,
-          yPct: isMobile ? 2 : 3,
+          yPct: 0,
           scale: isMobile ? 0.99 : 0.96,
           rotX: 0,
           rotY: 0,
           sep: 0,
-          monitor: 0,
+          monitor: this.sandboxModule==='activity'?1:0,
           light: 0,
           edgeDraw: 1,
           execStep: -1,
@@ -325,6 +339,10 @@ export class MotionController {
     this.root.style.setProperty('--shell-surface', mixRgb(DARK_SHELL, LIGHT_SHELL, state.light));
     this.root.style.setProperty('--shell-elevated', mixRgb(DARK_ELEVATED, LIGHT_ELEVATED, state.light));
     this.root.style.setProperty('--shell-border', mixRgb(DARK_BORDER, LIGHT_BORDER, state.light));
+    // Local theme tokens override the old discrete light-theme CSS declarations.
+    for(const [name,dark,light] of [['--shell-elevated',DARK_ELEVATED,LIGHT_ELEVATED],['--shell-border',DARK_BORDER,LIGHT_BORDER]])this.shellEl?.style.setProperty(name,mixRgb(dark,light,state.light));
+    this.shellEl?.style.setProperty('--surface-light',state.light.toFixed(4));
+    for(const [name,dark,light] of [['--ok-color',[197,244,107],[27,107,58]],['--warn-color',[229,184,92],[154,88,4]],['--err-color',[239,123,107],[180,50,37]]])this.shellEl?.style.setProperty(name,mixRgb(dark,light,state.light));
 
     if (this.shellEl) {
       this.shellEl.setAttribute('data-theme-surface', state.light > 0.5 ? 'light' : 'dark');
@@ -357,7 +375,7 @@ export class MotionController {
       monitorPanel.setAttribute('aria-hidden', String(!interactive));
     }
     // 5. Switch active sidebar item coherently for Scene 05 monitoring
-    const desiredSidebar = state.monitor > 0.5 ? 'activity' : 'workflows';
+    const desiredSidebar = this.sandboxOpen?this.sandboxModule:state.monitor > 0.5 ? 'activity' : 'workflows';
     if (desiredSidebar !== this.lastSidebarMode) {
       this.lastSidebarMode = desiredSidebar;
       this.workflow.setSidebarModule(desiredSidebar);
@@ -413,7 +431,7 @@ export class MotionController {
       this.stageEl.style.removeProperty('--zoom-scrim');
       this.stageEl.style.removeProperty('--hero-split');
     }
-    if (this.shellEl) { this.shellEl.setAttribute('data-theme-surface', 'dark'); this.shellEl.style.removeProperty('--page-ink'); this.shellEl.style.removeProperty('--page-muted'); }
+    if (this.shellEl) { this.shellEl.style.removeProperty('--shell-elevated');this.shellEl.style.removeProperty('--shell-border');this.shellEl.style.removeProperty('--surface-light');for(const name of ['--ok-color','--warn-color','--err-color'])this.shellEl.style.removeProperty(name);this.shellEl.setAttribute('data-theme-surface', 'dark'); this.shellEl.style.removeProperty('--page-ink'); this.shellEl.style.removeProperty('--page-muted'); }
     if (this.rigEl) {
       this.rigEl.style.removeProperty('--rig-x');
       this.rigEl.style.removeProperty('--rig-y');

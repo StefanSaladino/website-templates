@@ -5,10 +5,10 @@
  * scenario tabs, and interactive workspace sandbox mode.
  */
 
-import { ConnectorEngine } from './connectors.js?v=5';
-import { WorkflowController } from './workflow.js?v=5';
-import { MotionController } from './motion.js?v=5';
-import { SCENE_ANCHORS } from './scenes.js?v=5';
+import { ConnectorEngine } from './connectors.js?v=6';
+import { WorkflowController } from './workflow.js?v=6';
+import { MotionController } from './motion.js?v=6';
+import { SCENE_ANCHORS } from './scenes.js?v=6';
 
 function initApp() {
   const shellEl = document.getElementById('relay-shell');
@@ -158,18 +158,24 @@ function initApp() {
   const sandboxRunBtn = document.getElementById('sandbox-run-btn');
   const sandboxCloseBtn = document.getElementById('sandbox-close-btn');
 
-  function openSandbox() {
+  let sandboxTrigger=null;let sandboxY=0;
+  function openSandbox(event) {
     closeMobileDrawer(false);
-    if (!sandboxBar) return;
+    if (!sandboxBar || motion.sandboxOpen) return;
+    sandboxTrigger=event?.currentTarget||document.activeElement; sandboxY=window.scrollY;
+    document.body.style.overflow='hidden';
     sandboxBar.hidden = false;
     motion.setSandboxMode(true);
     if (sandboxCloseBtn) sandboxCloseBtn.focus();
   }
 
   function closeSandbox() {
-    if (!sandboxBar) return;
+    if (!sandboxBar || !motion.sandboxOpen) return;
     sandboxBar.hidden = true;
     motion.setSandboxMode(false);
+    document.body.style.overflow='';
+    window.scrollTo({top:sandboxY,behavior:'instant'});
+    if(sandboxTrigger?.isConnected)sandboxTrigger.focus({preventScroll:true});
   }
 
   document.querySelectorAll('[data-action="open-sandbox"]').forEach((btn) => {
@@ -182,6 +188,7 @@ function initApp() {
 
   if (sandboxRunBtn) {
     sandboxRunBtn.addEventListener('click', () => {
+      motion.showSandboxModule('workflows');
       workflow.playManualTestRun();
     });
   }
@@ -189,7 +196,7 @@ function initApp() {
   document.querySelectorAll('[data-sandbox-scenario]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const scenarioId = btn.dataset.sandboxScenario;
-      if (scenarioId) motion.setManualScenario(scenarioId);
+      if (scenarioId) {motion.showSandboxModule('workflows');motion.setManualScenario(scenarioId);}
     });
   });
 }

@@ -5,8 +5,8 @@
  * unified execution monitoring & recovery.
  */
 
-import { executionNodeWeight } from './scenes.js?v=5';
-import { blendEdges } from './connectors.js?v=5';
+import { executionNodeWeight } from './scenes.js?v=6';
+import { blendEdges } from './connectors.js?v=6';
 
 export const SCENARIOS = {
   inbound: {
@@ -521,6 +521,8 @@ export class WorkflowController {
     this.targetScenarioId = 'inbound';
     this.selectedNodeIndex = 3;
     this.activeRunId = '4820';
+    this.runFilter = 'all';
+    this.onModuleChange = null;
     this.errorRecovered = false;
     this.manualExecutionStep = -1;
     this.manualStepTimer = null;
@@ -531,6 +533,7 @@ export class WorkflowController {
     this.tweenProgress = 1;
     this.tweenRaf = null;
     this.manualRunOwned = false;
+    this.runStatus=document.getElementById('sandbox-run-status');
     this.graphSnapshot = null;
     this.connectors.setEdgeCatalog(Object.values(SCENARIOS).flatMap(s => s.edges));
 
@@ -538,6 +541,8 @@ export class WorkflowController {
     this.renderGraphBlend('inbound', 'inbound', 1, -1, 1);
     this.selectNode(3);
     this.renderMonitorRun('4820');
+    this.applyRunFilter('all');
+    document.querySelector('[data-sandbox-scenario="inbound"]')?.setAttribute('aria-pressed','true');
   }
 
   _bindInteractions() {
@@ -549,7 +554,8 @@ export class WorkflowController {
 
     document.querySelectorAll('.ws-nav-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        this.setSidebarModule(btn.dataset.nav || 'workflows');
+        const module=btn.dataset.nav || 'workflows';
+        if(this.onModuleChange)this.onModuleChange(module);else this.setSidebarModule(module);
       });
     });
 
@@ -569,17 +575,7 @@ export class WorkflowController {
     const filterBtns = document.querySelectorAll('[data-run-filter]');
     filterBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach((b) => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        const filter = btn.dataset.runFilter || 'all';
-        runSelectBtns.forEach((item) => {
-          const kind = item.dataset.kind;
-          const visible =
-            filter === 'all' ||
-            (filter === 'error' && kind === 'error') ||
-            (filter === 'pending' && kind === 'pending');
-          item.hidden = !visible;
-        });
+        this.applyRunFilter(btn.dataset.runFilter || 'all');
       });
     });
 
@@ -587,6 +583,16 @@ export class WorkflowController {
     if (runBtn) {
       runBtn.addEventListener('click', () => this.playManualTestRun());
     }
+  }
+
+  applyRunFilter(filter) {
+    this.runFilter=filter;
+    document.querySelectorAll('[data-run-filter]').forEach(b=>{const active=b.dataset.runFilter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));});
+    const rows=[...document.querySelectorAll('[data-run-select]')];
+    for(const row of rows)row.hidden=filter!=='all'&&row.dataset.kind!==filter;
+    const visible=rows.filter(row=>!row.hidden);
+    if(visible.length&&!visible.some(row=>row.dataset.runSelect===this.activeRunId))this.renderMonitorRun(visible[0].dataset.runSelect);
+    if(!visible.length)this.applyRunFilter('all');
   }
 
   setSidebarModule(moduleName) {
@@ -615,6 +621,11 @@ export class WorkflowController {
     const handoffMix=handoff?smoothstep01(handoff.amount):1;
     const snapshot=handoff?.snapshot;
     const displaySc = snapshot && handoffMix < .5 ? SCENARIOS[snapshot.scenarioId] : t >= .5 ? toSc : fromSc;
+    // Fade only changing labels at the metadata handoff, never the persistent nodes.
+    const metaProgress=snapshot?handoffMix:t;
+    const morphing=snapshot?snapshot.scenarioId!==toSc.id:fromSc.id!==toSc.id;
+    const labelAlpha=morphing?smoothstep01(Math.abs(metaProgress-.5)/.19):1;
+    this.rootEl?.style.setProperty('--label-alpha',labelAlpha.toFixed(4));
     const changedDisplay = this.activeScenarioId !== displaySc.id;
     this.activeScenarioId = displaySc.id;
 
@@ -632,7 +643,7 @@ export class WorkflowController {
         btn.setAttribute('aria-selected', match ? 'true' : 'false');
       });
       document.querySelectorAll('[data-sandbox-scenario]').forEach((btn) => {
-        btn.classList.toggle('is-active', btn.dataset.sandboxScenario === displaySc.id);
+        const active=btn.dataset.sandboxScenario===displaySc.id;btn.classList.toggle('is-active',active);btn.setAttribute('aria-pressed',String(active));
       });
 
       this.selectNode(this.selectedNodeIndex);
@@ -663,8 +674,10 @@ export class WorkflowController {
         // Stable portrait lanes avoid physical node collisions while the SVG
         // topology changes. Desktop retains the original spatial morphs.
         const portraitSlot = {x:[.03,.52,.52,.03,.03,.52][i],y:[.04,.04,.36,.36,.68,.68][i]};
-        const a=profile==='mobile'?portraitSlot:aNode[profile];
-        const b=profile==='mobile'?portraitSlot:bNode[profile];
+        const desktopSlot={x:[.02,.275,.535,.275,.535,.775][i],y:[.12,.12,.12,.62,.62,.37][i]};
+        const lane=node=>({x:desktopSlot.x,y:desktopSlot.y+Math.max(-.045,Math.min(.045,(node.desktop.y-desktopSlot.y)*.18))});
+        const a=profile==='mobile'?portraitSlot:lane(aNode);
+        const b=profile==='mobile'?portraitSlot:lane(bNode);
         let x=lerp(a.x,b.x,t), y=lerp(a.y,b.y,t);
         if(snapshot){x=lerp(snapshot.nodes[i][profile].x,x,handoffMix);y=lerp(snapshot.nodes[i][profile].y,y,handoffMix);}
         geometry[profile]={x,y};
@@ -760,6 +773,7 @@ export class WorkflowController {
     if(this.tweenRaf!==null)cancelAnimationFrame(this.tweenRaf);
     if(this.manualStepTimer!==null)clearInterval(this.manualStepTimer);
     this.tweenRaf=null;this.manualStepTimer=null;this.manualExecutionStep=-1;this.manualRunOwned=false;
+    if(this.runStatus)this.runStatus.textContent='Ready to simulate';
   }
 
   // Start from the actual visible interpolated geometry, not the nearest label.
@@ -786,6 +800,7 @@ export class WorkflowController {
 
     this.nodeEls.forEach((el, i) => {
       el.classList.toggle('is-selected', i === clamped);
+      el.setAttribute('aria-pressed',String(i===clamped));
     });
 
     if (this.inspStepNum) {
@@ -814,10 +829,12 @@ export class WorkflowController {
     const id=this.tweenRaf!==null?this.tweenToId:this.activeScenarioId;
     this.cancelManualWork();this.manualRunOwned=true;this.manualExecutionStep=0;
     this.selectNode(0);this.renderGraphBlend(id,id,1,0,1);this.selectNode(0);
+    if(this.runStatus)this.runStatus.textContent='Running step 1 of 6';
     let step=0;
     this.manualStepTimer=setInterval(()=>{
       step+=1;
       this.manualExecutionStep=step;
+      if(this.runStatus)this.runStatus.textContent=step>=6?'Simulation complete · 6 of 6 passed':`Running step ${step+1} of 6`;
       this.selectNode(Math.min(5,step));
       this.renderGraphBlend(id,id,1,step,1);
       if(step>=6){clearInterval(this.manualStepTimer);this.manualStepTimer=null;
@@ -830,7 +847,7 @@ export class WorkflowController {
     const data = MONITOR_RUNS[runId] || MONITOR_RUNS['4820'];
 
     document.querySelectorAll('[data-run-select]').forEach((btn) => {
-      btn.classList.toggle('is-selected', btn.dataset.runSelect === runId);
+      const active=btn.dataset.runSelect===runId;btn.classList.toggle('is-selected',active);btn.setAttribute('aria-pressed',String(active));
     });
 
     if (this.monitorTitle) this.monitorTitle.textContent = data.title;
@@ -914,6 +931,12 @@ export class WorkflowController {
         ? 'Step 5 replayed cleanly · HTTP 201 · 14:11:32 UTC'
         : 'Step 5 failed · HTTP 429 rate limit · 14:11:19 UTC';
     }
+    const row=document.querySelector('[data-run-select="4820"]');
+    if(row)row.dataset.kind=this.errorRecovered?'ok':'error';
+    const compact=document.querySelector('[data-run-id="4820"]');
+    if(compact){const outcome=compact.querySelector('.run-outcome');outcome.textContent=this.errorRecovered?'Recovered':'Error · 429';outcome.classList.toggle('run-ok',this.errorRecovered);outcome.classList.toggle('run-err',!this.errorRecovered);compact.querySelector('.run-dur').textContent=this.errorRecovered?'6 steps passed':'Step 5 paused';}
+    const summary=document.getElementById('history-summary-stat');if(summary)summary.textContent=this.errorRecovered?'3 recent runs · 0 unresolved exceptions':'3 recent runs · 1 recoverable exception';
     this.renderMonitorRun('4820');
+    if(this.runFilter==='error'&&this.errorRecovered)this.applyRunFilter('all');
   }
 }

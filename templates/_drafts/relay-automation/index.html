@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-relay-release="R5">
+<html lang="en" data-relay-release="R6">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,7 +22,7 @@
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
   />
-  <link rel="stylesheet" href="./styles.css?v=5" />
+  <link rel="stylesheet" href="./styles.css?v=6" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -139,7 +139,7 @@
 
                 <ul class="ws-nav-list" role="tablist" aria-label="Product modules">
                   <li>
-                    <button type="button" class="ws-nav-btn" data-nav="overview" role="tab" aria-selected="false">
+                    <button type="button" class="ws-nav-btn" data-nav="overview" disabled title="Not included in this demonstration" role="tab" aria-selected="false">
                       <span class="ws-nav-glyph" aria-hidden="true"></span>
                       <span>Overview</span>
                     </button>
@@ -151,7 +151,7 @@
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="ws-nav-btn" data-nav="connections" role="tab" aria-selected="false">
+                    <button type="button" class="ws-nav-btn" data-nav="connections" disabled title="Not included in this demonstration" role="tab" aria-selected="false">
                       <span class="ws-nav-glyph" aria-hidden="true"></span>
                       <span>Connections</span>
                     </button>
@@ -163,7 +163,7 @@
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="ws-nav-btn" data-nav="settings" role="tab" aria-selected="false">
+                    <button type="button" class="ws-nav-btn" data-nav="settings" disabled title="Not included in this demonstration" role="tab" aria-selected="false">
                       <span class="ws-nav-glyph" aria-hidden="true"></span>
                       <span>Settings</span>
                     </button>
@@ -356,14 +356,14 @@
                     </div>
                     <div class="run-pill-row" data-run-id="4821">
                       <span class="run-id">#4821</span>
-                      <span class="run-name">Enterprise approval routing</span>
+                      <span class="run-name">Commercial discount approval</span>
                       <span class="run-outcome run-warn">Pending approval</span>
                       <span class="run-dur">Step 3 of 5</span>
                       <span class="run-time">14:18:40</span>
                     </div>
                     <div class="run-pill-row" data-run-id="4820">
                       <span class="run-id">#4820</span>
-                      <span class="run-name">Client onboarding handoff</span>
+                      <span class="run-name">Inbound lead qualification</span>
                       <span class="run-outcome run-err">Error · 429</span>
                       <span class="run-dur">Step 5 paused</span>
                       <span class="run-time">14:11:19</span>
@@ -628,7 +628,7 @@
       <div class="sandbox-bar-inner">
         <div class="sandbox-bar-info">
           <span class="sandbox-title">Interactive workspace sandbox</span>
-          <span class="sandbox-hint">Select any node, switch workflows, or trigger a live test run.</span>
+          <span class="sandbox-hint" id="sandbox-run-status" role="status" aria-live="polite">Ready to simulate</span>
         </div>
         <div class="sandbox-bar-actions">
           <button type="button" class="sandbox-chip" data-sandbox-scenario="inbound">Inbound lead</button>
@@ -667,6 +667,6 @@
     </div>
   </footer>
 
-  <script type="module" src="./src/main.js?v=5"></script>
+  <script type="module" src="./src/main.js?v=6"></script>
 </body>
 </html>

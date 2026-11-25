@@ -2529,3 +2529,40 @@ html.has-motion:not(.is-reduced-motion) .ws-monitor-panel:not([inert]) { pointer
  html.has-motion:not(.is-reduced-motion) .ws-inspector { padding:10px 8px; }
  html.has-motion:not(.is-reduced-motion) .ws-org { gap:5px; padding-inline:2px; }
 }
+
+/* R6: scroll owns visual properties; remove delayed CSS interpolation. */
+html.has-motion :is(.relay-shell,.wf-node,.ws-nav-btn,.ws-run-btn,.connector-path,.connector-path-active,.history-tab,.monitor-run-item) { transition:none; }
+html.has-motion:not(.is-reduced-motion) .relay-shell :is(.ws-sidebar,.ws-inspector) { background:color-mix(in srgb,var(--shell-surface) calc(94% - var(--surface-light,0)*8%),var(--shell-elevated)); }
+.ws-nav-btn:disabled { cursor:default; opacity:.52; }
+.monitor-run-item[hidden] { display:none!important; }
+/* Sandbox controls are only shown by explicit request, above the product. */
+html.is-sandbox-open .stage-sticky { position:fixed!important; inset:0; height:100dvh!important; padding:0!important; z-index:85; background:var(--page-bg); }
+html.is-sandbox-open .stage-viewport { display:flex!important; align-items:center!important; justify-content:center!important; max-width:none!important; width:100%; height:100%; padding:clamp(140px,23dvh,220px) 12px 12px!important; }
+html.is-sandbox-open .workspace-rig { position:relative!important; top:auto!important; width:min(1040px,96vw); margin:0!important; }
+html.is-sandbox-open .scenes-track { display:none!important; }
+html.is-sandbox-open .relay-shell { height:min(560px,64dvh); }
+html.is-sandbox-open .sandbox-bar { top:calc(var(--header-h) + 8px); bottom:auto; backdrop-filter:none; background:var(--page-bg); box-shadow:none; z-index:95; }
+html.is-sandbox-open .ws-monitor-panel { display:flex; }
+html.is-sandbox-open .ws-monitor-panel[inert] { visibility:hidden; pointer-events:none; }
+html.is-sandbox-open .ws-monitor-panel:not([inert]) { visibility:visible; opacity:1; transform:none; clip-path:none; pointer-events:auto; }
+@media(max-width:1023px) {
+ html.is-sandbox-open .stage-viewport { padding:clamp(170px,30dvh,260px) 8px 8px!important; }
+ html.is-sandbox-open .relay-shell { height:min(500px,55dvh); }
+ html.is-sandbox-open .sandbox-bar { left:8px;right:8px;padding:8px; }
+ html.is-sandbox-open .sandbox-bar-inner { gap:7px; }
+ html.is-sandbox-open .sandbox-bar-actions { gap:4px; }
+ html.is-sandbox-open :is(.sandbox-chip,.sandbox-run,.sandbox-close) { min-height:32px; padding:0 7px; }
+}
+@media(max-width:374px),(max-height:660px) {
+ html.is-sandbox-open .stage-viewport { padding:180px 8px 6px!important; }
+ html.is-sandbox-open .relay-shell { height:min(352px,55dvh); }
+ html.is-sandbox-open .sandbox-title { font-size:11px; }
+}
+
+/* Keep signal hue and shell shadows continuous through the monitoring reveal. */
+html.has-motion:not(.is-reduced-motion) .relay-shell { box-shadow:0 42px 98px rgba(0,0,0,calc(.56 - var(--surface-light,0)*.42)), inset 0 1px 0 rgba(255,255,255,.06); }
+html.has-motion .relay-shell .connector-path-active { stroke:var(--ok-color); }
+html.has-motion .relay-shell .connector-signal { fill:var(--ok-color); }
+html.has-motion .relay-shell .ws-nav-btn.is-active .ws-nav-glyph { background:var(--ok-color);border-color:var(--ok-color); }
+html.has-motion .relay-shell :is(.wf-node-kind,.wf-node-title,.wf-node-meta,#ws-workflow-title,#ws-apps,#ws-revision,#insp-title,#insp-rule,#insp-mapping,#insp-eval,#insp-step-num) { opacity:var(--label-alpha,1); }
+@media(prefers-reduced-motion:reduce) { html.has-motion .relay-shell :is(.wf-node-kind,.wf-node-title,.wf-node-meta,#ws-workflow-title,#ws-apps,#ws-revision,#insp-title,#insp-rule,#insp-mapping,#insp-eval,#insp-step-num) { opacity:1; } }
