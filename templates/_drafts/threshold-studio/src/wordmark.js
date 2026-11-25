@@ -1,7 +1,7 @@
 // The editorial wordmark stays legible above the cut; only its lower glyph band
 // is occluded using the projected physical portal front silhouette.
-import {project} from './camera.js?v=T24d';
-import {PORTAL} from './geometry.js?v=T24d';
+import {project} from './camera.js?v=P01';
+import {PORTAL} from './geometry.js?v=P01';
 export const WORDMARK_WIDTH=1000, WORDMARK_HEIGHT=155;
 export function wordmarkOcclusion(vp,stage,mark){
   if(!stage||!mark||![stage.width,stage.height,mark.width,mark.height].every(v=>Number.isFinite(v)&&v>0))return '';

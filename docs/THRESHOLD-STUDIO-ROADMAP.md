@@ -1,7 +1,11 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01–T23 verified; David default T24d browser reviews passed, normal repair T24e verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: CREATIVE PIVOT P01 implemented; former roadmap T19–T24 creative direction superseded, engineering evidence retained. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+
+## Current creative pivot (supersedes conflicting historical directions)
+
+User rejected the museum/hyperreal direction. Retain accepted Arrival/Crossing and native-scroll world. Perspective becomes a graphic spatial installation: monumental original letterforms, aligned/dislocated planes, matte bone/ink/vermilion, typography as subject, no scanned sculptures, plinths, stone texture or faux museum labels. Exploration becomes an experimental interface with functional spatial interactions rather than exhibition rooms of realistic objects. Revised compact gates: P01 remove David and establish graphic Perspective; P02 visual/mobile refinement and stakeholder approval; P03 Exploration graphic art direction and navigation; P04 PARALLAX depth alignment; P05 FORM typographic recomposition; P06 SIGNAL interactive routing; P07 closing and contact; P08 complete accessibility/performance/recovery audit; P09 stakeholder review and authorized gallery registration. No catalogue changes until approval. Old T ledger is historical engineering evidence, not active creative completion percentage.
 
 ## Governing brief
 
@@ -329,3 +333,7 @@ T24b exact revision 990e40326ce6c48d7225e3c091f8c847caa1cb99: both foundation an
 
 ## T24e — David normal repair
 T24d e1357a04f0341adc7ac124bb7f41c2c074980acc: David review 45714042308, dense transition job 139555432760 and Pages 45714040497 passed. Foundation job 139555433074 failed at scan unit-normal assertion. Actual packed model has exactly nine zero-length normals among 8,966 vertices, no degenerate triangle by area check. Restore missing normals from incident faces, using largest incident face if cancellation occurs, normalize all decoded normals. Original packed derivative, vertex positions, indices, camera, plinth and architecture unchanged. Actual decoder preflight on all 54,000 emitted scan vertices passed: max normal length error 6.98e-8; nine responsive projection bounds and architecture separation passed. Tightened test to 1e-6, align runtime and cache release T24e. Full exact-revision regression pending. T25 held until gate passes. No shared/catalogue changes.
+
+
+## P01 — Graphic Perspective first implementation
+User expressly changed direction after David. Remove scan renderer, loader, assets and associated active workflow/test; retain legacy abstract fold meshes only in explicit diagnostics to preserve prior engineering tests. Normal full journey uses three floor-rooted planes bearing original modular SEE letterforms, scroll-aligned in one persistent world and reflected in same pass. New 62 triangles; total 472 vs David 18,422. No asset fetch, no new library or render loop. Matte bone interior replaces stone treatment for graphic mode, normal editorial copy has no box. Opening/crossing camera, portal geometry and core shader unchanged, though distant ivory sightline can change. New test and dense audit target default graphic route; actual render review pending. P02 visual refinement and explicit direction approval before further exhibition design.

@@ -1,34 +1,32 @@
-import {openingPose,multiply} from './camera.js?v=T24d';
-import {buildStudy,buildSculptureVertices} from './geometry.js?v=T24d';
-import {bufferSize} from './lifecycle.js?v=T24d';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T24d';
-import {LIGHTING_GLSL} from './lighting.js?v=T24d';
+import {graphicMesh,graphicAmount} from './graphic.js?v=P01';
+import {openingPose,multiply} from './camera.js?v=P01';
+import {buildStudy,buildSculptureVertices} from './geometry.js?v=P01';
+import {bufferSize} from './lifecycle.js?v=P01';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P01';
+import {LIGHTING_GLSL} from './lighting.js?v=P01';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
-layout(location=2) in vec3 aNormal;
 uniform mat4 uVP;
 out vec3 color;
 out vec3 world;
-out vec3 meshNormal;
-void main(){gl_Position=uVP*vec4(aPosition,1.0);color=aColor;world=aPosition;meshNormal=aNormal;}`;
+void main(){gl_Position=uVP*vec4(aPosition,1.0);color=aColor;world=aPosition;}`;
 const FS=`#version 300 es
 precision highp float;
 in vec3 color;
 in vec3 world;
-in vec3 meshNormal;
-uniform float uStatue;
+uniform float uGraphic;
+uniform float uGraphicStyle;
 uniform vec3 uViewEye;
 uniform float uLighting;
 uniform float uAmbientPhase;
 out vec4 outColor;
 ${LIGHTING_GLSL}
 void main(){
-  if(uLighting<.5){outColor=vec4(color,1.0);return;}
+  if(uGraphic>.5||uLighting<.5){outColor=vec4(color,1.0);return;}
   // Face normal recovered from the original world position; facing is corrected
   // using the actual or mirrored eye, never the mirrored material coordinates.
   vec3 n=normalize(cross(dFdx(world),dFdy(world)));
-  if(uStatue>.5)n=normalize(meshNormal);
   if(dot(n,uViewEye-world)<0.0)n=-n;
   vec3 key=normalize(vec3(-4.0,8.5,9.0)-world);
   float diffuse=.35+.65*max(dot(n,key),0.0);
@@ -99,15 +97,9 @@ void main(){
   float blueDiffuse=.3+.7*max(dot(n,blueKey),0.0);
   vec3 cobalt=(color*(.68+.40*blueDiffuse)+vec3(.025,.040,.095))*galleryContact;
   result=mix(result,cobalt,blue);
-  if(uStatue>.5){
-    vec3 sculptureKey=normalize(vec3(1.0,8.7,-12.8)-world);
-    vec3 fill=normalize(vec3(7.0,5.0,-16.8)-world);
-    float keyLight=max(dot(n,sculptureKey),0.0);
-    float rim=max(dot(n,fill),0.0);
-    float softSpec=pow(max(dot(n,normalize(sculptureKey+view)),0.0),24.0);
-    float grain=sin(world.x*22.0+world.y*8.0)*sin(world.z*19.0-world.y*12.0);
-    result=color*(.34+.60*keyLight+.19*rim)+vec3(.10,.095,.082)*softSpec+vec3(.006)*grain;
-    result*=1.0-.16*exp(-max(world.y,0.0)*2.0);
+  // Graphic ink/paper architecture: clean tonal planes, no simulated stone.
+  if(uGraphicStyle>.5&&world.z<=-6.0&&world.z>=-20.4&&isIvory>.5&&blue<.5){
+    result=mix(result,vec3(.88,.87,.83)*(.82+.18*galleryDiffuse),smoothstep(6.0,7.0,-world.z));
   }
   result=haze(result,length(uViewEye-world),mix(mix(.55,.18,isRed),.23,blue));
   outColor=vec4(clamp(result,0.0,1.0),1.0);
@@ -124,6 +116,7 @@ uniform float uEnabled;
 uniform float uLighting;
 uniform float uAmbientPhase;
 uniform float uMask;
+uniform float uGraphicStyle;
 out vec4 outColor;
 ${LIGHTING_GLSL}
 void main(){
@@ -148,6 +141,7 @@ void main(){
     float seamAA=clamp(fwidth(seam),.002,.035);
     float mortar=1.0-smoothstep(.012,.012+seamAA,seam);
     limestone-=vec3(.032,.031,.028)*mortar;
+    if(uGraphicStyle>.5)limestone=vec3(.84,.83,.79);
     base=mix(base,limestone,stone);
     vec3 blueStone=vec3(.09,.145,.45)+vec3(.012,.015,.035)*sin(world.x*.5+world.z*.35);
     base=mix(base,blueStone,cobaltFloor);
@@ -160,7 +154,7 @@ void main(){
   // Reflection fades towards the viewer instead of competing with lower copy.
   float nearFade=mix(1.0,.25,smoothstep(2.5,12.0,world.z));
   float strength=uEnabled*edge*(.15+.40*pow(grazing,2.0))*exp(-distanceToEye*.025)*nearFade;
-  if(uLighting>.5)strength*=mix(mix(1.0,.28,stone),.40,cobaltFloor);
+  if(uLighting>.5)strength*=mix(mix(1.0,uGraphicStyle>.5?.12:.28,stone),.40,cobaltFloor);
   // Graphite finish; this is an artistic color-space mix, not a calibrated BRDF.
   vec3 finish=mix(base,c,strength);
   if(uLighting>.5)finish=haze(finish,distanceToEye,.35);
@@ -172,20 +166,22 @@ function shader(gl,type,source){
   if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){const log=gl.getShaderInfoLog(s);gl.deleteShader(s);throw Error(log||'shader compile')}
   return s;
 }
-export function createRenderer(canvas,david=null){
+export function createRenderer(canvas,graphic=false){
   const gl=canvas.getContext('webgl2',{alpha:false,antialias:true,depth:true,stencil:false,preserveDrawingBuffer:false});
   if(!gl)return null;
   let program=null,floorProgram=null,vao=null,buffer=null,uniform=null,floorUniforms=null,count=0,limit=4096,textureLimit=1024;
   const reflection=createReflection(gl);
-  const legacy=buildStudy(),vertices=david?legacy.slice(0,-buildSculptureVertices(0).length):legacy;
-  let statueVAO=null,statueBuffer=null;
-  const sculptureOffset=vertices.byteLength-buildSculptureVertices(0).byteLength;
+  const legacy=buildStudy(),architecture=legacy.slice(0,-buildSculptureVertices(0).length);
+  const vertices=graphic?new Float32Array([...architecture,...graphicMesh(0)]):legacy;
+  const sculptureOffset=architecture.byteLength;
+  const architectureCount=architecture.length/6;
+  let lastGraphic=0;
   let uploadedFoldProgress=0,sculptureUploads=0;
   // Loss invalidates every GPU object. Drop old-generation handles without issuing GL calls.
-  function abandon(){reflection.abandon();buffer=vao=program=uniform=floorProgram=floorUniforms=null;count=0;uploadedFoldProgress=0;statueVAO=statueBuffer=null}
+  function abandon(){reflection.abandon();buffer=vao=program=uniform=floorProgram=floorUniforms=null;count=0;uploadedFoldProgress=0;lastGraphic=0}
   function release(){
     reflection.release();
-    if(!gl.isContextLost()){if(statueBuffer)gl.deleteBuffer(statueBuffer);if(statueVAO)gl.deleteVertexArray(statueVAO);if(buffer)gl.deleteBuffer(buffer);if(vao)gl.deleteVertexArray(vao);if(program)gl.deleteProgram(program);if(floorProgram)gl.deleteProgram(floorProgram)}
+    if(!gl.isContextLost()){if(buffer)gl.deleteBuffer(buffer);if(vao)gl.deleteVertexArray(vao);if(program)gl.deleteProgram(program);if(floorProgram)gl.deleteProgram(floorProgram)}
     abandon();
   }
   function restore(){
@@ -199,24 +195,17 @@ export function createRenderer(canvas,david=null){
       program=gl.createProgram();if(!program)throw Error('program allocation');
       gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
       if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program)||'program link');
-      uniform=Object.fromEntries(['uVP','uViewEye','uLighting','uAmbientPhase','uStatue'].map(name=>[name,gl.getUniformLocation(program,name)]));
+      uniform=Object.fromEntries(['uVP','uViewEye','uLighting','uAmbientPhase','uGraphic','uGraphicStyle'].map(name=>[name,gl.getUniformLocation(program,name)]));
       if(Object.values(uniform).some(v=>v===null))throw Error('architecture uniform');
       floorFS=shader(gl,gl.FRAGMENT_SHADER,FLOOR_FS);floorProgram=gl.createProgram();if(!floorProgram)throw Error('floor program allocation');
       gl.attachShader(floorProgram,vs);gl.attachShader(floorProgram,floorFS);gl.linkProgram(floorProgram);
       if(!gl.getProgramParameter(floorProgram,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(floorProgram)||'floor program link');
-      floorUniforms=Object.fromEntries(['uVP','uReflection','uScreen','uTexel','uEye','uEnabled','uLighting','uMask','uAmbientPhase'].map(name=>[name,gl.getUniformLocation(floorProgram,name)]));
+      floorUniforms=Object.fromEntries(['uVP','uReflection','uScreen','uTexel','uEye','uEnabled','uLighting','uMask','uAmbientPhase','uGraphicStyle'].map(name=>[name,gl.getUniformLocation(floorProgram,name)]));
       if(Object.values(floorUniforms).some(v=>v===null))throw Error('floor uniform');
       vao=gl.createVertexArray();buffer=gl.createBuffer();if(!vao||!buffer)throw Error('mesh allocation');
       gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,vertices,gl.DYNAMIC_DRAW);uploadedFoldProgress=0;
       gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,3,gl.FLOAT,false,24,0);
       gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,3,gl.FLOAT,false,24,12);
-      if(david){
-        statueVAO=gl.createVertexArray();statueBuffer=gl.createBuffer();
-        if(!statueVAO||!statueBuffer)throw Error('David buffer allocation');
-        gl.bindVertexArray(statueVAO);gl.bindBuffer(gl.ARRAY_BUFFER,statueBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER,david,gl.STATIC_DRAW);
-        for(let i=0;i<3;i++){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,3,gl.FLOAT,false,36,i*12)}
-      }
       gl.bindVertexArray(null);gl.bindBuffer(gl.ARRAY_BUFFER,null);count=vertices.length/6;
       const v=gl.getParameter(gl.MAX_VIEWPORT_DIMS);
       limit=Math.min(4096,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),v[0],v[1]);
@@ -226,15 +215,11 @@ export function createRenderer(canvas,david=null){
     finally{if(vs)gl.deleteShader(vs);if(fs)gl.deleteShader(fs);if(floorFS)gl.deleteShader(floorFS)}
   }
   function drawWorld(){
-    gl.uniform1f(uniform.uStatue,0);
-    gl.bindVertexArray(vao);gl.drawArrays(gl.TRIANGLES,6,count-6);
-    if(david){
-      gl.uniform1f(uniform.uStatue,1);gl.bindVertexArray(statueVAO);
-      gl.drawArrays(gl.TRIANGLES,0,david.length/9);
-      gl.uniform1f(uniform.uStatue,0);gl.bindVertexArray(vao);
-    }
+    gl.uniform1f(uniform.uGraphic,0);gl.uniform1f(uniform.uGraphicStyle,graphic?1:0);
+    gl.bindVertexArray(vao);gl.drawArrays(gl.TRIANGLES,6,(graphic?architectureCount:count)-6);
+    if(graphic){gl.uniform1f(uniform.uGraphic,1);gl.drawArrays(gl.TRIANGLES,architectureCount,count-architectureCount);gl.uniform1f(uniform.uGraphic,0)}
   }
-  function draw(width,height,dpr,reflectionEnabled=true,lightingEnabled=true,floorMask=false,desktopComposition=false,ambientPhase=-1,pose=null,foldProgress=0){
+  function draw(width,height,dpr,reflectionEnabled=true,lightingEnabled=true,floorMask=false,desktopComposition=false,ambientPhase=-1,pose=null,foldProgress=0,graphicProgress=0){
     if(!program||gl.isContextLost())return null;
     const size=bufferSize(width,height,dpr,limit);if(!size)return null;
     if(canvas.width!==size.width)canvas.width=size.width;
@@ -244,11 +229,16 @@ export function createRenderer(canvas,david=null){
     // contexts or render loops. Do not upload while the shape is unchanged.
     const nextFoldProgress=Number.isFinite(foldProgress)?Math.max(0,Math.min(1,foldProgress)):0;
     const folded=nextFoldProgress<=.76?0:nextFoldProgress;
-    if(!david&&folded!==uploadedFoldProgress){
+    if(!graphic&&folded!==uploadedFoldProgress){
       gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
       gl.bufferSubData(gl.ARRAY_BUFFER,sculptureOffset,buildSculptureVertices(folded));
       gl.bindBuffer(gl.ARRAY_BUFFER,null);
       uploadedFoldProgress=folded;sculptureUploads++;
+    }
+    const amount=graphicAmount(graphicProgress);
+    if(graphic&&amount!==lastGraphic){
+      gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferSubData(gl.ARRAY_BUFFER,sculptureOffset,graphicMesh(graphicProgress));gl.bindBuffer(gl.ARRAY_BUFFER,null);
+      lastGraphic=amount;sculptureUploads++;
     }
     const target=reflection.ensure(dw,dh,textureLimit);
     gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.BLEND);gl.disable(gl.CULL_FACE);
@@ -270,10 +260,10 @@ export function createRenderer(canvas,david=null){
     gl.uniform1i(floorUniforms.uReflection,0);gl.uniform2f(floorUniforms.uScreen,dw,dh);
     gl.uniform2f(floorUniforms.uTexel,1/target.width,1/target.height);gl.uniform3fv(floorUniforms.uEye,eye);
     gl.uniform1f(floorUniforms.uEnabled,reflectionEnabled?1:0);
-    gl.uniform1f(floorUniforms.uLighting,lightingEnabled?1:0);gl.uniform1f(floorUniforms.uAmbientPhase,ambientPhase);gl.uniform1f(floorUniforms.uMask,floorMask?1:0);
+    gl.uniform1f(floorUniforms.uLighting,lightingEnabled?1:0);gl.uniform1f(floorUniforms.uAmbientPhase,ambientPhase);gl.uniform1f(floorUniforms.uMask,floorMask?1:0);gl.uniform1f(floorUniforms.uGraphicStyle,graphic?1:0);
     gl.drawArrays(gl.TRIANGLES,0,6);gl.bindTexture(gl.TEXTURE_2D,null);gl.bindVertexArray(null);
     if(gl.getError()!==gl.NO_ERROR||gl.isContextLost())throw Error('GPU draw error');
-    return {width:dw,height:dh,triangles:count/3+(david?david.length/27:0),reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled,lightingEnabled,floorMask,sculptureUploads};
+    return {width:dw,height:dh,triangles:count/3,reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled,lightingEnabled,floorMask,sculptureUploads};
   }
   rebuild();return {draw,restore,abandon,release};
 }

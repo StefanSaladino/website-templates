@@ -1,17 +1,17 @@
-import {RELEASE} from './config.js?v=T24e';
-import {createRenderer} from './renderer.js?v=T24e';
-import {loadDavid} from './david.js?v=T24e';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T24e';
-import {createScheduler} from './lifecycle.js?v=T24e';
-import {wordmarkOcclusion} from './wordmark.js?v=T24e';
-import {createAmbientClock} from './ambient.js?v=T24e';
-import {readProgress} from './scroll.js?v=T24e';
-import {typographyPose} from './typography.js?v=T24e';
-import {FOLDS,foldAmount} from './sculptures.js?v=T24e';
-import {perspectivePose,perspectivePresence} from './editorial.js?v=T24e';
+import {graphicAmount} from './graphic.js?v=P01';
+import {RELEASE} from './config.js?v=P01';
+import {createRenderer} from './renderer.js?v=P01';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=P01';
+import {createScheduler} from './lifecycle.js?v=P01';
+import {wordmarkOcclusion} from './wordmark.js?v=P01';
+import {createAmbientClock} from './ambient.js?v=P01';
+import {readProgress} from './scroll.js?v=P01';
+import {typographyPose} from './typography.js?v=P01';
+import {FOLDS,foldAmount} from './sculptures.js?v=P01';
+import {perspectivePose,perspectivePresence} from './editorial.js?v=P01';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
-async function start(){
+function start(){
   const study=document.querySelector('#scene-study'),surface=study.querySelector('.scene-surface'),canvas=study.querySelector('canvas');
   const mark=document.querySelector('.display-wordmark'),occluder=document.querySelector('#wordmark-occluder');
   const stage=document.querySelector('.journey-stage'),header=stage.querySelector('.masthead'),footer=stage.querySelector('footer');
@@ -41,14 +41,8 @@ async function start(){
   }
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),desktopComposition=matchMedia(DESKTOP_COMPOSITION_QUERY);
   const flags=new URLSearchParams(location.search);
-  let david=null;
-  // The normal journey uses David. Explicit legacy and one-screen geometry
-  // diagnostic routes retain the old buffer for historical regression tests.
-  const wantsDavid=flags.get('sculpture')==='david'||(flags.get('sculpture')!=='folds'&&flags.get('journey')!=='off'&&flags.get('floorMask')!=='on'&&!['approach','crossing'].includes(flags.get('track')));
-  if(wantsDavid){
-    try{david=await loadDavid();study.dataset.david='ready';document.querySelector('.david-credit').hidden=false}
-    catch(e){study.dataset.david='unavailable';console.warn('THRESHOLD David asset:',e)}
-  }
+  const graphic=flags.get('sculpture')!=='folds'&&flags.get('journey')!=='off'&&flags.get('floorMask')!=='on'&&!['approach','crossing'].includes(flags.get('track'));
+  stage.dataset.direction=graphic?'graphic':'legacy';
   const reflectionEnabled=flags.get('reflection')!=='off',lightingEnabled=flags.get('lighting')!=='off',floorMask=flags.get('floorMask')==='on';
   const ambientEnabled=flags.get('ambient')!=='off'&&lightingEnabled&&!floorMask;
   const journeyRequested=flags.get('journey')!=='off'&&!floorMask;
@@ -63,7 +57,7 @@ async function start(){
   }
   setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
-  let renderer=null,visible=false,lost=false,failed=wantsDavid&&!david,disposed=false,suspended=false,frames=0;
+  let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
   function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   // A preference change can become visible to the frame scheduler before the
   // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
@@ -80,14 +74,14 @@ async function start(){
     forceDraw=false;
     if(!sample.render){scheduler.invalidate();return}
     try{
-      if(!renderer)renderer=createRenderer(canvas,david);
+      if(!renderer)renderer=createRenderer(canvas,graphic);
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
       const r=surface.getBoundingClientRect();
       const progress=journeyActive?readProgress(document.scrollingElement):0;
       const pose=(approachOnly?approachPose:crossingOnly?crossingPose:perspectiveOnly?revealPose:exhibitionPose)(r.width/r.height,desktopComposition.matches,progress);
       const perspectiveProgress=fullTrack?Math.min(1,progress/EXHIBITION_JOIN):progress;
-      const foldProgress=!david&&foldsEnabled&&!approachOnly&&!crossingOnly?perspectiveProgress:0;
-      const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose,foldProgress);
+      const foldProgress=!graphic&&foldsEnabled&&!approachOnly&&!crossingOnly?perspectiveProgress:0;
+      const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose,foldProgress,graphic?perspectiveProgress:0);
       if(!result){staticView('not-ready');return}
       // The rendered pose and the reported progress always belong to the same sample.
       const wasActive=journeyActive;
@@ -97,6 +91,7 @@ async function start(){
       // The navigation adopts ink only after the camera has cleared the red throat.
       stage.dataset.room=pose.eye[2]<=-20.4?'exploration':pose.eye[2]<=-7.2?'perspective':'arrival';
       applyEditorial(!approachOnly&&!crossingOnly&&journeyActive?perspectiveProgress:0,fullTrack?perspectivePresence(progress):1);
+      study.dataset.graphic=graphic?'on':'off';study.dataset.graphicAmount=(graphic?graphicAmount(perspectiveProgress):0).toFixed(6);
       study.dataset.folds=FOLDS.map(f=>foldAmount(f,foldProgress).toFixed(6)).join(',');
       study.dataset.sculptureUploads=String(result.sculptureUploads);
       study.dataset.eye=pose.eye.map(v=>v.toFixed(6)).join(',');
@@ -147,6 +142,5 @@ async function start(){
   window.addEventListener('scroll',scrollChanged,{passive:true});window.visualViewport?.addEventListener('resize',invalidate,{passive:true});
   window.addEventListener('resize',invalidate);window.addEventListener('pagehide',pageHide);window.addEventListener('pageshow',pageShow);
   resize.observe(surface);intersection.observe(surface);
-  if(failed)staticView('sculpture-unavailable');
   preference();
 }

@@ -258,4 +258,23 @@ footer { opacity: var(--footer-opacity, 1); }
 .journey-stage[data-room="exploration"] .masthead {color:#eeece5;text-shadow:0 1px 4px #11183e;}
 .journey-stage[data-room="exploration"] .masthead :focus-visible {outline-color:#eeece5;}
 
-.david-credit {font-size:.625rem;line-height:1.25;margin:.45rem 0 0;color:#514d45;}
+
+
+/* P01: editorial typography belongs to the room, not a museum caption box. */
+:root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial {
+  background: transparent; border: 0; color: #161618; padding: 0;
+  inline-size: min(33vw, 26rem);
+}
+:root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial h2 {
+  font-size: clamp(2rem,min(4vw,6vh),4rem); font-weight: 800; line-height: .95;
+}
+:root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-capabilities {border-color:#66645f;}
+@media (max-aspect-ratio:1199/1000) {
+  :root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial {
+    inline-size:calc(100% - 2rem);max-inline-size:calc(100% - 2rem);inset-inline-start:1rem;inset-block-end:max(2vh,.7rem,env(safe-area-inset-bottom));
+  }
+  :root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial h2 {font-size:clamp(1.6rem,6vw,2.7rem)}
+}
+@media (max-height:640px) {
+  :root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial h2 {font-size:clamp(1.35rem,4.6vw,2rem)}
+}
