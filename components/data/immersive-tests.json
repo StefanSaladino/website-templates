@@ -481,5 +481,13 @@
       "test-atlas-summit.mjs"
     ],
     "reason": "Dedicated four-viewport browser regression and 34-pose summit review cover terrain, reflection, motion, context recovery, static alternatives and accessibility."
+  },
+  "relay-automation": {
+    "dedicated": true,
+    "workflow": ".github/workflows/register-relay.yml",
+    "scripts": [
+      "test-relay-registration.mjs"
+    ],
+    "reason": "Five deterministic motion and connector suites plus real-route responsive browser and interaction checks."
   }
 }

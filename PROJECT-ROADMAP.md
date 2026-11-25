@@ -834,3 +834,7 @@ Stakeholder approved A40 gallery-only registration. Candidate moves the complete
 
 ## ATLAS — registered gallery preview
 Registration run 45622444868 completed successfully: both permanent-route specialist suites, genuine opening thumbnail, complete showroom build and 39/35 membership passed. Verified candidate d5d5324e24f2bb717bb9f5149342b3ed3b6739bd merged through PR #1 at 8f95c7ab67ed843513e966af3649fd116b9f3da2 after automatic finalizer failure. Main source contains gallery entry and permanent route; Pages deployment 45627156690 queued at verification. Only the now-merged registration branch remains to be deleted; guarded cleanup checks exact SHA, ancestry and open PRs. Gallery-only, not configurator enabled. No runtime changes.
+
+
+## RELAY — R8 approved gallery-only registration
+Approved R7d moves to templates/relay-automation, with original draft URLs redirected, actual opening capture and dedicated regression coverage. 40 gallery previews, 35 configurator templates. No configurator enablement or claim of physical-device acceptance.

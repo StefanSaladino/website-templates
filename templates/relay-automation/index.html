@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en" data-immersive-template data-relay-release="R7d">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#121412" />
+  <title>RELAY — Workflow Orchestration Platform</title>
+  <meta
+    name="description"
+    content="RELAY connects your business applications, validates data across systems, and orchestrates operational handoffs in dependable automated workflows."
+  />
+  <meta property="og:title" content="RELAY — Workflow Orchestration Platform" />
+  <meta
+    property="og:description"
+    content="Connect your tools, orchestrate your operations, and turn everyday handoffs into dependable automated workflows."
+  />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+  />
+  <link rel="stylesheet" href="./styles.css?v=10" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="brand-wordmark" href="#scene-01">RELAY</a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a class="nav-link" href="#scene-02">Platform</a>
+        <a class="nav-link" href="#scene-04">Workflows</a>
+        <a class="nav-link" href="#scene-03">How it works</a>
+        <a class="nav-link" href="#scene-05">Monitoring</a>
+      </nav>
+
+      <div class="header-actions">
+        <button
+          type="button"
+          class="btn-header-cta"
+          data-action="open-sandbox"
+        >
+          Explore platform
+        </button>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-drawer"
+          aria-label="Open navigation menu"
+        >
+          <span class="menu-toggle-bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div
+    class="mobile-drawer"
+    id="mobile-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile navigation"
+    hidden
+  >
+    <div class="mobile-drawer-inner">
+      <div class="mobile-drawer-head">
+        <span class="brand-wordmark">RELAY</span>
+        <button
+          type="button"
+          class="drawer-close"
+          id="drawer-close"
+          aria-label="Close navigation menu"
+        >
+          Close
+        </button>
+      </div>
+      <nav class="mobile-nav" aria-label="Mobile sections">
+        <a class="mobile-nav-link" href="#scene-01">Overview</a>
+        <a class="mobile-nav-link" href="#scene-02">Platform architecture</a>
+        <a class="mobile-nav-link" href="#scene-03">Execution flow</a>
+        <a class="mobile-nav-link" href="#scene-04">Workflow templates</a>
+        <a class="mobile-nav-link" href="#scene-05">Execution monitoring</a>
+        <a class="mobile-nav-link" href="#scene-06">Unified workspace</a>
+      </nav>
+      <div class="mobile-drawer-foot">
+        <button
+          type="button"
+          class="btn-primary btn-full"
+          data-action="open-sandbox"
+        >
+          Explore the platform
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content" tabindex="-1">
+    <div class="experience-track" id="experience-track">
+      <!-- Persistent 3D Product Interface Stage -->
+      <div class="stage-sticky" id="stage-sticky">
+        <div class="stage-viewport" id="stage-viewport">
+          <div class="stage-grid-rule" aria-hidden="true"></div>
+          <!-- Editorial signal route, not an actual workflow edge. -->
+          <div class="relay-brand-plane" aria-hidden="true">RELAY<span>.</span></div>
+          <svg class="relay-signal-route" id="relay-signal-route" aria-hidden="true" viewBox="0 0 1440 900" preserveAspectRatio="none">
+            <path class="signal-base" id="signal-base" pathLength="1000" />
+            <path class="signal-packet" id="signal-packet" pathLength="1000" />
+          </svg>
+
+          <div class="workspace-rig" id="workspace-rig">
+            <div
+              class="relay-shell"
+              id="relay-shell"
+              role="region"
+              aria-label="RELAY interactive workflow workspace"
+              data-theme-surface="dark"
+            >
+              <svg class="exploded-guides" id="exploded-guides" aria-hidden="true"></svg>
+
+              <!-- Layer 1: Application Navigation Sidebar -->
+              <aside class="ws-layer ws-sidebar" id="layer-sidebar" aria-label="Workspace sections">
+                <div class="ws-org">
+                  <span class="ws-org-mark" aria-hidden="true"></span>
+                  <div class="ws-org-meta">
+                    <span class="ws-org-name">Northstar Ops</span>
+                    <span class="ws-org-env">Production · eu-west-1</span>
+                  </div>
+                </div>
+
+                <ul class="ws-nav-list" role="tablist" aria-label="Product modules">
+                  <li>
+                    <button type="button" class="ws-nav-btn" data-nav="overview" disabled title="Not included in this demonstration" role="tab" aria-selected="false">
+                      <span class="ws-nav-glyph" aria-hidden="true"></span>
+                      <span>Overview</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="ws-nav-btn is-active" data-nav="workflows" role="tab" aria-selected="true">
+                      <span class="ws-nav-glyph" aria-hidden="true"></span>
+                      <span>Workflows</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="ws-nav-btn" data-nav="connections" disabled title="Not included in this demonstration" role="tab" aria-selected="false">
+                      <span class="ws-nav-glyph" aria-hidden="true"></span>
+                      <span>Connections</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="ws-nav-btn" data-nav="activity" role="tab" aria-selected="false">
+                      <span class="ws-nav-glyph" aria-hidden="true"></span>
+                      <span>Activity</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="ws-nav-btn" data-nav="settings" disabled title="Not included in this demonstration" role="tab" aria-selected="false">
+                      <span class="ws-nav-glyph" aria-hidden="true"></span>
+                      <span>Settings</span>
+                    </button>
+                  </li>
+                </ul>
+
+                <div class="ws-sidebar-footer">
+                  <div class="ws-meta-pair">
+                    <span class="ws-meta-label">Revision</span>
+                    <span class="ws-meta-value" id="ws-revision">v14 · 10:42 UTC</span>
+                  </div>
+                  <div class="ws-meta-pair">
+                    <span class="ws-meta-label">Connected apps</span>
+                    <span class="ws-meta-value" id="ws-apps">HubSpot · Slack · Postgres</span>
+                  </div>
+                </div>
+
+                <div class="layer-caption" aria-hidden="true">
+                  <span>01 / Navigation &amp; Scope</span>
+                </div>
+              </aside>
+
+              <!-- Main Workspace Column -->
+              <div class="ws-main-column">
+                <!-- Persistent Top Workspace Bar -->
+                <div class="ws-topbar">
+                  <div class="ws-breadcrumb">
+                    <span class="ws-crumb-muted">Workflows</span>
+                    <span class="ws-crumb-sep" aria-hidden="true">/</span>
+                    <span class="ws-workflow-title" id="ws-workflow-title">Inbound lead qualification</span>
+                    <span class="ws-status-flag" id="ws-status-flag">
+                      <span class="ws-status-dot" aria-hidden="true"></span>
+                      <span id="ws-status-text">Active</span>
+                    </span>
+                  </div>
+
+                  <div class="ws-topbar-controls">
+                    <span class="ws-run-stamp" id="ws-run-stamp">Last run 14:22:08</span>
+                    <button type="button" class="ws-run-btn" id="ws-run-btn">
+                      Run test
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Workspace Split: Visual Canvas + Step Configuration Inspector -->
+                <div class="ws-body-grid">
+                  <!-- Layer 2: Visual Workflow Canvas -->
+                  <div class="ws-layer ws-canvas" id="layer-canvas">
+                    <div class="canvas-surface-grid" aria-hidden="true"></div>
+
+                    <div class="canvas-board" id="canvas-board">
+                      <svg
+                        class="connector-layer"
+                        id="connector-svg"
+                        aria-hidden="true"
+                      ></svg>
+
+                      <!-- Persistent Node Slots (repositioned and reconfigured seamlessly across scenarios) -->
+                      <button type="button" class="wf-node" data-node-index="0" id="wf-node-0">
+                        <span class="wf-port wf-port-in" aria-hidden="true"></span>
+                        <div class="wf-node-head">
+                          <span class="wf-node-kind">Trigger</span>
+                          <span class="wf-node-state">Ready</span>
+                        </div>
+                        <div class="wf-node-title">Receive enquiry</div>
+                        <div class="wf-node-meta">Webhook · form.inbound</div>
+                        <span class="wf-port wf-port-out" aria-hidden="true"></span>
+                      </button>
+
+                      <button type="button" class="wf-node" data-node-index="1" id="wf-node-1">
+                        <span class="wf-port wf-port-in" aria-hidden="true"></span>
+                        <div class="wf-node-head">
+                          <span class="wf-node-kind">Validate</span>
+                          <span class="wf-node-state">Ready</span>
+                        </div>
+                        <div class="wf-node-title">Validate contact information</div>
+                        <div class="wf-node-meta">Email MX · Domain check</div>
+                        <span class="wf-port wf-port-out" aria-hidden="true"></span>
+                      </button>
+
+                      <button type="button" class="wf-node" data-node-index="2" id="wf-node-2">
+                        <span class="wf-port wf-port-in" aria-hidden="true"></span>
+                        <div class="wf-node-head">
+                          <span class="wf-node-kind">Lookup</span>
+                          <span class="wf-node-state">Ready</span>
+                        </div>
+                        <div class="wf-node-title">Check existing customer</div>
+                        <div class="wf-node-meta">CRM · domain_match</div>
+                        <span class="wf-port wf-port-out" aria-hidden="true"></span>
+                      </button>
+
+                      <button type="button" class="wf-node wf-node-branch" data-node-index="3" id="wf-node-3">
+                        <span class="wf-port wf-port-in" aria-hidden="true"></span>
+                        <div class="wf-node-head">
+                          <span class="wf-node-kind">Condition</span>
+                          <span class="wf-node-state">Ready</span>
+                        </div>
+                        <div class="wf-node-title">Route qualified leads</div>
+                        <div class="wf-node-meta">score &gt;= 70 · team_size &gt;= 25</div>
+                        <span class="wf-port wf-port-out" aria-hidden="true"></span>
+                      </button>
+
+                      <button type="button" class="wf-node" data-node-index="4" id="wf-node-4">
+                        <span class="wf-port wf-port-in" aria-hidden="true"></span>
+                        <div class="wf-node-head">
+                          <span class="wf-node-kind">Action</span>
+                          <span class="wf-node-state">Ready</span>
+                        </div>
+                        <div class="wf-node-title">Create CRM record</div>
+                        <div class="wf-node-meta">HubSpot · deals.upsert</div>
+                        <span class="wf-port wf-port-out" aria-hidden="true"></span>
+                      </button>
+
+                      <button type="button" class="wf-node" data-node-index="5" id="wf-node-5">
+                        <span class="wf-port wf-port-in" aria-hidden="true"></span>
+                        <div class="wf-node-head">
+                          <span class="wf-node-kind">Dispatch</span>
+                          <span class="wf-node-state">Ready</span>
+                        </div>
+                        <div class="wf-node-title">Notify assigned team</div>
+                        <div class="wf-node-meta">Slack · #emea-pipeline</div>
+                        <span class="wf-port wf-port-out" aria-hidden="true"></span>
+                      </button>
+                    </div>
+
+                    <div class="layer-caption" aria-hidden="true">
+                      <span>02 / Orchestration Graph</span>
+                    </div>
+                  </div>
+
+                  <!-- Layer 3: Step Configuration Inspector -->
+                  <aside class="ws-layer ws-inspector" id="layer-inspector" aria-label="Selected step configuration">
+                    <div class="inspector-head">
+                      <span class="inspector-kicker" id="insp-step-num">Step 04 · Condition</span>
+                      <h3 class="inspector-title" id="insp-title">Route qualified leads</h3>
+                    </div>
+
+                    <div class="inspector-block">
+                      <span class="inspector-label">Routing rule</span>
+                      <code class="inspector-code" id="insp-rule">lead.valid == true &amp;&amp; company.seats &gt;= 25</code>
+                    </div>
+
+                    <div class="inspector-block">
+                      <span class="inspector-label">Field mapping</span>
+                      <dl class="inspector-kv" id="insp-mapping">
+                        <div>
+                          <dt>contact_email</dt>
+                          <dd>payload.work_email</dd>
+                        </div>
+                        <div>
+                          <dt>owner_region</dt>
+                          <dd>geo.lookup(ip)</dd>
+                        </div>
+                        <div>
+                          <dt>retry_policy</dt>
+                          <dd>3x · exp backoff</dd>
+                        </div>
+                      </dl>
+                    </div>
+
+                    <div class="inspector-block inspector-trace">
+                      <span class="inspector-label">Last evaluation</span>
+                      <div class="inspector-eval" id="insp-eval">Matched branch A · 28 ms</div>
+                    </div>
+
+                    <div class="layer-caption" aria-hidden="true">
+                      <span>03 / Step Logic &amp; Mapping</span>
+                    </div>
+                  </aside>
+                </div>
+
+                <!-- Layer 4: Execution History & Complete Visibility Monitor -->
+                <section class="ws-layer ws-history" id="layer-history" aria-label="Execution history and monitoring">
+                  <div class="history-bar">
+                    <div class="history-summary-group">
+                      <span class="history-kicker">Execution activity</span>
+                      <span class="history-summary-stat" id="history-summary-stat">
+                        3 recent runs · 1 recoverable exception
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="history-compact-strip" id="history-compact-strip">
+                    <div class="run-pill-row" data-run-id="4822">
+                      <span class="run-id">#4822</span>
+                      <span class="run-name">Inbound lead qualification</span>
+                      <span class="run-outcome run-ok">Completed</span>
+                      <span class="run-dur">412 ms</span>
+                      <span class="run-time">14:22:08</span>
+                    </div>
+                    <div class="run-pill-row" data-run-id="4821">
+                      <span class="run-id">#4821</span>
+                      <span class="run-name">Commercial discount approval</span>
+                      <span class="run-outcome run-warn">Pending approval</span>
+                      <span class="run-dur">Step 3 of 5</span>
+                      <span class="run-time">14:18:40</span>
+                    </div>
+                    <div class="run-pill-row" data-run-id="4820">
+                      <span class="run-id">#4820</span>
+                      <span class="run-name">Inbound lead qualification</span>
+                      <span class="run-outcome run-err">Error · 429</span>
+                      <span class="run-dur">Step 5 paused</span>
+                      <span class="run-time">14:11:19</span>
+                    </div>
+                  </div>
+
+                  <div class="layer-caption" aria-hidden="true">
+                    <span>04 / Execution Audit &amp; Recovery</span>
+                  </div>
+                </section>
+
+                <!-- Expanded Monitoring & Error Trace Overlay (Revealed smoothly in Scene 05) -->
+                <section class="ws-monitor-panel" id="ws-monitor-panel" aria-label="Detailed execution monitor">
+                  <div class="history-bar">
+                    <div class="history-summary-group">
+                      <span class="history-kicker">Execution activity</span>
+                      <span class="history-summary-stat">
+                        3 recent runs · 1 recoverable exception
+                      </span>
+                    </div>
+                    <div class="history-filter-tabs" role="group" aria-label="Filter execution runs">
+                      <button type="button" class="history-tab is-active" data-run-filter="all">All runs</button>
+                      <button type="button" class="history-tab" data-run-filter="error">Exceptions</button>
+                      <button type="button" class="history-tab" data-run-filter="pending">Approvals</button>
+                    </div>
+                  </div>
+
+                  <div class="monitor-expanded" id="monitor-expanded">
+                    <div class="monitor-runs-list" id="monitor-runs-list">
+                      <button type="button" class="monitor-run-item" data-run-select="4822" data-kind="ok">
+                        <div class="mrun-top">
+                          <span class="mrun-id">#4822 · Inbound lead</span>
+                          <span class="mrun-badge mrun-ok">Succeeded</span>
+                        </div>
+                        <div class="mrun-sub">6 steps completed · 412 ms · 14:22:08 UTC</div>
+                      </button>
+
+                      <button type="button" class="monitor-run-item" data-run-select="4821" data-kind="pending">
+                        <div class="mrun-top">
+                          <span class="mrun-id">#4821 · Discount approval</span>
+                          <span class="mrun-badge mrun-warn">Awaiting sign-off</span>
+                        </div>
+                        <div class="mrun-sub">Paused at VP Finance · SLA 2h · 14:18:40 UTC</div>
+                      </button>
+
+                      <button type="button" class="monitor-run-item is-selected" data-run-select="4820" data-kind="error">
+                        <div class="mrun-top">
+                          <span class="mrun-id">#4820 · CRM record sync</span>
+                          <span class="mrun-badge mrun-err" id="error-run-badge">Recoverable error</span>
+                        </div>
+                        <div class="mrun-sub" id="error-run-sub">Step 5 failed · HTTP 429 rate limit · 14:11:19 UTC</div>
+                      </button>
+                    </div>
+
+                    <div class="monitor-detail-pane" id="monitor-detail-pane">
+                      <div class="monitor-detail-head">
+                        <div>
+                          <span class="inspector-label">Execution detail timeline</span>
+                          <h4 class="monitor-detail-title" id="monitor-detail-title">
+                            Run #4820 — Inbound lead qualification (Retry #1)
+                          </h4>
+                        </div>
+                        <button type="button" class="btn-retry-step" id="btn-retry-step">
+                          Retry failed step
+                        </button>
+                      </div>
+
+                      <ol class="timeline-steps" id="monitor-timeline-steps">
+                        <li class="tl-step tl-ok">
+                          <span class="tl-time">14:11:19.01</span>
+                          <span class="tl-name">01 · Receive enquiry</span>
+                          <span class="tl-dur">18 ms</span>
+                          <span class="tl-status">Verified</span>
+                        </li>
+                        <li class="tl-step tl-ok">
+                          <span class="tl-time">14:11:19.04</span>
+                          <span class="tl-name">02 · Validate contact</span>
+                          <span class="tl-dur">64 ms</span>
+                          <span class="tl-status">Passed</span>
+                        </li>
+                        <li class="tl-step tl-ok">
+                          <span class="tl-time">14:11:19.13</span>
+                          <span class="tl-name">03 · Existing customer?</span>
+                          <span class="tl-dur">92 ms</span>
+                          <span class="tl-status">New account</span>
+                        </li>
+                        <li class="tl-step tl-ok">
+                          <span class="tl-time">14:11:19.18</span>
+                          <span class="tl-name">04 · Route qualified leads</span>
+                          <span class="tl-dur">28 ms</span>
+                          <span class="tl-status">Matched EMEA</span>
+                        </li>
+                        <li class="tl-step tl-err" id="tl-step-error">
+                          <span class="tl-time">14:11:19.59</span>
+                          <span class="tl-name">05 · Create CRM record</span>
+                          <span class="tl-dur">410 ms</span>
+                          <span class="tl-status" id="tl-error-status">HTTP 429 Quota</span>
+                        </li>
+                        <li class="tl-step tl-idle">
+                          <span class="tl-time">—</span>
+                          <span class="tl-name">06 · Notify assigned team</span>
+                          <span class="tl-dur">Queued</span>
+                          <span class="tl-status">Awaiting Step 5</span>
+                        </li>
+                      </ol>
+
+                      <div class="monitor-error-box" id="monitor-error-box">
+                        <span class="error-box-code" id="error-box-code">
+                          ERR_UPSTREAM_QUOTA · Payload preserved in dead-letter buffer (retry #1 queued)
+                        </span>
+                        <span class="error-box-note" id="error-box-note">
+                          Upstream HubSpot batch endpoint returned 429 Retry-After: 12s. No lead data lost.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+
+          <!-- Canonical Semantic Scene Chapters -->
+          <div class="scenes-track" id="scenes-track">
+        <!-- Scene 01 — Opening -->
+        <section class="scene scene-01 is-active" id="scene-01" data-scene-index="0" aria-labelledby="heading-01">
+          <div class="scene-frame">
+            <div class="scene-copy scene-copy-opening">
+              <p class="scene-index-label">01 / Orchestration</p>
+              <h1 class="display-xl display-monumental" id="heading-01">
+                <span class="hero-line hero-line-a">Automate the work</span>
+                <span class="hero-line hero-line-b">between the work.</span>
+              </h1>
+              <p class="lead-copy">
+                Connect your tools, orchestrate your operations, and turn everyday handoffs into dependable automated workflows.
+              </p>
+              <div class="opening-actions">
+                <a class="btn-subtle-scroll" href="#scene-02">
+                  Follow a workflow through the system
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Scene 02 — Make the connection -->
+        <section class="scene scene-02" id="scene-02" data-scene-index="1" aria-labelledby="heading-02">
+          <div class="scene-frame">
+            <div class="scene-copy scene-copy-corner">
+              <p class="scene-index-label">02 / Architecture</p>
+              <h2 class="display-lg" id="heading-02">
+                Every step.<br />In sync.
+              </h2>
+              <p class="body-copy">
+                Every trigger, routing condition, field transform, and execution log shares one inspectable workspace. Each layer stays bound to live data paths rather than buried across disconnected scripts.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Scene 03 — From trigger to outcome -->
+        <section class="scene scene-03" id="scene-03" data-scene-index="2" aria-labelledby="heading-03">
+          <div class="scene-frame">
+            <div class="scene-copy scene-copy-topband">
+              <div class="topband-left">
+                <p class="scene-index-label">03 / Execution</p>
+                <h2 class="display-md" id="heading-03">
+                  One trigger. Every next step.
+                </h2>
+              </div>
+              <div class="topband-right">
+                <p class="trace-readout" id="scene03-trace-text">
+                  Step 01 · Enquiry received via inbound form webhook
+                </p>
+                <div class="trace-step-bar" aria-hidden="true">
+                  <span class="trace-step-fill" id="scene03-trace-fill"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Scene 04 — Workflows that adapt -->
+        <section class="scene scene-04" id="scene-04" data-scene-index="3" aria-labelledby="heading-04">
+          <div class="scene-frame">
+            <div class="scene-copy scene-copy-adapt">
+              <p class="scene-index-label">04 / Adaptability</p>
+              <h2 class="display-lg" id="heading-04">
+                Built around the way<br />you actually work.
+              </h2>
+              <p class="body-copy" id="scenario-summary">
+                Switch structures in place: fan-out provisioning, threshold-based executive approvals, or multi-stage operations handoffs.
+              </p>
+
+              <div class="scenario-controls" role="tablist" aria-label="Workflow scenario presets">
+                <button type="button" class="scenario-btn is-active" data-scenario="inbound" role="tab" aria-selected="true">
+                  Inbound lead
+                </button>
+                <button type="button" class="scenario-btn" data-scenario="onboarding" role="tab" aria-selected="false">
+                  Client onboarding
+                </button>
+                <button type="button" class="scenario-btn" data-scenario="approval" role="tab" aria-selected="false">
+                  Approval routing
+                </button>
+                <button type="button" class="scenario-btn" data-scenario="operations" role="tab" aria-selected="false">
+                  Operations handoff
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Scene 05 — Complete visibility (Warm Off-White Contrast Scene) -->
+        <section class="scene scene-05" id="scene-05" data-scene-index="4" aria-labelledby="heading-05">
+          <div class="scene-frame">
+            <div class="scene-copy scene-copy-topband scene-copy-light">
+              <div class="topband-left">
+                <p class="scene-index-label">05 / Observability</p>
+                <h2 class="display-lg" id="heading-05">
+                  Know exactly<br />what happened.
+                </h2>
+              </div>
+              <div class="topband-right">
+                <p class="body-copy">
+                  Inspect successful completions, pending approvals, and upstream rate-limit errors with exact step timing and preserved payloads ready for one-click recovery.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Scene 06 — Everything comes together -->
+        <section class="scene scene-06" id="scene-06" data-scene-index="5" aria-labelledby="heading-06">
+          <div class="scene-frame">
+            <div class="scene-copy scene-copy-closing">
+              <p class="scene-index-label">06 / Resolution</p>
+              <h2 class="display-xl" id="heading-06">
+                Less manual work.<br />More meaningful work.
+              </h2>
+              <p class="lead-copy">
+                Build workflows that move work forward.
+              </p>
+              <div class="closing-ctas">
+                <button type="button" class="btn-primary" data-action="open-sandbox">
+                  Explore the platform
+                </button>
+                <a class="btn-secondary" href="#scene-02" data-action="see-how-it-works">
+                  See how it works
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-spacers" aria-hidden="true"></div>
+    </div>
+
+    <!-- Interactive Sandbox Banner (shown when visitor activates "Explore the platform") -->
+    <div class="sandbox-bar" id="sandbox-bar" hidden role="region" aria-label="Interactive workspace sandbox controls">
+      <div class="sandbox-bar-inner">
+        <div class="sandbox-bar-info">
+          <span class="sandbox-title">Interactive workspace sandbox</span>
+          <span class="sandbox-hint" id="sandbox-run-status" role="status" aria-live="polite">Ready to simulate</span>
+        </div>
+        <div class="sandbox-bar-actions">
+          <button type="button" class="sandbox-chip" data-sandbox-scenario="inbound">Inbound lead</button>
+          <button type="button" class="sandbox-chip" data-sandbox-scenario="onboarding">Onboarding</button>
+          <button type="button" class="sandbox-chip" data-sandbox-scenario="approval">Approvals</button>
+          <button type="button" class="sandbox-chip" data-sandbox-scenario="operations">Operations</button>
+          <button type="button" class="sandbox-run" id="sandbox-run-btn">Simulate run</button>
+          <button type="button" class="sandbox-close" id="sandbox-close-btn">Exit sandbox</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-wordmark">RELAY</span>
+        <p class="footer-tagline">
+          Operational workflow orchestration for connected business systems.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#scene-02">Platform</a>
+        <a href="#scene-03">Execution</a>
+        <a href="#scene-04">Workflows</a>
+        <a href="#scene-05">Monitoring</a>
+      </nav>
+
+      <div class="footer-meta">
+        <p><a href="../../index.html">Template gallery</a></p>
+        <p class="footer-disclaimer">
+          Fictional product demonstration for editorial portfolio review. All workflow runs, entities, and timestamps shown are illustrative sample data.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="./src/main.js?v=10"></script>
+</body>
+</html>

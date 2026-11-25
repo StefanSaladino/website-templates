@@ -163,6 +163,13 @@
     "route": "../templates/real-estate/"
   },
   {
+    "slug": "relay-automation",
+    "title": "RELAY / Workflow Orchestration",
+    "route": "../templates/relay-automation/",
+    "configuratorStatus": "gallery-only",
+    "configuratorBlocker": "Custom scroll-controlled product interface, palette choreography and sandbox preview compatibility require dedicated configurator review"
+  },
+  {
     "slug": "resonance-sound",
     "title": "Resonance Sound",
     "route": "../templates/resonance-sound/"
