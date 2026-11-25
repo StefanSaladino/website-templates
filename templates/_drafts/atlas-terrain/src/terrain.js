@@ -155,6 +155,44 @@ function ridgePeak(x, z, cx, cz, rx, rz, angleRad, amp, sharp) {
   return amp * Math.exp(-Math.pow(r, sharp));
 }
 
+// A finite glacial arête: ridge width narrows toward its summit, flank slopes
+// differ, and the crest height follows a non-uniform longitudinal profile.
+function alpineArete(x,z,ax,az,bx,bz,width,amplitude,sideBias=0.35) {
+  const dx=bx-ax,dz=bz-az,len=Math.hypot(dx,dz);
+  const u=((x-ax)*dx+(z-az)*dz)/(len*len);
+  const v=(-(x-ax)*dz+(z-az)*dx)/len;
+  const t=clamp(u,0,1);
+  const along=Math.sin(Math.PI*t);
+  const shoulder=0.22+0.78*Math.pow(Math.max(0,along),0.8);
+  const lateral=Math.abs(v)/(width*(v<0?1-sideBias:1+sideBias)*shoulder);
+  const taper=smoothstep(0,0.10,t)*(1-smoothstep(0.80,1,t));
+  return amplitude*taper*(0.45+0.55*t)*Math.pow(Math.max(0,1-lateral),1.45);
+}
+
+function sculptAlpineCrests(x,z) {
+  // Kestrel's asymmetric crown and three supporting ribs are authored in world space.
+  const dx=x-11.5,dz=z+18.5;
+  const u=(dx*0.91+dz*0.41)/6.2, v=(-dx*0.41+dz*0.91)/4.5;
+  const az=Math.atan2(v,u),r=Math.hypot(u,v);
+  const crown=Math.pow(Math.max(0,1-r/(1+0.15*Math.cos(3*az+0.5))),1.15)*8.4;
+  const primary=Math.max(
+    alpineArete(x,z,-1,-32,13,-16,5.4,4.8,0.38),
+    alpineArete(x,z,27,-34,11,-19,5.8,4.3,-0.30),
+    alpineArete(x,z,32,-4,11,-18,5.0,4.6,0.36));
+  const west=Math.max(
+    alpineArete(x,z,-33,-30,-16,-13,5.2,4.9,-0.27),
+    alpineArete(x,z,-38,5,-18,-15,6.0,4.2,0.38));
+  const north=Math.max(
+    alpineArete(x,z,-25,-37,-3,-24,5.4,3.8,0.32),
+    alpineArete(x,z,5,-39,-4,-24,5.0,4.0,-0.30));
+  // Curved, descending channels separate adjacent ribs rather than repeating cone silhouettes.
+  const [g1,t1]=distToSegment(x,z,4,-23,-2,-8);
+  const [g2,t2]=distToSegment(x,z,23,-14,15,-5);
+  const [g3,t3]=distToSegment(x,z,-23,-15,-15,-5);
+  const gouge=(d,t,w,a)=>a*Math.exp(-Math.pow(d/w,2))*Math.sin(Math.PI*t);
+  return crown+primary+west+north-gouge(g1,t1,2.3,2.3)-gouge(g2,t2,2.0,2.0)-gouge(g3,t3,2.3,1.9);
+}
+
 function evaluateBaseGeology(x, z) {
   // Tectonic folding warp
   const warpX = fbm(x * 0.018 + 3.1, z * 0.018 - 2.4, 3) * 10.5;
@@ -181,8 +219,12 @@ function evaluateBaseGeology(x, z) {
   const portalE = ridgePeak(wx, wz, 28.0, 29.0, 13.5, 10.0, -0.35, 6.2, 1.55);
 
   // 2. Layered Distant Mountain Ranges (creates genuine 3-tier alpine horizon)
-  const [dRange2] = distToSegment(wx, wz, -92.0, -48.0, 92.0, -46.0);
-  const [dRange3] = distToSegment(wx, wz, -108.0, -84.0, 108.0, -80.0);
+  // Offset the two distant spines independently, so the horizon reads as overlapping ranges,
+  // not parallel walls with a uniform silhouette.
+  const range2Z=wz+4.5*Math.sin(wx*0.063)+2.0*Math.sin(wx*0.13+0.8);
+  const range3Z=wz+7.0*Math.sin(wx*0.039+1.7)+2.5*Math.sin(wx*0.097);
+  const [dRange2] = distToSegment(wx, range2Z, -92.0, -48.0, 92.0, -46.0);
+  const [dRange3] = distToSegment(wx, range3Z, -108.0, -84.0, 108.0, -80.0);
   const [dWingW] = distToSegment(wx, wz, -74.0, -55.0, -78.0, 58.0);
   const [dWingE] = distToSegment(wx, wz, 76.0, -52.0, 78.0, 62.0);
   const [dSouthHorizon] = distToSegment(wx, wz, -95.0, 82.0, 95.0, 86.0);
@@ -207,6 +249,12 @@ function evaluateBaseGeology(x, z) {
     distantEnv * (0.46 + ridges * 0.68) +
     detailRidges * 1.65 * smoothstep(3.0, 11.5, horseEnv * 10.0 + kestrel + distantEnv) +
     Math.max(0, macro) * 2.1;
+
+  // Add authored crests only on established upland, before the valley/lake incision.
+  h+=sculptAlpineCrests(x,z)*smoothstep(4.0,10.0,h);
+  // Distant secondary ridges vary their crest height instead of forming a continuous shelf.
+  const farMask=smoothstep(27.0,48.0,-z);
+  h+=farMask*distantEnv*0.17*(sharpRidged(x*0.075,z*0.063,4)-0.38);
 
   // 3. Glacial Valley Trough & Organic Multi-Cove Lake Vireo Basin
   const [dTroughA] = distToSegment(x + macro * 2.4, z, 11.0, 66.0, -3.5, 11.5);
