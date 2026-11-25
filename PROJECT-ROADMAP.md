@@ -694,3 +694,13 @@ INDEX P16 passed deployment and specialist review. P17 adds the 37th complete re
 
 ## MATTER — gallery review
 AI Studio prototype refined in M1–M5, stakeholder approved M5. M6 prepares the 38th gallery preview, with 35 configurator-selectable templates unchanged. Original procedural sculpture, full-screen particle field, dedicated browser QA and actual opening thumbnail. See templates/matter-exhibition/REVIEW.md.
+
+
+## AI Studio collaborative immersive development — adopted 2026-11-24
+New repeatable process documented in [Immersive AI Studio workflow](docs/IMMERSIVE-AI-STUDIO-WORKFLOW.md). Use fresh `main` import/orientation, isolated modular creative prototypes, scoped ZIP handoffs, engineering/browser verification, actual user/device review, targeted refinements or return to AI Studio for foundational art-direction changes, then gated gallery promotion. CI success alone is not visual approval. `main` is the authoritative Pages source; historic feature-branch/no-main-merge entries are historical, not current instructions.
+
+### MATTER — registration verified
+M6 registration candidate d997cf4 passed workflow 45539461696 and was promoted with ATLAS A1 in main commit 9cd6e26. Registered-route MATTER browser workflow 45541929919 and Pages 45541929643 passed. 38 registered review templates, 35 configurator-selectable; MATTER gallery-only. Modular original restoration and broader physical-device/accessibility review remain open. See its REVIEW.md.
+
+### ATLAS — creative revision loop
+A1 9cd6e26 imported ten modular files and corrected frame clearing. Pages 45541929643 passed; A1 specialist 45541929917 rendered 320px samples but stopped on incorrect static plate count. A2 bcf6173 refined cartography, camera interpolation, stable pixel budget, lighting, deterministic scroll and inaccessible inactive overlays; browser 45543397722 and Pages 45543396816 passed. Stakeholder rejected the rough visual quality, including the opening, and provided a screen recording. Decision: return to AI Studio for A3 comprehensive visual overhaul, preserving A2 engineering. A3 brief issued in chat; revised source not received, no registration, no production approval. Next: inspect isolated A3 ZIP against A2/current main, publish draft, review actual frames and physical-device feedback. See draft README.
