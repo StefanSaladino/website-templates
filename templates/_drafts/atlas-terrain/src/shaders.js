@@ -404,12 +404,15 @@ void main() {
   vec3 shoreStone = mix(vec3(0.16, 0.18, 0.20), vec3(0.32, 0.33, 0.34), fineN * 0.65 + crownStipple * 0.35);
 
   // Material B: Subalpine conifer forest & alpine meadow breaks
-  vec3 meadowTurf = mix(vec3(0.18, 0.24, 0.15), vec3(0.26, 0.30, 0.18), fineN);
-  vec3 spruceDeep = vec3(0.050, 0.125, 0.088);
-  vec3 spruceLit = vec3(0.120, 0.215, 0.145);
-  vec3 coniferCanopy = mix(spruceDeep, spruceLit, crownStipple * 0.72 + crag * 0.28);
-  float forestPatch = smoothstep(0.30, 0.58, detailN + (crownStipple - 0.5) * 0.24);
-  vec3 vegCol = mix(meadowTurf, coniferCanopy, forestPatch);
+  // Exposed alpine turf, damp gullies and darker woodland floor. Existing
+  // noise fields supply filtered variation; no additional texture samples.
+  float meadowMoisture=clamp(drainage*.52+detailN*.33+fineN*.15,0.,1.);
+  vec3 meadowTurf = mix(vec3(.29,.30,.185),vec3(.135,.205,.126),smoothstep(.25,.70,meadowMoisture));
+  vec3 spruceDeep = vec3(.045,.101,.068);
+  vec3 spruceLit = vec3(.127,.195,.118);
+  vec3 coniferCanopy = mix(spruceDeep, spruceLit, crownStipple*.58+crag*.42);
+  float forestPatch = smoothstep(.31,.68, detailN + (crownStipple-.5)*.22 - drainage*.10);
+  vec3 vegCol = mix(meadowTurf,coniferCanopy,forestPatch);
 
   // Material C: Stratified alpine granite, dark gneiss crevices & talus scree
   // Mineral facies vary with terrain rather than repeating at equal elevations.
@@ -425,7 +428,10 @@ void main() {
   vec3 snowCol = mix(vec3(0.58, 0.65, 0.71), vec3(0.83, 0.85, 0.85), fineN * 0.7 + 0.25);
 
   // Natural elevation + slope + drainage biome blending
-  float wetShore = 1.0 - smoothstep(uWaterLevel - 0.04, uWaterLevel + 0.24, rawH);
+  // A narrow, uneven gravel shore grades into the vegetation; keep the
+  // exact lake surface and depth boundary intact.
+  float shoreRise=.22+.20*detailN+.11*drainage;
+  float wetShore = 1.0 - smoothstep(uWaterLevel-.04,uWaterLevel+shoreRise,rawH);
   float timberBand = smoothstep(uWaterLevel + 0.06, uWaterLevel + 0.65, rawH) * (1.0 - smoothstep(6.2, 9.6, rawH));
   float vegSlope = 1.0 - smoothstep(0.20, 0.42, slope + (detailN - 0.5) * 0.16);
   float vegMask = timberBand * vegSlope * (1.0 - drainage * 0.58) * (1.0 - smoothstep(0.58, 0.78, crag));

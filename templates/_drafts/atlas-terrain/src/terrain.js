@@ -690,13 +690,14 @@ export function buildLandscapeDetails(td=buildTerrainData()){
     const a=i/n*Math.PI*2+phase,k=irregular?(.82+.30*hash2(i,93)):1;
     return [Math.cos(a)*r*k,y+(irregular?.035*(hash2(i,97)-.5):0),Math.sin(a)*r*k];
   });
-  // Narrow irregular spruce crowns with two branch whorls, not billboard cards.
-  const trunk0=ring(5,0,.055,0),trunk1=ring(5,.48,.035,0);
+  // Slender trunks and asymmetric, overlapping crowns: same 30 triangles.
+  const trunk0=ring(5,0,.039,0),trunk1=ring(5,.48,.024,0);
   for(let i=0;i<5;i++){const j=(i+1)%5;tri(treeMesh,trunk0[i],trunk1[i],trunk0[j],[.16,.105,.065]);tri(treeMesh,trunk0[j],trunk1[i],trunk1[j],[.16,.105,.065]);}
-  for(const [y,r,tip,phase,col] of [[.18,.52,.77,0,[.065,.165,.090]],[.49,.36,1,.47,[.087,.20,.115]]]){
+  for(const [y,r,tip,phase,col] of [[.16,.42,.78,0,[.054,.131,.080]],[.43,.29,1,.47,[.082,.177,.107]]]){
     const a=ring(5,y,r,phase,true);
-    for(let i=0;i<5;i++){const j=(i+1)%5,shade=.87+.22*hash2(i,Math.round(y*100));
-      tri(treeMesh,a[i],[0,tip,0],a[j],col.map(x=>x*shade));
+    const apex=[.045*(phase>0?-1:1),tip,.035*(phase>0?1:-1)];
+    for(let i=0;i<5;i++){const j=(i+1)%5,shade=.80+.34*hash2(i,Math.round(y*100));
+      tri(treeMesh,a[i],apex,a[j],col.map(x=>x*shade));
       tri(treeMesh,a[i],a[j],[0,y-.06,0],col.map(x=>x*.69));}
   }
   // Low-poly fractured moraine blocks; separate warm/cool faces.
@@ -717,8 +718,13 @@ export function buildLandscapeDetails(td=buildTerrainData()){
     const stand=(noise2DWithDeriv(x*.14+11,z*.14-7)[0]*.76+noise2DWithDeriv(x*.43,z*.43)[0]*.24);
     const timber=smoothstep(WATER_LEVEL+.29,WATER_LEVEL+.84,h)*(1-smoothstep(6.4,8.5,h));
     if(h>WATER_LEVEL+.29&&slope<.78&&rank<timber*smoothstep(.34,.76,stand)*.88){
-      const size=.16+hash2(ix-177,iz+99)*.20;
-      treeCandidates.push({rank:hash2(ix,iz+811),data:[x,h-.012,z,size,.68+hash2(ix+71,iz)*.38,hash2(ix,iz-87)*Math.PI*2,.85+hash2(ix+17,iz+23)*.29,0]});
+      // Existing deterministic sites/rank preserved. Treeline and exposed
+      // slopes support shorter trees; low sheltered stands retain tall trees.
+      const exposure=smoothstep(5.0,8.5,h)*.30+smoothstep(.38,.78,slope)*.14;
+      const age=Math.pow(hash2(ix-177,iz+99),1.45);
+      const size=(.14+age*.24)*(1.-exposure);
+      const width=.64+hash2(ix+71,iz)*.61;
+      treeCandidates.push({rank:hash2(ix,iz+811),data:[x,h-.012,z,size,width,hash2(ix,iz-87)*Math.PI*2,.83+hash2(ix+17,iz+23)*.35,0]});
     }
     if(h>WATER_LEVEL+.13&&h<13.5&&slope<1.05&&rank>.955&&Math.abs(x)<35&&z<37){
       const size=.07+Math.pow(hash2(ix+59,iz+13),2)*.24;
@@ -796,15 +802,17 @@ export function buildMistVolume(td=buildTerrainData()){
     const edge=1-smoothstep(.70,.99,Math.max(Math.abs(x),Math.abs(z))/96);
     const n=noise2DWithDeriv(x*.044+7.2,z*.044-11.4)[0];
     const secondary=noise2DWithDeriv(x*.089-12,z*.089+3.5)[0];
-    const base=4.25+1.65*n;
-    const top=8.1+4.25*n+1.0*secondary;
-    const bank=smoothstep(.29,.76,n*.75+secondary*.25);
+    // Low, laterally coherent valley banks rather than a tall grey curtain.
+    // Preserve the original volume bounds and keep every border cell empty.
+    const base=4.32+.68*n;
+    const top=6.55+2.55*n+.85*secondary;
+    const bank=smoothstep(.32,.76,n*.70+secondary*.30);
     for(let iy=0;iy<ny;iy++){
       const y=origin[1]+(iy+.5)/ny*extent[1];
-      const profile=smoothstep(base,base+1.15,y)*(1-smoothstep(top-2.0,top,y));
+      const profile=smoothstep(base,base+.72,y)*(1-smoothstep(top-1.25,top,y));
       const clearance=smoothstep(.05,1.35,y-ground);
-      const billow=noise2DWithDeriv(x*.128+y*.085+19,z*.128-y*.11-6)[0];
-      const cell=clamp(bank*profile*clearance*edge*(.43+.78*billow),0,1);
+      const billow=noise2DWithDeriv(x*.096+y*.23+19,z*.096-y*.28-6)[0];
+      const cell=clamp(bank*profile*clearance*edge*(.35+.65*billow),0,1);
       data[(iz*ny+iy)*nx+ix]=Math.round(cell*255);
     }
   }
