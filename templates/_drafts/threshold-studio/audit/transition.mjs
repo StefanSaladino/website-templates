@@ -7,7 +7,7 @@ const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
 const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'T24a',verification:'T24a',viewports:[]};
+const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'T24a',verification:'T24b',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}
 async function sample(page,offset){
   await page.evaluate(y=>{document.scrollingElement.scrollTop=y},offset);
@@ -15,7 +15,7 @@ async function sample(page,offset){
   return page.evaluate(()=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,p:+d.progress,eye:d.eye,fov:d.fov,folds:d.folds,editorial:d.editorial,editorialTransform:getComputedStyle(document.querySelector('.perspective-editorial')).transform,editorialOpacity:getComputedStyle(document.querySelector('.perspective-editorial')).opacity,editorialBounds:JSON.stringify(document.querySelector('.perspective-editorial').getBoundingClientRect().toJSON()),room:document.querySelector('.journey-stage').dataset.room,frames:+d.frames,renderer:d.renderer,mark:getComputedStyle(document.querySelector('.display-wordmark')).opacity,copy:getComputedStyle(document.querySelector('.opening-copy')).opacity,mask:document.querySelector('#wordmark-occluder').getAttribute('points'),width:s.scrollWidth,clientWidth:s.clientWidth,stageTop:document.querySelector('.journey-stage').getBoundingClientRect().top}});
 }
 try{
-  for(const [width,height] of [[390,844],[1440,900],[844,390]]){
+  for(const [width,height] of [[320,568],[390,844],[1440,900],[844,390]]){
     const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
     const errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base+'?ambient=off');

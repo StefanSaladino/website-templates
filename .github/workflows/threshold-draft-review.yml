@@ -569,7 +569,7 @@ jobs:
               for(const [i,p] of [...ps,...ps.slice(0,-1).reverse()].entries()){
                 await page.evaluate(p=>{const s=document.scrollingElement;s.scrollTop=(s.scrollHeight-s.clientHeight)*p},p);
                 await page.waitForFunction(p=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return Math.abs(+d.progress-p)<.002&&Math.abs(+d.progress-s.scrollTop/(s.scrollHeight-s.clientHeight))<.000002},p);
-                const state=await page.evaluate(()=>{const d=document.querySelector('#scene-study').dataset,s=document.scrollingElement,stage=document.querySelector('.journey-stage');return {p:+d.progress,eye:d.eye.split(',').map(Number),fov:d.fov,folds:d.folds,editorial:+d.editorial,room:stage.dataset.room,top:stage.getBoundingClientRect().top,width:s.scrollWidth,clientWidth:s.clientWidth}});
+                const state=await page.evaluate(()=>{const d=document.querySelector('#scene-study').dataset,s=document.scrollingElement,stage=document.querySelector('.journey-stage');return {p:+d.progress,eye:d.eye.split(',').map(Number),fov:d.fov,folds:d.folds,editorial:+d.editorial,editorialTransform:getComputedStyle(document.querySelector('.perspective-editorial')).transform,editorialOpacity:getComputedStyle(document.querySelector('.perspective-editorial')).opacity,editorialBounds:JSON.stringify(document.querySelector('.perspective-editorial').getBoundingClientRect().toJSON()),room:stage.dataset.room,top:stage.getBoundingClientRect().top,width:s.scrollWidth,clientWidth:s.clientWidth}});
                 assert(await handle.evaluate(el=>el===document.querySelector('#scene-canvas')));
                 assert(Math.abs(state.top)<2&&state.width<=state.clientWidth+1);
                 if(state.eye[2]<-20.4){assert.equal(state.room,'exploration');assert.equal(state.editorial,0);assert.equal(state.folds,'1.000000,1.000000')}
@@ -578,20 +578,25 @@ jobs:
                   const image=await page.screenshot({path:'/tmp/threshold-evidence/exploration-'+width+'-'+String(Math.round(p*100)).padStart(3,'0')+'.png'});
                   forward.set(p,{state,image});
                   if(p===1){
-                    const img=await canvas.screenshot({style:captureStyle});
-                    const raw=await sharp(img).removeAlpha().raw().toBuffer({resolveWithObject:true});let blue=0;
+                    // Preserve compositing state: classify the full screenshot already captured.
+                    const raw=await sharp(image).removeAlpha().raw().toBuffer({resolveWithObject:true});let blue=0;
                     for(let k=0;k<raw.data.length;k+=raw.info.channels){const [r,g,b]=[raw.data[k],raw.data[k+1],raw.data[k+2]];if(b>75&&b>r*1.6&&b>g*1.35)blue++}
                     state.blue=blue/(raw.info.width*raw.info.height);
                     assert(state.blue>.40,'cobalt visible in actual final frame');
                   }
                 }else{
                   const prior=forward.get(p);
-                  for(const k of ['p','fov','folds','editorial','room'])assert.equal(state[k],prior.state[k]);
+                  for(const k of ['p','fov','folds','editorial','editorialTransform','editorialOpacity','editorialBounds','room'])assert.equal(state[k],prior.state[k]);
                   assert.deepEqual(state.eye,prior.state.eye);
                   if(p===0||p===.6||p===.84){
                     const image=await page.screenshot({path:'/tmp/threshold-evidence/exploration-reverse-'+width+'-'+Math.round(p*100)+'.png'});
                     const a=await sharp(prior.image).removeAlpha().raw().toBuffer(),b=await sharp(image).removeAlpha().raw().toBuffer();let delta=0;
                     assert.equal(a.length,b.length);for(let j=0;j<a.length;j++)if(Math.abs(a[j]-b[j])>3)delta++;
+                    if(delta>=a.length*.001){
+                      const failure={width,height,p,delta,fraction:delta/a.length,forward:prior.state,reverse:state};
+                      writeFileSync('/tmp/threshold-evidence/exploration-reverse-failure.json',JSON.stringify(failure,null,2));
+                      console.error('Exploration reversal diagnostic',failure);
+                    }
                     assert(delta<a.length*.001,'reversible exploration composition');
                   }
                 }
@@ -703,14 +708,14 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom+s.scrollTop-s.scrollHeight)<3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T24a',verification:'T24a',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T24a',verification:'T24b',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-exhibition-compositing-evidence
+          name: threshold-exhibition-capture-evidence
           path: /tmp/threshold-evidence/
 
   transition:
@@ -739,5 +744,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-T24a-transition-evidence
+          name: threshold-T24b-transition-evidence
           path: /tmp/threshold-transition/
