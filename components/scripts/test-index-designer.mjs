@@ -34,6 +34,30 @@ for(const selector of ['.studio-chapters','.studio-colophon']){const box=await p
 await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
 for(const img of await p.locator('.project-cover img,.case-card-photo img').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(n=>n.decode());assert(await img.evaluate(n=>n.naturalWidth>0))}
 await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await p.waitForTimeout(1100);const track=p.locator('#proof-track');assert.equal(await track.getAttribute('data-motion'),'live');const initial=await p.locator('.project-identity').evaluate(n=>getComputedStyle(n).transform);const span=await track.evaluate(n=>n.offsetHeight-n.querySelector('#proof-stage').offsetHeight);assert(span>100);const top=await track.evaluate(n=>n.getBoundingClientRect().top+scrollY);await p.evaluate(y=>scrollTo({top:y,behavior:'instant'}),top+span*.55);await p.waitForTimeout(150);const middle=await p.locator('.project-identity').evaluate(n=>getComputedStyle(n).transform);assert.notEqual(initial,middle);await p.screenshot({path:path.join(out,width+'-proof-mid.png')});await p.evaluate(y=>scrollTo({top:y,behavior:'instant'}),top+span);await p.waitForFunction(()=>+document.querySelector('#proof-track').dataset.progress>.98);const final=await p.locator('.project-identity').evaluate(n=>getComputedStyle(n).transform);assert.notEqual(middle,final);await p.screenshot({path:path.join(out,width+'-proof-aligned.png')});await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await p.waitForTimeout(120);assert.equal(await p.locator('.project-cover').count(),6);await p.screenshot({path:path.join(out,width+'-home.png')});
+// P18: all six original links must grow, scatter and resolve continuously.
+if(width>=1100){
+ const sample=async(fraction)=>{
+  await p.evaluate(y=>scrollTo({top:y,behavior:'instant'}),Math.round(top+span*fraction));
+  await p.waitForFunction(f=>Math.abs(Number(document.querySelector('#proof-track').dataset.progress)-f)<.008,fraction);
+  return p.locator('.project-cover').evaluateAll(cards=>cards.map(n=>{
+   const r=n.getBoundingClientRect(),m=new DOMMatrix(getComputedStyle(n).transform);
+   const visible=[.25,.5,.75].some(x=>[.25,.5,.75].some(y=>{const px=r.left+r.width*x,py=r.top+r.height*y;return px>=0&&px<innerWidth&&py>=0&&py<innerHeight&&n.contains(document.elementFromPoint(px,py))}));
+   return {x:r.x,y:r.y,w:r.width,h:r.height,layoutW:n.offsetWidth,layoutH:n.offsetHeight,scale:Math.hypot(m.a,m.b),angle:Math.atan2(m.b,m.a),tx:m.e,ty:m.f,visible,href:n.getAttribute('href')};
+  }));
+ };
+ const opening=await sample(0);await p.screenshot({path:path.join(out,width+'-scatter-opening.png')});
+ const frames=[];for(const f of [.2,.4,.6,.8,1]){frames.push(await sample(f));if(f===.4)await p.screenshot({path:path.join(out,width+'-scatter-mid.png')})}
+ const aligned=frames.at(-1);await p.screenshot({path:path.join(out,width+'-scatter-aligned.png')});
+ assert.equal(opening.length,6);assert(opening.every(n=>n.scale>=1.24&&n.visible),'each scattered photo must be larger and reachable');
+ assert(opening.every((n,i)=>n.w>aligned[i].w*1.2),'individual photograph width did not increase by 20%');
+ assert(opening.every(n=>Math.abs(n.angle)>.08&&Math.hypot(n.tx,n.ty)>14),'individual starting pose too subtle');
+ assert(aligned.every(n=>Math.abs(n.scale-1)<.001&&Math.abs(n.angle)<.001&&Math.hypot(n.tx,n.ty)<.5&&n.visible),'aligned links must be flat and reachable');
+ for(let i=0;i<6;i++)for(let j=1;j<frames.length;j++)assert(frames[j][i].scale<=frames[j-1][i].scale+.002,'non-monotonic scale');
+ for(let i=0;i<6;i++)for(let j=i+1;j<6;j++){const a=aligned[i],b=aligned[j];assert(Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)<1||Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)<1,'aligned grid overlap')}
+ const reverse=await sample(0);for(let i=0;i<6;i++)for(const key of ['scale','angle','tx','ty'])assert(Math.abs(reverse[i][key]-opening[i][key])<.002,'scatter reverse pose changed '+key);
+ assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'scatter introduced horizontal overflow');
+ await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
+}
 // Check genuine geometric overlap, visible header strips and reversible scrolling at every width.
 await p.locator('.study-nav').scrollIntoViewIfNeeded();
 await p.waitForFunction(()=>document.querySelector('.study-cases').dataset.stack==='enabled');

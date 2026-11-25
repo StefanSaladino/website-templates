@@ -383,3 +383,28 @@ body[data-page=home] .folder-vessa{--folder:#ded4c4;--folder-ink:#302722}body[da
 @media(max-height:649px){.proof-space .project-grid{max-width:100%}}
 @media(prefers-reduced-motion:reduce){.proof-track{--pose:0!important;min-height:0!important}.proof-stage{position:relative!important;min-height:0!important}.proof-space .project-cover{transform:none!important}.proof-space .project-cover img{transform:none!important}}
 @media(forced-colors:active){.proof-face{border:1px solid CanvasText}}
+
+/* P18: desktop editorial scatter. The six original links are the animation
+   objects; no clones, absolute-layout handoff or scripted scroll capture.
+   Scale, position and rotation resolve together using the existing --pose. */
+@media(min-width:1100px) and (min-height:650px) and (prefers-reduced-motion:no-preference){
+ body[data-page=home] .proof-track[data-motion=live]{min-height:calc(100svh + 76vh)}
+ body[data-page=home] .proof-track[data-motion=live] .proof-stage{padding-inline:clamp(24px,3vw,64px);overflow:clip}
+ .proof-track[data-motion=live] .proof-top,.proof-track[data-motion=live] .proof-bottom{position:relative;z-index:8;background:var(--paper)}
+ .proof-track[data-motion=live] .proof-space{padding:12px clamp(18px,2.5vw,52px);perspective:none}
+ .proof-track[data-motion=live] .proof-space .project-grid{width:100%;max-width:min(100%,1680px,calc((100svh - 205px)*2.05));aspect-ratio:2.05;gap:clamp(12px,1.35vw,22px);transform-style:flat;isolation:isolate}
+ .proof-track[data-motion=live] .proof-space .project-cover:nth-child(n){
+  transform:translate3d(calc(var(--scatter-x)*var(--pose)),calc(var(--scatter-y)*var(--pose)),0)
+   rotate(calc(var(--scatter-r)*var(--pose))) scale(calc(1 + var(--scatter-grow)*var(--pose)));
+  z-index:var(--scatter-layer);transform-origin:center;transition:none;
+ }
+ .proof-track[data-motion=live] .project-cover[data-proof="0"]{--scatter-x:-4%;--scatter-y:-8%;--scatter-r:-8deg;--scatter-grow:.28;--scatter-layer:3}
+ .proof-track[data-motion=live] .project-cover[data-proof="1"]{--scatter-x:12%;--scatter-y:11%;--scatter-r:9deg;--scatter-grow:.26;--scatter-layer:5}
+ .proof-track[data-motion=live] .project-cover[data-proof="2"]{--scatter-x:4%;--scatter-y:-12%;--scatter-r:-6deg;--scatter-grow:.30;--scatter-layer:2}
+ .proof-track[data-motion=live] .project-cover[data-proof="3"]{--scatter-x:7%;--scatter-y:9%;--scatter-r:6deg;--scatter-grow:.27;--scatter-layer:1}
+ .proof-track[data-motion=live] .project-cover[data-proof="4"]{--scatter-x:-11%;--scatter-y:-8%;--scatter-r:-10deg;--scatter-grow:.31;--scatter-layer:4}
+ .proof-track[data-motion=live] .project-cover[data-proof="5"]{--scatter-x:-2%;--scatter-y:6%;--scatter-r:7deg;--scatter-grow:.25;--scatter-layer:6}
+ .proof-track[data-motion=live] .proof-space .project-cover:focus-visible{z-index:7}
+ .proof-track[data-motion=live] .proof-face{border-width:clamp(5px,.5vw,9px);box-shadow:0 2px 4px #312b2420,0 14px 30px #312b242b}
+ .proof-track[data-motion=live] .proof-cross{display:none}
+}
