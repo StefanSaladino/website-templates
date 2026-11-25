@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01 and T02 complete; T03 next. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01 and T02 complete; T03 scaffold implemented, browser gate pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -228,4 +228,7 @@ All six modeled bounds fit the viewport. The tablet leaves a tighter lower copy/
 
 ### T03 handoff
 
-Select local, pinned rendering stack based on actual requirements: simple opaque architecture, depth-aware masking, directional/emissive materials, bounded planar reflection and responsive camera. Compare Three.js against native WebGL and GSAP against direct native scroll. Establish isolated semantic draft and versioned module/dependency graph only; T04 basic renderer later. No building the portal, lighting or camera choreography prematurely. 
+Select local, pinned rendering stack based on actual requirements: simple opaque architecture, depth-aware masking, directional/emissive materials, bounded planar reflection and responsive camera. Compare Three.js against native WebGL and GSAP against direct native scroll. Establish isolated semantic draft and versioned module/dependency graph only; T04 basic renderer later. No building the portal, lighting or camera choreography prematurely.
+
+## T03 — Native rendering stack and isolated shell
+Input baseline `bae30bc87bb96c64b7dacce3d67d1d057fc00b83`. Choose native WebGL2/GLSL, modular ES source and native scroll/RAF when implemented; no Three.js, GSAP or other runtime dependency. Fixed architectural geometry and bounded reflections favor explicit renderer control; native deterministic progress avoids multiple clocks. The existing static postbuild copies all templates; no shared build change. Created isolated draft semantic shell, base/shell styles, release and coordinate helper, bootstrap and dependency-free tests. System font is temporary; no canvas, renderer, lighting or scroll motion yet. Two local Node tests and entry syntax check passed; local Chromium loopback blocked by administrator, so dedicated real-route GitHub browser workflow added; its result and Pages deployment pending at commit time. T03 implementation recorded; verify exact-revision browser gate before T04. See draft README. No gallery or builder registration.

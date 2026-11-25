@@ -1,0 +1,17 @@
+:root {
+  color-scheme: dark;
+  --obsidian: #090909;
+  --bone: #eeece5;
+  --vermilion: #ff3823;
+  --cobalt: #2448ff;
+  --muted: #b9b7b2;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--obsidian);
+  color: var(--bone);
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--bone); outline-offset: 4px; }
+.skip-link { position: absolute; z-index: 10; top: .5rem; left: .5rem; padding: .75rem; background: var(--bone); color: var(--obsidian); transform: translateY(-200%); }
+.skip-link:focus { transform: none; }

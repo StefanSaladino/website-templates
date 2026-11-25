@@ -846,3 +846,6 @@ Stakeholder selected THRESHOLD / Beyond the ordinary as planned template 41 and 
 
 ## THRESHOLD — T02 spatial storyboard
 Authored a shared-world architectural cut, fixed room adjacency, 6×7.2 outer portal with 4.8×6 clear opening and 2-unit depth, separate desktop/portrait compositions, 12 camera/narrative anchors, future project interaction sketches and six-width pinhole projection check. All modeled opening corner bounds are within viewport; this is planning math, not rendered evidence or path-clearance proof. See [THRESHOLD roadmap / T02](docs/THRESHOLD-STUDIO-ROADMAP.md#t02--architectural-storyboard--design-specification). T02 documentation only. Next T03 isolated scaffold and rendering-stack decision; no runtime, dependencies, gallery or configurator changes. T12 opening visual approval remains the hard gate.
+
+## THRESHOLD — T03 isolated scaffold
+Native WebGL2 and native scrolling selected; no new dependencies. Semantic static draft at `templates/_drafts/threshold-studio/`, local versioned modules/styles, coordinate conversion and two passing local Node tests. Local browser loopback blocked; dedicated scoped browser workflow added, exact revision verification pending. No gallery/configurator/shared runtime changes. Next verify T03 browser gate, then T04 basic renderer lifecycle; no opening artwork yet.
