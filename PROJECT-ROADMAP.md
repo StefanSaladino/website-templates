@@ -838,3 +838,5 @@ Registration run 45622444868 completed successfully: both permanent-route specia
 
 ## RELAY — R8 approved gallery-only registration
 Approved R7d moves to templates/relay-automation, with original draft URLs redirected, actual opening capture and dedicated regression coverage. 40 gallery previews, 35 configurator templates. No configurator enablement or claim of physical-device acceptance.
+
+Registration candidate `8c47aefa854db796aaa48ae5c6ce03ebaf5d345e` passed real-route RELAY browser and deterministic tests, opening capture, full showroom build and gallery-only membership in Actions run `45682759642`. Promoted with a gallery filter-label correction to match the existing Business/Product/Experimental/Immersive taxonomy. R7d runtime unchanged; physical-device cadence not certified.

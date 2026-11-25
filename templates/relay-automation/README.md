@@ -104,3 +104,5 @@ Verification: all four existing Node regression suites plus new `node tests/moni
 
 ## R8 — Approved gallery registration
 Stakeholder approved R7d for gallery-only publication. Runtime source and choreography unchanged except route, immersive marker and gallery return link. Preserve draft review links with a query/hash redirect. Real opening capture, dedicated browser/algorithm checks and full build required before publishing. Physical Safari cadence remains unverified; not enabled in configurator.
+
+Registration verification: Actions run 45682759642 passed the five deterministic suites, 120 sampled real-route browser states at six widths, sandbox selection/exit, redirect query/hash preservation, reduced-motion and static fallback checks, genuine 960×600 opening capture and full showroom build. The approved runtime hashes are unchanged (HTML only has the registration marker and corrected gallery return link). Gallery filter labels aligned to the existing taxonomy before publication.
