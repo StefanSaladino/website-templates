@@ -24,13 +24,14 @@ const DESKTOP_PAN_TARGETS = [
   { xPct: -15.0,yPct: 5.5 },  // 06 Notify assigned team
 ];
 
+// Portrait framing keeps both node columns visible throughout the execution.
 const MOBILE_PAN_TARGETS = [
-  { xPct: 5.5, yPct: 2.0 },   // 01 top-left
-  { xPct: -5.5, yPct: 2.0 },  // 02 top-right
-  { xPct: -5.5, yPct: -2.5 }, // 03 mid-right
-  { xPct: 5.5, yPct: -2.5 },  // 04 mid-left
-  { xPct: 5.5, yPct: -6.5 }, // 05 bottom-left
-  { xPct: -5.5, yPct: -6.5 },// 06 bottom-right
+  { xPct: 1.1, yPct: 0.0 },
+  { xPct: -1.1, yPct: 0.0 },
+  { xPct: -1.1, yPct: -0.5 },
+  { xPct: 1.1, yPct: -0.5 },
+  { xPct: 1.1, yPct: -1.0 },
+  { xPct: -1.1, yPct: -1.0 },
 ];
 
 const DESKTOP_KEYS = [
@@ -48,28 +49,34 @@ const DESKTOP_KEYS = [
 ];
 
 const MOBILE_KEYS = [
-  { p: 0.0,   xPct: 0.0,  yPct: 0.0, scale: 0.96, rotX: 5.5, rotY: -4.5, sep: 0.00 },
-  { p: 0.08,  xPct: 0.5,  yPct: 0.5,  scale: 0.99, rotX: 6.5, rotY: -4.5, sep: 0.35 },
-  { p: 0.185, xPct: 0.0,  yPct: -1.5, scale: 0.93, rotX: 7.5, rotY: -4.0, sep: 1.00 },
-  { p: 0.275, xPct: 5.5, yPct: 2.0, scale: 1.12, rotX: 0,   rotY: 0,    sep: 0.00 },
-  { p: 0.435, xPct: -5.5,yPct: -6.5,scale: 1.12, rotX: 0,   rotY: 0,    sep: 0.00 },
-  { p: 0.48,  xPct: 0.0,  yPct: 0.0,  scale: 0.98, rotX: 2.5, rotY: -2.0, sep: 0.08 },
-  { p: 0.635, xPct: 0.0,  yPct: 0.0,  scale: 0.98, rotX: 2.5, rotY: -2.0, sep: 0.08 },
-  { p: 0.72,  xPct: 0.0,  yPct: 0.0,  scale: 1.00, rotX: 0,   rotY: 0,    sep: 0.00 },
-  { p: 0.82,  xPct: 0.0,  yPct: 0.0,  scale: 1.00, rotX: 0,   rotY: 0,    sep: 0.00 },
-  { p: 0.88,  xPct: 0.0,  yPct: 0.5,  scale: 1.00, rotX: 4.0, rotY: -3.5, sep: 0.00 },
-  { p: 1.0,   xPct: 0.0,  yPct: 0.5,  scale: 1.00, rotX: 4.0, rotY: -3.5, sep: 0.00 },
+  { p: 0.0,   xPct: 0, yPct: 0, scale: 0.97, rotX: 3, rotY: -3, sep: 0 },
+  { p: 0.08,  xPct: 0, yPct: 0, scale: 0.97, rotX: 4, rotY: -3, sep: 0.30 },
+  { p: 0.185, xPct: 0, yPct: -0.8, scale: 0.94, rotX: 5, rotY: -2, sep: 0.74 },
+  { p: 0.275, xPct: 1.1, yPct: 0, scale: 0.99, rotX: 0, rotY: 0, sep: 0 },
+  { p: 0.435, xPct: -1.1, yPct: -1, scale: 0.99, rotX: 0, rotY: 0, sep: 0 },
+  { p: 0.48,  xPct: 0, yPct: 0, scale: 0.98, rotX: 1, rotY: -1, sep: 0 },
+  { p: 0.635, xPct: 0, yPct: 0, scale: 0.98, rotX: 1, rotY: -1, sep: 0 },
+  { p: 0.72,  xPct: 0, yPct: 0, scale: 1, rotX: 0, rotY: 0, sep: 0 },
+  { p: 0.82,  xPct: 0, yPct: 0, scale: 1, rotX: 0, rotY: 0, sep: 0 },
+  { p: 0.88,  xPct: 0, yPct: 0, scale: 0.98, rotX: 2, rotY: -2, sep: 0 },
+  { p: 1.0,   xPct: 0, yPct: 0, scale: 0.98, rotX: 2, rotY: -2, sep: 0 },
 ];
 
-// Overlapping fade windows ensure zero accidental blank text frames and clean clearance during sweeps
-const COPY_WINDOWS = [
-  { inStart: -0.04, holdStart: 0.00, holdEnd: 0.075, outEnd: 0.12  }, // 01
-  { inStart: 0.105, holdStart: 0.145,holdEnd: 0.195, outEnd: 0.228 }, // 02 (exits cleanly before zoom sweep)
-  { inStart: 0.218, holdStart: 0.25, holdEnd: 0.425, outEnd: 0.465 }, // 03
-  { inStart: 0.45,  holdStart: 0.485,holdEnd: 0.635, outEnd: 0.675 }, // 04
-  { inStart: 0.66,  holdStart: 0.705,holdEnd: 0.815, outEnd: 0.858 }, // 05
-  { inStart: 0.85,  holdStart: 0.89, holdEnd: 1.00,  outEnd: 1.05  }, // 06 (enters after rig swings right)
-];
+// Short sequential fades: only one narrative can occupy a shared text region.
+// At the exact handoff the persistent product is intentionally the sole subject.
+const COPY_HANDOFFS = [0.112, 0.223, 0.458, 0.668, 0.854];
+const COPY_HALF_WINDOW = 0.007;
+
+export function evaluateNarrative(progress) {
+  const p = clamp01(progress);
+  let activeScene = COPY_HANDOFFS.filter(c => p >= c).length;
+  const left = activeScene > 0 ? COPY_HANDOFFS[activeScene - 1] : -1;
+  const right = activeScene < COPY_HANDOFFS.length ? COPY_HANDOFFS[activeScene] : 2;
+  const w = smoothstep((p-left)/COPY_HALF_WINDOW) * smoothstep((right-p)/COPY_HALF_WINDOW);
+  const copyWeights = Array.from({length:6}, (_,i) => i===activeScene?w:0);
+  const direction = p-left < COPY_HALF_WINDOW ? 1 : -1;
+  return { activeScene, copyWeights, copyShift: direction * (1-w) * 12 };
+}
 
 function clamp01(v) {
   return Math.max(0, Math.min(1, v));
@@ -203,31 +210,14 @@ export function evaluateSceneState(progress, isMobile) {
     edgeDraw = 1 - 0.40 * Math.sin(Math.PI * (p - 0.07) / 0.14) ** 2;
   }
 
-  // Active scene index (0..5)
-  let activeScene = 0;
-  let bestDist = Infinity;
-  SCENE_ANCHORS.forEach((anc, idx) => {
-    const d = Math.abs(p - anc.progress);
-    if (d < bestDist) {
-      bestDist = d;
-      activeScene = idx;
-    }
-  });
-
-  // Smooth coordinated per-scene visibility weights
-  let copyWeights = COPY_WINDOWS.map((win) => {
-    if (p <= win.inStart || p >= win.outEnd) return 0;
-    if (p >= win.holdStart && p <= win.holdEnd) return 1;
-    if (p < win.holdStart) {
-      return smoothstep((p - win.inStart) / Math.max(0.0001, win.holdStart - win.inStart));
-    }
-    return 1 - smoothstep((p - win.holdEnd) / Math.max(0.0001, win.outEnd - win.holdEnd));
-  });
-
-  // Complementary copy weights preserve a visible narrative at handoffs.
-  const sum = copyWeights.reduce((a,b) => a+b, 0);
-  if (sum > 0) copyWeights = copyWeights.map(w => w / sum);
-  activeScene = copyWeights.indexOf(Math.max(...copyWeights));
+  const { activeScene, copyWeights, copyShift } = evaluateNarrative(p);
+  // Extra portrait canvas height where the narrative is intentionally concise.
+  // Ease back to the base height before the larger scenario-control block.
+  const portraitRoom = Math.max(
+    smoothstep((p-.119)/.065)*(1-smoothstep((p-.43)/.035)),
+    smoothstep((p-.675)/.045)*(1-smoothstep((p-.84)/.03)),
+    smoothstep((p-.861)/.06)*.55
+  );
 
   // Hero monumental typographic parallax factor on Scene 01
   const heroSplit = clamp01(p / 0.12);
@@ -250,6 +240,8 @@ export function evaluateSceneState(progress, isMobile) {
     scenarioBlend,
     activeScene,
     copyWeights,
+    copyShift,
+    portraitRoom,
     heroSplit,
   };
 }

@@ -6,7 +6,7 @@
  * on inactive chapters, and restores static accessibility under reduced motion.
  */
 
-import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=4';
+import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=5';
 
 const DARK_PAGE = [18, 20, 18]; // #121412
 const LIGHT_PAGE = [239, 236, 228]; // #EFECE4
@@ -54,7 +54,6 @@ export class MotionController {
     this.shellEl = document.getElementById('relay-shell');
     this.guidesSvg = document.getElementById('exploded-guides');
     this.sceneEls = Array.from(document.querySelectorAll('.scene'));
-    this.railLinks = Array.from(document.querySelectorAll('[data-scene-link]'));
     this.themeMeta = document.querySelector('meta[name="theme-color"]');
 
     this.signalRoute = document.getElementById('relay-signal-route');
@@ -142,26 +141,29 @@ export class MotionController {
     const h = this.shellEl.clientHeight || 560;
     this.guidesSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
 
+    const sidebarW = document.getElementById('layer-sidebar')?.offsetWidth || 204;
+    const inspectorW = document.getElementById('layer-inspector')?.offsetWidth || 232;
+    const historyH = document.getElementById('layer-history')?.offsetHeight || 92;
     const coords = isMobile
       ? [
           // Vertical guides between top bar and canvas, and canvas to history
           [w * 0.18, 44, w * 0.18, 44 - sep * 14],
           [w * 0.82, 44, w * 0.82, 44 - sep * 14],
-          [w * 0.25, h - 76, w * 0.25, h - 76 + sep * 20],
-          [w * 0.75, h - 76, w * 0.75, h - 76 + sep * 20],
+          [w * 0.25, h - historyH, w * 0.25, h - historyH + sep * 20],
+          [w * 0.75, h - historyH, w * 0.75, h - historyH + sep * 20],
           [0, 0, 0, 0],
           [0, 0, 0, 0],
         ]
       : [
           // Sidebar right edge <-> canvas left edge
-          [204 - sep * 42, 72 - sep * 10, 204, 72 - sep * 10],
-          [204 - sep * 42, h - 72 - sep * 10, 204, h - 72 - sep * 10],
+          [sidebarW - sep * 42, 72 - sep * 10, sidebarW, 72 - sep * 10],
+          [sidebarW - sep * 42, h - 72 - sep * 10, sidebarW, h - 72 - sep * 10],
           // Canvas right edge <-> Inspector left edge
-          [w - 232, 92 - sep * 10, w - 232 + sep * 62, 92 + sep * 14],
-          [w - 232, h - 130 - sep * 10, w - 232 + sep * 62, h - 130 + sep * 14],
+          [w - inspectorW, 92 - sep * 10, w - inspectorW + sep * 62, 92 + sep * 14],
+          [w - inspectorW, h - 130 - sep * 10, w - inspectorW + sep * 62, h - 130 + sep * 14],
           // Canvas bottom <-> History top
-          [256, h - 92 - sep * 10, 256 + sep * 18, h - 92 + sep * 38],
-          [w - 280, h - 92 - sep * 10, w - 280 + sep * 18, h - 92 + sep * 38],
+          [sidebarW + 52, h - historyH - sep * 10, sidebarW + 52 + sep * 18, h - historyH + sep * 38],
+          [w - inspectorW - 48, h - historyH - sep * 10, w - inspectorW - 48 + sep * 18, h - historyH + sep * 38],
         ];
 
     this.guideLines.forEach((line, i) => {
@@ -280,6 +282,8 @@ export class MotionController {
           scenarioBlend: 1,
           activeScene: 2,
           copyWeights: [0, 0, 0, 0, 0, 0],
+          copyShift: 0,
+          portraitRoom: 0,
           heroSplit: 1,
         }
       : evaluateSceneState(progress, isMobile);
@@ -294,6 +298,7 @@ export class MotionController {
       this.rigEl.style.setProperty('--sep', state.sep.toFixed(4));
       this.rigEl.style.setProperty('--monitor', state.monitor.toFixed(4));
       this.rigEl.style.setProperty('--execution-focus', state.focus.amount.toFixed(4));
+      this.rigEl.style.setProperty('--portrait-room', state.portraitRoom.toFixed(4));
     }
 
     // Readability scrim blend during Scene 03 close-up zoom
@@ -345,6 +350,12 @@ export class MotionController {
       if(handoff?.amount>=1)this.scrollHandoff=null;
     }
 
+    const monitorPanel = document.getElementById('ws-monitor-panel');
+    if (monitorPanel) {
+      const interactive = state.monitor >= .95;
+      monitorPanel.inert = !interactive;
+      monitorPanel.setAttribute('aria-hidden', String(!interactive));
+    }
     // 5. Switch active sidebar item coherently for Scene 05 monitoring
     const desiredSidebar = state.monitor > 0.5 ? 'activity' : 'workflows';
     if (desiredSidebar !== this.lastSidebarMode) {
@@ -352,14 +363,14 @@ export class MotionController {
       this.workflow.setSidebarModule(desiredSidebar);
     }
 
-    // 6. Crossfade Scene narrative layers and isolate inactive chapters via inert + aria-hidden
+    // 6. Sequential narrative handoff and isolate inactive chapters via inert + aria-hidden
     this.sceneEls.forEach((secEl, idx) => {
       const w = state.copyWeights[idx] ?? 0;
       const isActive = idx === state.activeScene && !this.sandboxOpen;
       const isInteractive = isActive && w >= 0.35;
       secEl.classList.toggle('is-active', isActive);
       secEl.style.setProperty('--scene-alpha', w.toFixed(3));
-      const shift = (1 - w) * (idx === 0 ? -24 : 20);
+      const shift = isActive ? state.copyShift : 0;
       secEl.style.setProperty('--scene-shift-y', `${shift.toFixed(1)}px`);
       secEl.dataset.interactive = isInteractive ? 'true' : 'false';
 
@@ -372,10 +383,7 @@ export class MotionController {
       }
     });
 
-    // 7. Update discreet side story rail
-    this.railLinks.forEach((link, idx) => {
-      link.classList.toggle('is-active', idx === state.activeScene);
-    });
+
   }
 
   _updateSignal(progress, isMobile, light) {
@@ -415,7 +423,10 @@ export class MotionController {
       this.rigEl.style.removeProperty('--sep');
       this.rigEl.style.removeProperty('--monitor');
       this.rigEl.style.removeProperty('--execution-focus');
+      this.rigEl.style.removeProperty('--portrait-room');
     }
+    const monitorPanel = document.getElementById('ws-monitor-panel');
+    if (monitorPanel) { monitorPanel.inert = false; monitorPanel.removeAttribute('aria-hidden'); }
     if (this.guidesSvg) this.guidesSvg.style.opacity = '0';
     this.sceneEls.forEach((secEl) => {
       secEl.style.removeProperty('--scene-alpha');

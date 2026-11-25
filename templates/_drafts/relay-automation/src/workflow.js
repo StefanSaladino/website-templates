@@ -5,8 +5,8 @@
  * unified execution monitoring & recovery.
  */
 
-import { executionNodeWeight } from './scenes.js?v=4';
-import { blendEdges } from './connectors.js?v=4';
+import { executionNodeWeight } from './scenes.js?v=5';
+import { blendEdges } from './connectors.js?v=5';
 
 export const SCENARIOS = {
   inbound: {
@@ -660,7 +660,11 @@ export class WorkflowController {
 
       const geometry={};
       for(const profile of ['desktop','mobile']) {
-        const a=aNode[profile], b=bNode[profile];
+        // Stable portrait lanes avoid physical node collisions while the SVG
+        // topology changes. Desktop retains the original spatial morphs.
+        const portraitSlot = {x:[.03,.52,.52,.03,.03,.52][i],y:[.04,.04,.36,.36,.68,.68][i]};
+        const a=profile==='mobile'?portraitSlot:aNode[profile];
+        const b=profile==='mobile'?portraitSlot:bNode[profile];
         let x=lerp(a.x,b.x,t), y=lerp(a.y,b.y,t);
         if(snapshot){x=lerp(snapshot.nodes[i][profile].x,x,handoffMix);y=lerp(snapshot.nodes[i][profile].y,y,handoffMix);}
         geometry[profile]={x,y};

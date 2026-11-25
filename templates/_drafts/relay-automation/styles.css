@@ -1642,53 +1642,6 @@ html.has-motion:not(.is-reduced-motion) .scene[data-interactive="true"] .scene-c
   gap: 12px;
 }
 
-/* Bottom-Left Discreet Scene Progress Rail */
-.scene-rail {
-  position: absolute;
-  left: clamp(24px, 4vw, 56px);
-  bottom: 20px;
-  z-index: 30;
-  display: none;
-  padding: 5px 11px;
-  border-radius: 5px;
-  background: color-mix(in srgb, var(--page-bg) 88%, transparent);
-  border: 1px solid color-mix(in srgb, var(--shell-border) 55%, transparent);
-  backdrop-filter: blur(6px);
-}
-
-@media (min-width: 1024px) {
-  html.has-motion:not(.is-reduced-motion) .scene-rail {
-    display: block;
-  }
-}
-
-.scene-rail-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.rail-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 2px;
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 11px;
-  color: var(--page-muted);
-  border-bottom: 2px solid transparent;
-  transition: color 0.18s ease, border-color 0.18s ease;
-}
-
-.rail-link.is-active {
-  color: var(--page-ink);
-  border-bottom-color: var(--accent);
-}
-
 /* --------------------------------------------------------------------------
    Mobile Portrait Dedicated Choreography (<= 1023px)
    -------------------------------------------------------------------------- */
@@ -2373,8 +2326,6 @@ html.is-reduced-motion .scene-copy {
 
 html:not(.has-motion) .layer-caption,
 html.is-reduced-motion .layer-caption,
-html:not(.has-motion) .scene-rail,
-html.is-reduced-motion .scene-rail,
 html:not(.has-motion) .exploded-guides,
 html.is-reduced-motion .exploded-guides {
   display: none;
@@ -2509,3 +2460,72 @@ html.has-motion:not(.is-reduced-motion) .wf-node:focus-visible { opacity:1; outl
 
 /* R4 — topology weights and reveal lengths belong to the master geometry. */
 .connector-path-active { transition:none; }
+
+/* R5 — portrait safe framing and single-chapter narrative handoffs. */
+html.has-motion:not(.is-reduced-motion) .scene:not(.is-active) .scene-copy { visibility:hidden; }
+@media(max-width:1023px) {
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .stage-viewport {
+   padding-bottom:max(24px,env(safe-area-inset-bottom));
+ }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .workspace-rig {
+   width:calc(100% - 36px); max-width:650px;
+ }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .relay-shell {
+   height:min(620px,calc(54dvh + var(--portrait-room,0) * 9dvh));
+ }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .ws-history { height:66px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .wf-node {
+   width:44%; min-width:0; padding:7px 8px;
+ }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .wf-node-title {
+   font-size:12px; white-space:normal; line-height:1.18; min-height:2.36em;
+   display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
+ }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .wf-node-meta { font-size:9px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scene-copy:not(.scene-copy-opening) {
+   top:calc(var(--header-h) + 20px); left:18px; right:18px;
+ }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scene-copy-adapt .body-copy { max-width:52ch; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scene-copy-adapt .scenario-controls {
+   grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px;
+ }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scenario-btn { min-height:38px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .monitor-detail-pane { overflow:auto; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .timeline-steps { flex-shrink:0; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scene-copy-topband .trace-readout { min-height:2.7em; }
+}
+@media(min-width:700px) and (max-width:1023px) {
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .relay-shell { height:min(680px,calc(57dvh + var(--portrait-room,0) * 9dvh)); }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scene-copy:not(.scene-copy-opening) { left:clamp(24px,6vw,65px); }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .wf-node { padding:10px 12px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .wf-node-title { font-size:14px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .wf-node-meta { font-size:11px; }
+}
+@media(max-width:374px), (max-width:1023px) and (max-height:660px) {
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .stage-viewport { padding-bottom:14px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .workspace-rig { width:calc(100% - 28px); }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .relay-shell { height:min(400px,calc(51dvh + var(--portrait-room,0) * 8dvh)); }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .ws-history { height:50px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .wf-node { padding:4px 6px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .wf-node-title { font-size:10.5px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scene-copy:not(.scene-copy-opening) { top:calc(var(--header-h) + 8px); left:14px; right:14px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scenario-btn { min-height:30px; }
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scene-copy-adapt .body-copy { font-size:11.5px; }
+}
+
+/* Opaque, reversible reveal: no legibility-destroying dashboard ghosting. */
+html.has-motion:not(.is-reduced-motion) .ws-monitor-panel {
+ opacity:1; transform:none;
+ clip-path:inset(0 0 calc((1 - var(--monitor)) * 100%) 0);
+ pointer-events:none;
+}
+html.has-motion:not(.is-reduced-motion) .ws-monitor-panel[inert] { pointer-events:none; }
+html.has-motion:not(.is-reduced-motion) .ws-monitor-panel:not([inert]) { pointer-events:auto; }
+
+@media(min-width:1024px) and (max-width:1279px) {
+ html.has-motion:not(.is-reduced-motion) .relay-shell { grid-template-columns:144px minmax(0,1fr); }
+ html.has-motion:not(.is-reduced-motion) .ws-body-grid { grid-template-columns:minmax(0,1fr) 168px; }
+ html.has-motion:not(.is-reduced-motion) .ws-sidebar { padding:12px 8px; }
+ html.has-motion:not(.is-reduced-motion) .ws-inspector { padding:10px 8px; }
+ html.has-motion:not(.is-reduced-motion) .ws-org { gap:5px; padding-inline:2px; }
+}
