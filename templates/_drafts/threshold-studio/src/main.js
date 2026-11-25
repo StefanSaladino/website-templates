@@ -1,10 +1,10 @@
-import {RELEASE} from './config.js?v=T14';
-import {createRenderer} from './renderer.js?v=T14';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,openingComposition} from './camera.js?v=T14';
-import {createScheduler} from './lifecycle.js?v=T14';
-import {wordmarkOcclusion} from './wordmark.js?v=T14';
-import {createAmbientClock} from './ambient.js?v=T14';
-import {readProgress} from './scroll.js?v=T14';
+import {RELEASE} from './config.js?v=T14b';
+import {createRenderer} from './renderer.js?v=T14b';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,openingComposition} from './camera.js?v=T14b';
+import {createScheduler} from './lifecycle.js?v=T14b';
+import {wordmarkOcclusion} from './wordmark.js?v=T14b';
+import {createAmbientClock} from './ambient.js?v=T14b';
+import {readProgress} from './scroll.js?v=T14b';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -25,7 +25,16 @@ function start(){
   const clock=createAmbientClock();let forceDraw=true;
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
   function staticView(reason){clock.pause();if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
-  function eligible(){return !disposed&&!suspended&&!failed&&!lost&&!reduced.matches&&!document.hidden&&visible}
+  // A preference change can become visible to the frame scheduler before the
+  // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
+  function eligible(){
+    if(disposed||suspended)return false;
+    if(reduced.matches){
+      if(study.dataset.reason!=='reduced-motion')staticView('reduced-motion');
+      return false;
+    }
+    return !failed&&!lost&&!document.hidden&&visible;
+  }
   function draw(){
     const sample=ambientEnabled?clock.sample(performance.now(),forceDraw):{render:true,phase:-1,elapsed:0};
     forceDraw=false;
@@ -64,7 +73,7 @@ function start(){
   const invalidate=()=>{forceDraw=true;scheduler.invalidate()};
   function scrollChanged(){if(journeyActive)invalidate()}
   function suspend(){clock.pause();scheduler.sync()}
-  function preference(){if(reduced.matches)staticView('reduced-motion');invalidate()}
+  function preference(){if(disposed)return;if(reduced.matches)staticView('reduced-motion');invalidate()}
   function visibility(){if(document.hidden)suspend();else invalidate()}
   function contextLost(e){e.preventDefault();lost=true;suspend();renderer?.abandon();staticView('context-lost')}
   function contextRestored(){

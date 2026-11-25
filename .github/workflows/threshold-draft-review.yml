@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T14');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T14b');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -413,8 +413,30 @@ jobs:
               await moving.waitForTimeout(350);
             }
             writeFileSync('/tmp/threshold-evidence/motion-frames.json',JSON.stringify(motionFrames,null,2));
+            // Record actual preference delivery independently of the app's response.
+            await moving.evaluate(()=>{
+              const query=matchMedia('(prefers-reduced-motion: reduce)');
+              window.__preferenceReview={query,events:[]};
+              query.addEventListener('change',e=>window.__preferenceReview.events.push({matches:e.matches,at:performance.now()}));
+            });
             await moving.emulateMedia({reducedMotion:'reduce'});
-            await moving.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='reduced-motion');
+            try{
+              await moving.waitForFunction(()=>matchMedia('(prefers-reduced-motion: reduce)').matches);
+              await moving.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='reduced-motion');
+              assert(await movingCanvas.isHidden());
+              assert(await moving.locator('.scene-fallback').isVisible());
+            }catch(error){
+              const detail=await moving.evaluate(()=>({
+                matches:matchMedia('(prefers-reduced-motion: reduce)').matches,
+                observed:window.__preferenceReview.query.matches,
+                events:window.__preferenceReview.events,
+                state:{...document.querySelector('#scene-study').dataset},
+                hidden:document.hidden,canvasHidden:document.querySelector('#scene-canvas').hidden
+              }));
+              writeFileSync('/tmp/threshold-evidence/preference-failure.json',JSON.stringify(detail,null,2));
+              await moving.screenshot({path:'/tmp/threshold-evidence/preference-failure.png'});
+              console.error('Preference diagnostic',detail);throw error;
+            }
             const frozen=Number(await movingStage.getAttribute('data-ambient-elapsed')),frozenFrames=await movingStage.getAttribute('data-frames');
             await moving.waitForTimeout(500);
             assert.equal(await movingStage.getAttribute('data-frames'),frozenFrames);
@@ -455,12 +477,12 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T14',verification:'T14a',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T14b',verification:'T14b',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-approach-keyboard-evidence
+          name: threshold-approach-preference-evidence
           path: /tmp/threshold-evidence/
