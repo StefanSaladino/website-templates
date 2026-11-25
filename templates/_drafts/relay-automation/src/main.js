@@ -6,9 +6,9 @@
  */
 
 import { ConnectorEngine } from './connectors.js?v=8';
-import { WorkflowController } from './workflow.js?v=8';
-import { MotionController } from './motion.js?v=8';
-import { SCENE_ANCHORS } from './scenes.js?v=8';
+import { WorkflowController } from './workflow.js?v=10';
+import { MotionController } from './motion.js?v=10';
+import { SCENE_ANCHORS } from './scenes.js?v=10';
 
 function initApp() {
   const shellEl = document.getElementById('relay-shell');

@@ -6,40 +6,8 @@
  * on inactive chapters, and restores static accessibility under reduced motion.
  */
 
-import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=8';
+import { evaluateSceneState, SCENE_ANCHORS } from './scenes.js?v=10';
 
-const DARK_PAGE = [18, 20, 18]; // #121412
-const LIGHT_PAGE = [239, 236, 228]; // #EFECE4
-
-const DARK_SHELL = [37, 42, 36]; // #1D211C
-const LIGHT_SHELL = [248, 246, 240]; // #F8F6F0
-
-const DARK_ELEVATED = [50, 57, 48]; // #282E26
-const LIGHT_ELEVATED = [239, 236, 228]; // #EFECE4
-
-const DARK_INK = [242, 244, 238]; // #F2F4EE
-const LIGHT_INK = [22, 24, 21]; // #161815
-
-const DARK_MUTED = [184, 190, 181]; // #B8BEB5
-const LIGHT_MUTED = [89, 95, 85]; // #595F55
-
-const DARK_BORDER = [77, 86, 73]; // #3F473C
-const LIGHT_BORDER = [212, 208, 197]; // #D4D0C5
-
-function luminance(rgb) {
-  return rgb.map(x=>x/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4).reduce((sum,x,i)=>sum+x*[.2126,.7152,.0722][i],0);
-}
-function legibleInk(bg, muted=false) {
-  const y=luminance(bg);
-  // Preserve normal endpoint colours where they meet a 4.5:1 contrast ratio;
-  // choose absolute dark/light ink at the midpoint instead of muddy gray.
-  const dark=[22,24,21], white=[242,244,238];
-  const candidate=y>.179?(muted?LIGHT_MUTED:dark):(muted?DARK_MUTED:white);
-  const ratio=(Math.max(y,luminance(candidate))+.05)/(Math.min(y,luminance(candidate))+.05);
-  if(ratio>=4.5)return candidate;
-  return y>.179?[0,0,0]:[255,255,255];
-}
-const rgbString=rgb=>`rgb(${rgb.map(Math.round).join(', ')})`;
 const setVar=(el,key,value)=>{if(el&&el.style.getPropertyValue(key)!==value)el.style.setProperty(key,value);};
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -56,12 +24,10 @@ export class MotionController {
     this.graphPanel=document.querySelector('.ws-body-grid');
     this.historyPanel=document.getElementById('layer-history');
     this.lastMonitor=0;
-    this.lastPalette=null;
     this.rigEl = document.getElementById('workspace-rig');
     this.shellEl = document.getElementById('relay-shell');
     this.guidesSvg = document.getElementById('exploded-guides');
     this.sceneEls = Array.from(document.querySelectorAll('.scene'));
-    this.themeMeta = document.querySelector('meta[name="theme-color"]');
 
     this.signalRoute = document.getElementById('relay-signal-route');
     this.signalBase = document.getElementById('signal-base');
@@ -339,33 +305,8 @@ export class MotionController {
       this._updateSignal(progress, isMobile, state.light);
     }
 
-    // 2. Smooth background & shell surface palette transition for Scene 05
-    if(this.lastPalette!==state.light){
-      this.lastPalette=state.light;
-      this.root.style.setProperty('--theme-light-mix', state.light.toFixed(4));
-      this.root.style.setProperty('--page-bg', mixRgb(DARK_PAGE, LIGHT_PAGE, state.light));
-      const pageRgb=DARK_PAGE.map((v,i)=>v+(LIGHT_PAGE[i]-v)*state.light);
-      const shellRgb=DARK_SHELL.map((v,i)=>v+(LIGHT_SHELL[i]-v)*state.light);
-      this.root.style.setProperty('--page-ink',rgbString(legibleInk(pageRgb)));
-      this.root.style.setProperty('--page-muted',rgbString(legibleInk(pageRgb,true)));
-      this.shellEl?.style.setProperty('--page-ink',rgbString(legibleInk(shellRgb)));
-      this.shellEl?.style.setProperty('--page-muted',rgbString(legibleInk(shellRgb,true)));
-      this.root.style.setProperty('--shell-surface', mixRgb(DARK_SHELL, LIGHT_SHELL, state.light));
-      this.root.style.setProperty('--shell-elevated', mixRgb(DARK_ELEVATED, LIGHT_ELEVATED, state.light));
-      this.root.style.setProperty('--shell-border', mixRgb(DARK_BORDER, LIGHT_BORDER, state.light));
-      // Local theme tokens override the old discrete light-theme CSS declarations.
-      for(const [name,dark,light] of [['--shell-elevated',DARK_ELEVATED,LIGHT_ELEVATED],['--shell-border',DARK_BORDER,LIGHT_BORDER]])this.shellEl?.style.setProperty(name,mixRgb(dark,light,state.light));
-      this.shellEl?.style.setProperty('--surface-light',state.light.toFixed(4));
-      for(const [name,dark,light] of [['--ok-color',[197,244,107],[27,107,58]],['--warn-color',[229,184,92],[154,88,4]],['--err-color',[239,123,107],[180,50,37]]])this.shellEl?.style.setProperty(name,mixRgb(dark,light,state.light));
-
-      if (this.shellEl) {
-        this.shellEl.setAttribute('data-theme-surface', state.light > 0.5 ? 'light' : 'dark');
-      }
-      if (this.themeMeta) {
-        this.themeMeta.setAttribute('content', state.light > 0.5 ? '#EFECE4' : '#121412');
-      }
-
-    }
+    // 2. Reveal a solid light backdrop behind the stable product plane.
+    setVar(this.stageEl,'--monitor-light',state.light.toFixed(4));
 
     // 3. Exploded Scene 02 architectural guide connectors
     this._updateExplodedGuides(state.sep, isMobile);
@@ -430,22 +371,15 @@ export class MotionController {
     }
     // One scroll-driven editorial route, no extra loop or layout reads.
     this.signalPacket.style.strokeDashoffset = String(-progress*860-24);
-    this.signalRoute.style.opacity = this.sandboxOpen ? '0' : String(0.95-light*0.5);
+    this.signalRoute.style.opacity = this.sandboxOpen ? '0' : String(0.95*(1-light));
   }
 
   _resetReducedStyles() {
-    this.lastPalette=null;
-    this.root.style.removeProperty('--page-bg');
-    this.root.style.removeProperty('--page-ink');
-    this.root.style.removeProperty('--page-muted');
-    this.root.style.removeProperty('--shell-surface');
-    this.root.style.removeProperty('--shell-elevated');
-    this.root.style.removeProperty('--shell-border');
     if (this.stageEl) {
       this.stageEl.style.removeProperty('--zoom-scrim');
       this.stageEl.style.removeProperty('--hero-split');
+      this.stageEl.style.removeProperty('--monitor-light');
     }
-    if (this.shellEl) { this.shellEl.style.removeProperty('--shell-elevated');this.shellEl.style.removeProperty('--shell-border');this.shellEl.style.removeProperty('--surface-light');for(const name of ['--ok-color','--warn-color','--err-color'])this.shellEl.style.removeProperty(name);this.shellEl.setAttribute('data-theme-surface', 'dark'); this.shellEl.style.removeProperty('--page-ink'); this.shellEl.style.removeProperty('--page-muted'); }
     if (this.rigEl) {
       this.rigEl.style.removeProperty('--rig-x');
       this.rigEl.style.removeProperty('--rig-y');

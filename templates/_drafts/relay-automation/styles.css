@@ -2580,3 +2580,39 @@ html.has-motion:not(.is-reduced-motion) .relay-shell { box-shadow:0 22px 48px rg
  html.has-motion:not(.is-reduced-motion) .scene:not(.is-active) .scene-copy { will-change:auto; }
  html.has-motion:not(.is-reduced-motion) .stage-grid-rule { mask-image:none; opacity:.09; }
 }
+
+/* R7d: opaque theme planes. The persistent workspace/header remain charcoal;
+   a solid paper backdrop and independently themed monitor reveal in depth.
+   Both transitions follow scroll, with no mid-gray surface or ink interpolation. */
+html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .stage-viewport::after {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:#EFECE4;
+  clip-path:inset(0 0 calc((1 - var(--monitor-light,0)) * 100%) 0);
+}
+html.has-motion:not(.is-reduced-motion) .stage-grid-rule { z-index:1; }
+html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .scene-05 {
+  --page-ink:#161815; --page-muted:#51574D; color:var(--page-ink);
+}
+html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .ws-monitor-panel {
+  --shell-surface:#F8F6F0; --shell-elevated:#EFECE4; --shell-border:#B7B5AB;
+  --page-ink:#161815; --page-muted:#51574D;
+  --ok-color:#12613A; --warn-color:#854603; --err-color:#A52B21;
+  --accent:#396314; --accent-ink:#FFFFFF;
+  color:var(--page-ink); background:var(--shell-surface);
+  transform:translateZ(1px);
+}
+/* The opaque monitor covers the history at its real reveal edge. Avoid a
+   premature history fade, which formerly exposed an empty strip underneath. */
+html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .ws-history {
+  opacity:calc(1 - var(--execution-focus) * .36);
+}
+@media(max-width:1023px) {
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .ws-history {
+  opacity:calc(1 - var(--execution-focus) * .18);
+ }
+}
+@media(max-width:1023px) {
+ html.has-motion:not(.is-reduced-motion):not(.is-sandbox-open) .ws-monitor-panel {
+  border-bottom-left-radius:var(--radius-lg);
+ }
+}

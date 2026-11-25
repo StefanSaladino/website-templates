@@ -5,7 +5,7 @@
  * unified execution monitoring & recovery.
  */
 
-import { executionNodeWeight } from './scenes.js?v=8';
+import { executionNodeWeight } from './scenes.js?v=10';
 import { blendEdges } from './connectors.js?v=8';
 
 export const SCENARIOS = {

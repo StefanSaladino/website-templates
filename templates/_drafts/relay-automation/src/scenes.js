@@ -70,8 +70,8 @@ const COPY_HALF_WINDOW = 0.014;
 export function evaluateNarrative(progress) {
   const p = clamp01(progress);
   let activeScene = COPY_HANDOFFS.filter(c => p >= c).length;
-  const left = activeScene > 0 ? COPY_HANDOFFS[activeScene - 1] : -1;
-  const right = activeScene < COPY_HANDOFFS.length ? COPY_HANDOFFS[activeScene] : 2;
+  const left = activeScene === 4 ? 0.688 : activeScene > 0 ? COPY_HANDOFFS[activeScene - 1] : -1;
+  const right = activeScene === 4 ? 0.834 : activeScene < COPY_HANDOFFS.length ? COPY_HANDOFFS[activeScene] : 2;
   const w = smoothstep((p-left)/COPY_HALF_WINDOW) * smoothstep((right-p)/COPY_HALF_WINDOW);
   const copyWeights = Array.from({length:6}, (_,i) => i===activeScene?w:0);
   const direction = p-left < COPY_HALF_WINDOW ? 1 : -1;
@@ -146,7 +146,7 @@ export function evaluateSceneState(progress, isMobile) {
   const scale = lerp(a.scale, b.scale, e);
   const rotX = lerp(a.rotX, b.rotX, e);
   const rotY = lerp(a.rotY, b.rotY, e);
-  const sep = lerp(a.sep, b.sep, e);
+  const sep = lerp(a.sep, b.sep, e) * (1 - smoothstep((p - .65) / .04));
 
   // Scene 03 deterministic step execution trace + zoomed camera node tracking
   let execStep = -1;
@@ -184,15 +184,9 @@ export function evaluateSceneState(progress, isMobile) {
     scenarioBlend = (p - 0.65) / 0.04;
   }
 
-  // Scene 05 warm off-white palette transition
-  let lightBlend = 0;
-  if (p >= 0.66 && p <= 0.72) {
-    lightBlend = smoothstep((p - 0.66) / 0.06);
-  } else if (p > 0.72 && p < 0.825) {
-    lightBlend = 1;
-  } else if (p >= 0.825 && p <= 0.885) {
-    lightBlend = 1 - smoothstep((p - 0.825) / 0.06);
-  }
+  // Two opaque scene planes; the backdrop moves only while narrative is absent.
+  // No foreground or product colour interpolation through the middle of a theme.
+  const lightBlend = smoothstep((p - .668) / .020) * (1 - smoothstep((p - .834) / .020));
 
   // Scene 05 execution monitoring panel transition
   let monitorBlend = 0;
