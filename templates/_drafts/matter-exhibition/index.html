@@ -1,0 +1,3321 @@
+<!DOCTYPE html>
+<html lang="en" data-room="ivory">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>MATTER — Studies in Transformation</title>
+  <meta name="description" content="MATTER — An experimental digital exhibition examining sculptural form, surface material alchemy, particulate dissolution, and architectural reassembly.">
+  <meta property="og:title" content="MATTER — Studies in Transformation">
+  <meta property="og:description" content="Continuous 3D sculptural study across metallic bronze, kaolin ceramic, translucent alabaster, and particulate reformation.">
+  <meta name="theme-color" content="#f2ece2">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNQVRURVIgbW9ub2dyYW0iPgogIDxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iIzE5MTgxNSIvPgogIDxwYXRoIGQ9Ik0xOCA0NkMxNCAzOCAxNSAyNCAyMyAxOEMzMSAxMiA0MyAxNSA0NyAyM0M1MCAzMCA0NiA0MSAzOCA0NUMzMSA0OSAyMiA0NCAyNCAzNUMyNiAyNyAzNSAyNCAzOSAyOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjJlY2UyIiBzdHJva2Utd2lkdGg9IjMuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iNDQiIGN5PSI0NSIgcj0iMi42IiBmaWxsPSIjOWQ3MzRiIi8+Cjwvc3ZnPgo=" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+/* MATTER — Studies in Transformation
+ * Contemporary gallery exhibition stylesheet with depth-layered typography,
+ * independent mobile composition, reduced-motion plates, and high-contrast modes. */
+
+:root {
+  --ivory-bg: #f2ece2;
+  --ivory-surface: #e8e0d2;
+  --ivory-ink: #191815;
+  --ivory-muted: #565149;
+  --ivory-rule: rgba(25, 24, 21, 0.16);
+  --ivory-wall-type: rgba(25, 24, 21, 0.12);
+
+  --dark-bg: #181714;
+  --dark-surface: #22201c;
+  --dark-ink: #f3ede3;
+  --dark-muted: #bab2a4;
+  --dark-rule: rgba(243, 237, 227, 0.18);
+  --dark-wall-type: rgba(243, 237, 227, 0.11);
+
+  --accent-bronze: #996d44;
+  --accent-bronze-light: #cfa378;
+
+  --room-bg: var(--ivory-bg);
+  --room-ink: var(--ivory-ink);
+  --room-muted: var(--ivory-muted);
+  --room-rule: var(--ivory-rule);
+  --room-wall-type: var(--ivory-wall-type);
+  --room-accent: var(--accent-bronze);
+
+  --font-display: 'Cormorant Garamond', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'Avenir Next', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --header-h: 64px;
+  --track-h: 600svh;
+  --ease-gallery: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-room="charcoal"] {
+  --room-bg: var(--dark-bg);
+  --room-ink: var(--dark-ink);
+  --room-muted: var(--dark-muted);
+  --room-rule: var(--dark-rule);
+  --room-wall-type: var(--dark-wall-type);
+  --room-accent: var(--accent-bronze-light);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--room-bg);
+  color: var(--room-ink);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background-color: var(--room-bg);
+  color: var(--room-ink);
+  transition: background-color 480ms var(--ease-gallery), color 360ms ease;
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--room-accent);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip navigation link */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.15rem;
+  background: var(--ivory-ink);
+  color: var(--ivory-bg);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: top 160ms ease;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+/* Top Exhibition Header (minimal, non-intrusive, single row) */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  height: var(--header-h);
+  padding: 0 clamp(1.25rem, 4vw, 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  pointer-events: none;
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--room-bg) 30%, transparent 100%);
+  opacity: 0.88;
+  z-index: -1;
+  transition: background 480ms var(--ease-gallery);
+}
+
+.site-wordmark,
+.site-nav,
+.header-actions {
+  pointer-events: auto;
+}
+
+.site-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  min-height: 44px;
+  align-items: center;
+}
+
+.site-wordmark-sub {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  color: var(--room-muted);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.35rem;
+}
+
+.nav-chapter {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--room-muted);
+  padding: 0.5rem 0.25rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  transition: color 220ms ease;
+}
+
+.nav-chapter::after {
+  content: '';
+  position: absolute;
+  left: 0.25rem;
+  right: 0.25rem;
+  bottom: 0.65rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms var(--ease-gallery);
+}
+
+.nav-chapter:hover,
+.nav-chapter[aria-current="true"] {
+  color: var(--room-ink);
+}
+
+.nav-chapter[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.still-toggle {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--room-ink);
+  border-bottom: 1px solid var(--room-rule);
+  padding: 0.55rem 0.1rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: border-color 220ms ease, opacity 220ms ease;
+}
+
+.still-toggle:hover,
+.still-toggle[aria-pressed="true"] {
+  border-bottom-color: var(--room-accent);
+}
+
+/* Thin progress hairline anchored cleanly along top edge below header */
+.scroll-hairline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 40;
+  background: transparent;
+  pointer-events: none;
+}
+
+.scroll-hairline-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--room-accent);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left center;
+}
+
+/* Main Continuous Exhibition Track */
+.exhibition-track {
+  position: relative;
+  height: var(--track-h);
+}
+
+.exhibition-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* Semantic scroll anchors layered invisibly across track for native browser scroll & keyboard focus */
+.exhibition-anchors {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scroll-anchor {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 18%;
+}
+
+.scroll-anchor--1 { top: 0%; }
+.scroll-anchor--2 { top: 20%; }
+.scroll-anchor--3 { top: 42%; }
+.scroll-anchor--4 { top: 64%; }
+.scroll-anchor--5 { top: 82%; }
+
+/* Layer 1: Giant Architectural Wall Typography Behind Sculpture (z-index: 1) */
+.backdrop-type-layer {
+  grid-area: 1 / 1;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 clamp(1.25rem, 5vw, 5rem);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.backdrop-plate {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(1.25rem, 5vw, 5rem);
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 520ms var(--ease-gallery), transform 680ms var(--ease-gallery);
+}
+
+.backdrop-plate.is-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.backdrop-word {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(4.8rem, 16.5vw, 15.8rem);
+  line-height: 0.84;
+  letter-spacing: calc(-0.03em + var(--wall-spread, 0) * 0.045em);
+  color: var(--room-wall-type);
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+  transform: translate3d(calc(var(--wall-parallax, 0) * -42px), 0, 0);
+  transition: color 480ms var(--ease-gallery);
+}
+
+.backdrop-word--indent {
+  padding-left: clamp(2rem, 11vw, 12rem);
+  font-style: italic;
+}
+
+/* Layer 2: Central 3D WebGL Sculpture Canvas (z-index: 2) */
+.stage-canvas-wrap {
+  grid-area: 1 / 1;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+#matter-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+#matter-canvas:active {
+  cursor: grabbing;
+}
+
+/* WebGL Fallback / Static Architectural Drawing (hidden when WebGL is active) */
+.webgl-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 6rem clamp(1.5rem, 8vw, 7rem) 4rem;
+  pointer-events: none;
+}
+
+html.no-webgl .webgl-fallback {
+  display: flex;
+}
+
+html.no-webgl #matter-canvas {
+  display: none;
+}
+
+.fallback-sculpture {
+  width: min(54vw, 540px);
+  height: auto;
+  color: var(--room-ink);
+  opacity: 0.86;
+}
+
+/* Layer 3: Foreground Asymmetrical Curatorial Margin & Plate Rail (z-index: 3) */
+.foreground-layer {
+  grid-area: 1 / 1;
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 36ch) 1fr auto;
+  align-items: end;
+  padding: calc(var(--header-h) + 1.5rem) clamp(1.25rem, 4.5vw, 4.5rem) clamp(2.25rem, 6vh, 4.75rem);
+  pointer-events: none;
+}
+
+.editorial-slot {
+  grid-column: 1;
+  position: relative;
+  min-height: 14.5rem;
+  display: grid;
+  align-items: end;
+}
+
+.chapter-card {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  pointer-events: none;
+  transition: opacity 420ms var(--ease-gallery), transform 520ms var(--ease-gallery);
+}
+
+.chapter-card.is-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
+.chapter-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--room-muted);
+}
+
+.chapter-rule {
+  flex: 0 0 2.5rem;
+  height: 1px;
+  background: var(--room-rule);
+}
+
+.chapter-title {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 4vw, 3.65rem);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  color: var(--room-ink);
+}
+
+.chapter-title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.chapter-body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.05vw, 1.04rem);
+  line-height: 1.62;
+  color: var(--room-muted);
+  max-width: 34ch;
+}
+
+.stage-scroll-cue {
+  margin-top: 1.35rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--room-ink);
+  opacity: var(--cue-opacity, 1);
+  transition: opacity 260ms ease;
+}
+
+/* Right Architectural Chapter Rail */
+.plate-rail {
+  grid-column: 3;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.95rem;
+  pointer-events: auto;
+  border-right: 1px solid var(--room-rule);
+  padding-right: 1rem;
+}
+
+.rail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--room-muted);
+  min-height: 28px;
+  transition: color 220ms ease;
+}
+
+.rail-link-label {
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 240ms ease, transform 240ms ease;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+.rail-link:hover .rail-link-label,
+.rail-link:focus-visible .rail-link-label,
+.rail-link[aria-current="true"] .rail-link-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.rail-link[aria-current="true"] {
+  color: var(--room-ink);
+  font-weight: 500;
+}
+
+.rail-status {
+  margin-top: 0.75rem;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--room-accent);
+  pointer-events: none;
+}
+
+.interaction-hint {
+  position: absolute;
+  bottom: clamp(1.1rem, 3vh, 2rem);
+  right: clamp(1.25rem, 4.5vw, 4.5rem);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--room-muted);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* Stage VI: Minimal Exhibition Index & Footer */
+.exhibition-index {
+  position: relative;
+  z-index: 5;
+  background-color: var(--dark-bg);
+  color: var(--dark-ink);
+  border-top: 1px solid var(--dark-rule);
+  padding: clamp(4.5rem, 9vw, 8rem) clamp(1.25rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem);
+}
+
+.index-shell {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.index-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 2.5rem;
+  align-items: end;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--dark-rule);
+}
+
+.index-kicker {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-bronze-light);
+}
+
+.index-heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5.8vw, 5.2rem);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+}
+
+.index-heading em {
+  font-style: italic;
+}
+
+.index-intro {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.68;
+  color: var(--dark-muted);
+  max-width: 44ch;
+}
+
+/* Architectural Monograph Catalogue Rows (no card grid clichés) */
+.catalogue-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.catalogue-row {
+  border-bottom: 1px solid var(--dark-rule);
+}
+
+.catalogue-link {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1.4fr) minmax(0, 1.1fr) minmax(0, 1.6fr) auto;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.55rem 0.25rem;
+  transition: padding-left 280ms var(--ease-gallery), color 220ms ease;
+}
+
+.catalogue-link:hover {
+  padding-left: 0.85rem;
+}
+
+.catalogue-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-bronze-light);
+}
+
+.catalogue-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  font-weight: 500;
+}
+
+.catalogue-material {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--dark-muted);
+  text-transform: uppercase;
+}
+
+.catalogue-note {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--dark-muted);
+}
+
+.catalogue-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--dark-ink);
+  transition: transform 240ms var(--ease-gallery);
+}
+
+.catalogue-link:hover .catalogue-arrow {
+  transform: translateX(4px);
+}
+
+/* Curatorial Colophon Specifications */
+.colophon-grid {
+  margin: clamp(3rem, 6vw, 5rem) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--dark-rule);
+}
+
+.colophon-item dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark-muted);
+  margin-bottom: 0.5rem;
+}
+
+.colophon-item dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--dark-ink);
+}
+
+/* Site Footer */
+.site-footer {
+  background-color: var(--dark-bg);
+  color: var(--dark-muted);
+  border-top: 1px solid var(--dark-rule);
+  padding: 2rem clamp(1.25rem, 5vw, 5rem) 2.75rem;
+}
+
+.footer-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark-ink);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 200ms ease;
+}
+
+.footer-links a:hover {
+  color: var(--dark-ink);
+}
+
+/* Tablet / Independent Portrait Mobile Composition */
+@media (max-width: 900px) {
+  .plate-rail,
+  .interaction-hint,
+  .site-wordmark-sub {
+    display: none;
+  }
+
+  .catalogue-link {
+    grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+    gap: 0.5rem 1rem;
+  }
+
+  .catalogue-material {
+    grid-column: 2;
+  }
+
+  .catalogue-note {
+    grid-column: 2 / -1;
+  }
+
+  .colophon-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  :root {
+    --header-h: 58px;
+    --track-h: 500svh;
+  }
+
+  .site-nav {
+    gap: 0.55rem;
+  }
+
+  .nav-chapter {
+    font-size: 0.72rem;
+    padding: 0.45rem 0.35rem;
+  }
+
+  .backdrop-type-layer {
+    align-items: flex-start;
+    padding-top: calc(var(--header-h) + 2.5rem);
+  }
+
+  .backdrop-plate {
+    justify-content: flex-start;
+    padding-top: calc(var(--header-h) + 2.25rem);
+  }
+
+  .backdrop-word {
+    font-size: clamp(3.3rem, 15.5vw, 6.4rem);
+  }
+
+  /* Mobile puts typography cleanly in lower editorial band beneath raised sculpture */
+  .foreground-layer {
+    grid-template-columns: 1fr;
+    align-items: end;
+    padding: 0 1.25rem 1.75rem;
+  }
+
+  .foreground-layer::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+    background: linear-gradient(to top, var(--room-bg) 52%, rgba(242, 236, 226, 0) 100%);
+    z-index: -1;
+    pointer-events: none;
+    transition: background 480ms var(--ease-gallery);
+  }
+
+  html[data-room="charcoal"] .foreground-layer::before {
+    background: linear-gradient(to top, var(--room-bg) 52%, rgba(24, 23, 20, 0) 100%);
+  }
+
+  .editorial-slot {
+    min-height: 11.5rem;
+  }
+
+  .chapter-title {
+    font-size: clamp(1.85rem, 7.6vw, 2.55rem);
+    margin-bottom: 0.55rem;
+  }
+
+  .chapter-body {
+    font-size: 0.92rem;
+    line-height: 1.54;
+    max-width: 40ch;
+  }
+
+  .index-header {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-nav {
+    display: none;
+  }
+
+  .still-toggle {
+    font-size: 0.6875rem;
+  }
+
+  .colophon-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced-Motion Safe Architecture: turns pinned track into calm sequential archival study plates */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .exhibition-track {
+    height: auto;
+  }
+
+  .exhibition-sticky {
+    position: static;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  .backdrop-type-layer,
+  .stage-canvas-wrap,
+  .plate-rail,
+  .stage-scroll-cue,
+  .interaction-hint,
+  .scroll-hairline {
+    display: none;
+  }
+
+  .webgl-fallback {
+    position: static;
+    display: flex;
+    justify-content: center;
+    padding: calc(var(--header-h) + 2rem) 1.5rem 2rem;
+  }
+
+  .foreground-layer {
+    display: block;
+    padding: 1rem clamp(1.25rem, 5vw, 5rem) 4rem;
+    pointer-events: auto;
+  }
+
+  .foreground-layer::before {
+    display: none;
+  }
+
+  .editorial-slot {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem 3rem;
+    max-width: 1320px;
+    margin: 0 auto;
+    min-height: 0;
+  }
+
+  .chapter-card {
+    grid-area: auto;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--room-rule);
+    transition: none;
+  }
+
+  .catalogue-link,
+  .site-header::before {
+    transition: none;
+  }
+}
+
+/* High Contrast / Forced Colors Support */
+@media (forced-colors: active) {
+  .scroll-hairline-fill {
+    background: Highlight;
+  }
+
+  .chapter-rule,
+  .plate-rail,
+  .catalogue-row,
+  .colophon-grid,
+  .exhibition-index,
+  .site-footer {
+    border-color: CanvasText;
+  }
+
+  .nav-chapter[aria-current="true"]::after,
+  .still-toggle {
+    border-color: Highlight;
+  }
+}
+
+</style>
+  <script>
+    (function () {
+      try {
+        var canvas = document.createElement('canvas');
+        var gl = canvas.getContext('webgl2');
+        if (!gl) document.documentElement.classList.add('no-webgl');
+      } catch (e) {
+        document.documentElement.classList.add('no-webgl');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to exhibition</a>
+
+  <div class="scroll-hairline" aria-hidden="true">
+    <div class="scroll-hairline-fill" id="scroll-progress-bar"></div>
+  </div>
+
+  <header class="site-header">
+    <a class="site-wordmark" href="#stage-suspension">
+      <span>MATTER</span>
+      <span class="site-wordmark-sub">Study No. 01</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Exhibition chapters">
+      <a class="nav-chapter" href="#stage-suspension" data-nav-stage="0" aria-current="true">I</a>
+      <a class="nav-chapter" href="#stage-morph" data-nav-stage="1">II</a>
+      <a class="nav-chapter" href="#stage-alchemy" data-nav-stage="2">III</a>
+      <a class="nav-chapter" href="#stage-dissolution" data-nav-stage="3">IV</a>
+      <a class="nav-chapter" href="#stage-reassembly" data-nav-stage="4">V</a>
+      <a class="nav-chapter" href="#exhibition-index" data-nav-stage="5">Index</a>
+    </nav>
+
+    <div class="header-actions">
+      <button type="button" class="still-toggle" id="still-toggle" aria-pressed="false">
+        Still view
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="exhibition-track" id="exhibition-track">
+      <!-- Native scroll anchor waypoints inside the continuous track -->
+      <div class="exhibition-anchors" aria-hidden="true">
+        <div class="scroll-anchor scroll-anchor--1" id="stage-suspension"></div>
+        <div class="scroll-anchor scroll-anchor--2" id="stage-morph"></div>
+        <div class="scroll-anchor scroll-anchor--3" id="stage-alchemy"></div>
+        <div class="scroll-anchor scroll-anchor--4" id="stage-dissolution"></div>
+        <div class="scroll-anchor scroll-anchor--5" id="stage-reassembly"></div>
+      </div>
+
+      <div class="exhibition-sticky" id="exhibition-sticky">
+        <!-- Layer 1: Architectural Display Wall Typography occluded by 3D form -->
+        <div class="backdrop-type-layer" aria-hidden="true">
+          <div class="backdrop-plate is-active" data-backdrop-stage="0">
+            <p class="backdrop-word">Suspen</p>
+            <p class="backdrop-word backdrop-word--indent">sion</p>
+          </div>
+          <div class="backdrop-plate" data-backdrop-stage="1">
+            <p class="backdrop-word">Torsion</p>
+            <p class="backdrop-word backdrop-word--indent">&amp; Orbit</p>
+          </div>
+          <div class="backdrop-plate" data-backdrop-stage="2">
+            <p class="backdrop-word">Alch</p>
+            <p class="backdrop-word backdrop-word--indent">emy</p>
+          </div>
+          <div class="backdrop-plate" data-backdrop-stage="3">
+            <p class="backdrop-word">Disso</p>
+            <p class="backdrop-word backdrop-word--indent">lution</p>
+          </div>
+          <div class="backdrop-plate" data-backdrop-stage="4">
+            <p class="backdrop-word">Second</p>
+            <p class="backdrop-word backdrop-word--indent">Form</p>
+          </div>
+        </div>
+
+        <!-- Layer 2: Central Real-Time WebGL2 Sculpture Viewport -->
+        <div class="stage-canvas-wrap">
+          <canvas
+            id="matter-canvas"
+            role="img"
+            aria-label="Interactive three-dimensional abstract sculpture transforming continuously through scroll stages"
+          ></canvas>
+        </div>
+
+        <!-- Graceful Static Vector Study (shown under WebGL loss or reduced motion) -->
+        <div class="webgl-fallback">
+          <svg class="fallback-sculpture" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architectural elevation drawing of Form A and Form B monoliths">
+            <ellipse cx="210" cy="368" rx="132" ry="18" fill="currentColor" fill-opacity="0.08"/>
+            <path d="M132 292C96 240 104 148 164 102C224 56 306 74 328 134C348 188 312 268 248 290C194 308 132 272 148 206C162 146 236 128 264 166C286 196 264 242 222 252" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M150 280C122 232 128 158 178 120C228 82 292 98 310 148C326 192 296 254 242 272" stroke="currentColor" stroke-width="1" stroke-opacity="0.48" stroke-dasharray="4 6"/>
+            <path d="M174 334C178 248 192 152 178 78M246 334C242 248 228 152 242 78" stroke="#996d44" stroke-width="1.4" stroke-opacity="0.65"/>
+            <circle cx="298" cy="112" r="3" fill="#996d44"/>
+            <circle cx="124" cy="212" r="2.2" fill="currentColor" fill-opacity="0.5"/>
+          </svg>
+        </div>
+
+        <!-- Layer 3: Protected Foreground Curatorial Margin & Chapter Rail -->
+        <div class="foreground-layer">
+          <div class="editorial-slot" aria-live="polite">
+            <article class="chapter-card is-active" data-card-stage="0">
+              <p class="chapter-meta">
+                <span>Plate I</span>
+                <span class="chapter-rule" aria-hidden="true"></span>
+                <span>Cast Palladium</span>
+              </p>
+              <h1 class="chapter-title">Matter in <em>Suspension</em></h1>
+              <p class="chapter-body">
+                An undivided helical ribbon hangs within measured negative space—neither static weight nor weightless diagram, waiting for observer movement to disturb its equilibrium.
+              </p>
+              <p class="stage-scroll-cue" aria-hidden="true">Scroll to initiate transformation &darr;</p>
+            </article>
+
+            <article class="chapter-card" data-card-stage="1">
+              <p class="chapter-meta">
+                <span>Plate II</span>
+                <span class="chapter-rule" aria-hidden="true"></span>
+                <span>Harmonic Torsion</span>
+              </p>
+              <h2 class="chapter-title">Geometry <em>Unwinds</em></h2>
+              <p class="chapter-body">
+                As the vantage point glides along a horizontal arc, internal stresses flute the surface outward—cantilevering closed bronze mass into sharper dorsal ridges.
+              </p>
+            </article>
+
+            <article class="chapter-card" data-card-stage="2">
+              <p class="chapter-meta">
+                <span>Plate III</span>
+                <span class="chapter-rule" aria-hidden="true"></span>
+                <span>Surface Alchemy</span>
+              </p>
+              <h2 class="chapter-title">Metal, Clay, <em>Quartz</em></h2>
+              <p class="chapter-body">
+                Specular palladium gives way to unglazed kaolin stone before clearing into smoked alabaster—bending studio softboxes inward as depth reveals the letterforms behind.
+              </p>
+            </article>
+
+            <article class="chapter-card" data-card-stage="3">
+              <p class="chapter-meta">
+                <span>Plate IV</span>
+                <span class="chapter-rule" aria-hidden="true"></span>
+                <span>Particulate Field</span>
+              </p>
+              <h2 class="chapter-title">Boundary <em>Dissolution</em></h2>
+              <p class="chapter-body">
+                A harmonic wavefront sweeps upward across the solid hull, releasing fourteen thousand mineral grains along helical curl currents without losing structural memory.
+              </p>
+            </article>
+
+            <article class="chapter-card" data-card-stage="4">
+              <p class="chapter-meta">
+                <span>Plate V</span>
+                <span class="chapter-rule" aria-hidden="true"></span>
+                <span>Composite Spire</span>
+              </p>
+              <h2 class="chapter-title">Second <em>Architecture</em></h2>
+              <p class="chapter-body">
+                Dispersed fragments converge along coherent streamlines to lock into twin cantilevered monoliths—settling carved stone and bronze across an open central aperture.
+              </p>
+            </article>
+          </div>
+
+          <aside class="plate-rail" aria-label="Chapter progress indicator">
+            <a class="rail-link" href="#stage-suspension" data-rail-stage="0" aria-current="true">
+              <span class="rail-link-label">Suspension</span>
+              <span>01</span>
+            </a>
+            <a class="rail-link" href="#stage-morph" data-rail-stage="1">
+              <span class="rail-link-label">Torsion</span>
+              <span>02</span>
+            </a>
+            <a class="rail-link" href="#stage-alchemy" data-rail-stage="2">
+              <span class="rail-link-label">Alchemy</span>
+              <span>03</span>
+            </a>
+            <a class="rail-link" href="#stage-dissolution" data-rail-stage="3">
+              <span class="rail-link-label">Dissolution</span>
+              <span>04</span>
+            </a>
+            <a class="rail-link" href="#stage-reassembly" data-rail-stage="4">
+              <span class="rail-link-label">Reassembly</span>
+              <span>05</span>
+            </a>
+            <a class="rail-link" href="#exhibition-index" data-rail-stage="5">
+              <span class="rail-link-label">Index</span>
+              <span>06</span>
+            </a>
+            <p class="rail-status" id="rail-material-status">Cast Palladium</p>
+          </aside>
+
+          <p class="interaction-hint" aria-hidden="true">Drag horizontally to orbit inspection</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage VI: Minimal Exhibition Index & Monograph Table -->
+    <section class="exhibition-index" id="exhibition-index" aria-labelledby="index-heading">
+      <div class="index-shell">
+        <div class="index-header">
+          <div>
+            <p class="index-kicker">Plate VI · Exhibition Index</p>
+            <h2 class="index-heading" id="index-heading">Catalogue of <em>States</em></h2>
+          </div>
+          <p class="index-intro">
+            MATTER treats solid form, optical translucence, and particulate suspension as one continuous mathematical object. Return to any plate below to inspect a state directly.
+          </p>
+        </div>
+
+        <ol class="catalogue-list">
+          <li class="catalogue-row">
+            <a class="catalogue-link" href="#stage-suspension">
+              <span class="catalogue-num">01</span>
+              <span class="catalogue-title">Suspension</span>
+              <span class="catalogue-material">Brushed Palladium</span>
+              <span class="catalogue-note">Closed genus-1 helical ribbon framed inside asymmetrical ivory negative space.</span>
+              <span class="catalogue-arrow" aria-hidden="true">&uarr;</span>
+            </a>
+          </li>
+          <li class="catalogue-row">
+            <a class="catalogue-link" href="#stage-morph">
+              <span class="catalogue-num">02</span>
+              <span class="catalogue-title">Torsion &amp; Orbit</span>
+              <span class="catalogue-material">Fluted Deformation</span>
+              <span class="catalogue-note">Continuous vertex torsion and six-fold rib extrusion synchronized with orbital camera traverse.</span>
+              <span class="catalogue-arrow" aria-hidden="true">&uarr;</span>
+            </a>
+          </li>
+          <li class="catalogue-row">
+            <a class="catalogue-link" href="#stage-alchemy">
+              <span class="catalogue-num">03</span>
+              <span class="catalogue-title">Material Alchemy</span>
+              <span class="catalogue-material">Metal &rarr; Kaolin &rarr; Quartz</span>
+              <span class="catalogue-note">Interpolated BRDF surface transitions from anisotropic reflection through ceramic grain to refractive depth.</span>
+              <span class="catalogue-arrow" aria-hidden="true">&uarr;</span>
+            </a>
+          </li>
+          <li class="catalogue-row">
+            <a class="catalogue-link" href="#stage-dissolution">
+              <span class="catalogue-num">04</span>
+              <span class="catalogue-title">Dissolution</span>
+              <span class="catalogue-material">14,400 Mineral Grains</span>
+              <span class="catalogue-note">Harmonic wavefront erosion peeling surface-locked grains into deterministic curl advection.</span>
+              <span class="catalogue-arrow" aria-hidden="true">&uarr;</span>
+            </a>
+          </li>
+          <li class="catalogue-row">
+            <a class="catalogue-link" href="#stage-reassembly">
+              <span class="catalogue-num">05</span>
+              <span class="catalogue-title">Reassembly</span>
+              <span class="catalogue-material">Twin Composite Spire</span>
+              <span class="catalogue-note">Height-sorted helical convergence solidifying into two cantilevered basalt-bronze arches.</span>
+              <span class="catalogue-arrow" aria-hidden="true">&uarr;</span>
+            </a>
+          </li>
+        </ol>
+
+        <dl class="colophon-grid">
+          <div class="colophon-item">
+            <dt>Medium</dt>
+            <dd>Procedural WebGL2 manifolds &amp; GPU curl-noise particle bridge</dd>
+          </div>
+          <div class="colophon-item">
+            <dt>Lighting</dt>
+            <dd>Synthesized 512&times;256 studio softbox equirectangular reflection field</dd>
+          </div>
+          <div class="colophon-item">
+            <dt>Navigation</dt>
+            <dd>Native browser scroll, chapter jump links, &amp; horizontal orbit drag</dd>
+          </div>
+          <div class="colophon-item">
+            <dt>Accessibility</dt>
+            <dd>Still view lock, reduced-motion plate mode, &amp; static SVG elevation</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">MATTER — Studies in Transformation</span>
+      <div class="footer-links">
+        <a href="#stage-suspension">Return to opening plate</a>
+        <a href="#stage-alchemy">Material study</a>
+        <a href="#stage-reassembly">Second form</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+const __matter_geometry = (() => {
+"use strict";
+/* Pure mathematical procedural geometry & studio environment generators
+ * for MATTER — Studies in Transformation. Zero external assets required. */
+
+function clamp(v, min, max) {
+  return v < min ? min : v > max ? max : v;
+}
+
+function mix(a, b, t) {
+  return a + (b - a) * t;
+}
+
+function vec3Cross(ax, ay, az, bx, by, bz) {
+  return [ay * bz - az * by, az * bx - ax * bz, ax * by - ay * bx];
+}
+
+function vec3Normalize(x, y, z) {
+  const len = Math.hypot(x, y, z) || 1;
+  return [x / len, y / len, z / len];
+}
+
+function vec3Dot(ax, ay, az, bx, by, bz) {
+  return ax * bx + ay * by + az * bz;
+}
+
+function spinePointA(u) {
+  const r0 = 1.02;
+  const cx = (r0 + 0.21 * Math.cos(2 * u)) * Math.cos(u);
+  const cy = 0.44 * Math.sin(2 * u) + 0.11 * Math.cos(3 * u);
+  const cz = (r0 - 0.19 * Math.cos(2 * u)) * Math.sin(u);
+  return [cx, cy, cz];
+}
+
+function spinePointAMorph(u) {
+  const r0 = 1.14;
+  const cx = (r0 + 0.28 * Math.cos(3 * u) - 0.1 * Math.sin(2 * u)) * Math.cos(u);
+  const cy = 0.56 * Math.sin(2 * u) - 0.18 * Math.sin(4 * u);
+  const cz = (r0 - 0.24 * Math.cos(3 * u)) * Math.sin(u);
+  return [cx, cy, cz];
+}
+
+/* Builds a twist-free Bishop parallel-transport frame table along a closed loop
+ * and smoothly closes any residual holonomy twist so u=0 matches u=2π seamlessly. */
+function buildClosedFrameTable(samples, spineFn, twistTurns = 1.0) {
+  const tangents = new Array(samples + 1);
+  const normals = new Array(samples + 1);
+  const binormals = new Array(samples + 1);
+  const eps = 1e-4;
+
+  for (let i = 0; i <= samples; i++) {
+    const u = (i / samples) * Math.PI * 2;
+    const p1 = spineFn(u + eps);
+    const p0 = spineFn(u - eps);
+    tangents[i] = vec3Normalize(p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]);
+  }
+
+  // Initial normal perpendicular to tangent[0]
+  const t0 = tangents[0];
+  let ref = Math.abs(t0[1]) < 0.85 ? [0, 1, 0] : [1, 0, 0];
+  let b0 = vec3Cross(t0[0], t0[1], t0[2], ref[0], ref[1], ref[2]);
+  b0 = vec3Normalize(b0[0], b0[1], b0[2]);
+  let n0 = vec3Cross(b0[0], b0[1], b0[2], t0[0], t0[1], t0[2]);
+  normals[0] = vec3Normalize(n0[0], n0[1], n0[2]);
+  binormals[0] = b0;
+
+  for (let i = 1; i <= samples; i++) {
+    const tPrev = tangents[i - 1];
+    const tCurr = tangents[i];
+    let axis = vec3Cross(tPrev[0], tPrev[1], tPrev[2], tCurr[0], tCurr[1], tCurr[2]);
+    const sinA = Math.hypot(axis[0], axis[1], axis[2]);
+    let n = normals[i - 1];
+    if (sinA > 1e-7) {
+      axis = [axis[0] / sinA, axis[1] / sinA, axis[2] / sinA];
+      const cosA = clamp(vec3Dot(tPrev[0], tPrev[1], tPrev[2], tCurr[0], tCurr[1], tCurr[2]), -1, 1);
+      const angle = Math.atan2(sinA, cosA);
+      // Rodrigues rotation
+      const c = Math.cos(angle);
+      const s = Math.sin(angle);
+      const kDotN = vec3Dot(axis[0], axis[1], axis[2], n[0], n[1], n[2]);
+      const kCrossN = vec3Cross(axis[0], axis[1], axis[2], n[0], n[1], n[2]);
+      n = [
+        n[0] * c + kCrossN[0] * s + axis[0] * kDotN * (1 - c),
+        n[1] * c + kCrossN[1] * s + axis[1] * kDotN * (1 - c),
+        n[2] * c + kCrossN[2] * s + axis[2] * kDotN * (1 - c)
+      ];
+    }
+    // Re-orthogonalize against tCurr
+    const proj = vec3Dot(n[0], n[1], n[2], tCurr[0], tCurr[1], tCurr[2]);
+    n = vec3Normalize(n[0] - tCurr[0] * proj, n[1] - tCurr[1] * proj, n[2] - tCurr[2] * proj);
+    const b = vec3Cross(tCurr[0], tCurr[1], tCurr[2], n[0], n[1], n[2]);
+    normals[i] = n;
+    binormals[i] = vec3Normalize(b[0], b[1], b[2]);
+  }
+
+  // Measure holonomy angle between start and end frame around t0
+  const nStart = normals[0];
+  const bStart = binormals[0];
+  const nEnd = normals[samples];
+  const holonomy = Math.atan2(
+    vec3Dot(nEnd[0], nEnd[1], nEnd[2], bStart[0], bStart[1], bStart[2]),
+    vec3Dot(nEnd[0], nEnd[1], nEnd[2], nStart[0], nStart[1], nStart[2])
+  );
+
+  // Apply smooth twist compensation + intentional helical turn
+  const totalAddTwist = -holonomy + twistTurns * Math.PI * 2;
+  for (let i = 0; i <= samples; i++) {
+    const theta = (i / samples) * totalAddTwist;
+    const c = Math.cos(theta);
+    const s = Math.sin(theta);
+    const n = normals[i];
+    const b = binormals[i];
+    normals[i] = [n[0] * c + b[0] * s, n[1] * c + b[1] * s, n[2] * c + b[2] * s];
+    binormals[i] = [-n[0] * s + b[0] * c, -n[1] * s + b[1] * c, -n[2] * s + b[2] * c];
+  }
+
+  return { tangents, normals, binormals };
+}
+
+function sampleFrame(table, samples, u) {
+  const normU = ((u / (Math.PI * 2)) % 1 + 1) % 1;
+  const f = normU * samples;
+  const i0 = Math.floor(f) % samples;
+  const i1 = (i0 + 1) % samples;
+  const t = f - Math.floor(f);
+  const n0 = table.normals[i0];
+  const n1 = table.normals[i1];
+  const b0 = table.binormals[i0];
+  const b1 = table.binormals[i1];
+  const n = vec3Normalize(mix(n0[0], n1[0], t), mix(n0[1], n1[1], t), mix(n0[2], n1[2], t));
+  const b = vec3Normalize(mix(b0[0], b1[0], t), mix(b0[1], b1[1], t), mix(b0[2], b1[2], t));
+  return [n, b];
+}
+
+function evalSurfaceA(u, v, frameTable, samples, isMorph) {
+  const spine = isMorph ? spinePointAMorph(u) : spinePointA(u);
+  const [n, b] = sampleFrame(frameTable, samples, u);
+
+  if (!isMorph) {
+    // Sculpted asymmetric blade-rib cross-section with crisp dorsal spine & soft belly
+    const pinch = 1.0 + 0.24 * Math.sin(u * 2.0 + 0.6);
+    const width = 0.36 * pinch * (1.0 + 0.14 * Math.cos(u * 3.0));
+    const thick = 0.21 * (1.0 + 0.2 * Math.cos(u - 0.5));
+    const cosV = Math.cos(v);
+    const sinV = Math.sin(v);
+    const ridge = 0.055 * Math.pow(Math.max(0, cosV), 3) - 0.03 * Math.cos(3 * v);
+    const localN = (width + ridge) * cosV;
+    const localB = (thick + 0.035 * Math.sin(2 * v)) * sinV;
+    return [
+      spine[0] + n[0] * localN + b[0] * localB,
+      spine[1] + n[1] * localN + b[1] * localB,
+      spine[2] + n[2] * localN + b[2] * localB
+    ];
+  }
+
+  // Morphed Harmonic Fluted Form: deeper cantilever + 6 sculptural flutes
+  const cantilever = 1.0 + 0.31 * Math.cos(3 * u + 0.4);
+  const flute = 0.068 * Math.cos(6 * v + 2 * u);
+  const width = 0.33 * cantilever + flute;
+  const thick = 0.28 * (1.0 + 0.22 * Math.sin(2 * u)) + flute * 0.72;
+  const cosV = Math.cos(v);
+  const sinV = Math.sin(v);
+  const localN = width * cosV + 0.04 * Math.cos(2 * v);
+  const localB = thick * sinV;
+  return [
+    spine[0] + n[0] * localN + b[0] * localB,
+    (spine[1] + n[1] * localN + b[1] * localB) * 1.15,
+    spine[2] + n[2] * localN + b[2] * localB
+  ];
+}
+
+function analyticalNormal(evalFn) {
+  const eps = 1e-3;
+  const pU1 = evalFn(eps, 0);
+  const pU0 = evalFn(-eps, 0);
+  const pV1 = evalFn(0, eps);
+  const pV0 = evalFn(0, -eps);
+  const du = [pU1[0] - pU0[0], pU1[1] - pU0[1], pU1[2] - pU0[2]];
+  const dv = [pV1[0] - pV0[0], pV1[1] - pV0[1], pV1[2] - pV0[2]];
+  const cross = vec3Cross(dv[0], dv[1], dv[2], du[0], du[1], du[2]);
+  return vec3Normalize(cross[0], cross[1], cross[2]);
+}
+
+function seedValue(x, y, z) {
+  const w =
+    0.5 +
+    0.31 * Math.sin(y * 1.85 + x * 1.15 + 0.3) +
+    0.13 * Math.cos(z * 2.6 - x * 1.4) +
+    0.06 * Math.sin((x + y + z) * 4.1);
+  return clamp(w, 0.02, 0.98);
+}
+
+/* Builds watertight Form A (base + morphed positions & normals + dissolution seeds). */
+function buildFormAMesh(uSegs = 136, vSegs = 56) {
+  const frameBase = buildClosedFrameTable(uSegs * 2, spinePointA, 1.0);
+  const frameMorph = buildClosedFrameTable(uSegs * 2, spinePointAMorph, 2.0);
+  const vertCount = (uSegs + 1) * (vSegs + 1);
+  const posBase = new Float32Array(vertCount * 3);
+  const normBase = new Float32Array(vertCount * 3);
+  const posMorph = new Float32Array(vertCount * 3);
+  const normMorph = new Float32Array(vertCount * 3);
+  const seeds = new Float32Array(vertCount);
+  const uvs = new Float32Array(vertCount * 2);
+
+  let ptr = 0;
+  for (let iu = 0; iu <= uSegs; iu++) {
+    const u = (iu / uSegs) * Math.PI * 2;
+    for (let iv = 0; iv <= vSegs; iv++) {
+      const v = (iv / vSegs) * Math.PI * 2;
+      const idx3 = ptr * 3;
+      const idx2 = ptr * 2;
+
+      const p0 = evalSurfaceA(u, v, frameBase, uSegs * 2, false);
+      const n0 = analyticalNormal((du, dv) => evalSurfaceA(u + du, v + dv, frameBase, uSegs * 2, false));
+      posBase[idx3] = p0[0];
+      posBase[idx3 + 1] = p0[1];
+      posBase[idx3 + 2] = p0[2];
+      normBase[idx3] = n0[0];
+      normBase[idx3 + 1] = n0[1];
+      normBase[idx3 + 2] = n0[2];
+
+      const p1 = evalSurfaceA(u, v, frameMorph, uSegs * 2, true);
+      const n1 = analyticalNormal((du, dv) => evalSurfaceA(u + du, v + dv, frameMorph, uSegs * 2, true));
+      posMorph[idx3] = p1[0];
+      posMorph[idx3 + 1] = p1[1];
+      posMorph[idx3 + 2] = p1[2];
+      normMorph[idx3] = n1[0];
+      normMorph[idx3 + 1] = n1[1];
+      normMorph[idx3 + 2] = n1[2];
+
+      seeds[ptr] = seedValue(p1[0], p1[1], p1[2]);
+      uvs[idx2] = iu / uSegs;
+      uvs[idx2 + 1] = iv / vSegs;
+      ptr++;
+    }
+  }
+
+  const indices = new Uint32Array(uSegs * vSegs * 6);
+  let iPtr = 0;
+  const stride = vSegs + 1;
+  for (let iu = 0; iu < uSegs; iu++) {
+    for (let iv = 0; iv < vSegs; iv++) {
+      const a = iu * stride + iv;
+      const b = (iu + 1) * stride + iv;
+      const c = (iu + 1) * stride + (iv + 1);
+      const d = iu * stride + (iv + 1);
+      indices[iPtr++] = a;
+      indices[iPtr++] = d;
+      indices[iPtr++] = b;
+      indices[iPtr++] = b;
+      indices[iPtr++] = d;
+      indices[iPtr++] = c;
+    }
+  }
+
+  return {
+    posBase,
+    normBase,
+    posMorph,
+    normMorph,
+    seeds,
+    uvs,
+    indices,
+    vertCount
+  };
+}
+
+/* Evaluates a single sculptural monolithic fin/blade of Form B (twin interlocking arch blades).
+ * Closed manifold across height t in [0, 1] and cross-section angle v in [0, 2π], tapered at caps. */
+function evalFormBBlade(t, v, bladeSign) {
+  // Architectural leaning hyperbolic spire arching inward to frame central negative space
+  const s = clamp(t, 0, 1);
+  const archX = bladeSign * (0.72 * Math.sin(s * Math.PI * 0.85 + 0.25) - 0.14 * s);
+  const archY = mix(-1.28, 1.32, s) + (bladeSign > 0 ? 0.08 * Math.sin(s * Math.PI) : -0.05 * Math.sin(s * Math.PI));
+  const archZ = bladeSign * 0.42 * Math.cos(s * Math.PI * 1.1) + 0.16 * Math.sin(s * Math.PI);
+
+  // Smooth tip & base closure envelope so ends cap gracefully to rounded architectural chisels
+  const cap = Math.pow(Math.sin(s * Math.PI), 0.38);
+  const twist = bladeSign * (s - 0.5) * 1.35;
+
+  // Faceted super-elliptic architectural section with subtle hollowed inner flute
+  const cosV = Math.cos(v);
+  const sinV = Math.sin(v);
+  const sqSignC = Math.sign(cosV) * Math.pow(Math.abs(cosV), 0.72);
+  const sqSignS = Math.sign(sinV) * Math.pow(Math.abs(sinV), 0.78);
+  const hollow = 1.0 - 0.12 * Math.max(0, -bladeSign * cosV) * Math.sin(s * Math.PI);
+
+  const rx = (0.34 - 0.09 * s) * cap * hollow;
+  const rz = (0.17 + 0.05 * Math.sin(s * Math.PI)) * cap;
+
+  const lx = rx * sqSignC;
+  const lz = rz * sqSignS;
+  const ct = Math.cos(twist);
+  const st = Math.sin(twist);
+
+  return [
+    archX + lx * ct - lz * st,
+    archY,
+    archZ + lx * st + lz * ct
+  ];
+}
+
+function bladeNormal(t, v, bladeSign) {
+  const epsT = 1e-3;
+  const epsV = 1e-3;
+  const t0 = clamp(t - epsT, 0.0005, 0.9995);
+  const t1 = clamp(t + epsT, 0.0005, 0.9995);
+  const pt1 = evalFormBBlade(t1, v, bladeSign);
+  const pt0 = evalFormBBlade(t0, v, bladeSign);
+  const pv1 = evalFormBBlade(clamp(t, 0.002, 0.998), v + epsV, bladeSign);
+  const pv0 = evalFormBBlade(clamp(t, 0.002, 0.998), v - epsV, bladeSign);
+  const dt = [pt1[0] - pt0[0], pt1[1] - pt0[1], pt1[2] - pt0[2]];
+  const dv = [pv1[0] - pv0[0], pv1[1] - pv0[1], pv1[2] - pv0[2]];
+  const c = vec3Cross(dt[0], dt[1], dt[2], dv[0], dv[1], dv[2]);
+  return vec3Normalize(c[0], c[1], c[2]);
+}
+
+function buildFormBMesh(tSegs = 84, vSegs = 48) {
+  const blades = [1, -1];
+  const vertsPerBlade = (tSegs + 1) * (vSegs + 1);
+  const vertCount = vertsPerBlade * blades.length;
+  const pos = new Float32Array(vertCount * 3);
+  const norm = new Float32Array(vertCount * 3);
+  const seeds = new Float32Array(vertCount);
+  const uvs = new Float32Array(vertCount * 2);
+  const indices = new Uint32Array(tSegs * vSegs * 6 * blades.length);
+
+  let ptr = 0;
+  let iPtr = 0;
+  const stride = vSegs + 1;
+
+  for (let b = 0; b < blades.length; b++) {
+    const sign = blades[b];
+    const baseVertex = b * vertsPerBlade;
+    for (let it = 0; it <= tSegs; it++) {
+      const t = it / tSegs;
+      for (let iv = 0; iv <= vSegs; iv++) {
+        const v = (iv / vSegs) * Math.PI * 2;
+        const p = evalFormBBlade(t, v, sign);
+        let n;
+        if (it === 0) {
+          n = [0, -1, 0];
+        } else if (it === tSegs) {
+          n = [0, 1, 0];
+        } else {
+          n = bladeNormal(t, v, sign);
+        }
+
+        const idx3 = ptr * 3;
+        const idx2 = ptr * 2;
+        pos[idx3] = p[0];
+        pos[idx3 + 1] = p[1];
+        pos[idx3 + 2] = p[2];
+        norm[idx3] = n[0];
+        norm[idx3 + 1] = n[1];
+        norm[idx3 + 2] = n[2];
+        // Radial + height convergence seed for Stage V crystallization
+        seeds[ptr] = clamp(0.18 + 0.65 * Math.sin(t * Math.PI) + 0.14 * Math.cos(v * 2.0 + sign), 0.04, 0.96);
+        uvs[idx2] = (it / tSegs);
+        uvs[idx2 + 1] = (iv / vSegs);
+        ptr++;
+      }
+    }
+
+    for (let it = 0; it < tSegs; it++) {
+      for (let iv = 0; iv < vSegs; iv++) {
+        const a = baseVertex + it * stride + iv;
+        const bIdx = baseVertex + (it + 1) * stride + iv;
+        const c = baseVertex + (it + 1) * stride + (iv + 1);
+        const d = baseVertex + it * stride + (iv + 1);
+        indices[iPtr++] = a;
+        indices[iPtr++] = bIdx;
+        indices[iPtr++] = d;
+        indices[iPtr++] = bIdx;
+        indices[iPtr++] = c;
+        indices[iPtr++] = d;
+      }
+    }
+  }
+
+  return { pos, norm, seeds, uvs, indices, vertCount };
+}
+
+/* Deterministic Halton low-discrepancy generator for stratified particle sampling */
+function halton(index, base) {
+  let result = 0;
+  let f = 1 / base;
+  let i = index;
+  while (i > 0) {
+    result += f * (i % base);
+    i = Math.floor(i / base);
+    f /= base;
+  }
+  return result;
+}
+
+function buildAreaCdf(pos, indices) {
+  const triCount = indices.length / 3;
+  const cdf = new Float64Array(triCount);
+  let total = 0;
+  for (let i = 0; i < triCount; i++) {
+    const ia = indices[i * 3] * 3;
+    const ib = indices[i * 3 + 1] * 3;
+    const ic = indices[i * 3 + 2] * 3;
+    const abx = pos[ib] - pos[ia];
+    const aby = pos[ib + 1] - pos[ia + 1];
+    const abz = pos[ib + 2] - pos[ia + 2];
+    const acx = pos[ic] - pos[ia];
+    const acy = pos[ic + 1] - pos[ia + 1];
+    const acz = pos[ic + 2] - pos[ia + 2];
+    const cross = vec3Cross(abx, aby, abz, acx, acy, acz);
+    total += 0.5 * Math.hypot(cross[0], cross[1], cross[2]);
+    cdf[i] = total;
+  }
+  for (let i = 0; i < triCount; i++) cdf[i] /= total || 1;
+  return cdf;
+}
+
+function pickTriangle(cdf, u) {
+  let lo = 0;
+  let hi = cdf.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (cdf[mid] < u) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
+
+function sampleTrianglePoint(meshPos, meshNorm, meshSeeds, indices, triIdx, r1, r2) {
+  const s1 = Math.sqrt(r1);
+  const w0 = 1 - s1;
+  const w1 = s1 * (1 - r2);
+  const w2 = s1 * r2;
+
+  const i0 = indices[triIdx * 3];
+  const i1 = indices[triIdx * 3 + 1];
+  const i2 = indices[triIdx * 3 + 2];
+
+  const p = [
+    meshPos[i0 * 3] * w0 + meshPos[i1 * 3] * w1 + meshPos[i2 * 3] * w2,
+    meshPos[i0 * 3 + 1] * w0 + meshPos[i1 * 3 + 1] * w1 + meshPos[i2 * 3 + 1] * w2,
+    meshPos[i0 * 3 + 2] * w0 + meshPos[i1 * 3 + 2] * w1 + meshPos[i2 * 3 + 2] * w2
+  ];
+  const n = vec3Normalize(
+    meshNorm[i0 * 3] * w0 + meshNorm[i1 * 3] * w1 + meshNorm[i2 * 3] * w2,
+    meshNorm[i0 * 3 + 1] * w0 + meshNorm[i1 * 3 + 1] * w1 + meshNorm[i2 * 3 + 1] * w2,
+    meshNorm[i0 * 3 + 2] * w0 + meshNorm[i1 * 3 + 2] * w1 + meshNorm[i2 * 3 + 2] * w2
+  );
+  const seed = meshSeeds[i0] * w0 + meshSeeds[i1] * w1 + meshSeeds[i2] * w2;
+  return { p, n, seed };
+}
+
+/* Generates paired surface particles connecting Form A (morphed) -> Form B.
+ * Spatial sorting along height + azimuth ensures coherent helical stream flow rather than random static. */
+function buildParticleBridge(formA, formB, count = 14400) {
+  const cdfA = buildAreaCdf(formA.posMorph, formA.indices);
+  const cdfB = buildAreaCdf(formB.pos, formB.indices);
+
+  const samplesA = new Array(count);
+  const samplesB = new Array(count);
+
+  for (let i = 0; i < count; i++) {
+    const uTriA = ((i + 0.5) / count + halton(i + 1, 2) * 0.002) % 1;
+    const tA = pickTriangle(cdfA, uTriA);
+    const sA = sampleTrianglePoint(
+      formA.posMorph,
+      formA.normMorph,
+      formA.seeds,
+      formA.indices,
+      tA,
+      halton(i + 7, 3),
+      halton(i + 13, 5)
+    );
+    samplesA[i] = { ...sA, key: sA.p[1] * 2.2 + Math.atan2(sA.p[2], sA.p[0]) * 0.35 };
+
+    const uTriB = ((i + 0.5) / count + halton(i + 19, 2) * 0.002) % 1;
+    const tB = pickTriangle(cdfB, uTriB);
+    const sB = sampleTrianglePoint(
+      formB.pos,
+      formB.norm,
+      formB.seeds,
+      formB.indices,
+      tB,
+      halton(i + 23, 7),
+      halton(i + 31, 11)
+    );
+    samplesB[i] = { ...sB, key: sB.p[1] * 2.2 + Math.atan2(sB.p[2], sB.p[0]) * 0.35 };
+  }
+
+  samplesA.sort((a, b) => a.key - b.key);
+  samplesB.sort((a, b) => a.key - b.key);
+
+  const posA = new Float32Array(count * 3);
+  const normA = new Float32Array(count * 3);
+  const posB = new Float32Array(count * 3);
+  const normB = new Float32Array(count * 3);
+  const seedA = new Float32Array(count);
+  const seedB = new Float32Array(count);
+  const rand = new Float32Array(count * 3);
+
+  for (let i = 0; i < count; i++) {
+    // Interleave slightly via prime step so slice reductions for software GL stay uniformly distributed
+    const srcIdx = (i * 4793) % count;
+    const a = samplesA[srcIdx];
+    const b = samplesB[srcIdx];
+    const i3 = i * 3;
+    posA[i3] = a.p[0];
+    posA[i3 + 1] = a.p[1];
+    posA[i3 + 2] = a.p[2];
+    normA[i3] = a.n[0];
+    normA[i3 + 1] = a.n[1];
+    normA[i3 + 2] = a.n[2];
+
+    posB[i3] = b.p[0];
+    posB[i3 + 1] = b.p[1];
+    posB[i3 + 2] = b.p[2];
+    normB[i3] = b.n[0];
+    normB[i3 + 1] = b.n[1];
+    normB[i3 + 2] = b.n[2];
+
+    seedA[i] = a.seed;
+    seedB[i] = b.seed;
+    rand[i3] = halton(i + 41, 2);
+    rand[i3 + 1] = halton(i + 43, 3);
+    rand[i3 + 2] = halton(i + 47, 5);
+  }
+
+  return { count, posA, normA, posB, normB, seedA, seedB, rand };
+}
+
+/* Generates a 512x256 procedural equirectangular architectural studio softbox reflection map. */
+function buildStudioEnvPixels(width = 512, height = 256) {
+  const data = new Uint8Array(width * height * 4);
+  for (let y = 0; y < height; y++) {
+    const v = y / (height - 1); // 0 top zenith -> 1 bottom floor
+    const theta = v * Math.PI;
+    const sinT = Math.sin(theta);
+    const cosT = Math.cos(theta);
+
+    for (let x = 0; x < width; x++) {
+      const u = x / width;
+      const phi = u * Math.PI * 2;
+      const dx = sinT * Math.cos(phi);
+      const dy = cosT;
+      const dz = sinT * Math.sin(phi);
+
+      // Base warm museum ceiling + cool skylight + dark floor horizon gradient
+      let r = mix(0.24, 0.09, smoothstep(-0.35, 0.25, -dy));
+      let g = mix(0.23, 0.088, smoothstep(-0.35, 0.25, -dy));
+      let b = mix(0.22, 0.085, smoothstep(-0.35, 0.25, -dy));
+
+      // Overhead diffused gallery skylight panel
+      const topPanel = smoothstep(0.55, 0.92, dy) * smoothstep(0.65, 0.0, Math.abs(dz));
+      r += topPanel * 0.92;
+      g += topPanel * 0.89;
+      b += topPanel * 0.83;
+
+      // Primary warm studio key softbox strip (front-right high)
+      const keyStrip =
+        smoothstep(0.62, 0.94, dx * 0.72 + dy * 0.45 + dz * 0.52) *
+        smoothstep(0.45, 0.02, Math.abs(dx * 0.48 - dz * 0.65));
+      r += keyStrip * 1.15;
+      g += keyStrip * 1.04;
+      b += keyStrip * 0.86;
+
+      // Crisp cool-silver vertical rim softbox (left-rear)
+      const rimStrip =
+        smoothstep(0.68, 0.95, -dx * 0.8 + dy * 0.12 - dz * 0.58) *
+        smoothstep(0.32, 0.02, Math.abs(dy - 0.18));
+      r += rimStrip * 0.78;
+      g += rimStrip * 0.84;
+      b += rimStrip * 0.96;
+
+      // Secondary warm ochre floor bounce
+      const bounce = smoothstep(-0.15, -0.78, dy) * smoothstep(0.4, -0.4, dz);
+      r += bounce * 0.26;
+      g += bounce * 0.20;
+      b += bounce * 0.14;
+
+      // Horizon architectural mullion separation band for believable metallic reflections
+      const horizon = Math.exp(-Math.pow((dy + 0.04) * 9.0, 2));
+      r = mix(r, 0.05, horizon * 0.65);
+      g = mix(g, 0.048, horizon * 0.65);
+      b = mix(b, 0.045, horizon * 0.65);
+
+      const idx = (y * width + x) * 4;
+      // Encode slightly soft-compressed HDR into RGBA8 so specular highlights preserve crisp contrast
+      data[idx] = clamp(Math.round(Math.pow(r / (1.0 + r * 0.42), 1 / 2.2) * 255), 0, 255);
+      data[idx + 1] = clamp(Math.round(Math.pow(g / (1.0 + g * 0.42), 1 / 2.2) * 255), 0, 255);
+      data[idx + 2] = clamp(Math.round(Math.pow(b / (1.0 + b * 0.42), 1 / 2.2) * 255), 0, 255);
+      data[idx + 3] = 255;
+    }
+  }
+  return { width, height, data };
+}
+
+function smoothstep(edge0, edge1, x) {
+  const t = clamp((x - edge0) / (edge1 - edge0), 0, 1);
+  return t * t * (3 - 2 * t);
+}
+
+return {buildFormAMesh, buildFormBMesh, buildParticleBridge, buildStudioEnvPixels};
+})();
+const __matter_shaders = (() => {
+"use strict";
+/* Custom WebGL2 GLSL ES 3.00 shaders for MATTER — Studies in Transformation.
+ * Supports:
+ *  - Continuous Form A morphing + normal blending
+ *  - Three physical material regimes: Brushed Bronze/Palladium, Matte Kaolin Ceramic, Translucent Alabaster
+ *  - Wavefront erosion & luminous boundary rim during dissolution/reassembly
+ *  - Curl-advected coherent GPU particle field matching exact surface transitions
+ *  - Soft architectural gallery light pool / contact shadow */
+
+const SURFACE_VERTEX_SHADER = `#version 300 es
+precision highp float;
+
+layout(location = 0) in vec3 aPosBase;
+layout(location = 1) in vec3 aNormBase;
+layout(location = 2) in vec3 aPosMorph;
+layout(location = 3) in vec3 aNormMorph;
+layout(location = 4) in float aSeed;
+layout(location = 5) in vec2 aUv;
+
+uniform mat4 uModel;
+uniform mat4 uView;
+uniform mat4 uProj;
+uniform float uMorph;
+uniform float uBreath;
+uniform float uTime;
+
+out vec3 vWorldPos;
+out vec3 vWorldNormal;
+out vec3 vLocalPos;
+out float vSeed;
+out vec2 vUv;
+
+void main() {
+  vec3 pos = mix(aPosBase, aPosMorph, uMorph);
+  vec3 nrm = normalize(mix(aNormBase, aNormMorph, uMorph));
+
+  // Subtle living gallery suspension micro-torsion when breath > 0
+  float twistAngle = uBreath * 0.08 * sin(uTime * 0.55 + pos.y * 1.35);
+  float c = cos(twistAngle);
+  float s = sin(twistAngle);
+  pos.xz = mat2(c, -s, s, c) * pos.xz;
+  nrm.xz = mat2(c, -s, s, c) * nrm.xz;
+
+  vec4 world = uModel * vec4(pos, 1.0);
+  vWorldPos = world.xyz;
+  vWorldNormal = normalize(mat3(uModel) * nrm);
+  vLocalPos = pos;
+  vSeed = aSeed;
+  vUv = aUv;
+  gl_Position = uProj * uView * world;
+}
+`;
+
+const SURFACE_FRAGMENT_SHADER = `#version 300 es
+precision highp float;
+
+in vec3 vWorldPos;
+in vec3 vWorldNormal;
+in vec3 vLocalPos;
+in float vSeed;
+in vec2 vUv;
+
+uniform sampler2D uEnvMap;
+uniform vec3 uCamPos;
+uniform float uMaterialMix;   // 0.0 = metallic, 1.0 = matte ceramic, 2.0 = translucent alabaster
+uniform float uDissolve;      // 0..1 wavefront erosion (for Form A) or inverse assembly (for Form B)
+uniform float uAssembleMode;  // 0.0 = dissolving Form A, 1.0 = solidifying Form B
+uniform float uFormBOpacity;
+uniform float uDarkStage;     // 0.0 ivory room -> 1.0 charcoal chamber
+
+out vec4 fragColor;
+
+const float PI = 3.14159265359;
+
+// Compact deterministic 3D value noise for micro-mineral ceramic grain & wavefront organic edge
+float hash31(vec3 p) {
+  p = fract(p * 0.1031);
+  p += dot(p, p.yzx + 33.33);
+  return fract((p.x + p.y) * p.z);
+}
+
+float noise3(vec3 x) {
+  vec3 i = floor(x);
+  vec3 f = fract(x);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(mix(hash31(i + vec3(0,0,0)), hash31(i + vec3(1,0,0)), f.x),
+        mix(hash31(i + vec3(0,1,0)), hash31(i + vec3(1,1,0)), f.x), f.y),
+    mix(mix(hash31(i + vec3(0,0,1)), hash31(i + vec3(1,0,1)), f.x),
+        mix(hash31(i + vec3(0,1,1)), hash31(i + vec3(1,1,1)), f.x), f.y),
+    f.z
+  );
+}
+
+vec3 sampleEnv(vec3 dir, float blurRoughness) {
+  vec3 d = normalize(dir);
+  float u = atan(d.z, d.x) / (2.0 * PI) + 0.5;
+  float v = acos(clamp(d.y, -1.0, 1.0)) / PI;
+  // Soft multi-tap studio environment filtering approximating roughness mip-blend
+  float spread = blurRoughness * 0.045;
+  vec3 c0 = texture(uEnvMap, vec2(u, v)).rgb;
+  vec3 c1 = texture(uEnvMap, vec2(u + spread, clamp(v + spread * 0.5, 0.02, 0.98))).rgb;
+  vec3 c2 = texture(uEnvMap, vec2(u - spread, clamp(v - spread * 0.5, 0.02, 0.98))).rgb;
+  vec3 col = (c0 * 0.5 + c1 * 0.25 + c2 * 0.25);
+  return pow(col, vec3(2.2)) * 1.45; // back to linear HDR
+}
+
+void main() {
+  // Coherent organic wavefront dissolution / reassembly mask
+  float grainNoise = noise3(vLocalPos * 4.8) * 0.11 + noise3(vLocalPos * 12.5) * 0.045;
+  float threshold = vSeed + grainNoise - 0.06;
+
+  float edgeGlow = 0.0;
+  if (uAssembleMode < 0.5) {
+    if (uDissolve > 0.002) {
+      float cut = uDissolve * 1.18 - 0.04;
+      if (threshold < cut) discard;
+      edgeGlow = smoothstep(cut + 0.085, cut, threshold) * smoothstep(0.0, 0.14, uDissolve) * (1.0 - smoothstep(0.88, 1.0, uDissolve));
+    }
+  } else {
+    if (uFormBOpacity <= 0.002) discard;
+    float cut = uDissolve * 1.18 - 0.04;
+    if (threshold > cut) discard;
+    edgeGlow = smoothstep(cut - 0.09, cut, threshold) * (1.0 - smoothstep(0.82, 1.0, uDissolve));
+  }
+
+  vec3 N = normalize(vWorldNormal);
+  if (!gl_FrontFacing) N = -N;
+  vec3 V = normalize(uCamPos - vWorldPos);
+  float NdotV = max(dot(N, V), 0.001);
+
+  // Studio 3-point directional vectors
+  vec3 Lkey = normalize(vec3(0.65, 0.78, 0.55));
+  vec3 Lrim = normalize(vec3(-0.78, 0.28, -0.62));
+  vec3 Lfill = normalize(vec3(-0.42, -0.55, 0.72));
+
+  float keyDiff = max(dot(N, Lkey), 0.0);
+  float wrapDiff = max((dot(N, Lkey) + 0.45) / 1.45, 0.0);
+  float rimTerm = pow(1.0 - NdotV, 3.2) * max(dot(N, Lrim) * 0.65 + 0.35, 0.0);
+  float fillDiff = max(dot(N, Lfill), 0.0);
+
+  // Fine surface micro-grain for ceramic stone and brushed bronze anisotropy
+  float microGrain = noise3(vLocalPos * 26.0);
+  float brushedGrain = sin(vUv.x * (80.0 * 2.0 * PI) + microGrain * 2.5) * 0.5 + 0.5;
+
+  // --- MATERIAL 1: Polished Brushed Dark Bronze / Palladium Metal ---
+  vec3 metalTint = uAssembleMode > 0.5
+    ? mix(vec3(0.54, 0.41, 0.28), vec3(0.78, 0.64, 0.48), brushedGrain * 0.35)
+    : mix(vec3(0.62, 0.55, 0.46), vec3(0.82, 0.76, 0.67), brushedGrain * 0.28);
+  vec3 R = reflect(-V, normalize(N + vec3(brushedGrain - 0.5) * 0.03));
+  vec3 envMetal = sampleEnv(R, 0.16 + 0.08 * brushedGrain);
+  vec3 F0metal = metalTint;
+  vec3 Fmetal = F0metal + (1.0 - F0metal) * pow(1.0 - NdotV, 5.0);
+  vec3 Hkey = normalize(Lkey + V);
+  float specMetal = pow(max(dot(N, Hkey), 0.0), 48.0) * 1.1;
+  vec3 colMetal = envMetal * Fmetal * 1.12 + metalTint * (keyDiff * 0.22 + specMetal * 0.48) + vec3(0.85, 0.78, 0.68) * rimTerm * 0.35;
+
+  // --- MATERIAL 2: Matte Kaolin Stone Ceramic ---
+  vec3 ceramicBase = uAssembleMode > 0.5
+    ? mix(vec3(0.82, 0.78, 0.71), vec3(0.71, 0.66, 0.59), microGrain * 0.45)
+    : mix(vec3(0.90, 0.87, 0.81), vec3(0.79, 0.74, 0.66), microGrain * 0.38);
+  // Subtle crevice occlusion from normal/curvature + soft broad mineral sheen
+  float cavityAO = clamp(0.68 + 0.32 * dot(N, vec3(0.0, 1.0, 0.0)), 0.48, 1.0);
+  vec3 envSoft = sampleEnv(N, 0.92);
+  float ceramicSheen = pow(1.0 - NdotV, 4.0) * 0.14;
+  vec3 colCeramic =
+    ceramicBase * cavityAO * (wrapDiff * 0.72 + fillDiff * 0.22 + envSoft * 0.26) +
+    vec3(0.97, 0.94, 0.89) * (ceramicSheen + rimTerm * 0.28);
+
+  // --- MATERIAL 3: Translucent Smoked Alabaster / Optical Quartz ---
+  vec3 refractDir = refract(-V, N, 1.0 / 1.42);
+  if (length(refractDir) < 0.01) refractDir = -V;
+  // Chromatic dispersion inside optical studio reflections
+  vec3 envR = sampleEnv(refractDir + N * 0.04, 0.22);
+  vec3 envG = sampleEnv(refractDir, 0.22);
+  vec3 envB = sampleEnv(refractDir - N * 0.04, 0.22);
+  vec3 refracted = vec3(envR.r, envG.g, envB.b);
+
+  float opticalThickness = 0.55 + 1.35 * (1.0 - abs(dot(N, V)));
+  vec3 absorption = exp(-opticalThickness * vec3(0.45, 0.58, 0.72));
+  vec3 internalGlow = vec3(0.96, 0.85, 0.68) * pow(clamp(dot(-V, Lkey) * 0.5 + 0.5, 0.0, 1.0), 2.4) * 0.45;
+  float fresnelGlass = 0.05 + 0.95 * pow(1.0 - NdotV, 4.2);
+  vec3 envGlassSpec = sampleEnv(reflect(-V, N), 0.04);
+  float specGlass = pow(max(dot(N, Hkey), 0.0), 120.0) * 1.5;
+  vec3 colGlass = refracted * absorption * 0.82 + internalGlow + envGlassSpec * fresnelGlass * 1.18 + vec3(1.0, 0.97, 0.92) * specGlass;
+
+  // Blend across MaterialMix (0->1->2)
+  float m1 = clamp(uMaterialMix, 0.0, 1.0);
+  float m2 = clamp(uMaterialMix - 1.0, 0.0, 1.0);
+  vec3 finalLinear = mix(colMetal, colCeramic, m1);
+  finalLinear = mix(finalLinear, colGlass, m2);
+
+  // Form B composite stone-bronze balance when assembling
+  if (uAssembleMode > 0.5) {
+    finalLinear = mix(colCeramic, colMetal, 0.42 + 0.25 * rimTerm);
+  }
+
+  // Luminous mineral-ember seam right along active dissolution/reassembly cut
+  vec3 seamTint = mix(vec3(0.92, 0.68, 0.42), vec3(0.98, 0.88, 0.74), uDarkStage);
+  finalLinear += seamTint * edgeGlow * 0.92;
+
+  // Filmic ACES-like tone map + sRGB gamma
+  vec3 mapped = (finalLinear * (2.51 * finalLinear + 0.03)) / (finalLinear * (2.43 * finalLinear + 0.59) + 0.14);
+  mapped = pow(clamp(mapped, 0.0, 1.0), vec3(1.0 / 2.2));
+
+  // Alpha softly translucent in Material 3 so background gallery display type softly peeks through optical quartz
+  float alpha = mix(1.0, clamp(0.62 + fresnelGlass * 0.45 + specGlass * 0.25, 0.62, 0.99), m2);
+  if (uAssembleMode > 0.5) {
+    alpha = clamp(uFormBOpacity, 0.0, 1.0);
+  }
+
+  fragColor = vec4(mapped, alpha);
+}
+`;
+
+const PARTICLE_VERTEX_SHADER = `#version 300 es
+precision highp float;
+
+layout(location = 0) in vec3 aPosA;
+layout(location = 1) in vec3 aNormA;
+layout(location = 2) in vec3 aPosB;
+layout(location = 3) in vec3 aNormB;
+layout(location = 4) in float aSeedA;
+layout(location = 5) in float aSeedB;
+layout(location = 6) in vec3 aRand;
+
+uniform mat4 uModelA;
+uniform mat4 uModelB;
+uniform mat4 uView;
+uniform mat4 uProj;
+uniform float uDissolve;      // 0 -> 1 separation from Form A
+uniform float uReassemble;    // 0 -> 1 arrival onto Form B
+uniform float uTime;
+uniform float uPixelRatio;
+uniform float uMaxPointSize;
+
+out float vVisible;
+out float vLight;
+out float vSeed;
+out float vWarmth;
+
+vec3 curlOffset(vec3 p, float seed, float phase) {
+  float a = p.y * 2.1 + seed * 6.283 + phase * 0.55;
+  float b = p.z * 2.3 + aRand.y * 6.283 - phase * 0.45;
+  float c = p.x * 1.9 + aRand.z * 6.283;
+  return vec3(
+    sin(a) * cos(b) + 0.35 * sin(c * 2.1),
+    cos(a * 0.85) * sin(c) + 0.4 * (aRand.x - 0.5),
+    sin(b) * cos(c) - 0.35 * cos(a * 1.7)
+  );
+}
+
+void main() {
+  vec3 worldA = (uModelA * vec4(aPosA, 1.0)).xyz;
+  vec3 worldB = (uModelB * vec4(aPosB, 1.0)).xyz;
+  vec3 nA = normalize(mat3(uModelA) * aNormA);
+  vec3 nB = normalize(mat3(uModelB) * aNormB);
+
+  // Particle detaches right as Form A's solid erosion front reaches aSeedA
+  float birth = smoothstep(aSeedA - 0.06, aSeedA + 0.09, uDissolve * 1.18 - 0.02);
+  // Particle settles and vanishes cleanly into Form B's solid surface once Form B locks over aSeedB
+  float locked = smoothstep(aSeedB - 0.05, aSeedB + 0.11, uReassemble * 1.18 - 0.04);
+
+  float activeAmp = birth * (1.0 - locked);
+  vVisible = activeAmp;
+
+  if (activeAmp <= 0.004) {
+    gl_Position = vec4(2.0, 2.0, 2.0, 1.0);
+    gl_PointSize = 0.0;
+    vLight = 0.0;
+    vSeed = aSeedA;
+    vWarmth = 0.0;
+    return;
+  }
+
+  // Reversible parametric flight between Form A and Form B
+  float flight = smoothstep(0.05, 0.95, clamp(uReassemble * 1.08 + (uDissolve - 0.55) * 0.52, 0.0, 1.0));
+  vec3 basePos = mix(worldA, worldB, flight);
+  vec3 baseNorm = normalize(mix(nA, nB, flight));
+
+  // Helical curl arch peaking midway between dissolution and reassembly
+  float scatterBell = sin(clamp(flight * 0.86 + birth * 0.14, 0.0, 1.0) * 3.14159);
+  float swell = pow(scatterBell, 0.82) * (0.48 + 0.72 * aRand.x);
+
+  // Deterministic outward lift along surface normal + curl vortex field
+  vec3 swirl = curlOffset(basePos, aRand.x, uTime * 0.35 + flight * 2.2);
+  vec3 pos = basePos + baseNorm * (0.14 * birth * (1.0 - flight) + 0.25 * swell) + swirl * swell;
+
+  // Gentle orbital drift in mid-flight without losing reversibility
+  float orbAngle = swell * (aRand.y - 0.5) * 0.75;
+  float co = cos(orbAngle);
+  float so = sin(orbAngle);
+  pos.xz = mat2(co, -so, so, co) * pos.xz;
+
+  vec4 viewPos = uView * vec4(pos, 1.0);
+  gl_Position = uProj * viewPos;
+
+  float dist = max(-viewPos.z, 0.8);
+  float basePt = mix(2.2, 5.4, aRand.z) * (0.65 + 0.65 * scatterBell);
+  gl_PointSize = clamp((basePt * uPixelRatio * 4.2) / dist, 1.25, uMaxPointSize);
+
+  vec3 Lkey = normalize(vec3(0.65, 0.78, 0.55));
+  vLight = clamp(dot(baseNorm, Lkey) * 0.55 + 0.55, 0.2, 1.0);
+  vSeed = aRand.x;
+  vWarmth = flight;
+}
+`;
+
+const PARTICLE_FRAGMENT_SHADER = `#version 300 es
+precision highp float;
+
+in float vVisible;
+in float vLight;
+in float vSeed;
+in float vWarmth;
+
+out vec4 fragColor;
+
+void main() {
+  if (vVisible <= 0.004) discard;
+  vec2 coord = gl_PointCoord * 2.0 - 1.0;
+  float r2 = dot(coord, coord);
+  if (r2 > 1.0) discard;
+
+  // Spherical grain micro-normal shading so fragments read as real tactile specks
+  float sphereZ = sqrt(max(0.0, 1.0 - r2));
+  float grainShade = clamp(dot(normalize(vec3(coord.x, -coord.y, sphereZ)), normalize(vec3(0.45, 0.65, 0.62))), 0.25, 1.0);
+
+  vec3 alabaster = vec3(0.94, 0.90, 0.84);
+  vec3 bronze = vec3(0.76, 0.56, 0.37);
+  vec3 obsidian = vec3(0.32, 0.30, 0.27);
+  vec3 col = mix(mix(alabaster, bronze, step(0.42, vSeed)), bronze * 1.08, vWarmth * 0.65);
+  col = mix(obsidian, col, clamp(vLight * 0.7 + 0.35, 0.0, 1.0)) * (0.72 + 0.42 * grainShade);
+
+  float edgeSoft = 1.0 - smoothstep(0.45, 1.0, r2);
+  fragColor = vec4(col, vVisible * edgeSoft * 0.92);
+}
+`;
+
+const PLINTH_SHADOW_VERTEX = `#version 300 es
+precision highp float;
+layout(location = 0) in vec2 aQuad;
+uniform mat4 uView;
+uniform mat4 uProj;
+uniform vec3 uShadowCenter;
+uniform float uShadowRadius;
+out vec2 vLocal;
+
+void main() {
+  vLocal = aQuad;
+  vec3 world = uShadowCenter + vec3(aQuad.x * uShadowRadius, 0.0, aQuad.y * uShadowRadius);
+  gl_Position = uProj * uView * vec4(world, 1.0);
+}
+`;
+
+const PLINTH_SHADOW_FRAGMENT = `#version 300 es
+precision highp float;
+in vec2 vLocal;
+uniform float uOpacity;
+uniform float uDarkStage;
+out vec4 fragColor;
+
+void main() {
+  float d = length(vLocal);
+  if (d > 1.0) discard;
+  float falloff = exp(-d * d * 4.2) * (1.0 - smoothstep(0.65, 1.0, d));
+  // Subtle dark contact shadow on ivory room, gentle warm pool on obsidian chamber
+  vec3 col = mix(vec3(0.11, 0.10, 0.09), vec3(0.48, 0.38, 0.28), uDarkStage * 0.65);
+  float alpha = falloff * mix(0.18, 0.12, uDarkStage) * uOpacity;
+  fragColor = vec4(col, alpha);
+}
+`;
+
+return {SURFACE_VERTEX_SHADER, SURFACE_FRAGMENT_SHADER, PARTICLE_VERTEX_SHADER, PARTICLE_FRAGMENT_SHADER, PLINTH_SHADOW_VERTEX, PLINTH_SHADOW_FRAGMENT};
+})();
+const __matter_motion = (() => {
+"use strict";
+/* Continuous, reversible 6-stage scroll choreography & frame-rate-independent motion clock */
+
+function clamp01(v) {
+  return v < 0 ? 0 : v > 1 ? 1 : v;
+}
+
+function smoothstep(edge0, edge1, x) {
+  const t = clamp01((x - edge0) / (edge1 - edge0));
+  return t * t * (3 - 2 * t);
+}
+
+function mix(a, b, t) {
+  return a + (b - a) * t;
+}
+
+function followValue(current, target, dtSeconds, lambda = 9.5) {
+  if (!Number.isFinite(dtSeconds) || dtSeconds <= 0) return target;
+  const clampedDt = Math.min(dtSeconds, 0.05);
+  const alpha = 1 - Math.exp(-lambda * clampedDt);
+  const next = current + (target - current) * alpha;
+  return Math.abs(target - next) < 0.00018 ? target : next;
+}
+
+const STAGES = [
+  {
+    id: 'stage-suspension',
+    anchor: 0.04,
+    numeral: '01',
+    roman: 'I',
+    title: 'Suspension',
+    materialLabel: 'Raw Cast Palladium'
+  },
+  {
+    id: 'stage-morph',
+    anchor: 0.24,
+    numeral: '02',
+    roman: 'II',
+    title: 'Torsion & Orbit',
+    materialLabel: 'Harmonic Fluting'
+  },
+  {
+    id: 'stage-alchemy',
+    anchor: 0.48,
+    numeral: '03',
+    roman: 'III',
+    title: 'Material Alchemy',
+    materialLabel: 'Metal · Kaolin · Quartz'
+  },
+  {
+    id: 'stage-dissolution',
+    anchor: 0.69,
+    numeral: '04',
+    roman: 'IV',
+    title: 'Dissolution',
+    materialLabel: 'Particulate Suspension'
+  },
+  {
+    id: 'stage-reassembly',
+    anchor: 0.85,
+    numeral: '05',
+    roman: 'V',
+    title: 'Reassembly',
+    materialLabel: 'Composite Twin Spire'
+  },
+  {
+    id: 'exhibition-index',
+    anchor: 0.97,
+    numeral: '06',
+    roman: 'VI',
+    title: 'Exhibition Index',
+    materialLabel: 'Catalogue & Notes'
+  }
+];
+
+/* Maps normalized track scroll progress p in [0, 1] smoothly & reversibly across all scene channels */
+function evaluateExhibitionState(pRaw, isCompactLayout = false) {
+  const p = clamp01(pRaw);
+
+  // Stage II: Geometry morph (Form A base -> harmonic fluted rib sculpture)
+  const morph = smoothstep(0.14, 0.34, p);
+
+  // Stage III: Continuous 3-material progression:
+  //   0.0 (Polished Metal) -> 1.0 (Matte Kaolin Ceramic) -> 2.0 (Translucent Alabaster)
+  const metalToCeramic = smoothstep(0.32, 0.44, p);
+  const ceramicToQuartz = smoothstep(0.45, 0.57, p);
+  const materialMix = metalToCeramic + ceramicToQuartz;
+
+  // Stage IV: Coherent wavefront dissolution of Form A (0 -> 1)
+  const dissolve = smoothstep(0.57, 0.77, p);
+
+  // Stage V: Coherent particle flight & solid Form B crystallization
+  const reassemble = smoothstep(0.75, 0.91, p);
+  const formBSolidify = smoothstep(0.78, 0.93, p);
+  const formBOpacity = smoothstep(0.76, 0.82, p);
+  const formAOpacity = 1.0 - smoothstep(0.74, 0.80, p);
+
+  // Tonal room envelope: warm museum ivory (0..0.52) -> obsidian chamber (0.56..0.88) -> charcoal stone index (0.89..1.0)
+  // Smoothly timed so foreground typography switches cleanly across ink polarity with high WCAG contrast.
+  const darkStage = smoothstep(0.50, 0.60, p);
+
+  // Camera orbital arc & consistent framing
+  const orbitAzimuth =
+    -0.28 +
+    smoothstep(0.0, 0.36, p) * 1.38 +
+    smoothstep(0.36, 0.76, p) * 1.15 +
+    smoothstep(0.76, 1.0, p) * 0.78;
+
+  const orbitElevation =
+    0.18 +
+    Math.sin(p * Math.PI * 1.6) * 0.22 -
+    smoothstep(0.78, 0.96, p) * 0.10;
+
+  // Framing offset keeps generous asymmetrical negative space for typography without sudden snaps
+  const desktopOffsetX =
+    mix(0.42, 0.30, smoothstep(0.08, 0.30, p)) * (1.0 - smoothstep(0.56, 0.72, p)) +
+    mix(0.0, 0.34, smoothstep(0.76, 0.92, p));
+
+  const offsetX = isCompactLayout ? 0.0 : desktopOffsetX;
+  const offsetY = isCompactLayout
+    ? mix(0.26, 0.22, smoothstep(0.55, 0.88, p))
+    : mix(0.03, -0.02, smoothstep(0.75, 0.95, p));
+
+  const camDist = isCompactLayout
+    ? mix(5.25, 5.55, smoothstep(0.58, 0.76, p))
+    : mix(4.25, 4.55, smoothstep(0.58, 0.76, p)) - smoothstep(0.84, 1.0, p) * 0.15;
+
+  const sculptureScale = isCompactLayout ? 0.92 : 1.04;
+
+  // Determine closest active editorial stage for aria-current & text reveal weights
+  let activeStage = 0;
+  if (p >= 0.91) activeStage = 5;
+  else if (p >= 0.74) activeStage = 4;
+  else if (p >= 0.56) activeStage = 3;
+  else if (p >= 0.33) activeStage = 2;
+  else if (p >= 0.14) activeStage = 1;
+
+  // Subtle living suspension amplitude fades out while Form A is dissolved or in Still mode
+  const breathStrength = (1.0 - smoothstep(0.58, 0.72, p)) * 0.65 + smoothstep(0.84, 0.94, p) * 0.45;
+
+  return {
+    p,
+    morph,
+    materialMix,
+    dissolve,
+    reassemble,
+    formBSolidify,
+    formBOpacity,
+    formAOpacity,
+    darkStage,
+    orbitAzimuth,
+    orbitElevation,
+    offsetX,
+    offsetY,
+    camDist,
+    sculptureScale,
+    activeStage,
+    breathStrength
+  };
+}
+
+return {clamp01, smoothstep, mix, followValue, STAGES, evaluateExhibitionState};
+})();
+const __matter_renderer = (() => {
+"use strict";
+/* Self-contained WebGL2 renderer for MATTER — Studies in Transformation.
+ * Features adaptive DPR, SwiftShader detection, context-loss recovery, demand-driven RAF,
+ * and straight-alpha compositing over editorial background typography. */
+
+const { buildFormAMesh, buildFormBMesh, buildParticleBridge, buildStudioEnvPixels } = __matter_geometry;
+const {
+  SURFACE_VERTEX_SHADER,
+  SURFACE_FRAGMENT_SHADER,
+  PARTICLE_VERTEX_SHADER,
+  PARTICLE_FRAGMENT_SHADER,
+  PLINTH_SHADOW_VERTEX,
+  PLINTH_SHADOW_FRAGMENT
+} = __matter_shaders;
+const { followValue } = __matter_motion;
+
+function createShader(gl, type, source) {
+  const shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    const info = gl.getShaderInfoLog(shader);
+    gl.deleteShader(shader);
+    throw new Error(`Shader compile error: ${info}`);
+  }
+  return shader;
+}
+
+function createProgram(gl, vsSource, fsSource) {
+  const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
+  const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  gl.deleteShader(vs);
+  gl.deleteShader(fs);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    const info = gl.getProgramInfoLog(prog);
+    gl.deleteProgram(prog);
+    throw new Error(`Program link error: ${info}`);
+  }
+  return prog;
+}
+
+function mat4Perspective(out, fovy, aspect, near, far) {
+  const f = 1.0 / Math.tan(fovy / 2);
+  const nf = 1 / (near - far);
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 2 * far * near * nf;
+  out[15] = 0;
+  return out;
+}
+
+function mat4LookAt(out, eye, center, up) {
+  let zx = eye[0] - center[0];
+  let zy = eye[1] - center[1];
+  let zz = eye[2] - center[2];
+  let len = Math.hypot(zx, zy, zz) || 1;
+  zx /= len;
+  zy /= len;
+  zz /= len;
+
+  let xx = up[1] * zz - up[2] * zy;
+  let xy = up[2] * zx - up[0] * zz;
+  let xz = up[0] * zy - up[1] * zx;
+  len = Math.hypot(xx, xy, xz) || 1;
+  xx /= len;
+  xy /= len;
+  xz /= len;
+
+  const yx = zy * xz - zz * xy;
+  const yy = zz * xx - zx * xz;
+  const yz = zx * xy - zy * xx;
+
+  out[0] = xx;
+  out[1] = yx;
+  out[2] = zx;
+  out[3] = 0;
+  out[4] = xy;
+  out[5] = yy;
+  out[6] = zy;
+  out[7] = 0;
+  out[8] = xz;
+  out[9] = yz;
+  out[10] = zz;
+  out[11] = 0;
+  out[12] = -(xx * eye[0] + xy * eye[1] + xz * eye[2]);
+  out[13] = -(yx * eye[0] + yy * eye[1] + yz * eye[2]);
+  out[14] = -(zx * eye[0] + zy * eye[1] + zz * eye[2]);
+  out[15] = 1;
+  return out;
+}
+
+function mat4Transform(out, tx, ty, tz, rx, ry, rz, scale) {
+  const cx = Math.cos(rx), sx = Math.sin(rx);
+  const cy = Math.cos(ry), sy = Math.sin(ry);
+  const cz = Math.cos(rz), sz = Math.sin(rz);
+
+  out[0] = (cy * cz) * scale;
+  out[1] = (cy * sz) * scale;
+  out[2] = (-sy) * scale;
+  out[3] = 0;
+
+  out[4] = (sx * sy * cz - cx * sz) * scale;
+  out[5] = (sx * sy * sz + cx * cz) * scale;
+  out[6] = (sx * cy) * scale;
+  out[7] = 0;
+
+  out[8] = (cx * sy * cz + sx * sz) * scale;
+  out[9] = (cx * sy * sz - sx * cz) * scale;
+  out[10] = (cx * cy) * scale;
+  out[11] = 0;
+
+  out[12] = tx;
+  out[13] = ty;
+  out[14] = tz;
+  out[15] = 1;
+  return out;
+}
+
+function detectSoftwareGl(gl) {
+  try {
+    const ext = gl.getExtension('WEBGL_debug_renderer_info');
+    if (ext) {
+      const renderer = String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '');
+      if (/swiftshader|llvmpipe|mesa offscreen|software|basic render/i.test(renderer)) {
+        return true;
+      }
+    }
+    const baseRenderer = String(gl.getParameter(gl.RENDERER) || '');
+    return /swiftshader|llvmpipe|software/i.test(baseRenderer);
+  } catch {
+    return false;
+  }
+}
+
+class MatterRenderer {
+  constructor(canvas, onStateReady, onFail) {
+    this.canvas = canvas;
+    this.onStateReady = onStateReady;
+    this.onFail = onFail;
+
+    this.gl = null;
+    this.disposed = false;
+    this.contextLost = false;
+    this.isSoftwareGl = false;
+    this.maxPointSize = 36;
+    this.particleActiveCount = 14400;
+
+    // Pre-allocated matrices to avoid GC pressure during RAF ticks
+    this.projMat = new Float32Array(16);
+    this.viewMat = new Float32Array(16);
+    this.modelAMat = new Float32Array(16);
+    this.modelBMat = new Float32Array(16);
+    this.camPos = [0, 0, 4.4];
+
+    // Interactive offset state (pointer hover + optional horizontal inspection drag)
+    this.pointerTargetX = 0;
+    this.pointerTargetY = 0;
+    this.pointerX = 0;
+    this.pointerY = 0;
+    this.dragOrbitTarget = 0;
+    this.dragOrbit = 0;
+
+    // Render scheduling state
+    this.currentTime = 0;
+    this.lastFrameTime = 0;
+    this.rafId = 0;
+    this.visible = true;
+    this.stillMode = false;
+    this.scrollActiveUntil = 0;
+    this.dynamicResScale = 1.0;
+    this.stateEvaluator = null;
+    this.scrollTarget = 0;
+    this.scrollCurrent = 0;
+    this.frameCallback = null;
+
+    this.boundContextLost = (e) => {
+      e.preventDefault();
+      this.contextLost = true;
+      this.stopLoop();
+    };
+    this.boundContextRestored = () => {
+      this.contextLost = false;
+      this.initGl();
+      this.resize();
+      this.wake();
+    };
+
+    canvas.addEventListener('webglcontextlost', this.boundContextLost, false);
+    canvas.addEventListener('webglcontextrestored', this.boundContextRestored, false);
+
+    if (!this.initGl()) {
+      this.onFail?.();
+    } else {
+      this.resize();
+      this.onStateReady?.();
+    }
+  }
+
+  initGl() {
+    const gl = this.canvas.getContext('webgl2', {
+      alpha: true,
+      antialias: true,
+      depth: true,
+      premultipliedAlpha: false,
+      powerPreference: 'high-performance'
+    });
+    if (!gl) return false;
+    this.gl = gl;
+    this.isSoftwareGl = detectSoftwareGl(gl);
+
+    const ptRange = gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE);
+    this.maxPointSize = Math.min(48, Number(ptRange?.[1]) || 32);
+
+    try {
+      this.initResources(gl);
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  }
+
+  initResources(gl) {
+    // 1. Procedural geometry
+    const formA = buildFormAMesh(132, 54);
+    const formB = buildFormBMesh(82, 44);
+    const maxParticles = 14400;
+    const bridge = buildParticleBridge(formA, formB, maxParticles);
+    this.particleActiveCount = this.isSoftwareGl ? 5600 : maxParticles;
+
+    // 2. Programs & Uniform locations
+    this.surfaceProg = createProgram(gl, SURFACE_VERTEX_SHADER, SURFACE_FRAGMENT_SHADER);
+    this.surfaceUniforms = {
+      uModel: gl.getUniformLocation(this.surfaceProg, 'uModel'),
+      uView: gl.getUniformLocation(this.surfaceProg, 'uView'),
+      uProj: gl.getUniformLocation(this.surfaceProg, 'uProj'),
+      uMorph: gl.getUniformLocation(this.surfaceProg, 'uMorph'),
+      uBreath: gl.getUniformLocation(this.surfaceProg, 'uBreath'),
+      uTime: gl.getUniformLocation(this.surfaceProg, 'uTime'),
+      uEnvMap: gl.getUniformLocation(this.surfaceProg, 'uEnvMap'),
+      uCamPos: gl.getUniformLocation(this.surfaceProg, 'uCamPos'),
+      uMaterialMix: gl.getUniformLocation(this.surfaceProg, 'uMaterialMix'),
+      uDissolve: gl.getUniformLocation(this.surfaceProg, 'uDissolve'),
+      uAssembleMode: gl.getUniformLocation(this.surfaceProg, 'uAssembleMode'),
+      uFormBOpacity: gl.getUniformLocation(this.surfaceProg, 'uFormBOpacity'),
+      uDarkStage: gl.getUniformLocation(this.surfaceProg, 'uDarkStage')
+    };
+
+    this.particleProg = createProgram(gl, PARTICLE_VERTEX_SHADER, PARTICLE_FRAGMENT_SHADER);
+    this.particleUniforms = {
+      uModelA: gl.getUniformLocation(this.particleProg, 'uModelA'),
+      uModelB: gl.getUniformLocation(this.particleProg, 'uModelB'),
+      uView: gl.getUniformLocation(this.particleProg, 'uView'),
+      uProj: gl.getUniformLocation(this.particleProg, 'uProj'),
+      uDissolve: gl.getUniformLocation(this.particleProg, 'uDissolve'),
+      uReassemble: gl.getUniformLocation(this.particleProg, 'uReassemble'),
+      uTime: gl.getUniformLocation(this.particleProg, 'uTime'),
+      uPixelRatio: gl.getUniformLocation(this.particleProg, 'uPixelRatio'),
+      uMaxPointSize: gl.getUniformLocation(this.particleProg, 'uMaxPointSize')
+    };
+
+    this.shadowProg = createProgram(gl, PLINTH_SHADOW_VERTEX, PLINTH_SHADOW_FRAGMENT);
+    this.shadowUniforms = {
+      uView: gl.getUniformLocation(this.shadowProg, 'uView'),
+      uProj: gl.getUniformLocation(this.shadowProg, 'uProj'),
+      uShadowCenter: gl.getUniformLocation(this.shadowProg, 'uShadowCenter'),
+      uShadowRadius: gl.getUniformLocation(this.shadowProg, 'uShadowRadius'),
+      uOpacity: gl.getUniformLocation(this.shadowProg, 'uOpacity'),
+      uDarkStage: gl.getUniformLocation(this.shadowProg, 'uDarkStage')
+    };
+
+    // 3. Studio Equirectangular Reflection Texture
+    const env = buildStudioEnvPixels(512, 256);
+    this.envTex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, this.envTex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, env.width, env.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, env.data);
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+    // 4. Form A VAO
+    this.vaoA = gl.createVertexArray();
+    gl.bindVertexArray(this.vaoA);
+    this.uploadAttr(gl, 0, formA.posBase, 3);
+    this.uploadAttr(gl, 1, formA.normBase, 3);
+    this.uploadAttr(gl, 2, formA.posMorph, 3);
+    this.uploadAttr(gl, 3, formA.normMorph, 3);
+    this.uploadAttr(gl, 4, formA.seeds, 1);
+    this.uploadAttr(gl, 5, formA.uvs, 2);
+    const iboA = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iboA);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, formA.indices, gl.STATIC_DRAW);
+    this.indexCountA = formA.indices.length;
+
+    // 5. Form B VAO (reuses static morph=0 attributes safely)
+    this.vaoB = gl.createVertexArray();
+    gl.bindVertexArray(this.vaoB);
+    const bPos = this.uploadAttr(gl, 0, formB.pos, 3);
+    const bNorm = this.uploadAttr(gl, 1, formB.norm, 3);
+    gl.bindBuffer(gl.ARRAY_BUFFER, bPos);
+    gl.enableVertexAttribArray(2);
+    gl.vertexAttribPointer(2, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, bNorm);
+    gl.enableVertexAttribArray(3);
+    gl.vertexAttribPointer(3, 3, gl.FLOAT, false, 0, 0);
+    this.uploadAttr(gl, 4, formB.seeds, 1);
+    this.uploadAttr(gl, 5, formB.uvs, 2);
+    const iboB = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iboB);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, formB.indices, gl.STATIC_DRAW);
+    this.indexCountB = formB.indices.length;
+
+    // 6. Particle Bridge VAO
+    this.vaoParticles = gl.createVertexArray();
+    gl.bindVertexArray(this.vaoParticles);
+    this.uploadAttr(gl, 0, bridge.posA, 3);
+    this.uploadAttr(gl, 1, bridge.normA, 3);
+    this.uploadAttr(gl, 2, bridge.posB, 3);
+    this.uploadAttr(gl, 3, bridge.normB, 3);
+    this.uploadAttr(gl, 4, bridge.seedA, 1);
+    this.uploadAttr(gl, 5, bridge.seedB, 1);
+    this.uploadAttr(gl, 6, bridge.rand, 3);
+
+    // 7. Ground Contact Shadow Quad VAO
+    this.vaoShadow = gl.createVertexArray();
+    gl.bindVertexArray(this.vaoShadow);
+    this.uploadAttr(gl, 0, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), 2);
+
+    gl.bindVertexArray(null);
+  }
+
+  uploadAttr(gl, loc, typedArray, size) {
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, typedArray, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+    return buf;
+  }
+
+  setStateEvaluator(evaluator, onFrameApplied) {
+    this.stateEvaluator = evaluator;
+    this.frameCallback = onFrameApplied;
+  }
+
+  setScrollTarget(target) {
+    this.scrollTarget = target;
+    this.scrollActiveUntil = performance.now() + 180;
+    this.wake();
+  }
+
+  snapToTarget(target) {
+    this.scrollTarget = target;
+    this.scrollCurrent = target;
+    this.renderSingleFrame(0);
+  }
+
+  setStillMode(still) {
+    this.stillMode = Boolean(still);
+    if (this.stillMode) {
+      this.scrollCurrent = this.scrollTarget;
+      this.pointerX = this.pointerTargetX;
+      this.pointerY = this.pointerTargetY;
+      this.renderSingleFrame(0);
+      this.stopLoop();
+    } else {
+      this.wake();
+    }
+  }
+
+  setVisible(isVisible) {
+    this.visible = Boolean(isVisible);
+    if (this.visible) this.wake();
+    else this.stopLoop();
+  }
+
+  setPointerHover(nx, ny) {
+    if (this.stillMode) return;
+    this.pointerTargetX = nx;
+    this.pointerTargetY = ny;
+    this.wake();
+  }
+
+  addDragOrbit(deltaRad) {
+    this.dragOrbitTarget = Math.max(-1.35, Math.min(1.35, this.dragOrbitTarget + deltaRad));
+    this.wake();
+  }
+
+  resize() {
+    if (!this.gl || this.contextLost) return;
+    const rect = this.canvas.getBoundingClientRect();
+    const cssW = Math.max(1, Math.round(rect.width || window.innerWidth));
+    const cssH = Math.max(1, Math.round(rect.height || window.innerHeight));
+    const isCompact = cssW <= 820;
+    const maxDpr = this.isSoftwareGl ? 1.0 : isCompact ? 1.5 : 1.75;
+    const baseDpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+    const effDpr = baseDpr * this.dynamicResScale;
+    const pxW = Math.max(1, Math.round(cssW * effDpr));
+    const pxH = Math.max(1, Math.round(cssH * effDpr));
+
+    if (this.canvas.width !== pxW || this.canvas.height !== pxH) {
+      this.canvas.width = pxW;
+      this.canvas.height = pxH;
+    }
+    this.cssWidth = cssW;
+    this.cssHeight = cssH;
+    this.effDpr = effDpr;
+    this.isCompact = isCompact;
+    this.gl.viewport(0, 0, pxW, pxH);
+    this.wake();
+  }
+
+  wake() {
+    if (this.disposed || this.contextLost || !this.gl || !this.visible) return;
+    if (!this.rafId) {
+      this.lastFrameTime = performance.now();
+      this.rafId = requestAnimationFrame((now) => this.tick(now));
+    }
+  }
+
+  stopLoop() {
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = 0;
+    }
+  }
+
+  tick(now) {
+    this.rafId = 0;
+    if (this.disposed || this.contextLost || !this.visible || !this.gl) return;
+
+    const dt = (now - this.lastFrameTime) / 1000;
+    this.lastFrameTime = now;
+
+    // Adaptive scroll resolution scaling on high-DPR hardware
+    if (!this.isSoftwareGl && window.devicePixelRatio > 1.25) {
+      const scrollingNow = now < this.scrollActiveUntil;
+      const desiredScale = scrollingNow && dt > 0.022 ? 0.85 : 1.0;
+      if (Math.abs(desiredScale - this.dynamicResScale) > 0.05) {
+        this.dynamicResScale = desiredScale;
+        this.resize();
+      }
+    }
+
+    if (this.stillMode) {
+      this.scrollCurrent = this.scrollTarget;
+      this.pointerX = this.pointerTargetX;
+      this.pointerY = this.pointerTargetY;
+      this.dragOrbit = this.dragOrbitTarget;
+      this.renderSingleFrame(0);
+      return;
+    }
+
+    const prevScroll = this.scrollCurrent;
+    this.scrollCurrent = followValue(this.scrollCurrent, this.scrollTarget, dt, 9.2);
+    this.pointerX = followValue(this.pointerX, this.pointerTargetX, dt, 6.5);
+    this.pointerY = followValue(this.pointerY, this.pointerTargetY, dt, 6.5);
+    this.dragOrbit = followValue(this.dragOrbit, this.dragOrbitTarget, dt, 7.5);
+    this.currentTime += Math.min(dt, 0.05);
+
+    const state = this.renderSingleFrame(dt);
+
+    const scrollSettled = Math.abs(this.scrollCurrent - this.scrollTarget) < 0.0002 && Math.abs(this.scrollCurrent - prevScroll) < 0.00005;
+    const pointerSettled =
+      Math.abs(this.pointerX - this.pointerTargetX) < 0.0005 &&
+      Math.abs(this.pointerY - this.pointerTargetY) < 0.0005 &&
+      Math.abs(this.dragOrbit - this.dragOrbitTarget) < 0.0005;
+
+    // Continue breathing loop smoothly when active and sculpture visible; sleep cleanly if settled & offscreen/still
+    const keepBreathing = state && state.breathStrength > 0.05;
+    if (!scrollSettled || !pointerSettled || keepBreathing) {
+      this.rafId = requestAnimationFrame((nextNow) => this.tick(nextNow));
+    }
+  }
+
+  renderSingleFrame() {
+    const gl = this.gl;
+    if (!gl || this.contextLost || !this.stateEvaluator) return null;
+
+    const state = this.stateEvaluator(this.scrollCurrent, this.isCompact);
+    this.frameCallback?.(state);
+
+    const aspect = Math.max(0.25, (this.cssWidth || 1) / (this.cssHeight || 1));
+    const fov = this.isCompact ? 0.72 : 0.62;
+    mat4Perspective(this.projMat, fov, aspect, 0.1, 40.0);
+
+    const az = state.orbitAzimuth + this.dragOrbit + this.pointerX * 0.22;
+    const el = state.orbitElevation + this.pointerY * 0.14;
+    const dist = state.camDist;
+
+    const targetX = -state.offsetX * dist * 0.34;
+    const targetY = -state.offsetY * dist * 0.28;
+    const eyeX = targetX + Math.cos(el) * Math.sin(az) * dist;
+    const eyeY = targetY + Math.sin(el) * dist;
+    const eyeZ = Math.cos(el) * Math.cos(az) * dist;
+
+    this.camPos[0] = eyeX;
+    this.camPos[1] = eyeY;
+    this.camPos[2] = eyeZ;
+    mat4LookAt(this.viewMat, this.camPos, [targetX, targetY, 0], [0, 1, 0]);
+
+    const tAmbient = this.stillMode ? 0 : this.currentTime;
+    const breath = this.stillMode ? 0 : state.breathStrength;
+    const gentleY = breath * 0.055 * Math.sin(tAmbient * 0.65);
+
+    mat4Transform(
+      this.modelAMat,
+      0,
+      gentleY,
+      0,
+      0.16 * Math.sin(state.p * 3.14),
+      0.15 * state.p + (this.stillMode ? 0 : tAmbient * 0.06 * breath),
+      0.08 * Math.cos(state.p * 2.4),
+      state.sculptureScale
+    );
+
+    mat4Transform(
+      this.modelBMat,
+      0,
+      gentleY * 0.6,
+      0,
+      -0.06,
+      0.35 + (this.stillMode ? 0 : tAmbient * 0.04 * breath),
+      0,
+      state.sculptureScale * 0.98
+    );
+
+    gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    gl.enable(gl.BLEND);
+    gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+    // 1. Subtle architectural plinth light-pool / shadow beneath sculpture
+    const shadowOpacity = Math.max(1.0 - state.dissolve * 0.78, state.formBSolidify * 0.92);
+    if (shadowOpacity > 0.02) {
+      gl.disable(gl.DEPTH_TEST);
+      gl.disable(gl.CULL_FACE);
+      gl.useProgram(this.shadowProg);
+      gl.bindVertexArray(this.vaoShadow);
+      gl.uniformMatrix4fv(this.shadowUniforms.uView, false, this.viewMat);
+      gl.uniformMatrix4fv(this.shadowUniforms.uProj, false, this.projMat);
+      gl.uniform3f(this.shadowUniforms.uShadowCenter, 0, -1.62 * state.sculptureScale, 0);
+      gl.uniform1f(this.shadowUniforms.uShadowRadius, 1.95 * state.sculptureScale);
+      gl.uniform1f(this.shadowUniforms.uOpacity, shadowOpacity);
+      gl.uniform1f(this.shadowUniforms.uDarkStage, state.darkStage);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+
+    // Bind studio environment texture on unit 0
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, this.envTex);
+
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthMask(true);
+
+    // 2. Render Form A surface while visible & before total dissolution
+    if (state.formAOpacity > 0.01 && state.dissolve < 0.995) {
+      const translucentOrEroding = state.materialMix > 1.05 || state.dissolve > 0.005;
+      if (translucentOrEroding) gl.disable(gl.CULL_FACE);
+      else gl.enable(gl.CULL_FACE);
+
+      gl.useProgram(this.surfaceProg);
+      gl.bindVertexArray(this.vaoA);
+      gl.uniformMatrix4fv(this.surfaceUniforms.uModel, false, this.modelAMat);
+      gl.uniformMatrix4fv(this.surfaceUniforms.uView, false, this.viewMat);
+      gl.uniformMatrix4fv(this.surfaceUniforms.uProj, false, this.projMat);
+      gl.uniform1f(this.surfaceUniforms.uMorph, state.morph);
+      gl.uniform1f(this.surfaceUniforms.uBreath, breath);
+      gl.uniform1f(this.surfaceUniforms.uTime, tAmbient);
+      gl.uniform1i(this.surfaceUniforms.uEnvMap, 0);
+      gl.uniform3fv(this.surfaceUniforms.uCamPos, this.camPos);
+      gl.uniform1f(this.surfaceUniforms.uMaterialMix, state.materialMix);
+      gl.uniform1f(this.surfaceUniforms.uDissolve, state.dissolve);
+      gl.uniform1f(this.surfaceUniforms.uAssembleMode, 0.0);
+      gl.uniform1f(this.surfaceUniforms.uFormBOpacity, 1.0);
+      gl.uniform1f(this.surfaceUniforms.uDarkStage, state.darkStage);
+      gl.drawElements(gl.TRIANGLES, this.indexCountA, gl.UNSIGNED_INT, 0);
+    }
+
+    // 3. Render Form B solidifying monolith surface
+    if (state.formBOpacity > 0.01) {
+      if (state.formBSolidify < 0.98) gl.disable(gl.CULL_FACE);
+      else gl.enable(gl.CULL_FACE);
+
+      gl.useProgram(this.surfaceProg);
+      gl.bindVertexArray(this.vaoB);
+      gl.uniformMatrix4fv(this.surfaceUniforms.uModel, false, this.modelBMat);
+      gl.uniformMatrix4fv(this.surfaceUniforms.uView, false, this.viewMat);
+      gl.uniformMatrix4fv(this.surfaceUniforms.uProj, false, this.projMat);
+      gl.uniform1f(this.surfaceUniforms.uMorph, 0.0);
+      gl.uniform1f(this.surfaceUniforms.uBreath, breath * 0.4);
+      gl.uniform1f(this.surfaceUniforms.uTime, tAmbient);
+      gl.uniform1i(this.surfaceUniforms.uEnvMap, 0);
+      gl.uniform3fv(this.surfaceUniforms.uCamPos, this.camPos);
+      gl.uniform1f(this.surfaceUniforms.uMaterialMix, 0.55);
+      gl.uniform1f(this.surfaceUniforms.uDissolve, state.formBSolidify);
+      gl.uniform1f(this.surfaceUniforms.uAssembleMode, 1.0);
+      gl.uniform1f(this.surfaceUniforms.uFormBOpacity, state.formBOpacity);
+      gl.uniform1f(this.surfaceUniforms.uDarkStage, state.darkStage);
+      gl.drawElements(gl.TRIANGLES, this.indexCountB, gl.UNSIGNED_INT, 0);
+    }
+
+    // 4. Render Coherent Particle Dissolution & Reassembly Field
+    if (state.dissolve > 0.005 && state.formBSolidify < 0.995) {
+      gl.depthMask(false);
+      gl.disable(gl.CULL_FACE);
+      gl.useProgram(this.particleProg);
+      gl.bindVertexArray(this.vaoParticles);
+      gl.uniformMatrix4fv(this.particleUniforms.uModelA, false, this.modelAMat);
+      gl.uniformMatrix4fv(this.particleUniforms.uModelB, false, this.modelBMat);
+      gl.uniformMatrix4fv(this.particleUniforms.uView, false, this.viewMat);
+      gl.uniformMatrix4fv(this.particleUniforms.uProj, false, this.projMat);
+      gl.uniform1f(this.particleUniforms.uDissolve, state.dissolve);
+      gl.uniform1f(this.particleUniforms.uReassemble, state.reassemble);
+      gl.uniform1f(this.particleUniforms.uTime, tAmbient);
+      gl.uniform1f(this.particleUniforms.uPixelRatio, this.effDpr || 1.0);
+      gl.uniform1f(this.particleUniforms.uMaxPointSize, this.maxPointSize);
+      gl.drawArrays(gl.POINTS, 0, this.particleActiveCount);
+      gl.depthMask(true);
+    }
+
+    return state;
+  }
+
+  destroy() {
+    this.disposed = true;
+    this.stopLoop();
+    this.canvas.removeEventListener('webglcontextlost', this.boundContextLost);
+    this.canvas.removeEventListener('webglcontextrestored', this.boundContextRestored);
+  }
+}
+
+return {MatterRenderer};
+})();
+const __matter_main = (() => {
+"use strict";
+/* Application orchestration for MATTER — Studies in Transformation.
+ * Connects native browser scroll, chapter links, Still View mode, reduced motion,
+ * horizontal drag inspection, visibility throttling, and WebGL2 rendering. */
+
+const { MatterRenderer } = __matter_renderer;
+const { STAGES, evaluateExhibitionState, clamp01 } = __matter_motion;
+
+const rootEl = document.documentElement;
+const trackEl = document.getElementById('exhibition-track');
+const stickyEl = document.getElementById('exhibition-sticky');
+const canvasEl = document.getElementById('matter-canvas');
+const progressBarEl = document.getElementById('scroll-progress-bar');
+const stillBtn = document.getElementById('still-toggle');
+const railStatusEl = document.getElementById('rail-material-status');
+const cueEl = document.querySelector('.stage-scroll-cue');
+
+const backdropPlates = Array.from(document.querySelectorAll('[data-backdrop-stage]'));
+const chapterCards = Array.from(document.querySelectorAll('[data-card-stage]'));
+const navLinks = Array.from(document.querySelectorAll('[data-nav-stage]'));
+const railLinks = Array.from(document.querySelectorAll('[data-rail-stage]'));
+
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+let userStillPreference = false;
+let currentStageIdx = -1;
+let currentRoomTone = 'ivory';
+let lastCueOpacity = '';
+let lastStatusLabel = '';
+
+function isStillActive() {
+  return userStillPreference || reducedMotionQuery.matches;
+}
+
+function getNormalizedTrackScroll() {
+  if (!trackEl) return 0;
+  const scrollY = window.scrollY || window.pageYOffset || 0;
+  const trackTop = trackEl.offsetTop;
+  const stickyHeight = stickyEl ? stickyEl.offsetHeight : window.innerHeight;
+  const scrollableDistance = Math.max(1, trackEl.offsetHeight - stickyHeight);
+  return clamp01((scrollY - trackTop) / scrollableDistance);
+}
+
+function computeMaterialLabel(state) {
+  if (state.formBSolidify > 0.45) return 'Composite Twin Spire';
+  if (state.dissolve > 0.22) return 'Particulate Dispersion';
+  if (state.materialMix > 1.35) return 'Smoked Alabaster';
+  if (state.materialMix > 0.45) return 'Matte Kaolin Ceramic';
+  if (state.morph > 0.35) return 'Fluted Palladium';
+  return 'Cast Palladium';
+}
+
+function syncDomWithState(state) {
+  // 1. Top hairline progress + backdrop parallax CSS variables
+  rootEl.style.setProperty('--progress', state.p.toFixed(4));
+  rootEl.style.setProperty('--wall-parallax', (state.p * 2 - 1).toFixed(4));
+  rootEl.style.setProperty('--wall-spread', state.dissolve.toFixed(4));
+
+  // 2. Clean tonal room switch around Plate III -> IV boundary
+  const nextTone = state.p >= 0.54 ? 'charcoal' : 'ivory';
+  if (nextTone !== currentRoomTone) {
+    currentRoomTone = nextTone;
+    rootEl.setAttribute('data-room', nextTone);
+  }
+
+  // 3. Scroll cue fades early in Plate I
+  if (cueEl) {
+    const cueOp = state.p < 0.08 ? (1 - state.p / 0.08).toFixed(2) : '0';
+    if (cueOp !== lastCueOpacity) {
+      lastCueOpacity = cueOp;
+      cueEl.style.setProperty('--cue-opacity', cueOp);
+    }
+  }
+
+  // 4. Active stage cards, backdrop type, and navigation current markers
+  if (state.activeStage !== currentStageIdx) {
+    currentStageIdx = state.activeStage;
+    const visualIdx = Math.min(state.activeStage, 4);
+
+    for (let i = 0; i < backdropPlates.length; i++) {
+      backdropPlates[i].classList.toggle('is-active', i === visualIdx);
+    }
+    for (let i = 0; i < chapterCards.length; i++) {
+      chapterCards[i].classList.toggle('is-active', i === visualIdx);
+    }
+    for (const el of navLinks) {
+      const idx = Number(el.getAttribute('data-nav-stage'));
+      if (idx === state.activeStage) el.setAttribute('aria-current', 'true');
+      else el.removeAttribute('aria-current');
+    }
+    for (const el of railLinks) {
+      const idx = Number(el.getAttribute('data-rail-stage'));
+      if (idx === state.activeStage) el.setAttribute('aria-current', 'true');
+      else el.removeAttribute('aria-current');
+    }
+  }
+
+  // 5. Material readout update
+  const matLabel = computeMaterialLabel(state);
+  if (railStatusEl && matLabel !== lastStatusLabel) {
+    lastStatusLabel = matLabel;
+    railStatusEl.textContent = matLabel;
+  }
+}
+
+let renderer = null;
+
+if (canvasEl && !rootEl.classList.contains('no-webgl')) {
+  const candidate = new MatterRenderer(canvasEl, null, () => rootEl.classList.add('no-webgl'));
+  if (!rootEl.classList.contains('no-webgl') && candidate.gl) {
+    renderer = candidate;
+    renderer.setStateEvaluator(evaluateExhibitionState, syncDomWithState);
+    renderer.setStillMode(isStillActive());
+    renderer.snapToTarget(getNormalizedTrackScroll());
+  } else {
+    candidate.destroy();
+  }
+}
+
+// Initial DOM state sync even when WebGL is disabled or reduced-motion static mode runs
+syncDomWithState(evaluateExhibitionState(getNormalizedTrackScroll(), window.innerWidth <= 820));
+
+function handleScroll() {
+  const target = getNormalizedTrackScroll();
+  if (renderer) {
+    if (isStillActive()) {
+      renderer.snapToTarget(target);
+    } else {
+      renderer.setScrollTarget(target);
+    }
+  } else {
+    syncDomWithState(evaluateExhibitionState(target, window.innerWidth <= 820));
+  }
+}
+
+window.addEventListener('scroll', handleScroll, { passive: true });
+window.addEventListener('resize', () => {
+  renderer?.resize();
+  handleScroll();
+});
+
+// Suspend offscreen or backgrounded rendering cleanly
+document.addEventListener('visibilitychange', () => {
+  if (!renderer) return;
+  renderer.setVisible(!document.hidden);
+});
+
+if (trackEl && 'IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (renderer) {
+          renderer.setVisible(entry.isIntersecting && !document.hidden);
+        }
+      }
+    },
+    { threshold: 0.01 }
+  );
+  observer.observe(trackEl);
+}
+
+// Still view toggle + reduced motion listener
+function updateStillButtonUi() {
+  const active = isStillActive();
+  if (stillBtn) {
+    stillBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    stillBtn.textContent = active ? 'Resume motion' : 'Still view';
+  }
+  renderer?.setStillMode(active);
+}
+
+stillBtn?.addEventListener('click', () => {
+  userStillPreference = !userStillPreference;
+  updateStillButtonUi();
+});
+
+reducedMotionQuery.addEventListener?.('change', updateStillButtonUi);
+updateStillButtonUi();
+
+// Subtle pointer tilt on desktop + touch-safe horizontal inspection drag (never blocks vertical scroll)
+if (canvasEl) {
+  let dragActive = false;
+  let dragLocked = false;
+  let startX = 0;
+  let startY = 0;
+  let lastX = 0;
+
+  canvasEl.addEventListener('pointerdown', (e) => {
+    if (isStillActive()) return;
+    dragActive = true;
+    dragLocked = false;
+    startX = e.clientX;
+    startY = e.clientY;
+    lastX = e.clientX;
+  });
+
+  window.addEventListener('pointermove', (e) => {
+    if (!renderer || isStillActive()) return;
+
+    if (dragActive) {
+      const dxTotal = Math.abs(e.clientX - startX);
+      const dyTotal = Math.abs(e.clientY - startY);
+      if (!dragLocked) {
+        if (dyTotal > 8 && dyTotal > dxTotal * 0.9) {
+          // User is scrolling vertically; release drag cleanly
+          dragActive = false;
+          return;
+        }
+        if (dxTotal > 8 && dxTotal > dyTotal * 1.3) {
+          dragLocked = true;
+        }
+      }
+      if (dragLocked) {
+        const deltaX = e.clientX - lastX;
+        renderer.addDragOrbit(-deltaX * 0.0055);
+      }
+      lastX = e.clientX;
+      return;
+    }
+
+    if (e.pointerType === 'mouse') {
+      const nx = (e.clientX / Math.max(1, window.innerWidth)) * 2 - 1;
+      const ny = (e.clientY / Math.max(1, window.innerHeight)) * 2 - 1;
+      renderer.setPointerHover(nx, ny);
+    }
+  });
+
+  const endDrag = () => {
+    dragActive = false;
+    dragLocked = false;
+  };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  canvasEl.addEventListener('pointerleave', () => {
+    renderer?.setPointerHover(0, 0);
+  });
+}
+
+// Smooth hash link scrolling compensation so anchor clicks align naturally onto each stage center
+for (const link of document.querySelectorAll('a[href^="#"]')) {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (!href || href === '#') return;
+    const target = document.getElementById(href.slice(1));
+    if (!target) return;
+
+    // Allow default #main-content skip jump
+    if (href === '#main-content') return;
+
+    const stageMatch = STAGES.find((s) => `#${s.id}` === href);
+    if (stageMatch && trackEl && !isStillActive()) {
+      e.preventDefault();
+      const stickyH = stickyEl ? stickyEl.offsetHeight : window.innerHeight;
+      const totalScrollable = Math.max(0, trackEl.offsetHeight - stickyH);
+      const destY =
+        stageMatch.id === 'exhibition-index'
+          ? target.offsetTop
+          : trackEl.offsetTop + totalScrollable * stageMatch.anchor;
+      window.scrollTo({ top: destY, behavior: 'smooth' });
+      target.focus?.({ preventScroll: true });
+    }
+  });
+}
+
+// Reference check to keep unused import zero
+void progressBarEl;
+
+return {};
+})();
+</script>
+</body>
+</html>
