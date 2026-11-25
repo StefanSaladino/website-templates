@@ -7,9 +7,9 @@
  * - Still view, reduced-motion, visibility suspension, and WebGL2 fallback handling
  */
 
-import { AtlasRenderer } from './renderer.js';
-import { createMotionController } from './motion.js';
-import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js';
+import { AtlasRenderer } from './renderer.js?v=5';
+import { createMotionController } from './motion.js?v=5';
+import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=5';
 
 const rootEl = document.documentElement;
 rootEl.classList.remove('atlas-no-js');
@@ -182,9 +182,20 @@ const renderer = new AtlasRenderer(canvasEl, stageEl, {
 const motion = createMotionController({
   onFrame(progress, timeSec, yaw, pitch, isMoving) {
     if(isStaticLayoutMode()){updateDomForState(null,progress);return null;}
-    const state = renderer.render(progress, progress*14, yaw, pitch, isMoving);
-    updateDomForState(state, progress);
-    return state;
+    try {
+      const state = renderer.render(progress, progress*14, yaw, pitch, isMoving);
+      updateDomForState(state, progress);
+      return state;
+    } catch(error) {
+      // A draw failure must never strand the user on a frozen canvas.
+      stageEl.dataset.renderError=String(error?.message||error);
+      stageEl.dataset.renderer='static';
+      canvasEl.hidden=true;
+      rootEl.classList.add('atlas-no-webgl');
+      updateControlStates();
+      updateDomForState(null,progress);
+      return null;
+    }
   },
   onSettleChange(isSettled) {
     stageEl.setAttribute('data-settled', isSettled ? 'true' : 'false');
@@ -215,7 +226,7 @@ const webglReady = renderer.init();
 if (!webglReady) {
   rootEl.classList.add('atlas-no-webgl');
 }
-motion.setSoftwareThrottle(renderer.isSoftwareRenderer);
+motion.setSoftwareThrottle?.(renderer.isSoftwareRenderer);
 motion.setReducedMotion(reducedMotionQuery.matches);
 updateControlStates();
 
@@ -242,12 +253,14 @@ function onNativeScroll() {
   if (ch.id === 'archive') {
     activeViewpoint = '';
   }
-  if (!webglReady || isStillMode || reducedMotionQuery.matches) {
+  if (isStaticLayoutMode()) {
     updateDomForState(null, p);
   }
 }
 
 window.addEventListener('scroll', onNativeScroll, { passive: true });
+rootEl.dataset.atlasReady='true';
+window.addEventListener('pageshow',()=>{if(!isStaticLayoutMode()){motion.setVisible(!document.hidden);motion.setTargetProgress(getScrollProgress(),true);}});
 window.addEventListener('resize', () => {
   const isMobile = window.innerWidth <= 820;
   motion.setMobileRate(isMobile);
@@ -269,7 +282,7 @@ if ('IntersectionObserver' in window && trackEl) {
     },
     { threshold: 0.01 }
   );
-  obs.observe(trackEl);
+  obs.observe(stageEl);
 }
 
 // Reduced-motion listener

@@ -11,7 +11,7 @@ import {
   buildTerrainData,
   buildWaterMesh,
   buildCloudDeckMesh,
-} from './terrain.js';
+} from './terrain.js?v=5';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -21,8 +21,8 @@ import {
   WATER_FRAG,
   CLOUD_VERT,
   CLOUD_FRAG,
-} from './shaders.js';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js';
+} from './shaders.js?v=5';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=5';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);

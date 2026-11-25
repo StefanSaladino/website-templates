@@ -20,6 +20,9 @@ try {
   await p.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return original.call(this,k,k==='webgl2'?{...o,preserveDrawingBuffer:true}:o)}});
   await p.goto(url,{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>+document.querySelector('#atlas-stage').dataset.draws>0||document.querySelector('#atlas-stage').dataset.renderError,{},{timeout:25000});
   const stage=p.locator('#atlas-stage');assert.equal(await stage.getAttribute('data-renderer'),'webgl',await stage.getAttribute('data-render-error')||'WebGL initialization');
+  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A5');
+  assert.equal(await p.locator('html').getAttribute('data-atlas-ready'),'true','scroll listeners must be installed after initialization');
+  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='5'),'mixed module releases '+moduleUrls.join(' '));
   const hashes=[];let firstBuffer=null;
   for(const [i,f] of [0,.12,.24,.44,.62,.82,.96,.44,0].entries()){
    await p.evaluate(f=>{const t=document.querySelector('#expedition-track'),s=document.querySelector('#atlas-stage');scrollTo({top:t.getBoundingClientRect().top+scrollY+(t.offsetHeight-s.offsetHeight)*f,behavior:'instant'})},f);
@@ -29,6 +32,8 @@ try {
    await p.screenshot({path:path.join(out,width+'-'+i+'.png'),timeout:30000});
   }
   assert(new Set(hashes).size>=6,'world does not change');assert.deepEqual(errors,[]);
+  await p.locator('#map .chapter-cue').click();await p.waitForFunction(()=>Math.abs(+document.querySelector('#atlas-stage').dataset.renderedProgress-.24)<.006&&document.querySelector('#atlas-stage').dataset.settled==='true',{},{timeout:45000});
+  assert.equal(await p.locator('#atlas-stage').getAttribute('data-rendered-chapter'),'ascent');
   await p.locator('#still-toggle').click();assert.equal(await p.locator('html').getAttribute('data-still'),'true');assert.equal(await p.locator('.static-plate:visible').count(),5);assert.equal(await p.locator('.chapter-card:visible').count(),6);
   await p.locator('#still-toggle').click();
   await p.waitForFunction(()=>document.querySelector('html').dataset.still==='false'&&document.querySelector('#atlas-stage').dataset.renderer==='webgl');

@@ -78,10 +78,10 @@ export function createMotionController(options) {
       currentPitch = stepFollow(currentPitch, targetPitch, dt, 10.0);
     }
 
-    const motionPending =
-      Math.abs(targetProgress - currentProgress) >= 1e-5 ||
-      Math.abs(targetYaw - currentYaw) >= 1e-4 ||
-      Math.abs(targetPitch - currentPitch) >= 1e-4;
+    if(Math.abs(targetProgress-currentProgress)<1e-5)currentProgress=targetProgress;
+    if(Math.abs(targetYaw-currentYaw)<1e-4)currentYaw=targetYaw;
+    if(Math.abs(targetPitch-currentPitch)<1e-4)currentPitch=targetPitch;
+    const motionPending=currentProgress!==targetProgress||currentYaw!==targetYaw||currentPitch!==targetPitch;
 
     const moved =
       dirty ||
