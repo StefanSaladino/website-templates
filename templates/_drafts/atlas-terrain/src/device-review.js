@@ -4,11 +4,14 @@
  */
 export function summarizeDeviceSamples(samples){
   const rafGaps=[],drawGaps=[],steps=[];
-  let previousDraw=null,missedDraws=0,maxLag=0,reversals=0;
+  let previousDraw=null,missedDraws=0,maxLag=0,maxNativeLag=0,maxInputLag=0,reversals=0;
   const direction=samples[0]?.phase==='forward'?1:samples[0]?.phase==='reverse'?-1:0;
   for(let i=0;i<samples.length;i++){
     const s=samples[i];
     maxLag=Math.max(maxLag,Math.abs(s.target-s.progress));
+    const native=Number.isFinite(s.nativeTarget)?s.nativeTarget:s.target;
+    maxNativeLag=Math.max(maxNativeLag,Math.abs(native-s.progress));
+    maxInputLag=Math.max(maxInputLag,Math.abs(native-s.target));
     if(i)rafGaps.push(s.ms-samples[i-1].ms);
     if(!previousDraw){previousDraw=s;continue;}
     if(s.draws<=previousDraw.draws)continue;
@@ -27,16 +30,16 @@ export function summarizeDeviceSamples(samples){
   return {durationMs:samples.length?samples.at(-1).ms-samples[0].ms:0,
     callbacks:samples.length,observedDrawIntervals:drawGaps.length,missedDraws,
     callbackGapMs:stats(rafGaps),drawGapMs:stats(drawGaps),progressStep:stats(steps),
-    maxTargetLag:maxLag,reversals};
+    maxTargetLag:maxLag,maxNativeTargetLag:maxNativeLag,maxScrollInputLag:maxInputLag,reversals};
 }
 
-export function mountDeviceReview({stage,canvas,getState,scrollToProgress}){
+export function mountDeviceReview({stage,canvas,getState,getNativeProgress,isSoftwareRenderer,scrollToProgress}){
   const root=document.documentElement;
   if(document.getElementById('atlas-device-review'))return;
   const panel=document.createElement('aside');panel.id='atlas-device-review';
   panel.setAttribute('aria-label','Local device review');
   Object.assign(panel.style,{position:'fixed',zIndex:'10000',right:'12px',top:'max(72px, env(safe-area-inset-top))',
-    maxWidth:'min(300px, calc(100vw - 24px))',padding:'12px',borderRadius:'6px',background:'#17212b',
+    boxSizing:'border-box',maxWidth:'min(300px, calc(100vw - 24px))',padding:'12px',borderRadius:'6px',background:'#17212b',
     color:'#fff',font:'13px/1.45 system-ui,sans-serif',boxShadow:'0 3px 14px #0006'});
   const label=document.createElement('strong');label.textContent='ATLAS device review';
   const status=document.createElement('p');status.setAttribute('role','status');status.style.margin='6px 0 8px';
@@ -45,18 +48,18 @@ export function mountDeviceReview({stage,canvas,getState,scrollToProgress}){
     Object.assign(b.style,{font:'inherit',minHeight:'44px',padding:'6px 10px',border:'1px solid #a5afb9',borderRadius:'3px',background:'#f3f5f6',color:'#18212a',cursor:'pointer'});
     b.addEventListener('click',handler);controls.append(b);return b;};
   let active=false,raf=0,timeout=0,phase='',started=0,phaseStarted=0,records=[],report=null,meta=null;
-  const live=()=>stage.dataset.renderer==='webgl'&&root.dataset.still!=='true'&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const live=()=>stage.dataset.renderer==='webgl'&&Number(stage.dataset.draws)>0&&root.dataset.still!=='true'&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
   const details=()=>({release:root.dataset.atlasRelease,viewport:[innerWidth,innerHeight],
     canvas:[canvas.width,canvas.height],devicePixelRatio:window.devicePixelRatio,
     quality:stage.dataset.renderedQuality||null,renderer:stage.dataset.renderer,
-    browser:navigator.userAgent,softwareHint:stage.dataset.softwareRenderer||null});
+    browser:navigator.userAgent,softwareHint:Boolean(isSoftwareRenderer())});
   const sync=()=>{auto.disabled=manual.disabled=active||!live();stop.disabled=!active;save.disabled=active||!report;};
   function finish(reason){
     if(!active)return;
     active=false;cancelAnimationFrame(raf);clearTimeout(timeout);raf=timeout=0;
     const groups={};
     for(const s of records){(groups[s.phase]??=[]).push(s);}
-    report={schema:1,note:'Local-only rAF and draw-counter observations. Not GPU completion, display FPS or an artistic acceptance test.',
+    report={schema:2,note:'Local-only rAF and draw-counter observations. Native scroll, controller target and rendered progress measured separately. Not GPU completion, display FPS or an artistic acceptance test.',
       reason,start:meta,end:details(),elapsedMs:Math.round(performance.now()-started),
       phases:Object.fromEntries(Object.entries(groups).map(([name,samples])=>[name,{summary:summarizeDeviceSamples(samples),samples}]))};
     status.textContent='Recording '+reason+'. '+records.length+' observations. Save the JSON report.';
@@ -76,13 +79,13 @@ export function mountDeviceReview({stage,canvas,getState,scrollToProgress}){
     if(!active)return;
     if(document.hidden||!live()){finish('interrupted: hidden or static renderer');return;}
     if(innerWidth!==meta.viewport[0]||stage.dataset.renderedQuality!==meta.quality){finish('interrupted: orientation or quality changed');return;}
-    const now=performance.now(),state=getState(),progress=Number(stage.dataset.renderedProgress),draws=Number(stage.dataset.draws);
-    if(!Number.isFinite(progress)||!Number.isFinite(draws)||!Number.isFinite(state.targetProgress)){finish('invalid renderer observation');return;}
+    const now=performance.now(),state=getState(),nativeTarget=getNativeProgress(),progress=Number(stage.dataset.renderedProgress),draws=Number(stage.dataset.draws);
+    if(!Number.isFinite(progress)||!Number.isFinite(draws)||!Number.isFinite(state.targetProgress)||!Number.isFinite(nativeTarget)){finish('invalid renderer observation');return;}
     if(records.length>=12000){finish('sample limit reached');return;}
-    const sample={phase,ms:Math.round(now-started),progress,target:state.targetProgress,draws,
+    const sample={phase,ms:Math.round(now-started),progress,target:state.targetProgress,nativeTarget,draws,
       settled:state.settled,ambient:state.ambientRunning,canvas:[canvas.width,canvas.height],viewport:[innerWidth,innerHeight]};
     records.push(sample);
-    const at=p=>Math.abs(progress-p)<.006&&Math.abs(state.targetProgress-p)<.006&&state.settled;
+    const at=p=>Math.abs(progress-p)<.006&&Math.abs(state.targetProgress-p)<.006&&Math.abs(nativeTarget-p)<.006&&state.settled;
     const next=(name,destination)=>{
       phase=name;phaseStarted=now;
       records.push({...sample,phase:name}); // actual initial pose, before native scroll
@@ -105,14 +108,20 @@ export function mountDeviceReview({stage,canvas,getState,scrollToProgress}){
   }
   const auto=button('Run sweep',()=>begin('auto')),manual=button('Record scroll',()=>begin('manual'));
   const stop=button('Stop',()=>finish('stopped by reviewer')),save=button('Save JSON',exportReport);
-  button('Close',()=>{finish('closed');observer.disconnect();document.removeEventListener('visibilitychange',onVisibility);window.removeEventListener('pagehide',onPageHide);panel.remove();});
+  button('Close',()=>{finish('closed');observer.disconnect();document.removeEventListener('visibilitychange',onVisibility);window.removeEventListener('pagehide',onPageHide);window.removeEventListener('wheel',onManualInput);window.removeEventListener('touchstart',onManualInput);window.removeEventListener('keydown',onScrollKey);panel.remove();});
   panel.append(label,status,controls);document.body.append(panel);
   function onVisibility(){if(document.hidden)finish('interrupted: page hidden');}
   function onPageHide(){finish('interrupted: page exit');}
+  // Never block gestures or native navigation; label an automatic sweep
+  // contaminated by reviewer input instead of reporting it as controlled.
+  function onManualInput(event){if(active&&phase!=='manual'&&!panel.contains(event.target))finish('interrupted: reviewer input');}
+  function onScrollKey(event){if(['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(event.key))onManualInput(event);}
   document.addEventListener('visibilitychange',onVisibility);window.addEventListener('pagehide',onPageHide);
+  window.addEventListener('wheel',onManualInput,{passive:true});window.addEventListener('touchstart',onManualInput,{passive:true});
+  window.addEventListener('keydown',onScrollKey);
   const observer=new MutationObserver(()=>{if(active&&!live())finish('interrupted: static renderer');else if(!active)sync();});
   observer.observe(stage,{attributes:true,attributeFilter:['data-renderer']});
-  observer.observe(root,{attributes:true,attributeFilter:['data-still']});
+  observer.observe(root,{attributes:true,attributeFilter:['data-still','data-first-frame']});
   status.textContent=live()?'Run a controlled forward/reverse sweep or record your own scrolling. Nothing is uploaded.':'Live WebGL is required; still/reduced-motion mode is respected.';
   sync();
 }

@@ -70,6 +70,12 @@ try{
  const {summarizeDeviceSamples}=await import(pathToFileURL(path.join(draft,'src/device-review.js')));
  const diag=summarizeDeviceSamples([{phase:'forward',ms:0,progress:.64,target:.64,draws:5},{phase:'forward',ms:16,progress:.64,target:.75,draws:5},{phase:'forward',ms:33,progress:.72,target:.8,draws:7},{phase:'forward',ms:50,progress:.70,target:.8,draws:8}]);
  assert.equal(diag.callbacks,4);assert.equal(diag.missedDraws,1);assert.equal(diag.reversals,1);assert.equal(diag.drawGapMs.max,33);assert(diag.maxTargetLag>.10);
+ const lag=summarizeDeviceSamples([{phase:'forward',ms:0,progress:.64,target:.64,nativeTarget:.64,draws:1},{phase:'forward',ms:16,progress:.64,target:.70,nativeTarget:.84,draws:1},{phase:'forward',ms:32,progress:.75,target:.84,nativeTarget:.84,draws:2}]);
+ assert(Math.abs(lag.maxNativeTargetLag-.20)<1e-9);
+ assert(Math.abs(lag.maxScrollInputLag-.14)<1e-9);
+ assert(Math.abs(lag.maxTargetLag-.09)<1e-9);
+ assert.equal(lag.reversals,0);assert.equal(lag.drawGapMs.max,32);
+ const idle=summarizeDeviceSamples([]);assert.equal(idle.callbacks,0);assert.equal(idle.drawGapMs.max,null);
  const {buildTerrainData,buildSummitInversion}=await import(pathToFileURL(path.join(draft,'src/terrain.js')));
  const {evaluateWorldState}=await import(pathToFileURL(path.join(draft,'src/camera.js')));
  const td=buildTerrainData(),volume=buildSummitInversion(td);
@@ -88,7 +94,7 @@ try{
    await page.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return original.call(this,k,k==='webgl2'?{...o,preserveDrawingBuffer:true}:o)}});
    await page.goto(url,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>+document.querySelector('#atlas-stage').dataset.draws>0||document.querySelector('#atlas-stage').dataset.renderError,{},{timeout:45000});
    const stage=page.locator('#atlas-stage');assert.equal(await stage.getAttribute('data-renderer'),'webgl');
-   const view={width,height,release:await page.locator('html').getAttribute('data-atlas-release'),frames:[],sweeps:[]};assert.equal(view.release,'A29');report.views.push(view);
+   const view={width,height,release:await page.locator('html').getAttribute('data-atlas-release'),frames:[],sweeps:[]};assert.equal(view.release,'A30');report.views.push(view);
    const scroll=async(f)=>{await page.evaluate(f=>{const t=document.querySelector('#expedition-track'),s=document.querySelector('#atlas-stage');scrollTo({top:t.getBoundingClientRect().top+scrollY+(t.offsetHeight-s.offsetHeight)*f,behavior:'instant'});},f);
      await page.waitForFunction(f=>Math.abs(+document.querySelector('#atlas-stage').dataset.renderedProgress-f)<.006&&document.querySelector('#atlas-stage').dataset.settled==='true',f,{timeout:45000});};
    const pixelState=()=>page.locator('#atlas-canvas').evaluate(c=>{
