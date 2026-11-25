@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=T16';
+import { worldPoint } from './config.js?v=T17';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -89,7 +89,7 @@ export function approachProgress(progress){
 function hermite(t,m0,m1){
   return t*t*(3-2*t)+m0*t*(1-t)*(1-t)+m1*t*t*(t-1);
 }
-export function crossingPose(aspect,desktopComposition=false,progress=0){
+export function crossingPose(aspect,desktopComposition=false,progress=0,exitVelocity=0){
   const p=Number.isFinite(progress)?clamp01(progress):0;
   const first=openingPose(aspect,desktopComposition);
   if(p===0)return first;
@@ -104,7 +104,7 @@ export function crossingPose(aspect,desktopComposition=false,progress=0){
     ({aim,fov,shiftX,shiftY}=prior);
   }else{
     const t=(p-APPROACH_END)/(1-APPROACH_END),e=t*t*(3-2*t);
-    const travel=b*hermite(t,velocity*(1-APPROACH_END)/b,0);
+    const travel=b*hermite(t,velocity*(1-APPROACH_END)/b,Math.max(0,exitVelocity)*(1-APPROACH_END)/b);
     const r=clamp01(travel/2),ramp=r*r*(3-2*r);
     eye=[0,2.25,middle.eye[2]-travel];
     // Aim moves into the same room; no look-at reversal as Z passes zero.
@@ -114,4 +114,21 @@ export function crossingPose(aspect,desktopComposition=false,progress=0){
   const lens=perspective(fov,aspect);
   lens[8]=shiftX;lens[9]=shiftY;
   return {eye,aim,fov,shiftX:lens[8],shiftY:lens[9],vp:multiply(lens,lookAt(eye,aim))};
+}
+
+// T17: continuous extension from the enclosed throat into Perspective.
+// Temporary draft allocation, before the exhibition and final room are built.
+export const REVEAL_JOIN=.72,REVEAL_END_Z=-11.5,REVEAL_VELOCITY=17;
+export function revealPose(aspect,desktopComposition=false,progress=0){
+  const p=Number.isFinite(progress)?clamp01(progress):0;
+  const localVelocity=REVEAL_VELOCITY*REVEAL_JOIN;
+  if(p<=REVEAL_JOIN)return crossingPose(aspect,desktopComposition,p/REVEAL_JOIN,localVelocity);
+  const start=crossingPose(aspect,desktopComposition,1,localVelocity),t=(p-REVEAL_JOIN)/(1-REVEAL_JOIN),e=t*t*(3-2*t),distance=start.eye[2]-REVEAL_END_Z;
+  const travel=distance*hermite(t,REVEAL_VELOCITY*(1-REVEAL_JOIN)/distance,0);
+  const wide=desktopComposition||aspect>=1.2,eye=[mix(start.eye[0],wide?-.8:.1,e),mix(start.eye[1],wide?2.5:2.3,e),start.eye[2]-travel];
+  const offset=start.aim.map((v,i)=>v-start.eye[i]),targetAim=[wide?.5:0,3.6,-19],targetEye=[wide?-.8:.1,wide?2.5:2.3,REVEAL_END_Z];
+  const aim=eye.map((v,i)=>v+mix(offset[i],targetAim[i]-targetEye[i],e));
+  let endFov=wide?48:60;if(!wide&&aspect<.46)endFov=2*Math.atan(Math.tan(endFov*Math.PI/360)*.46/aspect)*180/Math.PI;
+  const fov=mix(start.fov,endFov,e),lens=perspective(fov,aspect);
+  return {eye,aim,fov,shiftX:0,shiftY:0,vp:multiply(lens,lookAt(eye,aim))};
 }

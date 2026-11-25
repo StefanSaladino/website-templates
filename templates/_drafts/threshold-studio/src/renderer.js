@@ -1,8 +1,8 @@
-import {openingPose,multiply} from './camera.js?v=T16';
-import {buildStudy} from './geometry.js?v=T16';
-import {bufferSize} from './lifecycle.js?v=T16';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T16';
-import {LIGHTING_GLSL} from './lighting.js?v=T16';
+import {openingPose,multiply} from './camera.js?v=T17';
+import {buildStudy} from './geometry.js?v=T17';
+import {bufferSize} from './lifecycle.js?v=T17';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T17';
+import {LIGHTING_GLSL} from './lighting.js?v=T17';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -70,7 +70,8 @@ void main(){
   vec3 luminous=(vec3(.98,.235,.10)*mix(1.0,.60,recess)*vertical+vec3(.02,.065,.04)*lip
     +vec3(.025,.016,.009)*innerArris)*innerContact*(1.0-.12*throatJoint);
   // The distant ivory room retains readable light values and modest warmth.
-  vec3 ivory=color*(.81+.17*diffuse)+vec3(.055,.027,.012)*spill;
+  vec3 roomLight=vec3(.095,.094,.088)*smoothstep(6.0,7.2,-world.z);
+  vec3 ivory=color*(.90+.20*diffuse)+vec3(.055,.027,.012)*spill+roomLight;
   vec3 result=mix(mix(dark,ivory,isIvory),luminous*intensity,isRed);
   result=haze(result,length(uViewEye-world),mix(.55,.18,isRed));
   outColor=vec4(clamp(result,0.0,1.0),1.0);
@@ -97,10 +98,14 @@ void main(){
   float grazing=1.0-clamp(normalize(ray).y,0.0,1.0);
   float roughness=2.8+clamp(distanceToEye*.34,0.0,6.8);
   vec2 stepSize=uTexel*roughness;
+  // The polished graphite ends at the physical ivory-room threshold.
+  float stone=smoothstep(6.0,6.65,-world.z);
   vec3 base=vec3(.105,.108,.115);
   if(uLighting>.5){
     float spill=floorSpill(world)*ambientIntensity(world,uAmbientPhase);
     base=vec3(.069,.073,.080)+vec3(.17,.025,.009)*spill;
+    vec3 limestone=vec3(.64,.625,.585)+vec3(.014,.014,.013)*sin(world.x*5.0)*sin(world.z*4.0);
+    base=mix(base,limestone,stone);
   }
   vec3 c=texture(uReflection,uv).rgb*.24;
   c+=(texture(uReflection,uv+vec2(stepSize.x,0)).rgb+texture(uReflection,uv-vec2(stepSize.x,0)).rgb)*.12;
@@ -110,6 +115,7 @@ void main(){
   // Reflection fades towards the viewer instead of competing with lower copy.
   float nearFade=mix(1.0,.25,smoothstep(2.5,12.0,world.z));
   float strength=uEnabled*edge*(.15+.40*pow(grazing,2.0))*exp(-distanceToEye*.025)*nearFade;
+  if(uLighting>.5)strength*=mix(1.0,.28,stone);
   // Graphite finish; this is an artistic color-space mix, not a calibrated BRDF.
   vec3 finish=mix(base,c,strength);
   if(uLighting>.5)finish=haze(finish,distanceToEye,.35);

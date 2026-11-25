@@ -903,3 +903,6 @@ T14b exact full browser 45697728287 and Pages 45697727794 passed. T14 verified. 
 
 ## THRESHOLD — T16 physical portal crossing
 T15 exact browser 45698671940 and Pages 45698670900 passed; actual typography frames reviewed. Native camera passes through red cut to s4.8 with matched depth tangent, continuous aim and no new world geometry. Clip departing typography behind header/footer. Numerical 16,008-pose clearance preflight passed. Actual T16 tests and rendered evidence pending; T17 gated. No shared/catalogue changes.
+
+## THRESHOLD — T17 ivory reveal
+T16 exact browser 45699141728 and Pages 45699141220 passed; actual crossing captures inspected, user approved. T17 extends physical track into ivory shell at s11.5, matched tangent and spatial limestone/ivory lighting treatment. 16,008-pose numerical preflight passed. Exact T17 tests/visual evidence pending; T18 after gate. No catalogue/shared changes.
