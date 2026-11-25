@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=T12';
+import { worldPoint } from './config.js?v=T12a';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -48,7 +48,9 @@ export function openingPose(aspect,desktopComposition=false){
   const eye=worldPoint(...p.slice(0,3)),aim=worldPoint(...p.slice(3,6));
   // For especially tall/narrow devices preserve horizontal clearance, not crop.
   const fov=aspect<.46?2*Math.atan(Math.tan(p[6]*Math.PI/360)*.46/aspect)*180/Math.PI:p[6];
-  return {eye,vp:multiply(perspective(fov,aspect),lookAt(eye,aim))};
+  const lens=perspective(fov,aspect);
+  lens[9]=-.03; // portrait optical shift: 1.5% upward, reflection stays aligned
+  return {eye,vp:multiply(lens,lookAt(eye,aim))};
 }
 export function openingComposition(aspect,desktopComposition=false){
   return desktopComposition?'desktop':aspect>=1.2?'landscape':'portrait';

@@ -1,9 +1,9 @@
-import {RELEASE} from './config.js?v=T12';
-import {createRenderer} from './renderer.js?v=T12';
-import {DESKTOP_COMPOSITION_QUERY,openingPose,openingComposition} from './camera.js?v=T12';
-import {createScheduler} from './lifecycle.js?v=T12';
-import {wordmarkOcclusion} from './wordmark.js?v=T12';
-import {createAmbientClock} from './ambient.js?v=T12';
+import {RELEASE} from './config.js?v=T12a';
+import {createRenderer} from './renderer.js?v=T12a';
+import {DESKTOP_COMPOSITION_QUERY,openingPose,openingComposition} from './camera.js?v=T12a';
+import {createScheduler} from './lifecycle.js?v=T12a';
+import {wordmarkOcclusion} from './wordmark.js?v=T12a';
+import {createAmbientClock} from './ambient.js?v=T12a';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){

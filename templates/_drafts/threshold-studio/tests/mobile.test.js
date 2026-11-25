@@ -11,7 +11,7 @@ test('independent portrait opening has safe portal bounds at narrow, phone and t
       xs.push(.5+.5*q[0]/q[3]);ys.push(.5-.5*q[1]/q[3]);
     }
     assert.ok(Math.min(...xs)>.06&&Math.max(...xs)<.95,'horizontal clearance');
-    assert.ok(Math.min(...ys)>.27&&Math.max(...ys)<.76,'vertical safe bands');
+    assert.ok(Math.min(...ys)>.25&&Math.max(...ys)<.76,'vertical safe bands');
     const center=(Math.min(...xs)+Math.max(...xs))/2;
     assert.ok(center>.47&&center<.53,'centered portrait');
   }

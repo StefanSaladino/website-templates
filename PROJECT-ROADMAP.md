@@ -882,3 +882,6 @@ T10 exact browser 45694103025 and Pages 45694101736 passed; actual ambient compa
 
 ## THRESHOLD — T12 opening review candidate
 T11 exact browser 45694638863 and Pages 45694634104 passed; actual responsive captures inspected. Correct excessive glyph mask, flat material response, overly sharp floor reflection, portrait copy contrast and boxed wide fallback. Preserve pose, architecture and all GPU budgets. Exact T12 browser/visual evidence pending; stakeholder approval required before T13. No catalogue/shared changes.
+
+## THRESHOLD — T12a final opening refinement
+T12 browser 45695011597 and Pages 45695010380 passed; artifact 15059449307 reviewed with user's actual phone screenshot. Final bounded requested pass: surround joint, throat seam, mineral material character, softer foreground reflection, closer portrait typography/portal spacing. Preserve geometry and GPU budgets. Exact T12a verification pending; T13 only after gate. No shared/catalogue changes.

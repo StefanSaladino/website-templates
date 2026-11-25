@@ -76,3 +76,11 @@ footer { inset-block-end: 0; pointer-events: none; display: flex; flex-wrap: wra
   .studio-description { font-size: .93rem; max-width: 30ch; }
   .wordmark { font-size: 1rem; }
 }
+
+/* T12a: final editorial refinement, no new overlay or obstructive timeline. */
+@media (max-aspect-ratio: 1199/1000) {
+  .display-wordmark { inset-block-start: max(68px, 13%); }
+  .opening-copy h1 { font-weight: 600; letter-spacing: -.055em; }
+  .opening-copy .studio { letter-spacing: .085em; }
+  .fallback-portrait { transform: translateY(-1.5%); }
+}

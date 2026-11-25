@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T12');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T12a');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -153,7 +153,7 @@ jobs:
                 }
                 assert(n>100&&left/info.width>.04&&right/info.width<.96,'mobile aperture visible');
                 if(width/height>=1.2)assert(left/info.width>.42,'landscape passage separate from copy');
-                else assert(top/info.height>.28&&bottom/info.height<.77,'portrait passage between text bands');
+                else assert(top/info.height>.26&&bottom/info.height<.77,'portrait passage between text bands');
               }
               if(width===1440||width===390){
                 const plain=await browser.newPage({viewport:{width,height},deviceScaleFactor:width<=390?3:2});
@@ -179,6 +179,19 @@ jobs:
                   }
                 }
                 console.log('Reflection '+width, {changed,redReflection,wallChanges});
+                if(width===390){
+                  let nearSum=0,nearN=0,farSum=0,farN=0;
+                  for(let y=Math.floor(info.height*.72);y<info.height;y++)for(let x=Math.floor(info.width*.27);x<info.width*.73;x++){
+                    const i=(y*info.width+x)*info.channels;
+                    if(mask[i+1]<Math.max(mask[i],mask[i+2])+100)continue;
+                    const d=Math.max(...[0,1,2].map(k=>Math.abs(data[i+k]-matte[i+k])));
+                    if(y>=info.height*.88){nearSum+=d;nearN++}
+                    else if(y<info.height*.80){farSum+=d;farN++}
+                  }
+                  assert(nearN>100&&farN>100,'measured foreground and portal-adjacent floor');
+                  console.log('Portrait reflection falloff',{near:nearSum/nearN,far:farSum/farN});
+                  assert(nearSum/nearN<farSum/farN,'foreground reflection attenuates toward copy');
+                }
                 assert(changed>150&&redReflection>50,'actual red floor reflection');
                 assert(wallChanges<Math.max(100,changed*.06),'reflection confined to floor apart from antialias edges');
                 await plain.goto(url+'&lighting=off&reflection=off');
@@ -337,12 +350,12 @@ jobs:
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T12',verification:'T12',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T12a',verification:'T12a',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-opening-review-evidence
+          name: threshold-opening-final-evidence
           path: /tmp/threshold-evidence/
