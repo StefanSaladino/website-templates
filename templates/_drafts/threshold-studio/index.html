@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en" data-release="T10">
+<html lang="en" data-release="T11">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#090909">
   <meta name="description" content="THRESHOLD — an independent digital experience studio concept.">
   <title>THRESHOLD — Beyond the ordinary</title>
-  <link rel="stylesheet" href="styles/base.css?v=T10">
-  <link rel="stylesheet" href="styles/shell.css?v=T10">
-  <script type="module" src="src/main.js?v=T10"></script>
+  <link rel="stylesheet" href="styles/base.css?v=T11">
+  <link rel="stylesheet" href="styles/shell.css?v=T11">
+  <script type="module" src="src/main.js?v=T11"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -31,12 +31,13 @@
       </svg>
       <div class="opening-copy">
         <p class="studio">Independent digital experience studio</p>
-        <h1>Beyond the<br>ordinary.</h1>
+        <h1>Beyond the <br>ordinary.</h1>
         <p class="studio-description">Digital experiences built at the intersection of design, space and technology.</p>
       </div>
       <figure id="scene-study" class="scene-study" data-renderer="static" data-frames="0">
         <div class="scene-surface">
-          <svg class="scene-fallback" viewBox="0 0 640 360" role="img" aria-label="Static architectural study of a deep red passage cut through a black wall">
+          <div class="scene-fallback" role="img" aria-label="Static architectural study of a deep red passage cut through a black wall">
+          <svg class="fallback-wide" viewBox="0 0 640 360" aria-hidden="true" focusable="false">
             <rect width="640" height="360" fill="#111316"/>
             <path d="M0 270H640V360H0Z" fill="#27292b"/>
             <path d="M0 28H640V270H0Z" fill="#17191c"/>
@@ -48,6 +49,22 @@
             <path d="M229 270L258 250H395L424 270Z" fill="#454345"/>
             <path d="M88 25H108V280H88Z" fill="#26272b"/>
           </svg>
+          <svg class="fallback-portrait" viewBox="0 0 400 800" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <rect width="400" height="800" fill="#101113"/>
+            <path d="M0 240H400V600H0Z" fill="#1b1a1d"/>
+            <path d="M0 600H400V800H0Z" fill="#161618"/>
+            <path d="M39 244H361V598H39Z" fill="#303033"/>
+            <path d="M64 287H336V598H64Z" fill="#e43925"/>
+            <path d="M64 287L109 322V570L64 598Z" fill="#9c281e"/>
+            <path d="M336 287L291 322V570L336 598Z" fill="#bf2a1d"/>
+            <path d="M64 287H336L291 322H109Z" fill="#f0462c"/>
+            <path d="M109 322H291V570H109Z" fill="#87251c"/>
+            <path d="M126 348H274V570H126Z" fill="#aaa69c"/>
+            <path d="M162 390H240V570H162Z" fill="#19191a"/>
+            <path d="M64 598L109 570H291L336 598Z" fill="#454143"/>
+            <path d="M64 598H336L353 644H47Z" fill="#70251e" opacity=".48"/>
+          </svg>
+          </div>
           <canvas id="scene-canvas" hidden aria-hidden="true"></canvas>
         </div>
         <figcaption>Architectural cut / illuminated passage / atmospheric depth</figcaption>

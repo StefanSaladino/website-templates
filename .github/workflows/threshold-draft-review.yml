@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T10');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T11');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -74,7 +74,7 @@ jobs:
               assert.equal(await stage.getAttribute('data-reflection'),'on');
               assert.equal(await stage.getAttribute('data-lighting'),'on');
               const desktop=width>=900&&height>=480&&width/height>=1.2;
-              assert.equal(await stage.getAttribute('data-composition'),desktop?'desktop':'study');
+              assert.equal(await stage.getAttribute('data-composition'),desktop?'desktop':width/height>=1.2?'landscape':'portrait');
               if(desktop){
                 const layout=await page.evaluate(()=>{
                   const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom}};
@@ -110,6 +110,26 @@ jobs:
                 }
                 console.log('Desktop composition',width,layout);
               }
+              if(!desktop){
+                const layout=await page.evaluate(()=>{
+                  const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom}};
+                  return {canvas:rect('#scene-canvas'),copy:rect('.opening-copy'),header:rect('.masthead'),footer:rect('footer'),mark:rect('.display-wordmark'),scroll:document.documentElement.scrollHeight};
+                });
+                assert(Math.abs(layout.canvas.x)<1&&Math.abs(layout.canvas.y)<1&&Math.abs(layout.canvas.w-width)<1&&Math.abs(layout.canvas.h-height)<2,'mobile full bleed');
+                assert(layout.scroll<=height+2,'opening fits mobile viewport');
+                assert(layout.mark.y>=layout.header.bottom&&layout.mark.bottom<layout.copy.y,'wordmark and copy separate');
+                assert(layout.copy.bottom<=layout.footer.y+1,'copy clear of footer');
+                assert.equal(await page.locator('#wordmark-occluder').getAttribute('points'),'');
+                assert.equal(await page.locator('.display-wordmark').getAttribute('data-depth'),'flat');
+                if(width/height>=1.2)assert(layout.copy.right<width*.40,'short landscape left copy');
+                else assert(layout.mark.bottom<height*.28&&layout.copy.y>height*.74,'portrait text safe zones');
+                for(const link of await page.locator('.masthead a').all()){
+                  const b=await link.boundingBox();assert(b.height>=44&&b.x>=0&&b.x+b.width<=width);
+                }
+                await page.evaluate(()=>document.activeElement.blur());
+                await page.screenshot({path:'/tmp/threshold-evidence/opening-'+width+'x'+height+'.png'});
+                console.log('Mobile composition',width,layout);
+              }
               const image=await canvas.screenshot({style:captureStyle,path:'/tmp/threshold-evidence/study-'+width+'x'+height+'.png'});
               const {data,info}=await sharp(image).removeAlpha().raw().toBuffer({resolveWithObject:true});
               let red=0,neutral=0;
@@ -123,6 +143,16 @@ jobs:
                 }
                 assert(n>100&&left/info.width>.42&&right/info.width<.94,'visible red passage outside copy zone');
                 assert(top/info.height>.08&&bottom/info.height<.80,'vertical framing');
+              }
+              if(!desktop){
+                let left=info.width,right=0,top=info.height,bottom=0,n=0;
+                for(let y=0;y<info.height*.77;y++)for(let x=0;x<info.width;x++){
+                  const i=(y*info.width+x)*info.channels;
+                  if(data[i]>140&&data[i]>1.8*data[i+1]&&data[i]>2*data[i+2]){left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);n++}
+                }
+                assert(n>100&&left/info.width>.04&&right/info.width<.96,'mobile aperture visible');
+                if(width/height>=1.2)assert(left/info.width>.42,'landscape passage separate from copy');
+                else assert(top/info.height>.28&&bottom/info.height<.77,'portrait passage between text bands');
               }
               if(width===1440||width===390){
                 const plain=await browser.newPage({viewport:{width,height},deviceScaleFactor:width<=390?3:2});
@@ -174,7 +204,13 @@ jobs:
               await page.waitForTimeout(300);
               assert.equal(await stage.getAttribute('data-frames'),before,'idle frame loop');
               if(width===390){
+                await page.setViewportSize({width:390,height:720});
+                await page.waitForFunction(n=>Number(document.querySelector('#scene-study').dataset.frames)>n,Number(before));
+                assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.documentElement.scrollHeight<=innerHeight+2));
+                await page.screenshot({path:'/tmp/threshold-evidence/portrait-chrome-shorter.png'});
+                const resized=Number(await stage.getAttribute('data-frames'));
                 await page.setViewportSize({width:430,height:932});
+                await page.waitForFunction(n=>Number(document.querySelector('#scene-study').dataset.frames)>n,resized);
                 await page.waitForFunction(n=>Number(document.querySelector('#scene-study').dataset.frames)>n,Number(before));
                 await page.emulateMedia({reducedMotion:'reduce'});
                 await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='reduced-motion');
@@ -182,7 +218,7 @@ jobs:
                 await page.emulateMedia({reducedMotion:'no-preference'});
                 await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
                 // Move the surface fully below viewport, then verify no resize draw while offscreen.
-                await page.evaluate(()=>{const el=document.querySelector('#scene-study');el.style.marginTop='250vh';window.scrollTo(0,0)});
+                await page.evaluate(()=>{const el=document.querySelector('#main');el.style.marginTop='250vh';window.scrollTo(0,0)});
                 await page.waitForTimeout(250);
                 const off=await stage.getAttribute('data-frames');
                 await page.setViewportSize({width:420,height:930});
@@ -279,6 +315,9 @@ jobs:
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('#scene-canvas').isHidden());
               assert(await page.locator('.scene-fallback').isVisible());
+              assert(await page.locator('.fallback-portrait').isVisible());
+              assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.documentElement.scrollHeight<=innerHeight+2));
+              await page.screenshot({path:'/tmp/threshold-evidence/portrait-static-'+(opts.javaScriptEnabled===false?'nojs':'reduced')+'.png'});
               await page.close();
             }
             const unavailable=await browser.newPage({viewport:{width:390,height:844}});
@@ -287,12 +326,12 @@ jobs:
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T10',verification:'T10',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T11',verification:'T11',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-ambient-evidence
+          name: threshold-mobile-evidence
           path: /tmp/threshold-evidence/

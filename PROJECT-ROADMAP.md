@@ -876,3 +876,6 @@ T08 exact browser 45692932673 and Pages 45692930891 passed; desktop composition 
 
 ## THRESHOLD — T10 ambient motion
 T09 exact browser 45693686179 and Pages 45693685608 passed; identity evidence 15058854884 inspected. Add bounded active-time light cycle, fixed camera and geometry, coherent reflection and spill; single scheduler and suspension without catch-up. Prior static comparisons preserved via ambient=off; default route temporal pixel and pause/resume checks plus two pure tests pending. T11 after verification; T12 refine aggressive wordmark mask. No gallery/shared changes.
+
+## THRESHOLD — T11 independent responsive opening
+T10 exact browser 45694103025 and Pages 45694101736 passed; actual ambient comparison artifact 15059319342 inspected (70,868 changed pixels; max 11/255). Full-bleed portrait/tablet and compact landscape, independent opening pose, unmasked mobile wordmark, safe-area copy/nav, distinct static fallback. Desktop mask/pose and light/geometry/ambient budget preserved. Fifteen Node tests and full responsive captures/layout/pixel/fallback checks pending exact T11 revision. T12 hard visual gate next; no gallery/shared changes.

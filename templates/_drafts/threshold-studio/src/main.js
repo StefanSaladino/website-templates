@@ -1,9 +1,9 @@
-import {RELEASE} from './config.js?v=T10';
-import {createRenderer} from './renderer.js?v=T10';
-import {DESKTOP_COMPOSITION_QUERY,studyPose} from './camera.js?v=T10';
-import {createScheduler} from './lifecycle.js?v=T10';
-import {wordmarkOcclusion} from './wordmark.js?v=T10';
-import {createAmbientClock} from './ambient.js?v=T10';
+import {RELEASE} from './config.js?v=T11';
+import {createRenderer} from './renderer.js?v=T11';
+import {DESKTOP_COMPOSITION_QUERY,openingPose,openingComposition} from './camera.js?v=T11';
+import {createScheduler} from './lifecycle.js?v=T11';
+import {wordmarkOcclusion} from './wordmark.js?v=T11';
+import {createAmbientClock} from './ambient.js?v=T11';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -34,8 +34,8 @@ function start(){
       study.dataset.reflection=result.reflectionEnabled?'on':'off';
       study.dataset.lighting=result.lightingEnabled?'on':'off';
       study.dataset.floorMask=result.floorMask?'on':'off';
-      study.dataset.composition=desktopComposition.matches?'desktop':'study';
-      const points=desktopComposition.matches?wordmarkOcclusion(studyPose(r.width/r.height,true).vp,r,mark.getBoundingClientRect()):'';
+      study.dataset.composition=openingComposition(r.width/r.height,desktopComposition.matches);
+      const points=desktopComposition.matches?wordmarkOcclusion(openingPose(r.width/r.height,true).vp,r,mark.getBoundingClientRect()):'';
       occluder.setAttribute('points',points);mark.dataset.depth=points?'projected':'flat';
       study.dataset.renderer='webgl';delete study.dataset.reason;canvas.hidden=false;
       if(ambientEnabled)scheduler.invalidate();

@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=T10';
+import { worldPoint } from './config.js?v=T11';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -23,7 +23,7 @@ export function project(m,p){
   for(let r=0;r<4;r++)for(let c=0;c<4;c++)q[r]+=m[c*4+r]*v[c];return q;
 }
 // T02 endpoints retained; T08 applies a desktop-only off-axis composition.
-// Portrait and short landscape retain the in-flow study until T11.
+// T11 runtime openingPose below supplies independently authored portrait/landscape cameras.
 export const DESKTOP_COMPOSITION_QUERY='(min-width: 900px) and (min-height: 480px) and (min-aspect-ratio: 6/5)';
 export function studyPose(aspect,desktopComposition=false){
   const phone=[.6,2.2,-15,0,3.9,0,57], tablet=[.3,2.4,-12.8,-.15,3.65,0,49], desktop=[-2.4,2.4,-12,-.65,2.9,0,47];
@@ -37,3 +37,19 @@ export function studyPose(aspect,desktopComposition=false){
   return {eye,vp:multiply(lens,lookAt(eye,aim))};
 }
 export function studyCamera(aspect,desktopComposition=false){return studyPose(aspect,desktopComposition).vp}
+
+// Full-viewport opening camera. Keep legacy studyPose for foundational math tests.
+export function openingPose(aspect,desktopComposition=false){
+  if(desktopComposition)return studyPose(aspect,true);
+  if(aspect>=1.2)return studyPose(aspect,true);
+  const phone=[.6,2.2,-15,0,3.9,0,57],tablet=[.3,2.4,-15.5,-.15,3.9,0,54];
+  const t=Math.max(0,Math.min(1,(aspect-.46)/.29));
+  const p=phone.map((v,i)=>v+(tablet[i]-v)*t);
+  const eye=worldPoint(...p.slice(0,3)),aim=worldPoint(...p.slice(3,6));
+  // For especially tall/narrow devices preserve horizontal clearance, not crop.
+  const fov=aspect<.46?2*Math.atan(Math.tan(p[6]*Math.PI/360)*.46/aspect)*180/Math.PI:p[6];
+  return {eye,vp:multiply(perspective(fov,aspect),lookAt(eye,aim))};
+}
+export function openingComposition(aspect,desktopComposition=false){
+  return desktopComposition?'desktop':aspect>=1.2?'landscape':'portrait';
+}
