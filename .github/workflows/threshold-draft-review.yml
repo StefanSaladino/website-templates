@@ -49,7 +49,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T06');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T07');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('footer').isVisible());
               assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
@@ -67,6 +67,7 @@ jobs:
               assert(rw*rh<=375000&&rw<=1024&&rh<=1024);
               assert(rw<=Math.max(1,bw*.5)&&rh<=Math.max(1,bh*.5));
               assert.equal(await stage.getAttribute('data-reflection'),'on');
+              assert.equal(await stage.getAttribute('data-lighting'),'on');
               const image=await canvas.screenshot({path:'/tmp/threshold-evidence/study-'+width+'x'+height+'.png'});
               const {data,info}=await sharp(image).removeAlpha().raw().toBuffer({resolveWithObject:true});
               let red=0,neutral=0;
@@ -80,16 +81,41 @@ jobs:
                 const off=await plain.locator('#scene-canvas').screenshot({path:'/tmp/threshold-evidence/matte-'+width+'.png'});
                 const {data:matte,info:mi}=await sharp(off).removeAlpha().raw().toBuffer({resolveWithObject:true});
                 assert.equal(mi.width,info.width);assert.equal(mi.height,info.height);
+                // Ground is now illuminated, so classify floor with an independent
+                // depth-tested green mask instead of assuming a single matte RGB.
+                await plain.goto(url+'?floorMask=on&reflection=off');
+                await plain.locator('#scene-study').scrollIntoViewIfNeeded();
+                await plain.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl'&&document.querySelector('#scene-study').dataset.floorMask==='on');
+                const maskShot=await plain.locator('#scene-canvas').screenshot({path:'/tmp/threshold-evidence/floor-mask-'+width+'.png'});
+                const {data:mask,info:maskInfo}=await sharp(maskShot).removeAlpha().raw().toBuffer({resolveWithObject:true});
+                assert.equal(maskInfo.width,info.width);assert.equal(maskInfo.height,info.height);
                 let changed=0,redReflection=0,wallChanges=0;
                 for(let i=0;i<data.length;i+=info.channels){
                   const delta=Math.max(Math.abs(data[i]-matte[i]),Math.abs(data[i+1]-matte[i+1]),Math.abs(data[i+2]-matte[i+2]));
                   if(delta>8){changed++;if(data[i]-matte[i]>12&&data[i]-data[i+1]>12)redReflection++;
-                    if(Math.abs(matte[i]-27)>4||Math.abs(matte[i+1]-28)>4||Math.abs(matte[i+2]-29)>4)wallChanges++;
+                    if(mask[i+1]<Math.max(mask[i],mask[i+2])+30)wallChanges++;
                   }
                 }
                 console.log('Reflection '+width, {changed,redReflection,wallChanges});
                 assert(changed>150&&redReflection>50,'actual red floor reflection');
                 assert(wallChanges<Math.max(100,changed*.06),'reflection confined to floor apart from antialias edges');
+                await plain.goto(url+'?lighting=off&reflection=off');
+                await plain.locator('#scene-study').scrollIntoViewIfNeeded();
+                await plain.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl'&&document.querySelector('#scene-study').dataset.lighting==='off');
+                const flatShot=await plain.locator('#scene-canvas').screenshot({path:'/tmp/threshold-evidence/unlit-'+width+'.png'});
+                const {data:flat,info:fi}=await sharp(flatShot).removeAlpha().raw().toBuffer({resolveWithObject:true});
+                assert.equal(fi.width,info.width);assert.equal(fi.height,info.height);
+                let brightRed=0,spillPixels=0,nonFloorChanges=0,whiteClipped=0;
+                for(let i=0;i<flat.length;i+=fi.channels){
+                  const isFloor=mask[i+1]>Math.max(mask[i],mask[i+2])+100;
+                  if(isFloor&&matte[i]>flat[i]+8&&matte[i]-matte[i+1]>10)spillPixels++;
+                  if(!isFloor&&flat[i]>90&&flat[i]>flat[i+1]*1.6&&matte[i]>flat[i]+8)brightRed++;
+                  if(!isFloor&&Math.max(...[0,1,2].map(k=>Math.abs(matte[i+k]-flat[i+k])))>8)nonFloorChanges++;
+                  if(matte[i]>250&&matte[i+1]>250&&matte[i+2]>250)whiteClipped++;
+                }
+                console.log('Lighting '+width,{brightRed,spillPixels,nonFloorChanges,whiteClipped});
+                assert(brightRed>100&&spillPixels>100&&nonFloorChanges>100,'emission and direct floor spill without reflection');
+                assert(whiteClipped<info.width*info.height*.005,'no broad white clipping');
                 await plain.close();
               }
               await page.waitForTimeout(150);
@@ -163,12 +189,12 @@ jobs:
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T06',verification:'T06',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T07',verification:'T07',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-reflection-evidence
+          name: threshold-lighting-evidence
           path: /tmp/threshold-evidence/

@@ -864,3 +864,6 @@ T04b exact browser step 45686886741 and Pages 45686886086 passed. T05 replaces d
 
 ## THRESHOLD — T06 planar reflection
 T05 exact browser 45687139012 and deployment 45687138586 passed; seven actual captures reviewed. Add one bounded same-context planar reflection target and graphite floor shader, real mirror projection, roughness and depth-confined composite; no final light or motion. Preserve geometry, lifecycle and camera. Eight pure tests plus reflection on/off pixel comparison and recovery checks pending on T06 revision. Next T07 after review; no gallery or shared changes.
+
+## THRESHOLD — T07 architectural illumination
+T06 exact browser 45687694443 and Pages 45687693060 passed, artifact 15057825532 inspected. T07 adds analytic directional surface shading, luminous cut, aperture spill, ivory depth and distance haze shared by direct/reflected world; same geometry and reflection resource budget. Diagnostic lighting/mask comparisons retain floor confinement and prove emission/spill without reflection. Exact verification pending. Next T08 after review; no gallery/shared changes.

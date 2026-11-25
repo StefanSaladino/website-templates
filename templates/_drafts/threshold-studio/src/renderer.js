@@ -1,7 +1,8 @@
-import {studyPose,multiply} from './camera.js?v=T06';
-import {buildStudy} from './geometry.js?v=T06';
-import {bufferSize} from './lifecycle.js?v=T06';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T06';
+import {studyPose,multiply} from './camera.js?v=T07';
+import {buildStudy} from './geometry.js?v=T07';
+import {bufferSize} from './lifecycle.js?v=T07';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T07';
+import {LIGHTING_GLSL} from './lighting.js?v=T07';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -10,10 +11,41 @@ out vec3 color;
 out vec3 world;
 void main(){gl_Position=uVP*vec4(aPosition,1.0);color=aColor;world=aPosition;}`;
 const FS=`#version 300 es
-precision mediump float;
+precision highp float;
 in vec3 color;
+in vec3 world;
+uniform vec3 uViewEye;
+uniform float uLighting;
 out vec4 outColor;
-void main(){outColor=vec4(color,1.0);}`;
+${LIGHTING_GLSL}
+void main(){
+  if(uLighting<.5){outColor=vec4(color,1.0);return;}
+  // Face normal recovered from the original world position; facing is corrected
+  // using the actual or mirrored eye, never the mirrored material coordinates.
+  vec3 n=normalize(cross(dFdx(world),dFdy(world)));
+  if(dot(n,uViewEye-world)<0.0)n=-n;
+  vec3 key=normalize(vec3(-4.0,8.5,9.0)-world);
+  float diffuse=.35+.65*max(dot(n,key),0.0);
+  float isRed=step(.30,color.r)*step(color.g*1.7,color.r)*step(color.b*1.9,color.r);
+  float isIvory=step(.40,color.g)*(1.0-isRed);
+  float spill=apertureSpill(world);
+  vec3 source=vec3(clamp(world.x,-2.25,2.25),clamp(world.y,.5,5.8),-.65);
+  vec3 lightRay=source-world;
+  float incidence=.28+.72*max(dot(n,lightRay/max(length(lightRay),.001)),0.0);
+  // Obsidian remains near black; modest directional key makes the mass legible.
+  vec3 dark=color*(.42+.43*diffuse)+vec3(.012,.014,.018)+vec3(.24,.035,.014)*spill*incidence;
+  // The red cut is self-luminous, with a recessed falloff along depth and
+  // a subtle lip highlight, not a screen-space glow.
+  float recess=clamp((-world.z)/6.0,0.0,1.0);
+  float lip=exp(-abs(world.z)*2.0);
+  float vertical=.90+.10*sin(clamp(world.y/6.0,0.0,1.0)*3.14159265);
+  vec3 luminous=vec3(.98,.235,.10)*mix(1.0,.60,recess)*vertical+vec3(.02,.065,.04)*lip;
+  // The distant ivory room retains readable light values and modest warmth.
+  vec3 ivory=color*(.81+.17*diffuse)+vec3(.055,.027,.012)*spill;
+  vec3 result=mix(mix(dark,ivory,isIvory),luminous,isRed);
+  result=haze(result,length(uViewEye-world),mix(.55,.18,isRed));
+  outColor=vec4(clamp(result,0.0,1.0),1.0);
+}`;
 // Only the real ground mesh samples the reflected architecture. No recursive floor.
 const FLOOR_FS=`#version 300 es
 precision highp float;
@@ -23,8 +55,12 @@ uniform vec2 uScreen;
 uniform vec2 uTexel;
 uniform vec3 uEye;
 uniform float uEnabled;
+uniform float uLighting;
+uniform float uMask;
 out vec4 outColor;
+${LIGHTING_GLSL}
 void main(){
+  if(uMask>.5){outColor=vec4(0.0,1.0,0.0,1.0);return;}
   vec2 uv=gl_FragCoord.xy/uScreen;
   vec3 ray=uEye-world;
   float distanceToEye=length(ray);
@@ -32,6 +68,10 @@ void main(){
   float roughness=1.2+clamp(distanceToEye*.16,0.0,3.6);
   vec2 stepSize=uTexel*roughness;
   vec3 base=vec3(.105,.108,.115);
+  if(uLighting>.5){
+    float spill=floorSpill(world);
+    base=vec3(.069,.073,.080)+vec3(.17,.025,.009)*spill;
+  }
   vec3 c=texture(uReflection,uv).rgb*.24;
   c+=(texture(uReflection,uv+vec2(stepSize.x,0)).rgb+texture(uReflection,uv-vec2(stepSize.x,0)).rgb)*.12;
   c+=(texture(uReflection,uv+vec2(0,stepSize.y)).rgb+texture(uReflection,uv-vec2(0,stepSize.y)).rgb)*.12;
@@ -39,7 +79,9 @@ void main(){
   float edge=smoothstep(0.0,.025,min(min(uv.x,1.0-uv.x),min(uv.y,1.0-uv.y)));
   float strength=uEnabled*edge*(.18+.47*pow(grazing,2.0))*exp(-distanceToEye*.025);
   // Graphite finish; this is an artistic color-space mix, not a calibrated BRDF.
-  outColor=vec4(mix(base,c,strength),1.0);
+  vec3 finish=mix(base,c,strength);
+  if(uLighting>.5)finish=haze(finish,distanceToEye,.35);
+  outColor=vec4(finish,1.0);
 }`;
 function shader(gl,type,source){
   const s=gl.createShader(type);if(!s)throw Error('shader allocation');
@@ -71,11 +113,12 @@ export function createRenderer(canvas){
       program=gl.createProgram();if(!program)throw Error('program allocation');
       gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
       if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program)||'program link');
-      uniform=gl.getUniformLocation(program,'uVP');if(uniform===null)throw Error('camera uniform');
+      uniform=Object.fromEntries(['uVP','uViewEye','uLighting'].map(name=>[name,gl.getUniformLocation(program,name)]));
+      if(Object.values(uniform).some(v=>v===null))throw Error('architecture uniform');
       floorFS=shader(gl,gl.FRAGMENT_SHADER,FLOOR_FS);floorProgram=gl.createProgram();if(!floorProgram)throw Error('floor program allocation');
       gl.attachShader(floorProgram,vs);gl.attachShader(floorProgram,floorFS);gl.linkProgram(floorProgram);
       if(!gl.getProgramParameter(floorProgram,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(floorProgram)||'floor program link');
-      floorUniforms=Object.fromEntries(['uVP','uReflection','uScreen','uTexel','uEye','uEnabled'].map(name=>[name,gl.getUniformLocation(floorProgram,name)]));
+      floorUniforms=Object.fromEntries(['uVP','uReflection','uScreen','uTexel','uEye','uEnabled','uLighting','uMask'].map(name=>[name,gl.getUniformLocation(floorProgram,name)]));
       if(Object.values(floorUniforms).some(v=>v===null))throw Error('floor uniform');
       vao=gl.createVertexArray();buffer=gl.createBuffer();if(!vao||!buffer)throw Error('mesh allocation');
       gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,vertices,gl.STATIC_DRAW);
@@ -89,7 +132,7 @@ export function createRenderer(canvas){
     }catch(e){release();throw e}
     finally{if(vs)gl.deleteShader(vs);if(fs)gl.deleteShader(fs);if(floorFS)gl.deleteShader(floorFS)}
   }
-  function draw(width,height,dpr,reflectionEnabled=true){
+  function draw(width,height,dpr,reflectionEnabled=true,lightingEnabled=true,floorMask=false){
     if(!program||gl.isContextLost())return null;
     const size=bufferSize(width,height,dpr,limit);if(!size)return null;
     if(canvas.width!==size.width)canvas.width=size.width;
@@ -97,26 +140,28 @@ export function createRenderer(canvas){
     const dw=gl.drawingBufferWidth,dh=gl.drawingBufferHeight,{eye,vp}=studyPose(width/height);
     const target=reflection.ensure(dw,dh,textureLimit);
     gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.BLEND);gl.disable(gl.CULL_FACE);
-    gl.clearColor(.09,.098,.106,1);
+    if(lightingEnabled)gl.clearColor(.045,.047,.052,1);else gl.clearColor(.09,.098,.106,1);
     // Pass 1: mirrored world, without the first six floor vertices. Same VP and aspect.
     gl.bindFramebuffer(gl.FRAMEBUFFER,target.framebuffer);
     gl.viewport(0,0,target.width,target.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-    gl.useProgram(program);gl.uniformMatrix4fv(uniform,false,multiply(vp,FLOOR_MIRROR));
+    gl.useProgram(program);gl.uniformMatrix4fv(uniform.uVP,false,multiply(vp,FLOOR_MIRROR));
+    gl.uniform3f(uniform.uViewEye,eye[0],-eye[1],eye[2]);gl.uniform1f(uniform.uLighting,lightingEnabled?1:0);
     gl.bindVertexArray(vao);
     if(reflectionEnabled)gl.drawArrays(gl.TRIANGLES,6,count-6);
     // Pass 2: direct architecture writes depth, then the ground receives reflection only
     // where it is visible. No reflected pixels can cover solid walls.
     gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,dw,dh);
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-    gl.uniformMatrix4fv(uniform,false,vp);gl.drawArrays(gl.TRIANGLES,6,count-6);
+    gl.uniformMatrix4fv(uniform.uVP,false,vp);gl.uniform3fv(uniform.uViewEye,eye);gl.drawArrays(gl.TRIANGLES,6,count-6);
     gl.useProgram(floorProgram);gl.uniformMatrix4fv(floorUniforms.uVP,false,vp);
     gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,target.texture);
     gl.uniform1i(floorUniforms.uReflection,0);gl.uniform2f(floorUniforms.uScreen,dw,dh);
     gl.uniform2f(floorUniforms.uTexel,1/target.width,1/target.height);gl.uniform3fv(floorUniforms.uEye,eye);
     gl.uniform1f(floorUniforms.uEnabled,reflectionEnabled?1:0);
+    gl.uniform1f(floorUniforms.uLighting,lightingEnabled?1:0);gl.uniform1f(floorUniforms.uMask,floorMask?1:0);
     gl.drawArrays(gl.TRIANGLES,0,6);gl.bindTexture(gl.TEXTURE_2D,null);gl.bindVertexArray(null);
     if(gl.getError()!==gl.NO_ERROR||gl.isContextLost())throw Error('GPU draw error');
-    return {width:dw,height:dh,triangles:count/3,reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled};
+    return {width:dw,height:dh,triangles:count/3,reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled,lightingEnabled,floorMask};
   }
   rebuild();return {draw,restore,abandon,release};
 }
