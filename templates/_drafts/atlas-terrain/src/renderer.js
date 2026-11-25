@@ -9,9 +9,10 @@ import {
   WORLD_SIZE,
   WATER_LEVEL,
   buildTerrainData,
+  buildLandscapeDetails,
   buildWaterMesh,
   buildCloudDeckMesh,
-} from './terrain.js?v=10';
+} from './terrain.js?v=11';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -21,8 +22,10 @@ import {
   WATER_FRAG,
   CLOUD_VERT,
   CLOUD_FRAG,
-} from './shaders.js?v=10';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=10';
+  DETAIL_VERT,
+  DETAIL_FRAG,
+} from './shaders.js?v=11';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=11';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -171,6 +174,7 @@ export class AtlasRenderer {
     const terrainProg = createProgram(gl, TERRAIN_VERT, TERRAIN_FRAG);
     const waterProg = createProgram(gl, WATER_VERT, WATER_FRAG);
     const cloudProg = createProgram(gl, CLOUD_VERT, CLOUD_FRAG);
+    const detailProg = createProgram(gl, DETAIL_VERT, DETAIL_FRAG);
 
     const skyVao = gl.createVertexArray();
 
@@ -224,6 +228,17 @@ export class AtlasRenderer {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cIdxBuf);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.cloudDeck.indices, gl.STATIC_DRAW);
 
+    // Two instanced batches; instance positions remain fixed across all render qualities.
+    const detailBuffers=[];
+    const detailBatches=buildLandscapeDetails(td).map(batch=>{
+      const vao=gl.createVertexArray();gl.bindVertexArray(vao);
+      const vertices=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,vertices);gl.bufferData(gl.ARRAY_BUFFER,batch.vertices,gl.STATIC_DRAW);
+      for(let i=0;i<3;i++){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,3,gl.FLOAT,false,36,i*12);}
+      const instances=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,batch.instances,gl.STATIC_DRAW);
+      for(let i=3;i<=4;i++){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,4,gl.FLOAT,false,32,(i-3)*16);gl.vertexAttribDivisor(i,1);}
+      detailBuffers.push(vertices,instances);
+      return {vao,vertexCount:batch.vertices.length/9,count:batch.count};
+    });
     gl.bindVertexArray(null);
 
     // Upload 512x512 16-bit packed RG height + drainage/curvature texture
@@ -262,7 +277,9 @@ export class AtlasRenderer {
       ]),
       terrainVao,
       terrainIndexCount: td.indices.length,
-      buffers: [posBuf, normBuf, geoBuf, idxBuf, wPosBuf, wIdxBuf, cPosBuf, cIdxBuf],
+      buffers: [posBuf, normBuf, geoBuf, idxBuf, wPosBuf, wIdxBuf, cPosBuf, cIdxBuf,...detailBuffers],
+      detailProg,detailBatches,
+      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex']),
 
       waterProg,
       waterU: getUniforms(gl, waterProg, [
@@ -396,6 +413,23 @@ export class AtlasRenderer {
     gl.uniform3fv(r.terrainU.uSkyHorizon, state.skyHorizon);
     gl.drawElements(gl.TRIANGLES, r.terrainIndexCount, gl.UNSIGNED_INT, 0);
 
+    // Reveal physical details smoothly with relief; exact map and archive stay clean.
+    const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);};
+    const growth=smooth(.43,.94,state.relief)*(1-smooth(.06,.62,state.mapMix));
+    let detailInstances=0;
+    if(growth>.001){
+      gl.useProgram(r.detailProg);gl.disable(gl.CULL_FACE);
+      gl.uniformMatrix4fv(r.detailU.uViewProj,false,viewProj);
+      gl.uniform1f(r.detailU.uRelief,state.relief);gl.uniform1f(r.detailU.uGrowth,growth);
+      gl.uniform3fv(r.detailU.uCamPos,state.pos);gl.uniform3fv(r.detailU.uSunDir,state.sunDir);
+      gl.uniform3fv(r.detailU.uSkyHorizon,state.skyHorizon);gl.uniform1f(r.detailU.uGolden,state.goldenWeight);
+      gl.uniform1f(r.detailU.uFogDensity,state.fogDensity);gl.uniform1f(r.detailU.uWorldSize,WORLD_SIZE);
+      gl.uniform1f(r.detailU.uMaxTexHeight,this.terrainData.maxTexHeight);gl.uniform1i(r.detailU.uHeightTex,0);
+      for(const batch of r.detailBatches){gl.bindVertexArray(batch.vao);gl.drawArraysInstanced(gl.TRIANGLES,0,batch.vertexCount,batch.count);detailInstances+=batch.count;}
+      gl.enable(gl.CULL_FACE);
+    }
+    this.stageEl.dataset.detailInstances=String(detailInstances);
+
     // 3. Glacial Lake Water Pass
     if (state.relief > 0.30 && state.mapMix < 0.74) {
       gl.enable(gl.BLEND);
@@ -477,6 +511,8 @@ export class AtlasRenderer {
     gl.deleteProgram(r.terrainProg);
     gl.deleteProgram(r.waterProg);
     gl.deleteProgram(r.cloudProg);
+    gl.deleteProgram(r.detailProg);
+    for(const batch of r.detailBatches)gl.deleteVertexArray(batch.vao);
     gl.deleteVertexArray(r.skyVao);
     gl.deleteVertexArray(r.terrainVao);
     gl.deleteVertexArray(r.waterVao);

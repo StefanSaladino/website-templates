@@ -303,8 +303,8 @@ void main() {
   vec3 rockN = normalize(N + vec3((mh0 - mhx) / eps, 0.0, (mh0 - mhz) / eps) * bumpAmp);
 
   float detailN = fbmRock(vWorldPos.xz * 0.34);
-  float fineN = noise2(vWorldPos.xz * 2.1);
-  float crownStipple = noise2(vWorldPos.xz * 6.8);
+  float fineN = mix(noise2(vWorldPos.xz * 2.1),0.5,smoothstep(0.10,0.50,footprint));
+  float crownStipple = mix(noise2(vWorldPos.xz * 6.8),0.5,smoothstep(0.035,0.17,footprint));
   float crag = ridgedRock(vWorldPos.xz * 0.52);
 
   // Material A: Glacial shore pebbles & pale moraine granite cobble
@@ -319,7 +319,8 @@ void main() {
   vec3 vegCol = mix(meadowTurf, coniferCanopy, forestPatch);
 
   // Material C: Stratified alpine granite, dark gneiss crevices & talus scree
-  float strataBand = sin(rawH * 2.9 + detailN * 3.1) * 0.5 + 0.5;
+  float layerPhase=rawH*2.4+vWorldPos.x*.34-vWorldPos.z*.19+detailN*3.1;
+  float strataBand=mix(sin(layerPhase)*.5+.5,.5,smoothstep(.55,3.14,fwidth(layerPhase)));
   vec3 graniteDark = vec3(0.15, 0.17, 0.20);
   vec3 graniteLight = vec3(0.43, 0.44, 0.45);
   vec3 graniteBase = mix(graniteDark, graniteLight, crag * 0.45 + strataBand * 0.30 + fineN * 0.25);
@@ -335,8 +336,9 @@ void main() {
   float vegSlope = 1.0 - smoothstep(0.20, 0.42, slope + (detailN - 0.5) * 0.16);
   float vegMask = timberBand * vegSlope * (1.0 - drainage * 0.58) * (1.0 - smoothstep(0.58, 0.78, crag));
 
-  float snowAlt = smoothstep(10.0, 15.8, rawH + (detailN - 0.5) * 3.4 + ridgeCurv * 0.7);
-  float snowSlope = 1.0 - smoothstep(0.18, 0.46, slope + (fineN - 0.5) * 0.16);
+  float sheltered=clamp(N.z*.8+(.5-ridgeCurv)*1.2+drainage*.55,-1.,1.);
+  float snowAlt = smoothstep(11.0, 16.4, rawH + (detailN - 0.5) * 4.2 + sheltered*2.4);
+  float snowSlope = 1.0 - smoothstep(0.13, 0.39, slope + (fineN - 0.5) * 0.12 - sheltered*.075);
   float snowMask = snowAlt * snowSlope;
 
   vec3 albedo = graniteBase;
@@ -698,5 +700,76 @@ void main() {
   float illumination = smoothstep(0.34, 0.76, f) * 0.75 + sunForward * 0.45;
   vec3 cloudCol = mix(coolUnder, sunlitTop, clamp(illumination, 0.0, 1.0));
   fragColor = vec4(cloudCol, alpha);
+}
+`;
+
+
+// Actual opaque world-space details share the terrain's light direction and aerial perspective.
+export const DETAIL_VERT = `#version 300 es
+precision highp float;
+layout(location=0) in vec3 aPosition;
+layout(location=1) in vec3 aNormal;
+layout(location=2) in vec3 aColor;
+layout(location=3) in vec4 aSite;
+layout(location=4) in vec4 aShape;
+uniform mat4 uViewProj;
+uniform float uRelief;
+uniform float uGrowth;
+out vec3 vWorldPos;
+out vec3 vNormal;
+out vec3 vColor;
+void main(){
+  float c=cos(aShape.y),s=sin(aShape.y);
+  mat2 rot=mat2(c,s,-s,c);
+  vec3 q=aPosition*vec3(aShape.x,1.,aShape.x)*aSite.w*uGrowth;
+  q.xz=rot*q.xz;
+  vWorldPos=vec3(aSite.x,aSite.y*uRelief,aSite.z)+q;
+  vec3 n=aNormal/vec3(aShape.x,1.,aShape.x);
+  n.xz=rot*n.xz;
+  vNormal=normalize(n);
+  vColor=aColor*aShape.z;
+  gl_Position=uViewProj*vec4(vWorldPos,1.);
+}
+`;
+export const DETAIL_FRAG = `#version 300 es
+precision highp float;
+in vec3 vWorldPos;
+in vec3 vNormal;
+in vec3 vColor;
+out vec4 fragColor;
+uniform vec3 uCamPos;
+uniform vec3 uSunDir;
+uniform vec3 uSkyHorizon;
+uniform float uGolden;
+uniform float uFogDensity;
+uniform float uRelief;
+uniform float uWorldSize;
+uniform float uMaxTexHeight;
+uniform sampler2D uHeightTex;
+float ground(vec2 xz){
+  vec2 uv=xz/uWorldSize+.5;
+  vec2 sz=vec2(textureSize(uHeightTex,0));
+  vec4 e=texture(uHeightTex,(uv*(sz-1.)+.5)/sz);
+  return ((e.r*255.*256.+e.g*255.)/65535.)*uMaxTexHeight*uRelief;
+}
+void main(){
+  vec3 n=normalize(vNormal),l=normalize(uSunDir);
+  vec3 sun=mix(vec3(1.08,1.02,.92),vec3(1.22,.82,.47),uGolden);
+  vec3 fill=mix(vec3(.15,.19,.21),vec3(.36,.43,.49),n.y*.5+.5)*.83;
+  float occ=0.;
+  for(int i=0;i<4;i++){
+    float t=1.6+float(i)*3.5;
+    vec3 p=vWorldPos+l*t;
+    occ=max(occ,clamp((ground(p.xz)-p.y-.14)/(.65+t*.15),0.,1.));
+  }
+  vec3 col=vColor*(fill+sun*max(dot(n,l),0.)*(1.-occ*.64));
+  float dist=length(vWorldPos-uCamPos);
+  float hf=exp(-max(0.,vWorldPos.y-1.5)*.062);
+  float fog=1.-exp(-dist*uFogDensity*mix(.55,1.15,hf));
+  vec3 viewDir=normalize(vWorldPos-uCamPos);
+  vec3 fogCol=mix(uSkyHorizon,vec3(.94,.72,.48),pow(max(dot(viewDir,l),0.),3.)*uGolden*.55);
+  col=mix(col,fogCol,clamp(fog,0.,.88))*.89;
+  col=(col*(2.51*col+.03))/(col*(2.43*col+.59)+.14);
+  fragColor=vec4(pow(clamp(col,0.,1.),vec3(.96)),1.);
 }
 `;

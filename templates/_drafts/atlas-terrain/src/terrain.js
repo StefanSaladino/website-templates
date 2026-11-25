@@ -645,3 +645,63 @@ export function terrainUnitsToMeters(y) {
   // 0 above water -> 1,890 m; peak ~20 above water -> 3,420 m
   return Math.round(LAKE_METERS + clamped * ((PEAK_TARGET_METERS - LAKE_METERS) / 17.5));
 }
+
+
+// R3a — persistent, sparse world-space detail. No random runtime placement or quality-dependent geography.
+let canonicalDetails=null;
+export function buildLandscapeDetails(td=buildTerrainData()){
+  if(canonicalDetails)return canonicalDetails;
+  const trees=[],rocks=[],treeMesh=[],rockMesh=[];
+  function tri(out,a,b,c,col){
+    const u=b.map((v,i)=>v-a[i]),v=c.map((v,i)=>v-a[i]);
+    const n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+    const len=Math.hypot(...n)||1;for(const q of [a,b,c])out.push(...q,...n.map(x=>x/len),...col);
+  }
+  const ring=(n,y,r,phase,irregular=false)=>Array.from({length:n},(_,i)=>{
+    const a=i/n*Math.PI*2+phase,k=irregular?(.82+.30*hash2(i,93)):1;
+    return [Math.cos(a)*r*k,y+(irregular?.035*(hash2(i,97)-.5):0),Math.sin(a)*r*k];
+  });
+  // Narrow irregular spruce crowns with two branch whorls, not billboard cards.
+  const trunk0=ring(5,0,.055,0),trunk1=ring(5,.48,.035,0);
+  for(let i=0;i<5;i++){const j=(i+1)%5;tri(treeMesh,trunk0[i],trunk1[i],trunk0[j],[.16,.105,.065]);tri(treeMesh,trunk0[j],trunk1[i],trunk1[j],[.16,.105,.065]);}
+  for(const [y,r,tip,phase,col] of [[.18,.52,.77,0,[.065,.165,.090]],[.49,.36,1,.47,[.087,.20,.115]]]){
+    const a=ring(5,y,r,phase,true);
+    for(let i=0;i<5;i++){const j=(i+1)%5,shade=.87+.22*hash2(i,Math.round(y*100));
+      tri(treeMesh,a[i],[0,tip,0],a[j],col.map(x=>x*shade));
+      tri(treeMesh,a[i],a[j],[0,y-.06,0],col.map(x=>x*.69));}
+  }
+  // Low-poly fractured moraine blocks; separate warm/cool faces.
+  const lower=ring(5,.04,.52,.1,true),upper=ring(5,.64,.36,.47,true);
+  for(let i=0;i<5;i++){const j=(i+1)%5,col=[.26,.27,.28].map(x=>x*(.78+.55*hash2(i,204)));
+    tri(rockMesh,lower[i],upper[i],lower[j],col);tri(rockMesh,lower[j],upper[i],upper[j],col);
+    tri(rockMesh,upper[i],[-.09,.94,.10],upper[j],col.map(x=>x*1.13));}
+  const sample=td.sampleHeight;
+  function slopeAt(x,z){
+    const q=.42;return Math.hypot((sample(x+q,z)-sample(x-q,z))/(2*q),(sample(x,z+q)-sample(x,z-q))/(2*q));
+  }
+  // Deterministic candidates, distributed in irregular stands. Sort by seeded rank
+  // before enforcing the fixed instance budget to avoid spatial bias from row traversal.
+  const treeCandidates=[],rockCandidates=[];
+  for(let iz=-51;iz<=74;iz++)for(let ix=-61;ix<=61;ix++){
+    const x=(ix+(hash2(ix,iz+311)-.5)*.88)*.64,z=(iz+(hash2(ix+127,iz)-.5)*.88)*.64;
+    const h=sample(x,z),slope=slopeAt(x,z),rank=hash2(ix+921,iz-417);
+    const stand=(noise2DWithDeriv(x*.14+11,z*.14-7)[0]*.76+noise2DWithDeriv(x*.43,z*.43)[0]*.24);
+    const timber=smoothstep(WATER_LEVEL+.29,WATER_LEVEL+.84,h)*(1-smoothstep(6.4,8.5,h));
+    if(h>WATER_LEVEL+.29&&slope<.78&&rank<timber*smoothstep(.34,.76,stand)*.88){
+      const size=.16+hash2(ix-177,iz+99)*.20;
+      treeCandidates.push({rank:hash2(ix,iz+811),data:[x,h-.012,z,size,.68+hash2(ix+71,iz)*.38,hash2(ix,iz-87)*Math.PI*2,.85+hash2(ix+17,iz+23)*.29,0]});
+    }
+    if(h>WATER_LEVEL+.13&&h<13.5&&slope<1.05&&rank>.955&&Math.abs(x)<35&&z<37){
+      const size=.07+Math.pow(hash2(ix+59,iz+13),2)*.24;
+      rockCandidates.push({rank:hash2(ix-12,iz+69),data:[x,h-.018,z,size,1.10+hash2(ix+99,iz+99)*.9,hash2(ix+4,iz-31)*Math.PI*2,.78+hash2(ix+88,iz+8)*.4,0]});
+    }
+  }
+  treeCandidates.sort((a,b)=>a.rank-b.rank);rockCandidates.sort((a,b)=>a.rank-b.rank);
+  for(const a of treeCandidates.slice(0,1800))trees.push(...a.data);
+  for(const a of rockCandidates.slice(0,650))rocks.push(...a.data);
+  canonicalDetails=Object.freeze([
+    Object.freeze({kind:'spruce',vertices:new Float32Array(treeMesh),instances:new Float32Array(trees),count:trees.length/8}),
+    Object.freeze({kind:'moraine',vertices:new Float32Array(rockMesh),instances:new Float32Array(rocks),count:rocks.length/8})
+  ]);
+  return canonicalDetails;
+}
