@@ -6,7 +6,7 @@
  * on inactive chapters, and restores static accessibility under reduced motion.
  */
 
-import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=6';
+import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=7';
 
 const DARK_PAGE = [18, 20, 18]; // #121412
 const LIGHT_PAGE = [239, 236, 228]; // #EFECE4
@@ -50,6 +50,12 @@ export class MotionController {
     this.root = document.documentElement;
     this.trackEl = document.getElementById('experience-track');
     this.stageEl = document.getElementById('stage-viewport');
+    this.stickyEl = document.getElementById('stage-sticky');
+    this.monitorPanel=document.getElementById('ws-monitor-panel');
+    this.graphPanel=document.querySelector('.ws-body-grid');
+    this.historyPanel=document.getElementById('layer-history');
+    this.lastMonitor=0;
+    this.lastPalette=null;
     this.rigEl = document.getElementById('workspace-rig');
     this.shellEl = document.getElementById('relay-shell');
     this.guidesSvg = document.getElementById('exploded-guides');
@@ -102,7 +108,7 @@ export class MotionController {
         (entries) => {
           const entry = entries[0];
           this.isOffscreen = entry ? !entry.isIntersecting : false;
-          this.connectors.setAmbientPaused(this.isOffscreen || document.hidden);
+          this._syncAmbient();
         },
         { threshold: 0 }
       );
@@ -228,14 +234,14 @@ export class MotionController {
   _progressToScrollY(progress) {
     if (!this.trackEl) return 0;
     const trackTop = this.trackEl.getBoundingClientRect().top + window.scrollY;
-    const scrollable = Math.max(1, this.trackEl.offsetHeight - window.innerHeight);
+    const scrollable = Math.max(1, this.trackEl.offsetHeight - (this.stickyEl?.offsetHeight || window.innerHeight));
     return Math.max(0, Math.round(trackTop + progress * scrollable));
   }
 
   readNormalizedProgress() {
     if (!this.trackEl) return 0;
     const rect = this.trackEl.getBoundingClientRect();
-    const scrollable = Math.max(1, this.trackEl.offsetHeight - window.innerHeight);
+    const scrollable = Math.max(1, this.trackEl.offsetHeight - (this.stickyEl?.offsetHeight || window.innerHeight));
     const passed = -rect.top;
     return Math.max(0, Math.min(1, passed / scrollable));
   }
@@ -248,11 +254,16 @@ export class MotionController {
   }
 
   _onResize() {
-    this.updateNow();
+    // Coalesce resize and scroll bursts into one render, including orientation changes.
+    if(!this.pendingRaf)this.pendingRaf=requestAnimationFrame(this._frame);
+  }
+
+  _syncAmbient() {
+    this.connectors.setAmbientPaused(document.hidden || (!this.sandboxOpen && this.isOffscreen) || this.lastMonitor>=.995);
   }
 
   _onVisibility() {
-    this.connectors.setAmbientPaused(document.hidden || this.isOffscreen);
+    this._syncAmbient();
   }
 
   _frame() {
@@ -328,27 +339,31 @@ export class MotionController {
     }
 
     // 2. Smooth background & shell surface palette transition for Scene 05
-    this.root.style.setProperty('--theme-light-mix', state.light.toFixed(4));
-    this.root.style.setProperty('--page-bg', mixRgb(DARK_PAGE, LIGHT_PAGE, state.light));
-    const pageRgb=DARK_PAGE.map((v,i)=>v+(LIGHT_PAGE[i]-v)*state.light);
-    const shellRgb=DARK_SHELL.map((v,i)=>v+(LIGHT_SHELL[i]-v)*state.light);
-    this.root.style.setProperty('--page-ink',rgbString(legibleInk(pageRgb)));
-    this.root.style.setProperty('--page-muted',rgbString(legibleInk(pageRgb,true)));
-    this.shellEl?.style.setProperty('--page-ink',rgbString(legibleInk(shellRgb)));
-    this.shellEl?.style.setProperty('--page-muted',rgbString(legibleInk(shellRgb,true)));
-    this.root.style.setProperty('--shell-surface', mixRgb(DARK_SHELL, LIGHT_SHELL, state.light));
-    this.root.style.setProperty('--shell-elevated', mixRgb(DARK_ELEVATED, LIGHT_ELEVATED, state.light));
-    this.root.style.setProperty('--shell-border', mixRgb(DARK_BORDER, LIGHT_BORDER, state.light));
-    // Local theme tokens override the old discrete light-theme CSS declarations.
-    for(const [name,dark,light] of [['--shell-elevated',DARK_ELEVATED,LIGHT_ELEVATED],['--shell-border',DARK_BORDER,LIGHT_BORDER]])this.shellEl?.style.setProperty(name,mixRgb(dark,light,state.light));
-    this.shellEl?.style.setProperty('--surface-light',state.light.toFixed(4));
-    for(const [name,dark,light] of [['--ok-color',[197,244,107],[27,107,58]],['--warn-color',[229,184,92],[154,88,4]],['--err-color',[239,123,107],[180,50,37]]])this.shellEl?.style.setProperty(name,mixRgb(dark,light,state.light));
+    if(this.lastPalette!==state.light){
+      this.lastPalette=state.light;
+      this.root.style.setProperty('--theme-light-mix', state.light.toFixed(4));
+      this.root.style.setProperty('--page-bg', mixRgb(DARK_PAGE, LIGHT_PAGE, state.light));
+      const pageRgb=DARK_PAGE.map((v,i)=>v+(LIGHT_PAGE[i]-v)*state.light);
+      const shellRgb=DARK_SHELL.map((v,i)=>v+(LIGHT_SHELL[i]-v)*state.light);
+      this.root.style.setProperty('--page-ink',rgbString(legibleInk(pageRgb)));
+      this.root.style.setProperty('--page-muted',rgbString(legibleInk(pageRgb,true)));
+      this.shellEl?.style.setProperty('--page-ink',rgbString(legibleInk(shellRgb)));
+      this.shellEl?.style.setProperty('--page-muted',rgbString(legibleInk(shellRgb,true)));
+      this.root.style.setProperty('--shell-surface', mixRgb(DARK_SHELL, LIGHT_SHELL, state.light));
+      this.root.style.setProperty('--shell-elevated', mixRgb(DARK_ELEVATED, LIGHT_ELEVATED, state.light));
+      this.root.style.setProperty('--shell-border', mixRgb(DARK_BORDER, LIGHT_BORDER, state.light));
+      // Local theme tokens override the old discrete light-theme CSS declarations.
+      for(const [name,dark,light] of [['--shell-elevated',DARK_ELEVATED,LIGHT_ELEVATED],['--shell-border',DARK_BORDER,LIGHT_BORDER]])this.shellEl?.style.setProperty(name,mixRgb(dark,light,state.light));
+      this.shellEl?.style.setProperty('--surface-light',state.light.toFixed(4));
+      for(const [name,dark,light] of [['--ok-color',[197,244,107],[27,107,58]],['--warn-color',[229,184,92],[154,88,4]],['--err-color',[239,123,107],[180,50,37]]])this.shellEl?.style.setProperty(name,mixRgb(dark,light,state.light));
 
-    if (this.shellEl) {
-      this.shellEl.setAttribute('data-theme-surface', state.light > 0.5 ? 'light' : 'dark');
-    }
-    if (this.themeMeta) {
-      this.themeMeta.setAttribute('content', state.light > 0.5 ? '#EFECE4' : '#121412');
+      if (this.shellEl) {
+        this.shellEl.setAttribute('data-theme-surface', state.light > 0.5 ? 'light' : 'dark');
+      }
+      if (this.themeMeta) {
+        this.themeMeta.setAttribute('content', state.light > 0.5 ? '#EFECE4' : '#121412');
+      }
+
     }
 
     // 3. Exploded Scene 02 architectural guide connectors
@@ -368,12 +383,12 @@ export class MotionController {
       if(handoff?.amount>=1)this.scrollHandoff=null;
     }
 
-    const monitorPanel = document.getElementById('ws-monitor-panel');
-    if (monitorPanel) {
-      const interactive = state.monitor >= .95;
-      monitorPanel.inert = !interactive;
-      monitorPanel.setAttribute('aria-hidden', String(!interactive));
-    }
+    const interactive = state.monitor >= .95;
+    if(this.monitorPanel){this.monitorPanel.inert=!interactive;this.monitorPanel.setAttribute('aria-hidden',String(!interactive));}
+    // The opaque monitor covers these controls, so they must not remain tabbable.
+    for(const panel of [this.graphPanel,this.historyPanel])if(panel)panel.inert=interactive;
+    this.lastMonitor=state.monitor;
+    this._syncAmbient();
     // 5. Switch active sidebar item coherently for Scene 05 monitoring
     const desiredSidebar = this.sandboxOpen?this.sandboxModule:state.monitor > 0.5 ? 'activity' : 'workflows';
     if (desiredSidebar !== this.lastSidebarMode) {
@@ -421,6 +436,7 @@ export class MotionController {
   }
 
   _resetReducedStyles() {
+    this.lastPalette=null;
     this.root.style.removeProperty('--page-bg');
     this.root.style.removeProperty('--page-ink');
     this.root.style.removeProperty('--page-muted');
@@ -443,8 +459,11 @@ export class MotionController {
       this.rigEl.style.removeProperty('--execution-focus');
       this.rigEl.style.removeProperty('--portrait-room');
     }
-    const monitorPanel = document.getElementById('ws-monitor-panel');
-    if (monitorPanel) { monitorPanel.inert = false; monitorPanel.removeAttribute('aria-hidden'); }
+    const activity=this.sandboxModule==='activity';
+    if(this.monitorPanel){this.monitorPanel.inert=!activity;this.monitorPanel.setAttribute('aria-hidden',String(!activity));}
+    for(const panel of [this.graphPanel,this.historyPanel])if(panel)panel.inert=activity;
+    this.lastMonitor=activity?1:0;
+    this._syncAmbient();
     if (this.guidesSvg) this.guidesSvg.style.opacity = '0';
     this.sceneEls.forEach((secEl) => {
       secEl.style.removeProperty('--scene-alpha');

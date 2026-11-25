@@ -5,8 +5,8 @@
  * unified execution monitoring & recovery.
  */
 
-import { executionNodeWeight } from './scenes.js?v=6';
-import { blendEdges } from './connectors.js?v=6';
+import { executionNodeWeight } from './scenes.js?v=7';
+import { blendEdges } from './connectors.js?v=7';
 
 export const SCENARIOS = {
   inbound: {
@@ -659,44 +659,14 @@ export class WorkflowController {
         ? Math.min(5, Math.floor(execStep))
         : -1;
 
-    // Slight scale pop on emerging / morphing nodes mid-transition
-    const morphDip = Math.sin(t * Math.PI) * 0.04;
-    const boxes = [], layout = [];
-
-    for (let i = 0; i < this.nodeEls.length; i++) {
-      const el = this.nodeEls[i];
-      const aNode = fromSc.nodes[i];
-      const bNode = toSc.nodes[i];
+    // Update layout-affecting text first, then measure the graph in one read phase.
+    // Transforms are applied only after every node has been measured.
+    for (let i=0;i<this.nodeEls.length;i++) {
+      const el=this.nodeEls[i];
       const dNode = displaySc.nodes[i];
-
-      const geometry={};
-      for(const profile of ['desktop','mobile']) {
-        // Stable portrait lanes avoid physical node collisions while the SVG
-        // topology changes. Desktop retains the original spatial morphs.
-        const portraitSlot = {x:[.03,.52,.52,.03,.03,.52][i],y:[.04,.04,.36,.36,.68,.68][i]};
-        const desktopSlot={x:[.02,.275,.535,.275,.535,.775][i],y:[.12,.12,.12,.62,.62,.37][i]};
-        const lane=node=>({x:desktopSlot.x,y:desktopSlot.y+Math.max(-.045,Math.min(.045,(node.desktop.y-desktopSlot.y)*.18))});
-        const a=profile==='mobile'?portraitSlot:lane(aNode);
-        const b=profile==='mobile'?portraitSlot:lane(bNode);
-        let x=lerp(a.x,b.x,t), y=lerp(a.y,b.y,t);
-        if(snapshot){x=lerp(snapshot.nodes[i][profile].x,x,handoffMix);y=lerp(snapshot.nodes[i][profile].y,y,handoffMix);}
-        geometry[profile]={x,y};
-      }
-      const coords=geometry[isMobile?'mobile':'desktop'];
-      let weight=executionNodeWeight(i,focus),context=(focus?.amount||0)*(1-weight);
       const isStepRunning=activeIdx===i, isStepDone=activeIdx>=0&&i<activeIdx;
-      let nodeScale=focus?1-morphDip+weight*(isMobile?.055:.16):isStepRunning?1.07:1-morphDip;
-      if(snapshot){weight=lerp(snapshot.nodes[i].weight,weight,handoffMix);context=lerp(snapshot.nodes[i].context,context,handoffMix);nodeScale=lerp(snapshot.nodes[i].scale,nodeScale,handoffMix);}
-      const xPx=Number((coords.x*boardW).toFixed(1));
-      const yPx=Number((coords.y*boardH-weight*(isMobile?2:7)).toFixed(1));
-      nodeScale=Number(nodeScale.toFixed(3));
-      layout.push({...geometry,scale:nodeScale,weight,context});
-      el.style.setProperty('--node-focus',weight.toFixed(4));
-      el.style.setProperty('--node-context',context.toFixed(4));
-      el.style.transform=`translate3d(${xPx}px, ${yPx}px, 0) scale(${nodeScale})`;
       el.classList.toggle('is-done', isStepDone);
       el.classList.toggle('is-running', isStepRunning);
-
       if (changedDisplay) {
         const kindEl = el.querySelector('.wf-node-kind');
         const titleEl = el.querySelector('.wf-node-title');
@@ -719,8 +689,49 @@ export class WorkflowController {
         if (stEl.textContent !== stLabel) stEl.textContent = stLabel;
       }
 
-      const baseW = el.offsetWidth || (isMobile ? 136 : 134);
-      const baseH = el.offsetHeight || (isMobile ? 56 : 68);
+    }
+    const metrics=this.nodeEls.map(el=>{
+      const baseW=el.offsetWidth||(isMobile?136:134),baseH=el.offsetHeight||(isMobile?56:68);
+      const port=selector=>{const e=el.querySelector(selector);return e?{x:el.clientLeft+e.offsetLeft+e.offsetWidth/2,y:el.clientTop+e.offsetTop+e.offsetHeight/2}:null;};
+      return {baseW,baseH,inputPort:port('.wf-port-in'),outputPort:port('.wf-port-out')};
+    });
+
+    // Slight scale pop on emerging / morphing nodes mid-transition
+    const morphDip = Math.sin(t * Math.PI) * 0.04;
+    const boxes = [], layout = [];
+
+    for (let i = 0; i < this.nodeEls.length; i++) {
+      const el = this.nodeEls[i];
+      const aNode = fromSc.nodes[i];
+      const bNode = toSc.nodes[i];
+
+      const geometry={};
+      for(const profile of ['desktop','mobile']) {
+        // Stable portrait lanes avoid physical node collisions while the SVG
+        // topology changes. Desktop retains the original spatial morphs.
+        const portraitSlot = {x:[.03,.52,.52,.03,.03,.52][i],y:[.04,.04,.36,.36,.68,.68][i]};
+        const desktopSlot={x:[.02,.275,.535,.275,.535,.775][i],y:[.12,.12,.12,.62,.62,.37][i]};
+        const lane=node=>({x:desktopSlot.x,y:desktopSlot.y+Math.max(-.045,Math.min(.045,(node.desktop.y-desktopSlot.y)*.18))});
+        const a=profile==='mobile'?portraitSlot:lane(aNode);
+        const b=profile==='mobile'?portraitSlot:lane(bNode);
+        let x=lerp(a.x,b.x,t), y=lerp(a.y,b.y,t);
+        if(snapshot){x=lerp(snapshot.nodes[i][profile].x,x,handoffMix);y=lerp(snapshot.nodes[i][profile].y,y,handoffMix);}
+        geometry[profile]={x,y};
+      }
+      const coords=geometry[isMobile?'mobile':'desktop'];
+      let weight=executionNodeWeight(i,focus),context=(focus?.amount||0)*(1-weight);
+      const isStepRunning=activeIdx===i;
+      let nodeScale=focus?1-morphDip+weight*(isMobile?.055:.16):isStepRunning?1.07:1-morphDip;
+      if(snapshot){weight=lerp(snapshot.nodes[i].weight,weight,handoffMix);context=lerp(snapshot.nodes[i].context,context,handoffMix);nodeScale=lerp(snapshot.nodes[i].scale,nodeScale,handoffMix);}
+      const xPx=Number((coords.x*boardW).toFixed(1));
+      const yPx=Number((coords.y*boardH-weight*(isMobile?2:7)).toFixed(1));
+      nodeScale=Number(nodeScale.toFixed(3));
+      layout.push({...geometry,scale:nodeScale,weight,context});
+      el.style.setProperty('--node-focus',weight.toFixed(4));
+      el.style.setProperty('--node-context',context.toFixed(4));
+      el.style.transform=`translate3d(${xPx}px, ${yPx}px, 0) scale(${nodeScale})`;
+
+      const {baseW,baseH,inputPort,outputPort}=metrics[i];
       // Scale center-preserving approximation for port anchor accuracy
       const scaledW = baseW * nodeScale;
       const scaledH = baseH * nodeScale;
@@ -729,13 +740,9 @@ export class WorkflowController {
 
       // Port offsets are layout-space values (unaffected by the ancestor 3D rig).
       // Apply exactly the same center-origin scale and rounded translation as CSS.
-      const portCenter=selector=>{
-        const port=el.querySelector(selector);
-        if(!port)return null;
-        return {x:xPx+baseW/2+(el.clientLeft+port.offsetLeft+port.offsetWidth/2-baseW/2)*nodeScale,
-          y:yPx+baseH/2+(el.clientTop+port.offsetTop+port.offsetHeight/2-baseH/2)*nodeScale};
-      };
-      const input=portCenter('.wf-port-in'),output=portCenter('.wf-port-out');
+      const portCenter=port=>port?{x:xPx+baseW/2+(port.x-baseW/2)*nodeScale,
+          y:yPx+baseH/2+(port.y-baseH/2)*nodeScale}:null;
+      const input=portCenter(inputPort),output=portCenter(outputPort);
       boxes.push({x:xPx+dxOffset,y:yPx+dyOffset,w:scaledW,h:scaledH,
         inX:input?.x,inY:input?.y,outX:output?.x,outY:output?.y});
     }

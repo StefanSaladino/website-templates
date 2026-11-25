@@ -5,10 +5,10 @@
  * scenario tabs, and interactive workspace sandbox mode.
  */
 
-import { ConnectorEngine } from './connectors.js?v=6';
-import { WorkflowController } from './workflow.js?v=6';
-import { MotionController } from './motion.js?v=6';
-import { SCENE_ANCHORS } from './scenes.js?v=6';
+import { ConnectorEngine } from './connectors.js?v=7';
+import { WorkflowController } from './workflow.js?v=7';
+import { MotionController } from './motion.js?v=7';
+import { SCENE_ANCHORS } from './scenes.js?v=7';
 
 function initApp() {
   const shellEl = document.getElementById('relay-shell');
@@ -44,6 +44,7 @@ function initApp() {
 
   function setPageBackgroundInert(flag) {
     if (headerEl) headerEl.inert = flag;
+    const skip=document.querySelector('.skip-link');if(skip)skip.inert=flag;
     if (mainEl) mainEl.inert = flag;
     if (footerEl) footerEl.inert = flag;
   }
@@ -116,8 +117,15 @@ function initApp() {
       }
     }
 
-    if (e.key === 'Escape' && motion.sandboxOpen) {
-      closeSandbox();
+    if (motion.sandboxOpen) {
+      if(e.key==='Escape'){e.preventDefault();closeSandbox();return;}
+      if(e.key==='Tab'){
+        const controls=[...mainEl.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el=>!el.closest('[inert],[hidden]')&&el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden');
+        const first=controls[0],last=controls.at(-1);
+        if(!first){e.preventDefault();return;}
+        if(e.shiftKey&&(document.activeElement===first||!controls.includes(document.activeElement))){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&(document.activeElement===last||!controls.includes(document.activeElement))){e.preventDefault();first.focus();}
+      }
     }
   });
 
@@ -160,11 +168,17 @@ function initApp() {
 
   let sandboxTrigger=null;let sandboxY=0;
   function openSandbox(event) {
+    const opener=event?.currentTarget||document.activeElement;
+    const fromDrawer=mobileDrawer?.contains(opener);
     closeMobileDrawer(false);
     if (!sandboxBar || motion.sandboxOpen) return;
-    sandboxTrigger=event?.currentTarget||document.activeElement; sandboxY=window.scrollY;
+    sandboxTrigger=fromDrawer?menuToggle:opener; sandboxY=window.scrollY;
     document.body.style.overflow='hidden';
     sandboxBar.hidden = false;
+    if(headerEl)headerEl.inert=true;
+    if(footerEl)footerEl.inert=true;
+    const skip=document.querySelector('.skip-link');if(skip)skip.inert=true;
+    if(mainEl){mainEl.setAttribute('role','dialog');mainEl.setAttribute('aria-modal','true');mainEl.setAttribute('aria-label','RELAY interactive workspace');}
     motion.setSandboxMode(true);
     if (sandboxCloseBtn) sandboxCloseBtn.focus();
   }
@@ -172,6 +186,10 @@ function initApp() {
   function closeSandbox() {
     if (!sandboxBar || !motion.sandboxOpen) return;
     sandboxBar.hidden = true;
+    if(headerEl)headerEl.inert=false;
+    if(footerEl)footerEl.inert=false;
+    const skip=document.querySelector('.skip-link');if(skip)skip.inert=false;
+    if(mainEl){mainEl.removeAttribute('role');mainEl.removeAttribute('aria-modal');mainEl.removeAttribute('aria-label');}
     motion.setSandboxMode(false);
     document.body.style.overflow='';
     window.scrollTo({top:sandboxY,behavior:'instant'});
