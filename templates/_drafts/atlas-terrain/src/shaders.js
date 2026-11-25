@@ -292,11 +292,11 @@ float sampleSmoothHeight(vec2 xz) {
   return mix(mix(h00, h10, w.x), mix(h01, h11, w.x), w.y);
 }
 
-// Stratified granite ledges + vertical fracture seams for crisp rock cliffs without blobby artifacts
+// Aperiodic plan-view fractures; steep faces receive height-bearing detail below.
 float rockMicroHeight(vec2 xz, float rawH, float slope) {
   float f1 = abs(noise2(xz * 2.2) - 0.5);
   float f2 = abs(noise2(vec2(xz.x * 4.8 - xz.y * 2.1, xz.y * 4.8 + xz.x * 2.1)) - 0.5);
-  float strata = abs(fract(rawH * 1.35 + noise2(xz * 0.45) * 0.55) - 0.5);
+  float strata = noise2(xz * vec2(.45,.82) + vec2(rawH*.21,-rawH*.17));
   return (f1 * 0.42 + f2 * 0.34 + strata * 0.24) * smoothstep(0.16, 0.65, slope);
 }
 
@@ -412,13 +412,12 @@ void main() {
   vec3 vegCol = mix(meadowTurf, coniferCanopy, forestPatch);
 
   // Material C: Stratified alpine granite, dark gneiss crevices & talus scree
-  float layerPhase=rawH*2.4+vWorldPos.x*.34-vWorldPos.z*.19+detailN*3.1;
-  float strataBand=mix(sin(layerPhase)*.5+.5,.5,smoothstep(.55,3.14,fwidth(layerPhase)));
-  // Coherent large-scale rock beds, rather than a uniform pale mineral wash.
+  // Mineral facies vary with terrain rather than repeating at equal elevations.
   float bedVariation=smoothstep(.24,.78,detailN*.64+crag*.36);
+  float facies=smoothstep(.28,.76,detailN*.45+ridgeCurv*.30+crag*.25);
   vec3 graniteDark=vec3(.115,.135,.151);
   vec3 graniteLight=vec3(.31,.315,.308);
-  vec3 graniteBase=mix(graniteDark,graniteLight,bedVariation*.63+strataBand*.25+fineN*.12);
+  vec3 graniteBase=mix(graniteDark,graniteLight,bedVariation*.63+facies*.25+fineN*.12);
   graniteBase = mix(graniteBase, vec3(0.29, 0.28, 0.26), drainage * 0.34); // Talus fans in gullies
   graniteBase = mix(graniteBase, vec3(0.36, 0.32, 0.28), smoothstep(8.5, 16.0, rawH) * (1.0 - crag) * 0.24);
 
@@ -442,47 +441,43 @@ void main() {
   vec3 P=vec3(vWorldPos.x,rawH,vWorldPos.z);
   float surfaceFootprint=max(length(dFdx(P)),length(dFdy(P)));
   float alpineDetail=smoothstep(10.,17.,rawH)*cliffWeight;
-  // One continuous tilted bedding coordinate crosses both cliff projections.
-  // Low-frequency geological variation bends the beds, rather than producing
-  // closed noise-isoline loops that look like outlined cobblestones.
-  float bed=P.y+.28*P.x-.19*P.z+(detailN-.5)*1.6;
+  // Irregular, folded bedding shared across face projections. A second,
+  // steeper joint family crosses the beds; neither uses periodic wave contours.
+  float bed=P.y+.28*P.x-.19*P.z+(detailN-.5)*4.2+(crag-.5)*1.3;
   vec2 faceX=vec2(P.z+P.y*.31,bed);
   vec2 faceZ=vec2(P.x-P.y*.24,bed);
   vec2 faceWeights=pow(abs(N.xz),vec2(4.));
   faceWeights/=max(faceWeights.x+faceWeights.y,.0001);
   // Anisotropy along the bedding plane; offsets keep both projections distinct.
-  float blocksX=noise2(faceX*vec2(.74,2.8)+vec2(12.7,8.2));
-  float blocksZ=noise2(faceZ*vec2(.74,2.8)+vec2(4.3,21.8));
-  float chipsX=noise2(vec2(faceX.x+bed*.27,bed)*vec2(3.1,6.4)+vec2(8.4,3.7));
-  float chipsZ=noise2(vec2(faceZ.x-bed*.31,bed)*vec2(3.1,6.4)+vec2(18.1,2.9));
+  float blocksX=noise2(faceX*vec2(.83,1.65)+vec2(12.7,8.2));
+  float blocksZ=noise2(faceZ*vec2(.83,1.65)+vec2(4.3,21.8));
+  float chipsX=noise2(vec2(faceX.x+bed*.46,bed)*vec2(5.4,2.3)+vec2(8.4,3.7));
+  float chipsZ=noise2(vec2(faceZ.x-bed*.39,bed)*vec2(5.4,2.3)+vec2(18.1,2.9));
   float blocks=dot(vec2(blocksX,blocksZ),faceWeights);
   float chips=dot(vec2(chipsX,chipsZ),faceWeights);
   float blockAA=1.-smoothstep(.10,.38,surfaceFootprint);
   float chipAA=1.-smoothstep(.035,.14,surfaceFootprint);
   float blockRelief=(blocks-.5)*blockAA;
   float chipRelief=(chips-.5)*chipAA;
-  float bedPhase=bed*6.2+(blocks-.5)*1.5;
-  float bedWave=sin(bedPhase);
-  float bedAA=1.-smoothstep(.45,2.8,fwidth(bedPhase));
-  // Broken ledges, not dark outlines: discontinuity comes from the face noise.
-  float ledge=smoothstep(.64,.94,bedWave)*bedAA*mix(.35,1.,blocks);
+  // Only the intersection of two independent low-frequency/high-frequency
+  // noise families forms a dark recess. No repeated bands or closed outlines.
+  float ledge=(1.-smoothstep(.20,.43,blocks))*(1.-smoothstep(.28,.58,chips))*blockAA*chipAA;
   float seam=ledge*alpineDetail;
-  float mineralTone=clamp(.49+bedVariation*.14+blockRelief*.30+chipRelief*.18+bedWave*bedAA*.09,0.,1.);
-  vec3 cliffMineral=mix(vec3(.15,.16,.171),vec3(.34,.335,.318),mineralTone);
+  float mineralTone=clamp(.49+bedVariation*.17+blockRelief*.43+chipRelief*.23,0.,1.);
+  vec3 cliffMineral=mix(vec3(.13,.15,.165),vec3(.37,.35,.32),mineralTone);
   graniteBase=mix(graniteBase,cliffMineral,.78*alpineDetail);
-  graniteBase*=1.-seam*.11;
+  graniteBase*=1.-seam*.17;
   // Retain firn in sheltered gullies/ledges, never on near-vertical walls.
-  float firnCatch=smoothstep(.42,.78,drainage+max(0.,sheltered)*.15)*
-                  (1.-smoothstep(.24,.47,slope))*snowAlt;
-  snowMask=clamp(snowMask+firnCatch*.16*(1.-snowMask),0.,1.);
-  snowMask*=1.-seam*.24;
+  float firnCatch=smoothstep(.34,.75,drainage+max(0.,sheltered)*.18+(detailN-.5)*.12)*
+                  (1.-smoothstep(.22,.45,slope))*snowAlt;
+  snowMask=clamp(snowMask+firnCatch*.28*(1.-snowMask),0.,1.);
+  snowMask*=1.-seam*.20;
   // Surface-gradient bump: differentiate raw noise before filtering.
   vec3 dpdx=dFdx(vWorldPos),dpdy=dFdy(vWorldPos);
   vec3 rx=cross(dpdy,N),ry=cross(N,dpdx);
   float determinant=dot(dpdx,rx);
-  vec2 grad=vec2(dFdx(blocks),dFdy(blocks))*.027*blockAA+
-            vec2(dFdx(chips),dFdy(chips))*.009*chipAA+
-            vec2(dFdx(bedWave),dFdy(bedWave))*.023*bedAA;
+  vec2 grad=vec2(dFdx(blocks),dFdy(blocks))*.039*blockAA+
+            vec2(dFdx(chips),dFdy(chips))*.015*chipAA;
   vec3 perturb=sign(determinant)*(rx*grad.x+ry*grad.y)/max(abs(determinant),.000001);
   // Bound perturbation at silhouette/degenerate derivative quads.
   perturb*=min(1.,.24/max(length(perturb),.000001));
