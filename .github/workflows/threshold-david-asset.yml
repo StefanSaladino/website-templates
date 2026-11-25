@@ -25,7 +25,7 @@ jobs:
             --output /tmp/david.stl
       - name: Optimize and inspect actual 3D model
         run: |
-          python -m pip install 'numpy<3' 'trimesh>=4.5,<5' 'fast-simplification>=0.1.9,<0.2' 'pillow>=10,<13'
+          python -m pip install 'numpy==2.4.6' 'scipy>=1.15,<2' 'trimesh==4.12.2' 'fast-simplification==0.1.13' 'pillow==12.3.0'
           python templates/_drafts/threshold-studio/audit/prepare-david.py /tmp/david.stl /tmp/threshold-david
       - uses: actions/upload-artifact@v4
         if: always()
