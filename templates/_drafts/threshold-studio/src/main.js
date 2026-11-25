@@ -1,15 +1,33 @@
-import {RELEASE} from './config.js?v=T14b';
-import {createRenderer} from './renderer.js?v=T14b';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,openingComposition} from './camera.js?v=T14b';
-import {createScheduler} from './lifecycle.js?v=T14b';
-import {wordmarkOcclusion} from './wordmark.js?v=T14b';
-import {createAmbientClock} from './ambient.js?v=T14b';
-import {readProgress} from './scroll.js?v=T14b';
+import {RELEASE} from './config.js?v=T15';
+import {createRenderer} from './renderer.js?v=T15';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,openingComposition} from './camera.js?v=T15';
+import {createScheduler} from './lifecycle.js?v=T15';
+import {wordmarkOcclusion} from './wordmark.js?v=T15';
+import {createAmbientClock} from './ambient.js?v=T15';
+import {readProgress} from './scroll.js?v=T15';
+import {typographyPose} from './typography.js?v=T15';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
   const study=document.querySelector('#scene-study'),surface=study.querySelector('.scene-surface'),canvas=study.querySelector('canvas');
   const mark=document.querySelector('.display-wordmark'),occluder=document.querySelector('#wordmark-occluder');
+  const stage=document.querySelector('.journey-stage');
+  let lastType='';
+  function applyTypography(progress,width,height){
+    const wide=desktopComposition.matches||width/height>=1.2;
+    const t=typographyPose(progress,wide);
+    const values={
+      '--mark-rise':(t.markY*height).toFixed(3)+'px',
+      '--mark-opacity':t.markOpacity.toFixed(6),
+      '--copy-x':(t.copyX*width).toFixed(3)+'px',
+      '--copy-y':(t.copyY*height).toFixed(3)+'px',
+      '--copy-opacity':t.copyOpacity.toFixed(6),
+      '--footer-opacity':t.footerOpacity.toFixed(6)
+    };
+    const key=Object.values(values).join(',');
+    if(key!==lastType){for(const [name,value] of Object.entries(values))stage.style.setProperty(name,value);lastType=key}
+    return t;
+  }
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),desktopComposition=matchMedia(DESKTOP_COMPOSITION_QUERY);
   const flags=new URLSearchParams(location.search);
   const reflectionEnabled=flags.get('reflection')!=='off',lightingEnabled=flags.get('lighting')!=='off',floorMask=flags.get('floorMask')==='on';
@@ -24,7 +42,7 @@ function start(){
   setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
-  function staticView(reason){clock.pause();if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
+  function staticView(reason){clock.pause();applyTypography(0,1,1);if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   // A preference change can become visible to the frame scheduler before the
   // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
   function eligible(){
@@ -63,7 +81,9 @@ function start(){
       study.dataset.lighting=result.lightingEnabled?'on':'off';
       study.dataset.floorMask=result.floorMask?'on':'off';
       study.dataset.composition=openingComposition(r.width/r.height,desktopComposition.matches);
-      const points=desktopComposition.matches?wordmarkOcclusion(pose.vp,r,mark.getBoundingClientRect()):'';
+      // Apply text displacement before deriving the portal mask in its new local coordinates.
+      const type=applyTypography(progress,r.width,r.height);
+      const points=desktopComposition.matches&&type.markOpacity>0?wordmarkOcclusion(pose.vp,r,mark.getBoundingClientRect()):'';
       occluder.setAttribute('points',points);mark.dataset.depth=points?'projected':'flat';
       study.dataset.renderer='webgl';delete study.dataset.reason;canvas.hidden=false;
       if(ambientEnabled)scheduler.invalidate();

@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T14b');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T15');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -285,7 +285,7 @@ jobs:
               await travel.waitForFunction(()=>document.documentElement.dataset.journey==='on'&&document.querySelector('#scene-study').dataset.renderer==='webgl');
               const original=await travel.locator('#scene-canvas').elementHandle();
               const identity=await travel.locator('#wordmark-occluder').getAttribute('points');
-              const forwardImages=new Map(),camera=travel.locator('#scene-canvas');
+              const forwardImages=new Map(),fullImages=new Map(),camera=travel.locator('#scene-canvas');
               const states=[];
               async function measure(fraction){
                 await travel.evaluate(f=>{const s=document.scrollingElement;s.scrollTop=(s.scrollHeight-s.clientHeight)*f},fraction);
@@ -295,12 +295,20 @@ jobs:
                 },fraction);
                 return travel.evaluate(()=>{
                   const s=document.scrollingElement,stage=document.querySelector('.journey-stage'),canvas=document.querySelector('#scene-canvas'),d=document.querySelector('#scene-study').dataset;
-                  return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,progress:Number(d.progress),top:stage.getBoundingClientRect().top,height:stage.getBoundingClientRect().height,canvasTop:canvas.getBoundingClientRect().top,frames:Number(d.frames),eye:d.eye.split(',').map(Number),fov:Number(d.fov),mask:document.querySelector('#wordmark-occluder').getAttribute('points')};
+                  return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,progress:Number(d.progress),top:stage.getBoundingClientRect().top,height:stage.getBoundingClientRect().height,canvasTop:canvas.getBoundingClientRect().top,frames:Number(d.frames),eye:d.eye.split(',').map(Number),fov:Number(d.fov),mask:document.querySelector('#wordmark-occluder').getAttribute('points'),
+                    markOpacity:Number(getComputedStyle(document.querySelector('.display-wordmark')).opacity),
+                    copyOpacity:Number(getComputedStyle(document.querySelector('.opening-copy')).opacity),
+                    footerOpacity:Number(getComputedStyle(document.querySelector('footer')).opacity),
+                    markTop:document.querySelector('.display-wordmark').getBoundingClientRect().top,
+                    copyLeft:document.querySelector('.opening-copy').getBoundingClientRect().left,
+                    copyTop:document.querySelector('.opening-copy').getBoundingClientRect().top,
+                    noOverflow:s.scrollWidth<=s.clientWidth+1,navVisible:document.querySelector('.masthead').getBoundingClientRect().top>=-1};
                 });
               }
               for(const fraction of [0,.25,.5,.75,1,.75,.5,.25,0]){
                 const state=await measure(fraction);
-                assert(state.range>=height*3.9,'measured native travel');
+                assert(state.range>=height*3.9&&state.range<=height*4+2,'measured native travel unchanged by typography');
+                assert(state.noOverflow&&state.navVisible,'no horizontal overflow or lost navigation');
                 assert(Math.abs(state.top)<2&&Math.abs(state.canvasTop)<2,'single sticky stage');
                 assert(Math.abs(state.height-height)<2,'stable stage height');
                 assert(await original.evaluate(el=>el===document.querySelector('#scene-canvas')),'same canvas identity');
@@ -309,10 +317,20 @@ jobs:
                   if(states.length)assert(state.eye[2]<states.at(-1).eye[2],'monotone forward travel');
                   const frame=await camera.screenshot({style:captureStyle,path:'/tmp/threshold-evidence/approach-'+width+'-'+String(Math.round(fraction*100)).padStart(3,'0')+'.png'});
                   forwardImages.set(fraction,frame);
-                  if(width===390||width===1440)await travel.screenshot({path:'/tmp/threshold-evidence/approach-full-'+width+'-'+String(Math.round(fraction*100)).padStart(3,'0')+'.png'});
+                  if(width===390||width===1440){
+                    const full=await travel.screenshot({path:'/tmp/threshold-evidence/typography-full-'+width+'-'+String(Math.round(fraction*100)).padStart(3,'0')+'.png'});
+                    fullImages.set(fraction,full);
+                  }
                 }else{
                   const prior=states[8-states.length];
                   assert.deepEqual(state.eye,prior.eye);assert.equal(state.fov,prior.fov);assert.equal(state.mask,prior.mask);
+                  for(const key of ['markOpacity','copyOpacity','footerOpacity','markTop','copyLeft','copyTop'])assert.equal(state[key],prior[key],'reversible '+key);
+                  if(fullImages.has(fraction)&&(fraction===0||fraction===.5)){
+                    const reverseFull=await travel.screenshot({path:'/tmp/threshold-evidence/typography-reverse-'+width+'-'+Math.round(fraction*100)+'.png'});
+                    const a=await sharp(fullImages.get(fraction)).removeAlpha().raw().toBuffer(),b=await sharp(reverseFull).removeAlpha().raw().toBuffer();
+                    assert.equal(a.length,b.length);let delta=0;for(let i=0;i<a.length;i++)if(Math.abs(a[i]-b[i])>3)delta++;
+                    assert(delta<a.length*.001,'reversible entire composition');
+                  }
                   if(fraction===0||fraction===.5){
                     const reverse=await camera.screenshot({style:captureStyle,path:'/tmp/threshold-evidence/reverse-'+width+'-'+Math.round(fraction*100)+'.png'});
                     const a=await sharp(forwardImages.get(fraction)).removeAlpha().raw().toBuffer(),b=await sharp(reverse).removeAlpha().raw().toBuffer();
@@ -324,6 +342,12 @@ jobs:
                 states.push(state);
               }
               assert.equal(states[0].mask,identity);assert.equal(states.at(-1).mask,identity);
+              assert.equal(states[0].markOpacity,1);assert.equal(states[0].copyOpacity,1);
+              assert(states[1].markTop<states[0].markTop&&states[1].markOpacity===1,'legible early rise');
+              assert(states[2].markOpacity>0&&states[2].markOpacity<1&&states[2].copyOpacity>0&&states[2].copyOpacity<1);
+              assert.equal(states[3].markOpacity,0);assert.equal(states[4].copyOpacity,0);assert.equal(states[4].footerOpacity,0);
+              assert(width/height>=1.2?states[2].copyLeft<states[0].copyLeft:states[2].copyTop>states[0].copyTop,'independently directed copy exit');
+              assert.equal(states.at(-1).copyOpacity,1);assert.equal(states.at(-1).markOpacity,1);
               assert(Math.abs(states[4].eye[0])<.000001&&states[4].eye[2]<states[0].eye[2]-4,'centered approach endpoint');
               assert.equal(states[0].progress,0);assert.equal(states[4].progress,1);assert.equal(states.at(-1).progress,0);
               for(let i=1;i<4;i++)assert.equal(states[i].progress,states[8-i].progress,'exact reversible native progress');
@@ -371,7 +395,7 @@ jobs:
                 await travel.screenshot({path:'/tmp/threshold-evidence/native-end-390.png'});
                 await travel.emulateMedia({reducedMotion:'reduce'});
                 await travel.waitForFunction(()=>document.documentElement.dataset.journey==='off'&&document.querySelector('#scene-study').dataset.reason==='reduced-motion');
-                assert(await travel.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'no empty travel in reduced motion');
+                assert(await travel.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2&&getComputedStyle(document.querySelector('.opening-copy')).opacity==='1'&&getComputedStyle(document.querySelector('.display-wordmark')).opacity==='1'),'no empty travel and readable static typography in reduced motion');
                 await travel.emulateMedia({reducedMotion:'no-preference'});
                 await travel.waitForFunction(()=>document.documentElement.dataset.journey==='on');
                 await measure(0);
@@ -477,12 +501,12 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T14b',verification:'T14b',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T15',verification:'T15',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-approach-preference-evidence
+          name: threshold-typography-evidence
           path: /tmp/threshold-evidence/

@@ -95,3 +95,16 @@ footer { inset-block-end: 0; pointer-events: none; display: flex; flex-wrap: wra
   :root[data-journey="on"] #journey { min-block-size: 0; }
   :root[data-journey="on"] .journey-stage { position: relative; }
 }
+
+/* T15: art-directed exits inside the existing stage. No extra scroll track.
+   Individual translate composes with the authored desktop centering transform.
+   Clip only main, not the sticky ancestor or keyboard focusable navigation. */
+:root[data-journey="on"] main { overflow: clip; }
+.display-wordmark { translate: 0 var(--mark-rise, 0px); opacity: var(--mark-opacity, 1); }
+.opening-copy { translate: var(--copy-x, 0px) var(--copy-y, 0px); opacity: var(--copy-opacity, 1); }
+footer { opacity: var(--footer-opacity, 1); }
+.masthead { text-shadow: 0 1px 4px #090909, 0 0 12px #090909; }
+@media (prefers-reduced-motion: reduce) {
+  .display-wordmark, .opening-copy { translate: none; opacity: 1; }
+  footer { opacity: 1; }
+}

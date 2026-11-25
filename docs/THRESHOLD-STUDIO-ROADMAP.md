@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01–T13 verified; T14a keyboard gate passed, ambient reduced-motion gate failed; T14b corrective verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01–T14 verified; T15 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -58,7 +58,7 @@ HARD GATE: opening must be exceptional on desktop and portrait and explicitly ac
 
 ### Phase 3 — Crossing (T13–T18)
 - [x] T13 — Deterministic native-scroll engine and reachable progress endpoints; pure tests.
-- [ ] T14 — Continuous camera approach toward portal; projected scale, path and clearance tests.
+- [x] T14 — Continuous camera approach toward portal; projected scale, path and clearance tests.
 - [ ] T15 — Spatial typography exit; preserve legibility before intentional exit.
 - [ ] T16 — Physical passage through portal; near-plane and geometry clearance checks.
 - [ ] T17 — Reveal bone-white environment through opening; no unrelated scene swap.
@@ -280,3 +280,6 @@ T14 revision ee2acd6f1d56460a468c6d2da70439b90d97f46d: nineteen Node tests and P
 
 ## T14b — Reduced-motion fallback defense
 T14a exact revision 6c06363c52855d1e72362d916506ff3fd7daffc5: all nineteen Node tests and Pages 45697264882 passed. Browser 45697265176 confirmed settled native Home/End and exact renderer endpoints for all five configurations, including 844×390 (offset 1560 then 0). Every approach/reverse test passed; native keyboard blocker resolved. Ambient test also measured 69,112 changed pixels and maximum channel delta 12. However, the run failed later at eval line 381 waiting for the live ambient route to enter reduced-motion fallback after media emulation; no failure-state diagnostic existed. Artifact 15060304891 contains partial evidence. The specific cause of that timeout is not established. Existing eligibility checks could silently reject a frame if the preference becomes true before the MediaQueryList change callback is delivered. Defensively ensure the same static fallback when scheduler eligibility observes reduced motion; idempotent guard avoids repeated work, no new listeners/timers/schedulers, no changes to camera/path/geometry/visual style. Keep all native input and pixel tests; independently test actual media preference, canvas hidden/fallback visible and capture structured preference state/event diagnostics on failure. Version runtime T14b. T14 remains unverified pending exact-revision full browser result; T15 held. No shared or gallery changes.
+
+## T15 — Spatial typography exit
+T14b exact revision 678e0e11e4f5238c21785e2028063a29dd1e1097: nineteen Node tests, full browser 45697728287 and Pages 45697727794 succeeded (artifact 15060893957). Native Home/End, ambient reduced-motion switching, reversal and recovery all passed. T14 closed. User approved the camera approach. T15 uses one stateless progress mapping on the existing draw scheduler: preserve opening through .12; mark rises .12–.65 with opacity held through .28; copy retreats left in wide or downward in portrait .28–.76, opacity held through .36; small footer recedes .46–.76 while header navigation remains. No separate animation clock or CSS transition, no world geometry/camera/material changes, no timeline. Main clips displaced visual overflow without clipping sticky ancestor or header. Wordmark mask is recalculated against transformed SVG bounds using the exact camera VP, removed once fully transparent. Reset all typography in static fallback; semantic h1 remains in document. Actual authored pure mapping checked at 6,006 samples in six layout configurations; two new Node tests plus five-viewport actual motion, bounds, complete composition forward/reverse captures and static restore verification added. Exact T15 CI and rendered inspection pending; physical crossing T16 after gate. No catalogue/shared changes.
