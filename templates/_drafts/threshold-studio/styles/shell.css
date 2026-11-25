@@ -40,7 +40,7 @@ footer { inset-block-end: 0; pointer-events: none; display: flex; flex-wrap: wra
 @media (max-width: 899px) and (min-aspect-ratio: 6/5), (max-height: 479px) and (min-aspect-ratio: 6/5) {
   main { min-block-size: max(330px, 100vh); min-block-size: max(330px, 100svh); }
   .scene-fallback > .fallback-portrait { display: none; }
-  .scene-fallback > .fallback-wide { display: block; inset: 0 0 0 auto; width: 68%; }
+  .scene-fallback > .fallback-wide { display: block; inset: 0; width: 100%; }
   .display-wordmark { inset-inline-start: 5%; inset-block-start: max(63px, 16%); width: 35%; height: 13%; }
   .opening-copy { inset-inline-start: max(5vw, env(safe-area-inset-left)); inset-inline-end: auto; inset-block-start: 57%; inset-block-end: auto; transform: translateY(-50%); width: 33%; }
   .opening-copy h1 { font-size: clamp(1.5rem, 4vw, 2.25rem); margin-block: .45rem; }
@@ -55,7 +55,7 @@ footer { inset-block-end: 0; pointer-events: none; display: flex; flex-wrap: wra
   .masthead { padding-block: max(.75rem, env(safe-area-inset-top)) .75rem; }
   .gallery-link { font-size: .75rem; }
   .scene-fallback > .fallback-portrait { display: none; }
-  .scene-fallback > .fallback-wide { display: block; inset: 0 0 0 auto; width: 68%; }
+  .scene-fallback > .fallback-wide { display: block; inset: 0; width: 100%; }
   .display-wordmark { inset-inline-start: 4%; inset-block-start: 12%; width: 92%; height: 17%; }
   .opening-copy { inset-inline-start: max(5vw, env(safe-area-inset-left)); inset-inline-end: auto; inset-block-start: 56%; inset-block-end: auto; transform: translateY(-50%); width: 30%; max-width: 30rem; }
   .opening-copy h1 { font-size: clamp(2rem, min(4.2vw, 7.5vh), 5rem); line-height: .98; margin-block: .9rem 1.15rem; }
@@ -65,4 +65,14 @@ footer { inset-block-end: 0; pointer-events: none; display: flex; flex-wrap: wra
   footer { padding-block: 1rem max(1.4rem, env(safe-area-inset-bottom)); }
   .chapter-label { font-size: .72rem; letter-spacing: .12em; }
   .concept-label { font-size: .7rem; }
+}
+
+/* T12 editorial refinements: no panel behind copy and no added layout overlay. */
+.opening-copy { text-shadow: 0 1px 5px #090909, 0 2px 12px #090909; }
+.opening-copy .studio, .studio-description { color: #d1cec8; }
+.concept-label { color: #c2bfba; }
+@media (min-width: 900px) and (min-height: 480px) and (min-aspect-ratio: 6/5) {
+  .opening-copy h1 { font-size: clamp(2rem, min(4.65vw, 8vh), 5.3rem); }
+  .studio-description { font-size: .93rem; max-width: 30ch; }
+  .wordmark { font-size: 1rem; }
 }

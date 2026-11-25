@@ -1,8 +1,8 @@
-import {openingPose,multiply} from './camera.js?v=T11';
-import {buildStudy} from './geometry.js?v=T11';
-import {bufferSize} from './lifecycle.js?v=T11';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T11';
-import {LIGHTING_GLSL} from './lighting.js?v=T11';
+import {openingPose,multiply} from './camera.js?v=T12';
+import {buildStudy} from './geometry.js?v=T12';
+import {bufferSize} from './lifecycle.js?v=T12';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T12';
+import {LIGHTING_GLSL} from './lighting.js?v=T12';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -35,13 +35,25 @@ void main(){
   vec3 lightRay=source-world;
   float incidence=.28+.72*max(dot(n,lightRay/max(length(lightRay),.001)),0.0);
   // Obsidian remains near black; modest directional key makes the mass legible.
-  vec3 dark=color*(.42+.43*diffuse)+vec3(.012,.014,.018)+vec3(.24,.035,.014)*spill*incidence;
+  vec3 view=normalize(uViewEye-world);
+  vec3 halfVector=normalize(key+view);
+  float satin=pow(max(dot(n,halfVector),0.0),18.0);
+  float contact=1.0-.32*exp(-max(world.y,0.0)*3.2);
+  float front=step(.85,abs(n.z))*exp(-abs(world.z)*3.0);
+  float edgeDistance=min(abs(abs(world.x)-3.0),abs(world.y-7.2));
+  float arris=front*exp(-edgeDistance*45.0)*step(abs(world.x),3.06)*step(world.y,7.26);
+  // A restrained satin response and contact darkening give the black mass definition.
+  vec3 dark=(color*(.48+.52*diffuse)+vec3(.012,.014,.018)+vec3(.035,.036,.040)*satin
+    +vec3(.24,.035,.014)*spill*incidence)*contact+vec3(.065,.056,.052)*arris;
   // The red cut is self-luminous, with a recessed falloff along depth and
   // a subtle lip highlight, not a screen-space glow.
   float recess=clamp((-world.z)/6.0,0.0,1.0);
   float lip=exp(-abs(world.z)*2.0);
   float vertical=.90+.10*sin(clamp(world.y/6.0,0.0,1.0)*3.14159265);
-  vec3 luminous=vec3(.98,.235,.10)*mix(1.0,.60,recess)*vertical+vec3(.02,.065,.04)*lip;
+  float innerContact=1.0-.14*exp(-max(world.y,0.0)*2.8);
+  float innerArris=exp(-min(abs(world.y-6.0),abs(abs(world.x)-2.4))*18.0);
+  vec3 luminous=(vec3(.98,.235,.10)*mix(1.0,.60,recess)*vertical+vec3(.02,.065,.04)*lip
+    +vec3(.025,.016,.009)*innerArris)*innerContact;
   // The distant ivory room retains readable light values and modest warmth.
   vec3 ivory=color*(.81+.17*diffuse)+vec3(.055,.027,.012)*spill;
   vec3 result=mix(mix(dark,ivory,isIvory),luminous*intensity,isRed);
@@ -68,7 +80,7 @@ void main(){
   vec3 ray=uEye-world;
   float distanceToEye=length(ray);
   float grazing=1.0-clamp(normalize(ray).y,0.0,1.0);
-  float roughness=1.2+clamp(distanceToEye*.16,0.0,3.6);
+  float roughness=2.2+clamp(distanceToEye*.27,0.0,5.2);
   vec2 stepSize=uTexel*roughness;
   vec3 base=vec3(.105,.108,.115);
   if(uLighting>.5){
@@ -80,7 +92,9 @@ void main(){
   c+=(texture(uReflection,uv+vec2(0,stepSize.y)).rgb+texture(uReflection,uv-vec2(0,stepSize.y)).rgb)*.12;
   c+=(texture(uReflection,uv+stepSize).rgb+texture(uReflection,uv-stepSize).rgb+texture(uReflection,uv+vec2(stepSize.x,-stepSize.y)).rgb+texture(uReflection,uv+vec2(-stepSize.x,stepSize.y)).rgb)*.07;
   float edge=smoothstep(0.0,.025,min(min(uv.x,1.0-uv.x),min(uv.y,1.0-uv.y)));
-  float strength=uEnabled*edge*(.18+.47*pow(grazing,2.0))*exp(-distanceToEye*.025);
+  // Reflection fades towards the viewer instead of competing with lower copy.
+  float nearFade=mix(1.0,.58,smoothstep(4.0,13.0,world.z));
+  float strength=uEnabled*edge*(.15+.42*pow(grazing,2.0))*exp(-distanceToEye*.025)*nearFade;
   // Graphite finish; this is an artistic color-space mix, not a calibrated BRDF.
   vec3 finish=mix(base,c,strength);
   if(uLighting>.5)finish=haze(finish,distanceToEye,.35);

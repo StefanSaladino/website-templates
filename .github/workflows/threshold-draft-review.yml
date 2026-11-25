@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T11');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T12');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -100,12 +100,13 @@ jobs:
                   await occluder.evaluate((el,p)=>el.setAttribute('points',p),points);
                   const a=await sharp(masked).removeAlpha().raw().toBuffer({resolveWithObject:true}),b=await sharp(unmasked).removeAlpha().raw().toBuffer({resolveWithObject:true});
                   assert.equal(a.info.width,b.info.width);assert.equal(a.info.height,b.info.height);
-                  let changes=0,upperChanges=0;
+                  let changes=0,upperChanges=0,protectedChanges=0;
                   for(let y=0;y<a.info.height;y++)for(let x=0;x<a.info.width;x++){
                     const i=(y*a.info.width+x)*a.info.channels;
-                    if(Math.max(Math.abs(a.data[i]-b.data[i]),Math.abs(a.data[i+1]-b.data[i+1]),Math.abs(a.data[i+2]-b.data[i+2]))>16){changes++;if(y<a.info.height*.65)upperChanges++}
+                    if(Math.max(Math.abs(a.data[i]-b.data[i]),Math.abs(a.data[i+1]-b.data[i+1]),Math.abs(a.data[i+2]-b.data[i+2]))>16){changes++;if(y<a.info.height*.65)upperChanges++;if(y<a.info.height*.74)protectedChanges++}
                   }
-                  console.log('Wordmark occlusion',{changes,upperChanges});
+                  console.log('Wordmark occlusion',{changes,upperChanges,protectedChanges});
+                  assert(protectedChanges<Math.max(20,changes*.01),'more of each glyph preserved');
                   assert(changes>100&&upperChanges<Math.max(20,changes*.01),'real lower-glyph occlusion with intact upper letters');
                 }
                 console.log('Desktop composition',width,layout);
@@ -285,6 +286,16 @@ jobs:
             }
             console.log('Ambient pixel change',{changed,maxDelta});
             assert(changed>100&&maxDelta<=26,'subtle actual illumination motion');
+            // Ordered actual render frames for review; active clock samples, not invented video.
+            const motionFrames=[];
+            for(let i=0;i<6;i++){
+              const phase=Number(await movingStage.getAttribute('data-ambient-elapsed'));
+              const name='motion-'+String(i).padStart(2,'0')+'.png';
+              await moving.screenshot({path:'/tmp/threshold-evidence/'+name});
+              motionFrames.push({name,activeTime:phase,frames:Number(await movingStage.getAttribute('data-frames'))});
+              await moving.waitForTimeout(350);
+            }
+            writeFileSync('/tmp/threshold-evidence/motion-frames.json',JSON.stringify(motionFrames,null,2));
             await moving.emulateMedia({reducedMotion:'reduce'});
             await moving.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='reduced-motion');
             const frozen=Number(await movingStage.getAttribute('data-ambient-elapsed')),frozenFrames=await movingStage.getAttribute('data-frames');
@@ -326,12 +337,12 @@ jobs:
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T11',verification:'T11',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T12',verification:'T12',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-mobile-evidence
+          name: threshold-opening-review-evidence
           path: /tmp/threshold-evidence/

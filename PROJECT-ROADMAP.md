@@ -879,3 +879,6 @@ T09 exact browser 45693686179 and Pages 45693685608 passed; identity evidence 15
 
 ## THRESHOLD — T11 independent responsive opening
 T10 exact browser 45694103025 and Pages 45694101736 passed; actual ambient comparison artifact 15059319342 inspected (70,868 changed pixels; max 11/255). Full-bleed portrait/tablet and compact landscape, independent opening pose, unmasked mobile wordmark, safe-area copy/nav, distinct static fallback. Desktop mask/pose and light/geometry/ambient budget preserved. Fifteen Node tests and full responsive captures/layout/pixel/fallback checks pending exact T11 revision. T12 hard visual gate next; no gallery/shared changes.
+
+## THRESHOLD — T12 opening review candidate
+T11 exact browser 45694638863 and Pages 45694634104 passed; actual responsive captures inspected. Correct excessive glyph mask, flat material response, overly sharp floor reflection, portrait copy contrast and boxed wide fallback. Preserve pose, architecture and all GPU budgets. Exact T12 browser/visual evidence pending; stakeholder approval required before T13. No catalogue/shared changes.

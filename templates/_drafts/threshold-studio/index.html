@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-release="T11">
+<html lang="en" data-release="T12">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#090909">
   <meta name="description" content="THRESHOLD — an independent digital experience studio concept.">
   <title>THRESHOLD — Beyond the ordinary</title>
-  <link rel="stylesheet" href="styles/base.css?v=T11">
-  <link rel="stylesheet" href="styles/shell.css?v=T11">
-  <script type="module" src="src/main.js?v=T11"></script>
+  <link rel="stylesheet" href="styles/base.css?v=T12">
+  <link rel="stylesheet" href="styles/shell.css?v=T12">
+  <script type="module" src="src/main.js?v=T12"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -21,7 +21,7 @@
     <div class="opening">
       <svg class="display-wordmark" viewBox="0 0 1000 155" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         <defs>
-          <clipPath id="wordmark-depth-band"><rect x="0" y="103" width="1000" height="52"/></clipPath>
+          <clipPath id="wordmark-depth-band"><rect x="0" y="117" width="1000" height="38"/></clipPath>
           <mask id="wordmark-depth" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="155">
             <rect width="1000" height="155" fill="white"/>
             <polygon id="wordmark-occluder" fill="black" clip-path="url(#wordmark-depth-band)" points=""/>
@@ -37,17 +37,27 @@
       <figure id="scene-study" class="scene-study" data-renderer="static" data-frames="0">
         <div class="scene-surface">
           <div class="scene-fallback" role="img" aria-label="Static architectural study of a deep red passage cut through a black wall">
-          <svg class="fallback-wide" viewBox="0 0 640 360" aria-hidden="true" focusable="false">
-            <rect width="640" height="360" fill="#111316"/>
-            <path d="M0 270H640V360H0Z" fill="#27292b"/>
-            <path d="M0 28H640V270H0Z" fill="#17191c"/>
-            <path d="M205 45H448V270H205Z" fill="#303137"/>
-            <path d="M229 82H424V270H229Z" fill="#c92e1d"/>
-            <path d="M258 104H395V250H258Z" fill="#83201a"/>
-            <path d="M280 126H373V250H280Z" fill="#302e2b"/>
-            <path d="M288 131H318V246H288Z M358 131H373V246H358Z M288 126H373V145H288Z" fill="#b2aea1"/>
-            <path d="M229 270L258 250H395L424 270Z" fill="#454345"/>
-            <path d="M88 25H108V280H88Z" fill="#26272b"/>
+          <svg class="fallback-wide" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="static-ground" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#211e20"/><stop offset="1" stop-color="#101113"/></linearGradient>
+              <linearGradient id="static-inner" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff4932"/><stop offset="1" stop-color="#8c2018"/></linearGradient>
+              <linearGradient id="static-reflection" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ab392b" stop-opacity=".42"/><stop offset="1" stop-color="#ab392b" stop-opacity="0"/></linearGradient>
+            </defs>
+            <rect width="1000" height="600" fill="#111215"/>
+            <path d="M0 425H1000V600H0Z" fill="url(#static-ground)"/>
+            <path d="M0 0H1000V425H0Z" fill="#161619"/>
+            <path d="M300 0H322V437L300 451Z" fill="#232429"/>
+            <path d="M495 58L854 77V446L495 425Z" fill="#272426"/>
+            <path d="M495 58L507 69L845 86L854 77Z" fill="#363136"/>
+            <path d="M524 104L822 117V444L524 427Z" fill="url(#static-inner)"/>
+            <path d="M524 104L569 139L770 149L822 117Z" fill="#e6462f"/>
+            <path d="M524 104L569 139V404L524 427Z" fill="#92281d"/>
+            <path d="M770 149L822 117V444L770 404Z" fill="#c92d1f"/>
+            <path d="M569 139L770 149V404L569 397Z" fill="#8f2a1e"/>
+            <path d="M593 165L745 172V404L593 397Z" fill="#aaa598"/>
+            <path d="M626 199L705 202V404L626 400Z" fill="#151619"/>
+            <path d="M524 427L569 397L770 404L822 444Z" fill="#403839"/>
+            <path d="M524 427L822 444L875 585L470 560Z" fill="url(#static-reflection)"/>
           </svg>
           <svg class="fallback-portrait" viewBox="0 0 400 800" preserveAspectRatio="none" aria-hidden="true" focusable="false">
             <rect width="400" height="800" fill="#101113"/>
