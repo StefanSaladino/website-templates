@@ -327,11 +327,41 @@ jobs:
               assert(Math.abs(states[4].eye[0])<.000001&&states[4].eye[2]<states[0].eye[2]-4,'centered approach endpoint');
               assert.equal(states[0].progress,0);assert.equal(states[4].progress,1);assert.equal(states.at(-1).progress,0);
               for(let i=1;i<4;i++)assert.equal(states[i].progress,states[8-i].progress,'exact reversible native progress');
-              // Native keyboard scrolling, no interception, no substitute scroll track.
-              await travel.keyboard.press('End');
-              await travel.waitForFunction(()=>Number(document.querySelector('#scene-study').dataset.progress)===1);
-              await travel.keyboard.press('Home');
-              await travel.waitForFunction(()=>Number(document.querySelector('#scene-study').dataset.progress)===0);
+              // Observe native keyboard scroll and renderer progress independently.
+              // End can report its final rounded position before Chromium has ended
+              // its keyboard scroll animation. Require a settled native endpoint
+              // before sending the opposite key; retain the original exact checks.
+              async function keyboardEndpoint(key,expected){
+                await travel.evaluate(()=>document.activeElement?.blur());
+                await travel.keyboard.press(key);
+                try{
+                  await travel.waitForFunction(target=>{
+                    const s=document.scrollingElement;
+                    return target===0?s.scrollTop===0:Math.abs(s.scrollTop-(s.scrollHeight-s.clientHeight))<=.5;
+                  },expected,{timeout:10000});
+                  await travel.waitForFunction(target=>Number(document.querySelector('#scene-study').dataset.progress)===target,expected,{timeout:10000});
+                  // Give the compositor's native keyboard animation time to finish,
+                  // then confirm neither the scroll position nor sampled pose changes.
+                  await travel.waitForTimeout(350);
+                  const settled=await travel.evaluate(()=>{
+                    const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;
+                    return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,progress:Number(d.progress),eye:d.eye,focus:document.activeElement?.tagName,visibility:document.visibilityState};
+                  });
+                  assert.equal(settled.progress,expected);
+                  assert(Math.abs(settled.offset-expected*settled.range)<=.5);
+                  console.log('Native keyboard endpoint',width,key,settled);
+                }catch(error){
+                  const state=await travel.evaluate(()=>{
+                    const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;
+                    return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,dataset:{...d},focus:document.activeElement?.outerHTML?.slice(0,500),visibility:document.visibilityState,journey:document.documentElement.dataset.journey,scrollBehavior:getComputedStyle(s).scrollBehavior};
+                  });
+                  writeFileSync('/tmp/threshold-evidence/keyboard-failure-'+width+'-'+key+'.json',JSON.stringify({width,height,key,expected,state},null,2));
+                  await travel.screenshot({path:'/tmp/threshold-evidence/keyboard-failure-'+width+'-'+key+'.png'});
+                  console.error('Keyboard diagnostic',width,key,state);throw error;
+                }
+              }
+              await keyboardEndpoint('End',1);
+              await keyboardEndpoint('Home',0);
               if(width===390){
                 await travel.mouse.wheel(0,420);
                 await travel.waitForFunction(()=>Number(document.querySelector('#scene-study').dataset.progress)>0);
@@ -425,12 +455,12 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T14',verification:'T14',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T14',verification:'T14a',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-approach-evidence
+          name: threshold-approach-keyboard-evidence
           path: /tmp/threshold-evidence/
