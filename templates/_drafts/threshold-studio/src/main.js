@@ -1,11 +1,11 @@
-import {RELEASE} from './config.js?v=T17';
-import {createRenderer} from './renderer.js?v=T17';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T17';
-import {createScheduler} from './lifecycle.js?v=T17';
-import {wordmarkOcclusion} from './wordmark.js?v=T17';
-import {createAmbientClock} from './ambient.js?v=T17';
-import {readProgress} from './scroll.js?v=T17';
-import {typographyPose} from './typography.js?v=T17';
+import {RELEASE} from './config.js?v=T19';
+import {createRenderer} from './renderer.js?v=T19';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T19';
+import {createScheduler} from './lifecycle.js?v=T19';
+import {wordmarkOcclusion} from './wordmark.js?v=T19';
+import {createAmbientClock} from './ambient.js?v=T19';
+import {readProgress} from './scroll.js?v=T19';
+import {typographyPose} from './typography.js?v=T19';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -45,7 +45,7 @@ function start(){
   setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
-  function staticView(reason){clock.pause();applyTypography(0,1,1);if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
+  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   // A preference change can become visible to the frame scheduler before the
   // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
   function eligible(){
@@ -73,6 +73,8 @@ function start(){
       setJourney(journeyRequested&&!reduced.matches);
       if(wasActive!==journeyActive)invalidate();
       study.dataset.progress=progress.toFixed(6);
+      // The navigation adopts ink only after the camera has cleared the red throat.
+      stage.dataset.room=pose.eye[2]<=-7.2?'perspective':'arrival';
       study.dataset.eye=pose.eye.map(v=>v.toFixed(6)).join(',');
       study.dataset.fov=pose.fov.toFixed(6);
       study.dataset.frames=String(++frames);

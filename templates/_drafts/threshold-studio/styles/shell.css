@@ -114,3 +114,12 @@ footer { opacity: var(--footer-opacity, 1); }
 .type-window { position: absolute; inset: 0; pointer-events: none;
   clip-path: inset(var(--type-top, 0px) 0 var(--type-bottom, 0px) 0); }
 .opening-copy { pointer-events: auto; }
+
+/* T19 gallery navigation is ink on stone, not light text with a heavy halo. */
+.journey-stage[data-room="perspective"] .masthead {
+  color: #242321;
+  text-shadow: none;
+}
+.journey-stage[data-room="perspective"] .masthead :focus-visible {
+  outline-color: #242321;
+}

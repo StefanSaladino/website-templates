@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T17');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T19');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -67,7 +67,7 @@ jobs:
               await stage.scrollIntoViewIfNeeded();
               await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
               const [bw,bh]=(await stage.getAttribute('data-buffer')).split('x').map(Number);
-              assert(bw*bh<=1500000);assert.equal(await stage.getAttribute('data-triangles'),'230');
+              assert(bw*bh<=1500000);assert.equal(await stage.getAttribute('data-triangles'),'302');
               const [rw,rh]=(await stage.getAttribute('data-reflection-buffer')).split('x').map(Number);
               assert(rw*rh<=375000&&rw<=1024&&rh<=1024);
               assert(rw<=Math.max(1,bw*.5)&&rh<=Math.max(1,bh*.5));
@@ -448,7 +448,7 @@ jobs:
               await handle.dispose();await page.close();
             }
             writeFileSync('/tmp/threshold-evidence/crossing.json',JSON.stringify(crossingEvidence,null,2));
-            // T17 actual room emergence; inspect pixels as well as physical position.
+            // T19 actual room emergence; inspect pixels as well as physical position.
             const revealEvidence=[];
             for(const [width,height] of [[320,568],[390,844],[768,1024],[1440,900],[844,390]]){
               const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
@@ -497,6 +497,16 @@ jobs:
               assert(states.slice(0,fractions.length).some(s=>s.eye[2]<-6),'crossed real room boundary');
               assert(end.ivory>.35&&end.ivory>states[0].ivory+.18,'substantial ivory material visible');
               assert(end.red<.01,'no red portal in forward view inside room');
+              // At the actual endpoint, navigation ink must contrast with the light room.
+              await page.evaluate(()=>{const s=document.scrollingElement;s.scrollTop=s.scrollHeight-s.clientHeight});
+              await page.waitForFunction(()=>+document.querySelector('#scene-study').dataset.progress===1);
+              assert.equal(await page.locator('.journey-stage').getAttribute('data-room'),'perspective');
+              assert.equal(await page.locator('.masthead').evaluate(el=>getComputedStyle(el).color),'rgb(36, 35, 33)');
+              assert.equal(await page.locator('.masthead').evaluate(el=>getComputedStyle(el).textShadow),'none');
+              await page.screenshot({path:'/tmp/threshold-evidence/perspective-'+width+'-'+height+'.png'});
+              await page.evaluate(()=>{document.scrollingElement.scrollTop=0});
+              await page.waitForFunction(()=>+document.querySelector('#scene-study').dataset.progress===0);
+              assert.equal(await page.locator('.journey-stage').getAttribute('data-room'),'arrival');
               assert.equal(states.at(-1).p,0);assert.deepEqual(errors,[]);
               revealEvidence.push({width,height,states});await handle.dispose();await page.close();
             }
@@ -598,14 +608,14 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T17',verification:'T17',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T19',verification:'T19',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-ivory-reveal-evidence
+          name: threshold-perspective-architecture-evidence
           path: /tmp/threshold-evidence/
 
   transition:
@@ -634,5 +644,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-T18-transition-evidence
+          name: threshold-T19-transition-evidence
           path: /tmp/threshold-transition/

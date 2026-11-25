@@ -1,8 +1,8 @@
-import {openingPose,multiply} from './camera.js?v=T17';
-import {buildStudy} from './geometry.js?v=T17';
-import {bufferSize} from './lifecycle.js?v=T17';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T17';
-import {LIGHTING_GLSL} from './lighting.js?v=T17';
+import {openingPose,multiply} from './camera.js?v=T19';
+import {buildStudy} from './geometry.js?v=T19';
+import {bufferSize} from './lifecycle.js?v=T19';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T19';
+import {LIGHTING_GLSL} from './lighting.js?v=T19';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -71,7 +71,15 @@ void main(){
     +vec3(.025,.016,.009)*innerArris)*innerContact*(1.0-.12*throatJoint);
   // The distant ivory room retains readable light values and modest warmth.
   vec3 roomLight=vec3(.095,.094,.088)*smoothstep(6.0,7.2,-world.z);
-  vec3 ivory=color*(.90+.20*diffuse)+vec3(.055,.027,.012)*spill+roomLight;
+  // Separate local gallery key from the red entrance key. It is fixed in world space.
+  float gallery=smoothstep(6.0,7.2,-world.z);
+  vec3 galleryRay=normalize(vec3(-3.5,9.2,-12.5)-world);
+  float galleryDiffuse=.35+.65*max(dot(n,galleryRay),0.0);
+  float galleryContact=1.0-.13*exp(-max(world.y,0.0)*3.0);
+  vec3 galleryStone=(color*(.79+.20*galleryDiffuse)+vec3(.115,.112,.105))*galleryContact;
+  // Material-scale tonal variation, restrained enough not to resemble noisy render textures.
+  galleryStone+=vec3(.007,.007,.006)*sin(world.x*3.1+world.z*2.3)*sin(world.y*3.7+world.z*.8);
+  vec3 ivory=mix(color*(.90+.20*diffuse)+vec3(.055,.027,.012)*spill+roomLight,galleryStone,gallery);
   vec3 result=mix(mix(dark,ivory,isIvory),luminous*intensity,isRed);
   result=haze(result,length(uViewEye-world),mix(.55,.18,isRed));
   outColor=vec4(clamp(result,0.0,1.0),1.0);
@@ -104,7 +112,13 @@ void main(){
   if(uLighting>.5){
     float spill=floorSpill(world)*ambientIntensity(world,uAmbientPhase);
     base=vec3(.069,.073,.080)+vec3(.17,.025,.009)*spill;
-    vec3 limestone=vec3(.64,.625,.585)+vec3(.014,.014,.013)*sin(world.x*5.0)*sin(world.z*4.0);
+    vec3 limestone=vec3(.69,.675,.635)+vec3(.008,.008,.007)*sin(world.x*1.8+world.z*.6)*sin(world.z*2.2);
+    // Long limestone slabs, world-space fine joints; filtered with derivatives.
+    vec2 grid=abs(fract(vec2(world.x/3.0,(-world.z-6.65)/4.2)+.5)-.5)*vec2(3.0,4.2);
+    float seam=min(grid.x,grid.y);
+    float seamAA=clamp(fwidth(seam),.002,.035);
+    float mortar=1.0-smoothstep(.012,.012+seamAA,seam);
+    limestone-=vec3(.032,.031,.028)*mortar;
     base=mix(base,limestone,stone);
   }
   vec3 c=texture(uReflection,uv).rgb*.24;

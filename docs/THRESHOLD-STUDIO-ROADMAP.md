@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01–T17 verified; T18 audit implemented, exact-revision evidence pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01–T18 verified; T19 implemented, exact-revision verification pending. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -62,7 +62,7 @@ HARD GATE: opening must be exceptional on desktop and portrait and explicitly ac
 - [x] T15 — Spatial typography exit; preserve legibility before intentional exit.
 - [x] T16 — Physical passage through portal; near-plane and geometry clearance checks.
 - [x] T17 — Reveal bone-white environment through opening; no unrelated scene swap.
-- [ ] T18 — Forward/reverse/intermediate audit, actual motion and rendered evidence.
+- [x] T18 — Forward/reverse/intermediate audit, actual motion and rendered evidence.
 Gate: feels like traversing one actual space; no jumps, awkward clipped states or reset.
 
 ### Phase 4 — Perspective (T19–T23)
@@ -292,3 +292,6 @@ T16 exact revision 6b5a8cebe18e2f6dc5914c04998b9be09234fc86: 23 Node tests, full
 
 ## T18 — Connected transition audit
 T17 exact revision f0d805e180bfaad9f3bb8977a9607db407675f11: all 25 Node tests, full browser 45699898980 and Pages 45699897832 passed. Downloaded artifact 15062039191; report and five reveal sequences inspected, actual desktop/portrait contact sheet reviewed. End ivory coverage ranged 36.9%–73.2% across five viewports; zero red pixels by endpoint under defined classifier. T17 verified. Current gallery is deliberately a shell; portrait far exit dominates the frame at 92–100%, floor and walls plain, and header shadow conspicuous against light architecture. Address at T19–T23, not a camera/geometry failure. Dense numerical audit of actual T17 path at 36,009 poses across nine sizes: minimum solid clearance 2.3161, max adjacent eye movement .00947 world units and max adjacent aim-direction angle .01467 degrees at 1/4000 progress. Typography fully gone by .24625, portal entrance .5245–.54925, ivory entrance .77225. T18 adds independent parallel browser job preserving all prior regression coverage. Three viewports, 21 uniform offsets plus ±2 pixel samples near six transition landmarks, actual full-composition forward/reverse pixel checks and canvas identity, native wheel traversal both ways with real WebM recordings and render trace; report saved incrementally. Runtime remains byte-identical T17, so no version bump or creative changes; audit revision tracked by commit. T18 exact browser/video review pending, do not infer physical-device frame cadence from software rendering or video capture. T19 after evidence. No shared/catalogue changes.
+
+## T19 — Perspective architectural development
+T18 exact revision 8a4f089301e590c46cb485f877456ebc9f7cb8d1: foundation and independent transition jobs 45700523898 plus Pages 45700523328 passed. Downloaded transition artifact 15063750687; report verified 39 portrait, 39 desktop, 38 landscape native offsets (116 reverse comparisons), max reverse changed fraction 0 at threshold, traces 33/32/32 updates. Actual native browser WebM frame samples inspected; portrait far dark exit dominated the endpoint. T18 closed. T19 introduces six fixed architectural solids: staggered left/right stone returns, right deep fin and two overhead beams; no changes to entry portal, red throat, floor extent or main aisle. Total 25 solids, 302 triangles, same WebGL context and resource budgets. Gallery local key and understated material/grout response tied to world position, not camera palette changes. Reframe late reveal endpoint toward the right interior, independently wide/portrait; opening, approach and throat trajectory unchanged. Navigation ink darkens only after clearing throat; restored on reverse/static. Exact-source preflight 18,009 poses across nine sizes, minimum solid clearance 2.316, fin projects inside final view, correct mesh size. New geometry regression test and existing dense/reverse/native audit retained; new endpoint captures and navigation checks. Exact T19 CI and rendered review pending. Sculptures and their motion are T20/T21, editorial content T22; do not treat this as complete gallery. No shared/catalogue changes.

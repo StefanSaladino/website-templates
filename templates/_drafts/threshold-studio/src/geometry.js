@@ -1,6 +1,6 @@
 // T05 geometry preserved: one continuous architectural shell. All authored dimensions use (x,y,s).
 // Face colors are flat geometry-study identifiers, not the final light/material model.
-import {worldPoint} from './config.js?v=T17';
+import {worldPoint} from './config.js?v=T19';
 export const PORTAL=Object.freeze({width:6,height:7.2,clearWidth:4.8,clearHeight:6,depth:2});
 const coal=[.105,.11,.12], wing=[.055,.06,.068], red=[.80,.18,.115], redDeep=[.53,.105,.07], ivory=[.70,.68,.63], ivorySide=[.59,.57,.53];
 const solid=(id,min,max,color,faces={})=>({id,min,max,color,faces});
@@ -24,7 +24,15 @@ export function architecturalSolids(){
     solid('ivory-ceiling',[-9,10,6],[9,10.4,20],ivory),
     solid('ivory-far-left',[-9,0,20],[-2.8,6.5,20.4],ivory),
     solid('ivory-far-right',[2.8,0,20],[9,6.5,20.4],ivory),
-    solid('ivory-far-head',[-9,6.5,20],[9,10,20.4],ivory)
+    solid('ivory-far-head',[-9,6.5,20],[9,10,20.4],ivory),
+    // T19: asymmetrical stone architecture; all upright masses remain outside
+    // the central aisle and leave room for the future independent folded sculptures.
+    solid('perspective-left-return',[-9,0,9.8],[-5.8,8.8,10.35],[.74,.72,.67]),
+    solid('perspective-right-return',[5.65,0,12.9],[9,8.8,13.65],[.76,.74,.69]),
+    solid('perspective-left-deep-return',[-9,0,16.7],[-4.4,9.1,17.35],[.71,.69,.64]),
+    solid('perspective-right-fin',[3.45,0,16.65],[4.05,8.4,18.15],[.76,.74,.70]),
+    solid('perspective-ceiling-near',[-9,8.85,9.5],[9,10,10.2],[.70,.68,.64]),
+    solid('perspective-ceiling-deep',[-9,8.7,14.9],[9,10,15.5],[.73,.71,.67])
   ];
 }
 export function buildStudy(){
