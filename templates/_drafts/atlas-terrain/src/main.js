@@ -7,9 +7,9 @@
  * - Still view, reduced-motion, visibility suspension, and WebGL2 fallback handling
  */
 
-import { AtlasRenderer } from './renderer.js?v=14';
-import { createMotionController } from './motion.js?v=14';
-import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=14';
+import { AtlasRenderer } from './renderer.js?v=15';
+import { createMotionController } from './motion.js?v=15';
+import { CHAPTERS, VIEWPOINTS, getChapterForProgress } from './camera.js?v=15';
 
 const rootEl = document.documentElement;
 rootEl.classList.remove('atlas-no-js');
@@ -183,7 +183,8 @@ const motion = createMotionController({
   onFrame(progress, timeSec, yaw, pitch, isMoving) {
     if(isStaticLayoutMode()){updateDomForState(null,progress);return null;}
     try {
-      const state = renderer.render(progress, progress*14, yaw, pitch, isMoving);
+      const state = renderer.render(progress, progress*14+timeSec, yaw, pitch, isMoving);
+      stageEl.dataset.ambientTime=timeSec.toFixed(4);
       updateDomForState(state, progress);
       return state;
     } catch(error) {
@@ -197,6 +198,7 @@ const motion = createMotionController({
       return null;
     }
   },
+  onAmbientChange(active){stageEl.dataset.ambientRunning=String(active);},
   onSettleChange(isSettled) {
     stageEl.setAttribute('data-settled', isSettled ? 'true' : 'false');
   },
@@ -218,7 +220,7 @@ function updateControlStates() {
     qualityToggle.textContent = currentQuality === 'low' ? 'Standard detail' : 'High detail';
   }
 
-  motion.setPaused(isStillMode);
+  motion.setPaused(isStillMode||!hasWebgl||reducedMotionQuery.matches);
 }
 
 // Initialize renderer and prime initial frame
@@ -260,9 +262,11 @@ function onNativeScroll() {
 
 window.addEventListener('scroll', onNativeScroll, { passive: true });
 rootEl.dataset.atlasReady='true';
-window.addEventListener('pageshow',()=>{if(!isStaticLayoutMode()){motion.setVisible(!document.hidden);motion.setTargetProgress(getScrollProgress(),true);}});
+function syncMotionVisibility(){const rect=stageEl.getBoundingClientRect();motion.setVisible(!document.hidden&&rect.bottom>0&&rect.top<window.innerHeight&&rect.right>0&&rect.left<window.innerWidth);}
+window.addEventListener('pageshow',()=>{syncMotionVisibility();if(!isStaticLayoutMode())motion.setTargetProgress(getScrollProgress(),true);});
 window.addEventListener('resize', () => {
   const isMobile = window.innerWidth <= 820;
+  syncMotionVisibility();
   motion.setMobileRate(isMobile);
   motion.forceRedraw();
   updateDomForState(null, getScrollProgress());
@@ -270,14 +274,14 @@ window.addEventListener('resize', () => {
 
 // Offscreen & visibility suspension
 document.addEventListener('visibilitychange', () => {
-  motion.setVisible(!document.hidden);
+  syncMotionVisibility();
 });
 
 if ('IntersectionObserver' in window && trackEl) {
   const obs = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        motion.setVisible(entry.isIntersecting && !document.hidden);
+        syncMotionVisibility();
       }
     },
     { threshold: 0.01 }

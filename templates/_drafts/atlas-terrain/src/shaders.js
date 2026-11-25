@@ -13,6 +13,7 @@ uniform highp sampler3D uMistVolume;
 uniform vec3 uMistOrigin;
 uniform vec3 uMistExtent;
 uniform float uMistStrength;
+uniform float uMistTime;
 vec3 applyMist(vec3 scene,vec3 eye,vec3 ray,float surfaceDistance,vec3 sun,float golden){
   if(uMistStrength<.005||surfaceDistance<.1)return scene;
   vec3 safeRay=vec3(ray.x<0.?min(ray.x,-.00001):max(ray.x,.00001),
@@ -35,6 +36,8 @@ vec3 applyMist(vec3 scene,vec3 eye,vec3 ray,float surfaceDistance,vec3 sun,float
     vec3 point=eye+ray*(enter+(float(i)+.5)*dt);
     vec3 uv=(point-uMistOrigin)/uMistExtent;
     float density=texture(uMistVolume,uv).r;
+    // Gentle internal billow, anchored to world coordinates, no drifting through rock.
+    density*=.96+.04*sin(point.x*.12+point.z*.08+point.y*.32+uMistTime*.23);
     float opacity=1.-exp(-density*uMistStrength*.30*dt);
     float upper=smoothstep(.18,.84,uv.y);
     vec3 light=mix(underside,lit,clamp(upper*.72+sunward*.28,0.,1.));

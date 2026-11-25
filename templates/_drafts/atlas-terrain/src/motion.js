@@ -13,6 +13,8 @@ export function createMotionController(options) {
   const {
     onFrame,
     onSettleChange = () => {},
+    onAmbientChange = () => {},
+    clock = { now:()=>performance.now(), raf:fn=>requestAnimationFrame(fn), cancelRaf:id=>cancelAnimationFrame(id), timer:(fn,ms)=>setTimeout(fn,ms), cancelTimer:id=>clearTimeout(id) },
   } = options;
 
   let targetProgress = 0;
@@ -25,6 +27,8 @@ export function createMotionController(options) {
   let ambientTime = 0;
   let lastTickMs = 0;
   let lastAmbientDrawMs = 0;
+  let idleTimer=0;
+  let ambientReported=false;
   let rafId = 0;
   let settled = true;
   let dirty = true;
@@ -42,10 +46,44 @@ export function createMotionController(options) {
     onSettleChange(settled);
   }
 
-  function schedule() {
-    if (rafId || !visible) return;
-    lastTickMs = performance.now();
-    rafId = requestAnimationFrame(loop);
+  function canAnimate(){return visible&&!paused&&!reducedMotion&&!softwareThrottle&&ambientActive;}
+  function reportAmbient(next){
+    if(ambientReported!==next){ambientReported=next;onAmbientChange(next);}
+  }
+  function cancelIdle(){
+    if(idleTimer){clock.cancelTimer(idleTimer);idleTimer=0;}
+    lastAmbientDrawMs=0;reportAmbient(false);
+  }
+  function cancelFrame(){if(rafId){clock.cancelRaf(rafId);rafId=0;}}
+  function schedule(){
+    cancelIdle();
+    if(rafId||!visible||paused)return;
+    lastTickMs=clock.now();rafId=clock.raf(loop);
+  }
+  function scheduleAmbient(){
+    if(!canAnimate()){cancelIdle();return;}
+    if(idleTimer||rafId)return;
+    if(!lastAmbientDrawMs)lastAmbientDrawMs=clock.now();
+    reportAmbient(true);
+    const interval=mobileCap30?1000/12:1000/18;
+    idleTimer=clock.timer(()=>{
+      idleTimer=0;
+      if(!canAnimate()){cancelIdle();return;}
+      rafId=clock.raf(now=>{
+        rafId=0;
+        if(!canAnimate()){cancelIdle();return;}
+        // Freeze elapsed time across suspension and bound long-frame catch-up.
+        ambientTime+=clamp((now-lastAmbientDrawMs)*.001,0,.15);
+        lastAmbientDrawMs=now;
+        draw(false);
+        scheduleAmbient();
+      });
+    },interval);
+  }
+  function draw(isMoving){
+    const state=onFrame(currentProgress,ambientTime,currentYaw,currentPitch,isMoving);
+    ambientActive=Boolean(state?.ambientEligible);
+    return state;
   }
 
   function stepFollow(cur, tgt, dtSec, rate) {
@@ -57,7 +95,7 @@ export function createMotionController(options) {
 
   function loop(now) {
     rafId = 0;
-    if (!visible) return;
+    if (!visible||paused) return;
 
     const rawDt = (now - lastTickMs) * 0.001;
     lastTickMs = now;
@@ -89,35 +127,13 @@ export function createMotionController(options) {
       Math.abs(currentYaw - prevY) > 1e-6 ||
       Math.abs(currentPitch - prevX) > 1e-6;
 
-    // Gentle ambient water ripples & cloud drift only when visible, unpaused, and active in middle chapters
-    const shouldAnimateAmbient = false; // deterministic scroll timeline; settled frames do not churn
-    let ambientTick = false;
-
-    if (shouldAnimateAmbient) {
-      const interval = softwareThrottle ? 360 : (mobileCap30 ? 32 : 16);
-      if (moved || now - lastAmbientDrawMs >= interval) {
-        ambientTime += dt;
-        lastAmbientDrawMs = now;
-        ambientTick = true;
-      }
-    }
-
-    if (moved || ambientTick) {
-      dirty = false;
-      const state = onFrame(currentProgress, ambientTime, currentYaw, currentPitch, motionPending);
-      if (state) {
-        ambientActive = state.relief > 0.28 && state.mapMix < 0.78;
-      }
-    }
-
-    if (motionPending) {
+    if(moved){dirty=false;draw(motionPending);}
+    if(motionPending){
       setSettled(false);
-      rafId = requestAnimationFrame(loop);
-    } else if (shouldAnimateAmbient && visible) {
+      if(visible&&!paused)rafId=clock.raf(loop);
+    }else{
       setSettled(true);
-      rafId = requestAnimationFrame(loop);
-    } else {
-      setSettled(true);
+      scheduleAmbient();
     }
   }
 
@@ -129,12 +145,10 @@ export function createMotionController(options) {
         currentProgress = next;
         dirty = true;
         setSettled(false);
-        const state = onFrame(currentProgress, ambientTime, currentYaw, currentPitch, false);
-        if (state) {
-          ambientActive = state.relief > 0.28 && state.mapMix < 0.78;
-        }
+        cancelIdle();cancelFrame();
+        if(visible){draw(false);dirty=false;}
         setSettled(true);
-        if (dirty && visible) schedule();
+        scheduleAmbient();
         return;
       }
       if (Math.abs(next - targetProgress) > 1e-6) {
@@ -168,23 +182,21 @@ export function createMotionController(options) {
 
     setPaused(nextPaused) {
       paused = Boolean(nextPaused);
-      dirty = true;
-      if (!paused && visible) {
-        schedule();
-      } else {
-        onFrame(currentProgress, ambientTime, currentYaw, currentPitch, false);
-        setSettled(true);
-      }
+      dirty=true;
+      cancelIdle();cancelFrame();
+      if(!paused&&visible)schedule();
+      else{ambientActive=false;setSettled(true);}
     },
 
     setReducedMotion(nextReduced) {
       reducedMotion = Boolean(nextReduced);
+      cancelIdle();cancelFrame();
       if (reducedMotion) {
         currentProgress = targetProgress;
         currentYaw = targetYaw;
         currentPitch = targetPitch;
         dirty = true;
-        onFrame(currentProgress, ambientTime, currentYaw, currentPitch, false);
+        if(visible&&!paused){draw(false);dirty=false;}
         setSettled(true);
       } else if (visible) {
         schedule();
@@ -192,14 +204,11 @@ export function createMotionController(options) {
     },
 
     setVisible(nextVisible) {
-      visible = Boolean(nextVisible);
-      if (!visible && rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = 0;
-      } else if (visible) {
-        dirty = true;
-        schedule();
-      }
+      const next=Boolean(nextVisible);
+      if(next===visible)return;
+      visible=next;
+      cancelIdle();cancelFrame();
+      if(visible&&!paused){dirty=true;schedule();}
     },
 
     setMobileRate(isMobile) {
@@ -207,7 +216,8 @@ export function createMotionController(options) {
     },
 
     setSoftwareThrottle(enabled) {
-      softwareThrottle = Boolean(enabled);
+      softwareThrottle=Boolean(enabled);
+      if(softwareThrottle)cancelIdle();else if(settled)scheduleAmbient();
     },
 
     forceRedraw() {
@@ -221,15 +231,12 @@ export function createMotionController(options) {
         targetProgress,
         currentYaw,
         currentPitch,
-        settled,
+        settled,ambientTime,ambientRunning:ambientReported,
       };
     },
 
     dispose() {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = 0;
-      }
+      visible=false;paused=true;cancelIdle();cancelFrame();
     },
   };
 }

@@ -13,7 +13,7 @@ import {
   buildDetailShadowField,
   buildWaterMesh,
   buildMistVolume,
-} from './terrain.js?v=14';
+} from './terrain.js?v=15';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -23,8 +23,8 @@ import {
   WATER_FRAG,
   DETAIL_VERT,
   DETAIL_FRAG,
-} from './shaders.js?v=14';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=14';
+} from './shaders.js?v=15';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=15';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -282,7 +282,7 @@ export class AtlasRenderer {
       skyProg,
       skyU: getUniforms(gl, skyProg, [
         'uCamRight', 'uCamUp', 'uCamForward', 'uTanHalfFov', 'uAspect',
-        'uSunDir', 'uMapMix', 'uGolden', 'uValley', 'uSkyZenith', 'uSkyHorizon','uMistEye','uMistVolume','uMistOrigin','uMistExtent','uMistStrength',
+        'uSunDir', 'uMapMix', 'uGolden', 'uValley', 'uSkyZenith', 'uSkyHorizon','uMistEye','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime',
       ]),
       skyVao,
 
@@ -290,20 +290,20 @@ export class AtlasRenderer {
       terrainU: getUniforms(gl, terrainProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uFolioHalf', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix',
-        'uDetailShadows','uDetailShadowBounds','uDetailGrowth','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength',
+        'uDetailShadows','uDetailShadowBounds','uDetailGrowth','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime',
         'uGolden', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon',
       ]),
       terrainVao,
       terrainIndexCount: td.indices.length,
       buffers: [posBuf, normBuf, geoBuf, idxBuf, wPosBuf, wIdxBuf, ...detailBuffers],
       detailProg,detailBatches,
-      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength']),
+      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex','uClipBelow','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime']),
 
       waterProg,
       waterU: getUniforms(gl, waterProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix', 'uGolden',
-        'uTime', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon','uReflection','uScreenSize','uReflectionReady','uMistVolume','uMistOrigin','uMistExtent','uMistStrength',
+        'uTime', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon','uReflection','uScreenSize','uReflectionReady','uMistVolume','uMistOrigin','uMistExtent','uMistStrength','uMistTime',
       ]),
       waterVao,
       waterIndexCount: this.waterData.indices.length,
@@ -373,6 +373,7 @@ export class AtlasRenderer {
     );
 
     const r = this.resources;
+    this.environmentTime=timeSec;
     gl.activeTexture(gl.TEXTURE3);gl.bindTexture(gl.TEXTURE_3D,r.mistTex);gl.activeTexture(gl.TEXTURE0);
     gl.viewport(0, 0, pxW, pxH);
     gl.depthMask(true);gl.clearDepth(1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
@@ -449,6 +450,8 @@ export class AtlasRenderer {
     this.stageEl.dataset.terrainResolution=String(this.terrainData.resolution);
     this.stageEl.dataset.cameraClearance=(state.pos[1]-this.sampleTerrainHeight(state.pos[0],state.pos[2])*state.relief).toFixed(4);
 
+    // Ambient redraws only at scenic chapters with actual water/mist work.
+    state.ambientEligible=(state.chapter.id==='valley'&&lakeInFrame)||(state.chapter.id==='summit'&&this._mistStrength(state)>.15);
     return state;
   }
 
@@ -460,6 +463,7 @@ export class AtlasRenderer {
     gl.uniform1i(u.uMistVolume,3);
     gl.uniform3fv(u.uMistOrigin,r.mistOrigin);gl.uniform3fv(u.uMistExtent,r.mistExtent);
     gl.uniform1f(u.uMistStrength,this._mistStrength(state));
+    gl.uniform1f(u.uMistTime,this.environmentTime||0);
   }
 
   _drawOpaque(state,viewProj,tanHalfFov,aspect,growth,reflected){
