@@ -1,7 +1,7 @@
 # THRESHOLD® — Beyond the ordinary
 ## Independent immersive template development roadmap
 
-Status: T01 complete on publication of this documentation; T02 next. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
+Status: T01 and T02 complete; T03 next. Adopted 2026-11-25. Planned template 41; not registered. Authoritative branch: main. Starting baseline: `16ba2690df595d741167f38b89be1ac995b949ef` (approved RELAY gallery publication). Baseline catalogue: 40 gallery previews, 35 configurator-selectable, 5 gallery-only. No runtime, dependency, gallery, configurator or shared-component changes in T01.
 
 ## Governing brief
 
@@ -40,7 +40,7 @@ Only proceed when preceding evidence is reviewed and blockers resolved. A failed
 
 ### Phase 1 — Foundation (T01–T04)
 - [x] T01 — Repository orientation, roadmap, baseline SHA. Documentation only; confirmed 40/35 membership from registry. Completion requires committed roadmap and main index entry.
-- [ ] T02 — Author creative direction, spatial storyboard and architectural proportions. Define world axes, rooms, opening sightline, camera key poses, desktop/portrait framing and text safe zones; document reference sketches/targets, no renderer.
+- [x] T02 — Author creative direction, spatial storyboard and architectural proportions. Define world axes, rooms, opening sightline, camera key poses, desktop/portrait framing and text safe zones; document reference sketches/targets, no renderer.
 - [ ] T03 — Isolated draft scaffold and stack decision. Justify native WebGL vs pinned local Three.js, native scroll vs GSAP; establish module graph/static Pages compatibility, dependency provenance and initial semantic shell. No elaborate visuals.
 - [ ] T04 — Persistent 3D scene, camera and render lifecycle. Basic geometry only; verify actual rendering/fallback, bounded buffer, resize, visibility and no duplicate scheduling.
 Gate: clean extensible foundation; no elaborate visual or choreography work.
@@ -111,3 +111,121 @@ Gate: gallery-only unless native palette and expanded preview compatibility are 
 
 ## T01 handoff
 Next: T02 only. Author a concrete architectural storyboard before choosing dependencies or building geometry. No runtime exists for THRESHOLD in this pass; no screenshot, performance or build result claimed. Existing RELAY publication closeout and other deferred tasks remain separate; do not silently mark them complete. The user's granular pacing supersedes the earlier broad T0–T8 labels for THRESHOLD only.
+
+## T02 — Architectural storyboard / design specification
+
+Input baseline: `afc9462ebca509ce0c76c11ff7de3744fbbaab9f`. Status: authored spatial specification, not a rendered prototype or accepted visual result. All dimensions, camera positions, colours and screen allocations below are proposed design decisions, adjustable on actual evidence. No runtime, dependencies, renderer, catalogue or shared code created.
+
+### The visual idea: a cut through a monolith
+
+The opening is not a neon picture frame. A heavy, offset black architectural mass is cut by a deep rectangular vermilion passage. The red is concentrated on inward-facing jambs, soffit and far reveal, not an outline around a flat black rectangle. Let the near left black face absorb light, the right return disclose thickness, and the floor catch a softened, perspectivally aligned red reflection. A thin off-axis wall fin and a recessed black overhead plane establish scale; no repeated decorative portal array or random light beams. Through the cut, an ivory slit hints at the next room. The opening composition is an editorial poster with architectural depth; ambient motion should be a quiet change in illumination on the inner surfaces, not floating geometry, global pulsing or a swinging camera. The portal itself remains fixed.
+
+### World plan and clearances
+
+Use right-handed world coordinates: +X right, +Y up, +Z toward arrival camera. For readable architectural drawings use forward depth s = -Z. All tuples below are (x, y, s) in arbitrary meter-like world units; runtime conversion to (x,y,-s) must be centralized. Floor Y=0 is continuous. Main route progresses toward increasing s; room boundaries remain fixed regardless of chapter or screen size.
+
+| Region | Depth s | Interior width / height | Construction / sightline |
+| --- | --- | --- | --- |
+| Arrival | -18 to 0 | 20 / 11 | Obsidian floor and enclosing side masses; hero portal is dominant, quiet offset ceiling/fin silhouettes outside route. |
+| Vermilion cut | 0 to 2 | 4.8 clear / 6.0 clear | Outer portal 6.0 wide, 7.2 high, centered X=0; jamb thickness .6 each, soffit thickness 1.2, open floor (no threshold obstacle). Structural black face joins lateral walls so next room cannot be seen around the frame. |
+| Transition throat | 2 to 6 | 4.8 / 6.0 | Fixed recessed red returns gradually reveal bone-white light; no opaque cap or second canvas. |
+| Perspective | 6 to 20 | 18 / 10 | Bone-white gallery; two offset solid folded structures, left X=-5 and right X=+5, footprints outside central clearance lane. Asymmetrical masses, not a floating shape wall. Far cobalt reveal at s=20. |
+| Exhibition connector | 20 to 23 | 5.6 / 6.5 | Continuous turn of material and light at real wall opening; straight camera route. |
+| Exploration | 23 to 40 | 22 / 11 | Cobalt gallery with side-facing recessed bays: PARALLAX (left, s=26), FORM (right, s=31), SIGNAL (left, s=36). Preserve unobstructed center aisle and exit aperture at s=40. |
+| Exit throat | 40 to 43 | 5.6 / 6.5 | Cobalt retreats behind a dark physical reveal. |
+| Possibility | 43 to 55 | 18 / 10 | Obsidian closing room. White aperture centered X=0 at s=53, 4.4 clear width, 5.6 clear height; camera stops before it. White light chamber beyond, not a dead black wall. |
+
+Main route schematic (not to scale):
+
+```text
+          X left       clear axis X=0       X right
+s=-18    ┌────────────── ARRIVAL ──────────────┐
+         │           camera approaches        │
+s=0      ├──────────────┐     ┌───────────────┤
+         │  black mass  │ RED │   black mass  │
+s=2      └──────────────┤ CUT ├───────────────┘
+                        │     │
+s=6      ┌──────────────┘     └───────────────┐
+         │ folded mass   PERSPECTIVE   mass  │
+s=20     └──────────────┐     ┌───────────────┘
+                        │     │
+s=23     ┌──────────────┘     └───────────────┐
+s=26     │ PARALLAX          │                │
+s=31     │                   │          FORM  │
+s=36     │ SIGNAL            │                │
+s=40     └──────────────┐     ┌───────────────┘
+                        │     │
+s=43     ┌──────────────┘     └───────────────┐
+         │              POSSIBILITY          │
+s=53     │                WHITE              │
+s=55     └───────────────────────────────────┘
+```
+
+Reserve X=-1.8..+1.8 as the continuous main aisle; within throat segments keep camera center X within ±1.2, Y=1.8..2.6. A provisional .35-unit clearance radius must fit the camera trajectory including interpolation and near plane; do not use these keyframes alone as proof of clearance. Arrival camera intentionally begins outside the aisle but inside its room. Keep movable sculpture and bay geometry outside X=±2.6 in every state. Floor never moves. All rooms use actual occluding architecture with openings; no global palette crossfade that turns the red structure into ivory. Emission and illumination respond to proximity and sightline; spatially distinct materials remain distinct.
+
+### Opening editorial compositions
+
+Desktop (1440x900 reference): full-bleed stage, portal slightly right of center by perspective, large wordmark extending almost the width at upper third behind the near architectural face. Target wordmark band x=4–96%, y=13–27%; allow deliberate partial occlusion only on its lower edge, retain an identifiable full wordmark in header or accessible visible text. Use a depth-aware typographic layer or masked compositing, not a solid opaque plate in the passage. Small brand at upper left, minimal navigation upper right; header y=0–8%. Tagline and short studio descriptor occupy left negative space x=5–30%, y=48–65%. Entry/scroll affordance at x=5–30%, y=82–93%, separate from reflection. Floor red reflection reads from portal base toward lower right, clipped by real surface and roughness; keep lower-left text legible. Full viewport, no canvas border or card. At 1024 desktop, reserve x=4–30% for copy, shorten lines if necessary; at 1920 do not widen portal just to fill empty space.
+
+Portrait (390x844 reference): independently centered deep portal, stronger vertical symmetry, visible upper wordmark band x=5–95%, y=12–24% above the structure, no wordmark masking required. Header y=0–9%, portal approximately y=30–74%; image width deliberately dominant. Compact tagline and entry cue in lower band y=79–94%, with actual safe-area padding and local contrast; don't put text over the bright portal opening. Reflection is a short foreshortened red trail with negative space for text. Narrow 320 and tablet are distinct framing targets; landscape uses a bounded shorter composition and must not clip navigation. Tablet portrait: place header above the portal and short descriptor in lower/side negative space, avoid forcing 390 proportions onto 768. All percentages are normalized visual targets, not hard-coded absolute layout or proof of readable typography. Do not use future links before their targets exist; the T03 opening shell is truthful about draft scope.
+
+Opening schematic, not a render:
+
+```text
+DESKTOP                                     PHONE
+brand                          nav          brand       menu
+  T H R E S H O L D                         T H R E S H O L D
+               ┌─────────┐
+               │ red cut │                    ┌─────────┐
+ Beyond the    │   ivory │                    │ red cut │
+ ordinary.     │    slit │                    │  depth  │
+               └─────────┘                    │         │
+ Enter              reflection                └─────────┘
+                                               reflection
+                                              Beyond the ordinary.
+                                              Enter
+```
+
+### Authored camera and narrative beats
+
+Normalized progress p maps to measured reachable native scroll distance only in T13. Opening has no scroll-driven camera before its approval. Initial candidate journey distance allocation: arrival/approach 0–.20; crossing .20–.34; perspective .34–.56; exhibition .56–.82; possibility .82–1. These are editorial timing targets, not runtime constants yet. Use monotone depth progression with continuous tangent/aim/FOV interpolation, no hard chapter thresholds. Aim points are explicit world targets; interpolate orientation robustly (no look-at flip or zero-length view direction). Desktop/portrait tracks differ by authored keyframes but share room coordinates and timing. Blend aspect targets continuously; do not hard-switch pose mid-journey. Preserve endpoint poses and deterministic reverse progression. FOV is vertical degrees.
+
+| p | Beat | Desktop eye / aim / FOV | Portrait eye / aim / FOV |
+| --- | --- | --- | --- |
+| 0 | Arrival poster | (-2.4,2.4,-12) / (-.65,2.9,0) / 47 | (.6,2.2,-15) / (0,3.9,0) / 57 |
+| .10 | Approach | (-1.2,2.35,-8) / (0,2.9,1) / 49 | (.3,2.2,-9) / (0,3.2,1) / 60 |
+| .20 | At red cut | (-.25,2.25,-2) / (0,2.8,5) / 53 | (.1,2.15,-2.2) / (0,2.8,5) / 62 |
+| .27 | Through cut | (0,2.2,1) / (0,2.9,9) / 54 | (0,2.15,1) / (0,2.9,9) / 62 |
+| .34 | Ivory arrival | (0,2.3,7) / (0,3.2,15) / 50 | (0,2.2,7) / (0,3.5,15) / 61 |
+| .45 | Perspective | (-1.0,2.5,12) / (.5,3.6,19) / 48 | (.1,2.3,11.5) / (0,3.6,19) / 60 |
+| .56 | Cobalt entrance | (0,2.3,21) / (0,3.1,30) / 50 | (0,2.2,21) / (0,3.4,30) / 61 |
+| .65 | PARALLAX | (-.7,2.35,26) / (-3.2,3.0,30) / 50 | (-.3,2.2,26) / (-1.8,3.1,30) / 62 |
+| .72 | FORM | (.7,2.35,31) / (3.2,3.0,35) / 50 | (.3,2.2,31) / (1.8,3.1,35) / 62 |
+| .78 | SIGNAL | (-.5,2.3,35.5) / (-2.6,3.0,39) / 50 | (-.25,2.2,35.5) / (-1.6,3.1,39) / 62 |
+| .82 | Dark exit | (0,2.25,41) / (0,3.0,48) / 51 | (0,2.2,41) / (0,3.1,48) / 61 |
+| 1 | Possibility | (-1.1,2.3,46) / (0,2.8,53) / 50 | (0,2.15,45.5) / (0,3.5,53) / 60 |
+
+Tablet opening candidate: eye (.3,2.4,-12.8), aim (-.15,3.65,0), vertical FOV 49. Later tablet keyframes require visual authoring rather than a blind constant multiplier. Camera values define direction, not a locked implementation; dense path sampling, near/far clip, actual occlusion and passage clearance remain later gates. Initial near-plane design target .05–.1 world units, choose far plane sufficient for contiguous visible rooms without needlessly reducing depth precision. Never hide clipping by fading the scene.
+
+### Project interaction sketches (later scope)
+
+PARALLAX: nested offset architectural planes align with a local reversible control, producing optical depth; no arbitrary particles. FORM: a folded typographic relief rotates about a fixed hinge to reveal a second brand composition. SIGNAL: a restrained luminous line installation routes a pulse through selected architectural channels; user changes the route, not random decorative animation. Each bay has a semantic name and selection affordance with keyboard/touch equivalent. A selected project opens a bounded view from the current journey state, remembers progress, and returns focus/pose to the original selection. T29 must choose explicit scroll ownership and avoid simultaneous scroll and interaction camera controllers. No runtime or exact interaction claims at T02.
+
+### T02 numerical planning check
+
+Computed pinhole camera projection of the eight outer portal bounding-box corners X=±3, Y=0/7.2, s=0/2 using the opening poses above, world up +Y, normalized camera basis, vertical FOV and viewport aspect. Coordinates below are percentages of viewport from top-left, rounded to .1. Formula for a point relative to eye: u=.5+.5*dot(v,right)/(dot(v,forward)*tan(FOV/2)*aspect); v_screen=.5-.5*dot(v,up)/(dot(v,forward)*tan(FOV/2)). All corner depths positive. These are design-level projected bounds of a box, not screenshots, actual geometry, reflection bounds, typography or occlusion validation.
+
+| Viewport | X extent % | Y extent % |
+| --- | --- | --- |
+| 320×568 | 16.9–83.7 | 30.3–74.4 |
+| 390×844 | 9.6–91.1 | 30.3–74.4 |
+| 768×1024 | 17.0–87.1 | 20.3–82.0 |
+| 1024×768 | 32.8–74.8 | 8.6–78.4 |
+| 1440×900 | 35.7–70.7 | 8.6–78.4 |
+| 1920×1080 | 37.1–68.6 | 8.6–78.4 |
+
+All six modeled bounds fit the viewport. The tablet leaves a tighter lower copy/reflection zone and desktop top edge nearly touches header; specifically inspect these at T08/T09/T11 rather than claim resolved visual composition. Actual wall occlusion, shader/lighting, font measurements, clipping and continuous path motion have not been tested. No visual acceptance claimed. The opening remains the first hard artistic gate at T12.
+
+### T03 handoff
+
+Select local, pinned rendering stack based on actual requirements: simple opaque architecture, depth-aware masking, directional/emissive materials, bounded planar reflection and responsive camera. Compare Three.js against native WebGL and GSAP against direct native scroll. Establish isolated semantic draft and versioned module/dependency graph only; T04 basic renderer later. No building the portal, lighting or camera choreography prematurely. 
