@@ -852,3 +852,6 @@ Native WebGL2 and native scrolling selected; no new dependencies. Semantic stati
 
 ## THRESHOLD — T04 rendering foundation
 T03 browser 45685800817 and Pages 45685799566 passed. T04 adds persistent WebGL2, perspective matrices, 26-triangle diagnostic scene, static fallback, bounded framebuffer and demand-driven lifecycle with recovery. Extended scoped tests and visual captures; exact revision results pending. No final opening artwork or motion; next T05 after T04 verification. No catalogue/shared code change.
+
+## THRESHOLD — T04a corrective verification
+Browser run 45686395150 timed out at simulated restoration after initial two viewport pixel checks. Pages and Node checks passed. T04a retains runtime unchanged and strengthens recovery test sequencing, event diagnostics and recovered-pixel verification; exact rerun pending. T05 held until gate clears.

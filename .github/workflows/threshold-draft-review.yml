@@ -45,6 +45,7 @@ jobs:
             for(const [width,height] of [[320,568],[390,844],[768,1024],[1024,768],[1440,900],[1920,1080],[844,390]]) {
               const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:width<=390?3:2});
               const errors=[], failures=[];
+              page.on('console',m=>{if(m.type()==='warning'||m.type()==='error')console.log('Browser '+width+': '+m.text())});
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
@@ -87,12 +88,37 @@ jobs:
                 await page.waitForTimeout(250);assert.equal(await stage.getAttribute('data-frames'),off);
                 await stage.scrollIntoViewIfNeeded();
                 await page.waitForFunction(n=>Number(document.querySelector('#scene-study').dataset.frames)>n,Number(off));
-                const supported=await canvas.evaluate(el=>{const ext=el.getContext('webgl2').getExtension('WEBGL_lose_context');if(!ext)return false;window.__thresholdLoss=ext;ext.loseContext();return true});
+                // Restore is asynchronous in Chromium; wait for the loss event and
+                // allow the browser's context-loss recovery interval before requesting it.
+                const supported=await canvas.evaluate(el=>{
+                  const gl=el.getContext('webgl2'),ext=gl.getExtension('WEBGL_lose_context');
+                  if(!ext)return false;
+                  window.__thresholdRecovery={gl,ext,lost:0,restored:0};
+                  el.addEventListener('webglcontextlost',()=>window.__thresholdRecovery.lost++);
+                  el.addEventListener('webglcontextrestored',()=>window.__thresholdRecovery.restored++);
+                  ext.loseContext();return true;
+                });
                 assert(supported,'context-loss extension required for CI');
-                await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='context-lost');
+                await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='context-lost'&&window.__thresholdRecovery.lost===1);
                 assert(await page.locator('.scene-fallback').isVisible());
-                await page.evaluate(()=>window.__thresholdLoss.restoreContext());
-                await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
+                const lostFrames=Number(await stage.getAttribute('data-frames'));
+                await page.waitForTimeout(1000);
+                try{
+                  await page.evaluate(()=>window.__thresholdRecovery.ext.restoreContext());
+                  await page.waitForFunction(()=>window.__thresholdRecovery.restored===1,{},{timeout:10000});
+                  await page.waitForFunction(n=>{const d=document.querySelector('#scene-study').dataset;return d.renderer==='webgl'&&Number(d.frames)>n},lostFrames,{timeout:10000});
+                  assert(await canvas.isVisible());
+                  assert(await canvas.evaluate(el=>!el.getContext('webgl2').isContextLost()));
+                  const recovered=await canvas.screenshot({path:'/tmp/threshold-evidence/recovered-390.png'});
+                  const {data:rgb,info:meta}=await sharp(recovered).removeAlpha().raw().toBuffer({resolveWithObject:true});
+                  let redAfter=0,neutralAfter=0;
+                  for(let i=0;i<rgb.length;i+=meta.channels){const [r,g,b]=[rgb[i],rgb[i+1],rgb[i+2]];if(r>90&&r>1.6*g&&r>1.8*b)redAfter++;if(g>105&&Math.abs(r-g)<25&&Math.abs(b-g)<25)neutralAfter++}
+                  assert(redAfter>100&&neutralAfter>100,'actual recovered geometry pixels');
+                }catch(error){
+                  const state=await page.evaluate(()=>({dataset:{...document.querySelector('#scene-study').dataset},lost:window.__thresholdRecovery.lost,restored:window.__thresholdRecovery.restored,contextLost:window.__thresholdRecovery.gl.isContextLost(),visibility:document.visibilityState}));
+                  writeFileSync('/tmp/threshold-evidence/recovery-failure.json',JSON.stringify(state,null,2));
+                  console.error('Recovery diagnostic',state);throw error;
+                }
               }
               assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
               await page.close();
@@ -111,7 +137,7 @@ jobs:
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T04',viewports:7,pixelChecks:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T04',verification:'T04a',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
