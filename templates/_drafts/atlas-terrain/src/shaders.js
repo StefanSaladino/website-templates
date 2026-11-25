@@ -351,7 +351,7 @@ void main() {
   float mhz = rockMicroHeight(vWorldPos.xz + vec2(0.0, eps), rawH, slope);
   // Fade subpixel fracture detail at distance to avoid crawling textures in motion.
   float footprint = max(length(dFdx(vWorldPos.xz)),length(dFdy(vWorldPos.xz)));
-  float bumpAmp = 0.22 * smoothstep(0.16, 0.85, uRelief) * (1.0-smoothstep(0.09,0.46,footprint));
+  float bumpAmp = 0.15 * smoothstep(0.16, 0.85, uRelief) * (1.0-smoothstep(0.09,0.46,footprint));
   vec3 rockN = normalize(N + vec3((mh0 - mhx) / eps, 0.0, (mh0 - mhz) / eps) * bumpAmp);
 
   float detailN = fbmRock(vWorldPos.xz * 0.34);
@@ -373,11 +373,13 @@ void main() {
   // Material C: Stratified alpine granite, dark gneiss crevices & talus scree
   float layerPhase=rawH*2.4+vWorldPos.x*.34-vWorldPos.z*.19+detailN*3.1;
   float strataBand=mix(sin(layerPhase)*.5+.5,.5,smoothstep(.55,3.14,fwidth(layerPhase)));
-  vec3 graniteDark = vec3(0.15, 0.17, 0.20);
-  vec3 graniteLight = vec3(0.43, 0.44, 0.45);
-  vec3 graniteBase = mix(graniteDark, graniteLight, crag * 0.45 + strataBand * 0.30 + fineN * 0.25);
-  graniteBase = mix(graniteBase, vec3(0.36, 0.35, 0.33), drainage * 0.48); // Talus fans in gullies
-  graniteBase = mix(graniteBase, vec3(0.46, 0.40, 0.35), smoothstep(8.5, 16.0, rawH) * (1.0 - crag) * 0.28);
+  // Coherent large-scale rock beds, rather than a uniform pale mineral wash.
+  float bedVariation=smoothstep(.24,.78,detailN*.64+crag*.36);
+  vec3 graniteDark=vec3(.115,.135,.151);
+  vec3 graniteLight=vec3(.31,.315,.308);
+  vec3 graniteBase=mix(graniteDark,graniteLight,bedVariation*.63+strataBand*.25+fineN*.12);
+  graniteBase = mix(graniteBase, vec3(0.29, 0.28, 0.26), drainage * 0.34); // Talus fans in gullies
+  graniteBase = mix(graniteBase, vec3(0.36, 0.32, 0.28), smoothstep(8.5, 16.0, rawH) * (1.0 - crag) * 0.24);
 
   // Material D: Crisp alpine firn & snowfields (kept well below clip so shadows & ridges stay sculpted)
   vec3 snowCol = mix(vec3(0.58, 0.65, 0.71), vec3(0.83, 0.85, 0.85), fineN * 0.7 + 0.25);
@@ -389,9 +391,11 @@ void main() {
   float vegMask = timberBand * vegSlope * (1.0 - drainage * 0.58) * (1.0 - smoothstep(0.58, 0.78, crag));
 
   float sheltered=clamp(N.z*.8+(.5-ridgeCurv)*1.2+drainage*.55,-1.,1.);
-  float snowAlt = smoothstep(11.0, 16.4, rawH + (detailN - 0.5) * 4.2 + sheltered*2.4);
-  float snowSlope = 1.0 - smoothstep(0.13, 0.39, slope + (fineN - 0.5) * 0.12 - sheltered*.075);
-  float snowMask = snowAlt * snowSlope;
+  float snowAlt=smoothstep(12.8,17.6,rawH+(detailN-.5)*3.5+sheltered*2.2);
+  float snowSlope=1.-smoothstep(.10,.32,slope+(fineN-.5)*.10-sheltered*.06);
+  // Break broad continuous snow bands with terrain-anchored accumulation pockets.
+  float snowPocket=smoothstep(.20,.61,detailN*.68+drainage*.20+(sheltered*.5+.5)*.12);
+  float snowMask=snowAlt*snowSlope*mix(snowPocket,1.,smoothstep(17.0,22.0,rawH));
 
   vec3 albedo = graniteBase;
   albedo = mix(albedo, vegCol, vegMask);
@@ -430,15 +434,15 @@ void main() {
   float diffuse = mix(NdotL, max(NdotL, snowWrap * 0.78), snowMask);
 
   vec3 sunColor = mix(vec3(1.08, 1.02, 0.92), vec3(1.22, 0.82, 0.47), uGolden);
-  vec3 skyFill = mix(vec3(0.36, 0.43, 0.49), vec3(0.30, 0.35, 0.42), uGolden);
-  vec3 groundFill = mix(vec3(0.15, 0.19, 0.21), vec3(0.19, 0.15, 0.14), uGolden);
+  vec3 skyFill = mix(vec3(0.33, 0.40, 0.46), vec3(0.44, 0.46, 0.52), uGolden);
+  vec3 groundFill = mix(vec3(0.16, 0.20, 0.22), vec3(0.30, 0.28, 0.30), uGolden);
 
   float hemi = rockN.y * 0.5 + 0.5;
-  vec3 ambient = mix(groundFill, skyFill, hemi) * mix(0.38,1.0,ao) * mix(0.80, 0.74, uGolden) * (1.0-detailOcc*.24);
+  vec3 ambient = mix(groundFill, skyFill, hemi) * mix(mix(0.38,0.57,uGolden),1.0,ao) * mix(0.80,0.94,uGolden) * (1.0-detailOcc*.24);
 
   vec3 H = normalize(L + V);
   float specPow = mix(16.0, 72.0, 1.0 - roughness);
-  float spec = pow(max(dot(rockN, H), 0.0), specPow) * mix(0.04, 0.24, 1.0 - roughness);
+  float spec = pow(max(dot(rockN, H), 0.0), specPow) * mix(0.018, 0.16, 1.0 - roughness);
 
   vec3 litGeology = albedo * (ambient + sunColor * diffuse * shadow) + sunColor * spec * shadow;
 
@@ -449,7 +453,8 @@ void main() {
   // Aerial perspective: distant ranges fade gracefully into horizon & golden alpenglow
   float camDist = length(uCamPos - vWorldPos);
   float heightFalloff = exp(-max(0.0, vWorldPos.y - 1.5) * 0.062);
-  float fogAmount = 1.0 - exp(-camDist * uFogDensity * mix(0.55, 1.15, heightFalloff));
+  float aerialDistance=max(0.,camDist-9.0);
+  float fogAmount=1.0-exp(-aerialDistance*uFogDensity*mix(.43,1.0,heightFalloff));
   fogAmount = clamp(fogAmount * (1.0 - uMapMix * 0.94), 0.0, 0.88);
 
   vec3 viewDir = normalize(vWorldPos - uCamPos);
@@ -608,7 +613,7 @@ void main() {
   body=mix(body,uSkyHorizon,clamp(fogAmt,0.,.76))*.89;
   body=(body*(2.51*body+.03))/(body*(2.43*body+.59)+.14);
   body=pow(clamp(body,0.,1.),vec3(.96));
-  float reflMix=clamp(.12+fresnel*.83,.12,.93);
+  float reflMix=clamp(.17+fresnel*.78,.17,.93);
   vec3 col=mix(body,clamp(reflColor,0.,1.),reflMix)+sunSpecCol*spec*.34;
   // Tight anti-aliased shore; no decorative pale rim.
   float edgeWidth=clamp(fwidth(depth)*1.05,.008,.085);
@@ -673,7 +678,7 @@ void main(){
   if(vWorldPos.y<uClipBelow)discard;
   vec3 n=normalize(vNormal),l=normalize(uSunDir);
   vec3 sun=mix(vec3(1.08,1.02,.92),vec3(1.22,.82,.47),uGolden);
-  vec3 fill=mix(vec3(.15,.19,.21),vec3(.36,.43,.49),n.y*.5+.5)*.83;
+  vec3 fill=mix(mix(vec3(.16,.20,.22),vec3(.30,.28,.30),uGolden),mix(vec3(.33,.40,.46),vec3(.44,.46,.52),uGolden),n.y*.5+.5)*mix(.80,.94,uGolden);
   float occ=0.;
   for(int i=0;i<4;i++){
     float t=1.6+float(i)*3.5;
@@ -683,7 +688,7 @@ void main(){
   vec3 col=vColor*(fill+sun*max(dot(n,l),0.)*(1.-occ*.64));
   float dist=length(vWorldPos-uCamPos);
   float hf=exp(-max(0.,vWorldPos.y-1.5)*.062);
-  float fog=1.-exp(-dist*uFogDensity*mix(.55,1.15,hf));
+  float fog=1.-exp(-max(0.,dist-9.)*uFogDensity*mix(.43,1.0,hf));
   vec3 viewDir=normalize(vWorldPos-uCamPos);
   vec3 fogCol=mix(uSkyHorizon,vec3(.94,.72,.48),pow(max(dot(viewDir,l),0.),3.)*uGolden*.55);
   col=mix(col,fogCol,clamp(fog,0.,.88))*.89;
