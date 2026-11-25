@@ -20,14 +20,30 @@ try {
   await p.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return original.call(this,k,k==='webgl2'?{...o,preserveDrawingBuffer:true}:o)}});
   await p.goto(url,{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>+document.querySelector('#atlas-stage').dataset.draws>0||document.querySelector('#atlas-stage').dataset.renderError,{},{timeout:25000});
   const stage=p.locator('#atlas-stage');assert.equal(await stage.getAttribute('data-renderer'),'webgl',await stage.getAttribute('data-render-error')||'WebGL initialization');
-  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A9');
+  assert.equal(await p.locator('html').getAttribute('data-atlas-release'),'A10');
   assert.equal(await p.locator('html').getAttribute('data-atlas-ready'),'true','scroll listeners must be installed after initialization');
-  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='9'),'mixed module releases '+moduleUrls.join(' '));
+  const moduleUrls=await p.evaluate(()=>performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/\/src\/[^/]+\.js(?:\?|$)/.test(x)));assert.equal(new Set(moduleUrls).size,6,'six modules');assert(moduleUrls.every(x=>new URL(x).searchParams.get('v')==='10'),'mixed module releases '+moduleUrls.join(' '));
   const invariant=await p.evaluate(async()=>{
-    const m=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=9');
+    const m=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=10');
     const a=m.buildTerrainData(176),b=m.buildTerrainData(256);
     return {same:a===b,res:a.resolution,sameTexture:a.heightTexData===b.heightTexData,sameMesh:a.positions===b.positions,peak:a.sampleHeight(11.5,-18.5)};
   });assert(invariant.peak>20.5,'Kestrel crown lost');assert.deepEqual({...invariant,peak:undefined},{same:true,res:256,sameTexture:true,sameMesh:true,peak:undefined});
+  const framing=await p.evaluate(async()=>{
+    const {buildTerrainData,WATER_LEVEL}=await import('/templates/_drafts/atlas-terrain/src/terrain.js?v=10');
+    const {evaluateWorldState}=await import('/templates/_drafts/atlas-terrain/src/camera.js?v=10');
+    const td=buildTerrainData(),aspect=innerWidth/innerHeight;
+    let last=null,speeds=[],clearance=Infinity,near=0,shots={};
+    for(let i=0;i<=1000;i++){
+      const s=evaluateWorldState(i/1000,aspect,td.sampleHeight);
+      clearance=Math.min(clearance,s.pos[1]-td.sampleHeight(s.pos[0],s.pos[2])*s.relief);
+      if(last)speeds.push(Math.hypot(...s.pos.map((v,k)=>v-last.pos[k]))*1000);
+      last=s;
+      for(let t=.5;t<=8;t+=.5)if(s.pos[1]+s.forward[1]*t<td.sampleHeight(s.pos[0]+s.forward[0]*t,s.pos[2]+s.forward[2]*t)*s.relief){near++;break}
+      if(i===440||i===620){const project=(x,y,z)=>{const v=[x-s.pos[0],y-s.pos[1],z-s.pos[2]],dot=a=>v.reduce((q,x,j)=>q+x*a[j],0),k=Math.tan(s.fovDeg*Math.PI/360)*dot(s.forward);return [dot(s.right)/k/aspect,dot(s.up)/k]};shots[i]={lake:project(-2.5,WATER_LEVEL*s.relief,3.5),peak:project(11.5,td.sampleHeight(11.5,-18.5)*s.relief,-18.5)}}
+    }
+    const a=evaluateWorldState(0,aspect,td.sampleHeight),b=evaluateWorldState(1,aspect,td.sampleHeight);
+    return {clearance,near,ratio:Math.max(...speeds)/speeds.sort((a,b)=>a-b)[500],shots,folio:a.pos.every((v,i)=>Math.abs(v-b.pos[i])<1e-8)&&a.look.every((v,i)=>Math.abs(v-b.look[i])<1e-8)&&b.relief===0&&b.mapMix===1};
+  });assert(framing.clearance>=1.8);assert.equal(framing.near,0);assert(framing.ratio<=2.2);assert(Math.abs(framing.shots[440].peak[0])<.9);assert(Math.abs(framing.shots[620].lake[0])<.6);assert(Math.abs(framing.shots[620].peak[1])<.95);assert(framing.folio);console.log('ATLAS FRAMING',width,JSON.stringify(framing));
   const hashes=[];let firstBuffer=null;
   for(const [i,f] of [0,.12,.24,.44,.62,.82,.96,.44,0].entries()){
    await p.evaluate(f=>{const t=document.querySelector('#expedition-track'),s=document.querySelector('#atlas-stage');scrollTo({top:t.getBoundingClientRect().top+scrollY+(t.offsetHeight-s.offsetHeight)*f,behavior:'instant'})},f);
