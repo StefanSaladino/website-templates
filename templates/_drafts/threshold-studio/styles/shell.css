@@ -84,3 +84,14 @@ footer { inset-block-end: 0; pointer-events: none; display: flex; flex-wrap: wra
   .opening-copy .studio { letter-spacing: .085em; }
   .fallback-portrait { transform: translateY(-1.5%); }
 }
+
+/* T13 native document travel. One sticky stage; no wheel/touch interception.
+   Until T14, the camera remains at its approved opening pose. */
+#journey { flex: 1; min-inline-size: 0; }
+.journey-stage { position: relative; display: flex; flex-direction: column; min-block-size: 100vh; min-block-size: 100svh; }
+:root[data-journey="on"] #journey { min-block-size: 500vh; min-block-size: 500svh; }
+:root[data-journey="on"] .journey-stage { position: sticky; top: 0; }
+@media (prefers-reduced-motion: reduce) {
+  :root[data-journey="on"] #journey { min-block-size: 0; }
+  :root[data-journey="on"] .journey-stage { position: relative; }
+}

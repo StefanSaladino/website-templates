@@ -1,9 +1,10 @@
-import {RELEASE} from './config.js?v=T12a';
-import {createRenderer} from './renderer.js?v=T12a';
-import {DESKTOP_COMPOSITION_QUERY,openingPose,openingComposition} from './camera.js?v=T12a';
-import {createScheduler} from './lifecycle.js?v=T12a';
-import {wordmarkOcclusion} from './wordmark.js?v=T12a';
-import {createAmbientClock} from './ambient.js?v=T12a';
+import {RELEASE} from './config.js?v=T13';
+import {createRenderer} from './renderer.js?v=T13';
+import {DESKTOP_COMPOSITION_QUERY,openingPose,openingComposition} from './camera.js?v=T13';
+import {createScheduler} from './lifecycle.js?v=T13';
+import {wordmarkOcclusion} from './wordmark.js?v=T13';
+import {createAmbientClock} from './ambient.js?v=T13';
+import {readProgress} from './scroll.js?v=T13';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -13,9 +14,17 @@ function start(){
   const flags=new URLSearchParams(location.search);
   const reflectionEnabled=flags.get('reflection')!=='off',lightingEnabled=flags.get('lighting')!=='off',floorMask=flags.get('floorMask')==='on';
   const ambientEnabled=flags.get('ambient')!=='off'&&lightingEnabled&&!floorMask;
+  const journeyRequested=flags.get('journey')!=='off'&&!floorMask;
+  let journeyActive=false;
+  function setJourney(active){
+    if(journeyActive===active&&root.dataset.journey)return;
+    journeyActive=active;root.dataset.journey=active?'on':'off';
+    if(!active)study.dataset.progress='0.000000';
+  }
+  setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
-  function staticView(reason){clock.pause();canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
+  function staticView(reason){clock.pause();if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   function eligible(){return !disposed&&!suspended&&!failed&&!lost&&!reduced.matches&&!document.hidden&&visible}
   function draw(){
     const sample=ambientEnabled?clock.sample(performance.now(),forceDraw):{render:true,phase:-1,elapsed:0};
@@ -26,6 +35,10 @@ function start(){
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
       const r=surface.getBoundingClientRect(),result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase);
       if(!result){staticView('not-ready');return}
+      // Only a working renderer enables the long native-scroll stage.
+      setJourney(journeyRequested&&!reduced.matches);
+      const progress=journeyActive?readProgress(document.scrollingElement):0;
+      study.dataset.progress=progress.toFixed(6);
       study.dataset.frames=String(++frames);
       study.dataset.ambient=ambientEnabled?'on':'off';study.dataset.ambientElapsed=sample.elapsed.toFixed(2);
       study.dataset.buffer=result.width+'x'+result.height;
@@ -43,6 +56,7 @@ function start(){
   }
   const scheduler=createScheduler({request:cb=>requestAnimationFrame(cb),cancel:id=>cancelAnimationFrame(id),draw,eligible});
   const invalidate=()=>{forceDraw=true;scheduler.invalidate()};
+  function scrollChanged(){if(journeyActive)invalidate()}
   function suspend(){clock.pause();scheduler.sync()}
   function preference(){if(reduced.matches)staticView('reduced-motion');invalidate()}
   function visibility(){if(document.hidden)suspend();else invalidate()}
@@ -57,6 +71,7 @@ function start(){
   function dispose(){
     if(disposed)return;disposed=true;scheduler.dispose();resize.disconnect();intersection.disconnect();
     reduced.removeEventListener('change',preference);desktopComposition.removeEventListener('change',invalidate);document.removeEventListener('visibilitychange',visibility);
+    window.removeEventListener('scroll',scrollChanged);window.visualViewport?.removeEventListener('resize',invalidate);
     window.removeEventListener('resize',invalidate);window.removeEventListener('pagehide',pageHide);window.removeEventListener('pageshow',pageShow);
     canvas.removeEventListener('webglcontextlost',contextLost);canvas.removeEventListener('webglcontextrestored',contextRestored);
     renderer?.release();renderer=null;staticView('disposed');
@@ -65,6 +80,7 @@ function start(){
   function pageShow(e){if(e.persisted){suspended=false;invalidate()}}
   canvas.addEventListener('webglcontextlost',contextLost);canvas.addEventListener('webglcontextrestored',contextRestored);
   reduced.addEventListener('change',preference);desktopComposition.addEventListener('change',invalidate);document.addEventListener('visibilitychange',visibility);
+  window.addEventListener('scroll',scrollChanged,{passive:true});window.visualViewport?.addEventListener('resize',invalidate,{passive:true});
   window.addEventListener('resize',invalidate);window.addEventListener('pagehide',pageHide);window.addEventListener('pageshow',pageShow);
   resize.observe(surface);intersection.observe(surface);preference();
 }

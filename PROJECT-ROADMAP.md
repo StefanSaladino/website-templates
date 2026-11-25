@@ -885,3 +885,6 @@ T11 exact browser 45694638863 and Pages 45694634104 passed; actual responsive ca
 
 ## THRESHOLD — T12a final opening refinement
 T12 browser 45695011597 and Pages 45695010380 passed; artifact 15059449307 reviewed with user's actual phone screenshot. Final bounded requested pass: surround joint, throat seam, mineral material character, softer foreground reflection, closer portrait typography/portal spacing. Preserve geometry and GPU budgets. Exact T12a verification pending; T13 only after gate. No shared/catalogue changes.
+
+## THRESHOLD — T13 native scroll foundation
+Final T12a browser 45695722511 and Pages 45695721871 passed, evidence inspected; user approved moving on. T12 closed. Native document travel with one sticky stage, measured reversible 0–1 progress, static fallback without empty travel; no camera motion yet. Two pure tests preflight passed; exact T13 browser/Pages pending. T14 after verification; no shared/catalogue changes.

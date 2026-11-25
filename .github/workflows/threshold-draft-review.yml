@@ -40,7 +40,7 @@ jobs:
           import {mkdirSync,writeFileSync} from 'node:fs';
           mkdirSync('/tmp/threshold-evidence',{recursive:true});
           const baseURL='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
-          const url=baseURL+'?ambient=off';
+          const url=baseURL+'?ambient=off&journey=off';
           const captureStyle='.masthead,.opening-copy,.display-wordmark,footer,.skip-link{visibility:hidden!important} main{outline:none!important}';
           const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
           try {
@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T12a');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T13');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -276,10 +276,65 @@ jobs:
               assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
               await page.close();
             }
+            // Actual native document travel, with a stationary opening camera for T13.
+            const scrollEvidence=[];
+            for(const [width,height] of [[320,568],[390,844],[768,1024],[1440,900],[844,390]]){
+              const travel=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
+              const errors=[];travel.on('pageerror',e=>errors.push(e.message));
+              await travel.goto(baseURL+'?ambient=off');
+              await travel.waitForFunction(()=>document.documentElement.dataset.journey==='on'&&document.querySelector('#scene-study').dataset.renderer==='webgl');
+              const original=await travel.locator('#scene-canvas').elementHandle();
+              const identity=await travel.locator('#wordmark-occluder').getAttribute('points');
+              const states=[];
+              async function measure(fraction){
+                await travel.evaluate(f=>{const s=document.scrollingElement;s.scrollTop=(s.scrollHeight-s.clientHeight)*f},fraction);
+                await travel.waitForFunction(f=>{
+                  const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;
+                  return Math.abs(Number(d.progress)-f)<.002&&Math.abs(Number(d.progress)-s.scrollTop/(s.scrollHeight-s.clientHeight))<.00001;
+                },fraction);
+                return travel.evaluate(()=>{
+                  const s=document.scrollingElement,stage=document.querySelector('.journey-stage'),canvas=document.querySelector('#scene-canvas'),d=document.querySelector('#scene-study').dataset;
+                  return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,progress:Number(d.progress),top:stage.getBoundingClientRect().top,height:stage.getBoundingClientRect().height,canvasTop:canvas.getBoundingClientRect().top,frames:Number(d.frames)};
+                });
+              }
+              for(const fraction of [0,.25,.5,.75,1,.75,.5,.25,0]){
+                const state=await measure(fraction);
+                assert(state.range>=height*3.9,'measured native travel');
+                assert(Math.abs(state.top)<2&&Math.abs(state.canvasTop)<2,'single sticky stage');
+                assert(Math.abs(state.height-height)<2,'stable stage height');
+                assert(await original.evaluate(el=>el===document.querySelector('#scene-canvas')),'same canvas identity');
+                assert.equal(await travel.locator('#wordmark-occluder').getAttribute('points'),identity,'opening pose unchanged in T13');
+                states.push(state);
+              }
+              assert.equal(states[0].progress,0);assert.equal(states[4].progress,1);assert.equal(states.at(-1).progress,0);
+              for(let i=1;i<4;i++)assert.equal(states[i].progress,states[8-i].progress,'exact reversible native progress');
+              // Native keyboard scrolling, no interception, no substitute scroll track.
+              await travel.keyboard.press('End');
+              await travel.waitForFunction(()=>Number(document.querySelector('#scene-study').dataset.progress)===1);
+              await travel.keyboard.press('Home');
+              await travel.waitForFunction(()=>Number(document.querySelector('#scene-study').dataset.progress)===0);
+              if(width===390){
+                await travel.mouse.wheel(0,420);
+                await travel.waitForFunction(()=>Number(document.querySelector('#scene-study').dataset.progress)>0);
+                await travel.setViewportSize({width:390,height:720});
+                await travel.waitForFunction(()=>{const s=document.scrollingElement;return Math.abs(Number(document.querySelector('#scene-study').dataset.progress)-s.scrollTop/(s.scrollHeight-s.clientHeight))<.00001});
+                const resizedEnd=await measure(1);assert.equal(resizedEnd.progress,1);
+                await travel.screenshot({path:'/tmp/threshold-evidence/native-end-390.png'});
+                await travel.emulateMedia({reducedMotion:'reduce'});
+                await travel.waitForFunction(()=>document.documentElement.dataset.journey==='off'&&document.querySelector('#scene-study').dataset.reason==='reduced-motion');
+                assert(await travel.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'no empty travel in reduced motion');
+                await travel.emulateMedia({reducedMotion:'no-preference'});
+                await travel.waitForFunction(()=>document.documentElement.dataset.journey==='on');
+                await measure(0);
+              }
+              scrollEvidence.push({width,height,states});
+              assert.deepEqual(errors,[]);await original.dispose();await travel.close();
+            }
+            writeFileSync('/tmp/threshold-evidence/native-scroll.json',JSON.stringify(scrollEvidence,null,2));
             // Run the default animated route separately from deterministic material comparisons.
             const moving=await browser.newPage({viewport:{width:1024,height:768},deviceScaleFactor:1});
             const movingErrors=[];moving.on('pageerror',e=>movingErrors.push(e.message));
-            await moving.goto(baseURL);
+            await moving.goto(baseURL+'?journey=off');
             const movingStage=moving.locator('#scene-study'),movingCanvas=moving.locator('#scene-canvas');
             await moving.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl'&&document.querySelector('#scene-study').dataset.ambient==='on');
             const maskBefore=await moving.locator('#wordmark-occluder').getAttribute('points');
@@ -323,7 +378,7 @@ jobs:
             // Desktop static fallback retains the same full viewport and usable copy.
             for(const opts of [{javaScriptEnabled:false},{reducedMotion:'reduce'}]){
               const staticDesktop=await browser.newPage({viewport:{width:1440,height:900},...opts});
-              await staticDesktop.goto(url);
+              await staticDesktop.goto(baseURL);
               assert(await staticDesktop.locator('h1').isVisible());
               assert(await staticDesktop.locator('.display-wordmark').isVisible());
               assert.equal(await staticDesktop.locator('#wordmark-occluder').getAttribute('points'),'');
@@ -335,7 +390,7 @@ jobs:
             }
             for(const opts of [{javaScriptEnabled:false},{reducedMotion:'reduce'}]) {
               const page=await browser.newPage({viewport:{width:390,height:844},...opts});
-              assert((await page.goto(url)).ok());
+              assert((await page.goto(baseURL)).ok());
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('#scene-canvas').isHidden());
               assert(await page.locator('.scene-fallback').isVisible());
@@ -346,16 +401,17 @@ jobs:
             }
             const unavailable=await browser.newPage({viewport:{width:390,height:844}});
             await unavailable.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl2'?null:original.call(this,type,...args)}});
-            await unavailable.goto(url);
+            await unavailable.goto(baseURL);
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
-            assert(await unavailable.locator('.scene-fallback').isVisible());await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T12a',verification:'T12a',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            assert(await unavailable.locator('.scene-fallback').isVisible());
+            assert(await unavailable.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'graphics fallback has no empty travel');await unavailable.close();
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T13',verification:'T13',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-opening-final-evidence
+          name: threshold-native-scroll-evidence
           path: /tmp/threshold-evidence/
