@@ -1,6 +1,6 @@
-import {studyCamera} from './camera.js?v=T04';
-import {buildStudy} from './geometry.js?v=T04';
-import {bufferSize} from './lifecycle.js?v=T04';
+import {studyCamera} from './camera.js?v=T04b';
+import {buildStudy} from './geometry.js?v=T04b';
+import {bufferSize} from './lifecycle.js?v=T04b';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -23,9 +23,15 @@ export function createRenderer(canvas){
   if(!gl)return null;
   let program=null,vao=null,buffer=null,uniform=null,count=0,limit=4096;
   const vertices=buildStudy();
+  // Loss invalidates every GPU object. Drop old-generation handles without issuing GL calls.
+  function abandon(){buffer=vao=program=uniform=null;count=0}
   function release(){
     if(!gl.isContextLost()){if(buffer)gl.deleteBuffer(buffer);if(vao)gl.deleteVertexArray(vao);if(program)gl.deleteProgram(program)}
-    buffer=vao=program=uniform=null;count=0;
+    abandon();
+  }
+  function restore(){
+    abandon();
+    rebuild();
   }
   function rebuild(){
     release();let vs=null,fs=null;
@@ -59,5 +65,5 @@ export function createRenderer(canvas){
     if(gl.getError()!==gl.NO_ERROR||gl.isContextLost())throw Error('GPU draw error');
     return {width:gl.drawingBufferWidth,height:gl.drawingBufferHeight,triangles:count/3};
   }
-  rebuild();return {draw,rebuild,release};
+  rebuild();return {draw,restore,abandon,release};
 }

@@ -1,6 +1,6 @@
-import {RELEASE} from './config.js?v=T04';
-import {createRenderer} from './renderer.js?v=T04';
-import {createScheduler} from './lifecycle.js?v=T04';
+import {RELEASE} from './config.js?v=T04b';
+import {createRenderer} from './renderer.js?v=T04b';
+import {createScheduler} from './lifecycle.js?v=T04b';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -25,10 +25,10 @@ function start(){
   const invalidate=()=>scheduler.invalidate();
   function preference(){if(reduced.matches)staticView('reduced-motion');invalidate()}
   function visibility(){if(document.hidden)scheduler.sync();else invalidate()}
-  function contextLost(e){e.preventDefault();lost=true;scheduler.sync();staticView('context-lost')}
+  function contextLost(e){e.preventDefault();lost=true;scheduler.sync();renderer?.abandon();staticView('context-lost')}
   function contextRestored(){
     if(disposed)return;lost=false;
-    try{if(renderer)renderer.rebuild();failed=false;invalidate()}
+    try{if(renderer)renderer.restore();failed=false;invalidate()}
     catch(e){failed=true;staticView('graphics-error');console.warn('THRESHOLD restore:',e)}
   }
   const resize=new ResizeObserver(invalidate);

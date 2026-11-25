@@ -855,3 +855,6 @@ T03 browser 45685800817 and Pages 45685799566 passed. T04 adds persistent WebGL2
 
 ## THRESHOLD — T04a corrective verification
 Browser run 45686395150 timed out at simulated restoration after initial two viewport pixel checks. Pages and Node checks passed. T04a retains runtime unchanged and strengthens recovery test sequencing, event diagnostics and recovered-pixel verification; exact rerun pending. T05 held until gate clears.
+
+## THRESHOLD — T04b renderer recovery fix
+T04a exact run 45686683301 confirmed the context restored but stale GPU handle deletion generated INVALID_OPERATION. Abandon invalid handles on loss and before restoration rebuild; preserve normal disposal and all pixel/lifecycle checks. Runtime version T04b. Exact rerun pending; T05 held.
