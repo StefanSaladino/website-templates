@@ -13,7 +13,7 @@ import {
   buildDetailShadowField,
   buildWaterMesh,
   buildCloudDeckMesh,
-} from './terrain.js?v=12';
+} from './terrain.js?v=13';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -25,8 +25,8 @@ import {
   CLOUD_FRAG,
   DETAIL_VERT,
   DETAIL_FRAG,
-} from './shaders.js?v=12';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=12';
+} from './shaders.js?v=13';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=13';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -65,6 +65,14 @@ function getUniforms(gl, prog, names) {
   return map;
 }
 
+// M_reflected = M_main * reflectionY. Points on the water plane retain
+// identical clip coordinates; reflecting the eye and all basis vectors matches sky rays.
+export function mirrorLakeView(state,viewProj,plane){
+  const matrix=new Float32Array(viewProj);
+  for(let i=0;i<4;i++){matrix[4+i]=-viewProj[4+i];matrix[12+i]=viewProj[12+i]+2*plane*viewProj[4+i];}
+  const point=v=>[v[0],2*plane-v[1],v[2]],direction=v=>[v[0],-v[1],v[2]];
+  return {matrix,state:{...state,pos:point(state.pos),look:point(state.look),right:direction(state.right),up:direction(state.up),forward:direction(state.forward)}};
+}
 export class AtlasRenderer {
   constructor(canvas, stageEl, options = {}) {
     this.canvas = canvas;
@@ -273,7 +281,7 @@ export class AtlasRenderer {
     gl.generateMipmap(gl.TEXTURE_2D);gl.bindTexture(gl.TEXTURE_2D,null);
 
     this.resources = {
-      detailShadowTex,detailShadowBounds:detailShadowField.bounds,
+      detailShadowTex,detailShadowBounds:detailShadowField.bounds,reflection:null,
       skyProg,
       skyU: getUniforms(gl, skyProg, [
         'uCamRight', 'uCamUp', 'uCamForward', 'uTanHalfFov', 'uAspect',
@@ -285,20 +293,20 @@ export class AtlasRenderer {
       terrainU: getUniforms(gl, terrainProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uFolioHalf', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix',
-        'uDetailShadows','uDetailShadowBounds','uDetailGrowth',
+        'uDetailShadows','uDetailShadowBounds','uDetailGrowth','uClipBelow',
         'uGolden', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon',
       ]),
       terrainVao,
       terrainIndexCount: td.indices.length,
       buffers: [posBuf, normBuf, geoBuf, idxBuf, wPosBuf, wIdxBuf, cPosBuf, cIdxBuf,...detailBuffers],
       detailProg,detailBatches,
-      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex']),
+      detailU:getUniforms(gl,detailProg,['uViewProj','uRelief','uGrowth','uCamPos','uSunDir','uSkyHorizon','uGolden','uFogDensity','uWorldSize','uMaxTexHeight','uHeightTex','uClipBelow']),
 
       waterProg,
       waterU: getUniforms(gl, waterProg, [
         'uViewProj', 'uRelief', 'uCamPos', 'uSunDir', 'uHeightTex',
         'uWorldSize', 'uMaxTexHeight', 'uWaterLevel', 'uMapMix', 'uGolden',
-        'uTime', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon',
+        'uTime', 'uFogDensity', 'uSkyZenith', 'uSkyHorizon','uReflection','uScreenSize','uReflectionReady',
       ]),
       waterVao,
       waterIndexCount: this.waterData.indices.length,
@@ -382,74 +390,33 @@ export class AtlasRenderer {
     gl.enable(gl.CULL_FACE);
     gl.cullFace(gl.BACK);
 
-    // 1. Sky Pass
-    gl.disable(gl.DEPTH_TEST);
-    gl.depthMask(false);
-    gl.disable(gl.BLEND);
-    gl.useProgram(r.skyProg);
-    gl.bindVertexArray(r.skyVao);
-    gl.uniform3fv(r.skyU.uCamRight, state.right);
-    gl.uniform3fv(r.skyU.uCamUp, state.up);
-    gl.uniform3fv(r.skyU.uCamForward, state.forward);
-    gl.uniform1f(r.skyU.uTanHalfFov, tanHalfFov);
-    gl.uniform1f(r.skyU.uAspect, aspect);
-    gl.uniform3fv(r.skyU.uSunDir, state.sunDir);
-    gl.uniform1f(r.skyU.uMapMix, state.mapMix);
-    gl.uniform1f(r.skyU.uGolden, state.goldenWeight);
-    gl.uniform1f(r.skyU.uValley, state.valleyWeight);
-    gl.uniform3fv(r.skyU.uSkyZenith, state.skyZenith);
-    gl.uniform3fv(r.skyU.uSkyHorizon, state.skyHorizon);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, r.heightTex);
-
     const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);};
     const growth=smooth(.43,.94,state.relief)*(1-smooth(.06,.62,state.mapMix));
-    gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,r.detailShadowTex);gl.activeTexture(gl.TEXTURE0);
-
-    // 2. Terrain Pass
-    gl.enable(gl.DEPTH_TEST);
-    gl.depthFunc(gl.LESS);
-    gl.depthMask(true);
-    gl.useProgram(r.terrainProg);
-    gl.bindVertexArray(r.terrainVao);
-    gl.uniformMatrix4fv(r.terrainU.uViewProj, false, viewProj);
-    gl.uniform1f(r.terrainU.uRelief, state.relief);
-    gl.uniform3fv(r.terrainU.uCamPos, state.pos);
-    gl.uniform3fv(r.terrainU.uSunDir, state.sunDir);
-    gl.uniform1i(r.terrainU.uHeightTex, 0);
-    gl.uniform1i(r.terrainU.uDetailShadows,1);
-    gl.uniform4fv(r.terrainU.uDetailShadowBounds,r.detailShadowBounds);
-    gl.uniform1f(r.terrainU.uDetailGrowth,growth);
-    gl.uniform1f(r.terrainU.uWorldSize, WORLD_SIZE);
-    gl.uniform1f(r.terrainU.uFolioHalf, state.folioHalf);
-    gl.uniform1f(r.terrainU.uMaxTexHeight, this.terrainData.maxTexHeight);
-    gl.uniform1f(r.terrainU.uWaterLevel, WATER_LEVEL);
-    gl.uniform1f(r.terrainU.uMapMix, state.mapMix);
-    gl.uniform1f(r.terrainU.uGolden, state.goldenWeight);
-    gl.uniform1f(r.terrainU.uFogDensity, state.fogDensity);
-    gl.uniform3fv(r.terrainU.uSkyZenith, state.skyZenith);
-    gl.uniform3fv(r.terrainU.uSkyHorizon, state.skyHorizon);
-    gl.drawElements(gl.TRIANGLES, r.terrainIndexCount, gl.UNSIGNED_INT, 0);
-
-    // Reveal physical details and their ground shadows with the same envelope.
-    let detailInstances=0;
-    if(growth>.001){
-      gl.useProgram(r.detailProg);gl.disable(gl.CULL_FACE);
-      gl.uniformMatrix4fv(r.detailU.uViewProj,false,viewProj);
-      gl.uniform1f(r.detailU.uRelief,state.relief);gl.uniform1f(r.detailU.uGrowth,growth);
-      gl.uniform3fv(r.detailU.uCamPos,state.pos);gl.uniform3fv(r.detailU.uSunDir,state.sunDir);
-      gl.uniform3fv(r.detailU.uSkyHorizon,state.skyHorizon);gl.uniform1f(r.detailU.uGolden,state.goldenWeight);
-      gl.uniform1f(r.detailU.uFogDensity,state.fogDensity);gl.uniform1f(r.detailU.uWorldSize,WORLD_SIZE);
-      gl.uniform1f(r.detailU.uMaxTexHeight,this.terrainData.maxTexHeight);gl.uniform1i(r.detailU.uHeightTex,0);
-      for(const batch of r.detailBatches){gl.bindVertexArray(batch.vao);gl.drawArraysInstanced(gl.TRIANGLES,0,batch.vertexCount,batch.count);detailInstances+=batch.count;}
-      gl.enable(gl.CULL_FACE);
+    const waterVisible=state.relief>.30&&state.mapMix<.74;
+    const lakeInFrame=waterVisible&&this._lakeMayBeVisible(viewProj,state.relief);
+    let reflectionReady=false;
+    if(lakeInFrame){
+      const target=this._ensureReflection(pxW,pxH);
+      if(target){
+        const plane=WATER_LEVEL*state.relief;
+        const mirrored=mirrorLakeView(state,viewProj,plane);
+        gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,null);gl.activeTexture(gl.TEXTURE0);
+        gl.bindFramebuffer(gl.FRAMEBUFFER,target.fbo);
+        gl.viewport(0,0,target.w,target.h);gl.depthMask(true);
+        gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+        this._drawOpaque(mirrored.state,mirrored.matrix,tanHalfFov,aspect,growth,true);
+        gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+        reflectionReady=true;
+      }
     }
-    this.stageEl.dataset.detailInstances=String(detailInstances);
+    gl.viewport(0,0,pxW,pxH);gl.depthMask(true);
+    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+    this.stageEl.dataset.detailInstances=String(this._drawOpaque(state,viewProj,tanHalfFov,aspect,growth,false));
+    this.stageEl.dataset.reflectionReady=String(reflectionReady);
+    this.stageEl.dataset.reflectionSize=reflectionReady?r.reflection.w+'x'+r.reflection.h:'0x0';
 
     // 3. Glacial Lake Water Pass
-    if (state.relief > 0.30 && state.mapMix < 0.74) {
+    if (waterVisible) {
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
       gl.depthMask(false);
@@ -462,6 +429,8 @@ export class AtlasRenderer {
       gl.uniform3fv(r.waterU.uCamPos, state.pos);
       gl.uniform3fv(r.waterU.uSunDir, state.sunDir);
       gl.uniform1i(r.waterU.uHeightTex, 0);
+      gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,reflectionReady?r.reflection.color:r.heightTex);gl.activeTexture(gl.TEXTURE0);
+      gl.uniform1i(r.waterU.uReflection,2);gl.uniform2f(r.waterU.uScreenSize,pxW,pxH);gl.uniform1f(r.waterU.uReflectionReady,reflectionReady?1:0);
       gl.uniform1f(r.waterU.uWorldSize, WORLD_SIZE);
       gl.uniform1f(r.waterU.uMaxTexHeight, this.terrainData.maxTexHeight);
       gl.uniform1f(r.waterU.uWaterLevel, WATER_LEVEL);
@@ -521,10 +490,127 @@ export class AtlasRenderer {
     return state;
   }
 
+  _drawOpaque(state,viewProj,tanHalfFov,aspect,growth,reflected){
+    const gl=this.gl,r=this.resources;
+    // 1. Sky Pass
+    gl.disable(gl.DEPTH_TEST);
+    gl.depthMask(false);
+    gl.disable(gl.BLEND);
+    gl.useProgram(r.skyProg);
+    gl.bindVertexArray(r.skyVao);
+    gl.uniform3fv(r.skyU.uCamRight, state.right);
+    gl.uniform3fv(r.skyU.uCamUp, state.up);
+    gl.uniform3fv(r.skyU.uCamForward, state.forward);
+    gl.uniform1f(r.skyU.uTanHalfFov, tanHalfFov);
+    gl.uniform1f(r.skyU.uAspect, aspect);
+    gl.uniform3fv(r.skyU.uSunDir, state.sunDir);
+    gl.uniform1f(r.skyU.uMapMix, state.mapMix);
+    gl.uniform1f(r.skyU.uGolden, state.goldenWeight);
+    gl.uniform1f(r.skyU.uValley, state.valleyWeight);
+    gl.uniform3fv(r.skyU.uSkyZenith, state.skyZenith);
+    gl.uniform3fv(r.skyU.uSkyHorizon, state.skyHorizon);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, r.heightTex);
+
+    gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,r.detailShadowTex);gl.activeTexture(gl.TEXTURE0);
+
+    // Mirroring reverses triangle winding, but not the screen-space sky triangle.
+    gl.frontFace(reflected?gl.CW:gl.CCW);
+    // 2. Terrain Pass
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LESS);
+    gl.depthMask(true);
+    gl.useProgram(r.terrainProg);
+    gl.bindVertexArray(r.terrainVao);
+    gl.uniformMatrix4fv(r.terrainU.uViewProj, false, viewProj);
+    gl.uniform1f(r.terrainU.uRelief, state.relief);
+    gl.uniform3fv(r.terrainU.uCamPos, state.pos);
+    gl.uniform3fv(r.terrainU.uSunDir, state.sunDir);
+    gl.uniform1i(r.terrainU.uHeightTex, 0);
+    gl.uniform1i(r.terrainU.uDetailShadows,1);
+    gl.uniform4fv(r.terrainU.uDetailShadowBounds,r.detailShadowBounds);
+    gl.uniform1f(r.terrainU.uDetailGrowth,growth);
+    gl.uniform1f(r.terrainU.uClipBelow,reflected?WATER_LEVEL*state.relief-.012:-1000);
+    gl.uniform1f(r.terrainU.uWorldSize, WORLD_SIZE);
+    gl.uniform1f(r.terrainU.uFolioHalf, state.folioHalf);
+    gl.uniform1f(r.terrainU.uMaxTexHeight, this.terrainData.maxTexHeight);
+    gl.uniform1f(r.terrainU.uWaterLevel, WATER_LEVEL);
+    gl.uniform1f(r.terrainU.uMapMix, state.mapMix);
+    gl.uniform1f(r.terrainU.uGolden, state.goldenWeight);
+    gl.uniform1f(r.terrainU.uFogDensity, state.fogDensity);
+    gl.uniform3fv(r.terrainU.uSkyZenith, state.skyZenith);
+    gl.uniform3fv(r.terrainU.uSkyHorizon, state.skyHorizon);
+    gl.drawElements(gl.TRIANGLES, r.terrainIndexCount, gl.UNSIGNED_INT, 0);
+
+    // Reveal physical details and their ground shadows with the same envelope.
+    let detailInstances=0;
+    if(growth>.001){
+      gl.useProgram(r.detailProg);gl.disable(gl.CULL_FACE);
+      gl.uniformMatrix4fv(r.detailU.uViewProj,false,viewProj);
+      gl.uniform1f(r.detailU.uClipBelow,reflected?WATER_LEVEL*state.relief-.012:-1000);
+      gl.uniform1f(r.detailU.uRelief,state.relief);gl.uniform1f(r.detailU.uGrowth,growth);
+      gl.uniform3fv(r.detailU.uCamPos,state.pos);gl.uniform3fv(r.detailU.uSunDir,state.sunDir);
+      gl.uniform3fv(r.detailU.uSkyHorizon,state.skyHorizon);gl.uniform1f(r.detailU.uGolden,state.goldenWeight);
+      gl.uniform1f(r.detailU.uFogDensity,state.fogDensity);gl.uniform1f(r.detailU.uWorldSize,WORLD_SIZE);
+      gl.uniform1f(r.detailU.uMaxTexHeight,this.terrainData.maxTexHeight);gl.uniform1i(r.detailU.uHeightTex,0);
+      for(const batch of r.detailBatches){gl.bindVertexArray(batch.vao);gl.drawArraysInstanced(gl.TRIANGLES,0,batch.vertexCount,batch.count);detailInstances+=batch.count;}
+      gl.enable(gl.CULL_FACE);
+    }
+    gl.frontFace(gl.CCW);
+    return detailInstances;
+
+
+  }
+
+  // Conservative planar bounding quad rejection. Do not render a reflection for
+  // an off-screen lake; near-plane crossings conservatively retain the pass.
+  _lakeMayBeVisible(m,relief){
+    const corners=[[-24,-14],[20,-14],[-24,18],[20,18]].map(([x,z])=>{
+      const y=WATER_LEVEL*relief;
+      return [m[0]*x+m[4]*y+m[8]*z+m[12],m[1]*x+m[5]*y+m[9]*z+m[13],m[3]*x+m[7]*y+m[11]*z+m[15]];
+    });
+    if(corners.every(v=>v[2]<=0))return false;
+    if(corners.some(v=>v[2]<=0))return true;
+    return ![0,1].some(i=>corners.every(v=>v[i]<-v[2])||corners.every(v=>v[i]>v[2]));
+  }
+
+  _ensureReflection(pxW,pxH){
+    const gl=this.gl,r=this.resources;
+    const scale=Math.min(.50,640/Math.max(pxW,pxH),Math.sqrt(230400/(pxW*pxH)));
+    const w=Math.max(2,Math.round(pxW*scale)),h=Math.max(2,Math.round(pxH*scale));
+    if(r.reflection&&r.reflection.w===w&&r.reflection.h===h)return r.reflection;
+    this._deleteReflection();
+    const color=gl.createTexture(),depth=gl.createRenderbuffer(),fbo=gl.createFramebuffer();
+    gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,color);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+    gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,w,h);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,color,0);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,depth);
+    const complete=gl.checkFramebufferStatus(gl.FRAMEBUFFER)===gl.FRAMEBUFFER_COMPLETE;
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.bindRenderbuffer(gl.RENDERBUFFER,null);
+    gl.bindTexture(gl.TEXTURE_2D,null);gl.activeTexture(gl.TEXTURE0);
+    if(!complete){gl.deleteFramebuffer(fbo);gl.deleteRenderbuffer(depth);gl.deleteTexture(color);return null;}
+    return r.reflection={fbo,color,depth,w,h};
+  }
+
+  _deleteReflection(){
+    const gl=this.gl,r=this.resources,t=r?.reflection;
+    if(!gl||!t)return;
+    gl.deleteFramebuffer(t.fbo);gl.deleteRenderbuffer(t.depth);gl.deleteTexture(t.color);r.reflection=null;
+  }
+
   _destroyResources() {
     const gl = this.gl;
     const r = this.resources;
     if (!gl || !r) return;
+    this._deleteReflection();
     gl.deleteProgram(r.skyProg);
     gl.deleteProgram(r.terrainProg);
     gl.deleteProgram(r.waterProg);

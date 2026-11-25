@@ -127,6 +127,7 @@ uniform float uFolioHalf;
 uniform sampler2D uDetailShadows;
 uniform vec4 uDetailShadowBounds;
 uniform float uDetailGrowth;
+uniform float uClipBelow;
 uniform float uMaxTexHeight;
 uniform float uWaterLevel;
 
@@ -226,6 +227,7 @@ float contourMask(float h, float interval, float widthPx) {
 }
 
 void main() {
+  if(vWorldPos.y<uClipBelow)discard;
   vec3 N = normalize(vNormal);
   vec3 V = normalize(uCamPos - vWorldPos);
   vec3 L = normalize(uSunDir);
@@ -455,6 +457,9 @@ uniform float uTime;
 uniform float uFogDensity;
 uniform vec3 uSkyZenith;
 uniform vec3 uSkyHorizon;
+uniform sampler2D uReflection;
+uniform vec2 uScreenSize;
+uniform float uReflectionReady;
 
 float hash21(vec2 p) {
   p = fract(p * vec2(127.1, 311.7));
@@ -511,7 +516,8 @@ void main() {
   float h0 = waveHeight(vWorldPos.xz, uTime);
   float hx = waveHeight(vWorldPos.xz + vec2(eps, 0.0), uTime);
   float hz = waveHeight(vWorldPos.xz + vec2(0.0, eps), uTime);
-  float rippleAmp = mix(0.0025, 0.0085, smoothstep(0.0, 0.65, depth));
+  float pixelFootprint=max(length(dFdx(vWorldPos.xz)),length(dFdy(vWorldPos.xz)));
+  float rippleAmp = mix(0.0016,0.0048,smoothstep(0.02,0.65,depth))*(1.-smoothstep(.09,.55,pixelFootprint));
   vec3 N = normalize(vec3((h0 - hx) * rippleAmp / eps, 1.0, (h0 - hz) * rippleAmp / eps));
 
   vec3 V = normalize(uCamPos - vWorldPos);
@@ -521,60 +527,21 @@ void main() {
   R = normalize(R);
 
   float NdotV = max(dot(N, V), 0.0);
-  float fresnel = 0.14 + 0.86 * pow(1.0 - NdotV, 3.0);
-
-  // 32-step tighter raymarch against uHeightTex to mirror Kestrel Spire, snow crests & evergreen cirque
-  vec3 reflColor = sampleSkyRefl(R, L);
-  float dt = 0.68;
-  float maxDist = 72.0;
-  float t = 0.45;
-  bool hit = false;
-  vec3 hitPos = vWorldPos;
-
-  for (int i = 0; i < 32; i++) {
-    vec3 p = vWorldPos + R * t;
-    float th = sampleTexHeight(p.xz) * uRelief;
-    if (p.y < th) {
-      hit = true;
-      hitPos = p;
-      break;
-    }
-    t += dt;
-    dt *= 1.068;
-    if (t > maxDist) break;
-  }
-
-  if (hit) {
-    float e = 0.65;
-    float hL = sampleTexHeight(hitPos.xz - vec2(e, 0.0)) * uRelief;
-    float hR = sampleTexHeight(hitPos.xz + vec2(e, 0.0)) * uRelief;
-    float hD = sampleTexHeight(hitPos.xz - vec2(0.0, e)) * uRelief;
-    float hU = sampleTexHeight(hitPos.xz + vec2(0.0, e)) * uRelief;
-    vec3 rN = normalize(vec3(hL - hR, 2.0 * e, hD - hU));
-
-    float slope = 1.0 - rN.y;
-    vec3 rForest = vec3(0.085, 0.18, 0.125);
-    vec3 rRock = vec3(0.32, 0.35, 0.39);
-    vec3 rSnow = vec3(0.72, 0.76, 0.80);
-
-    float rForMask = smoothstep(2.1, 3.1, hitPos.y) * (1.0 - smoothstep(6.4, 9.6, hitPos.y)) * (1.0 - smoothstep(0.22, 0.44, slope));
-    float rSnowMask = smoothstep(10.0, 15.8, hitPos.y) * (1.0 - smoothstep(0.25, 0.52, slope));
-
-    vec3 rAlb = mix(rRock, rForest, rForMask);
-    rAlb = mix(rAlb, rSnow, rSnowMask);
-
-    float rDiff = max(dot(rN, L), 0.0);
-    vec3 sunCol = mix(vec3(0.84, 0.82, 0.78), vec3(0.98, 0.73, 0.49), uGolden);
-    vec3 mCol = rAlb * (uSkyHorizon * 0.48 + sunCol * rDiff * 0.95);
-
-    float reflFog = 1.0 - exp(-t * 0.011);
-    reflColor = mix(mCol, uSkyHorizon, clamp(reflFog, 0.0, 0.62));
-  }
+  float fresnel = .025+.975*pow(1.-NdotV,5.);
+  // The reflection attachment already contains the same display-mapped sky, terrain,
+  // and physical landscape detail as the main scene, from the mirrored eye.
+  vec3 skyRefl=sampleSkyRefl(R,L);
+  vec2 uv=gl_FragCoord.xy/uScreenSize;
+  vec2 warped=uv+vec2(dot(N.xz,vec2(.8,.6)),dot(N.xz,vec2(-.6,.8)))*.19;
+  vec2 edge=min(warped,1.-warped);
+  float valid=smoothstep(0.,.035,min(edge.x,edge.y))*uReflectionReady;
+  vec3 reflColor=skyRefl;
+  if(valid>.001)reflColor=mix(skyRefl,texture(uReflection,clamp(warped,vec2(.002),vec2(.998))).rgb,valid);
 
   // Luminous glacial meltwater color: turquoise-emerald shallows -> deep alpine teal
-  vec3 shallowTurq = mix(vec3(0.15, 0.48, 0.51), vec3(0.18, 0.21, 0.27), uGolden * 0.88);
-  vec3 midGlacial = mix(vec3(0.10, 0.34, 0.42), vec3(0.13, 0.16, 0.21), uGolden * 0.90);
-  vec3 deepTarn = mix(vec3(0.048, 0.165, 0.225), vec3(0.08, 0.11, 0.16), uGolden * 0.92);
+  vec3 shallowTurq = mix(vec3(0.14, 0.31, 0.30), vec3(0.18, 0.21, 0.27), uGolden * 0.88);
+  vec3 midGlacial = mix(vec3(0.065, 0.22, 0.25), vec3(0.13, 0.16, 0.21), uGolden * 0.90);
+  vec3 deepTarn = mix(vec3(0.027, 0.095, 0.135), vec3(0.08, 0.11, 0.16), uGolden * 0.92);
   vec3 waterBody = mix(shallowTurq, midGlacial, smoothstep(0.04, 0.55, depth));
   waterBody = mix(waterBody, deepTarn, smoothstep(0.55, 1.45, depth));
 
@@ -583,22 +550,21 @@ void main() {
   vec3 sunSpecCol = mix(vec3(1.0, 0.98, 0.92), vec3(1.0, 0.78, 0.48), uGolden);
   float spec = pow(max(dot(N, H), 0.0), 180.0) * 0.38;
 
-  // Blend natural glacial meltwater depth with mirrored mountain reflections
-  float reflMix = clamp(fresnel * 0.67 + 0.21, 0.21, 0.84);
-  vec3 col = mix(waterBody, reflColor, reflMix) + sunSpecCol * spec;
-
-  // Subtle wet granite shore transition
-  float shoreRim = (1.0 - smoothstep(0.005, 0.08, depth)) * 0.22 * (1.0 - uGolden);
-  col = mix(col, vec3(0.48, 0.62, 0.66), shoreRim);
-
-  float camDist = length(uCamPos - vWorldPos);
-  float fogAmt = 1.0 - exp(-camDist * uFogDensity * 0.72);
-  col = mix(col, uSkyHorizon, clamp(fogAmt, 0.0, 0.76));
-
-  col = (col * (2.51 * col + 0.03)) / (col * (2.43 * col + 0.59) + 0.14);
-  col = clamp(col, 0.0, 1.0);
-
-  float edgeAlpha = smoothstep(0.004, 0.08, depth) * waterVis;
+  // Composite reflection in display space; never tone-map the rendered reflection twice.
+  float opticalDepth=depth/max(.36,NdotV);
+  vec3 bedCol=vec3(.23,.25,.23)*mix(1.,.52,uGolden);
+  vec3 body=mix(bedCol,waterBody,1.-exp(-opticalDepth*3.2));
+  float camDist=length(uCamPos-vWorldPos);
+  float fogAmt=1.-exp(-camDist*uFogDensity*.72);
+  body=mix(body,uSkyHorizon,clamp(fogAmt,0.,.76))*.89;
+  body=(body*(2.51*body+.03))/(body*(2.43*body+.59)+.14);
+  body=pow(clamp(body,0.,1.),vec3(.96));
+  float reflMix=clamp(.12+fresnel*.83,.12,.93);
+  vec3 col=mix(body,clamp(reflColor,0.,1.),reflMix)+sunSpecCol*spec*.34;
+  // Tight anti-aliased shore; no decorative pale rim.
+  float edgeWidth=clamp(fwidth(depth)*1.05,.008,.085);
+  float edgeAlpha=smoothstep(.004,.004+edgeWidth,depth)*waterVis;
+  col=clamp(col,0.,1.);
   fragColor = vec4(col, edgeAlpha);
 }
 `;
@@ -754,6 +720,7 @@ uniform vec3 uSkyHorizon;
 uniform float uGolden;
 uniform float uFogDensity;
 uniform float uRelief;
+uniform float uClipBelow;
 uniform float uWorldSize;
 uniform float uMaxTexHeight;
 uniform sampler2D uHeightTex;
@@ -764,6 +731,7 @@ float ground(vec2 xz){
   return ((e.r*255.*256.+e.g*255.)/65535.)*uMaxTexHeight*uRelief;
 }
 void main(){
+  if(vWorldPos.y<uClipBelow)discard;
   vec3 n=normalize(vNormal),l=normalize(uSunDir);
   vec3 sun=mix(vec3(1.08,1.02,.92),vec3(1.22,.82,.47),uGolden);
   vec3 fill=mix(vec3(.15,.19,.21),vec3(.36,.43,.49),n.y*.5+.5)*.83;
