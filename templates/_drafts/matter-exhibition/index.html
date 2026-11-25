@@ -1002,6 +1002,18 @@ html.matter-no-js .scroll-hairline,html.matter-no-js .stage-scroll-cue{display:n
  .foreground-layer::before{height:39%}
  .chapter-title{font-size:clamp(1.85rem,7.3vw,2.45rem)}
 }
+/* M5: mobile full-bleed particulate installation. Keep the solid-phase
+   editorial scrim, but uncover the entire wall during dissolution. Text
+   gets a local shadow instead of a large opaque overlay. */
+@media(max-width:820px) and (prefers-reduced-motion:no-preference){
+ html:not(.no-webgl):not(.matter-no-js) .foreground-layer::before{
+  opacity:calc(1 - var(--particle-reveal,0));
+  transition:background 480ms var(--ease-gallery);
+ }
+ html:not(.no-webgl):not(.matter-no-js) .chapter-card{
+  text-shadow:0 1px 3px var(--room-bg),0 0 7px var(--room-bg),0 0 15px var(--room-bg);
+ }
+}
 </style>
   <script>document.documentElement.classList.remove('matter-no-js');</script>
 </head>
@@ -3215,6 +3227,8 @@ function syncDomWithState(state) {
   rootEl.style.setProperty('--progress', state.p.toFixed(4));
   rootEl.style.setProperty('--wall-parallax', (state.p * 2 - 1).toFixed(4));
   rootEl.style.setProperty('--wall-spread', state.dissolve.toFixed(4));
+  const reveal = __matter_motion.smoothstep(0.57,0.69,state.p) * (1-__matter_motion.smoothstep(0.82,0.93,state.p));
+  rootEl.style.setProperty('--particle-reveal', reveal.toFixed(4));
 
   // 2. Clean tonal room switch around Plate III -> IV boundary
   const nextTone = state.p >= 0.54 ? 'charcoal' : 'ivory';

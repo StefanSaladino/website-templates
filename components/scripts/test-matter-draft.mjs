@@ -34,6 +34,10 @@ try{
    assert(stats.minX>=stats.w*.025&&stats.maxX<=stats.w*.975&&stats.minY>=stats.h*.025&&stats.maxY<=stats.h*.975,'solid sculpture clipped at '+width+' / '+f+' '+JSON.stringify(stats));
    if(width<=820)assert(stats.minY>=stats.h*.23&&stats.maxY<=stats.h*.92,'solid sculpture overlaps protected mobile margin '+width+' / '+f);
  }
+ if(width<=820&&(f===0||f===.76||f===.96)){
+   const opacity=await p.locator('.foreground-layer').evaluate(n=>Number(getComputedStyle(n,'::before').opacity));
+   assert(f===.76?opacity<=.03:opacity>=.97,'mobile overlay did not release/restore '+width+' / '+f+' opacity '+opacity);
+ }
  if(f===.76){
    assert(stats.maxX-stats.minX>=stats.w*.84,'dissolution does not fill width '+width+' '+JSON.stringify(stats));
    assert(stats.maxY-stats.minY>=stats.h*.80,'dissolution does not fill height '+width+' '+JSON.stringify(stats));
