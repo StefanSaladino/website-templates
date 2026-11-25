@@ -472,5 +472,14 @@
       "test-matter-draft.mjs"
     ],
     "reason": "Dedicated four-viewport pixel/scroll tests cover solid framing, full-screen particle field, mobile overlay, still mode, context loss and static alternatives."
+  },
+  "atlas-terrain": {
+    "dedicated": true,
+    "workflow": ".github/workflows/register-atlas.yml",
+    "scripts": [
+      "test-atlas-draft.mjs",
+      "test-atlas-summit.mjs"
+    ],
+    "reason": "Dedicated four-viewport browser regression and 34-pose summit review cover terrain, reflection, motion, context recovery, static alternatives and accessibility."
   }
 }

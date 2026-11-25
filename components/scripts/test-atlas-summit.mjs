@@ -7,8 +7,8 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import http from 'node:http';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const out=path.join(root,'components/atlas-summit-evidence');mkdirSync(out,{recursive:true});
-const draft=path.join(root,'templates/_drafts/atlas-terrain');
-const url='http://127.0.0.1:4341/templates/_drafts/atlas-terrain/index.html';
+const draft=path.join(root,'templates/atlas-terrain');
+const url='http://127.0.0.1:4341/templates/atlas-terrain/index.html';
 const server=spawn('python3',['-m','http.server','4341','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 function auditSummit(terrain,volume,state,aspect){
  const n=32, [nx,ny,nz]=volume.dims;

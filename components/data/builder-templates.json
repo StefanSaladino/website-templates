@@ -20,6 +20,13 @@
     "route": "../templates/architecture/"
   },
   {
+    "slug": "atlas-terrain",
+    "title": "ATLAS / Beyond the Contour",
+    "route": "../templates/atlas-terrain/",
+    "configuratorStatus": "gallery-only",
+    "configuratorBlocker": "Custom continuous WebGL terrain, palette adaptation and expanded iframe compatibility require a dedicated configurator review"
+  },
+  {
     "slug": "calibre-watch",
     "title": "Calibre Watch",
     "route": "../templates/calibre-watch/"
