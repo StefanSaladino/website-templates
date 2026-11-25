@@ -6,7 +6,7 @@
  * on inactive chapters, and restores static accessibility under reduced motion.
  */
 
-import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=2';
+import { evaluateSceneState, mixRgb, SCENE_ANCHORS } from './scenes.js?v=3';
 
 const DARK_PAGE = [18, 20, 18]; // #121412
 const LIGHT_PAGE = [239, 236, 228]; // #EFECE4
@@ -264,6 +264,7 @@ export class MotionController {
           light: 0,
           edgeDraw: 1,
           execStep: -1,
+          focus: { amount: 0, cursor: 0 },
           scenarioFrom: this.workflow.activeScenarioId,
           scenarioTo: this.workflow.activeScenarioId,
           scenarioBlend: 1,
@@ -282,6 +283,7 @@ export class MotionController {
       this.rigEl.style.setProperty('--rig-ry', `${state.rotY.toFixed(2)}deg`);
       this.rigEl.style.setProperty('--sep', state.sep.toFixed(4));
       this.rigEl.style.setProperty('--monitor', state.monitor.toFixed(4));
+      this.rigEl.style.setProperty('--execution-focus', state.focus.amount.toFixed(4));
     }
 
     // Readability scrim blend during Scene 03 close-up zoom
@@ -351,7 +353,8 @@ export class MotionController {
           state.scenarioTo,
           state.scenarioBlend,
           state.execStep,
-          state.edgeDraw
+          state.edgeDraw,
+          state.focus
         );
       }
     }
@@ -425,6 +428,7 @@ export class MotionController {
       this.rigEl.style.removeProperty('--rig-ry');
       this.rigEl.style.removeProperty('--sep');
       this.rigEl.style.removeProperty('--monitor');
+      this.rigEl.style.removeProperty('--execution-focus');
     }
     if (this.guidesSvg) this.guidesSvg.style.opacity = '0';
     this.sceneEls.forEach((secEl) => {

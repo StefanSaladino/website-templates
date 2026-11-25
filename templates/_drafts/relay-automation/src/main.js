@@ -5,10 +5,10 @@
  * scenario tabs, and interactive workspace sandbox mode.
  */
 
-import { ConnectorEngine } from './connectors.js?v=2';
-import { WorkflowController } from './workflow.js?v=2';
-import { MotionController } from './motion.js?v=2';
-import { SCENE_ANCHORS } from './scenes.js?v=2';
+import { ConnectorEngine } from './connectors.js?v=3';
+import { WorkflowController } from './workflow.js?v=3';
+import { MotionController } from './motion.js?v=3';
+import { SCENE_ANCHORS } from './scenes.js?v=3';
 
 function initApp() {
   const shellEl = document.getElementById('relay-shell');

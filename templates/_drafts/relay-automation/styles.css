@@ -2476,3 +2476,33 @@ html.has-motion:not(.is-reduced-motion) .scene-copy-opening .display-monumental 
   html.has-motion:not(.is-reduced-motion) .relay-brand-plane { opacity:calc(var(--brand-alpha,1)*.18); top:calc(var(--header-h) + 6px); }
   html.has-motion:not(.is-reduced-motion) .scene-copy-opening { top:calc(var(--header-h) + 12px); }
 }
+
+/* R3: move through the real workflow, not a second dashboard. The board and
+   its SVG connectors share the same plane; focus comes from the master timeline. */
+.workspace-rig { --execution-focus:0; }
+html.has-motion:not(.is-reduced-motion) .wf-node {
+  transform-origin:50% 50%;
+  opacity:calc(1 - var(--node-context,0) * .22);
+  outline:1px solid color-mix(in srgb,var(--accent) calc(var(--node-focus,0) * 85%),transparent);
+  outline-offset:calc(var(--node-focus,0) * 3px);
+}
+html.has-motion:not(.is-reduced-motion) .wf-node:focus-visible { opacity:1; outline:2px solid var(--accent); outline-offset:3px; }
+@media(min-width:1024px){
+ html.has-motion:not(.is-reduced-motion) .ws-canvas {
+   transform:translate3d(0,calc(var(--sep) * -10px - var(--execution-focus) * 6px),calc(var(--sep) * 20px + var(--execution-focus) * 76px));
+ }
+ html.has-motion:not(.is-reduced-motion) .ws-sidebar {
+   transform:translate3d(calc(var(--sep) * -42px - var(--execution-focus) * 24px),calc(var(--sep) * -10px),calc(var(--sep) * 68px - var(--execution-focus) * 38px));
+   opacity:calc(1 - var(--execution-focus) * .42);
+ }
+ html.has-motion:not(.is-reduced-motion) .ws-inspector {
+   transform:translate3d(calc(var(--sep) * 62px + var(--execution-focus) * 22px),calc(var(--sep) * 14px),calc(var(--sep) * 78px - var(--execution-focus) * 38px));
+   opacity:calc(1 - var(--execution-focus) * .28);
+ }
+ html.has-motion:not(.is-reduced-motion) .ws-history { opacity:clamp(0,calc(1 - var(--monitor) * 2.5 - var(--execution-focus) * .36),1); }
+ html.has-motion:not(.is-reduced-motion) :is(.ws-sidebar,.ws-inspector):focus-within { opacity:1; }
+}
+@media(max-width:1023px){
+ html.has-motion:not(.is-reduced-motion) .ws-canvas { transform:translate3d(0,calc(var(--sep) * -10px),calc(var(--sep) * 20px + var(--execution-focus) * 22px)); }
+ html.has-motion:not(.is-reduced-motion) .ws-history { opacity:clamp(0,calc(1 - var(--monitor) * 2.5 - var(--execution-focus) * .18),1); }
+}

@@ -104,6 +104,19 @@ function samplePanTargets(targets, stepFloat) {
   };
 }
 
+export function evaluateExecutionFocus(progress) {
+  const p = clamp01(progress);
+  const amount = smoothstep((p - 0.245) / 0.03) * (1 - smoothstep((p - 0.435) / 0.03));
+  const cursor = clamp01((p - 0.275) / 0.16) * 5;
+  return { amount, cursor };
+}
+
+// Same continuous focus weights are used for the node and its connector boxes.
+export function executionNodeWeight(index, focus) {
+  if (!focus) return 0;
+  return focus.amount * (1 - smoothstep(Math.abs(index - focus.cursor)));
+}
+
 export function evaluateSceneState(progress, isMobile) {
   const p = clamp01(progress);
   const keys = isMobile ? MOBILE_KEYS : DESKTOP_KEYS;
@@ -135,7 +148,7 @@ export function evaluateSceneState(progress, isMobile) {
     execStep = local * 5.65;
     if (p >= 0.275 && p <= 0.435) {
       const targets = isMobile ? MOBILE_PAN_TARGETS : DESKTOP_PAN_TARGETS;
-      const pan = samplePanTargets(targets, execStep);
+      const pan = samplePanTargets(targets, evaluateExecutionFocus(p).cursor);
       xPct = pan.xPct;
       yPct = pan.yPct;
     }
@@ -231,6 +244,7 @@ export function evaluateSceneState(progress, isMobile) {
     light: lightBlend,
     edgeDraw,
     execStep,
+    focus: evaluateExecutionFocus(p),
     scenarioFrom,
     scenarioTo,
     scenarioBlend,

@@ -5,6 +5,8 @@
  * unified execution monitoring & recovery.
  */
 
+import { executionNodeWeight } from './scenes.js?v=3';
+
 export const SCENARIOS = {
   inbound: {
     id: 'inbound',
@@ -599,7 +601,7 @@ export class WorkflowController {
    * Interpolates every node's exact (x, y) directly from fromId -> toId at blend t [0..1]
    * and feeds the exact same boxes synchronously to ConnectorEngine.
    */
-  renderGraphBlend(fromId, toId, blendT, execStep = -1, edgeDraw = 1) {
+  renderGraphBlend(fromId, toId, blendT, execStep = -1, edgeDraw = 1, focus = null) {
     if (!this.canvasBoard) return;
     const fromSc = SCENARIOS[fromId] || SCENARIOS.inbound;
     const toSc = SCENARIOS[toId] || SCENARIOS.inbound;
@@ -656,11 +658,17 @@ export class WorkflowController {
       const xFrac = lerp(aCoords.x, bCoords.x, t);
       const yFrac = lerp(aCoords.y, bCoords.y, t);
       const xPx = xFrac * boardW;
-      const yPx = yFrac * boardH;
+      const weight = executionNodeWeight(i, focus);
+      const yPx = yFrac * boardH - weight * (isMobile ? 2 : 7);
 
       const isStepRunning = activeIdx === i;
       const isStepDone = activeIdx >= 0 && i < activeIdx;
-      const nodeScale = isStepRunning ? 1.07 : 1.0 - morphDip;
+      // During the cinematic sweep, focus moves continuously, not on status flips.
+      const nodeScale = focus
+        ? 1.0 - morphDip + weight * (isMobile ? 0.055 : 0.16)
+        : isStepRunning ? 1.07 : 1.0 - morphDip;
+      el.style.setProperty('--node-focus', weight.toFixed(4));
+      el.style.setProperty('--node-context', ((focus?.amount || 0) * (1 - weight)).toFixed(4));
 
       el.style.transform = `translate3d(${xPx.toFixed(1)}px, ${yPx.toFixed(1)}px, 0) scale(${nodeScale.toFixed(3)})`;
       el.classList.toggle('is-done', isStepDone);
