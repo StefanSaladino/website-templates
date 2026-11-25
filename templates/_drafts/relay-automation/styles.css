@@ -2570,3 +2570,13 @@ html.has-motion .relay-shell :is(.wf-node-kind,.wf-node-title,.wf-node-meta,#ws-
 /* R7: keep the fixed header opaque to avoid repainting a live backdrop. */
 html.has-motion .site-header { background:var(--page-bg); backdrop-filter:none; -webkit-backdrop-filter:none; }
 html.has-motion:not(.is-reduced-motion) .relay-shell { box-shadow:0 22px 48px rgba(0,0,0,calc(.48 - var(--surface-light,0)*.34)), inset 0 1px 0 rgba(255,255,255,.06); }
+
+/* R7c: flatten terminal desktop product planes, not depth-bearing ancestors.
+   The actual panel translations and shell perspective remain unchanged.
+   Portrait retains the R7b compositing policy after slower throttled trials. */
+@media(min-width:1024px) {
+ html.has-motion:not(.is-reduced-motion) :is(.ws-sidebar,.ws-canvas,.ws-inspector,.ws-history) { transform-style:flat; }
+ html.has-motion:not(.is-reduced-motion) .wf-node { will-change:auto; }
+ html.has-motion:not(.is-reduced-motion) .scene:not(.is-active) .scene-copy { will-change:auto; }
+ html.has-motion:not(.is-reduced-motion) .stage-grid-rule { mask-image:none; opacity:.09; }
+}
