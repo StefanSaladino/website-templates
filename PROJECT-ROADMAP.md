@@ -831,3 +831,6 @@ User approved gallery-only registration. Prepare a gated candidate using the A40
 
 ## ATLAS — gallery registration candidate
 Stakeholder approved A40 gallery-only registration. Candidate moves the complete expedition to templates/atlas-terrain, preserves old review links via redirect, captures its genuine opening, adds dedicated test coverage, and validates 39 gallery / 35 configurator templates. This remains a review preview, not a production or configurator approval.
+
+## ATLAS — registered gallery preview
+Registration run 45622444868 completed successfully: both permanent-route specialist suites, genuine opening thumbnail, complete showroom build and 39/35 membership passed. Verified candidate d5d5324e24f2bb717bb9f5149342b3ed3b6739bd merged through PR #1 at 8f95c7ab67ed843513e966af3649fd116b9f3da2 after automatic finalizer failure. Main source contains gallery entry and permanent route; Pages deployment 45627156690 queued at verification. Only the now-merged registration branch remains to be deleted; guarded cleanup checks exact SHA, ancestry and open PRs. Gallery-only, not configurator enabled. No runtime changes.
