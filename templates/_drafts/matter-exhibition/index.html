@@ -2203,8 +2203,23 @@ void main() {
   vec4 viewPos = uView * vec4(pos, 1.0);
   gl_Position = uProj * viewPos;
 
+  // M4: the sculpture remains large; released grains occupy the whole
+  // exhibition wall. Deterministic low-discrepancy destinations keep the
+  // effect continuous on reverse scroll and independent of display aspect.
+  // The offset is zero at birth and at landing, so the same surface sample
+  // remains attached to the solid on either side of the bridge.
+  float expansion = smoothstep(0.08, 0.80, uDissolve);
+  float release = detached * expansion * (1.0 - flight);
+  vec2 wall = (vec2(aRand.x, aRand.y) * 2.0 - 1.0) * vec2(0.974, 0.974);
+  float arc = sin(3.14159265 * release);
+  wall += vec2(sin(aRand.y * 6.283 + uTime * 0.30),
+               cos(aRand.x * 6.283 - uTime * 0.27)) * arc * 0.045;
+  wall = clamp(wall, vec2(-0.982), vec2(0.982));
+  vec2 source = gl_Position.xy / max(gl_Position.w, 0.001);
+  gl_Position.xy = mix(source, wall, release) * gl_Position.w;
+
   float dist = max(-viewPos.z, 0.8);
-  float basePt = mix(2.1, 4.4, aRand.z) * (0.82 + 0.45 * scatterBell);
+  float basePt = mix(2.1, 4.4, aRand.z) * (0.82 + 0.45 * scatterBell + 0.65 * release);
   gl_PointSize = clamp((basePt * uPixelRatio * 4.2) / dist, 1.25, uMaxPointSize);
 
   vec3 Lkey = normalize(vec3(0.65, 0.78, 0.55));
@@ -3016,17 +3031,19 @@ class MatterRenderer {
     const a=this.frameGeometry;
     const ba=bounds(a.base,a.morph,state.morph,this.modelAMat);
     const bb=bounds(a.second,a.second,0,this.modelBMat);
-    const both=[Math.min(ba[0],bb[0]),Math.max(ba[1],bb[1]),Math.min(ba[2],bb[2]),Math.max(ba[3],bb[3])];
     const {smoothstep,mix}=__matter_motion;
-    const enter=smoothstep(0.56,0.72,state.p),exit=smoothstep(0.88,0.95,state.p);
-    const b=ba.map((n,i)=>mix(mix(n,both[i],enter),bb[i],exit));
-    // Reserve a continuous extra margin while particles are airborne.
-    const airborne=smoothstep(0.57,0.68,state.p)*(1-smoothstep(0.86,0.95,state.p));
-    const padY=0.045+0.32*airborne, padX=padY/aspect;
+    // Keep the first sculpture at exhibition scale through its erosion.
+    // The airborne field is composed independently in the particle shader;
+    // fitting the union of the two sculptures prematurely made both tiny.
+    const handoff=smoothstep(0.76,0.90,state.p);
+    const b=ba.map((n,i)=>mix(n,bb[i],handoff));
+    const padY=0.045,padX=padY/aspect;
     b[0]-=padX;b[1]+=padX;b[2]-=padY;b[3]+=padY;
     const mobile=this.isCompact;
-    const cx=mobile?0:0.24*(1-0.45*airborne), cy=mobile?0.25:0.035;
-    const availableW=mobile?1.72:1.14,availableH=mobile?0.84:1.45;
+    const release=smoothstep(0.54,0.68,state.p)*(1-smoothstep(0.80,0.91,state.p));
+    const cx=mobile?0:mix(0.24,0.16,release), cy=mobile?0.25:0.035;
+    const availableW=mobile?mix(1.72,1.82,release):mix(1.14,1.48,release);
+    const availableH=mobile?mix(0.84,0.96,release):mix(1.45,1.66,release);
     const zoom=Math.min(2.4,availableW/Math.max(.01,b[1]-b[0]),availableH/Math.max(.01,b[3]-b[2]));
     this.projMat[0]*=zoom;this.projMat[5]*=zoom;
     this.projMat[8]=(b[0]+b[1])*0.5*zoom-cx;

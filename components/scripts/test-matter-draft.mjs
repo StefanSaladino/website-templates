@@ -27,8 +27,21 @@ try{
  const stats=await p.locator('#matter-canvas').evaluate(c=>{const gl=c.getContext('webgl2'),w=gl.drawingBufferWidth,h=gl.drawingBufferHeight,pixels=new Uint8Array(w*h*4);gl.readPixels(0,0,w,h,gl.RGBA,gl.UNSIGNED_BYTE,pixels);let count=0,hash=2166136261,minX=w,maxX=0,minY=h,maxY=0;for(let y=0;y<h;y+=3)for(let x=0;x<w;x+=3){let i=(y*w+x)*4;if(pixels[i+3]>48){count++;minX=Math.min(x,minX);maxX=Math.max(x,maxX);minY=Math.min(y,minY);maxY=Math.max(y,maxY);hash=Math.imul(hash^pixels[i]^pixels[i+1]<<8^pixels[i+2]<<16,16777619)}}return {count,hash,minX,maxX,minY,maxY,w,h,error:gl.getError(),bounds:c.getBoundingClientRect().toJSON()}});
  console.log('MATTER',width,f,JSON.stringify(stats));assert(stats.count>30,'blank frame '+f);assert.equal(stats.error,0,'GL error');
  assert(stats.bounds.width<=width+1&&stats.bounds.height<=height+1,'canvas exceeds stage');
- assert(stats.minX>=stats.w*.025&&stats.maxX<=stats.w*.975&&stats.minY>=stats.h*.025&&stats.maxY<=stats.h*.975,'sculpture or particle field clipped at '+width+' / '+f+' '+JSON.stringify(stats));
- if(width<=820)assert(stats.minY>=stats.h*.23&&stats.maxY<=stats.h*.92,'sculpture overlaps protected mobile margin '+width+' / '+f);
+ // The airborne field intentionally spans the viewport. Solid phases
+ // must still stay framed; enforce the visual goal rather than shrinking
+ // everything to satisfy a single silhouette limit.
+ if(f<=.48||f>=.92){
+   assert(stats.minX>=stats.w*.025&&stats.maxX<=stats.w*.975&&stats.minY>=stats.h*.025&&stats.maxY<=stats.h*.975,'solid sculpture clipped at '+width+' / '+f+' '+JSON.stringify(stats));
+   if(width<=820)assert(stats.minY>=stats.h*.23&&stats.maxY<=stats.h*.92,'solid sculpture overlaps protected mobile margin '+width+' / '+f);
+ }
+ if(f===.76){
+   assert(stats.maxX-stats.minX>=stats.w*.84,'dissolution does not fill width '+width+' '+JSON.stringify(stats));
+   assert(stats.maxY-stats.minY>=stats.h*.80,'dissolution does not fill height '+width+' '+JSON.stringify(stats));
+ }
+ if(f===.60){
+   const before=frames.at(-1);
+   assert(stats.maxX-stats.minX>=(before.maxX-before.minX)*.90,'premature sculpture shrink '+width+' '+JSON.stringify(stats));
+ }
  frames.push(stats);await p.screenshot({path:path.join(out,width+'-'+frames.length+'.png')});
  }
  assert(new Set(frames.map(x=>x.hash)).size>=5,'scenes fail to change');
