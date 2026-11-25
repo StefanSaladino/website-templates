@@ -16,7 +16,7 @@ test('release and local assets agree', () => {
     assert.ok(existsSync(new URL(path, root)));
   }
   assert.equal([...html.matchAll(/(?:href|src)="(?:styles|src)\//g)].length, 3);
-  assert.match(read('src/main.js'), /config\.js\?v=T19/);
+  assert.match(read('src/main.js'), /config\.js\?v=T20/);
   assert.match(html, /<canvas[^>]+hidden/);
   assert.doesNotMatch(html, /(?:src|href)="https?:\/\//i);
 });

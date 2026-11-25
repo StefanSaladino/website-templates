@@ -12,7 +12,7 @@ test('camera basis and perspective conventions',()=>{
   assert.throws(()=>lookAt([0,0,0],[0,0,0]),RangeError);
 });
 test('mesh and bounded buffers',()=>{
-  const data=buildStudy();assert.equal(data.length,302*3*6);assert.ok([...data].every(Number.isFinite));
+  const data=buildStudy();assert.equal(data.length,358*3*6);assert.ok([...data].every(Number.isFinite));
   for(const [w,h,d] of [[320,568,3],[390,844,3],[1920,1080,2],[7680,4320,4],[1,100000,4],[100000,1,4]]){
     const b=bufferSize(w,h,d);assert.ok(b.width*b.height<=MAX_PIXELS&&b.width<=4096&&b.height<=4096);
   }

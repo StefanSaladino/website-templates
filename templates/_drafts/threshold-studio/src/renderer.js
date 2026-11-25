@@ -1,8 +1,8 @@
-import {openingPose,multiply} from './camera.js?v=T19';
-import {buildStudy} from './geometry.js?v=T19';
-import {bufferSize} from './lifecycle.js?v=T19';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T19';
-import {LIGHTING_GLSL} from './lighting.js?v=T19';
+import {openingPose,multiply} from './camera.js?v=T20';
+import {buildStudy} from './geometry.js?v=T20';
+import {bufferSize} from './lifecycle.js?v=T20';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=T20';
+import {LIGHTING_GLSL} from './lighting.js?v=T20';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -79,6 +79,13 @@ void main(){
   vec3 galleryStone=(color*(.79+.20*galleryDiffuse)+vec3(.115,.112,.105))*galleryContact;
   // Material-scale tonal variation, restrained enough not to resemble noisy render textures.
   galleryStone+=vec3(.007,.007,.006)*sin(world.x*3.1+world.z*2.3)*sin(world.y*3.7+world.z*.8);
+  // The cool neutral alloy is encoded by its distinct material colour.
+  // Only gallery alloy faces receive a satin directional highlight.
+  float alloy=step(color.r+.008,color.g)*step(.4,color.g)*gallery;
+  vec3 alloyHalf=normalize(galleryRay+view);
+  float alloyGlint=pow(max(dot(n,alloyHalf),0.0),14.0);
+  vec3 alloySurface=(color*(.68+.34*galleryDiffuse)+vec3(.06,.065,.066)+vec3(.16,.17,.17)*alloyGlint)*galleryContact;
+  galleryStone=mix(galleryStone,alloySurface,alloy);
   vec3 ivory=mix(color*(.90+.20*diffuse)+vec3(.055,.027,.012)*spill+roomLight,galleryStone,gallery);
   vec3 result=mix(mix(dark,ivory,isIvory),luminous*intensity,isRed);
   result=haze(result,length(uViewEye-world),mix(.55,.18,isRed));

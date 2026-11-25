@@ -1,6 +1,7 @@
 // T05 geometry preserved: one continuous architectural shell. All authored dimensions use (x,y,s).
 // Face colors are flat geometry-study identifiers, not the final light/material model.
-import {worldPoint} from './config.js?v=T19';
+import {worldPoint} from './config.js?v=T20';
+import {FOLDS,foldTriangles} from './sculptures.js?v=T20';
 export const PORTAL=Object.freeze({width:6,height:7.2,clearWidth:4.8,clearHeight:6,depth:2});
 const coal=[.105,.11,.12], wing=[.055,.06,.068], red=[.80,.18,.115], redDeep=[.53,.105,.07], ivory=[.70,.68,.63], ivorySide=[.59,.57,.53];
 const solid=(id,min,max,color,faces={})=>({id,min,max,color,faces});
@@ -49,6 +50,11 @@ export function buildStudy(){
     quad([r,b,n],[r,b,f],[r,t,f],[r,t,n],shade('right',.82));
     quad([l,t,n],[r,t,n],[r,t,f],[l,t,f],shade('top',1.12));
     quad([l,b,f],[r,b,f],[r,b,n],[l,b,n],shade('bottom',.67));
+  }
+  // Append installations to the same persistent geometry buffer; both direct
+  // and reflected passes use this exact mesh. Existing floor stays first.
+  for(const fold of FOLDS)for(const {points,color} of foldTriangles(fold)){
+    for(const point of points)data.push(...worldPoint(...point),...color);
   }
   return new Float32Array(data);
 }

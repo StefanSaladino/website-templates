@@ -1,11 +1,11 @@
-import {RELEASE} from './config.js?v=T19';
-import {createRenderer} from './renderer.js?v=T19';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T19';
-import {createScheduler} from './lifecycle.js?v=T19';
-import {wordmarkOcclusion} from './wordmark.js?v=T19';
-import {createAmbientClock} from './ambient.js?v=T19';
-import {readProgress} from './scroll.js?v=T19';
-import {typographyPose} from './typography.js?v=T19';
+import {RELEASE} from './config.js?v=T20';
+import {createRenderer} from './renderer.js?v=T20';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T20';
+import {createScheduler} from './lifecycle.js?v=T20';
+import {wordmarkOcclusion} from './wordmark.js?v=T20';
+import {createAmbientClock} from './ambient.js?v=T20';
+import {readProgress} from './scroll.js?v=T20';
+import {typographyPose} from './typography.js?v=T20';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){

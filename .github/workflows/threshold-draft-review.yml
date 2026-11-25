@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T19');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='T20');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -67,7 +67,7 @@ jobs:
               await stage.scrollIntoViewIfNeeded();
               await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='webgl');
               const [bw,bh]=(await stage.getAttribute('data-buffer')).split('x').map(Number);
-              assert(bw*bh<=1500000);assert.equal(await stage.getAttribute('data-triangles'),'302');
+              assert(bw*bh<=1500000);assert.equal(await stage.getAttribute('data-triangles'),'358');
               const [rw,rh]=(await stage.getAttribute('data-reflection-buffer')).split('x').map(Number);
               assert(rw*rh<=375000&&rw<=1024&&rh<=1024);
               assert(rw<=Math.max(1,bw*.5)&&rh<=Math.max(1,bh*.5));
@@ -448,7 +448,7 @@ jobs:
               await handle.dispose();await page.close();
             }
             writeFileSync('/tmp/threshold-evidence/crossing.json',JSON.stringify(crossingEvidence,null,2));
-            // T19 actual room emergence; inspect pixels as well as physical position.
+            // T20 actual room emergence; inspect pixels as well as physical position.
             const revealEvidence=[];
             for(const [width,height] of [[320,568],[390,844],[768,1024],[1440,900],[844,390]]){
               const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
@@ -608,14 +608,14 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T19',verification:'T19',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'T20',verification:'T20',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-perspective-architecture-evidence
+          name: threshold-sculptures-evidence
           path: /tmp/threshold-evidence/
 
   transition:
@@ -644,5 +644,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-T19-transition-evidence
+          name: threshold-T20-transition-evidence
           path: /tmp/threshold-transition/
