@@ -464,5 +464,13 @@
       "test-index-designer.mjs"
     ],
     "reason": "Dedicated ten-route browser suite covers proof alignment, study stacking, studio parallax, reverse scroll, actual photo decoding, footer navigation, preferences and no-JS fallback."
+  },
+  "matter-exhibition": {
+    "dedicated": true,
+    "workflow": ".github/workflows/matter-draft-review.yml",
+    "scripts": [
+      "test-matter-draft.mjs"
+    ],
+    "reason": "Dedicated four-viewport pixel/scroll tests cover solid framing, full-screen particle field, mobile overlay, still mode, context loss and static alternatives."
   }
 }

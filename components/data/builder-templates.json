@@ -114,6 +114,13 @@
     "route": "../templates/law-firm/"
   },
   {
+    "slug": "matter-exhibition",
+    "title": "MATTER / Studies in Transformation",
+    "route": "../templates/matter-exhibition/",
+    "configuratorStatus": "gallery-only",
+    "configuratorBlocker": "Full-screen WebGL particle composition requires separate native palette and expanded iframe review"
+  },
+  {
     "slug": "monolith-architecture",
     "title": "Monolith Architecture",
     "route": "../templates/monolith-architecture/"

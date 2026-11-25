@@ -8,7 +8,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
-const allIds=["apex-automotive","resonance-sound","event-horizon","essence-fragrance","calibre-watch","shift-card","prism-optics","orbit-cinema","abyss-ocean","strata-architecture","fulcrum-light","fold-paper-studio","index-designer"];
+const allIds=["apex-automotive","resonance-sound","event-horizon","essence-fragrance","calibre-watch","shift-card","prism-optics","orbit-cinema","abyss-ocean","strata-architecture","fulcrum-light","fold-paper-studio","index-designer","matter-exhibition"];
 const only=process.argv.find(a=>a.startsWith('--only='))?.slice(7);
 if(only&&!allIds.includes(only))throw Error('Unknown capture id '+only);
 const ids=only?[only]:allIds;
@@ -40,6 +40,7 @@ try{
   if(id==='shift-card')await page.waitForFunction(()=>{const s=document.querySelector('#composition');return s?.dataset.renderer==='webgl'&&s.dataset.motionSettled==='true'&&+s.dataset.progress===0},{},{timeout:15000});
   else if(id==='fold-paper-studio')await page.waitForFunction(()=>{const s=document.querySelector('#scene');return s?.dataset.mode==='3d'&&s.dataset.settled==='true'&&s.dataset.openness==='0.450000'&&document.querySelectorAll('.panel').length===8},{},{timeout:15000});
   else if(spec?.stage&&id!=='strata-architecture')await page.waitForFunction(({sel,initial})=>{const s=document.querySelector(sel);return s&&Object.entries(initial).filter(([k])=>k!=='data-rendered-paused').every(([k,v])=>s.getAttribute(k)===v)},{sel:spec.stage,initial:spec.initial},{timeout:15000});
+  if(id==='matter-exhibition')await page.waitForFunction(()=>!document.documentElement.classList.contains('no-webgl')&&document.documentElement.style.getPropertyValue('--progress')==='0.0000'&&document.querySelector('#matter-canvas')?.getContext('webgl2'));
   if(id==='index-designer')await page.waitForFunction(()=>document.querySelector('#proof-track')?.dataset.motion==='live'&&document.querySelectorAll('.project-cover').length===6&&[...document.querySelectorAll('.project-cover img')].every(i=>i.complete&&i.naturalWidth>0));
   const opening=await page.evaluate(id=>{const h=document.querySelector(id==='index-designer'?'.brand':'h1'),r=h?.getBoundingClientRect(),cs=h&&getComputedStyle(h);return {title:h?.textContent?.trim().replace(/\s+/g,' '),scrollY,overflow:document.documentElement.scrollWidth>innerWidth+2,headingVisible:!!r&&r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&cs.visibility!=='hidden'&&cs.display!=='none',canvases:[...document.querySelectorAll('canvas')].filter(c=>{const r=c.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0}).length}},id);
   assert(opening.headingVisible&&!opening.overflow&&opening.scrollY===0,id+' opening viewport '+JSON.stringify(opening));

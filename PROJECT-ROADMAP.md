@@ -690,3 +690,7 @@ Exact 11 gallery captures promoted at 01756f4; Pages 45452212390 passed. Stakeho
 
 ## INDEX / Selected work — review gallery registration
 INDEX P16 passed deployment and specialist review. P17 adds the 37th complete review website (35 configurator-selectable), actual opening thumbnail and dedicated multi-page specialist coverage; no main merge or production approval. See docs/INDEX-DESIGNER-ROADMAP.md.
+
+
+## MATTER — gallery review
+AI Studio prototype refined in M1–M5, stakeholder approved M5. M6 prepares the 38th gallery preview, with 35 configurator-selectable templates unchanged. Original procedural sculpture, full-screen particle field, dedicated browser QA and actual opening thumbnail. See templates/matter-exhibition/REVIEW.md.
