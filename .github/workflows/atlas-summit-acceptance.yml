@@ -1,0 +1,30 @@
+name: ATLAS summit acceptance
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'components/scripts/test-atlas-summit.mjs'
+      - '.github/workflows/atlas-summit-acceptance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  summit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+        working-directory: components
+      - run: npx playwright install chromium
+        working-directory: components
+      - run: node scripts/test-atlas-summit.mjs
+        working-directory: components
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-summit-evidence
+          path: components/atlas-summit-evidence/
