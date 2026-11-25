@@ -121,7 +121,7 @@ void main() {
 
   float h = clamp(rd.y, -0.25, 1.0);
   float horizonBand = pow(1.0 - clamp(abs(h), 0.0, 1.0), 3.4);
-  float upperGrad = mix(smoothstep(-0.04,0.55,h),smoothstep(-.025,.30,h),uGolden);
+  float upperGrad = mix(smoothstep(-0.04,0.55,h),smoothstep(-.055,.23,h),uGolden);
 
   vec3 sky = mix(uSkyHorizon, uSkyZenith, upperGrad);
 
@@ -135,7 +135,7 @@ void main() {
 
   // Warm apricot horizon wash around sun azimuth during Summit golden hour
   float sunAzimuth = pow(max(dot(normalize(vec3(rd.x, 0.0, rd.z)), normalize(vec3(L.x, 0.0, L.z))), 0.0), 2.0);
-  sky = mix(sky, vec3(0.95, 0.72, 0.48), horizonBand * sunAzimuth * uGolden * 0.58 * (1.0 - uMapMix));
+  sky = mix(sky, vec3(0.94, 0.76, 0.58), horizonBand * sunAzimuth * uGolden * 0.34 * (1.0 - uMapMix));
 
   // Crisp luminous valley mist glow
   sky = mix(sky, vec3(0.86, 0.91, 0.94), horizonBand * uValley * 0.28 * (1.0 - uMapMix));
@@ -379,7 +379,9 @@ void main() {
   // Fade subpixel fracture detail at distance to avoid crawling textures in motion.
   float footprint = max(length(dFdx(vWorldPos.xz)),length(dFdy(vWorldPos.xz)));
   float bumpAmp = 0.15 * smoothstep(0.16, 0.85, uRelief) * (1.0-smoothstep(0.09,0.46,footprint));
-  vec3 rockN = normalize(N + vec3((mh0 - mhx) / eps, 0.0, (mh0 - mhz) / eps) * bumpAmp);
+  // Reduce plan-view bump on cliffs; supply height-bearing detail below.
+  float cliffWeight=smoothstep(.18,.60,slope);
+  vec3 rockN = normalize(N + vec3((mh0 - mhx) / eps, 0.0, (mh0 - mhz) / eps) * bumpAmp*(1.-.84*cliffWeight));
 
   float detailN = fbmRock(vWorldPos.xz * 0.34);
   float fineN = mix(noise2(vWorldPos.xz * 2.1),0.5,smoothstep(0.10,0.50,footprint));
@@ -423,11 +425,40 @@ void main() {
   // Break broad continuous snow bands with terrain-anchored accumulation pockets.
   float snowPocket=smoothstep(.20,.61,detailN*.68+drainage*.20+(sheltered*.5+.5)*.12);
   float snowMask=snowAlt*snowSlope*mix(snowPocket,1.,smoothstep(17.0,22.0,rawH));
-  float alpineDetail=smoothstep(12.,18.,rawH)*(1.-smoothstep(.16,.65,footprint));
-  float joint=1.-abs(noise2(vec2(vWorldPos.x*1.35+vWorldPos.z*.46,vWorldPos.z*.59-vWorldPos.x*.28))*2.-1.);
-  float seam=smoothstep(.78,.97,joint)*alpineDetail;
-  graniteBase*=1.-seam*.22;
-  snowMask*=1.-seam*smoothstep(.12,.34,slope)*.68;
+  // Height-bearing projections for cliff faces, blended by geometric normal.
+  // No texture fetches or temporal noise; filter at the physical surface scale.
+  vec3 P=vec3(vWorldPos.x,rawH,vWorldPos.z);
+  float surfaceFootprint=max(length(dFdx(P)),length(dFdy(P)));
+  float alpineDetail=smoothstep(10.,17.,rawH)*cliffWeight;
+  vec2 faceX=vec2(P.z+P.y*.31,P.y-P.z*.19);
+  vec2 faceZ=vec2(P.x-P.y*.24,P.y+P.x*.17);
+  vec2 faceWeights=pow(abs(N.xz),vec2(4.));
+  faceWeights/=max(faceWeights.x+faceWeights.y,.0001);
+  float blocksX=noise2(faceX*vec2(1.7,2.5)+vec2(12.7,8.2));
+  float blocksZ=noise2(faceZ*vec2(1.7,2.5)+vec2(4.3,21.8));
+  float chipsX=noise2(faceX*vec2(5.1,6.4)+vec2(8.4,3.7));
+  float chipsZ=noise2(faceZ*vec2(5.1,6.4)+vec2(18.1,2.9));
+  float blocks=dot(vec2(blocksX,blocksZ),faceWeights);
+  float chips=dot(vec2(chipsX,chipsZ),faceWeights);
+  float blockAA=1.-smoothstep(.10,.38,surfaceFootprint);
+  float chipAA=1.-smoothstep(.035,.14,surfaceFootprint);
+  float blockRelief=(blocks-.5)*blockAA;
+  float chipRelief=(chips-.5)*chipAA;
+  float seam=(1.-smoothstep(.025,.13,abs(blocks-.48)))*blockAA*alpineDetail;
+  vec3 cliffMineral=mix(vec3(.13,.145,.158),vec3(.36,.355,.338),clamp(.5+blockRelief*.85+chipRelief*.36,0.,1.));
+  graniteBase=mix(graniteBase,cliffMineral,.78*alpineDetail);
+  graniteBase*=1.-seam*.20;
+  snowMask*=1.-seam*.46;
+  // Surface-gradient bump: differentiate raw noise before filtering.
+  vec3 dpdx=dFdx(vWorldPos),dpdy=dFdy(vWorldPos);
+  vec3 rx=cross(dpdy,N),ry=cross(N,dpdx);
+  float determinant=dot(dpdx,rx);
+  vec2 grad=vec2(dFdx(blocks),dFdy(blocks))*.050*blockAA+
+            vec2(dFdx(chips),dFdy(chips))*.012*chipAA;
+  vec3 perturb=sign(determinant)*(rx*grad.x+ry*grad.y)/max(abs(determinant),.000001);
+  // Bound perturbation at silhouette/degenerate derivative quads.
+  perturb*=min(1.,.36/max(length(perturb),.000001));
+  rockN=normalize(rockN-perturb*alpineDetail*smoothstep(.60,.95,uRelief));
 
   vec3 albedo = graniteBase;
   albedo = mix(albedo, vegCol, vegMask);
@@ -479,7 +510,7 @@ void main() {
   // Bright cloud ocean supplies diffuse upward bounce on summit faces.
   // Preserve directional relief in shaded rock rather than flattening it with exposure.
   float cloudBounce=uGolden*uInversionMix*(.40+.60*(1.-rockN.y));
-  vec3 reflectedCloud=vec3(.47,.49,.53)*cloudBounce*(.65+.35*ao);
+  vec3 reflectedCloud=vec3(.52,.55,.59)*cloudBounce*(.65+.35*ao);
   vec3 litGeology = albedo * (ambient + reflectedCloud + sunColor * diffuse * shadow) + sunColor * spec * shadow;
   float grain=clamp((fineN-.5)*.11+(crownStipple-.5)*.08,-.10,.10);
   litGeology*=1.+grain*uGolden*(1.-snowMask);
