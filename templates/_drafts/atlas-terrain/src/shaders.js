@@ -423,6 +423,11 @@ void main() {
   // Break broad continuous snow bands with terrain-anchored accumulation pockets.
   float snowPocket=smoothstep(.20,.61,detailN*.68+drainage*.20+(sheltered*.5+.5)*.12);
   float snowMask=snowAlt*snowSlope*mix(snowPocket,1.,smoothstep(17.0,22.0,rawH));
+  float alpineDetail=smoothstep(12.,18.,rawH)*(1.-smoothstep(.16,.65,footprint));
+  float joint=1.-abs(noise2(vec2(vWorldPos.x*1.35+vWorldPos.z*.46,vWorldPos.z*.59-vWorldPos.x*.28))*2.-1.);
+  float seam=smoothstep(.78,.97,joint)*alpineDetail;
+  graniteBase*=1.-seam*.22;
+  snowMask*=1.-seam*smoothstep(.12,.34,slope)*.68;
 
   vec3 albedo = graniteBase;
   albedo = mix(albedo, vegCol, vegMask);

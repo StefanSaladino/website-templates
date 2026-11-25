@@ -367,6 +367,90 @@ function applyGeologicalErosion(heights, N, step, iterations = 14) {
 export const CANONICAL_RESOLUTION = 256;
 let canonicalTerrain = null;
 
+// Refine only the central alpine massif. Shared edge midpoints and stitched
+// coarse neighbours remove T-junctions. Every height consumer uses this surface.
+function refineMassif(heights,N,positions,normals,geoAttr,maxH){
+  const half=WORLD_SIZE*.5,step=WORLD_SIZE/(N-1),baseSample=createHeightSampler(heights,N);
+  const gx=x=>Math.round((x+half)/step);
+  const x0=gx(-37),x1=gx(38),z0=gx(-39),z1=gx(3);
+  const fw=(x1-x0)*2+1,fh=(z1-z0)*2+1;
+  const fineH=new Float32Array(fw*fh),fineIds=new Uint32Array(fw*fh);
+  const pp=Array.from(positions),nn=Array.from(normals),aa=Array.from(geoAttr),ii=[];
+  const cubic=(a,b,c,d,t)=>b+.5*t*(c-a+t*(2*a-5*b+4*c-d+t*(3*(b-c)+d-a)));
+  const hAt=(x,z)=>heights[clamp(z,0,N-1)*N+clamp(x,0,N-1)];
+  function smoothH(x,z){
+    const ix=Math.floor(x),iz=Math.floor(z),tx=x-ix,tz=z-iz;
+    const rows=[-1,0,1,2].map(j=>cubic(hAt(ix-1,iz+j),hAt(ix,iz+j),hAt(ix+1,iz+j),hAt(ix+2,iz+j),tx));
+    return cubic(...rows,tz);
+  }
+  const attr=[0,1,2,3].map(k=>createAttrSampler(geoAttr,N,k));
+  const baseNormal=(x,z,k)=>{
+    const i=Math.floor(x),j=Math.floor(z),u=x-i,v=z-j;
+    const a=normals[(j*N+i)*3+k],b=normals[(j*N+i+1)*3+k],c=normals[((j+1)*N+i)*3+k],d=normals[((j+1)*N+i+1)*3+k];
+    return u+v<=1?a+(b-a)*u+(c-a)*v:d+(c-d)*(1-u)+(b-d)*(1-v);
+  };
+  let maxDelta=0,changed=0;
+  for(let j=0;j<fh;j++)for(let i=0;i<fw;i++){
+    const xg=x0+i*.5,zg=z0+j*.5,x=-half+xg*step,z=-half+zg*step,k=j*fw+i;
+    const base=baseSample(x,z);
+    const edge=Math.min(i,j,fw-1-i,fh-1-j);
+    const anchor=i%2===0&&j%2===0;
+    const envelope=smoothstep(0,5,edge)*smoothstep(10.5,15.5,base);
+    const bed=noise2DWithDeriv(x*.86-z*.41,z*.29+x*.22)[0];
+    const fracture=1-Math.abs(2*noise2DWithDeriv(x*1.28+z*.43,z*.64-x*.32)[0]-1);
+    const delta=anchor?0:clamp((smoothH(xg,zg)-base)*.74+(bed-.5)*.18-(fracture**4)*.11,-.26,.26)*envelope;
+    fineH[k]=base+delta;maxDelta=Math.max(maxDelta,Math.abs(delta));if(Math.abs(delta)>.001)changed++;
+    if(anchor){fineIds[k]=Math.round(zg)*N+Math.round(xg);continue;}
+    const id=pp.length/3;fineIds[k]=id;pp.push(x,fineH[k],z);
+    const n=[0,1,2].map(a=>baseNormal(xg,zg,a));const len=Math.hypot(...n)||1;nn.push(...n.map(v=>v/len));
+    aa.push(fineH[k]/maxH,attr[1](x,z),attr[2](x,z),attr[3](x,z));
+  }
+  const minX=-half+x0*step,minZ=-half+z0*step,maxX=-half+x1*step,maxZ=-half+z1*step;
+  function sampleHeight(x,z){
+    if(x<minX||x>maxX||z<minZ||z>maxZ)return baseSample(x,z);
+    const u=clamp((x-minX)*2/step,0,fw-1.0000001),v=clamp((z-minZ)*2/step,0,fh-1.0000001);
+    const i=Math.floor(u),j=Math.floor(v),f=u-i,g=v-j,k=j*fw+i;
+    const a=fineH[k],b=fineH[k+1],c=fineH[k+fw],d=fineH[k+fw+1];
+    return f+g<=1?a+(b-a)*f+(c-a)*g:d+(c-d)*(1-f)+(b-d)*(1-g);
+  }
+  // Smooth surface normals on the refined massif; preserve lowland normals
+  // and original normals at the patch boundary.
+  for(let j=1;j<fh-1;j++)for(let i=1;i<fw-1;i++){
+    const k=j*fw+i,id=fineIds[k],h=fineH[k];
+    const weight=smoothstep(0,5,Math.min(i,j,fw-1-i,fh-1-j))*smoothstep(10.5,15.5,h);
+    if(weight<=0)continue;
+    const nx=(fineH[k-1]-fineH[k+1])/step,nz=(fineH[k-fw]-fineH[k+fw])/step,len=Math.hypot(nx,1,nz);
+    const n=[lerp(nn[id*3],nx/len,weight),lerp(nn[id*3+1],1/len,weight),lerp(nn[id*3+2],nz/len,weight)];
+    const l=Math.hypot(...n)||1;for(let a=0;a<3;a++)nn[id*3+a]=n[a]/l;
+  }
+  const mid=new Map(),edgeKey=(a,b)=>Math.min(a,b)+':'+Math.max(a,b);
+  // Register the fine edge vertices for the outer neighbour triangles.
+  for(let i=0;i<fw-1;i+=2){
+    for(const j of [0,fh-1])mid.set(edgeKey(fineIds[j*fw+i],fineIds[j*fw+i+2]),fineIds[j*fw+i+1]);
+  }
+  for(let j=0;j<fh-1;j+=2){
+    for(const i of [0,fw-1])mid.set(edgeKey(fineIds[j*fw+i],fineIds[(j+2)*fw+i]),fineIds[(j+1)*fw+i]);
+  }
+  let stitched=0;
+  function coarse(a,b,c){
+    const ab=mid.get(edgeKey(a,b)),bc=mid.get(edgeKey(b,c)),ca=mid.get(edgeKey(c,a));
+    // Rectangular patch boundary touches at most one edge of each outer triangle.
+    if(ab!==undefined){ii.push(a,ab,c,ab,b,c);stitched++;}
+    else if(bc!==undefined){ii.push(b,bc,a,bc,c,a);stitched++;}
+    else if(ca!==undefined){ii.push(c,ca,b,ca,a,b);stitched++;}
+    else ii.push(a,b,c);
+  }
+  for(let j=0;j<N-1;j++)for(let i=0;i<N-1;i++){
+    if(i>=x0&&i<x1&&j>=z0&&j<z1)continue;
+    const a=j*N+i,b=a+1,c=a+N,d=c+1;coarse(a,c,b);coarse(b,c,d);
+  }
+  for(let j=0;j<fh-1;j++)for(let i=0;i<fw-1;i++){
+    const k=j*fw+i,a=fineIds[k],b=fineIds[k+1],c=fineIds[k+fw],d=fineIds[k+fw+1];ii.push(a,c,b,b,c,d);
+  }
+  return {positions:new Float32Array(pp),normals:new Float32Array(nn),geoAttr:new Float32Array(aa),indices:new Uint32Array(ii),sampleHeight,
+    refinement:Object.freeze({bounds:[minX,minZ,maxX,maxZ],fineStep:step*.5,changed,maxDelta,stitched,baseTriangles:(N-1)**2*2,triangles:ii.length/3})};
+}
+
 export function buildTerrainData() {
   if(canonicalTerrain)return canonicalTerrain;
   const N = CANONICAL_RESOLUTION;
@@ -468,29 +552,13 @@ export function buildTerrainData() {
     }
   }
 
-  const quadCount = (N - 1) * (N - 1);
-  const indices = new Uint32Array(quadCount * 6);
-  let ptr = 0;
-  for (let gz = 0; gz < N - 1; gz++) {
-    for (let gx = 0; gx < N - 1; gx++) {
-      const a = gz * N + gx;
-      const b = a + 1;
-      const c = a + N;
-      const d = c + 1;
-      indices[ptr++] = a;
-      indices[ptr++] = c;
-      indices[ptr++] = b;
-      indices[ptr++] = b;
-      indices[ptr++] = c;
-      indices[ptr++] = d;
-    }
-  }
+  const mesh=refineMassif(heights,N,positions,normals,geoAttr,maxH);
 
   // 512x512 RGBA8 height + drainage/curvature texture for bicubic contours, cast shadows & lake reflections
   const texSize = 512;
   const heightTexData = new Uint8Array(texSize * texSize * 4);
   const maxTexH = Math.max(28.0, Math.ceil(maxH + 2.0));
-  const sampleAt = createHeightSampler(heights, N);
+  const sampleAt = mesh.sampleHeight;
   const sampleFlow = createAttrSampler(geoAttr, N, 2);
   const sampleCurv = createAttrSampler(geoAttr, N, 3);
 
@@ -510,10 +578,11 @@ export function buildTerrainData() {
 
   canonicalTerrain = {
     resolution: N,
-    positions,
-    normals,
-    geoAttr,
-    indices,
+    positions:mesh.positions,
+    normals:mesh.normals,
+    geoAttr:mesh.geoAttr,
+    indices:mesh.indices,
+    refinement:mesh.refinement,
     heights,
     maxHeight: maxH,
     maxTexHeight: maxTexH,
