@@ -1042,3 +1042,19 @@ html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .chapter-ca
  .viewpoint-btn{padding:5px 0}
 }
 @media(max-height:480px) and (min-width:821px){.chapter-card[data-chapter="archive"] .vp-desc{display:none}}
+
+/* A40 — localized summit editorial contrast. The feather follows the
+   chapter's existing opacity; it is not a panel or a full-screen darkening.
+   Keep static, reduced-motion and map/folio compositions unchanged. */
+@media(min-width:821px){
+  html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .chapter-card[data-chapter="summit"] .chapter-inner::before{
+    content:"";position:absolute;inset:-80px -145px -64px;z-index:-1;pointer-events:none;
+    background:radial-gradient(ellipse at center,rgba(12,19,25,.73) 0%,rgba(12,19,25,.65) 46%,rgba(12,19,25,.27) 72%,rgba(12,19,25,0) 100%);
+  }
+  html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .chapter-card[data-chapter="summit"] :is(.chapter-meta,.chapter-body){
+    color:#f5f2ea;text-shadow:0 1px 3px rgba(10,14,18,.92),0 2px 12px rgba(10,14,18,.55);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html:not(.atlas-no-js):not(.atlas-no-webgl):not([data-still="true"]) .chapter-card[data-chapter="summit"] .chapter-inner::before{display:none}
+}
