@@ -44,9 +44,13 @@ vec3 applyMist(vec3 scene,vec3 eye,vec3 ray,float surfaceDistance,vec3 sun,float
     if(i>=steps)break;
     vec3 point=eye+ray*(enter+(float(i)+.5)*dt);
     vec3 uv=(point-origin)/extent;
-    vec3 lowUV=(point-uMistOrigin)/uMistExtent;
     float low=0.;
-    if(all(greaterThanEqual(lowUV,vec3(0.)))&&all(lessThanEqual(lowUV,vec3(1.))))low=texture(uMistVolume,lowUV).r;
+    // The lower volume has exactly zero weight at full inversion.
+    // At partial inversion retain the original coordinate and boundary checks.
+    if(!inversion||uInversionMix<1.){
+      vec3 lowUV=(point-uMistOrigin)/uMistExtent;
+      if(all(greaterThanEqual(lowUV,vec3(0.)))&&all(lessThanEqual(lowUV,vec3(1.))))low=texture(uMistVolume,lowUV).r;
+    }
     float density=low;
     float upper=smoothstep(.18,.84,uv.y);
     float illumination=clamp(upper*.72+sunward*.28,0.,1.);
@@ -64,6 +68,8 @@ vec3 applyMist(vec3 scene,vec3 eye,vec3 ray,float surfaceDistance,vec3 sun,float
         illumination=mix(illumination,cloudLight,uInversionMix);
       }
     }
+    // A zero-density sample contributes neither opacity nor scattering.
+    if(density<=0.)continue;
     // Gentle internal billow, anchored to world coordinates, no drifting through rock.
     density*=.96+.04*sin(point.x*.12+point.z*.08+point.y*.32+uMistTime*.23);
     float opacity=1.-exp(-density*uMistStrength*mix(.30,.34,uInversionMix)*dt);
@@ -87,7 +93,8 @@ void main() {
     vec2(-1.0,  3.0)
   );
   vNdc = verts[gl_VertexID];
-  gl_Position = vec4(vNdc, 0.9999, 1.0);
+  // Depth 1: background only, drawn after opaque terrain with LEQUAL.
+  gl_Position = vec4(vNdc, 1.0, 1.0);
 }
 `;
 

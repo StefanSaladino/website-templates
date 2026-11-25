@@ -14,7 +14,7 @@ import {
   buildWaterMesh,
   buildMistVolume,
   buildSummitInversion,
-} from './terrain.js?v=23';
+} from './terrain.js?v=24';
 import {
   SKY_VERT,
   SKY_FRAG,
@@ -24,8 +24,8 @@ import {
   WATER_FRAG,
   DETAIL_VERT,
   DETAIL_FRAG,
-} from './shaders.js?v=23';
-import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=23';
+} from './shaders.js?v=24';
+import { evaluateWorldState, buildViewProjMatrix } from './camera.js?v=24';
 
 function compileShader(gl, type, source) {
   const shader = gl.createShader(type);
@@ -389,8 +389,8 @@ export class AtlasRenderer {
     const r = this.resources;
     this.environmentTime=timeSec;
     gl.activeTexture(gl.TEXTURE3);gl.bindTexture(gl.TEXTURE_3D,r.mistTex);gl.activeTexture(gl.TEXTURE4);gl.bindTexture(gl.TEXTURE_3D,r.inversionTex);gl.activeTexture(gl.TEXTURE0);
-    gl.viewport(0, 0, pxW, pxH);
-    gl.depthMask(true);gl.clearDepth(1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+    // Each actual render target is cleared once immediately before drawing it.
+    gl.depthMask(true);gl.clearDepth(1);
     gl.enable(gl.CULL_FACE);
     gl.cullFace(gl.BACK);
 
@@ -484,25 +484,7 @@ export class AtlasRenderer {
 
   _drawOpaque(state,viewProj,tanHalfFov,aspect,growth,reflected){
     const gl=this.gl,r=this.resources;
-    // 1. Sky Pass
-    gl.disable(gl.DEPTH_TEST);
-    gl.depthMask(false);
     gl.disable(gl.BLEND);
-    gl.useProgram(r.skyProg);
-    this._setMist(r.skyU,state);gl.uniform3fv(r.skyU.uMistEye,state.pos);
-    gl.bindVertexArray(r.skyVao);
-    gl.uniform3fv(r.skyU.uCamRight, state.right);
-    gl.uniform3fv(r.skyU.uCamUp, state.up);
-    gl.uniform3fv(r.skyU.uCamForward, state.forward);
-    gl.uniform1f(r.skyU.uTanHalfFov, tanHalfFov);
-    gl.uniform1f(r.skyU.uAspect, aspect);
-    gl.uniform3fv(r.skyU.uSunDir, state.sunDir);
-    gl.uniform1f(r.skyU.uMapMix, state.mapMix);
-    gl.uniform1f(r.skyU.uGolden, state.goldenWeight);
-    gl.uniform1f(r.skyU.uValley, state.valleyWeight);
-    gl.uniform3fv(r.skyU.uSkyZenith, state.skyZenith);
-    gl.uniform3fv(r.skyU.uSkyHorizon, state.skyHorizon);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, r.heightTex);
@@ -511,7 +493,7 @@ export class AtlasRenderer {
 
     // Mirroring reverses triangle winding, but not the screen-space sky triangle.
     gl.frontFace(reflected?gl.CW:gl.CCW);
-    // 2. Terrain Pass
+    // Opaque terrain and landscape details establish depth before the sky.
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LESS);
     gl.depthMask(true);
@@ -553,6 +535,30 @@ export class AtlasRenderer {
       gl.enable(gl.CULL_FACE);
     }
     gl.frontFace(gl.CCW);
+    // Background last: depth 1 and LEQUAL permit only uncovered samples.
+    // Apply to both main and mirrored opaque passes; no fragment depth writes.
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LEQUAL);
+    gl.depthMask(false);
+    gl.disable(gl.BLEND);
+    gl.useProgram(r.skyProg);
+    this._setMist(r.skyU,state);gl.uniform3fv(r.skyU.uMistEye,state.pos);
+    gl.bindVertexArray(r.skyVao);
+    gl.uniform3fv(r.skyU.uCamRight, state.right);
+    gl.uniform3fv(r.skyU.uCamUp, state.up);
+    gl.uniform3fv(r.skyU.uCamForward, state.forward);
+    gl.uniform1f(r.skyU.uTanHalfFov, tanHalfFov);
+    gl.uniform1f(r.skyU.uAspect, aspect);
+    gl.uniform3fv(r.skyU.uSunDir, state.sunDir);
+    gl.uniform1f(r.skyU.uMapMix, state.mapMix);
+    gl.uniform1f(r.skyU.uGolden, state.goldenWeight);
+    gl.uniform1f(r.skyU.uValley, state.valleyWeight);
+    gl.uniform3fv(r.skyU.uSkyZenith, state.skyZenith);
+    gl.uniform3fv(r.skyU.uSkyHorizon, state.skyHorizon);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    gl.depthFunc(gl.LESS);
+    gl.depthMask(true);
     return detailInstances;
 
 
