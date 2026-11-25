@@ -867,3 +867,6 @@ T05 exact browser 45687139012 and deployment 45687138586 passed; seven actual ca
 
 ## THRESHOLD — T07 architectural illumination
 T06 exact browser 45687694443 and Pages 45687693060 passed, artifact 15057825532 inspected. T07 adds analytic directional surface shading, luminous cut, aperture spill, ivory depth and distance haze shared by direct/reflected world; same geometry and reflection resource budget. Diagnostic lighting/mask comparisons retain floor confinement and prove emission/spill without reflection. Exact verification pending. Next T08 after review; no gallery/shared changes.
+
+## THRESHOLD — T08 desktop composition
+T07 exact browser 45688633040 and Pages 45688631092 passed; actual lighting artifact 15058385448 inspected. Desktop full-bleed viewport scene, left semantic copy and existing header/footer, right-shifted off-axis camera with unchanged mirror projection. Portrait/short landscape remain study layout until T11. Ten pure tests plus full-page capture, layout/pixel bounds, fallback and retained recovery tests pending on exact T08 revision. Next T09 after review. No shared/gallery changes.

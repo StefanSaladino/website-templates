@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=T07';
+import { worldPoint } from './config.js?v=T08';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -22,14 +22,18 @@ export function project(m,p){
   const v=[...p,1],q=[0,0,0,0];
   for(let r=0;r<4;r++)for(let c=0;c<4;c++)q[r]+=m[c*4+r]*v[c];return q;
 }
-// T07 static study camera uses the T02 authored endpoints with continuous aspect blending.
-// The in-flow surface is not final full-viewport framing (T08/T11).
-export function studyPose(aspect){
+// T02 endpoints retained; T08 applies a desktop-only off-axis composition.
+// Portrait and short landscape retain the in-flow study until T11.
+export const DESKTOP_COMPOSITION_QUERY='(min-width: 900px) and (min-height: 480px) and (min-aspect-ratio: 6/5)';
+export function studyPose(aspect,desktopComposition=false){
   const phone=[.6,2.2,-15,0,3.9,0,57], tablet=[.3,2.4,-12.8,-.15,3.65,0,49], desktop=[-2.4,2.4,-12,-.65,2.9,0,47];
   const a=aspect<.75?phone:tablet,b=aspect<.75?tablet:desktop;
   const t=Math.max(0,Math.min(1,aspect<.75?(aspect-.46)/.29:(aspect-.75)/.70));
-  const p=a.map((v,i)=>v+(b[i]-v)*t);
+  const p=desktopComposition?desktop:a.map((v,i)=>v+(b[i]-v)*t);
   const eye=worldPoint(...p.slice(0,3)),aim=worldPoint(...p.slice(3,6));
-  return {eye,vp:multiply(perspective(p[6],aspect),lookAt(eye,aim))};
+  const lens=perspective(p[6],aspect);
+  // Off-axis projection preserves the world and all reflection alignment.
+  if(desktopComposition)lens[8]=-.27;
+  return {eye,vp:multiply(lens,lookAt(eye,aim))};
 }
-export function studyCamera(aspect){return studyPose(aspect).vp}
+export function studyCamera(aspect,desktopComposition=false){return studyPose(aspect,desktopComposition).vp}

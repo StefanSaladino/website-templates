@@ -20,3 +20,9 @@ test('mirror projection meets actual floor reflection point',()=>{
     assert.deepEqual(c,d);
   }
 });
+test('desktop off-axis projection preserves mirror alignment',()=>{
+  const {eye,vp}=studyPose(16/9,true),source=[2.4,3,-1],mirror=[2.4,-3,-1];
+  const t=eye[1]/(eye[1]-mirror[1]),hit=eye.map((v,i)=>v+(mirror[i]-v)*t);
+  const a=project(multiply(vp,FLOOR_MIRROR),source),b=project(vp,hit);
+  for(let i=0;i<2;i++)assert.ok(Math.abs(a[i]/a[3]-b[i]/b[3])<1e-6);
+});

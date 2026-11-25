@@ -46,3 +46,16 @@ test('architectural cut is traversable and all solids have valid dimensions',()=
     }
   }
 });
+test('desktop architectural bounds leave the left copy zone free',()=>{
+  for(const aspect of [1.2,4/3,1.6,16/9,2.4,3.2]){
+    const m=studyCamera(aspect,true),xs=[],ys=[];
+    for(const x of [-3,3])for(const y of [0,7.2])for(const s of [0,2]){
+      const q=project(m,[x,y,-s]);assert.ok(q[3]>0);
+      xs.push(.5+.5*q[0]/q[3]);ys.push(.5-.5*q[1]/q[3]);
+    }
+    assert.ok(Math.min(...xs)>.43&&Math.max(...xs)<.93);
+    assert.ok(Math.min(...ys)>.07&&Math.max(...ys)<.80);
+    const center=(Math.min(...xs)+Math.max(...xs))/2;
+    assert.ok(center>.63&&center<.70);
+  }
+});
