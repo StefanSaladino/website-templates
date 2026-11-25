@@ -1,6 +1,6 @@
 // Scan the World David, CC BY-SA 4.0. See ../assets/david/ATTRIBUTION.md.
 export async function loadDavid(){
-  const response=await fetch(new URL('../assets/david/david.mesh.json',import.meta.url));
+  const response=await fetch(new URL('../assets/david/david.mesh.json',import.meta.url),{signal:AbortSignal.timeout(8000)});
   if(!response.ok)throw Error('David asset unavailable');
   return decodeDavid(await response.json());
 }

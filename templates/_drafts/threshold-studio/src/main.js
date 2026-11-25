@@ -1,14 +1,14 @@
-import {RELEASE} from './config.js?v=T24a';
-import {createRenderer} from './renderer.js?v=david1';
-import {loadDavid} from './david.js?v=1';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T24a';
-import {createScheduler} from './lifecycle.js?v=T24a';
-import {wordmarkOcclusion} from './wordmark.js?v=T24a';
-import {createAmbientClock} from './ambient.js?v=T24a';
-import {readProgress} from './scroll.js?v=T24a';
-import {typographyPose} from './typography.js?v=T24a';
-import {FOLDS,foldAmount} from './sculptures.js?v=T24a';
-import {perspectivePose,perspectivePresence} from './editorial.js?v=T24a';
+import {RELEASE} from './config.js?v=T24d';
+import {createRenderer} from './renderer.js?v=T24d';
+import {loadDavid} from './david.js?v=T24d';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T24d';
+import {createScheduler} from './lifecycle.js?v=T24d';
+import {wordmarkOcclusion} from './wordmark.js?v=T24d';
+import {createAmbientClock} from './ambient.js?v=T24d';
+import {readProgress} from './scroll.js?v=T24d';
+import {typographyPose} from './typography.js?v=T24d';
+import {FOLDS,foldAmount} from './sculptures.js?v=T24d';
+import {perspectivePose,perspectivePresence} from './editorial.js?v=T24d';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 async function start(){
@@ -42,7 +42,10 @@ async function start(){
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),desktopComposition=matchMedia(DESKTOP_COMPOSITION_QUERY);
   const flags=new URLSearchParams(location.search);
   let david=null;
-  if(flags.get('sculpture')==='david'&&!reduced.matches){
+  // The normal journey uses David. Explicit legacy and one-screen geometry
+  // diagnostic routes retain the old buffer for historical regression tests.
+  const wantsDavid=flags.get('sculpture')==='david'||(flags.get('sculpture')!=='folds'&&flags.get('journey')!=='off'&&flags.get('floorMask')!=='on'&&!['approach','crossing'].includes(flags.get('track')));
+  if(wantsDavid){
     try{david=await loadDavid();study.dataset.david='ready';document.querySelector('.david-credit').hidden=false}
     catch(e){study.dataset.david='unavailable';console.warn('THRESHOLD David asset:',e)}
   }
@@ -60,7 +63,7 @@ async function start(){
   }
   setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
-  let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
+  let renderer=null,visible=false,lost=false,failed=wantsDavid&&!david,disposed=false,suspended=false,frames=0;
   function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   // A preference change can become visible to the frame scheduler before the
   // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
@@ -143,5 +146,7 @@ async function start(){
   reduced.addEventListener('change',preference);desktopComposition.addEventListener('change',invalidate);document.addEventListener('visibilitychange',visibility);
   window.addEventListener('scroll',scrollChanged,{passive:true});window.visualViewport?.addEventListener('resize',invalidate,{passive:true});
   window.addEventListener('resize',invalidate);window.addEventListener('pagehide',pageHide);window.addEventListener('pageshow',pageShow);
-  resize.observe(surface);intersection.observe(surface);preference();
+  resize.observe(surface);intersection.observe(surface);
+  if(failed)staticView('sculpture-unavailable');
+  preference();
 }
