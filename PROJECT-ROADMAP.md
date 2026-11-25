@@ -827,3 +827,7 @@ Added feathered, noninteractive localized gradient behind desktop summit copy on
 
 ## A41 — stakeholder-authorized gallery registration
 User approved gallery-only registration. Prepare a gated candidate using the A40 runtime: move to permanent route, preserve existing draft links, capture the actual opening, add catalogue and dedicated immersive tests, validate both ATLAS browser suites and complete showroom build, assert 39 total / 35 configurator templates. Candidate workflow publishes a separate branch only after successful checks; main gallery remains unchanged until verified candidate is reviewed and promoted. Existing specialist workflows now also trigger on permanent route changes. A40 Pages succeeded; exact A40 specialist runs remained in progress at start of registration. No configurator support or photorealistic/thermal certification implied.
+
+
+## ATLAS — gallery registration candidate
+Stakeholder approved A40 gallery-only registration. Candidate moves the complete expedition to templates/atlas-terrain, preserves old review links via redirect, captures its genuine opening, adds dedicated test coverage, and validates 39 gallery / 35 configurator templates. This remains a review preview, not a production or configurator approval.
