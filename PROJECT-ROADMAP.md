@@ -870,3 +870,6 @@ T06 exact browser 45687694443 and Pages 45687693060 passed, artifact 15057825532
 
 ## THRESHOLD — T08 desktop composition
 T07 exact browser 45688633040 and Pages 45688631092 passed; actual lighting artifact 15058385448 inspected. Desktop full-bleed viewport scene, left semantic copy and existing header/footer, right-shifted off-axis camera with unchanged mirror projection. Portrait/short landscape remain study layout until T11. Ten pure tests plus full-page capture, layout/pixel bounds, fallback and retained recovery tests pending on exact T08 revision. Next T09 after review. No shared/gallery changes.
+
+## THRESHOLD — T09 editorial identity
+T08 exact browser 45692932673 and Pages 45692930891 passed; desktop composition artifact 15060090676 inspected. Original oversized local-system-font SVG wordmark, projected lower-glyph occlusion, readable header mark, truthful navigation and concise studio copy. Preserve renderer/pose/materials; add projection and actual mask-pixel checks. Exact T09 verification pending. Next T10; no catalogue/shared changes.

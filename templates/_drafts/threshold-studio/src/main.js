@@ -1,16 +1,18 @@
-import {RELEASE} from './config.js?v=T08';
-import {createRenderer} from './renderer.js?v=T08';
-import {DESKTOP_COMPOSITION_QUERY} from './camera.js?v=T08';
-import {createScheduler} from './lifecycle.js?v=T08';
+import {RELEASE} from './config.js?v=T09';
+import {createRenderer} from './renderer.js?v=T09';
+import {DESKTOP_COMPOSITION_QUERY,studyPose} from './camera.js?v=T09';
+import {createScheduler} from './lifecycle.js?v=T09';
+import {wordmarkOcclusion} from './wordmark.js?v=T09';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
   const study=document.querySelector('#scene-study'),surface=study.querySelector('.scene-surface'),canvas=study.querySelector('canvas');
+  const mark=document.querySelector('.display-wordmark'),occluder=document.querySelector('#wordmark-occluder');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),desktopComposition=matchMedia(DESKTOP_COMPOSITION_QUERY);
   const flags=new URLSearchParams(location.search);
   const reflectionEnabled=flags.get('reflection')!=='off',lightingEnabled=flags.get('lighting')!=='off',floorMask=flags.get('floorMask')==='on';
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
-  function staticView(reason){canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason}
+  function staticView(reason){canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   function eligible(){return !disposed&&!suspended&&!failed&&!lost&&!reduced.matches&&!document.hidden&&visible}
   function draw(){
     try{
@@ -26,6 +28,8 @@ function start(){
       study.dataset.lighting=result.lightingEnabled?'on':'off';
       study.dataset.floorMask=result.floorMask?'on':'off';
       study.dataset.composition=desktopComposition.matches?'desktop':'study';
+      const points=desktopComposition.matches?wordmarkOcclusion(studyPose(r.width/r.height,true).vp,r,mark.getBoundingClientRect()):'';
+      occluder.setAttribute('points',points);mark.dataset.depth=points?'projected':'flat';
       study.dataset.renderer='webgl';delete study.dataset.reason;canvas.hidden=false;
     }catch(e){failed=true;renderer?.release();renderer=null;staticView('graphics-error');console.warn('THRESHOLD renderer:',e)}
   }

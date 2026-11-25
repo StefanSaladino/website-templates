@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-release="T08">
+<html lang="en" data-release="T09">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,22 +7,32 @@
   <meta name="theme-color" content="#090909">
   <meta name="description" content="THRESHOLD — an independent digital experience studio concept.">
   <title>THRESHOLD — Beyond the ordinary</title>
-  <link rel="stylesheet" href="styles/base.css?v=T08">
-  <link rel="stylesheet" href="styles/shell.css?v=T08">
-  <script type="module" src="src/main.js?v=T08"></script>
+  <link rel="stylesheet" href="styles/base.css?v=T09">
+  <link rel="stylesheet" href="styles/shell.css?v=T09">
+  <script type="module" src="src/main.js?v=T09"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="masthead">
     <a class="wordmark" href="#main" aria-label="Threshold home">THRESHOLD<sup>®</sup></a>
-    <a class="gallery-link" href="../../../index.html">Design library</a>
+    <nav aria-label="Design library navigation"><a class="gallery-link" href="../../../index.html">Design library</a></nav>
   </header>
   <main id="main" tabindex="-1">
     <div class="opening">
+      <svg class="display-wordmark" viewBox="0 0 1000 155" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <defs>
+          <clipPath id="wordmark-depth-band"><rect x="0" y="103" width="1000" height="52"/></clipPath>
+          <mask id="wordmark-depth" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="155">
+            <rect width="1000" height="155" fill="white"/>
+            <polygon id="wordmark-occluder" fill="black" clip-path="url(#wordmark-depth-band)" points=""/>
+          </mask>
+        </defs>
+        <text x="0" y="130" textLength="1000" lengthAdjust="spacingAndGlyphs" mask="url(#wordmark-depth)">THRESHOLD</text>
+      </svg>
       <div class="opening-copy">
         <p class="studio">Independent digital experience studio</p>
         <h1>Beyond the<br>ordinary.</h1>
-        <p class="draft-note">Opening composition study. Final typography and motion are not yet applied.</p>
+        <p class="studio-description">Digital experiences built at the intersection of design, space and technology.</p>
       </div>
       <figure id="scene-study" class="scene-study" data-renderer="static" data-frames="0">
         <div class="scene-surface">
@@ -44,6 +54,6 @@
       </figure>
     </div>
   </main>
-  <footer>Original fictional studio concept.</footer>
+  <footer><span class="chapter-label">01 / Arrival</span><span class="concept-label">Original studio concept · Opening study</span></footer>
 </body>
 </html>

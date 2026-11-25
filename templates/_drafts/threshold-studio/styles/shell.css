@@ -39,3 +39,23 @@ footer { padding-block: 1rem max(1rem, env(safe-area-inset-bottom)); }
   .opening-copy .studio { max-width: 24ch; }
   .opening-copy .draft-note { max-width: 33ch; }
 }
+
+/* T09 identity. Original editorial wordmark, local system typography, no font fetch. */
+.wordmark { font-size: .92rem; font-weight: 900; letter-spacing: -.065em; }
+.wordmark sup { font-weight: 700; margin-left: .12em; }
+.gallery-link { font-size: .75rem; font-weight: 600; letter-spacing: .075em; text-transform: uppercase; text-decoration: none; }
+.gallery-link:hover, .gallery-link:focus-visible { text-decoration: underline; text-underline-offset: .38em; }
+.display-wordmark { display: block; width: 100%; aspect-ratio: 1000/155; overflow: hidden; color: var(--bone); pointer-events: none; margin: 0 0 1.8rem; }
+.display-wordmark text { font-family: Arial, Helvetica, sans-serif; font-size: 155px; font-weight: 900; letter-spacing: -.055em; fill: currentColor; }
+.opening-copy .studio { font-size: .7rem; line-height: 1.5; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; }
+.opening-copy h1 { font-weight: 500; letter-spacing: -.065em; }
+.studio-description { color: var(--muted); font-size: .875rem; line-height: 1.55; max-width: 29ch; margin: 0; }
+footer { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem; }
+.chapter-label { color: var(--bone); font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; }
+.concept-label { font-size: .7rem; }
+@media (min-width: 900px) and (min-height: 480px) and (min-aspect-ratio: 6/5) {
+  .display-wordmark { position: absolute; inset-inline-start: 4%; inset-block-start: 12%; width: 92%; height: 17%; aspect-ratio: auto; margin: 0; }
+  .opening-copy { inset-block-start: 56%; width: 30%; max-width: 30rem; }
+  .opening-copy h1 { font-size: clamp(2rem, min(4.2vw, 7.5vh), 5rem); margin-block: .9rem 1.15rem; }
+  footer { padding-block: 1rem max(1.4rem, env(safe-area-inset-bottom)); }
+}
