@@ -257,3 +257,5 @@ footer { opacity: var(--footer-opacity, 1); }
 /* T24 navigation in the cobalt connector and exhibition. */
 .journey-stage[data-room="exploration"] .masthead {color:#eeece5;text-shadow:0 1px 4px #11183e;}
 .journey-stage[data-room="exploration"] .masthead :focus-visible {outline-color:#eeece5;}
+
+.david-credit {font-size:.625rem;line-height:1.25;margin:.45rem 0 0;color:#514d45;}

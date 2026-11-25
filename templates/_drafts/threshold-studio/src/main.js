@@ -1,5 +1,6 @@
 import {RELEASE} from './config.js?v=T24a';
-import {createRenderer} from './renderer.js?v=T24a';
+import {createRenderer} from './renderer.js?v=david1';
+import {loadDavid} from './david.js?v=1';
 import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T24a';
 import {createScheduler} from './lifecycle.js?v=T24a';
 import {wordmarkOcclusion} from './wordmark.js?v=T24a';
@@ -10,7 +11,7 @@ import {FOLDS,foldAmount} from './sculptures.js?v=T24a';
 import {perspectivePose,perspectivePresence} from './editorial.js?v=T24a';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
-function start(){
+async function start(){
   const study=document.querySelector('#scene-study'),surface=study.querySelector('.scene-surface'),canvas=study.querySelector('canvas');
   const mark=document.querySelector('.display-wordmark'),occluder=document.querySelector('#wordmark-occluder');
   const stage=document.querySelector('.journey-stage'),header=stage.querySelector('.masthead'),footer=stage.querySelector('footer');
@@ -40,6 +41,11 @@ function start(){
   }
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),desktopComposition=matchMedia(DESKTOP_COMPOSITION_QUERY);
   const flags=new URLSearchParams(location.search);
+  let david=null;
+  if(flags.get('sculpture')==='david'&&!reduced.matches){
+    try{david=await loadDavid();study.dataset.david='ready';document.querySelector('.david-credit').hidden=false}
+    catch(e){study.dataset.david='unavailable';console.warn('THRESHOLD David asset:',e)}
+  }
   const reflectionEnabled=flags.get('reflection')!=='off',lightingEnabled=flags.get('lighting')!=='off',floorMask=flags.get('floorMask')==='on';
   const ambientEnabled=flags.get('ambient')!=='off'&&lightingEnabled&&!floorMask;
   const journeyRequested=flags.get('journey')!=='off'&&!floorMask;
@@ -71,13 +77,13 @@ function start(){
     forceDraw=false;
     if(!sample.render){scheduler.invalidate();return}
     try{
-      if(!renderer)renderer=createRenderer(canvas);
+      if(!renderer)renderer=createRenderer(canvas,david);
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
       const r=surface.getBoundingClientRect();
       const progress=journeyActive?readProgress(document.scrollingElement):0;
       const pose=(approachOnly?approachPose:crossingOnly?crossingPose:perspectiveOnly?revealPose:exhibitionPose)(r.width/r.height,desktopComposition.matches,progress);
       const perspectiveProgress=fullTrack?Math.min(1,progress/EXHIBITION_JOIN):progress;
-      const foldProgress=foldsEnabled&&!approachOnly&&!crossingOnly?perspectiveProgress:0;
+      const foldProgress=!david&&foldsEnabled&&!approachOnly&&!crossingOnly?perspectiveProgress:0;
       const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose,foldProgress);
       if(!result){staticView('not-ready');return}
       // The rendered pose and the reported progress always belong to the same sample.

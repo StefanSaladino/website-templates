@@ -6,14 +6,18 @@ import {LIGHTING_GLSL} from './lighting.js?v=T24a';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
+layout(location=2) in vec3 aNormal;
 uniform mat4 uVP;
 out vec3 color;
 out vec3 world;
-void main(){gl_Position=uVP*vec4(aPosition,1.0);color=aColor;world=aPosition;}`;
+out vec3 meshNormal;
+void main(){gl_Position=uVP*vec4(aPosition,1.0);color=aColor;world=aPosition;meshNormal=aNormal;}`;
 const FS=`#version 300 es
 precision highp float;
 in vec3 color;
 in vec3 world;
+in vec3 meshNormal;
+uniform float uStatue;
 uniform vec3 uViewEye;
 uniform float uLighting;
 uniform float uAmbientPhase;
@@ -24,6 +28,7 @@ void main(){
   // Face normal recovered from the original world position; facing is corrected
   // using the actual or mirrored eye, never the mirrored material coordinates.
   vec3 n=normalize(cross(dFdx(world),dFdy(world)));
+  if(uStatue>.5)n=normalize(meshNormal);
   if(dot(n,uViewEye-world)<0.0)n=-n;
   vec3 key=normalize(vec3(-4.0,8.5,9.0)-world);
   float diffuse=.35+.65*max(dot(n,key),0.0);
@@ -94,6 +99,16 @@ void main(){
   float blueDiffuse=.3+.7*max(dot(n,blueKey),0.0);
   vec3 cobalt=(color*(.68+.40*blueDiffuse)+vec3(.025,.040,.095))*galleryContact;
   result=mix(result,cobalt,blue);
+  if(uStatue>.5){
+    vec3 sculptureKey=normalize(vec3(1.0,8.7,-12.8)-world);
+    vec3 fill=normalize(vec3(7.0,5.0,-16.8)-world);
+    float keyLight=max(dot(n,sculptureKey),0.0);
+    float rim=max(dot(n,fill),0.0);
+    float softSpec=pow(max(dot(n,normalize(sculptureKey+view)),0.0),24.0);
+    float grain=sin(world.x*22.0+world.y*8.0)*sin(world.z*19.0-world.y*12.0);
+    result=color*(.34+.60*keyLight+.19*rim)+vec3(.10,.095,.082)*softSpec+vec3(.006)*grain;
+    result*=1.0-.16*exp(-max(world.y,0.0)*2.0);
+  }
   result=haze(result,length(uViewEye-world),mix(mix(.55,.18,isRed),.23,blue));
   outColor=vec4(clamp(result,0.0,1.0),1.0);
 }`;
@@ -157,19 +172,20 @@ function shader(gl,type,source){
   if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){const log=gl.getShaderInfoLog(s);gl.deleteShader(s);throw Error(log||'shader compile')}
   return s;
 }
-export function createRenderer(canvas){
+export function createRenderer(canvas,david=null){
   const gl=canvas.getContext('webgl2',{alpha:false,antialias:true,depth:true,stencil:false,preserveDrawingBuffer:false});
   if(!gl)return null;
   let program=null,floorProgram=null,vao=null,buffer=null,uniform=null,floorUniforms=null,count=0,limit=4096,textureLimit=1024;
   const reflection=createReflection(gl);
-  const vertices=buildStudy();
+  const legacy=buildStudy(),vertices=david?legacy.slice(0,-buildSculptureVertices(0).length):legacy;
+  let statueVAO=null,statueBuffer=null;
   const sculptureOffset=vertices.byteLength-buildSculptureVertices(0).byteLength;
   let uploadedFoldProgress=0,sculptureUploads=0;
   // Loss invalidates every GPU object. Drop old-generation handles without issuing GL calls.
-  function abandon(){reflection.abandon();buffer=vao=program=uniform=floorProgram=floorUniforms=null;count=0;uploadedFoldProgress=0}
+  function abandon(){reflection.abandon();buffer=vao=program=uniform=floorProgram=floorUniforms=null;count=0;uploadedFoldProgress=0;statueVAO=statueBuffer=null}
   function release(){
     reflection.release();
-    if(!gl.isContextLost()){if(buffer)gl.deleteBuffer(buffer);if(vao)gl.deleteVertexArray(vao);if(program)gl.deleteProgram(program);if(floorProgram)gl.deleteProgram(floorProgram)}
+    if(!gl.isContextLost()){if(statueBuffer)gl.deleteBuffer(statueBuffer);if(statueVAO)gl.deleteVertexArray(statueVAO);if(buffer)gl.deleteBuffer(buffer);if(vao)gl.deleteVertexArray(vao);if(program)gl.deleteProgram(program);if(floorProgram)gl.deleteProgram(floorProgram)}
     abandon();
   }
   function restore(){
@@ -183,7 +199,7 @@ export function createRenderer(canvas){
       program=gl.createProgram();if(!program)throw Error('program allocation');
       gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
       if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program)||'program link');
-      uniform=Object.fromEntries(['uVP','uViewEye','uLighting','uAmbientPhase'].map(name=>[name,gl.getUniformLocation(program,name)]));
+      uniform=Object.fromEntries(['uVP','uViewEye','uLighting','uAmbientPhase','uStatue'].map(name=>[name,gl.getUniformLocation(program,name)]));
       if(Object.values(uniform).some(v=>v===null))throw Error('architecture uniform');
       floorFS=shader(gl,gl.FRAGMENT_SHADER,FLOOR_FS);floorProgram=gl.createProgram();if(!floorProgram)throw Error('floor program allocation');
       gl.attachShader(floorProgram,vs);gl.attachShader(floorProgram,floorFS);gl.linkProgram(floorProgram);
@@ -194,6 +210,13 @@ export function createRenderer(canvas){
       gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,vertices,gl.DYNAMIC_DRAW);uploadedFoldProgress=0;
       gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,3,gl.FLOAT,false,24,0);
       gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,3,gl.FLOAT,false,24,12);
+      if(david){
+        statueVAO=gl.createVertexArray();statueBuffer=gl.createBuffer();
+        if(!statueVAO||!statueBuffer)throw Error('David buffer allocation');
+        gl.bindVertexArray(statueVAO);gl.bindBuffer(gl.ARRAY_BUFFER,statueBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,david,gl.STATIC_DRAW);
+        for(let i=0;i<3;i++){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,3,gl.FLOAT,false,36,i*12)}
+      }
       gl.bindVertexArray(null);gl.bindBuffer(gl.ARRAY_BUFFER,null);count=vertices.length/6;
       const v=gl.getParameter(gl.MAX_VIEWPORT_DIMS);
       limit=Math.min(4096,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),v[0],v[1]);
@@ -201,6 +224,15 @@ export function createRenderer(canvas){
       if(gl.getError()!==gl.NO_ERROR)throw Error('GPU initialization error');
     }catch(e){release();throw e}
     finally{if(vs)gl.deleteShader(vs);if(fs)gl.deleteShader(fs);if(floorFS)gl.deleteShader(floorFS)}
+  }
+  function drawWorld(){
+    gl.uniform1f(uniform.uStatue,0);
+    gl.bindVertexArray(vao);gl.drawArrays(gl.TRIANGLES,6,count-6);
+    if(david){
+      gl.uniform1f(uniform.uStatue,1);gl.bindVertexArray(statueVAO);
+      gl.drawArrays(gl.TRIANGLES,0,david.length/9);
+      gl.uniform1f(uniform.uStatue,0);gl.bindVertexArray(vao);
+    }
   }
   function draw(width,height,dpr,reflectionEnabled=true,lightingEnabled=true,floorMask=false,desktopComposition=false,ambientPhase=-1,pose=null,foldProgress=0){
     if(!program||gl.isContextLost())return null;
@@ -212,7 +244,7 @@ export function createRenderer(canvas){
     // contexts or render loops. Do not upload while the shape is unchanged.
     const nextFoldProgress=Number.isFinite(foldProgress)?Math.max(0,Math.min(1,foldProgress)):0;
     const folded=nextFoldProgress<=.76?0:nextFoldProgress;
-    if(folded!==uploadedFoldProgress){
+    if(!david&&folded!==uploadedFoldProgress){
       gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
       gl.bufferSubData(gl.ARRAY_BUFFER,sculptureOffset,buildSculptureVertices(folded));
       gl.bindBuffer(gl.ARRAY_BUFFER,null);
@@ -227,12 +259,12 @@ export function createRenderer(canvas){
     gl.useProgram(program);gl.uniformMatrix4fv(uniform.uVP,false,multiply(vp,FLOOR_MIRROR));
     gl.uniform3f(uniform.uViewEye,eye[0],-eye[1],eye[2]);gl.uniform1f(uniform.uLighting,lightingEnabled?1:0);gl.uniform1f(uniform.uAmbientPhase,ambientPhase);
     gl.bindVertexArray(vao);
-    if(reflectionEnabled)gl.drawArrays(gl.TRIANGLES,6,count-6);
+    if(reflectionEnabled)drawWorld();
     // Pass 2: direct architecture writes depth, then the ground receives reflection only
     // where it is visible. No reflected pixels can cover solid walls.
     gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,dw,dh);
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-    gl.uniformMatrix4fv(uniform.uVP,false,vp);gl.uniform3fv(uniform.uViewEye,eye);gl.drawArrays(gl.TRIANGLES,6,count-6);
+    gl.uniformMatrix4fv(uniform.uVP,false,vp);gl.uniform3fv(uniform.uViewEye,eye);drawWorld();
     gl.useProgram(floorProgram);gl.uniformMatrix4fv(floorUniforms.uVP,false,vp);
     gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,target.texture);
     gl.uniform1i(floorUniforms.uReflection,0);gl.uniform2f(floorUniforms.uScreen,dw,dh);
@@ -241,7 +273,7 @@ export function createRenderer(canvas){
     gl.uniform1f(floorUniforms.uLighting,lightingEnabled?1:0);gl.uniform1f(floorUniforms.uAmbientPhase,ambientPhase);gl.uniform1f(floorUniforms.uMask,floorMask?1:0);
     gl.drawArrays(gl.TRIANGLES,0,6);gl.bindTexture(gl.TEXTURE_2D,null);gl.bindVertexArray(null);
     if(gl.getError()!==gl.NO_ERROR||gl.isContextLost())throw Error('GPU draw error');
-    return {width:dw,height:dh,triangles:count/3,reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled,lightingEnabled,floorMask,sculptureUploads};
+    return {width:dw,height:dh,triangles:count/3+(david?david.length/27:0),reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled,lightingEnabled,floorMask,sculptureUploads};
   }
   rebuild();return {draw,restore,abandon,release};
 }
