@@ -123,3 +123,76 @@ footer { opacity: var(--footer-opacity, 1); }
 .journey-stage[data-room="perspective"] .masthead :focus-visible {
   outline-color: #242321;
 }
+
+/* T22 — one exhibition label, not a service-card grid.
+   The same semantic section lives in normal flow when graphics are unavailable. */
+.opening { position: relative; min-block-size: inherit; }
+.perspective-editorial {
+  color: #252420;
+  background: #eeece5;
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+  line-height: 1.4;
+}
+.perspective-index {
+  margin: 0 0 .65rem; font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .105em;
+}
+.perspective-editorial h2 {
+  margin: 0 0 .55rem; font-size: clamp(2rem, 5.3vw, 4.5rem);
+  line-height: .98; font-weight: 600; letter-spacing: -.065em;
+}
+.perspective-statement { max-width: 33ch; margin: 0; font-size: .88rem; line-height: 1.45; }
+.perspective-capabilities {
+  list-style: none; margin: .9rem 0 0; padding: .65rem 0 0;
+  border-top: 1px solid #aaa69a; display: flex; flex-wrap: wrap;
+  gap: .25rem .9rem; font-size: .7rem; font-weight: 600;
+}
+:root[data-journey="on"] .perspective-editorial {
+  position: absolute; z-index: 1;
+  inset-inline-start: max(4vw, 1rem, env(safe-area-inset-left));
+  inset-inline-end: auto;
+  inset-block-end: max(4vh, 1rem, calc(env(safe-area-inset-bottom) + .75rem));
+  inline-size: min(35vw, 24rem); max-inline-size: calc(100% - 2rem);
+  padding: clamp(.9rem, 1.55vw, 1.5rem);
+  opacity: var(--perspective-opacity, 0);
+  translate: 0 var(--perspective-rise, 20px);
+  pointer-events: none;
+}
+:root[data-journey="on"] .perspective-editorial h2 {
+  font-size: clamp(1.75rem, min(3.5vw, 5.4vh), 3.5rem);
+}
+:root[data-journey="on"] .perspective-statement { font-size: .83rem; }
+:root[data-journey="on"] .perspective-capabilities { margin-top: .7rem; font-size: .68rem; }
+@media (max-aspect-ratio: 1199/1000) {
+  :root[data-journey="on"] .perspective-editorial {
+    inline-size: min(calc(100% - 2rem), 25rem);
+    inset-inline-start: max(5vw, 1rem, env(safe-area-inset-left));
+    max-inline-size: calc(100% - max(10vw, 2rem));
+    padding: .9rem 1rem;
+  }
+  :root[data-journey="on"] .perspective-editorial h2 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+  :root[data-journey="on"] .perspective-statement { font-size: .78rem; }
+}
+@media (max-height: 479px) and (min-aspect-ratio: 6/5) {
+  :root[data-journey="on"] .perspective-editorial {
+    inline-size: min(38vw, 22rem); padding: .65rem .85rem;
+    inset-block-end: max(3vh, .6rem);
+  }
+  :root[data-journey="on"] .perspective-index { margin-bottom: .35rem; }
+  :root[data-journey="on"] .perspective-editorial h2 { font-size: clamp(1.35rem, 5.3vh, 2rem); margin-bottom: .35rem; }
+  :root[data-journey="on"] .perspective-statement { font-size: .72rem; }
+  :root[data-journey="on"] .perspective-capabilities { margin-top: .4rem; padding-top: .4rem; font-size: .63rem; }
+}
+/* The existing one-screen diagnostic stays one screen; the real static
+   fallback deliberately has meaningful editorial content below Arrival. */
+:root[data-journey="off"] main:has(.scene-study[data-renderer="webgl"]) .perspective-editorial { display: none; }
+:root:not([data-journey="on"]) .journey-stage:has(.scene-study[data-renderer="static"]) footer {
+  inset-block-end: auto; inset-block-start: max(520px, 100svh);
+  transform: translateY(-100%);
+}
+@media (min-width: 900px) and (min-height: 480px) and (min-aspect-ratio: 6/5) {
+  :root:not([data-journey="on"]) .journey-stage:has(.scene-study[data-renderer="static"]) footer { inset-block-start: 100svh; }
+}
+@media (max-width: 899px) and (min-aspect-ratio: 6/5), (max-height: 479px) and (min-aspect-ratio: 6/5) {
+  :root:not([data-journey="on"]) .journey-stage:has(.scene-study[data-renderer="static"]) footer { inset-block-start: max(330px, 100svh); }
+}

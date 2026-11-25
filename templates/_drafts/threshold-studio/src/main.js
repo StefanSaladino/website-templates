@@ -1,19 +1,26 @@
-import {RELEASE} from './config.js?v=T21';
-import {createRenderer} from './renderer.js?v=T21';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T21';
-import {createScheduler} from './lifecycle.js?v=T21';
-import {wordmarkOcclusion} from './wordmark.js?v=T21';
-import {createAmbientClock} from './ambient.js?v=T21';
-import {readProgress} from './scroll.js?v=T21';
-import {typographyPose} from './typography.js?v=T21';
-import {FOLDS,foldAmount} from './sculptures.js?v=T21';
+import {RELEASE} from './config.js?v=T22';
+import {createRenderer} from './renderer.js?v=T22';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=T22';
+import {createScheduler} from './lifecycle.js?v=T22';
+import {wordmarkOcclusion} from './wordmark.js?v=T22';
+import {createAmbientClock} from './ambient.js?v=T22';
+import {readProgress} from './scroll.js?v=T22';
+import {typographyPose} from './typography.js?v=T22';
+import {FOLDS,foldAmount} from './sculptures.js?v=T22';
+import {perspectivePose} from './editorial.js?v=T22';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
   const study=document.querySelector('#scene-study'),surface=study.querySelector('.scene-surface'),canvas=study.querySelector('canvas');
   const mark=document.querySelector('.display-wordmark'),occluder=document.querySelector('#wordmark-occluder');
   const stage=document.querySelector('.journey-stage'),header=stage.querySelector('.masthead'),footer=stage.querySelector('footer');
-  let lastType='';
+  let lastType='',lastEditorial='';
+  function applyEditorial(progress){
+    const t=perspectivePose(progress),opacity=t.opacity.toFixed(6),rise=t.rise.toFixed(3)+'px';
+    const key=opacity+'|'+rise;
+    if(key!==lastEditorial){stage.style.setProperty('--perspective-opacity',opacity);stage.style.setProperty('--perspective-rise',rise);lastEditorial=key}
+    study.dataset.editorial=opacity;
+  }
   function applyTypography(progress,width,height,rect=null){
     const wide=desktopComposition.matches||width/height>=1.2;
     const t=typographyPose(progress,wide);
@@ -47,7 +54,7 @@ function start(){
   setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
-  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
+  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   // A preference change can become visible to the frame scheduler before the
   // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
   function eligible(){
@@ -78,6 +85,7 @@ function start(){
       study.dataset.progress=progress.toFixed(6);
       // The navigation adopts ink only after the camera has cleared the red throat.
       stage.dataset.room=pose.eye[2]<=-7.2?'perspective':'arrival';
+      applyEditorial(!approachOnly&&!crossingOnly&&journeyActive?progress:0);
       study.dataset.folds=FOLDS.map(f=>foldAmount(f,foldProgress).toFixed(6)).join(',');
       study.dataset.sculptureUploads=String(result.sculptureUploads);
       study.dataset.eye=pose.eye.map(v=>v.toFixed(6)).join(',');
