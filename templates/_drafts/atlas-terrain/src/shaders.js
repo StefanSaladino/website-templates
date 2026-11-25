@@ -679,40 +679,54 @@ void main() {
   R = normalize(R);
 
   float NdotV = max(dot(N, V), 0.0);
-  float fresnel = .025+.975*pow(1.-NdotV,5.);
+  // Dielectric water: approximately 2% normal-incidence reflectance,
+  // rising smoothly towards a mirror at grazing angles.
+  float fresnel = .0204+.9796*pow(1.-clamp(NdotV,0.,1.),5.);
   // The reflection attachment already contains the same display-mapped sky, terrain,
   // and physical landscape detail as the main scene, from the mirrored eye.
   vec3 skyRefl=sampleSkyRefl(R,L);
   vec2 uv=gl_FragCoord.xy/uScreenSize;
-  vec2 warped=uv+vec2(dot(N.xz,vec2(.8,.6)),dot(N.xz,vec2(-.6,.8)))*.19;
+  // Subtle ripple displacement in screen space; prevent amplified
+  // distortion of distant shoreline silhouettes at grazing angles.
+  float warpScale=mix(.075,.23,smoothstep(.08,.65,NdotV));
+  vec2 warped=uv+vec2(dot(N.xz,vec2(.8,.6)),dot(N.xz,vec2(-.6,.8)))*warpScale;
   vec2 edge=min(warped,1.-warped);
   float valid=smoothstep(0.,.035,min(edge.x,edge.y))*uReflectionReady;
   vec3 reflColor=skyRefl;
   if(valid>.001)reflColor=mix(skyRefl,texture(uReflection,clamp(warped,vec2(.002),vec2(.998))).rgb,valid);
 
-  // Luminous glacial meltwater color: turquoise-emerald shallows -> deep alpine teal
-  vec3 shallowTurq = mix(vec3(0.14, 0.31, 0.30), vec3(0.18, 0.21, 0.27), uGolden * 0.88);
-  vec3 midGlacial = mix(vec3(0.065, 0.22, 0.25), vec3(0.13, 0.16, 0.21), uGolden * 0.90);
-  vec3 deepTarn = mix(vec3(0.027, 0.095, 0.135), vec3(0.08, 0.11, 0.16), uGolden * 0.92);
-  vec3 waterBody = mix(shallowTurq, midGlacial, smoothstep(0.04, 0.55, depth));
-  waterBody = mix(waterBody, deepTarn, smoothstep(0.55, 1.45, depth));
+  // Approximate depth-dependent absorption and mineral scattering.
+  // The submerged gravel uses the existing height sample, not time-varying
+  // wave noise. The sediment colour remains anchored as the surface moves.
+  float opticalDepth=depth/max(.36,NdotV);
+  float shelf=1.-smoothstep(.12,.95,depth);
+  vec3 gravel=mix(vec3(.20,.235,.225),vec3(.30,.31,.26),shelf);
+  gravel*=mix(1.,.58,uGolden);
+  vec3 extinction=vec3(4.8,2.05,1.55);
+  vec3 transmission=exp(-opticalDepth*extinction);
+  vec3 shallowScatter=mix(vec3(.065,.285,.275),vec3(.11,.18,.22),uGolden*.88);
+  vec3 deepScatter=mix(vec3(.030,.135,.175),vec3(.07,.115,.165),uGolden*.92);
+  vec3 scattered=mix(shallowScatter,deepScatter,smoothstep(.30,1.65,depth));
+  vec3 body=gravel*transmission+scattered*(1.-transmission);
 
   // Sunlit sparkle
   vec3 H = normalize(L + V);
   vec3 sunSpecCol = mix(vec3(1.0, 0.98, 0.92), vec3(1.0, 0.78, 0.48), uGolden);
-  float spec = pow(max(dot(N, H), 0.0), 180.0) * 0.38;
+  // Broader, subdued reflection lobe as tiny ripples become subpixel.
+  float spec = pow(max(dot(N,H),0.),mix(140.,76.,smoothstep(.09,.55,pixelFootprint)))*.32;
 
-  // Composite reflection in display space; never tone-map the rendered reflection twice.
-  float opticalDepth=depth/max(.36,NdotV);
-  vec3 bedCol=vec3(.23,.25,.23)*mix(1.,.52,uGolden);
-  vec3 body=mix(bedCol,waterBody,1.-exp(-opticalDepth*3.2));
+  // Tone-map the transmitted body first. Reflected scene is already
+  // display-mapped; blend in that space as in the existing planar pass.
   float camDist=length(uCamPos-vWorldPos);
   float fogAmt=1.-exp(-camDist*uFogDensity*.72);
-  body=mix(body,uSkyHorizon,clamp(fogAmt,0.,.76))*.89;
+  body*=.89;
   body=(body*(2.51*body+.03))/(body*(2.43*body+.59)+.14);
   body=pow(clamp(body,0.,1.),vec3(.96));
-  float reflMix=clamp(.17+fresnel*.78,.17,.93);
-  vec3 col=mix(body,clamp(reflColor,0.,1.),reflMix)+sunSpecCol*spec*.34;
+  body=mix(body,uSkyHorizon,clamp(fogAmt,0.,.76));
+  // A small unresolved rough-surface contribution retains recognizable
+  // reflected peaks at ordinary angles, without masking the gravel shelf.
+  float reflMix=clamp(.065+fresnel*.865,.065,.93);
+  vec3 col=mix(body,clamp(reflColor,0.,1.),reflMix)+sunSpecCol*spec*.30;
   // Tight anti-aliased shore; no decorative pale rim.
   float edgeWidth=clamp(fwidth(depth)*1.05,.008,.085);
   float edgeAlpha=smoothstep(.004,.004+edgeWidth,depth)*waterVis;
