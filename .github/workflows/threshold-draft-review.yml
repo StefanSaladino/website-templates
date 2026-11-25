@@ -607,3 +607,32 @@ jobs:
         with:
           name: threshold-ivory-reveal-evidence
           path: /tmp/threshold-evidence/
+
+  transition:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+        working-directory: components
+      - run: npx playwright install --with-deps chromium
+        working-directory: components
+      - name: T18 dense reversible transition and native scroll recording
+        working-directory: components
+        run: |
+          python3 -m http.server 4381 --bind 127.0.0.1 --directory .. >/tmp/threshold-transition-server.log 2>&1 &
+          SERVER=$!
+          trap 'kill "$SERVER" 2>/dev/null || true' EXIT
+          for i in $(seq 1 30); do
+            if curl -fsS -I http://127.0.0.1:4381/templates/_drafts/threshold-studio/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node --input-type=module < ../templates/_drafts/threshold-studio/audit/transition.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: threshold-T18-transition-evidence
+          path: /tmp/threshold-transition/
