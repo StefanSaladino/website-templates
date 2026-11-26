@@ -1,9 +1,9 @@
-import {graphicMesh,graphicAmount} from './graphic.js?v=P08f';
-import {openingPose,multiply} from './camera.js?v=P08f';
-import {buildStudy,buildSculptureVertices} from './geometry.js?v=P08f';
-import {bufferSize} from './lifecycle.js?v=P08f';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P08f';
-import {LIGHTING_GLSL} from './lighting.js?v=P08f';
+import {graphicMesh,graphicAmount} from './graphic.js?v=P08g';
+import {openingPose,multiply} from './camera.js?v=P08g';
+import {buildStudy,buildSculptureVertices} from './geometry.js?v=P08g';
+import {bufferSize} from './lifecycle.js?v=P08g';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P08g';
+import {LIGHTING_GLSL} from './lighting.js?v=P08g';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -119,6 +119,16 @@ void main(){
   if(uGraphicStyle>.5&&world.z<=-6.0&&world.z>=-20.4&&isIvory>.5&&blue<.5){
     result=mix(result,vec3(.88,.87,.83)*(.82+.18*galleryDiffuse),smoothstep(6.0,7.0,-world.z));
   }
+  // Muted cobalt spill on the physical throat gives way to clean matte
+  // charcoal. World-space shading only; no overlay or extra render pass.
+  if(uGraphicStyle>.5&&zDepth>=40.4&&zDepth<56.95&&isIvory<.5){
+    float threshold=1.0-smoothstep(40.4,47.0,zDepth);
+    float apertureMask=1.0-smoothstep(2.8,4.6,abs(world.x));
+    float face=.45+.55*max(abs(n.x),abs(n.y));
+    vec3 matte=vec3(.061,.064,.073)*(.86+.14*abs(n.y));
+    result=mix(result,matte,smoothstep(40.4,43.0,zDepth)*.82);
+    result+=vec3(.018,.027,.075)*threshold*apertureMask*face;
+  }
   result=haze(result,length(uViewEye-world),mix(mix(.55,.18,isRed),.23,blue));
   // The closing aperture stays dark throughout Exploration. In the final
   // approach the fixed recess becomes legible before the white plane reaches
@@ -126,7 +136,9 @@ void main(){
   // Evaluate derivatives before non-uniform material branching.
   float edgeFootprint=max(fwidth(world.x),fwidth(world.y));
   if(uGraphicStyle>.5&&world.z<=-56.95){
-    float reveal=smoothstep(42.5,46.0,-uViewEye.z);
+    // Let a visible neutral plane emerge earlier, then reach paper white
+    // at the same established final viewpoint.
+    float reveal=smoothstep(39.0,46.0,-uViewEye.z);
     // Distance to the finite U-shaped perimeter, not infinite X/Y lines.
     float jambSide=length(vec2(abs(world.x)-2.3,max(world.y-6.2,0.0)));
     float jambHead=length(vec2(max(abs(world.x)-2.3,0.0),world.y-6.2));
@@ -200,6 +212,10 @@ void main(){
     float anticipation=smoothstep(37.0,44.5,-uEye.z);
     float approachPool=smoothstep(43.0,56.8,-world.z)*exp(-abs(world.x)*.38);
     base+=vec3(.025,.027,.032)*approachPool*anticipation;
+    if(uGraphicStyle>.5){
+      float passage=smoothstep(39.4,40.4,-world.z)*(1.0-smoothstep(40.4,47.0,-world.z));
+      base+=vec3(.013,.020,.055)*passage*exp(-abs(world.x)*.24);
+    }
   }
   vec3 c=texture(uReflection,uv).rgb*.24;
   c+=(texture(uReflection,uv+vec2(stepSize.x,0)).rgb+texture(uReflection,uv-vec2(stepSize.x,0)).rgb)*.12;

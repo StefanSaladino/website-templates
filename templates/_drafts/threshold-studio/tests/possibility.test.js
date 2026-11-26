@@ -13,3 +13,19 @@ test('closing route keeps every earlier pose and a stationary exploration dwell'
  assert.equal(architecturalSolids().length,34);assert.equal(architecturalSolids(true).length,44);
  assert.equal(buildStudy(true).length-buildStudy().length,120*18);
 });
+
+test('closing framing stays centered until the passage then settles continuously',()=>{
+ for(const [w,h] of [[320,568],[390,844],[768,1024],[1440,900],[844,390]]){
+   const aspect=w/h,wide=aspect>=1.2,desktop=w>=900&&h>=480&&wide;
+   let previous=0;
+   for(let i=0;i<=2000;i++){
+     const p=CLOSING_DEPART+(1-CLOSING_DEPART)*i/2000,pose=closingPose(aspect,desktop,p);
+     const shift=wide?pose.shiftX:-pose.shiftY;
+     if(pose.eye[2]>=-39)assert(Math.abs(shift)<1e-8);
+     assert(shift>=previous-1e-8);
+     assert(shift<=(wide?.33:.30)+1e-8);
+     previous=shift;
+   }
+   assert(Math.abs(previous-(wide?.33:.30))<1e-8);
+ }
+});

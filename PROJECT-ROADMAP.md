@@ -974,3 +974,5 @@ THRESHOLD P08d: stakeholder rejects newer appearance and jagged edges; restore P
 THRESHOLD P08e: P08d all audits and deployment passed; inspect actual restored captures. Refine entrance seam coverage and closing doorway rim/emission, retain original geometry and full quality, record actual MSAA and high-DPI evidence. No layout changes or gallery promotion.
 
 THRESHOLD P08f: P08e all three audits and deployment passed, actual 4x AA confirmed. Fix unintended infinite cross highlight, refine cobalt side/ceiling rhythm and closing anticipation without camera/layout/quality changes. New evidence pending; no gallery registration.
+
+THRESHOLD P08g: P08f passed all audits; actual sequence shows near-black gap and early off-axis framing. Add cobalt-to-charcoal material handoff, gradual earlier aperture emission, late centered optical reframing; preserve endpoints, full quality and layout. Exact review pending.
