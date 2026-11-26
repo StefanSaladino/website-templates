@@ -205,14 +205,17 @@
 @media(max-aspect-ratio:5/6){.ritual::after{display:none}}
 @media(prefers-reduced-motion:reduce){.scene-camera .photo-layers{opacity:0!important}}
 
-/* S08a: the original photograph is the sole source for the interaction.
-   Preserve the surrounding image and remove all visible control chrome. */
-.scene-camera .product-motion-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:72% center;pointer-events:none}
-.product-hit{padding:0;border:0;background:transparent;color:inherit;appearance:none;-webkit-tap-highlight-color:transparent}
+
+/* S08b3: translate the entire camera at a constant uniform opening
+   scale. The small overscan keeps every edge covered at maximum travel. */
+.scene-camera{transform:translate3d(var(--x,0px),var(--y,0px),0) scale(1.06)}
+:root[data-journey=on] .scene-camera{transform:translate3d(calc(var(--x,0px) + var(--scene-x,0px)),var(--y,0px),0) scale(var(--scene-scale,1.06))}
+.product-hit{padding:0;border:0;background:transparent;color:inherit;appearance:none;-webkit-tap-highlight-color:transparent;cursor:default}
 .product-hit:focus-visible{outline:2px solid var(--paper);outline-offset:3px;border-radius:.3rem}
 @media(max-aspect-ratio:5/6){
- .scene-camera .product-motion-canvas{object-position:62% 36%}
  .product-hit{inset:10% 2% 46% 21%}
  .hero-copy{padding-top:clamp(15rem,54svh,32rem)}
 }
-@media(prefers-reduced-motion:reduce){.product-motion-canvas{display:none!important}}
+@media(prefers-reduced-motion:reduce){
+ .scene-camera,:root[data-journey=on] .scene-camera{transform:none}
+}
