@@ -1,6 +1,6 @@
 'use strict';
-// S08a: direct manipulation of the intact photo, with a bounded 2D local
-// warp. No defective extraction plates, no fake rotation, no slider.
+// S08b: fixed-axis perspective turn of the intact photograph.
+// No translation of the pivot, extraction plates, or unseen 3D surfaces.
 const hero=document.querySelector('.hero'),hit=hero.querySelector('.product-hit');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const still=hero.querySelector('.still img'),camera=hero.querySelector('.scene-camera');
@@ -10,9 +10,9 @@ camera.insertBefore(canvas,camera.querySelector('.filter-still'));
 const ctx=canvas.getContext('2d',{alpha:false});
 let ready=false,frame=0,v=0,tv=0,drag=null,pulse=0,moved=false,source='';
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
-// Artwork-specific envelope, normalized to the original image. The bag
-// translates rigidly within each horizontal band; the nearby background
-// absorbs the displacement. Everything outside that envelope stays fixed.
+// Artwork-specific envelope and fixed vertical pivot in source coordinates.
+// The photograph depicts a front/side angle; reproject its visible surface
+// with a bounded yaw, not a rigid lateral slide or a full 3D model.
 const contours={
  wide:[[.713,.062,.747],[.706,.119,.941],[.647,.30,.935],[.610,.50,.918],[.571,.795,.892],[.684,.857,.868],[.841,.918,.856]],
  portrait:[[.458,.066,.497],[.438,.115,.895],[.357,.30,.877],[.294,.50,.834],[.207,.79,.772],[.319,.857,.751],[.697,.918,.746]]
@@ -22,41 +22,70 @@ function limits(y,profile){
  for(let i=1;i<profile.length;i++){const a=profile[i-1],b=profile[i];if(y<=b[1]){const f=(y-a[1])/(b[1]-a[1]);return [a[0]+(b[0]-a[0])*f,a[2]+(b[2]-a[2])*f]}}
  return [profile.at(-1)[0],profile.at(-1)[2]];
 }
+// Map the horizontal coordinate of a visible photographic plane through a
+// perspective yaw. The source angle is nonzero because the bag already
+// shows its right side. The pivot maps to itself for every input angle.
+const sourceYaw=-28*Math.PI/180, maxYaw=22*Math.PI/180;
+function projectedX(x,pivot,w,yaw){
+ const u=(x-pivot)/w;
+ const relative=u/Math.cos(sourceYaw);
+ const from=1-relative*Math.sin(sourceYaw)*.75;
+ const to=1-relative*Math.sin(sourceYaw+yaw)*.75;
+ return pivot+w*u*(Math.cos(sourceYaw+yaw)/Math.cos(sourceYaw))*from/to;
+}
+function clearMotion(){canvas.hidden=true;hero.dataset.turnAngle='0';delete hero.dataset.turnWidth;delete hero.dataset.turnPivot;}
 function drawMotion(){
- if(!ready||!ctx||Math.abs(v)<.003||still.currentSrc!==source||!still.complete||!still.naturalWidth){canvas.hidden=true;return}
+ if(!ready||!ctx||Math.abs(v)<.003||still.currentSrc!==source||!still.complete||!still.naturalWidth){clearMotion();return}
  const w=still.naturalWidth,h=still.naturalHeight;
  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h}
  ctx.drawImage(still,0,0,w,h);
- const profile=w/h<1.2?contours.portrait:contours.wide;
- const maxShift=Math.min(w*.018,24),base=v*maxShift;
+ const isPortrait=w/h<1.2,profile=isPortrait?contours.portrait:contours.wide;
+ const pivot=w*(isPortrait?.55:.755);
+ const yaw=v*maxYaw;
  const start=Math.max(0,Math.floor(h*.015)),end=Math.min(h,Math.ceil(h*.978));
- const band=6,margin=Math.max(12,Math.round(w*.012)),buffer=Math.max(60,Math.round(w*.065));
+ const band=6,margin=Math.max(10,Math.round(w*.01)),buffer=Math.max(65,Math.round(w*.08));
+ let measuredWidth=1;
  for(let y=start;y<end;y+=band){
   const bh=Math.min(band,end-y),t=(y+bh*.5)/h;
   const edge=clamp(Math.min((t-.015)/.045,(.978-t)/.055),0,1);
-  const d=base*edge*edge*(3-2*edge);
-  if(Math.abs(d)<.05)continue;
+  const angle=yaw*edge*edge*(3-2*edge);
+  if(Math.abs(angle)<.0005)continue;
   const a=limits(y/h,profile),b=limits((y+bh)/h,profile);
   const l=clamp(Math.floor(Math.min(a[0],b[0])*w)-margin,1,w-2);
   const r=clamp(Math.ceil(Math.max(a[1],b[1])*w)+margin,l+1,w-1);
-  const lo=Math.max(0,l-buffer),hi=Math.min(w,r+buffer);
-  const shift=clamp(d,-(l-lo)*.45,(hi-r)*.45);
-  // Integer destinations prevent subpixel seams between adjacent strips.
-  const q=Math.round(shift);
-  if(!q)continue;
-  ctx.drawImage(still,lo,y,l-lo,bh,lo,y,l-lo+q,bh);
-  ctx.drawImage(still,l,y,r-l,bh,l+q,y,r-l,bh);
-  ctx.drawImage(still,r,y,hi-r,bh,r+q,y,hi-r-q,bh);
+  // Keep the cup, beans and rest of the stage outside the turning envelope.
+  const lo=Math.max(0,l-buffer,Math.min(l-1,Math.round(w*(isPortrait?.17:.55))));
+  const hi=Math.min(w,r+buffer);
+  const rawL=projectedX(l,pivot,w,angle)-l,rawR=projectedX(r,pivot,w,angle)-r;
+  const fit=Math.min(1,(l-lo)*.82/Math.max(1,-rawL),(hi-r)*.82/Math.max(1,rawR));
+  const map=x=>x+fit*(projectedX(x,pivot,w,angle)-x);
+  // Shared integer source/destination edges make the strips watertight.
+  // Multiple internal segments approximate projective rather than affine
+  // compression. The vertical pivot does not translate.
+  const knots=[l,r];
+  for(let i=1;i<6;i++)knots.push(Math.round(l+(r-l)*i/6));
+  if(pivot>l&&pivot<r)knots.push(Math.round(pivot));
+  const src=[lo,...[...new Set(knots)].sort((a,b)=>a-b),hi];
+  const dst=[lo,...src.slice(1,-1).map(x=>Math.round(map(x))),hi];
+  for(let i=1;i<dst.length-1;i++)dst[i]=clamp(dst[i],dst[i-1]+1,hi-(dst.length-1-i));
+  for(let i=1;i<src.length;i++){
+   const sw=src[i]-src[i-1],dw=dst[i]-dst[i-1];
+   if(sw>0&&dw>0)ctx.drawImage(still,src[i-1],y,sw,bh,dst[i-1],y,dw,bh);
+  }
+  if(t>=.48&&t<.48+band/h)measuredWidth=(map(r)-map(l))/(r-l);
  }
+ hero.dataset.turnAngle=(yaw*180/Math.PI).toFixed(2);
+ hero.dataset.turnPivot=(pivot/w).toFixed(3);
+ hero.dataset.turnWidth=measuredWidth.toFixed(4);
  canvas.hidden=false;
 }
 function render(){frame=0;v+=(tv-v)*.25;if(Math.abs(tv-v)<.003)v=tv;drawMotion();if(v!==tv&&!document.hidden)frame=requestAnimationFrame(render)}
 function schedule(){if(!frame&&!document.hidden)frame=requestAnimationFrame(render)}
-function nudge(){if(!ready||reduced.matches||hit.hidden)return;clearTimeout(pulse);tv=.8;schedule();pulse=setTimeout(()=>{tv=0;schedule()},180)}
+function nudge(){if(!ready||reduced.matches||hit.hidden)return;clearTimeout(pulse);tv=.85;schedule();pulse=setTimeout(()=>{tv=0;schedule()},180)}
 function resetAll(){
  const id=drag?.id;drag=null;delete hit.dataset.dragging;
  if(id!==undefined&&hit.hasPointerCapture(id))hit.releasePointerCapture(id);
- clearTimeout(pulse);cancelAnimationFrame(frame);frame=0;tv=v=0;canvas.hidden=true;
+ clearTimeout(pulse);cancelAnimationFrame(frame);frame=0;tv=v=0;clearMotion();
 }
 function endDrag(e){
  if(!drag||e.pointerId!==drag.id)return;
@@ -91,8 +120,8 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)resetAll()}
 still.addEventListener('load',loadLayers);
 // The same artwork and copy nodes persist during the native scroll journey.
 const root=document.documentElement,journey=document.querySelector('.journey'),roast=document.querySelector('.espresso'),copy=hero.querySelector('.hero-copy'),header=document.querySelector('.masthead');
-// Two matched campaign plates, not 3D models. The opening retains its
-// original independently draggable espresso bag. Selection is in the roast chapter.
+// Two matched campaign plates, not 3D models. The opening turns the
+// visible Espresso surface. Selection is in the roast chapter.
 const storyLink=hero.querySelector('.story-link');
 const filterFallback=document.querySelector('.filter-fallback'),selector=roast.querySelector('.roast-selector'),filterImage=hero.querySelector('.filter-still img'),productMeta=hero.querySelector('[data-product-meta]');
 const roastFields=['.eyebrow','h2','.roast-description','.roast-notes'];
