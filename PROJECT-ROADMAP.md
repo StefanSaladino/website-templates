@@ -952,3 +952,5 @@ THRESHOLD P03: P02a exact browser/deployment passed; stakeholder continuation au
 THRESHOLD P04: functional PARALLAX optical alignment within Exploration; pinhole projection, keyboard/touch slider, reset/return, no added runtime dependency or world geometry. P03 unit/Pages passed; full P03/P04 browser review pending. FORM and SIGNAL remain upcoming; no catalogue change.
 
 THRESHOLD P05: FORM modular identity study (four persistent glyphs, wordmark/stack/poster), keyboard, reduced motion and return. P03 dense transition and P04 unit/Pages passed; remaining browser verification pending. SIGNAL next; no catalogue change.
+
+THRESHOLD P06: SIGNAL functional network routing study with shortest-path computation, failover/disconnection, native controls, static fallback. P03 exact full audit passed; P04 dense and P05 unit/Pages passed, other browser verification pending. P07 closing next. No catalogue change.

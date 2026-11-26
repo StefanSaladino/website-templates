@@ -1,16 +1,17 @@
-import {graphicAmount} from './graphic.js?v=P05';
-import {RELEASE} from './config.js?v=P05';
-import {createRenderer} from './renderer.js?v=P05';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition} from './camera.js?v=P05';
-import {createScheduler} from './lifecycle.js?v=P05';
-import {wordmarkOcclusion} from './wordmark.js?v=P05';
-import {createAmbientClock} from './ambient.js?v=P05';
-import {readProgress} from './scroll.js?v=P05';
-import {typographyPose} from './typography.js?v=P05';
-import {FOLDS,foldAmount} from './sculptures.js?v=P05';
-import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P05';
-import {mountParallax} from './parallax.js?v=P05';
-import {mountForm} from './form.js?v=P05';
+import {graphicAmount} from './graphic.js?v=P06';
+import {RELEASE} from './config.js?v=P06';
+import {createRenderer} from './renderer.js?v=P06';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition} from './camera.js?v=P06';
+import {createScheduler} from './lifecycle.js?v=P06';
+import {wordmarkOcclusion} from './wordmark.js?v=P06';
+import {createAmbientClock} from './ambient.js?v=P06';
+import {readProgress} from './scroll.js?v=P06';
+import {typographyPose} from './typography.js?v=P06';
+import {FOLDS,foldAmount} from './sculptures.js?v=P06';
+import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P06';
+import {mountParallax} from './parallax.js?v=P06';
+import {mountForm} from './form.js?v=P06';
+import {mountSignal} from './signal.js?v=P06';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -20,6 +21,7 @@ function start(){
   const exploration=stage.querySelector('.exploration');
   const parallax=mountParallax(exploration);
   const form=mountForm(exploration);
+  const signal=mountSignal(exploration);
   let lastType='',lastEditorial='',lastExploration='';
   function applyExploration(progress,available,staticMode=false){
     const {opacity,active}=explorationPose(progress,available);
@@ -148,7 +150,7 @@ function start(){
   const resize=new ResizeObserver(invalidate);
   const intersection=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)invalidate();else suspend()});
   function dispose(){
-    if(disposed)return;disposed=true;parallax.dispose();form.dispose();scheduler.dispose();resize.disconnect();intersection.disconnect();
+    if(disposed)return;disposed=true;parallax.dispose();form.dispose();signal.dispose();scheduler.dispose();resize.disconnect();intersection.disconnect();
     reduced.removeEventListener('change',preference);desktopComposition.removeEventListener('change',invalidate);document.removeEventListener('visibilitychange',visibility);
     window.removeEventListener('scroll',scrollChanged);window.visualViewport?.removeEventListener('resize',invalidate);
     window.removeEventListener('resize',invalidate);window.removeEventListener('pagehide',pageHide);window.removeEventListener('pageshow',pageShow);

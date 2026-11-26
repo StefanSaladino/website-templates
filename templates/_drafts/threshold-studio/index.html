@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-release="P05">
+<html lang="en" data-release="P06">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#090909">
   <meta name="description" content="THRESHOLD — an independent digital experience studio concept.">
   <title>THRESHOLD — Beyond the ordinary</title>
-  <link rel="stylesheet" href="styles/base.css?v=P05">
-  <link rel="stylesheet" href="styles/shell.css?v=P05">
-  <script type="module" src="src/main.js?v=P05"></script>
+  <link rel="stylesheet" href="styles/base.css?v=P06">
+  <link rel="stylesheet" href="styles/shell.css?v=P06">
+  <script type="module" src="src/main.js?v=P06"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -113,7 +113,7 @@
         </details>
         <details name="threshold-project">
           <summary><span class="project-number">03</span><span class="project-name">SIGNAL</span><span class="project-toggle" aria-hidden="true"></span></summary>
-          <div class="project-description"><p class="project-category">Creative technology</p><p>Investigate connections, decisions and feedback through an interactive network.</p></div>
+          <div class="project-description"><p class="project-category">Creative technology</p><p>Investigate connections, decisions and feedback through an interactive network.</p><button class="study-launch" type="button" hidden data-signal-launch>Enter experiment</button></div>
         </details>
       </div>
       <section class="parallax-study" aria-labelledby="parallax-heading" hidden>
@@ -163,6 +163,45 @@
               <button type="button" data-form-layout="wordmark" aria-pressed="true">01 Wordmark</button>
               <button type="button" data-form-layout="stack" aria-pressed="false">02 Stack</button>
               <button type="button" data-form-layout="poster" aria-pressed="false">03 Poster</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="signal-study" aria-labelledby="signal-heading" hidden>
+        <div class="signal-copy">
+          <button type="button" class="study-return" data-signal-return>Return to experiments</button>
+          <p class="exploration-index">03 / Creative technology</p>
+          <h3 id="signal-heading">SIGNAL</h3>
+          <p>Every connection changes the outcome. Switch relays on or off and watch the network find a new path.</p>
+        </div>
+        <div class="signal-work">
+          <svg class="signal-art" viewBox="0 0 480 240" role="img" aria-label="Connected route: source, relay A, destination">
+            <rect width="480" height="240" fill="#eeece5"/>
+            <path d="M20 20h12m-12 0v12m440-12h-12m12 0v12M20 220h12m-12 0v-12m440 12h-12m12 0v-12" stroke="#898780" fill="none"/>
+            <g class="signal-links" fill="none">
+              <path data-edge="SA" d="M62 120H100V54H240" data-active="true"/>
+              <path data-edge="AT" d="M240 54H380V120H418" data-active="true"/>
+              <path data-edge="SB" d="M62 120H100V186H155" data-active="false"/>
+              <path data-edge="BC" d="M155 186H325" data-active="false"/>
+              <path data-edge="CT" d="M325 186H380V120H418" data-active="false"/>
+            </g>
+            <g class="signal-terminals" fill="#15151a">
+              <rect x="44" y="102" width="36" height="36"/><rect x="400" y="102" width="36" height="36"/>
+              <g text-anchor="middle" font-size="11" font-weight="700"><text x="62" y="92">SOURCE</text><text x="418" y="92">DEST.</text></g>
+              <g text-anchor="middle" fill="#eeece5" font-size="15" font-weight="700"><text x="62" y="125">S</text><text x="418" y="125">T</text></g>
+            </g>
+            <g class="signal-relays" text-anchor="middle" font-size="15" font-weight="700">
+              <g data-relay-node="A" data-online="true"><rect x="220" y="34" width="40" height="40"/><text x="240" y="60">A</text></g>
+              <g data-relay-node="B" data-online="true"><rect x="135" y="166" width="40" height="40"/><text x="155" y="192">B</text></g>
+              <g data-relay-node="C" data-online="true"><rect x="305" y="166" width="40" height="40"/><text x="325" y="192">C</text></g>
+            </g>
+          </svg>
+          <div class="signal-controls">
+            <div class="parallax-status"><span>Live route</span><output id="signal-output" aria-live="polite">S / A / T · 2 links</output></div>
+            <div class="signal-options" role="group" aria-label="Relay availability">
+              <button type="button" data-signal-relay="A" aria-pressed="true">A <span>On</span></button>
+              <button type="button" data-signal-relay="B" aria-pressed="true">B <span>On</span></button>
+              <button type="button" data-signal-relay="C" aria-pressed="true">C <span>On</span></button>
             </div>
           </div>
         </div>
