@@ -1,9 +1,9 @@
-import {graphicMesh,graphicAmount} from './graphic.js?v=P08e';
-import {openingPose,multiply} from './camera.js?v=P08e';
-import {buildStudy,buildSculptureVertices} from './geometry.js?v=P08e';
-import {bufferSize} from './lifecycle.js?v=P08e';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P08e';
-import {LIGHTING_GLSL} from './lighting.js?v=P08e';
+import {graphicMesh,graphicAmount} from './graphic.js?v=P08f';
+import {openingPose,multiply} from './camera.js?v=P08f';
+import {buildStudy,buildSculptureVertices} from './geometry.js?v=P08f';
+import {bufferSize} from './lifecycle.js?v=P08f';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P08f';
+import {LIGHTING_GLSL} from './lighting.js?v=P08f';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -102,6 +102,18 @@ void main(){
   vec3 blueKey=normalize(vec3(-4.0,9.4,-30.0)-world);
   float blueDiffuse=.3+.7*max(dot(n,blueKey),0.0);
   vec3 cobalt=(color*(.68+.40*blueDiffuse)+vec3(.025,.040,.095))*galleryContact;
+  // Three broad, matte tonal registers on the actual cobalt surfaces.
+  // Keep the central back wall and its editorial field clean; detail lives
+  // on the side planes and ceiling. No extra geometry or texture.
+  float zDepth=-world.z;
+  float cobaltBay=smoothstep(23.0,24.0,zDepth)*(1.0-smoothstep(39.3,40.0,zDepth));
+  float bayEdge=min(abs(zDepth-28.0),abs(zDepth-34.0));
+  float bayAA=max(fwidth(zDepth),.015);
+  float register=1.0-smoothstep(.20,.20+bayAA,bayEdge);
+  float sidePlane=step(.8,abs(n.x)),ceilingPlane=step(.8,abs(n.y));
+  float upperBand=smoothstep(7.5,7.9,world.y);
+  float rhythm=cobaltBay*max(sidePlane,ceilingPlane)*register;
+  cobalt*=1.0-.10*rhythm-.065*cobaltBay*sidePlane*upperBand;
   result=mix(result,cobalt,blue);
   // Graphic ink/paper architecture: clean tonal planes, no simulated stone.
   if(uGraphicStyle>.5&&world.z<=-6.0&&world.z>=-20.4&&isIvory>.5&&blue<.5){
@@ -115,14 +127,21 @@ void main(){
   float edgeFootprint=max(fwidth(world.x),fwidth(world.y));
   if(uGraphicStyle>.5&&world.z<=-56.95){
     float reveal=smoothstep(42.5,46.0,-uViewEye.z);
-    float jambDistance=min(abs(abs(world.x)-2.3),abs(world.y-6.2));
+    // Distance to the finite U-shaped perimeter, not infinite X/Y lines.
+    float jambSide=length(vec2(abs(world.x)-2.3,max(world.y-6.2,0.0)));
+    float jambHead=length(vec2(max(abs(world.x)-2.3,0.0),world.y-6.2));
+    float jambDistance=min(jambSide,jambHead);
     float jambAA=max(edgeFootprint,.004);
+    float anticipation=smoothstep(37.0,44.5,-uViewEye.z);
     if(world.z>=-57.65&&isIvory<.5){
       // A quiet matte bevel-like material band follows the actual opening.
       // No change to the opening dimensions or camera clearance.
       float rim=1.0-smoothstep(.035,.11+jambAA,jambDistance);
       float grazing=.55+.45*abs(n.z);
-      result+=vec3(.065,.067,.073)*rim*grazing*reveal;
+      result+=vec3(.065,.067,.073)*rim*grazing*anticipation;
+      // A wide, low-intensity recess wash establishes depth before emission.
+      float wash=exp(-jambDistance*1.35)*anticipation;
+      result+=vec3(.018,.019,.022)*wash;
     }
     if(world.z<=-59.9&&isIvory>.5){
       float inset=min(2.3-abs(world.x),6.2-world.y);
@@ -176,6 +195,11 @@ void main(){
     vec3 blueStone=vec3(.09,.145,.45)+vec3(.012,.015,.035)*sin(world.x*.5+world.z*.35);
     base=mix(base,blueStone,cobaltFloor);
     base=mix(base,vec3(.055,.057,.065),smoothstep(40.4,43.0,-world.z));
+    // An understated pool of cool light follows the actual closing aperture.
+    // It precedes emission, but never becomes a bright strip behind copy.
+    float anticipation=smoothstep(37.0,44.5,-uEye.z);
+    float approachPool=smoothstep(43.0,56.8,-world.z)*exp(-abs(world.x)*.38);
+    base+=vec3(.025,.027,.032)*approachPool*anticipation;
   }
   vec3 c=texture(uReflection,uv).rgb*.24;
   c+=(texture(uReflection,uv+vec2(stepSize.x,0)).rgb+texture(uReflection,uv-vec2(stepSize.x,0)).rgb)*.12;
