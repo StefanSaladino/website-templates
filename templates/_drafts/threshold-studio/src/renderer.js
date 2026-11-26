@@ -1,9 +1,9 @@
-import {graphicMesh,graphicAmount} from './graphic.js?v=P07b';
-import {openingPose,multiply} from './camera.js?v=P07b';
-import {buildStudy,buildSculptureVertices} from './geometry.js?v=P07b';
-import {bufferSize} from './lifecycle.js?v=P07b';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P07b';
-import {LIGHTING_GLSL} from './lighting.js?v=P07b';
+import {graphicMesh,graphicAmount} from './graphic.js?v=P07c';
+import {openingPose,multiply} from './camera.js?v=P07c';
+import {buildStudy,buildSculptureVertices} from './geometry.js?v=P07c';
+import {bufferSize} from './lifecycle.js?v=P07c';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P07c';
+import {LIGHTING_GLSL} from './lighting.js?v=P07c';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -103,7 +103,13 @@ void main(){
   }
   result=haze(result,length(uViewEye-world),mix(mix(.55,.18,isRed),.23,blue));
   // The distant white aperture is a deliberately untextured luminous plane.
-  if(world.z<=-59.9&&isIvory>.5)result=vec3(.98,.98,.96);
+  // Keep the distant exit dark while the cobalt exhibition is occupied.
+  // It brightens only as the camera enters the final chamber; reflected
+  // and direct views share depth, including on reverse travel.
+  if(world.z<=-59.9&&isIvory>.5){
+    float reveal=smoothstep(42.5,46.0,-uViewEye.z);
+    result=mix(vec3(.045,.047,.055),vec3(.98,.98,.96),reveal);
+  }
   outColor=vec4(clamp(result,0.0,1.0),1.0);
 }`;
 // Only the real ground mesh samples the reflected architecture. No recursive floor.

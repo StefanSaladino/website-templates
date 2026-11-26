@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-release="P07b">
+<html lang="en" data-release="P07c">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#090909">
   <meta name="description" content="THRESHOLD — an independent digital experience studio concept.">
   <title>THRESHOLD — Beyond the ordinary</title>
-  <link rel="stylesheet" href="styles/base.css?v=P07b">
-  <link rel="stylesheet" href="styles/shell.css?v=P07b">
-  <script type="module" src="src/main.js?v=P07b"></script>
+  <link rel="stylesheet" href="styles/base.css?v=P07c">
+  <link rel="stylesheet" href="styles/shell.css?v=P07c">
+  <script type="module" src="src/main.js?v=P07c"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -217,18 +217,22 @@
         <button type="button" class="journey-back" data-journey-back hidden>Return to Exploration</button>
       </div>
       <div class="possibility-contact" id="possibility-contact" hidden>
-        <p class="exploration-index">A starting point</p>
-        <h3 id="possibility-contact-heading">What would you like to explore?</h3>
-        <p>This is a fictional studio concept. Choose an area to build a local project brief; nothing is sent.</p>
+        <div class="contact-intro">
+          <p class="exploration-index">A starting point</p>
+          <h3 id="possibility-contact-heading">What would you like to explore?</h3>
+          <p>Choose a direction for a local concept brief. Nothing is sent.</p>
+        </div>
         <fieldset>
           <legend>Project direction</legend>
           <label><input type="radio" name="possibility-direction" value="Digital environments" checked> Digital environments</label>
           <label><input type="radio" name="possibility-direction" value="Interactive brand experiences"> Interactive brand experiences</label>
           <label><input type="radio" name="possibility-direction" value="Creative technology"> Creative technology</label>
         </fieldset>
-        <button type="button" data-possibility-create>Prepare brief</button>
+        <div class="contact-actions">
+          <button type="button" data-possibility-create>Prepare brief</button>
+          <button type="button" data-possibility-return>Return</button>
+        </div>
         <output id="possibility-output" aria-live="polite"></output>
-        <button type="button" data-possibility-return>Return</button>
       </div>
     </section>
   </main>

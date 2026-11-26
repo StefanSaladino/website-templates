@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P07b');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P07c');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -915,8 +915,9 @@ jobs:
               await contact.locator('[data-possibility-create]').click();
               assert.equal(await contact.locator('output').textContent(),'Local brief: Creative technology. Nothing has been submitted.');
               await page.screenshot({path:'/tmp/threshold-evidence/closing-'+width+'x'+height+'-contact.png'});
-              const bounds=await contact.evaluate(e=>({box:e.getBoundingClientRect().toJSON(),header:document.querySelector('.masthead').getBoundingClientRect().bottom}));
-              assert(bounds.box.top>=bounds.header-1&&bounds.box.bottom<=height+1,'contact fits stage');
+              const bounds=await contact.evaluate(e=>({box:e.getBoundingClientRect().toJSON(),header:document.querySelector('.masthead').getBoundingClientRect().bottom,children:[...e.querySelectorAll('button,label,output,h3')].map(x=>({text:x.textContent,r:x.getBoundingClientRect().toJSON(),target:x.matches('button,label')}))}));
+              assert(bounds.box.top>=bounds.header-1&&bounds.box.bottom<=height+1,'contact fits stage '+width+'x'+height+' '+JSON.stringify(bounds));
+              for(const {text,r,target} of bounds.children){assert(r.top>=bounds.header-1&&r.bottom<=height+1&&r.left>=0&&r.right<=width+1,'contact content fits '+text);if(target)assert(r.height>=44,'contact target '+text);}
               await page.keyboard.press('Escape');assert(!(await contact.isVisible()));assert(await cta.evaluate(e=>e===document.activeElement));
               assert.deepEqual(errors,[]);closingEvidence.push(record);await handle.dispose();await page.close();
             }
@@ -936,14 +937,16 @@ jobs:
               const record={width,height,states:[]};
               const check=async(name,selector)=>{
                 const elements=await page.locator(selector).evaluateAll(els=>els.filter(e=>e.getClientRects().length&&getComputedStyle(e).visibility==='visible').map(e=>{
-                  const r=e.getBoundingClientRect(),s=getComputedStyle(e);return {text:e.textContent.trim(),rect:r.toJSON(),rgb:s.color.match(/\d+/g).slice(0,3).map(Number)};
+                  const s=getComputedStyle(e),walker=document.createTreeWalker(e,NodeFilter.SHOW_TEXT),rects=[];let node;
+                  while(node=walker.nextNode()){if(!node.textContent.trim())continue;const range=document.createRange();range.selectNodeContents(node);rects.push(...[...range.getClientRects()].map(r=>r.toJSON()));}
+                  return {text:e.textContent.trim(),rects,rgb:s.color.match(/\d+/g).slice(0,3).map(Number)};
                 }));
                 assert(elements.length>0,name+' text exists');
                 const image=await page.screenshot({style:'.masthead a,.masthead a sup,.exploration p,.exploration h2,.exploration h3,.exploration summary,.exploration summary span,.exploration button,.exploration button span,.exploration output,.exploration label,.parallax-status span,.possibility p,.possibility h2,.possibility h3,.possibility button,.possibility label,.possibility legend,.possibility output{color:transparent!important;text-shadow:none!important}',path:'/tmp/threshold-evidence/contrast-background-'+width+'x'+height+'-'+name+'.png'});
                 const {data,info}=await sharp(image).removeAlpha().raw().toBuffer({resolveWithObject:true});
                 let worst=Infinity;
-                for(const e of elements){
-                  const r=e.rect;assert(r.top>=0&&r.bottom<=height+1&&r.left>=0&&r.right<=width+1,'text remains in viewport '+e.text);
+                for(const e of elements)for(const r of e.rects){
+                  assert(r.top>=0&&r.bottom<=height+1&&r.left>=0&&r.right<=width+1,'text remains in viewport '+e.text);
                   // Sample interior of text boxes; avoid borders and focus outlines.
                   for(const u of [.2,.5,.8])for(const v of [.35,.5,.65]){
                     const x=Math.max(0,Math.min(width-1,Math.floor(r.left+r.width*u))),y=Math.max(0,Math.min(height-1,Math.floor(r.top+r.height*v)));
@@ -956,16 +959,34 @@ jobs:
               };
               await move(.70);
               await page.waitForFunction(()=>document.querySelector('.journey-stage').dataset.exploration==='active');
+              const unbacked=async selector=>{
+                const states=await page.locator(selector).evaluateAll(els=>els.filter(e=>e.getClientRects().length).map(e=>({background:getComputedStyle(e).backgroundColor,shadow:getComputedStyle(e).boxShadow})));
+                assert(states.length>0);
+                assert(states.every(s=>s.background==='rgba(0, 0, 0, 0)'&&s.shadow==='none'),'editorial copy must not have a backing block');
+              };
+              const brightPixels=async()=>{
+                const image=await page.screenshot({style:'.masthead,.opening-copy,.display-wordmark,.perspective-editorial,.exploration,.possibility,footer,.skip-link{visibility:hidden!important}'});
+                const {data,info}=await sharp(image).removeAlpha().raw().toBuffer({resolveWithObject:true});let bright=0;
+                for(let i=0;i<data.length;i+=info.channels)if(data[i]>230&&data[i+1]>230&&data[i+2]>230)bright++;
+                return bright/(info.width*info.height);
+              };
+              const beforeLight=await brightPixels();assert(beforeLight<.001,'white exit remains unlit in Exploration');
+              await unbacked('.exploration-intro,.exploration-projects');
               await check('index','.masthead a,.exploration-intro p,.exploration-intro h2,.exploration-projects > p,.exploration-projects .project-name,.exploration-projects .project-number,.journey-next');
               for(const [i,key] of ['parallax','form','signal'].entries()){
                 await page.locator('.exploration summary').nth(i).click();await page.locator('[data-'+key+'-launch]').click();
+                await unbacked('.'+key+'-copy,.'+key+'-controls');
                 await check(key,'.masthead a,.'+key+'-copy p,.'+key+'-copy h3,.'+key+'-copy button,.'+key+'-controls .parallax-status label,.'+key+'-controls .parallax-status output,.'+key+'-controls .parallax-status > span,.'+key+'-controls button');
                 await page.locator('[data-'+key+'-return]').click();
               }
               await move(1);await page.waitForFunction(()=>document.querySelector('.possibility').style.getPropertyValue('--possibility-opacity')==='1');
+              const afterLight=await brightPixels();assert(afterLight>.005,'white doorway is revealed at the final viewpoint');
+              await unbacked('.possibility-copy');
               await check('closing','.masthead a,.possibility-copy p,.possibility-copy h2,.possibility-cta,.journey-back');
               await page.locator('.possibility-cta').click();
-              await check('contact','.masthead a,.possibility-contact p,.possibility-contact h3,.possibility-contact button');
+              await unbacked('.possibility-contact');
+              assert(await brightPixels()<.001,'contact dims architecture instead of adding a block');
+              await check('contact','.masthead a,.possibility-contact p,.possibility-contact h3,.possibility-contact label,.possibility-contact button');
               contrastEvidence.push(record);await page.close();
             }
             writeFileSync('/tmp/threshold-evidence/contrast-review.json',JSON.stringify(contrastEvidence,null,2));
@@ -1069,7 +1090,7 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P07b',verification:'P07b',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P07c',verification:'P07c',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
@@ -1105,5 +1126,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-P07b-transition-evidence
+          name: threshold-P07c-transition-evidence
           path: /tmp/threshold-transition/

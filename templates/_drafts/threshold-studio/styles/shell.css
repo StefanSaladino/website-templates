@@ -551,41 +551,60 @@ details[open] .project-toggle::after { transform: none; }
 
 @media (min-aspect-ratio:6/5) { :root[data-journey="on"] :is(.parallax-copy,.form-copy,.signal-copy) h3 { font-size:clamp(1.8rem,5.7vw,5.2rem); } }
 
-/* P07b — graphic editorial surfaces. Contrast must not depend on the
-   current canvas pixel, a text shadow, or the camera position. The flat
-   ink fields are part of the typography, not floating glass/card UI. */
+
+/* P07c: editorial typography belongs directly to the architecture.
+   No matte text panels, text-box shadows, or registration blocks in the
+   two final rooms. A lit aperture is revealed only in the final chamber. */
 :root[data-journey="on"] .journey-stage:is([data-room="exploration"],[data-room="possibility"]) .masthead a {
-  position:relative; isolation:isolate; color:#eeece5; text-shadow:none;
-}
-:root[data-journey="on"] .journey-stage:is([data-room="exploration"],[data-room="possibility"]) .masthead a::before {
-  content:""; position:absolute; inset:3px -5px; background:#090909; z-index:-1; pointer-events:none;
+  color:#eeece5; text-shadow:none;
 }
 :root[data-journey="on"] .journey-stage:is([data-room="exploration"],[data-room="possibility"]) .masthead a:focus-visible {
-  outline:2px solid #eeece5; outline-offset:2px; box-shadow:0 0 0 5px #090909;
+  outline:2px solid #eeece5; outline-offset:3px;
 }
 :root[data-journey="on"] .exploration {
-  --editorial-blue:#2037a9;
   opacity:1; clip-path:inset(0 0 calc(100% * (1 - var(--exploration-opacity,0))) 0);
 }
 :root[data-journey="on"] .exploration :is(.exploration-intro,.exploration-projects,.parallax-copy,.form-copy,.signal-copy,.parallax-controls,.form-controls,.signal-controls) {
-  background:var(--editorial-blue); color:#eeece5; text-shadow:none;
-  box-shadow:0 0 0 5px var(--editorial-blue);
+  background:transparent; color:#eeece5; text-shadow:none; box-shadow:none;
 }
-:root[data-journey="on"] .exploration :is(.study-launch,.study-return,.journey-next) { color:#eeece5; }
+:root[data-journey="on"] .exploration :is(.study-launch,.study-return,.journey-next) {color:#eeece5;}
 :root[data-journey="on"] .possibility:not([hidden]) {
   opacity:1; clip-path:inset(0 0 calc(100% * (1 - var(--possibility-opacity,0))) 0);
 }
 :root[data-journey="on"] .possibility-copy {
-  color:#eeece5; background:#090909; box-shadow:0 0 0 8px #090909; text-shadow:none;
+  color:#eeece5; background:transparent; box-shadow:none; text-shadow:none;
 }
-.possibility-contact:not([hidden]) {color:#eeece5;}
-.possibility-contact label {cursor:pointer;}
+:root[data-journey="on"] .journey-stage:has(.possibility[data-contact="on"]:not([hidden])) .scene-surface {filter:brightness(.20);}
+.possibility-contact:not([hidden]) {color:#eeece5; background:transparent; padding:0; gap:.65rem;}
+.possibility-contact .contact-intro {display:grid;gap:.35rem;min-width:0;}
+.possibility-contact h3 {font-size:clamp(1.65rem,4vw,3.6rem);line-height:.97;letter-spacing:-.045em;}
+.possibility-contact fieldset {border:0;border-block:1px solid #8a8885;padding:.25rem 0;}
+.possibility-contact label {cursor:pointer;min-height:44px;}
 .possibility-contact input:focus-visible {outline:2px solid #eeece5;outline-offset:3px;}
+.contact-actions {display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.possibility-contact [data-possibility-return] {background:transparent;color:#eeece5;text-decoration:underline;text-underline-offset:.3em;padding-inline:0;}
+.possibility-contact output:empty {display:none;}
+:root[data-journey="on"] .possibility[data-contact="on"] {
+  inset: max(70px,calc(env(safe-area-inset-top) + 62px)) max(4vw,1rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) max(4vw,1rem,env(safe-area-inset-left));
+  width:auto; display:grid; align-content:center; overflow:auto;
+}
+:root[data-journey="on"] .possibility[data-contact="on"][hidden] {display:none;}
+@media (min-aspect-ratio:6/5) {
+  :root[data-journey="on"] .possibility-contact:not([hidden]) {grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:8vw;align-items:start;}
+  .contact-intro {grid-row:span 2;}
+  .contact-actions,.possibility-contact output {grid-column:2;}
+}
 @media (max-aspect-ratio:1199/1000) {
-  :root[data-journey="on"] .exploration:not([data-study]) {align-content:end; inset-block-end:max(4vh,1rem,env(safe-area-inset-bottom));}
-  :root[data-journey="on"] .possibility:not([hidden]) {inset-block-end:max(3vh,1rem,env(safe-area-inset-bottom));}
+  :root[data-journey="on"] .exploration:not([data-study]) {align-content:end; inset-block-end:max(4vh,1rem,env(safe-area-inset-bottom));gap:clamp(.55rem,2vh,1.5rem);}
+  :root[data-journey="on"] .possibility:not([hidden]):not([data-contact="on"]) {inset-block-end:max(3vh,1rem,env(safe-area-inset-bottom));}
 }
 @media (max-height:640px) {
   :root[data-journey="on"] .possibility-copy h2 {margin:.35rem 0;}
   :root[data-journey="on"] .possibility-copy > p:not(.exploration-index) {margin:.45rem 0;}
+  :root[data-journey="on"] .possibility-contact:not([hidden]) {gap:.45rem;}
+  .possibility-contact h3 {font-size:clamp(1.55rem,4vw,2.6rem);}
+}
+@media (min-aspect-ratio:6/5) and (max-height:479px) {
+  :root[data-journey="on"] .possibility-contact:not([hidden]) {column-gap:5vw;}
+  .possibility-contact h3 {font-size:clamp(1.4rem,3.6vw,2.6rem);}
 }
