@@ -1,18 +1,18 @@
-import {graphicAmount} from './graphic.js?v=P08g';
-import {RELEASE} from './config.js?v=P08g';
-import {createRenderer} from './renderer.js?v=P08g';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P08g';
-import {createScheduler} from './lifecycle.js?v=P08g';
-import {wordmarkOcclusion} from './wordmark.js?v=P08g';
-import {createAmbientClock} from './ambient.js?v=P08g';
-import {readProgress} from './scroll.js?v=P08g';
-import {typographyPose} from './typography.js?v=P08g';
-import {FOLDS,foldAmount} from './sculptures.js?v=P08g';
-import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P08g';
-import {mountParallax} from './parallax.js?v=P08g';
-import {mountForm} from './form.js?v=P08g';
-import {mountSignal} from './signal.js?v=P08g';
-import {mountPossibility} from './possibility.js?v=P08g';
+import {graphicAmount} from './graphic.js?v=P08h';
+import {RELEASE} from './config.js?v=P08h';
+import {createRenderer} from './renderer.js?v=P08h';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P08h';
+import {createScheduler} from './lifecycle.js?v=P08h';
+import {wordmarkOcclusion} from './wordmark.js?v=P08h';
+import {createAmbientClock} from './ambient.js?v=P08h';
+import {readProgress} from './scroll.js?v=P08h';
+import {typographyPose} from './typography.js?v=P08h';
+import {FOLDS,foldAmount} from './sculptures.js?v=P08h';
+import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P08h';
+import {mountParallax} from './parallax.js?v=P08h';
+import {mountForm} from './form.js?v=P08h';
+import {mountSignal} from './signal.js?v=P08h';
+import {mountPossibility} from './possibility.js?v=P08h';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){

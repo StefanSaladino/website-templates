@@ -611,3 +611,39 @@ details[open] .project-toggle::after { transform: none; }
 
 /* P08a: the earlier short-height rule was more specific than P07c. */
 @media(max-height:640px){ :root[data-journey="on"] .possibility-contact label{min-height:44px;} }
+
+/* P08h — three related, but individually art-directed exhibition prints.
+   Only the artwork has a paper surface; editorial copy stays unbacked.
+   No changes to the world, quality, opening or closing composition. */
+:root[data-journey="on"] :is(.parallax-study,.form-study,.signal-study):not([hidden]) {
+  align-items:center;
+}
+:is(.parallax-art,.form-art,.signal-art) {display:block;background:#eeece5;}
+.parallax-register {transition:stroke 220ms ease;}
+.parallax-pin {transition:r 220ms ease,fill 220ms ease;}
+.parallax-study[data-aligned="true"] .parallax-register {stroke:#15151a;stroke-dasharray:none;}
+.parallax-study[data-aligned="true"] .parallax-pin {r:5;fill:#c12e20;}
+.form-rule > path {opacity:0;transition:opacity 240ms ease;}
+.form-study[data-layout="wordmark"] .form-rule-wordmark,
+.form-study[data-layout="stack"] .form-rule-stack,
+.form-study[data-layout="poster"] .form-rule-poster {opacity:1;}
+.form-study[data-layout="poster"] .form-art > g[aria-hidden="true"][fill="#15151a"] text:first-child {opacity:0;}
+.form-art [data-glyph] {transition:transform 480ms cubic-bezier(.22,.61,.36,1);}
+.signal-links path {stroke-linejoin:round;stroke-linecap:round;transition:stroke 220ms ease,stroke-width 220ms ease;}
+.signal-links path[data-active="true"] {stroke-width:6;}
+.signal-relays rect {transition:fill 200ms ease,stroke 200ms ease;}
+:root[data-journey="on"] :is(.parallax-copy,.form-copy,.signal-copy) p:last-child {max-width:35ch;line-height:1.5;}
+:root[data-journey="on"] :is(.parallax-controls,.form-controls,.signal-controls) {padding-top:.7rem;}
+:root[data-journey="on"] :is(.form-options,.signal-options) button[aria-pressed="true"] {box-shadow:inset 0 -3px #c12e20;}
+@media(min-aspect-ratio:6/5) and (min-height:641px){
+ :root[data-journey="on"] :is(.parallax-study,.form-study,.signal-study):not([hidden]) {
+   grid-template-columns:minmax(0,.8fr) minmax(0,1.25fr);gap:9vw;
+ }
+ :root[data-journey="on"] :is(.parallax-art,.form-art,.signal-art){max-height:43vh;}
+}
+@media(max-height:640px){
+ :root[data-journey="on"] :is(.parallax-controls,.form-controls,.signal-controls) {padding-top:.3rem;}
+}
+@media(prefers-reduced-motion:reduce){
+ .parallax-register,.parallax-pin,.form-rule > path,.form-art [data-glyph],.signal-links path,.signal-relays rect {transition:none;}
+}

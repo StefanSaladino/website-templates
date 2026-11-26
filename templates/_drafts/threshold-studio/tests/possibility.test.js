@@ -7,7 +7,7 @@ test('closing route keeps every earlier pose and a stationary exploration dwell'
   const a=w/h,d=w>=900&&h>=480&&a>=1.2;
   for(let i=0;i<=100;i++){const p=i/100;assert.deepEqual(closingPose(a,d,p*CLOSING_ARRIVE),exhibitionPose(a,d,Math.min(1,p*CLOSING_ARRIVE/CLOSING_ARRIVE)))}
   assert.deepEqual(closingPose(a,d,CLOSING_DEPART),exhibitionPose(a,d,1));
-  let prev=-25.5;for(let i=0;i<=1000;i++){const p=CLOSING_DEPART+(1-CLOSING_DEPART)*i/1000,q=closingPose(a,d,p);assert(q.eye[2]<=prev+1e-8&&q.vp.every(Number.isFinite));prev=q.eye[2]}
+  let prev=-25.5;for(let i=0;i<=1000;i++){const p=CLOSING_DEPART+(1-CLOSING_DEPART)*i/1000,q=closingPose(a,d,p);assert(q.eye[2]<=prev+1e-6&&q.vp.every(Number.isFinite));prev=q.eye[2]}
   assert.equal(prev,CLOSING_END_Z);
  }
  assert.equal(architecturalSolids().length,34);assert.equal(architecturalSolids(true).length,44);
@@ -21,11 +21,11 @@ test('closing framing stays centered until the passage then settles continuously
    for(let i=0;i<=2000;i++){
      const p=CLOSING_DEPART+(1-CLOSING_DEPART)*i/2000,pose=closingPose(aspect,desktop,p);
      const shift=wide?pose.shiftX:-pose.shiftY;
-     if(pose.eye[2]>=-39)assert(Math.abs(shift)<1e-8);
-     assert(shift>=previous-1e-8);
-     assert(shift<=(wide?.33:.30)+1e-8);
+     if(pose.eye[2]>=-39)assert(Math.abs(shift)<1e-6);
+     assert(shift>=previous-1e-6);
+     assert(shift<=(wide?.33:.30)+1e-6);
      previous=shift;
    }
-   assert(Math.abs(previous-(wide?.33:.30))<1e-8);
+   assert(Math.abs(previous-(wide?.33:.30))<1e-6);
  }
 });
