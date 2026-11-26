@@ -222,3 +222,15 @@
 @media(max-aspect-ratio:5/6){
  .hero-copy{padding-top:clamp(15rem,54svh,32rem)}
 }
+
+/* S08d4: structural anchor destinations are not interactive controls.
+   Prevent native blue focus rings spanning a chapter or heading; keep
+   visible, brand-coloured keyboard focus on actual controls. */
+:root{-webkit-tap-highlight-color:transparent}
+:where(main,section,h1,h2)[tabindex="-1"]:focus{outline:none}
+:where(a,button):focus:not(:focus-visible){outline:none}
+:where(a,button):focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+:is(.espresso,.filter-fallback) a:focus-visible{outline-color:var(--ink)}
+:root[data-journey=on] .espresso a:focus-visible,.filter-fallback a:focus-visible{outline-color:var(--paper)}
+::selection{color:var(--ink);background:#dca36b}
+@media(forced-colors:active){:where(a,button):focus-visible{outline:2px solid Highlight}}

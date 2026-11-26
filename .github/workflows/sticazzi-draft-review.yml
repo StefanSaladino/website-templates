@@ -22,8 +22,9 @@ jobs:
       - run: python templates/_drafts/sticazzi-coffee/audit/test-s08b4.py
       - run: python templates/_drafts/sticazzi-coffee/audit/test-s08c2.py
       - run: python templates/_drafts/sticazzi-coffee/audit/test-s08d3.py
+      - run: python templates/_drafts/sticazzi-coffee/audit/test-s08d4.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: sticazzi-s08d3-frames
+          name: sticazzi-s08d4-frames
           path: templates/_drafts/sticazzi-coffee/audit/captures/

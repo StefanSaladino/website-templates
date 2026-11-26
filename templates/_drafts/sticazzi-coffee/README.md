@@ -1,4 +1,4 @@
-# STICAZZI COFFEE / S08d3
+# STICAZZI COFFEE / S08d4
 Bilingual EN/IT photographic website prototype. Open index.html or it.html, or serve the directory with a static HTTP server. No 3D geometry, WebGL, external libraries, analytics, checkout, or network assets. The campaign is fictional; the Ritual cup uses the actual user-supplied espresso photograph over a generated studio background.
 
 ## Implemented
@@ -60,3 +60,6 @@ S08d exact Pages run 45827333535 and browser run 45827333609 passed. Stakeholder
 
 ## S08d3 — original closing artwork, grounded package
 S08d2 Pages run 45828148865 and browser run 45828150151 passed, but stakeholder correctly rejected reuse of the Ritual photo. Replace the closing chapter image only with a newly generated photographic still life: kraft Espresso bag physically supported by stone with visible contact shadow, white ceramic cup and saucer, beans, warm brown lighting. No embedded page headline, navigation or CTA; existing bilingual HTML and layout retained. Packaging is a close recreation, not an exact photographic match to the hero label. New 1448 × 1086 WebP, 145,152 bytes, SHA-256 b0f33bcb228623cb2ee74fe81d7b9014b707e3b5e55f3b127595912812ff32ff. Keep full-frame contain layout from S08d2; no distortion, crop, 3D or photo motion. Audit asserts exact artwork hash and distinct Ritual/closing sources. Hero and Ritual content unchanged. New deployment and full review pending. Gallery remains unregistered.
+
+## S08d4 — native blue focus-line cleanup
+Stakeholder reports blue horizontal lines. No authored blue separator is present; the leading candidate is native browser outline on negative-tabindex structural anchor destinations (main, headings, closing chapter), which can appear as horizontal lines when side edges clip. Suppress structural focus outlines and WebKit tap highlight; retain brand-coloured keyboard focus for links/buttons and system Highlight in forced-colors mode. Preserve all existing artwork, layout and motion; no claim of physical iOS confirmation without a device screenshot. New browser check verifies focused structural targets have no outline and keyboard controls retain an outline. Exact visual review pending.
