@@ -7,7 +7,7 @@ const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
 const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P01',verification:'P01',viewports:[]};
+const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P01',verification:'P01a',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}
 async function sample(page,offset){
   await page.evaluate(y=>{document.scrollingElement.scrollTop=y},offset);
@@ -21,7 +21,7 @@ try{
     await page.goto(base+'?ambient=off');
     await page.waitForFunction(()=>document.documentElement.dataset.journey==='on'&&document.querySelector('#scene-study').dataset.renderer==='webgl');
     const range=await page.evaluate(()=>document.scrollingElement.scrollHeight-document.scrollingElement.clientHeight);
-    const offsets=Array.from(new Set([...Array.from({length:21},(_,i)=>Math.round(range*i/20)),...([.147744,.1944,.315,.3294,.432,.46335,.6,.68,.792,.84,.90].flatMap(p=>[-2,0,2].map(d=>Math.max(0,Math.min(range,Math.round(range*p)+d)))))] )).sort((a,b)=>a-b);
+    const offsets=Array.from(new Set([...Array.from({length:21},(_,i)=>Math.round(range*i/20)),...([.147744,.1944,.315,.3294,.432,.45,.46335,.51,.558,.594,.6,.68,.792,.84,.90].flatMap(p=>[-2,0,2].map(d=>Math.max(0,Math.min(range,Math.round(range*p)+d)))))] )).sort((a,b)=>a-b);
     const canvas=await page.locator('#scene-canvas').elementHandle(),forward=new Map();
     const states=[];let priorDepth=Infinity,maxReverseDelta=0;
     const entry={width,height,range,offsetCount:offsets.length,states,status:'sampling'};report.viewports.push(entry);save();
@@ -81,6 +81,6 @@ try{
       if(video)copyFileSync(await video.path(),out+'/native-scroll-'+width+'.webm');
     }
     entry.status='passed';save();
-    console.log('T18 viewport passed',width,height,offsets.length,maxReverseDelta,entry.trace.length);
+    console.log('P01a viewport passed',width,height,offsets.length,maxReverseDelta,entry.trace.length);
   }
 }finally{save();await browser.close()}

@@ -13,3 +13,22 @@ test('typographic planes remain grounded, reversible and outside the travel lane
  }
  assert.equal(graphicAmount(0),0);assert.equal(graphicAmount(1),1);
 });
+
+// Review the actual aligned installation against the unchanged Perspective camera.
+// Projection is geometric evidence, not a substitute for rendered contrast/occlusion.
+import {revealPose,project} from '../src/camera.js';
+test('aligned graphic fits the final viewport and reserves portrait editorial space',()=>{
+ for(const [w,h] of [[320,568],[390,844],[430,932],[768,1024],[1440,900],[844,390],[1024,768]]){
+  const aspect=w/h,pose=revealPose(aspect,w>=900&&h>=480&&aspect>=1.2,1);
+  const mesh=graphicMesh(1),xs=[],ys=[];
+  for(let i=0;i<mesh.length;i+=6){
+   const q=project(pose.vp,Array.from(mesh.slice(i,i+3)));
+   assert(q[3]>0);
+   xs.push((q[0]/q[3]+1)/2);ys.push((1-q[1]/q[3])/2);
+  }
+  assert(Math.min(...xs)>.03&&Math.max(...xs)<.98,'horizontal frame '+w);
+  assert(Math.min(...ys)>.07&&Math.max(...ys)<.90,'vertical frame '+w);
+  if(aspect<1.2)assert(Math.max(...ys)<.67,'portrait editorial reservation '+w);
+  else assert(Math.min(...xs)>.40,'wide graphic to right of copy '+w);
+ }
+});
