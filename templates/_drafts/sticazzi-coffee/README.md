@@ -1,4 +1,4 @@
-# STICAZZI COFFEE / S08b4
+# STICAZZI COFFEE / S08c
 Bilingual EN/IT photographic website prototype. Open index.html or it.html, or serve the directory with a static HTTP server. No 3D geometry, WebGL, external libraries, analytics, checkout, or network assets. The campaign is fictional; the Ritual cup uses the actual user-supplied espresso photograph over a generated studio background.
 
 ## Implemented
@@ -43,3 +43,6 @@ Stakeholder rejected the S08b stretch/compression and the S08b2 artificial-looki
 
 ## S08b4 — fixed-size photography, desktop-only translation
 Stakeholder still perceived stretching in S08b3. Pages run 45824197973 succeeded; S08b3 browser run 45824198344 was still running at review. The S08b3 pointer matrix used a constant uniform scale but the native scroll camera retained dynamic scale. Remove all live hero scale transforms, scroll-linked camera push-in and touch target. Original image plate has fixed layout overscan only on fine-pointer desktops and translates at most 12px/8px; touch/mobile and reduced-motion versions remain static, with native scroll and unchanged roast crossfade. No canvas, slider, independent bag or fake rotation. Use 100svh-derived stable height and ignore browser-chrome-only resize events to avoid rebuilding the journey on iOS toolbar motion. Verify actual camera and image matrices have unit scale throughout hover, touch and scroll, plus fixed plate dimensions, image fit and language/fallback checks. Exact browser QA and deployment pending. Ritual and closing remain unmodified. No gallery changes.
+
+## S08c — Ritual composition
+Stakeholder chose to continue rather than revisit bag motion. S08b4 Pages run 45824450273 passed; browser run 45824452758 was running at review. No hero behavior changes. Recompose the real cup as a smaller, lower, less saturated photographic subject against the existing warm counter. Desktop text stays on left; portrait uses one continuous image-to-copy composition, not a separate image block. Existing cup assets retained unchanged, with fixed CSS placement and no scroll zoom; no new generated image, no claim of corrected source extraction. The low-resolution real photo and baked shadow remain a limitation; exact rendered review and photo reuse rights remain open. Preserve bilingual copy, native links, reduced motion and responsive layout. S08d closing still life next; no gallery registration.

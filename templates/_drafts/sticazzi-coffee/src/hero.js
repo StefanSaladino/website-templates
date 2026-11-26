@@ -113,15 +113,13 @@ loadLayers();
 // Decode the alternate artwork only after the initial opening has loaded.
 if(document.readyState==='complete')loadFilter();else window.addEventListener('load',loadFilter,{once:true});
 
-// S05a: restrained camera movement on the intact close-up, tied to native
-// scroll. No autonomous animation or synthetic steam.
-const ritual=document.querySelector('.ritual'),lastWord=document.querySelector('.last-word');
+// Closing chapter motion only. The Ritual photo now remains fixed.
+const lastWord=document.querySelector('.last-word');
 let ritualFrame=0;
 function drawRitual(){
  ritualFrame=0;
- if(reduced.matches){ritual.style.removeProperty('--ritual-scale');lastWord.style.removeProperty('--last-word-scale');return;}
- const b=ritual.getBoundingClientRect(),h=innerHeight;
- if(b.top<h&&b.bottom>0){const t=clamp((h-b.top)/(h+b.height),0,1);ritual.style.setProperty('--ritual-scale',(1+.055*smooth(t)).toFixed(5));}
+ if(reduced.matches){lastWord.style.removeProperty('--last-word-scale');return;}
+ const h=innerHeight;
  const c=lastWord.getBoundingClientRect();
  if(c.top<h&&c.bottom>0){const t=clamp((h-c.top)/(h+c.height),0,1);lastWord.style.setProperty('--last-word-scale',(1+.035*smooth(t)).toFixed(5));}
 }
