@@ -968,3 +968,5 @@ THRESHOLD P08a: stakeholder-reported scroll lag; optimize high-DPR pixel/reflect
 THRESHOLD P08b: closeout candidate defaults to complete five-chapter route, retain track=exhibition diagnostic. P08a software benchmark 1.76–2.05x submission throughput and dense review passed. Foundation and exact candidate QA gate gallery-only registration; physical FPS not certified. No catalogue change yet.
 
 THRESHOLD P08c: stakeholder withdrew closeout, supplied iOS recording. Mobile editorial scale/spacing, no Perspective tabs, intact scroll-linked text reveals, extra short-browser-height evidence. P08a all three jobs passed; P08b foundation pending at edit. No gallery registration until renewed approval and exact QA.
+
+THRESHOLD P08d: stakeholder rejects newer appearance and jagged edges; restore P08b editorial composition and full-quality default WebGL/MSAA, retain complete journey and opt-in balanced diagnostic. Gallery registration withheld.
