@@ -1,17 +1,18 @@
-import {graphicAmount} from './graphic.js?v=P06';
-import {RELEASE} from './config.js?v=P06';
-import {createRenderer} from './renderer.js?v=P06';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition} from './camera.js?v=P06';
-import {createScheduler} from './lifecycle.js?v=P06';
-import {wordmarkOcclusion} from './wordmark.js?v=P06';
-import {createAmbientClock} from './ambient.js?v=P06';
-import {readProgress} from './scroll.js?v=P06';
-import {typographyPose} from './typography.js?v=P06';
-import {FOLDS,foldAmount} from './sculptures.js?v=P06';
-import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P06';
-import {mountParallax} from './parallax.js?v=P06';
-import {mountForm} from './form.js?v=P06';
-import {mountSignal} from './signal.js?v=P06';
+import {graphicAmount} from './graphic.js?v=P07';
+import {RELEASE} from './config.js?v=P07';
+import {createRenderer} from './renderer.js?v=P07';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P07';
+import {createScheduler} from './lifecycle.js?v=P07';
+import {wordmarkOcclusion} from './wordmark.js?v=P07';
+import {createAmbientClock} from './ambient.js?v=P07';
+import {readProgress} from './scroll.js?v=P07';
+import {typographyPose} from './typography.js?v=P07';
+import {FOLDS,foldAmount} from './sculptures.js?v=P07';
+import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P07';
+import {mountParallax} from './parallax.js?v=P07';
+import {mountForm} from './form.js?v=P07';
+import {mountSignal} from './signal.js?v=P07';
+import {mountPossibility} from './possibility.js?v=P07';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -22,9 +23,10 @@ function start(){
   const parallax=mountParallax(exploration);
   const form=mountForm(exploration);
   const signal=mountSignal(exploration);
+  const possibility=mountPossibility(stage.querySelector('.possibility'));
   let lastType='',lastEditorial='',lastExploration='';
-  function applyExploration(progress,available,staticMode=false){
-    const {opacity,active}=explorationPose(progress,available);
+  function applyExploration(progress,available,staticMode=false,presence=1){
+    const pose=explorationPose(progress,available),opacity=pose.opacity*presence,active=pose.active&&presence===1;
     const mode=staticMode?'static':active?'active':opacity>0?'entering':'off';
     const key=mode+'|'+opacity.toFixed(6);
     if(key===lastExploration)return;
@@ -67,6 +69,10 @@ function start(){
   const journeyRequested=flags.get('journey')!=='off'&&!floorMask;
   const approachOnly=flags.get('track')==='approach',crossingOnly=flags.get('track')==='crossing',perspectiveOnly=flags.get('track')==='perspective';
   const fullTrack=!approachOnly&&!crossingOnly&&!perspectiveOnly;
+  const closingTrack=graphic&&fullTrack&&flags.get('track')==='possibility';
+  if(closingTrack)root.dataset.closing='on';
+  possibility.enable(closingTrack);
+  const smooth=t=>{const v=Math.max(0,Math.min(1,t));return v*v*(3-2*v)};
   const foldsEnabled=flags.get('fold')!=='off';
   let journeyActive=false;
   function setJourney(active){
@@ -77,7 +83,7 @@ function start(){
   setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
-  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);applyExploration(0,false,!journeyActive);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
+  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);applyExploration(0,false,!journeyActive);possibility.show(0,!journeyActive&&closingTrack);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   // A preference change can become visible to the frame scheduler before the
   // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
   function eligible(){
@@ -93,13 +99,14 @@ function start(){
     forceDraw=false;
     if(!sample.render){scheduler.invalidate();return}
     try{
-      if(!renderer)renderer=createRenderer(canvas,graphic);
+      if(!renderer)renderer=createRenderer(canvas,graphic,closingTrack);
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
       const r=surface.getBoundingClientRect();
       const progress=journeyActive?readProgress(document.scrollingElement):0;
-      const physicalPose=(approachOnly?approachPose:crossingOnly?crossingPose:perspectiveOnly?revealPose:exhibitionPose)(r.width/r.height,desktopComposition.matches,progress);
-      const perspectiveProgress=fullTrack?Math.min(1,progress/EXHIBITION_JOIN):progress;
-      const presence=fullTrack?perspectivePresence(progress):1;
+      const localProgress=closingTrack?Math.min(1,progress/CLOSING_ARRIVE):progress;
+      const physicalPose=(closingTrack?closingPose:approachOnly?approachPose:crossingOnly?crossingPose:perspectiveOnly?revealPose:exhibitionPose)(r.width/r.height,desktopComposition.matches,progress);
+      const perspectiveProgress=fullTrack?Math.min(1,localProgress/EXHIBITION_JOIN):progress;
+      const presence=fullTrack?perspectivePresence(localProgress):1;
       const pose=graphic?graphicComposition(physicalPose,r.width/r.height,perspectiveProgress,presence):physicalPose;
       const foldProgress=!graphic&&foldsEnabled&&!approachOnly&&!crossingOnly?perspectiveProgress:0;
       const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose,foldProgress,graphic?perspectiveProgress:0);
@@ -110,9 +117,11 @@ function start(){
       if(wasActive!==journeyActive)invalidate();
       study.dataset.progress=progress.toFixed(6);
       // The navigation adopts ink only after the camera has cleared the red throat.
-      stage.dataset.room=pose.eye[2]<=-20.4?'exploration':pose.eye[2]<=-7.2?'perspective':'arrival';
+      stage.dataset.room=pose.eye[2]<=-43?'possibility':pose.eye[2]<=-20.4?'exploration':pose.eye[2]<=-7.2?'perspective':'arrival';
       applyEditorial(!approachOnly&&!crossingOnly&&journeyActive?perspectiveProgress:0,presence);
-      applyExploration(progress,graphic&&fullTrack&&journeyActive&&stage.dataset.room==='exploration');
+      const explorationExit=closingTrack?1-smooth((progress-.75)/(CLOSING_DEPART-.75)):1;
+      applyExploration(localProgress,graphic&&fullTrack&&journeyActive&&stage.dataset.room==='exploration',false,explorationExit);
+      possibility.show(closingTrack&&journeyActive&&stage.dataset.room==='possibility'?smooth((progress-.96)/.03):0);
       study.dataset.graphic=graphic?'on':'off';study.dataset.graphicAmount=(graphic?graphicAmount(perspectiveProgress):0).toFixed(6);
       study.dataset.folds=FOLDS.map(f=>foldAmount(f,foldProgress).toFixed(6)).join(',');
       study.dataset.sculptureUploads=String(result.sculptureUploads);
@@ -150,7 +159,7 @@ function start(){
   const resize=new ResizeObserver(invalidate);
   const intersection=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)invalidate();else suspend()});
   function dispose(){
-    if(disposed)return;disposed=true;parallax.dispose();form.dispose();signal.dispose();scheduler.dispose();resize.disconnect();intersection.disconnect();
+    if(disposed)return;disposed=true;parallax.dispose();form.dispose();signal.dispose();possibility.dispose();scheduler.dispose();resize.disconnect();intersection.disconnect();
     reduced.removeEventListener('change',preference);desktopComposition.removeEventListener('change',invalidate);document.removeEventListener('visibilitychange',visibility);
     window.removeEventListener('scroll',scrollChanged);window.visualViewport?.removeEventListener('resize',invalidate);
     window.removeEventListener('resize',invalidate);window.removeEventListener('pagehide',pageHide);window.removeEventListener('pageshow',pageShow);

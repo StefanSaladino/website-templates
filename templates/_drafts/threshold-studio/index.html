@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-release="P06">
+<html lang="en" data-release="P07">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#090909">
   <meta name="description" content="THRESHOLD — an independent digital experience studio concept.">
   <title>THRESHOLD — Beyond the ordinary</title>
-  <link rel="stylesheet" href="styles/base.css?v=P06">
-  <link rel="stylesheet" href="styles/shell.css?v=P06">
-  <script type="module" src="src/main.js?v=P06"></script>
+  <link rel="stylesheet" href="styles/base.css?v=P07">
+  <link rel="stylesheet" href="styles/shell.css?v=P07">
+  <script type="module" src="src/main.js?v=P07"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -206,6 +206,28 @@
           </div>
         </div>
       </section>
+    </section>
+    <section class="possibility" aria-labelledby="possibility-heading" hidden>
+      <div class="possibility-copy">
+        <p class="exploration-index">05 / Possibility</p>
+        <h2 id="possibility-heading">What's on the<br>other side?</h2>
+        <p>Every project begins with a different way of seeing.</p>
+        <button type="button" class="possibility-cta" aria-expanded="false" aria-controls="possibility-contact">Start a project conversation</button>
+      </div>
+      <div class="possibility-contact" id="possibility-contact" hidden>
+        <p class="exploration-index">A starting point</p>
+        <h3>What would you like to explore?</h3>
+        <p>This is a fictional studio concept. Choose an area to build a local project brief; nothing is sent.</p>
+        <fieldset>
+          <legend>Project direction</legend>
+          <label><input type="radio" name="possibility-direction" value="Digital environments" checked> Digital environments</label>
+          <label><input type="radio" name="possibility-direction" value="Interactive brand experiences"> Interactive brand experiences</label>
+          <label><input type="radio" name="possibility-direction" value="Creative technology"> Creative technology</label>
+        </fieldset>
+        <button type="button" data-possibility-create>Prepare brief</button>
+        <output id="possibility-output" aria-live="polite"></output>
+        <button type="button" data-possibility-return>Return</button>
+      </div>
     </section>
   </main>
   <footer><span class="chapter-label">01 / Arrival</span><span class="concept-label">Independent studio concept</span></footer>

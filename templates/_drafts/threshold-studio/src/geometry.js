@@ -1,12 +1,12 @@
 // T05 geometry preserved: one continuous architectural shell. All authored dimensions use (x,y,s).
 // Face colors are flat geometry-study identifiers, not the final light/material model.
-import {worldPoint} from './config.js?v=P06';
-import {FOLDS,foldTriangles,foldPose} from './sculptures.js?v=P06';
+import {worldPoint} from './config.js?v=P07';
+import {FOLDS,foldTriangles,foldPose} from './sculptures.js?v=P07';
 export const PORTAL=Object.freeze({width:6,height:7.2,clearWidth:4.8,clearHeight:6,depth:2});
 const coal=[.105,.11,.12], wing=[.055,.06,.068], red=[.80,.18,.115], redDeep=[.53,.105,.07], ivory=[.70,.68,.63], ivorySide=[.59,.57,.53];
 const solid=(id,min,max,color,faces={})=>({id,min,max,color,faces});
-export function architecturalSolids(){
-  return [
+export function architecturalSolids(closing=false){
+  const base=[
     solid('portal-left',[-3,0,0],[-2.4,6,2],coal,{right:red}),
     solid('portal-right',[2.4,0,0],[3,6,2],coal,{left:red}),
     solid('portal-head',[-3,6,0],[3,7.2,2],coal,{bottom:red}),
@@ -45,13 +45,26 @@ export function architecturalSolids(){
     solid('cobalt-far-right',[2.8,0,40],[11,6.5,40.4],[.10,.19,.72]),
     solid('cobalt-far-head',[-11,6.5,40],[11,11,40.4],[.10,.19,.72])
   ];
+  if(closing)base.push(
+    solid('closing-throat-left',[-3.3,0,40.4],[-2.8,6.5,43],[.07,.075,.09]),
+    solid('closing-throat-right',[2.8,0,40.4],[3.3,6.5,43],[.07,.075,.09]),
+    solid('closing-throat-head',[-3.3,6.5,40.4],[3.3,7.1,43],[.07,.075,.09]),
+    solid('closing-left',[-10.4,0,43],[-10,10,61],[.055,.06,.07]),
+    solid('closing-right',[10,0,43],[10.4,10,61],[.055,.06,.07]),
+    solid('closing-ceiling',[-10,10,43],[10,10.4,61],[.055,.06,.07]),
+    solid('closing-far-left',[-10,0,57],[-2.3,10,57.6],[.055,.06,.07]),
+    solid('closing-far-right',[2.3,0,57],[10,10,57.6],[.055,.06,.07]),
+    solid('closing-far-head',[-2.3,6.2,57],[2.3,10,57.6],[.055,.06,.07]),
+    solid('closing-aperture',[-2.3,0,60],[2.3,6.2,60.4],[.98,.98,.97])
+  );
+  return base;
 }
-export function buildStudy(){
+export function buildStudy(closing=false){
   const data=[];
   const quad=(a,b,c,d,color)=>{for(const p of [a,b,c,a,c,d])data.push(...worldPoint(...p),...color)};
   // Continuous floor with no sill in the traversable aperture.
-  quad([-11.4,0,-18],[11.4,0,-18],[11.4,0,40.4],[-11.4,0,40.4],[.15,.155,.16]);
-  for(const {min,max,color,faces} of architecturalSolids()){
+  quad([-11.4,0,-18],[11.4,0,-18],[11.4,0,closing?61:40.4],[-11.4,0,closing?61:40.4],[.15,.155,.16]);
+  for(const {min,max,color,faces} of architecturalSolids(closing)){
     const [l,b,n]=min,[r,t,f]=max;
     const shade=(face,k)=>faces[face]??color.map(v=>v*k);
     quad([l,b,n],[r,b,n],[r,t,n],[l,t,n],shade('front',1));

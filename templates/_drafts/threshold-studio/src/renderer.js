@@ -1,9 +1,9 @@
-import {graphicMesh,graphicAmount} from './graphic.js?v=P06';
-import {openingPose,multiply} from './camera.js?v=P06';
-import {buildStudy,buildSculptureVertices} from './geometry.js?v=P06';
-import {bufferSize} from './lifecycle.js?v=P06';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P06';
-import {LIGHTING_GLSL} from './lighting.js?v=P06';
+import {graphicMesh,graphicAmount} from './graphic.js?v=P07';
+import {openingPose,multiply} from './camera.js?v=P07';
+import {buildStudy,buildSculptureVertices} from './geometry.js?v=P07';
+import {bufferSize} from './lifecycle.js?v=P07';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P07';
+import {LIGHTING_GLSL} from './lighting.js?v=P07';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -102,6 +102,8 @@ void main(){
     result=mix(result,vec3(.88,.87,.83)*(.82+.18*galleryDiffuse),smoothstep(6.0,7.0,-world.z));
   }
   result=haze(result,length(uViewEye-world),mix(mix(.55,.18,isRed),.23,blue));
+  // The distant white aperture is a deliberately untextured luminous plane.
+  if(world.z<=-59.9&&isIvory>.5)result=vec3(.98,.98,.96);
   outColor=vec4(clamp(result,0.0,1.0),1.0);
 }`;
 // Only the real ground mesh samples the reflected architecture. No recursive floor.
@@ -145,6 +147,7 @@ void main(){
     base=mix(base,limestone,stone);
     vec3 blueStone=vec3(.09,.145,.45)+vec3(.012,.015,.035)*sin(world.x*.5+world.z*.35);
     base=mix(base,blueStone,cobaltFloor);
+    base=mix(base,vec3(.055,.057,.065),smoothstep(40.4,43.0,-world.z));
   }
   vec3 c=texture(uReflection,uv).rgb*.24;
   c+=(texture(uReflection,uv+vec2(stepSize.x,0)).rgb+texture(uReflection,uv-vec2(stepSize.x,0)).rgb)*.12;
@@ -155,6 +158,7 @@ void main(){
   float nearFade=mix(1.0,.25,smoothstep(2.5,12.0,world.z));
   float strength=uEnabled*edge*(.15+.40*pow(grazing,2.0))*exp(-distanceToEye*.025)*nearFade;
   if(uLighting>.5)strength*=mix(mix(1.0,uGraphicStyle>.5?.12:.28,stone),.40,cobaltFloor);
+  strength*=mix(1.0,.28,smoothstep(40.4,43.0,-world.z));
   // Graphite finish; this is an artistic color-space mix, not a calibrated BRDF.
   vec3 finish=mix(base,c,strength);
   if(uLighting>.5)finish=haze(finish,distanceToEye,.35);
@@ -166,12 +170,12 @@ function shader(gl,type,source){
   if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){const log=gl.getShaderInfoLog(s);gl.deleteShader(s);throw Error(log||'shader compile')}
   return s;
 }
-export function createRenderer(canvas,graphic=false){
+export function createRenderer(canvas,graphic=false,closing=false){
   const gl=canvas.getContext('webgl2',{alpha:false,antialias:true,depth:true,stencil:false,preserveDrawingBuffer:false});
   if(!gl)return null;
   let program=null,floorProgram=null,vao=null,buffer=null,uniform=null,floorUniforms=null,count=0,limit=4096,textureLimit=1024;
   const reflection=createReflection(gl);
-  const legacy=buildStudy(),architecture=legacy.slice(0,-buildSculptureVertices(0).length);
+  const legacy=buildStudy(closing),architecture=legacy.slice(0,-buildSculptureVertices(0).length);
   const vertices=graphic?new Float32Array([...architecture,...graphicMesh(0)]):legacy;
   const sculptureOffset=architecture.byteLength;
   const architectureCount=architecture.length/6;

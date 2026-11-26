@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=P06';
+import { worldPoint } from './config.js?v=P07';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -157,4 +157,21 @@ export function graphicComposition(pose,aspect,localProgress,presence=1){
   const lens=perspective(pose.fov,aspect);
   lens[8]=pose.shiftX+shift*amount;lens[9]=pose.shiftY;
   return {...pose,shiftX:lens[8],vp:multiply(lens,lookAt(pose.eye,pose.aim))};
+}
+
+// P07: extend the existing route with a dwell at Exploration and a second
+// physical passage. Earlier camera samples remain exactly unchanged.
+export const CLOSING_ARRIVE=.64,CLOSING_DEPART=.79,CLOSING_END_Z=-46.5;
+export function closingPose(aspect,desktopComposition=false,progress=0){
+ const p=Number.isFinite(progress)?clamp01(progress):0;
+ const prior=exhibitionPose(aspect,desktopComposition,Math.min(1,p/CLOSING_ARRIVE));
+ if(p<=CLOSING_DEPART)return prior;
+ const t=clamp01((p-CLOSING_DEPART)/(1-CLOSING_DEPART)),e=t*t*(3-2*t);
+ const eye=[0,2.3,mix(prior.eye[2],CLOSING_END_Z,e)];
+ const aim=[0,mix(prior.aim[1],3.2,e),eye[2]-9];
+ const wide=aspect>=1.2;
+ let target=wide?54:65;if(!wide&&aspect<.46)target=2*Math.atan(Math.tan(target*Math.PI/360)*.46/aspect)*180/Math.PI;
+ const fov=mix(prior.fov,target,e);
+ const lens=perspective(fov,aspect);lens[8]=wide?.33*e:0;
+ return {eye,aim,fov,shiftX:lens[8],shiftY:0,vp:multiply(lens,lookAt(eye,aim))};
 }

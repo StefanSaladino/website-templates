@@ -487,3 +487,35 @@ details[open] .project-toggle::after { transform: none; }
   :root[data-journey="on"] .signal-study:not([hidden]) { gap: 4vw; }
   :root[data-journey="on"] .signal-art { max-height: 36vh; }
 }
+
+/* P07 preview: one extended sticky journey with a deliberate Exploration dwell. */
+:root[data-closing="on"][data-journey="on"] #journey { min-block-size: 725svh; }
+.possibility[hidden],.possibility-contact[hidden] { display:none; }
+.possibility:not([hidden]) { background:#090909; color:#eeece5; padding:clamp(1.25rem,5vw,5rem); }
+.possibility h2 { font-size:clamp(2rem,6vw,5.6rem); line-height:.92; letter-spacing:-.065em; margin:.6rem 0; }
+.possibility-copy > p:not(.exploration-index) { font-size:.88rem; line-height:1.4; max-width:30ch; }
+.possibility button { background:#eeece5; color:#15151a; border:0; font:inherit; font-size:.8rem; font-weight:700; padding:.6rem .9rem; min-height:44px; cursor:pointer; }
+.possibility button:focus-visible { outline:2px solid #eeece5; outline-offset:3px; }
+.possibility-contact:not([hidden]) { display:grid; gap:.5rem; background:#090909; padding:1rem; }
+.possibility-contact h3,.possibility-contact p { margin:0; }
+.possibility-contact p { font-size:.78rem; line-height:1.35; }
+.possibility-contact fieldset { margin:0; border:1px solid #777; padding:.4rem .6rem; min-width:0; }
+.possibility-contact legend { font-size:.7rem; }
+.possibility-contact label { display:flex; align-items:center; min-height:36px; gap:.45rem; font-size:.78rem; }
+.possibility-contact input { accent-color:#eeece5; }
+.possibility-contact output { font-size:.75rem; overflow-wrap:anywhere; }
+.possibility[data-contact="on"] .possibility-copy { display:none; }
+:root[data-journey="on"] .possibility:not([hidden]) {
+ position:absolute; z-index:1; background:none; padding:0;
+ inset-inline: max(4vw,1rem,env(safe-area-inset-left)) max(4vw,1rem,env(safe-area-inset-right));
+ inset-block-end:max(5vh,1rem,env(safe-area-inset-bottom)); opacity:var(--possibility-opacity,0);
+}
+:root[data-journey="on"] .possibility[data-contact="on"] { inset-block-end:max(3vh,1rem,env(safe-area-inset-bottom)); }
+@media (min-aspect-ratio:6/5) {
+ :root[data-journey="on"] .possibility:not([hidden]) { inset-inline-start:auto; width:min(35vw,28rem); }
+}
+@media (max-height:640px) {
+ :root[data-journey="on"] .possibility h2 { font-size:clamp(1.7rem,5vw,2.8rem); }
+ :root[data-journey="on"] .possibility-contact:not([hidden]) { gap:.25rem; padding:.5rem; }
+ :root[data-journey="on"] .possibility-contact label { min-height:30px; }
+}
