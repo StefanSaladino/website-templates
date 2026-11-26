@@ -1,9 +1,9 @@
-import {graphicMesh,graphicAmount} from './graphic.js?v=P08d';
-import {openingPose,multiply} from './camera.js?v=P08d';
-import {buildStudy,buildSculptureVertices} from './geometry.js?v=P08d';
-import {bufferSize} from './lifecycle.js?v=P08d';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P08d';
-import {LIGHTING_GLSL} from './lighting.js?v=P08d';
+import {graphicMesh,graphicAmount} from './graphic.js?v=P08e';
+import {openingPose,multiply} from './camera.js?v=P08e';
+import {buildStudy,buildSculptureVertices} from './geometry.js?v=P08e';
+import {bufferSize} from './lifecycle.js?v=P08e';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P08e';
+import {LIGHTING_GLSL} from './lighting.js?v=P08e';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -11,6 +11,9 @@ uniform mat4 uVP;
 out vec3 color;
 out vec3 world;
 void main(){gl_Position=uVP*vec4(aPosition,1.0);color=aColor;world=aPosition;}`;
+// The real geometry silhouette uses framebuffer MSAA. These world-space
+// bands only refine the material transition inside the silhouette; no
+// screen-space blur, halo, duplicate geometry or new render pass.
 const FS=`#version 300 es
 precision highp float;
 in vec3 color;
@@ -51,12 +54,13 @@ void main(){
   // A fine recessed joint on the actual front surround, not a luminous outline.
   // World-space width and derivative-aware coverage keep it stable at mobile DPR.
   float trimDistance=min(abs(abs(world.x)-2.86),abs(world.y-7.06));
-  float trimAA=clamp(fwidth(trimDistance),.002,.035);
+  float trimAA=max(fwidth(trimDistance),.002);
+  float trimCoverage=min(1.0,.036/trimAA);
   float surround=front*step(abs(world.x),3.001)*step(world.y,7.201)
     *max(step(2.4,abs(world.x)),step(6.0,world.y));
   float joint=surround*(1.0-smoothstep(.018,.018+trimAA,trimDistance));
   float jointLip=surround*(1.0-smoothstep(.009,.009+trimAA,abs(trimDistance-.037)));
-  dark=dark*(1.0-.38*joint)+vec3(.035,.033,.034)*jointLip;
+  dark=dark*(1.0-.30*joint*trimCoverage)+vec3(.027,.026,.027)*jointLip*trimCoverage;
   // Fine, low-contrast mineral variation in world space, never a screen-space noise layer.
   float mineral=sin(world.x*13.0+world.z*4.0)*sin(world.y*17.0-world.z*3.0);
   dark+=vec3(.006,.006,.007)*mineral;
@@ -66,10 +70,12 @@ void main(){
   float lip=exp(-abs(world.z)*2.0);
   float vertical=.90+.10*sin(clamp(world.y/6.0,0.0,1.0)*3.14159265);
   float innerContact=1.0-.14*exp(-max(world.y,0.0)*2.8);
-  float innerArris=exp(-min(abs(world.y-6.0),abs(abs(world.x)-2.4))*18.0);
+  float innerDistance=min(abs(world.y-6.0),abs(abs(world.x)-2.4));
+  float innerWidth=max(.055,fwidth(innerDistance));
+  float innerArris=exp(-innerDistance/innerWidth)*min(1.0,.055/innerWidth);
   float seamDistance=abs(world.z+2.0);
-  float seamAA=clamp(fwidth(seamDistance),.003,.05);
-  float throatJoint=1.0-smoothstep(.025,.025+seamAA,seamDistance);
+  float seamAA=max(fwidth(seamDistance),.003);
+  float throatJoint=(1.0-smoothstep(.025,.025+seamAA,seamDistance))*min(1.0,.05/seamAA);
   vec3 luminous=(vec3(.98,.235,.10)*mix(1.0,.60,recess)*vertical+vec3(.02,.065,.04)*lip
     +vec3(.025,.016,.009)*innerArris)*innerContact*(1.0-.12*throatJoint);
   // The distant ivory room retains readable light values and modest warmth.
@@ -102,13 +108,29 @@ void main(){
     result=mix(result,vec3(.88,.87,.83)*(.82+.18*galleryDiffuse),smoothstep(6.0,7.0,-world.z));
   }
   result=haze(result,length(uViewEye-world),mix(mix(.55,.18,isRed),.23,blue));
-  // The distant white aperture is a deliberately untextured luminous plane.
-  // Keep the distant exit dark while the cobalt exhibition is occupied.
-  // It brightens only as the camera enters the final chamber; reflected
-  // and direct views share depth, including on reverse travel.
-  if(world.z<=-59.9&&isIvory>.5){
+  // The closing aperture stays dark throughout Exploration. In the final
+  // approach the fixed recess becomes legible before the white plane reaches
+  // full intensity. Depth alone drives the light, including reverse travel.
+  // Evaluate derivatives before non-uniform material branching.
+  float edgeFootprint=max(fwidth(world.x),fwidth(world.y));
+  if(uGraphicStyle>.5&&world.z<=-56.95){
     float reveal=smoothstep(42.5,46.0,-uViewEye.z);
-    result=mix(vec3(.045,.047,.055),vec3(.98,.98,.96),reveal);
+    float jambDistance=min(abs(abs(world.x)-2.3),abs(world.y-6.2));
+    float jambAA=max(edgeFootprint,.004);
+    if(world.z>=-57.65&&isIvory<.5){
+      // A quiet matte bevel-like material band follows the actual opening.
+      // No change to the opening dimensions or camera clearance.
+      float rim=1.0-smoothstep(.035,.11+jambAA,jambDistance);
+      float grazing=.55+.45*abs(n.z);
+      result+=vec3(.065,.067,.073)*rim*grazing*reveal;
+    }
+    if(world.z<=-59.9&&isIvory>.5){
+      float inset=min(2.3-abs(world.x),6.2-world.y);
+      float width=max(.115,edgeFootprint*1.4);
+      float paper=smoothstep(0.0,width,inset);
+      vec3 emitted=mix(vec3(.51,.52,.53),vec3(.98,.98,.96),paper);
+      result=mix(vec3(.045,.047,.055),emitted,reveal);
+    }
   }
   outColor=vec4(clamp(result,0.0,1.0),1.0);
 }`;
@@ -182,6 +204,7 @@ export function createRenderer(canvas,graphic=false,closing=false,quality='full'
   if(!gl)return null;
   let program=null,floorProgram=null,vao=null,buffer=null,uniform=null,floorUniforms=null,count=0,limit=4096,textureLimit=1024;
   const reflection=createReflection(gl);
+  let antialias=false,samples=0;
   const legacy=buildStudy(closing),architecture=legacy.slice(0,-buildSculptureVertices(0).length);
   const vertices=graphic?new Float32Array([...architecture,...graphicMesh(0)]):legacy;
   const sculptureOffset=architecture.byteLength;
@@ -218,6 +241,8 @@ export function createRenderer(canvas,graphic=false,closing=false,quality='full'
       gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,3,gl.FLOAT,false,24,0);
       gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,3,gl.FLOAT,false,24,12);
       gl.bindVertexArray(null);gl.bindBuffer(gl.ARRAY_BUFFER,null);count=vertices.length/6;
+      antialias=Boolean(gl.getContextAttributes()?.antialias);
+      samples=gl.getParameter(gl.SAMPLES);
       const v=gl.getParameter(gl.MAX_VIEWPORT_DIMS);
       limit=Math.min(4096,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),v[0],v[1]);
       textureLimit=Math.min(limit,1024,gl.getParameter(gl.MAX_TEXTURE_SIZE));
@@ -277,7 +302,7 @@ export function createRenderer(canvas,graphic=false,closing=false,quality='full'
     // still validates GL errors; context loss is checked and handled by events.
     if(gl.isContextLost())return null;
     if(!balanced&&gl.getError()!==gl.NO_ERROR)throw Error('GPU draw error');
-    return {width:dw,height:dh,triangles:count/3,reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled,lightingEnabled,floorMask,sculptureUploads};
+    return {width:dw,height:dh,triangles:count/3,reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled,lightingEnabled,floorMask,sculptureUploads,antialias,samples};
   }
   rebuild();return {draw,restore,abandon,release};
 }

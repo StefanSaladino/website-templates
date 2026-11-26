@@ -970,3 +970,5 @@ THRESHOLD P08b: closeout candidate defaults to complete five-chapter route, reta
 THRESHOLD P08c: stakeholder withdrew closeout, supplied iOS recording. Mobile editorial scale/spacing, no Perspective tabs, intact scroll-linked text reveals, extra short-browser-height evidence. P08a all three jobs passed; P08b foundation pending at edit. No gallery registration until renewed approval and exact QA.
 
 THRESHOLD P08d: stakeholder rejects newer appearance and jagged edges; restore P08b editorial composition and full-quality default WebGL/MSAA, retain complete journey and opt-in balanced diagnostic. Gallery registration withheld.
+
+THRESHOLD P08e: P08d all audits and deployment passed; inspect actual restored captures. Refine entrance seam coverage and closing doorway rim/emission, retain original geometry and full quality, record actual MSAA and high-DPI evidence. No layout changes or gallery promotion.

@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P08d');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P08e');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -990,6 +990,31 @@ jobs:
               contrastEvidence.push(record);await page.close();
             }
             writeFileSync('/tmp/threshold-evidence/contrast-review.json',JSON.stringify(contrastEvidence,null,2));
+            // P08e: inspect actual default-framebuffer AA and native-density
+            // doorway captures. No screenshot resize or postprocessing.
+            const edgeEvidence=[];
+            for(const [width,height,dpr] of [[390,844,3],[430,740,3],[1440,900,2]]){
+              const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:dpr});
+              await page.goto(baseURL+'?ambient=off');
+              await page.waitForFunction(()=>document.documentElement.dataset.journey==='on'&&document.querySelector('#scene-study').dataset.renderer==='webgl');
+              const states=[];
+              for(const p of [0,.12,.85,.94,.98,1,.94,0]){
+                await page.evaluate(p=>{const s=document.scrollingElement;s.scrollTop=Math.round((s.scrollHeight-s.clientHeight)*p)},p);
+                await page.waitForFunction(p=>Math.abs(+document.querySelector('#scene-study').dataset.progress-p)<.002,p);
+                const state=await page.locator('#scene-study').evaluate(e=>({p:+e.dataset.progress,quality:e.dataset.quality,antialias:e.dataset.antialias,samples:+e.dataset.samples,buffer:e.dataset.buffer,triangles:+e.dataset.triangles}));
+                assert.equal(state.quality,'full');assert.equal(state.antialias,'on','actual WebGL context must expose AA in full profile');assert(state.samples>=2,'default framebuffer multisampling available');assert.equal(state.triangles,592);
+                const image=await page.screenshot({path:'/tmp/threshold-evidence/edge-'+width+'x'+height+'-dpr'+dpr+'-'+states.length+'.png',style:captureStyle+'.possibility{visibility:hidden!important}'});
+                const {data,info}=await sharp(image).removeAlpha().raw().toBuffer({resolveWithObject:true});
+                let white=0;for(let i=0;i<data.length;i+=info.channels)if(data[i]>230&&data[i+1]>230&&data[i+2]>230)white++;
+                states.push({...state,whiteFraction:white/(info.width*info.height)});
+              }
+              assert(states[5].whiteFraction>.005,'final paper aperture remains luminous');
+              assert(states[2].whiteFraction<.001,'approach remains dark before reveal');
+              assert.deepEqual(states[0],states[7],'opening state reversible');
+              edgeEvidence.push({width,height,dpr,states});await page.close();
+            }
+            writeFileSync('/tmp/threshold-evidence/doorway-edge-review.json',JSON.stringify(edgeEvidence,null,2));
+
 
             const moving=await browser.newPage({viewport:{width:1024,height:768},deviceScaleFactor:1});
             const movingErrors=[];moving.on('pageerror',e=>movingErrors.push(e.message));
@@ -1090,7 +1115,7 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P08d',verification:'P08d',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P08e',verification:'P08e',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
@@ -1126,7 +1151,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-P08d-transition-evidence
+          name: threshold-P08e-transition-evidence
           path: /tmp/threshold-transition/
 
   performance:
@@ -1155,5 +1180,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-P08d-performance-evidence
+          name: threshold-P08e-performance-evidence
           path: /tmp/threshold-performance

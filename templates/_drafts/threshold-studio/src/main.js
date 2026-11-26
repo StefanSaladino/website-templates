@@ -1,18 +1,18 @@
-import {graphicAmount} from './graphic.js?v=P08d';
-import {RELEASE} from './config.js?v=P08d';
-import {createRenderer} from './renderer.js?v=P08d';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P08d';
-import {createScheduler} from './lifecycle.js?v=P08d';
-import {wordmarkOcclusion} from './wordmark.js?v=P08d';
-import {createAmbientClock} from './ambient.js?v=P08d';
-import {readProgress} from './scroll.js?v=P08d';
-import {typographyPose} from './typography.js?v=P08d';
-import {FOLDS,foldAmount} from './sculptures.js?v=P08d';
-import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P08d';
-import {mountParallax} from './parallax.js?v=P08d';
-import {mountForm} from './form.js?v=P08d';
-import {mountSignal} from './signal.js?v=P08d';
-import {mountPossibility} from './possibility.js?v=P08d';
+import {graphicAmount} from './graphic.js?v=P08e';
+import {RELEASE} from './config.js?v=P08e';
+import {createRenderer} from './renderer.js?v=P08e';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P08e';
+import {createScheduler} from './lifecycle.js?v=P08e';
+import {wordmarkOcclusion} from './wordmark.js?v=P08e';
+import {createAmbientClock} from './ambient.js?v=P08e';
+import {readProgress} from './scroll.js?v=P08e';
+import {typographyPose} from './typography.js?v=P08e';
+import {FOLDS,foldAmount} from './sculptures.js?v=P08e';
+import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P08e';
+import {mountParallax} from './parallax.js?v=P08e';
+import {mountForm} from './form.js?v=P08e';
+import {mountSignal} from './signal.js?v=P08e';
+import {mountPossibility} from './possibility.js?v=P08e';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -188,6 +188,7 @@ function start(){
       study.dataset.frames=String(++frames);
       study.dataset.ambient=ambientVisible?'on':'off';study.dataset.ambientElapsed=sample.elapsed.toFixed(2);
       study.dataset.buffer=result.width+'x'+result.height;
+      study.dataset.antialias=result.antialias?'on':'off';study.dataset.samples=String(result.samples);
       study.dataset.triangles=String(result.triangles);
       study.dataset.reflectionBuffer=result.reflectionWidth+'x'+result.reflectionHeight;
       study.dataset.reflection=result.reflectionEnabled?'on':'off';
