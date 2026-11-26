@@ -1,0 +1,32 @@
+# STICAZZI COFFEE / S07
+Bilingual EN/IT photographic website prototype. Open index.html or it.html, or serve the directory with a static HTTP server. No 3D geometry, WebGL, external libraries, analytics, checkout, or network assets. The campaign is fictional; the Ritual cup uses the actual user-supplied espresso photograph over a generated studio background.
+
+## Implemented
+- S01/S01a: responsive hero and independent HTML copy in both languages.
+- S02: independently layered bag, pointer drag/keyboard slider, subtle camera response and static image fallback.
+- S03: native-scroll sticky photographic stage when content fits, sequential editorial reveals, camera push-in on the intact photograph (not 3D rotation), espresso tasting notes, anchor focus transfer and natural-flow fallback for short screens or reduced motion. The independent drag layer remains confined to the opening to avoid cutout seams during cinematic motion.
+
+- S04: matched original generated Filter artwork (olive packaging, amber lighting), responsive WebP plates, two keyboard-operable roast choices in the existing roast chapter, crossfade with synchronized local-language tasting notes and product metadata. The opening always retains Espresso and its independent bag motion. Short screens, reduced-motion preferences, missing alternate image or disabled JavaScript retain readable separate Espresso and Filter descriptions.
+- S05: The Ritual / Il rituale, full-viewport editorial close-up, native scroll from the roast chapter, gentle reversible image push-in, responsive portrait crop, and an accessible return to the roast selector with the chosen roast retained. Real HTML copy and both language versions; static artwork for reduced motion or no JavaScript.
+- Brand rule: STICAZZI COFFEE is a fixed proper name in all languages; translate surrounding copy only.
+
+## Verification
+Run `python audit/test-offline.py` and `python audit/test-journey.py` with Python Playwright, Pillow and Chromium installed. Both suites use local source and image bytes inlined into Chromium because this environment blocks direct file navigation. Six enhanced viewport/language combinations sampled in both directions; four shorter-screen combinations use normal flow. Both languages have static fallbacks. Run `python audit/test-roasts.py` for S04 selection and fallback tests: 10 viewport/language configurations and 6 additional no-JS, reduced-motion and missing-art cases passed. All S03 journey and opening interaction tests rerun successfully; reports included. All three preceding suites rerun on S05 and passed. Run `python audit/test-ritual.py` for 14 story configurations (10 viewport/language combinations plus four static/reduced-motion cases), including reversible scroll movement, story navigation and retained roast selection. No physical touchscreen or Safari testing; public GitHub deployment remains outstanding.
+
+- S05a: Ritual now uses the supplied 399 × 501 espresso photograph, manually traced as a transparent cup/saucer layer and gently colour-graded over a clean generated stone backdrop. Desktop copy is on the left, cup on the right. The two responsive image layers share a scroll transform. Original S05 ZIP preserved. No new closing chapter or changes to product interactions.
+
+## Next steps
+Next S07: review the complete campaign, tune chapter pacing and visual continuity, and prepare a draft deployment once asset transfer and photograph reuse rights are resolved. Avoid a generic shop or cart until a real commerce scope is approved. Do not introduce unvalidated rotation or real-world product claims. Preserve EN/IT parity, native scroll, no fake modelling, no gallery registration until approval.
+
+S05a verification: reran 14 Ritual configurations and the opening suite (10 interactive viewport/language configurations plus 4 fallbacks); passed in offline Chromium. Prior S05 roast/journey reports retained as historical evidence, not rerun in S05a. The source photograph is low-resolution and visibly softer at large desktop sizes. No public deployment; source-photo reuse rights not independently verified.
+
+## S06 — A word to the wise
+The final chapter uses the approved English and Italian lines, Coffee first. Then maybe I'll listen. / Prima il caffè. Poi, forse, ti ascolto. The brand name remains untranslated, and client-facing copy contains no other profanity. Reuses the stone background, native scrolling and reduced-motion fallback; closing links return to the selected roast or opening, including focus recovery. Real Ritual photograph retained unchanged.
+
+S06 verification: 14 closing configurations, 14 Ritual configurations, 16 roast configurations, 10 journey viewport/language configurations plus no-script link checks, and 10 opening interaction configurations plus four fallbacks passed in offline Chromium. Existing test selectors scoped to the opening CTA to distinguish the new closing CTA. Physical-device testing, photo reuse rights and GitHub deployment remain outstanding.
+
+## S07 — Interaction timing and preview
+The updated sequence is packaged with a self-contained interactive HTML preview (distributed separately), including the existing EN/IT language control and image assets. S07 Chromium opening, roast, journey and Ritual suites passed; the standalone preview additionally passed desktop/mobile forward/reverse, selection, Ritual/closing and language round-trip checks without page errors. The full closing suite did not complete within the execution window; the prior S06 closing report is retained as historical evidence. The preview is not a hosted deployment. Public asset rights and physical-device/Safari verification remain outstanding.
+
+## Hosted draft S07
+The approved draft is published at `templates/_drafts/sticazzi-coffee/` for browser review. This is an unlisted, noindex public preview, not a gallery entry or commercial launch. The source ZIP retains the local audit scripts and reports. The 12 original WebP assets were recovered from the self-contained preview and their Git blob hashes matched the local originals. Photograph reuse rights and physical-device verification remain open before gallery approval.

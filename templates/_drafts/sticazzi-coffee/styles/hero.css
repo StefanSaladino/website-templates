@@ -1,0 +1,206 @@
+:root{color-scheme:dark;--ink:#1c0c07;--paper:#f4e5d3;--muted:#d8c0ad;font-family:Arial,Helvetica,sans-serif;background:var(--ink);color:var(--paper);scroll-behavior:smooth}*{box-sizing:border-box}body{margin:0}a{color:inherit;text-decoration:none}a:focus-visible{outline:2px solid #f4e5d3;outline-offset:5px}.skip{position:fixed;left:1rem;top:1rem;transform:translateY(-200%);z-index:10;background:var(--paper);color:var(--ink);padding:.75rem}.skip:focus{transform:none}.masthead{position:absolute;z-index:3;top:0;left:0;width:100%;display:grid;grid-template-columns:1fr auto auto;gap:3vw;align-items:center;padding:clamp(1rem,2.6vw,2.5rem) clamp(1.2rem,4.8vw,5rem);padding-top:max(1rem,env(safe-area-inset-top));}.brand{font-size:clamp(1rem,1.5vw,1.45rem);font-weight:900;letter-spacing:.14em;width:max-content;line-height:1.1}.brand span{display:block;font-size:.5em;letter-spacing:.48em;margin-top:.35rem}.masthead nav{display:flex;gap:clamp(1rem,3vw,3rem);font-size:.85rem}.masthead a{min-height:44px;display:flex;align-items:center}.masthead .brand{display:block;align-content:center}.header-action{border:1px solid #f4e5d38a;padding:.65rem 1.35rem;border-radius:99px;font-size:.82rem}.hero{position:relative;isolation:isolate;display:grid;align-items:center;min-height:100svh;overflow:hidden;background:#1c0c07}.scene{position:absolute;inset:0;z-index:-2;overflow:hidden}.scene picture,.scene img{width:100%;height:100%;display:block}.scene img{object-fit:cover;object-position:72% center;transform:translate3d(var(--x,0px),var(--y,0px),0) scale(1.035);will-change:transform}.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(20,7,3,.52),rgba(20,7,3,.12) 47%,transparent 70%),linear-gradient(0deg,rgba(20,7,3,.58),transparent 15%);pointer-events:none}.hero-copy{padding:8rem 0 8rem clamp(1.2rem,4.8vw,5rem);max-width:48%;align-self:center}.eyebrow{font-size:.66rem;letter-spacing:.27em;font-weight:700;margin:0 0 1.1rem}.hero h1{font-size:clamp(3rem,8.1vw,9rem);letter-spacing:-.085em;line-height:.83;margin:0 0 1.8rem;font-weight:900;white-space:nowrap}.hero h1 span{color:#dca36b}.tagline{font-size:clamp(1.35rem,2.5vw,2.8rem);letter-spacing:-.04em;line-height:1.05;font-weight:700;margin:0 0 1rem}.description{font-size:clamp(.85rem,1.2vw,1.05rem);line-height:1.55;max-width:26ch;color:var(--muted);margin:0 0 2rem}.primary{display:inline-flex;align-items:center;gap:1.2rem;min-height:48px;padding:.85rem 1.3rem;background:var(--paper);color:var(--ink);font-size:.85rem;font-weight:700}.primary:focus-visible{outline-offset:5px}.hero-bottom{position:absolute;bottom:0;left:0;width:100%;padding:1.2rem clamp(1.2rem,4.8vw,5rem) max(1.2rem,env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end;color:var(--paper);font-size:.58rem;letter-spacing:.17em}.scroll-link{justify-self:center;min-height:44px;display:grid;justify-items:center;align-content:end;gap:.5rem}.scroll-link span{height:23px;border-left:1px solid #e4c7af}.edition{text-align:right}:is(.espresso,.filter-fallback){padding:clamp(3rem,10vw,9rem) clamp(1.2rem,8vw,8rem);background:#f0dfcd;color:#27140c}:is(.espresso,.filter-fallback) h2{font-size:clamp(2.6rem,6vw,6rem);line-height:.95;letter-spacing:-.075em;margin:1.5rem 0}:is(.espresso,.filter-fallback) p:not(.eyebrow){max-width:40ch;line-height:1.65}:is(.espresso,.filter-fallback) a{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;text-underline-offset:.3em}:is(.espresso,.filter-fallback) a:focus-visible{outline-color:#27140c}footer{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:2rem clamp(1.2rem,4.8vw,5rem);font-size:.72rem;letter-spacing:.07em}footer p{color:var(--muted)}
+@media(max-aspect-ratio:5/6){.masthead{grid-template-columns:1fr auto;gap:1rem}.masthead nav{display:none}.hero{display:flex;flex-direction:column;justify-content:flex-end;min-height:100svh}.scene{inset:0 0 29%}.scene img{object-position:62% 36%}.hero::after{background:linear-gradient(0deg,#1c0c07 23%,rgba(28,12,7,.92) 33%,transparent 66%),linear-gradient(180deg,rgba(20,7,3,.58),transparent 18%)}.hero-copy{max-width:none;width:100%;padding:clamp(13rem,53svh,30rem) 1.35rem 4.4rem;align-self:end}.hero h1{font-size:clamp(3.3rem,12.4vw,6.5rem);margin-bottom:1rem}.eyebrow{font-size:.58rem;margin-bottom:.7rem}.tagline{font-size:clamp(1.45rem,6vw,2.4rem);margin-bottom:.65rem}.tagline br{display:none}.description{max-width:34ch;font-size:.82rem;margin-bottom:1.1rem}.hero-bottom{display:flex;justify-content:space-between;font-size:.5rem;gap:.5rem;align-items:center}.edition{display:none}.scroll-link{gap:.3rem;min-height:30px}.scroll-link span{height:12px}.header-action{padding:.45rem 1rem}}@media(min-aspect-ratio:5/6) and (max-height:520px){.hero-copy{padding-top:6rem;padding-bottom:4rem}.hero h1{font-size:clamp(2rem,7vw,5rem);margin-bottom:1rem}.tagline{font-size:1.35rem}.description{margin-bottom:.75rem}.hero-bottom{font-size:.5rem}}@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.scene img{transform:none;will-change:auto}}
+
+/* S01a — native language links, available without script. */
+.header-tools{display:flex;align-items:center;gap:clamp(.5rem,1.6vw,1.6rem)}
+.languages{display:flex;align-items:center;gap:.1rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;white-space:nowrap}
+.languages a{min-width:44px;min-height:44px;justify-content:center;color:#d8c0ad;text-decoration:none;text-underline-offset:.38em}
+.languages a[aria-current=page]{color:var(--paper);text-decoration:underline;text-decoration-thickness:1.5px}
+@media(max-width:560px){.masthead{padding-inline:1rem;gap:.5rem}.header-tools{gap:.25rem}.header-action{display:none!important}.hero-copy{padding-inline:1.2rem}.hero h1{font-size:clamp(2.7rem,12.4vw,6.5rem)}.tagline br{display:inline}}
+@media(min-aspect-ratio:5/6) and (max-width:760px){.masthead nav{display:none}.masthead{grid-template-columns:1fr auto}.header-action{display:none!important}}
+
+/* S02 — independently composited photographic packaging. No 3D transforms. */
+[hidden]{display:none!important}
+.scene-camera{position:absolute;inset:0;transform:translate3d(var(--x,0px),var(--y,0px),0) scale(1.035)}
+.scene-camera picture{position:absolute;inset:0}
+.scene-camera img{transform:none;will-change:auto}
+.scene-camera .layer{visibility:hidden;pointer-events:none}
+.hero[data-layers=ready] .scene-camera .layer{visibility:visible}
+.hero[data-layers=ready] .scene-camera .still{visibility:hidden}
+.scene-camera .bag{transform-origin:76% 48%;transform:translate3d(var(--bag-x,0px),var(--bag-y,0px),0) rotate(var(--bag-angle,0deg));}
+.hero-copy,.hero-bottom{position:relative;z-index:2;pointer-events:none}
+.hero-copy a,.hero-bottom a{pointer-events:auto}
+.hero-bottom{position:absolute}
+.product-hit{position:absolute;inset:12% 4% 15% 55%;z-index:1;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.product-hit[data-dragging=true]{cursor:grabbing}
+.product-control{position:absolute;z-index:3;right:clamp(1.2rem,4.8vw,5rem);bottom:5.4rem;display:grid;gap:.25rem;width:min(13rem,25vw);color:var(--paper);font-size:.69rem;text-shadow:0 1px 5px #1c0c07}
+.product-control label{font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+.motion-row{display:flex;align-items:center;gap:.5rem}
+.motion-row input{min-width:0;width:100%;height:44px;accent-color:#f4e5d3;cursor:ew-resize}
+.motion-reset{background:none;border:0;color:inherit;min-height:44px;min-width:44px;padding:0;font:inherit;text-decoration:underline;text-underline-offset:.25em;cursor:pointer}
+.motion-row input:focus-visible,.motion-reset:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+#motion-hint{font-size:.62rem;color:var(--paper)}
+@media(max-aspect-ratio:5/6){
+ .scene-camera .bag{transform-origin:57% 48%}
+ .hero-copy{padding-top:clamp(13rem,51svh,30rem)}
+ .product-hit{inset:10% 0 50% 24%}
+ .product-control{top:clamp(12rem,40svh,25rem);bottom:auto;right:1.2rem;width:min(10.5rem,46vw);padding:0}
+ .product-control label{font-size:.6rem}
+ #motion-hint{display:none}
+ .scroll-link{min-height:44px}
+}
+@media(min-aspect-ratio:5/6) and (max-height:520px){.product-control{bottom:3.8rem;right:1.2rem;width:10rem}}
+@media(prefers-reduced-motion:reduce){.scene-camera,.scene-camera .bag{transform:none}}
+/* Keep the controls out of the product artwork: an editorial accessory. */
+.hero-copy{pointer-events:auto}
+.product-control{position:static;width:min(13.5rem,100%);margin-top:1.3rem;text-shadow:none;gap:0}
+.product-control label{font-size:.64rem}
+.motion-row input{accent-color:#dca36b;margin:0}
+#motion-hint{font-size:.64rem;letter-spacing:.015em;color:var(--muted)}
+@media(max-aspect-ratio:5/6){
+ .hero-copy{padding-top:clamp(12rem,48svh,28rem)}
+ .product-control{margin-top:.6rem;width:min(12rem,100%)}
+ .hero::after{background:linear-gradient(0deg,#1c0c07 30%,rgba(28,12,7,.94) 39%,transparent 72%),linear-gradient(180deg,rgba(20,7,3,.58),transparent 18%)}
+}
+@media(min-aspect-ratio:5/6) and (max-height:520px){.product-control{margin-top:.5rem}#motion-hint{display:none}}
+/* Padding is not a hit target: allow the photograph to receive drag input. */
+.hero-copy{pointer-events:none}
+.hero-copy :is(h1,p,a,.product-control){pointer-events:auto}
+
+/* S03: one persistent photographic stage. Native scroll, no scroll hijack. */
+.journey{position:relative}
+.roast-notes{margin:1.4rem 0 1rem;max-width:30rem;display:grid;gap:0}
+.roast-notes div{border-top:1px solid currentColor;display:grid;grid-template-columns:minmax(6rem,1fr) 1.6fr;align-items:baseline;gap:.75rem;padding:.65rem 0}
+.roast-notes dt{font-size:.61rem;letter-spacing:.13em;font-weight:700}
+.roast-notes dd{margin:0;font-size:.9rem;font-weight:700}
+:root[data-journey=on] .journey{height:calc(100svh + var(--travel, 100svh))}
+:root[data-journey=on] .hero{position:sticky;top:0;height:100svh;min-height:100svh}
+:root[data-journey=on] .masthead{position:fixed}
+:root[data-journey=on] .scene-camera{transform:translate3d(calc(var(--x,0px) + var(--scene-x,0px)),var(--y,0px),0) scale(var(--scene-scale,1.035));transform-origin:72% 50%}
+:root[data-journey=on] .scene-camera .bag{transform:translate3d(calc(var(--bag-x,0px) + var(--travel-x,0px)),calc(var(--bag-y,0px) + var(--travel-y,0px)),0) rotate(calc(var(--bag-angle,0deg) + var(--travel-angle,0deg)))}
+:root[data-journey=on] .hero-copy{opacity:var(--opening-alpha,1);transform:translateY(var(--opening-rise,0px))}
+:root[data-journey=on] .hero-copy[inert],:root[data-journey=on] .hero-copy[inert] *{pointer-events:none}
+:root[data-journey=on] .espresso{position:absolute;z-index:2;left:clamp(1.2rem,4.8vw,5rem);width:min(40%,35rem);top:50%;transform:translateY(calc(-50% + var(--roast-rise,12px)));padding:0;background:none;color:var(--paper);opacity:var(--roast-alpha,0);visibility:var(--roast-visible,hidden)}
+:root[data-journey=on] .espresso h2{font-size:clamp(2.8rem,5.3vw,5.9rem);margin:.7rem 0 1rem}
+:root[data-journey=on] .espresso p:not(.eyebrow){font-size:.94rem;color:var(--muted);line-height:1.45;margin:0}
+:root[data-journey=on] .espresso a:focus-visible{outline-color:var(--paper)}
+:root[data-journey=on] .roast-notes div{border-color:#f4e5d35e}
+:root[data-journey=on] .roast-notes dt{color:var(--muted)}
+:root[data-journey=on] .hero[data-chapter=roast] .scroll-link{visibility:hidden}
+:root[data-journey=on] .hero[data-chapter=roast] .edition{opacity:1}
+:root[data-journey=on] .masthead[data-end=true]{background:#1c0c07}
+@media(max-aspect-ratio:5/6){
+ :root[data-journey=on] .scene-camera{transform-origin:60% 38%}
+ :root[data-journey=on] .espresso{left:1.2rem;right:1.2rem;width:auto;top:auto;bottom:3.8rem;transform:translateY(var(--roast-rise,12px))}
+ :root[data-journey=on] .espresso h2{font-size:clamp(2.5rem,8.8vw,4.2rem);margin:.45rem 0 .7rem}
+ :root[data-journey=on] .espresso p:not(.eyebrow){font-size:.82rem;max-width:36ch}
+ :root[data-journey=on] .roast-notes{margin:.65rem 0 .2rem}
+ :root[data-journey=on] .roast-notes div{padding:.4rem 0;grid-template-columns:minmax(6rem,1fr) 1.8fr}
+ :root[data-journey=on] .roast-notes dd{font-size:.8rem}
+}
+/* The camera uses the intact plate after the drag chapter. This prevents
+   extraction edges from becoming visible at the close-up. */
+:root[data-journey=on] .hero:not([data-chapter=opening]) .scene-camera .still{visibility:visible}
+:root[data-journey=on] .hero:not([data-chapter=opening]) .scene-camera .layer{visibility:hidden}
+:root[data-journey=on] .masthead:not([data-end=true]){background:linear-gradient(180deg,rgba(23,9,4,.78),rgba(23,9,4,.46) 55%,transparent)}
+:root[data-journey=on] .espresso .roast-notes{max-width:25rem}
+@media(max-aspect-ratio:5/6){:root[data-journey=on] .espresso .roast-notes{max-width:none}}
+
+/* S04 — matched photographic roast plates; the alternate is never shown
+   before it has decoded. The original opening art and motion are unchanged. */
+.scene-camera .filter-still{opacity:var(--filter-alpha,0);pointer-events:none}
+.hero[data-selecting=true] .filter-still{transition:opacity 400ms cubic-bezier(.25,.55,.3,1)}
+.roast-selector{display:flex;gap:1.2rem;align-items:center;margin:0 0 .7rem;pointer-events:auto}
+.roast-selector button{min-height:44px;padding:0 .15rem;border:0;border-bottom:1px solid transparent;color:var(--muted);background:none;cursor:pointer;font:700 .72rem Arial,Helvetica,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.roast-selector button[aria-pressed=true]{color:var(--paper);border-color:currentColor}
+.roast-selector button:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+.hero[data-roast=filter] .roast-selector button[aria-pressed=true]{color:#d4d6a3}
+.filter-fallback{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(1.5rem,5vw,5rem);align-items:center;background:#29281a;color:var(--paper)}
+.filter-fallback picture,.filter-fallback img{display:block;width:100%;height:auto}
+.filter-fallback img{aspect-ratio:16/9;object-fit:cover}
+.filter-fallback a:focus-visible{outline-color:var(--paper)}
+@media(max-aspect-ratio:5/6){
+ .roast-selector{gap:.95rem;margin-bottom:.25rem}
+ :root[data-journey=on] .espresso h2{font-size:clamp(2.25rem,8.5vw,4.2rem)}
+ .filter-fallback{grid-template-columns:1fr;gap:1.5rem}
+ .filter-fallback img{aspect-ratio:1;object-fit:cover}
+}
+@media(prefers-reduced-motion:reduce){.hero[data-selecting=true] .filter-still{transition:none}}
+
+/* S05 — an editorial photographic coda. Keep the roast stage unchanged;
+   native document travel brings the new plate into view. */
+.ritual{position:relative;isolation:isolate;min-height:100svh;display:grid;align-items:center;overflow:hidden;background:#1b0c07;color:var(--paper);scroll-margin-top:0}
+.ritual-visual{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#1b0c07}
+.ritual-visual picture,.ritual-visual img{display:block;width:100%;height:100%}
+.ritual-visual img{object-fit:cover;object-position:35% 50%;transform:scale(var(--ritual-scale,1));transform-origin:32% 50%}
+.ritual::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(90deg,transparent 36%,rgba(24,9,4,.22) 53%,rgba(24,9,4,.62) 100%),linear-gradient(180deg,#1b0c07 0%,transparent 12%,transparent 88%,#1b0c07 100%)}
+.ritual-copy{margin-left:51%;max-width:49rem;padding:7rem clamp(1.5rem,5vw,6rem) 7rem 2rem}
+.ritual h2{font-size:clamp(2.8rem,5.5vw,6.5rem);line-height:.94;letter-spacing:-.065em;margin:0 0 1.4rem;font-weight:900;text-wrap:balance}
+.ritual-copy p:not(.eyebrow){font-size:clamp(.95rem,1.25vw,1.12rem);line-height:1.65;max-width:36ch;color:var(--muted);margin:0 0 1.4rem}
+.ritual-copy p.ritual-lead{font-size:clamp(1.15rem,2vw,1.8rem);line-height:1.2;color:var(--paper);font-weight:700}
+.ritual-return{display:inline-flex;gap:2.2rem;min-height:48px;align-items:center;border-bottom:1px solid #dca36b;font-size:.88rem;font-weight:700}
+.ritual-return span{font-size:1.25rem;font-weight:400;color:#dca36b}
+.ritual-caption{position:absolute;bottom:1.5rem;left:clamp(1.2rem,4.8vw,5rem);right:clamp(1.2rem,4.8vw,5rem);display:flex;justify-content:space-between;font-size:.6rem;letter-spacing:.15em;color:var(--muted)}
+.story-link{grid-column:2;grid-row:1;justify-self:center;min-height:44px;display:grid;justify-items:center;align-content:end;gap:.5rem;text-align:center}
+.story-link span{height:23px;border-left:1px solid #e4c7af}
+:root[data-journey=on] .hero[data-chapter=roast] .scroll-link{display:none}
+@media(max-aspect-ratio:5/6){
+ .ritual{display:block;min-height:100svh;overflow:hidden}
+ .ritual-visual{position:relative;inset:auto;height:clamp(17rem,52svh,35rem);z-index:0}
+ .ritual-visual img{object-position:43% 53%;transform-origin:43% 53%}
+ .ritual::after{display:none}
+ .ritual-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#1b0c07 0%,transparent 13%,transparent 75%,#1b0c07 100%);pointer-events:none}
+ .ritual-copy{margin:0;padding:1rem 1.2rem 4.5rem;max-width:38rem;position:relative;z-index:1}
+ .ritual h2{font-size:clamp(2.65rem,10vw,4.8rem);margin-bottom:1rem}
+ .ritual-copy p:not(.eyebrow){font-size:.92rem;line-height:1.55;margin-bottom:1rem}
+ .ritual-copy p.ritual-lead{font-size:1.15rem}
+ .ritual-caption{bottom:1.1rem;font-size:.5rem}
+ .story-link{min-height:44px;gap:.3rem}.story-link span{height:12px}
+}
+@media(min-aspect-ratio:5/6) and (max-height:520px){.ritual-copy{padding:4rem 1.2rem 3.5rem}.ritual h2{font-size:clamp(2rem,5.5vw,4rem)}.ritual-copy p:not(.eyebrow){font-size:.86rem;margin-bottom:.7rem}.ritual-caption{bottom:.8rem}}
+@media(prefers-reduced-motion:reduce){.ritual-visual img{transform:none}}
+
+/* S05a — actual photograph over a clean campaign background. Both plates
+   share the same coordinate system and camera transform; no floating seam. */
+.ritual-visual picture{position:absolute;inset:0}
+.ritual-visual img{object-position:50% 50%;transform-origin:65% 66%}
+.ritual::after{background:linear-gradient(90deg,rgba(24,9,4,.68),rgba(24,9,4,.35) 33%,transparent 57%),linear-gradient(180deg,#1b0c07 0%,transparent 12%,transparent 88%,#1b0c07 100%)}
+.ritual-copy{margin-left:0;margin-right:53%;padding:7rem 0 7rem clamp(1.5rem,5vw,6rem);max-width:49rem}
+@media(max-aspect-ratio:5/6){
+ .ritual-visual img{object-position:50% 50%;transform-origin:50% 66%}
+ .ritual-visual::after{background:linear-gradient(180deg,#1b0c07 0%,transparent 10%,transparent 88%,#1b0c07 100%)}
+ .ritual-copy{margin:0;padding:1rem 1.2rem 4.5rem;max-width:38rem}
+}
+@media(min-aspect-ratio:5/6) and (max-height:520px){.ritual-copy{padding:4rem 0 3.5rem 1.2rem}}
+
+/* S06 — a last word, not a storefront. Reuse the same clean stone plate;
+   no new fake product, no overlay panels and no new network assets. */
+.ritual-next{display:inline-flex;min-height:48px;align-items:center;gap:.7rem;margin-left:1.5rem;font-size:.83rem;color:var(--muted);text-decoration:underline;text-underline-offset:.3em}
+.last-word{position:relative;isolation:isolate;display:grid;align-items:center;min-height:100svh;overflow:hidden;background:#1b0c07;color:var(--paper);scroll-margin-top:0}
+.last-word-art{position:absolute;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.last-word-art picture,.last-word-art img{display:block;width:100%;height:100%}
+.last-word-art img{object-fit:cover;object-position:50% 66%;transform:scale(var(--last-word-scale,1));transform-origin:50% 80%}
+.last-word::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,#1b0c07 0%,rgba(27,12,7,.90) 17%,rgba(27,12,7,.84) 65%,rgba(27,12,7,.52) 86%,#1c0c07 100%)}
+.last-word-copy{width:min(100%,85rem);padding:clamp(6rem,12vh,10rem) clamp(1.2rem,7vw,7rem) 6rem;margin-inline:auto}
+.last-word-brand{font-weight:900;font-size:clamp(.84rem,1.2vw,1.05rem);letter-spacing:.20em;color:#dca36b;margin:0 0 1.5rem}
+.last-word h2{margin:0;letter-spacing:-.065em;font-weight:900;line-height:.96;text-wrap:balance;max-width:19ch}
+.last-word-setup{display:block;font-size:clamp(1.6rem,3.5vw,3.4rem);letter-spacing:-.045em;color:var(--paper);font-weight:700;margin-bottom:.3em;line-height:1.12}
+.last-word-punch{display:block;font-size:clamp(3.4rem,7.5vw,8.3rem);color:var(--paper);overflow-wrap:break-word}
+.last-word-note{font-size:clamp(1rem,1.5vw,1.3rem);color:var(--muted);margin:1.5rem 0 1.6rem}
+.last-word-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.8rem 1.6rem}
+.last-word-top{display:inline-flex;align-items:center;min-height:48px;font-size:.85rem;text-decoration:underline;text-underline-offset:.3em}
+.last-word-caption{position:absolute;bottom:1.5rem;left:clamp(1.2rem,4.8vw,5rem);right:clamp(1.2rem,4.8vw,5rem);display:flex;justify-content:space-between;font-size:.6rem;letter-spacing:.15em;color:var(--muted)}
+@media(max-aspect-ratio:5/6){.ritual-next{margin-left:1rem}.last-word-copy{padding:7rem 1.2rem 5.5rem}.last-word-punch{font-size:clamp(2.8rem,11.8vw,5.6rem)}.last-word-setup{font-size:clamp(1.45rem,5.5vw,2.5rem)}.last-word-caption{font-size:.5rem}.last-word-brand{letter-spacing:.15em}.last-word-art img{object-position:50% 80%}}
+@media(min-aspect-ratio:5/6) and (max-height:520px){.last-word-copy{padding:5rem 1.2rem 3.4rem}.last-word-punch{font-size:clamp(2.6rem,6vw,5rem)}.last-word-brand{margin-bottom:.7rem}.last-word-note{margin:.8rem 0}.last-word-caption{bottom:.7rem}}
+@media(prefers-reduced-motion:reduce){.last-word-art img{transform:none}}
+/* S06 — approved client-facing final line, with the visible stone plate. */
+.last-word h2{max-width:100%;text-wrap:initial}
+.last-word-setup{color:#dca36b;font-size:clamp(2.1rem,4.3vw,4.5rem);margin-bottom:.25em}
+.last-word-punch{max-width:13ch;font-size:clamp(3.4rem,7.5vw,8.3rem);text-wrap:balance}
+.last-word::after{background:linear-gradient(180deg,#1b0c07 0%,rgba(27,12,7,.76) 17%,rgba(27,12,7,.65) 65%,rgba(27,12,7,.25) 86%,#1c0c07 100%)}
+@media(max-aspect-ratio:5/6){.last-word-setup{font-size:clamp(1.7rem,7vw,3rem)}.last-word-punch{font-size:clamp(2.6rem,10.7vw,5.3rem)}}
+@media(min-aspect-ratio:5/6) and (max-height:520px){.last-word-setup{font-size:clamp(1.4rem,3vw,3rem)}.last-word-punch{font-size:clamp(2.5rem,5.5vw,4.8rem)}}
+
+/* S07: one composited layer group fades into the original photographic
+   plate. Never fade the isolated bag and the clean plate separately. */
+.scene-camera .photo-layers{position:absolute;inset:0;opacity:0;pointer-events:none}
+.hero[data-layers=ready] .scene-camera .photo-layers{opacity:1}
+:root[data-journey=on] .hero[data-layers=ready] .scene-camera .still{visibility:visible}
+:root[data-journey=on] .hero[data-layers=ready] .scene-camera .photo-layers{opacity:var(--photo-layer-alpha,1)}
+:root[data-journey=on] .hero[data-layers=ready] .scene-camera .layer{visibility:visible}
+:root[data-journey=on] .hero[data-layers=ready] .scene-camera .bag{transform:translate3d(calc(var(--bag-x,0px) * var(--photo-layer-alpha,1)),calc(var(--bag-y,0px) * var(--photo-layer-alpha,1)),0) rotate(calc(var(--bag-angle,0deg) * var(--photo-layer-alpha,1)))}
+:root[data-journey=on] .hero .product-control[inert]{pointer-events:none}
+/* Join the final two chapters with the same warm black at their boundary. */
+.ritual::after{background:linear-gradient(90deg,rgba(24,9,4,.68),rgba(24,9,4,.35) 33%,transparent 57%),linear-gradient(180deg,#1b0c07 0%,transparent 9%,transparent 89%,#1b0c07 100%)}
+@media(max-aspect-ratio:5/6){.ritual::after{display:none}}
+@media(prefers-reduced-motion:reduce){.scene-camera .photo-layers{opacity:0!important}}
