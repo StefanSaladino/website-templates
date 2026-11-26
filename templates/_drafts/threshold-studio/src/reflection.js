@@ -1,10 +1,10 @@
 // Mirror geometry in the actual Y=0 floor plane. Same camera/projection as direct view.
 export const MAX_REFLECTION_PIXELS=375000,MAX_REFLECTION_EDGE=1024;
 export const FLOOR_MIRROR=new Float32Array([1,0,0,0,0,-1,0,0,0,0,1,0,0,0,0,1]);
-export function reflectionSize(w,h,limit=MAX_REFLECTION_EDGE){
+export function reflectionSize(w,h,limit=MAX_REFLECTION_EDGE,quality='full'){
   if(![w,h,limit].every(Number.isFinite)||w<1||h<1||limit<1)return null;
   const edge=Math.min(limit,MAX_REFLECTION_EDGE);
-  const s=Math.min(.5,Math.sqrt(MAX_REFLECTION_PIXELS/(w*h)),edge/w,edge/h);
+  const s=Math.min(quality==='balanced'?.35:.5,Math.sqrt(MAX_REFLECTION_PIXELS/(w*h)),edge/w,edge/h);
   const width=Math.max(1,Math.floor(w*s)),height=Math.max(1,Math.floor(h*s));
   return {width,height};
 }
@@ -18,8 +18,8 @@ export function createReflection(gl){
     }
     abandon();
   }
-  function ensure(width,height,limit){
-    const size=reflectionSize(width,height,limit);if(!size)throw Error('Invalid reflection dimensions');
+  function ensure(width,height,limit,quality='full'){
+    const size=reflectionSize(width,height,limit,quality);if(!size)throw Error('Invalid reflection dimensions');
     if(fbo&&w===size.width&&h===size.height)return {texture:tex,framebuffer:fbo,width:w,height:h};
     release();w=size.width;h=size.height;
     try{

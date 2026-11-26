@@ -1,9 +1,9 @@
-import {graphicMesh,graphicAmount} from './graphic.js?v=P07c';
-import {openingPose,multiply} from './camera.js?v=P07c';
-import {buildStudy,buildSculptureVertices} from './geometry.js?v=P07c';
-import {bufferSize} from './lifecycle.js?v=P07c';
-import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P07c';
-import {LIGHTING_GLSL} from './lighting.js?v=P07c';
+import {graphicMesh,graphicAmount} from './graphic.js?v=P08a';
+import {openingPose,multiply} from './camera.js?v=P08a';
+import {buildStudy,buildSculptureVertices} from './geometry.js?v=P08a';
+import {bufferSize} from './lifecycle.js?v=P08a';
+import {createReflection,FLOOR_MIRROR} from './reflection.js?v=P08a';
+import {LIGHTING_GLSL} from './lighting.js?v=P08a';
 const VS=`#version 300 es
 layout(location=0) in vec3 aPosition;
 layout(location=1) in vec3 aColor;
@@ -176,8 +176,9 @@ function shader(gl,type,source){
   if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){const log=gl.getShaderInfoLog(s);gl.deleteShader(s);throw Error(log||'shader compile')}
   return s;
 }
-export function createRenderer(canvas,graphic=false,closing=false){
-  const gl=canvas.getContext('webgl2',{alpha:false,antialias:true,depth:true,stencil:false,preserveDrawingBuffer:false});
+export function createRenderer(canvas,graphic=false,closing=false,quality='full'){
+  const balanced=quality==='balanced';
+  const gl=canvas.getContext('webgl2',{alpha:false,antialias:!balanced,depth:true,stencil:false,preserveDrawingBuffer:false,powerPreference:'high-performance'});
   if(!gl)return null;
   let program=null,floorProgram=null,vao=null,buffer=null,uniform=null,floorUniforms=null,count=0,limit=4096,textureLimit=1024;
   const reflection=createReflection(gl);
@@ -231,7 +232,7 @@ export function createRenderer(canvas,graphic=false,closing=false){
   }
   function draw(width,height,dpr,reflectionEnabled=true,lightingEnabled=true,floorMask=false,desktopComposition=false,ambientPhase=-1,pose=null,foldProgress=0,graphicProgress=0){
     if(!program||gl.isContextLost())return null;
-    const size=bufferSize(width,height,dpr,limit);if(!size)return null;
+    const size=bufferSize(width,height,dpr,limit,quality);if(!size)return null;
     if(canvas.width!==size.width)canvas.width=size.width;
     if(canvas.height!==size.height)canvas.height=size.height;
     const dw=gl.drawingBufferWidth,dh=gl.drawingBufferHeight,{eye,vp}=pose??openingPose(width/height,desktopComposition);
@@ -250,7 +251,7 @@ export function createRenderer(canvas,graphic=false,closing=false){
       gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferSubData(gl.ARRAY_BUFFER,sculptureOffset,graphicMesh(graphicProgress));gl.bindBuffer(gl.ARRAY_BUFFER,null);
       lastGraphic=amount;sculptureUploads++;
     }
-    const target=reflection.ensure(dw,dh,textureLimit);
+    const target=reflection.ensure(dw,dh,textureLimit,quality);
     gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.BLEND);gl.disable(gl.CULL_FACE);
     if(lightingEnabled)gl.clearColor(.045,.047,.052,1);else gl.clearColor(.09,.098,.106,1);
     // Pass 1: mirrored world, without the first six floor vertices. Same VP and aspect.
@@ -272,7 +273,10 @@ export function createRenderer(canvas,graphic=false,closing=false){
     gl.uniform1f(floorUniforms.uEnabled,reflectionEnabled?1:0);
     gl.uniform1f(floorUniforms.uLighting,lightingEnabled?1:0);gl.uniform1f(floorUniforms.uAmbientPhase,ambientPhase);gl.uniform1f(floorUniforms.uMask,floorMask?1:0);gl.uniform1f(floorUniforms.uGraphicStyle,graphic?1:0);
     gl.drawArrays(gl.TRIANGLES,0,6);gl.bindTexture(gl.TEXTURE_2D,null);gl.bindVertexArray(null);
-    if(gl.getError()!==gl.NO_ERROR||gl.isContextLost())throw Error('GPU draw error');
+    // getError may synchronously drain the GPU command queue. Initialization
+    // still validates GL errors; context loss is checked and handled by events.
+    if(gl.isContextLost())return null;
+    if(!balanced&&gl.getError()!==gl.NO_ERROR)throw Error('GPU draw error');
     return {width:dw,height:dh,triangles:count/3,reflectionWidth:target.width,reflectionHeight:target.height,reflectionEnabled,lightingEnabled,floorMask,sculptureUploads};
   }
   rebuild();return {draw,restore,abandon,release};

@@ -1,18 +1,18 @@
-import {graphicAmount} from './graphic.js?v=P07c';
-import {RELEASE} from './config.js?v=P07c';
-import {createRenderer} from './renderer.js?v=P07c';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P07c';
-import {createScheduler} from './lifecycle.js?v=P07c';
-import {wordmarkOcclusion} from './wordmark.js?v=P07c';
-import {createAmbientClock} from './ambient.js?v=P07c';
-import {readProgress} from './scroll.js?v=P07c';
-import {typographyPose} from './typography.js?v=P07c';
-import {FOLDS,foldAmount} from './sculptures.js?v=P07c';
-import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P07c';
-import {mountParallax} from './parallax.js?v=P07c';
-import {mountForm} from './form.js?v=P07c';
-import {mountSignal} from './signal.js?v=P07c';
-import {mountPossibility} from './possibility.js?v=P07c';
+import {graphicAmount} from './graphic.js?v=P08a';
+import {RELEASE} from './config.js?v=P08a';
+import {createRenderer} from './renderer.js?v=P08a';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P08a';
+import {createScheduler} from './lifecycle.js?v=P08a';
+import {wordmarkOcclusion} from './wordmark.js?v=P08a';
+import {createAmbientClock} from './ambient.js?v=P08a';
+import {readProgress} from './scroll.js?v=P08a';
+import {typographyPose} from './typography.js?v=P08a';
+import {FOLDS,foldAmount} from './sculptures.js?v=P08a';
+import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P08a';
+import {mountParallax} from './parallax.js?v=P08a';
+import {mountForm} from './form.js?v=P08a';
+import {mountSignal} from './signal.js?v=P08a';
+import {mountPossibility} from './possibility.js?v=P08a';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -24,7 +24,7 @@ function start(){
   const form=mountForm(exploration);
   const signal=mountSignal(exploration);
   const possibility=mountPossibility(stage.querySelector('.possibility'));
-  let lastType='',lastEditorial='',lastExploration='';
+  let lastType='',lastEditorial='',lastExploration='',typeBounds=null;
   function applyExploration(progress,available,staticMode=false,presence=1){
     const pose=explorationPose(progress,available),opacity=pose.opacity*presence,active=pose.active&&presence===1;
     const mode=staticMode?'static':active?'active':opacity>0?'entering':'off';
@@ -46,6 +46,9 @@ function start(){
   function applyTypography(progress,width,height,rect=null){
     const wide=desktopComposition.matches||width/height>=1.2;
     const t=typographyPose(progress,wide);
+    // Read safe-zone geometry once per actual viewport/layout change, before
+    // writing CSS variables. The sticky stage shares these relative bounds.
+    if(rect&&(!typeBounds||typeBounds.width!==width||typeBounds.height!==height))typeBounds={width,height,top:Math.max(0,header.getBoundingClientRect().bottom-rect.top),bottom:Math.max(0,rect.bottom-footer.getBoundingClientRect().top)};
     const values={
       '--mark-rise':(t.markY*height).toFixed(3)+'px',
       '--mark-opacity':t.markOpacity.toFixed(6),
@@ -53,8 +56,8 @@ function start(){
       '--copy-y':(t.copyY*height).toFixed(3)+'px',
       '--copy-opacity':t.copyOpacity.toFixed(6),
       '--footer-opacity':t.footerOpacity.toFixed(6),
-      '--type-top':rect?Math.max(0,header.getBoundingClientRect().bottom-rect.top).toFixed(3)+'px':'0px',
-      '--type-bottom':rect?Math.max(0,rect.bottom-footer.getBoundingClientRect().top).toFixed(3)+'px':'0px'
+      '--type-top':rect&&typeBounds?typeBounds.top.toFixed(3)+'px':'0px',
+      '--type-bottom':rect&&typeBounds?typeBounds.bottom.toFixed(3)+'px':'0px'
     };
     const key=Object.values(values).join(',');
     if(key!==lastType){for(const [name,value] of Object.entries(values))stage.style.setProperty(name,value);lastType=key}
@@ -62,6 +65,34 @@ function start(){
   }
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),desktopComposition=matchMedia(DESKTOP_COMPOSITION_QUERY);
   const flags=new URLSearchParams(location.search);
+  // Full-quality diagnostics preserve the exact existing evidence baseline.
+  // Balanced is the default on high-DPR screens; use quality=full to compare.
+  const quality=flags.get('quality')==='full'?'full':flags.get('quality')==='balanced'||devicePixelRatio>1.5?'balanced':'full';
+  study.dataset.quality=quality;
+  const fpsDebug=['1','collect'].includes(flags.get('fps'));
+  const meter=flags.get('fps')==='1'?document.createElement('output'):null;
+  let meterUpdated=0;
+  if(meter){
+    meter.setAttribute('aria-hidden','true');
+    meter.style.cssText='position:fixed;top:env(safe-area-inset-top,0px);left:50%;transform:translateX(-50%);z-index:100;pointer-events:none;padding:4px 8px;background:#090909;color:#eeece5;font:11px monospace;white-space:nowrap';
+    meter.textContent=quality+' / measuring';
+    document.body.append(meter);
+  }
+  let perfSamples=[],lastSubmit=null;
+  if(fpsDebug)window.__thresholdPerf={reset(){perfSamples=[];lastSubmit=null},read(){return perfSamples.map(s=>({...s}))}};
+  function recordFrame(start,progress){
+    if(!fpsDebug)return;
+    const now=performance.now();
+    perfSamples.push({time:now,interval:lastSubmit===null?null:now-lastSubmit,cpuMs:now-start,progress});
+    lastSubmit=now;
+    if(perfSamples.length>1800)perfSamples.shift();
+    if(meter&&now-meterUpdated>=250){
+      const recent=perfSamples.filter(s=>s.time>=now-1000);
+      const span=recent.at(-1)?.time-recent[0]?.time;
+      meter.textContent=quality+' / '+(recent.length>=2&&span>0?Math.round((recent.length-1)*1000/span)+' submit fps':'idle / measuring');
+      meterUpdated=now;
+    }
+  }
   const graphic=flags.get('sculpture')!=='folds'&&flags.get('journey')!=='off'&&flags.get('floorMask')!=='on'&&!['approach','crossing'].includes(flags.get('track'));
   stage.dataset.direction=graphic?'graphic':'legacy';
   const reflectionEnabled=flags.get('reflection')!=='off',lightingEnabled=flags.get('lighting')!=='off',floorMask=flags.get('floorMask')==='on';
@@ -107,15 +138,20 @@ function start(){
     return !failed&&!lost&&!document.hidden&&visible;
   }
   function draw(){
-    const sample=ambientEnabled?clock.sample(performance.now(),forceDraw):{render:true,phase:-1,elapsed:0};
+    const started=performance.now();
+    const progress=journeyActive?readProgress(document.scrollingElement):0;
+    const localProgress=closingTrack?Math.min(1,progress/CLOSING_ARRIVE):progress;
+    // The ambient source is the red entrance. Stop invisible idle GPU work
+    // once the camera clears it, but never throttle input-triggered frames.
+    const ambientVisible=ambientEnabled&&(quality==='full'||!journeyActive||localProgress<.44);
+    const sample=ambientVisible?clock.sample(started,forceDraw):{render:true,phase:-1,elapsed:clock.elapsed};
+    if(!ambientVisible)clock.pause();
     forceDraw=false;
     if(!sample.render){scheduler.invalidate();return}
     try{
-      if(!renderer)renderer=createRenderer(canvas,graphic,closingTrack);
+      if(!renderer)renderer=createRenderer(canvas,graphic,closingTrack,quality);
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
       const r=surface.getBoundingClientRect();
-      const progress=journeyActive?readProgress(document.scrollingElement):0;
-      const localProgress=closingTrack?Math.min(1,progress/CLOSING_ARRIVE):progress;
       const physicalPose=(closingTrack?closingPose:approachOnly?approachPose:crossingOnly?crossingPose:perspectiveOnly?revealPose:exhibitionPose)(r.width/r.height,desktopComposition.matches,progress);
       const perspectiveProgress=fullTrack?Math.min(1,localProgress/EXHIBITION_JOIN):progress;
       const presence=fullTrack?perspectivePresence(localProgress):1;
@@ -126,7 +162,7 @@ function start(){
       // The rendered pose and the reported progress always belong to the same sample.
       const wasActive=journeyActive;
       setJourney(journeyRequested&&!reduced.matches);
-      if(wasActive!==journeyActive)invalidate();
+      if(wasActive!==journeyActive){typeBounds=null;invalidate()}
       study.dataset.progress=progress.toFixed(6);
       // The navigation adopts ink only after the camera has cleared the red throat.
       stage.dataset.room=pose.eye[2]<=-43?'possibility':pose.eye[2]<=-20.4?'exploration':pose.eye[2]<=-7.2?'perspective':'arrival';
@@ -150,7 +186,7 @@ function start(){
       study.dataset.eye=pose.eye.map(v=>v.toFixed(6)).join(',');
       study.dataset.fov=pose.fov.toFixed(6);study.dataset.shiftX=pose.shiftX.toFixed(6);
       study.dataset.frames=String(++frames);
-      study.dataset.ambient=ambientEnabled?'on':'off';study.dataset.ambientElapsed=sample.elapsed.toFixed(2);
+      study.dataset.ambient=ambientVisible?'on':'off';study.dataset.ambientElapsed=sample.elapsed.toFixed(2);
       study.dataset.buffer=result.width+'x'+result.height;
       study.dataset.triangles=String(result.triangles);
       study.dataset.reflectionBuffer=result.reflectionWidth+'x'+result.reflectionHeight;
@@ -161,9 +197,11 @@ function start(){
       // Apply text displacement before deriving the portal mask in its new local coordinates.
       const type=applyTypography(approachOnly?progress:approachProgress(crossingOnly?progress:perspectiveProgress/REVEAL_JOIN),r.width,r.height,r);
       const points=desktopComposition.matches&&type.markOpacity>0?wordmarkOcclusion(pose.vp,r,mark.getBoundingClientRect()):'';
-      occluder.setAttribute('points',points);mark.dataset.depth=points?'projected':'flat';
+      if(occluder.getAttribute('points')!==points)occluder.setAttribute('points',points);
+      const depth=points?'projected':'flat';if(mark.dataset.depth!==depth)mark.dataset.depth=depth;
       study.dataset.renderer='webgl';delete study.dataset.reason;canvas.hidden=false;
-      if(ambientEnabled)scheduler.invalidate();
+      recordFrame(started,progress);
+      if(ambientVisible)scheduler.invalidate();
     }catch(e){failed=true;renderer?.release();renderer=null;staticView('graphics-error');console.warn('THRESHOLD renderer:',e)}
   }
   const scheduler=createScheduler({request:cb=>requestAnimationFrame(cb),cancel:id=>cancelAnimationFrame(id),draw,eligible});
@@ -178,10 +216,10 @@ function start(){
     try{if(renderer)renderer.restore();failed=false;invalidate()}
     catch(e){failed=true;staticView('graphics-error');console.warn('THRESHOLD restore:',e)}
   }
-  const resize=new ResizeObserver(invalidate);
+  const resize=new ResizeObserver(()=>{typeBounds=null;invalidate()});
   const intersection=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)invalidate();else suspend()});
   function dispose(){
-    if(disposed)return;disposed=true;parallax.dispose();form.dispose();signal.dispose();possibility.dispose();nextChapter.removeEventListener('click',goClosing);backChapter.removeEventListener('click',goExploration);scheduler.dispose();resize.disconnect();intersection.disconnect();
+    if(disposed)return;disposed=true;meter?.remove();parallax.dispose();form.dispose();signal.dispose();possibility.dispose();nextChapter.removeEventListener('click',goClosing);backChapter.removeEventListener('click',goExploration);scheduler.dispose();resize.disconnect();intersection.disconnect();
     reduced.removeEventListener('change',preference);desktopComposition.removeEventListener('change',invalidate);document.removeEventListener('visibilitychange',visibility);
     window.removeEventListener('scroll',scrollChanged);window.visualViewport?.removeEventListener('resize',invalidate);
     window.removeEventListener('resize',invalidate);window.removeEventListener('pagehide',pageHide);window.removeEventListener('pageshow',pageShow);
@@ -194,6 +232,6 @@ function start(){
   reduced.addEventListener('change',preference);desktopComposition.addEventListener('change',invalidate);document.addEventListener('visibilitychange',visibility);
   window.addEventListener('scroll',scrollChanged,{passive:true});window.visualViewport?.addEventListener('resize',invalidate,{passive:true});
   window.addEventListener('resize',invalidate);window.addEventListener('pagehide',pageHide);window.addEventListener('pageshow',pageShow);
-  resize.observe(surface);intersection.observe(surface);
+  resize.observe(surface);resize.observe(header);resize.observe(footer);intersection.observe(surface);
   preference();
 }

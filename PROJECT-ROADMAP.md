@@ -962,3 +962,5 @@ THRESHOLD P07a: actual P05 captures reviewed; improved wide Exploration spacing 
 THRESHOLD P07b: stakeholder identified white-on-white text; actual P07 closing frames confirm overlap. Correct portrait aperture framing, matte contrast surfaces, nav backing, clip reveal, accessible contact name and release test typo. Add actual-pixel contrast regression. Exact browser validation pending; no catalogue change.
 
 THRESHOLD P07c: stakeholder rejected text backing blocks. Remove later-room editorial panels, reveal white aperture only on approach, dim architecture during local contact, redesign short-landscape contact, add actual contrast/no-panel checks. P07b full foundation failed contact fit despite green unit/dense. New exact browser evidence pending; no catalogue change.
+
+THRESHOLD P08a: stakeholder-reported scroll lag; optimize high-DPR pixel/reflection budget, idle draws and layout work; instrument actual submitted-frame cadence and separate comparative benchmark; correct contact touch-target specificity. P07c dense passed, foundation failed contact label. Physical device FPS not established; exact P08a evidence pending. No catalogue change.

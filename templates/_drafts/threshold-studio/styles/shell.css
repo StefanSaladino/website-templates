@@ -608,3 +608,6 @@ details[open] .project-toggle::after { transform: none; }
   :root[data-journey="on"] .possibility-contact:not([hidden]) {column-gap:5vw;}
   .possibility-contact h3 {font-size:clamp(1.4rem,3.6vw,2.6rem);}
 }
+
+/* P08a: the earlier short-height rule was more specific than P07c. */
+@media(max-height:640px){ :root[data-journey="on"] .possibility-contact label{min-height:44px;} }
