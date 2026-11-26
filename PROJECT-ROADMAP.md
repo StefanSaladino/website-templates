@@ -948,3 +948,5 @@ THRESHOLD P02 review candidate: graphic-only optical composition, dedicated wide
 THRESHOLD P02a: P01a full browser and P02 foundation/Pages passed. Actual P02 renders confirm separated artwork/copy; compact landscape nav crosses cobalt aperture. Add local matte nav registration tabs only during graphic Perspective with pixel regression. Exact P02a evidence and stakeholder approval pending; no gallery changes.
 
 THRESHOLD P03: P02a exact browser/deployment passed; stakeholder continuation authorizes isolated Exploration index. Three native concept disclosures in the existing cobalt room, static fallback, no new assets or geometry. Project interactions P04–P06 remain open. P03 verification pending; no catalogue changes.
+
+THRESHOLD P04: functional PARALLAX optical alignment within Exploration; pinhole projection, keyboard/touch slider, reset/return, no added runtime dependency or world geometry. P03 unit/Pages passed; full P03/P04 browser review pending. FORM and SIGNAL remain upcoming; no catalogue change.

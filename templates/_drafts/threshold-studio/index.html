@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-release="P03">
+<html lang="en" data-release="P04">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#090909">
   <meta name="description" content="THRESHOLD — an independent digital experience studio concept.">
   <title>THRESHOLD — Beyond the ordinary</title>
-  <link rel="stylesheet" href="styles/base.css?v=P03">
-  <link rel="stylesheet" href="styles/shell.css?v=P03">
-  <script type="module" src="src/main.js?v=P03"></script>
+  <link rel="stylesheet" href="styles/base.css?v=P04">
+  <link rel="stylesheet" href="styles/shell.css?v=P04">
+  <script type="module" src="src/main.js?v=P04"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -105,7 +105,7 @@
         <p class="exploration-list-label">Selected experiments / 01–03</p>
         <details name="threshold-project">
           <summary><span class="project-number">01</span><span class="project-name">PARALLAX</span><span class="project-toggle" aria-hidden="true"></span></summary>
-          <div class="project-description"><p class="project-category">Digital environments</p><p>Explore the relationship between depth, viewpoint and alignment in a spatial interface.</p></div>
+          <div class="project-description"><p class="project-category">Digital environments</p><p>Explore the relationship between depth, viewpoint and alignment in a spatial interface.</p><button class="study-launch" type="button" hidden data-parallax-launch>Enter experiment</button></div>
         </details>
         <details name="threshold-project">
           <summary><span class="project-number">02</span><span class="project-name">FORM</span><span class="project-toggle" aria-hidden="true"></span></summary>
@@ -116,6 +116,31 @@
           <div class="project-description"><p class="project-category">Creative technology</p><p>Investigate connections, decisions and feedback through an interactive network.</p></div>
         </details>
       </div>
+      <section class="parallax-study" aria-labelledby="parallax-heading" hidden>
+        <div class="parallax-copy">
+          <button type="button" class="study-return" data-parallax-return>Return to experiments</button>
+          <p class="exploration-index">01 / Digital environments</p>
+          <h3 id="parallax-heading">PARALLAX</h3>
+          <p>Three planes. One viewpoint. Move sideways until the three fragments form one circle.</p>
+        </div>
+        <div class="parallax-work">
+          <svg class="parallax-art" viewBox="0 0 480 240" role="img" aria-label="Three colored arcs at different depths moving toward a common circular registration guide">
+            <rect width="480" height="240" fill="#eeece5"/>
+            <path d="M20 120H460M240 15V225" stroke="#a6a39c" stroke-width="1" stroke-dasharray="3 5"/>
+            <circle cx="240" cy="120" r="70" fill="none" stroke="#a6a39c" stroke-width="1" stroke-dasharray="3 5"/>
+            <g data-depth="0" transform="translate(30 0)"><path d="M240 50 A70 70 0 0 1 300.622 155" fill="none" stroke="#15151a" stroke-width="18"/></g>
+            <g data-depth="1" transform="translate(18 0)"><path d="M300.622 155 A70 70 0 0 1 179.378 155" fill="none" stroke="#2448ff" stroke-width="18"/></g>
+            <g data-depth="2" transform="translate(10 0)"><path d="M179.378 155 A70 70 0 0 1 240 50" fill="none" stroke="#ff3823" stroke-width="18"/></g>
+            <path d="M20 20h12m-12 0v12m440-12h-12m12 0v12M20 220h12m-12 0v-12m440 12h-12m12 0v-12" fill="none" stroke="#242321" stroke-width="1"/>
+            <circle cx="240" cy="120" r="2.5" fill="#242321"/>
+          </svg>
+          <div class="parallax-controls">
+            <div class="parallax-status"><label for="parallax-view">Viewpoint / horizontal</label><output for="parallax-view" id="parallax-output">0 · Misaligned</output></div>
+            <input type="range" id="parallax-view" min="-100" max="100" step="1" value="0">
+            <div class="parallax-status"><span aria-hidden="true">Left / Right</span><button type="button" data-parallax-reset>Reset viewpoint</button></div>
+          </div>
+        </div>
+      </section>
     </section>
   </main>
   <footer><span class="chapter-label">01 / Arrival</span><span class="concept-label">Independent studio concept</span></footer>
