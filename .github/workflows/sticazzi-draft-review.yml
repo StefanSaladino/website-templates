@@ -19,9 +19,9 @@ jobs:
       - run: pip install playwright
       - run: python -m playwright install --with-deps chromium
       - run: node --check templates/_drafts/sticazzi-coffee/src/hero.js
-      - run: python templates/_drafts/sticazzi-coffee/audit/test-s08b3.py
+      - run: python templates/_drafts/sticazzi-coffee/audit/test-s08b4.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: sticazzi-s08b3-frames
+          name: sticazzi-s08b4-frames
           path: templates/_drafts/sticazzi-coffee/audit/captures/

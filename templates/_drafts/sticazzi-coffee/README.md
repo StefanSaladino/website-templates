@@ -1,4 +1,4 @@
-# STICAZZI COFFEE / S08b3
+# STICAZZI COFFEE / S08b4
 Bilingual EN/IT photographic website prototype. Open index.html or it.html, or serve the directory with a static HTTP server. No 3D geometry, WebGL, external libraries, analytics, checkout, or network assets. The campaign is fictional; the Ritual cup uses the actual user-supplied espresso photograph over a generated studio background.
 
 ## Implemented
@@ -40,3 +40,6 @@ Exact S08a interaction review 45807195493 and Pages deployment 45807193493 passe
 
 ## S08b3 — restrained intact-photo motion
 Stakeholder rejected the S08b stretch/compression and the S08b2 artificial-looking 3D render (reverted exactly in fabd3ff). Replace the rejected warp with simple mouse-follow camera translation, maximum 18px horizontal and 12px vertical, smaller on narrow screens. The entire original photo moves together at constant uniform opening scale 1.06; bag, cup, shadows and background never separate or deform. Horizontal touch drag and keyboard/tap nudge are optional; native vertical scrolling and reduced-motion static photo retained. No canvas, model, image extraction, rotation, slider or new assets. Scroll camera handoff resets motion. Both languages updated. This is intentionally a photographic camera response rather than independent bag manipulation. New browser audit checks actual computed transform invariants, return, navigation and fallbacks; exact rendered QA pending. Ritual and closing still pending, no gallery registration.
+
+## S08b4 — fixed-size photography, desktop-only translation
+Stakeholder still perceived stretching in S08b3. Pages run 45824197973 succeeded; S08b3 browser run 45824198344 was still running at review. The S08b3 pointer matrix used a constant uniform scale but the native scroll camera retained dynamic scale. Remove all live hero scale transforms, scroll-linked camera push-in and touch target. Original image plate has fixed layout overscan only on fine-pointer desktops and translates at most 12px/8px; touch/mobile and reduced-motion versions remain static, with native scroll and unchanged roast crossfade. No canvas, slider, independent bag or fake rotation. Use 100svh-derived stable height and ignore browser-chrome-only resize events to avoid rebuilding the journey on iOS toolbar motion. Verify actual camera and image matrices have unit scale throughout hover, touch and scroll, plus fixed plate dimensions, image fit and language/fallback checks. Exact browser QA and deployment pending. Ritual and closing remain unmodified. No gallery changes.
