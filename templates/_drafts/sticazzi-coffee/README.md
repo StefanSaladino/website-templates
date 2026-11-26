@@ -1,4 +1,4 @@
-# STICAZZI COFFEE / S08d2
+# STICAZZI COFFEE / S08d3
 Bilingual EN/IT photographic website prototype. Open index.html or it.html, or serve the directory with a static HTTP server. No 3D geometry, WebGL, external libraries, analytics, checkout, or network assets. The campaign is fictional; the Ritual cup uses the actual user-supplied espresso photograph over a generated studio background.
 
 ## Implemented
@@ -57,3 +57,6 @@ S08c2 exact main Pages run 45825849879 and full browser run 45825851208 succeede
 
 ## S08d2 — grounded closing composition
 S08d exact Pages run 45827333535 and browser run 45827333609 passed. Stakeholder identified floating bag in closing artwork. Reinspection of the original hero photograph confirms the air gap beneath the bag is baked into the generated image, not a crop or CSS artifact. Reframing alone cannot make the bag sit on stone. Use the previously discussed fallback: the approved intact 1448 × 1086 espresso scene in the closing chapter, with a distinct copy-first treatment on mobile and copy-left composition on desktop. Keep the full 4:3 image, including the saucer, shadow and stone; remove the former right crop and reduce the bottom fade to the final 3%. No bag is shown in the closing chapter in this revision; original hero and Ritual remain unchanged. The same approved photo is deliberately reprised, not new artwork. If a bag is required in the closing image, a separately produced grounded still life is needed. Bilingual copy, links and text entrance preserved. New closing visual QA pending; no gallery registration.
+
+## S08d3 — original closing artwork, grounded package
+S08d2 Pages run 45828148865 and browser run 45828150151 passed, but stakeholder correctly rejected reuse of the Ritual photo. Replace the closing chapter image only with a newly generated photographic still life: kraft Espresso bag physically supported by stone with visible contact shadow, white ceramic cup and saucer, beans, warm brown lighting. No embedded page headline, navigation or CTA; existing bilingual HTML and layout retained. Packaging is a close recreation, not an exact photographic match to the hero label. New 1448 × 1086 WebP, 145,152 bytes, SHA-256 b0f33bcb228623cb2ee74fe81d7b9014b707e3b5e55f3b127595912812ff32ff. Keep full-frame contain layout from S08d2; no distortion, crop, 3D or photo motion. Audit asserts exact artwork hash and distinct Ritual/closing sources. Hero and Ritual content unchanged. New deployment and full review pending. Gallery remains unregistered.

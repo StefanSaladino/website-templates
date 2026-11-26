@@ -10,3 +10,5 @@ S08c2: user-approved AI-generated photographic recreation of the original cup an
 S08d: closing artwork reuses the intact original generated Espresso hero.webp, with a right-aligned crop only; no new source artwork, composites or additional rights claims.
 
 S08d2: closing now reprises approved ritual-espresso.webp, full frame; retired the levitating-bag hero photo from this chapter only. No new image assets.
+
+S08d3: new AI-generated photographic closing still life, distinct from hero and Ritual assets; kraft STICAZZI COFFEE Espresso packaging, seated flat on stone with cup and beans. Artwork is fictional and its label is a close recreation rather than exact product photography. WebP optimized from generated 1448×1086 PNG. SHA-256 b0f33bcb228623cb2ee74fe81d7b9014b707e3b5e55f3b127595912812ff32ff.

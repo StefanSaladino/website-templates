@@ -21,9 +21,9 @@ jobs:
       - run: node --check templates/_drafts/sticazzi-coffee/src/hero.js
       - run: python templates/_drafts/sticazzi-coffee/audit/test-s08b4.py
       - run: python templates/_drafts/sticazzi-coffee/audit/test-s08c2.py
-      - run: python templates/_drafts/sticazzi-coffee/audit/test-s08d2.py
+      - run: python templates/_drafts/sticazzi-coffee/audit/test-s08d3.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: sticazzi-s08d2-frames
+          name: sticazzi-s08d3-frames
           path: templates/_drafts/sticazzi-coffee/audit/captures/
