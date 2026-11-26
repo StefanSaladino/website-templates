@@ -41,7 +41,7 @@ jobs:
           mkdirSync('/tmp/threshold-evidence',{recursive:true});
           const baseURL='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
           const url=baseURL+'?ambient=off&journey=off';
-          const captureStyle='.masthead,.opening-copy,.display-wordmark,.perspective-editorial,footer,.skip-link{visibility:hidden!important} main{outline:none!important}';
+          const captureStyle='.masthead,.opening-copy,.display-wordmark,.perspective-editorial,.exploration,footer,.skip-link{visibility:hidden!important} main{outline:none!important}';
           const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
           try {
             for(const [width,height] of [[320,568],[390,844],[768,1024],[1024,768],[1440,900],[1920,1080],[844,390]]) {
@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P02a');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P03');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -395,7 +395,7 @@ jobs:
                 await travel.screenshot({path:'/tmp/threshold-evidence/native-end-390.png'});
                 await travel.emulateMedia({reducedMotion:'reduce'});
                 await travel.waitForFunction(()=>document.documentElement.dataset.journey==='off'&&document.querySelector('#scene-study').dataset.reason==='reduced-motion');
-                assert(await travel.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom+s.scrollTop-s.scrollHeight)<3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3})&&await travel.evaluate(()=>getComputedStyle(document.querySelector('.opening-copy')).opacity==='1'&&getComputedStyle(document.querySelector('.display-wordmark')).opacity==='1'),'no empty travel and readable static typography in reduced motion');
+                assert(await travel.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3})&&await travel.evaluate(()=>getComputedStyle(document.querySelector('.opening-copy')).opacity==='1'&&getComputedStyle(document.querySelector('.display-wordmark')).opacity==='1'),'no empty travel and readable static typography in reduced motion');
                 await travel.emulateMedia({reducedMotion:'no-preference'});
                 await travel.waitForFunction(()=>document.documentElement.dataset.journey==='on');
                 await measure(0);
@@ -669,6 +669,53 @@ jobs:
             }
             writeFileSync('/tmp/threshold-evidence/exploration.json',JSON.stringify(exploration,null,2));
             // Run the default animated route separately from deterministic material comparisons.
+
+            // P03: native project disclosures, keyboard and reverse-travel focus.
+            const explorationIndex=[];
+            for(const [width,height] of [[320,568],[390,844],[768,1024],[1440,900],[844,390]]){
+              const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
+              const errors=[];page.on('pageerror',e=>errors.push(e.message));
+              await page.goto(baseURL+'?ambient=off');
+              await page.waitForFunction(()=>document.documentElement.dataset.journey==='on');
+              const section=page.locator('.exploration');
+              assert(await section.evaluate(e=>e.inert));assert(!(await section.isVisible()));
+              const scroll=async p=>{
+                await page.evaluate(p=>{const s=document.scrollingElement;s.scrollTop=Math.round((s.scrollHeight-s.clientHeight)*p)},p);
+                await page.waitForFunction(p=>{const d=document.querySelector('#scene-study').dataset;return Math.abs(+d.progress-p)<.002},p);
+              };
+              await scroll(1);
+              await page.waitForFunction(()=>document.querySelector('.journey-stage').dataset.exploration==='active');
+              assert(await section.isVisible());assert(!(await section.evaluate(e=>e.inert)));
+              const summaries=section.locator('summary');assert.equal(await summaries.count(),3);
+              const record={width,height,projects:[]};
+              await page.screenshot({path:'/tmp/threshold-evidence/index-'+width+'x'+height+'.png'});
+              for(let i=0;i<3;i++){
+                const summary=summaries.nth(i);
+                await summary.focus();await page.keyboard.press('Enter');
+                const detail=section.locator('details').nth(i);
+                assert(await detail.evaluate(e=>e.open));
+                assert.equal(await section.locator('details[open]').count(),1);
+                const state=await page.evaluate(()=>{
+                  const e=document.querySelector('.exploration'),b=e.getBoundingClientRect(),s=document.scrollingElement;
+                  const rows=[...e.querySelectorAll('summary')].map(r=>r.getBoundingClientRect().toJSON());
+                  const desc=e.querySelector('details[open] .project-description').getBoundingClientRect().toJSON();
+                  return {box:b.toJSON(),rows,desc,scroll:s.scrollTop,range:s.scrollHeight-s.clientHeight,overflow:s.scrollWidth>s.clientWidth+1,header:document.querySelector('.masthead').getBoundingClientRect().bottom};
+                });
+                record.projects.push(state);
+                assert(!state.overflow&&state.scroll===state.range,'disclosure does not alter journey');
+                for(const r of [...state.rows,state.desc])assert(r.top>=state.header-1&&r.bottom<=height+1&&r.left>=0&&r.right<=width+1,'content fits stage');
+                assert(state.rows.every(r=>r.height>=44),'accessible targets');
+                await page.screenshot({path:'/tmp/threshold-evidence/index-'+width+'x'+height+'-'+i+'.png'});
+              }
+              await scroll(.8);
+              await page.waitForFunction(()=>document.querySelector('.journey-stage').dataset.exploration==='off');
+              assert(await section.evaluate(e=>e.inert));assert(!(await section.isVisible()));
+              assert(await page.locator('.masthead .wordmark').evaluate(e=>e===document.activeElement),'focus restored before index hides');
+              await scroll(1);await page.waitForFunction(()=>document.querySelector('.journey-stage').dataset.exploration==='active');
+              assert.equal(await section.locator('details[open]').count(),1,'selection survives reverse travel');
+              assert.deepEqual(errors,[]);explorationIndex.push(record);await page.close();
+            }
+            writeFileSync('/tmp/threshold-evidence/exploration-index.json',JSON.stringify(explorationIndex,null,2));
             const moving=await browser.newPage({viewport:{width:1024,height:768},deviceScaleFactor:1});
             const movingErrors=[];moving.on('pageerror',e=>movingErrors.push(e.message));
             await moving.goto(baseURL+'?journey=off');
@@ -743,7 +790,7 @@ jobs:
               assert.equal(await staticDesktop.locator('#wordmark-occluder').getAttribute('points'),'');
               assert(await staticDesktop.locator('.scene-fallback').isVisible());
               assert(await staticDesktop.locator('#scene-canvas').isHidden());
-              assert(await staticDesktop.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom+s.scrollTop-s.scrollHeight)<3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}));
+              assert(await staticDesktop.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}));
               await staticDesktop.screenshot({path:'/tmp/threshold-evidence/desktop-static-'+(opts.javaScriptEnabled===false?'nojs':'reduced')+'.png'});
               await staticDesktop.locator('.perspective-editorial').scrollIntoViewIfNeeded();
               await staticDesktop.screenshot({path:'/tmp/threshold-evidence/desktop-static-editorial-'+(opts.javaScriptEnabled===false?'nojs':'reduced')+'.png'});
@@ -756,7 +803,7 @@ jobs:
               assert(await page.locator('#scene-canvas').isHidden());
               assert(await page.locator('.scene-fallback').isVisible());
               assert(await page.locator('.fallback-portrait').isVisible());
-              assert(await page.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom+s.scrollTop-s.scrollHeight)<3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}));
+              assert(await page.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}));
               assert(await page.locator('#perspective-heading').isVisible());
               await page.screenshot({path:'/tmp/threshold-evidence/portrait-static-'+(opts.javaScriptEnabled===false?'nojs':'reduced')+'.png'});
               await page.close();
@@ -767,8 +814,8 @@ jobs:
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
-            assert(await unavailable.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom+s.scrollTop-s.scrollHeight)<3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P02a',verification:'P02a',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            assert(await unavailable.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}),'graphics fallback has no empty travel');await unavailable.close();
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P03',verification:'P03',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
@@ -804,5 +851,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-P02a-transition-evidence
+          name: threshold-P03-transition-evidence
           path: /tmp/threshold-transition/

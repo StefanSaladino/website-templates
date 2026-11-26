@@ -319,3 +319,61 @@ footer { opacity: var(--footer-opacity, 1); }
   z-index: -1;
   pointer-events: none;
 }
+
+/* P03: one editorial index, not a card collection. Semantic disclosures
+   work without WebGL or JavaScript; the live stage uses the same content. */
+.exploration {
+  color: #eeece5; background: #243fce; padding: clamp(1.25rem,5vw,5rem);
+  display: grid; gap: 1.5rem;
+}
+.exploration-index,.exploration-list-label,.project-category {
+  font-size: .67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .11em; margin: 0;
+}
+.exploration-intro h2 { font-size: clamp(2.5rem,8vw,7rem); font-weight: 800; line-height: .87; letter-spacing: -.075em; margin: .6rem 0 .75rem; }
+.exploration-intro > p:last-child { max-width: 32ch; margin: 0; font-size: .9rem; line-height: 1.45; }
+.exploration-list-label { margin-bottom: .6rem; }
+.exploration-projects { min-width: 0; }
+.exploration-projects details { border-top: 1px solid #eeece580; }
+.exploration-projects details:last-child { border-bottom: 1px solid #eeece580; }
+.exploration-projects summary {
+  min-height: 44px; display: grid; grid-template-columns: 1.8rem minmax(0,1fr) 1.1rem;
+  gap: .55rem; align-items: center; padding: .55rem 0; list-style: none; cursor: pointer;
+}
+.exploration-projects summary::-webkit-details-marker { display: none; }
+.project-number { font-size: .65rem; font-weight: 600; align-self: center; }
+.project-name { font-size: clamp(1.25rem,3.3vw,3.4rem); line-height: 1; font-weight: 800; letter-spacing: -.055em; }
+.project-toggle { position: relative; width: 1rem; height: 1rem; }
+.project-toggle::before,.project-toggle::after { content: ""; position: absolute; background: currentColor; top: 50%; left: 0; width: 100%; height: 1px; }
+.project-toggle::after { transform: rotate(90deg); }
+details[open] .project-toggle::after { transform: none; }
+.project-description { padding: 0 1.2rem .75rem 2.35rem; }
+.project-description p:last-child { font-size: .82rem; line-height: 1.35; max-width: 44ch; margin: .35rem 0 0; }
+.exploration summary:focus-visible { outline: 2px solid #eeece5; outline-offset: -2px; }
+@media (min-aspect-ratio:6/5) {
+  .exploration { grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: center; gap: 6vw; }
+}
+:root[data-journey="on"] .exploration {
+  position: absolute; z-index: 1; background: transparent;
+  inset: max(66px,calc(env(safe-area-inset-top) + 54px)) max(4vw,1rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) max(4vw,1rem,env(safe-area-inset-left));
+  padding: 0; align-content: center;
+  opacity: var(--exploration-opacity,0); visibility: hidden; pointer-events: none;
+}
+:root[data-journey="on"] .journey-stage:is([data-exploration="entering"],[data-exploration="active"]) .exploration { visibility: visible; }
+:root[data-journey="on"] .journey-stage[data-exploration="active"] .exploration { pointer-events: auto; }
+:root[data-journey="off"] main:has(.scene-study[data-renderer="webgl"]) .exploration { display: none; }
+@media (max-aspect-ratio:1199/1000) {
+  :root[data-journey="on"] .exploration { gap: clamp(.9rem,3vh,2rem); }
+  .exploration-intro h2 { font-size: clamp(2.5rem,12vw,5.5rem); }
+}
+@media (max-height:640px) {
+  :root[data-journey="on"] .exploration { gap: .7rem; }
+  :root[data-journey="on"] .exploration-intro h2 { font-size: clamp(2rem,min(10vw,9vh),3.4rem); margin: .35rem 0 .45rem; }
+  :root[data-journey="on"] .exploration-intro > p:last-child { font-size: .78rem; }
+  :root[data-journey="on"] .exploration-list-label { margin-bottom: .3rem; }
+  :root[data-journey="on"] .project-name { font-size: clamp(1.25rem,3.5vw,2rem); }
+  :root[data-journey="on"] .project-description { padding-bottom: .4rem; }
+  :root[data-journey="on"] .project-description p:last-child { font-size: .75rem; }
+}
+@media (min-aspect-ratio:6/5) and (max-height:479px) {
+  :root[data-journey="on"] .exploration { gap: 5vw; }
+}

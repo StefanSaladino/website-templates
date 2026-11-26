@@ -946,3 +946,5 @@ The museum/David direction and former T19–T24 creative roadmap are superseded.
 THRESHOLD P02 review candidate: graphic-only optical composition, dedicated wide editorial column, centered portrait and inverted central letterform. P01 dense transition passed; P01a Node/Pages passed, full browser evidence pending at edit. See dedicated roadmap; no catalogue change.
 
 THRESHOLD P02a: P01a full browser and P02 foundation/Pages passed. Actual P02 renders confirm separated artwork/copy; compact landscape nav crosses cobalt aperture. Add local matte nav registration tabs only during graphic Perspective with pixel regression. Exact P02a evidence and stakeholder approval pending; no gallery changes.
+
+THRESHOLD P03: P02a exact browser/deployment passed; stakeholder continuation authorizes isolated Exploration index. Three native concept disclosures in the existing cobalt room, static fallback, no new assets or geometry. Project interactions P04–P06 remain open. P03 verification pending; no catalogue changes.

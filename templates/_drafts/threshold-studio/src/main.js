@@ -1,21 +1,34 @@
-import {graphicAmount} from './graphic.js?v=P02a';
-import {RELEASE} from './config.js?v=P02a';
-import {createRenderer} from './renderer.js?v=P02a';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition} from './camera.js?v=P02a';
-import {createScheduler} from './lifecycle.js?v=P02a';
-import {wordmarkOcclusion} from './wordmark.js?v=P02a';
-import {createAmbientClock} from './ambient.js?v=P02a';
-import {readProgress} from './scroll.js?v=P02a';
-import {typographyPose} from './typography.js?v=P02a';
-import {FOLDS,foldAmount} from './sculptures.js?v=P02a';
-import {perspectivePose,perspectivePresence} from './editorial.js?v=P02a';
+import {graphicAmount} from './graphic.js?v=P03';
+import {RELEASE} from './config.js?v=P03';
+import {createRenderer} from './renderer.js?v=P03';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition} from './camera.js?v=P03';
+import {createScheduler} from './lifecycle.js?v=P03';
+import {wordmarkOcclusion} from './wordmark.js?v=P03';
+import {createAmbientClock} from './ambient.js?v=P03';
+import {readProgress} from './scroll.js?v=P03';
+import {typographyPose} from './typography.js?v=P03';
+import {FOLDS,foldAmount} from './sculptures.js?v=P03';
+import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P03';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
   const study=document.querySelector('#scene-study'),surface=study.querySelector('.scene-surface'),canvas=study.querySelector('canvas');
   const mark=document.querySelector('.display-wordmark'),occluder=document.querySelector('#wordmark-occluder');
   const stage=document.querySelector('.journey-stage'),header=stage.querySelector('.masthead'),footer=stage.querySelector('footer');
-  let lastType='',lastEditorial='';
+  const exploration=stage.querySelector('.exploration');
+  let lastType='',lastEditorial='',lastExploration='';
+  function applyExploration(progress,available,staticMode=false){
+    const {opacity,active}=explorationPose(progress,available);
+    const mode=staticMode?'static':active?'active':opacity>0?'entering':'off';
+    const key=mode+'|'+opacity.toFixed(6);
+    if(key===lastExploration)return;
+    if(!staticMode&&!active&&exploration.contains(document.activeElement))header.querySelector('.wordmark').focus({preventScroll:true});
+    exploration.inert=!staticMode&&!active;
+    stage.dataset.exploration=mode;
+    stage.style.setProperty('--exploration-opacity',opacity.toFixed(6));
+    study.dataset.exploration=mode;
+    lastExploration=key;
+  }
   function applyEditorial(progress,presence=1){
     const t=perspectivePose(progress),opacity=(t.opacity*presence).toFixed(6),rise=(t.rise+20*(1-presence)).toFixed(3)+'px';
     const key=opacity+'|'+rise;
@@ -58,7 +71,7 @@ function start(){
   setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
-  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
+  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);applyExploration(0,false,!journeyActive);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   // A preference change can become visible to the frame scheduler before the
   // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
   function eligible(){
@@ -93,6 +106,7 @@ function start(){
       // The navigation adopts ink only after the camera has cleared the red throat.
       stage.dataset.room=pose.eye[2]<=-20.4?'exploration':pose.eye[2]<=-7.2?'perspective':'arrival';
       applyEditorial(!approachOnly&&!crossingOnly&&journeyActive?perspectiveProgress:0,presence);
+      applyExploration(progress,graphic&&fullTrack&&journeyActive&&stage.dataset.room==='exploration');
       study.dataset.graphic=graphic?'on':'off';study.dataset.graphicAmount=(graphic?graphicAmount(perspectiveProgress):0).toFixed(6);
       study.dataset.folds=FOLDS.map(f=>foldAmount(f,foldProgress).toFixed(6)).join(',');
       study.dataset.sculptureUploads=String(result.sculptureUploads);
