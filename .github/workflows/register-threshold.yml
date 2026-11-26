@@ -17,6 +17,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Require exact approved draft evidence
         env:
           GH_TOKEN: ${{ github.token }}
@@ -35,6 +37,7 @@ jobs:
       - name: Prepare approved gallery route
         run: |
           if [ ! -d templates/threshold-studio ]; then
+            git cat-file -e bf8e38cdd0205b3e7d03300fc4f4450f4153e441^{commit}
             git diff --exit-code bf8e38cdd0205b3e7d03300fc4f4450f4153e441 HEAD -- templates/_drafts/threshold-studio
             node components/scripts/prepare-threshold-registration.mjs
           fi
