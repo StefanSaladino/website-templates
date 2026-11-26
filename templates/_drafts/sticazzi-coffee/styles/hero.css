@@ -153,14 +153,14 @@
  .ritual-caption{bottom:.8rem}
 }
 
-/* S08d — campaign reprise. Fixed photography, editorial type, no image zoom. */
+/* S08d2 — grounded espresso coda. Preserve the entire photographic base and contact shadow. */
 .ritual-next{display:inline-flex;min-height:48px;align-items:center;gap:.7rem;margin-left:0;font-size:.83rem;color:var(--muted);text-decoration:underline;text-underline-offset:.3em}
-.last-word{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,42fr) minmax(0,58fr);align-items:center;min-height:100svh;overflow:hidden;background:#1b0c07;color:var(--paper);scroll-margin-top:0;padding-block:clamp(3rem,7svh,6rem) 5rem}
+.last-word{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);align-items:center;min-height:100svh;overflow:hidden;background:#1b0c07;color:var(--paper);scroll-margin-top:0;padding-block:clamp(3rem,7svh,6rem) 5rem}
 .last-word-copy{grid-column:1;grid-row:1;position:relative;z-index:1;min-width:0;padding:clamp(1rem,3vw,3rem) 0 clamp(1rem,3vw,3rem) clamp(1.2rem,5vw,6rem)}
 .last-word-art{grid-column:2;grid-row:1;position:relative;isolation:isolate;overflow:hidden;pointer-events:none;align-self:center}
-.last-word-art picture{display:block;position:relative;width:100%;aspect-ratio:5/4}
-.last-word-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:100% 50%;transform:none}
-.last-word-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#1b0c07 0%,transparent 8%,transparent 97%,#1b0c0755 100%),linear-gradient(180deg,#1b0c07 0%,transparent 8%,transparent 88%,#1b0c07 100%)}
+.last-word-art picture{display:block;position:relative;width:100%;aspect-ratio:4/3}
+.last-word-art img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;transform:none}
+.last-word-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#1b0c07 0%,transparent 9%,transparent 100%),linear-gradient(180deg,#1b0c07 0%,transparent 9%,transparent 97%,#1b0c07 100%)}
 .last-word-brand{font-weight:900;font-size:clamp(.8rem,1.2vw,1.05rem);letter-spacing:.18em;color:#dca36b;margin:0 0 1.35rem}
 .last-word h2{margin:0;font-weight:900;line-height:.96;letter-spacing:-.065em}
 .last-word-setup{display:block;font-size:clamp(1.75rem,3.3vw,3.8rem);letter-spacing:-.045em;color:#dca36b;font-weight:700;margin-bottom:.3em;line-height:1.12}
@@ -178,9 +178,9 @@
 @media(max-aspect-ratio:5/6){
  .last-word{display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:0;padding:clamp(2.7rem,6svh,4.5rem) 0 max(4rem,calc(env(safe-area-inset-bottom) + 3rem));min-height:100svh}
  .last-word-copy{order:0;padding:0 1.2rem .5rem;width:100%;max-width:40rem}
- .last-word-art{order:1;width:100%;align-self:stretch}
- .last-word-art picture{aspect-ratio:5/4}
- .last-word-art::after{background:linear-gradient(180deg,#1b0c07 0%,transparent 8%,transparent 89%,#1b0c07 100%)}
+ .last-word-art{order:1;width:100%;align-self:stretch;margin-top:.7rem}
+ .last-word-art picture{aspect-ratio:4/3}
+ .last-word-art::after{background:linear-gradient(180deg,#1b0c07 0%,transparent 8%,transparent 97%,#1b0c07 100%)}
  .last-word-punch{font-size:clamp(2.6rem,10.4vw,5.2rem);max-width:15ch}
  .last-word-setup{font-size:clamp(1.65rem,6.4vw,3rem)}
  .last-word-caption{font-size:.5rem;bottom:max(1.1rem,env(safe-area-inset-bottom))}

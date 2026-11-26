@@ -8,3 +8,5 @@ S08c: existing real cup and background assets retained; fixed composition, tonal
 S08c2: user-approved AI-generated photographic recreation of the original cup and saucer reference, 1448 × 1086, with a complete warm stone environment and integrated shadow. Not an exact upscaled copy or original photograph. Target asset ritual-espresso.webp. Prior source photograph remains in repository history.
 
 S08d: closing artwork reuses the intact original generated Espresso hero.webp, with a right-aligned crop only; no new source artwork, composites or additional rights claims.
+
+S08d2: closing now reprises approved ritual-espresso.webp, full frame; retired the levitating-bag hero photo from this chapter only. No new image assets.
