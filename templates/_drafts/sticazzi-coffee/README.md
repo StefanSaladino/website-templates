@@ -1,4 +1,4 @@
-# STICAZZI COFFEE / S08c
+# STICAZZI COFFEE / S08c2
 Bilingual EN/IT photographic website prototype. Open index.html or it.html, or serve the directory with a static HTTP server. No 3D geometry, WebGL, external libraries, analytics, checkout, or network assets. The campaign is fictional; the Ritual cup uses the actual user-supplied espresso photograph over a generated studio background.
 
 ## Implemented
@@ -46,3 +46,6 @@ Stakeholder still perceived stretching in S08b3. Pages run 45824197973 succeeded
 
 ## S08c — Ritual composition
 Stakeholder chose to continue rather than revisit bag motion. S08b4 Pages run 45824450273 passed; browser run 45824452758 was running at review. No hero behavior changes. Recompose the real cup as a smaller, lower, less saturated photographic subject against the existing warm counter. Desktop text stays on left; portrait uses one continuous image-to-copy composition, not a separate image block. Existing cup assets retained unchanged, with fixed CSS placement and no scroll zoom; no new generated image, no claim of corrected source extraction. The low-resolution real photo and baked shadow remain a limitation; exact rendered review and photo reuse rights remain open. Preserve bilingual copy, native links, reduced motion and responsive layout. S08d closing still life next; no gallery registration.
+
+## S08c2 — approved recreated espresso artwork (asset handoff)
+S08c interaction and Pages workflows 45824696336 and 45824695375 completed successfully. Stakeholder approved a new generated photorealistic recreation of the white cup, 1448 × 1086. Replace both extracted cup/background layers with the single intact `assets/ritual-espresso.webp` photograph. Desktop composition places the image on the right with edge blends; mobile preserves the entire 4:3 frame with natural document flow. No movement, image stretching, filters, or new JS. Source edits staged on sticazzi-ritual-photo pending upload of the optimized WebP; do not merge or publish until that exact asset is present and new audit passes. S08d closing chapter unchanged.

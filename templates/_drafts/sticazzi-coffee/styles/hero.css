@@ -117,16 +117,14 @@
 }
 @media(prefers-reduced-motion:reduce){.hero[data-selecting=true] .filter-still{transition:none}}
 
-/* S08c — the real espresso photograph in a grounded editorial composition.
-   Fixed photographic proportions; no zoom or separately animated cutout. */
+/* S08c2 — one intact high-resolution coffee scene; no extracted layers.
+   Keep the original 4:3 photographic geometry and its real-looking shadow. */
 .ritual{position:relative;isolation:isolate;min-height:100svh;display:grid;align-items:center;overflow:hidden;background:#1b0c07;color:var(--paper);scroll-margin-top:0}
-.ritual-visual{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#1b0c07;pointer-events:none}
-.ritual-visual picture{position:absolute;inset:0;display:block}
-.ritual-visual img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transform:none}
-.ritual-visual .ritual-cup{inset:0;transform-origin:73% 82%;transform:translate(0,3.5%) scale(.71)}
-.ritual-visual .ritual-cup img{filter:brightness(.87) saturate(.89) contrast(1.035)}
-.ritual::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(90deg,#1b0c07e8 0%,#1b0c07ac 32%,#1b0c0720 57%,transparent 80%),linear-gradient(180deg,#1b0c07 0%,transparent 13%,transparent 90%,#1b0c07 100%)}
-.ritual-copy{position:relative;width:min(49%,43rem);padding:clamp(5rem,10vh,9rem) 1.2rem 6rem clamp(1.2rem,5vw,6rem);z-index:1}
+.ritual-visual{position:absolute;inset:0 0 0 39%;z-index:-2;display:grid;align-items:center;overflow:hidden;pointer-events:none}
+.ritual-visual picture{display:block;width:100%;position:relative}
+.ritual-visual img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;transform:none}
+.ritual-visual picture::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#1b0c07 0%,#1b0c0700 19%,transparent 95%,#1b0c0740 100%),linear-gradient(180deg,#1b0c07 0%,transparent 13%,transparent 88%,#1b0c07 100%)}
+.ritual-copy{position:relative;width:min(44%,44rem);padding:clamp(5rem,10vh,9rem) 1.2rem 6rem clamp(1.2rem,5vw,6rem);z-index:1}
 .ritual h2{font-size:clamp(2.8rem,5.5vw,6.5rem);line-height:.96;letter-spacing:-.065em;margin:0 0 1.4rem;font-weight:900;text-wrap:balance}
 .ritual-copy p:not(.eyebrow){font-size:clamp(.95rem,1.25vw,1.12rem);line-height:1.65;max-width:36ch;color:var(--muted);margin:0 0 1.4rem}
 .ritual-copy p.ritual-lead{font-size:clamp(1.15rem,2vw,1.8rem);line-height:1.2;color:var(--paper);font-weight:700}
@@ -138,12 +136,10 @@
 .story-link span{height:23px;border-left:1px solid #e4c7af}
 :root[data-journey=on] .hero[data-chapter=roast] .scroll-link{display:none}
 @media(max-aspect-ratio:5/6){
- .ritual{display:grid;align-items:end;min-height:100svh}
- .ritual-visual{position:absolute;inset:0 0 auto;height:clamp(17rem,49svh,30rem);z-index:-2}
- .ritual-visual img{object-position:50% 65%}
- .ritual-visual .ritual-cup{transform-origin:49% 82%;transform:translate(2%,3%) scale(.67)}
- .ritual::after{display:block;background:linear-gradient(180deg,#1b0c07 0%,transparent 8%,transparent 28%,#1b0c0700 35%,#1b0c07 55%);background-size:100% clamp(28rem,76svh,47rem);background-repeat:no-repeat}
- .ritual-copy{width:100%;max-width:40rem;padding:clamp(15rem,43svh,27rem) 1.2rem max(4.5rem,calc(env(safe-area-inset-bottom) + 3rem));margin:0}
+ .ritual{display:flex;flex-direction:column;align-items:stretch;justify-content:center;min-height:100svh}
+ .ritual-visual{position:relative;inset:auto;z-index:0;width:100%;display:block}
+ .ritual-visual picture::after{background:linear-gradient(180deg,#1b0c07 0%,transparent 9%,transparent 88%,#1b0c07 100%)}
+ .ritual-copy{width:100%;max-width:40rem;padding:0 1.2rem max(4.5rem,calc(env(safe-area-inset-bottom) + 3rem));margin:0}
  .ritual h2{font-size:clamp(2.45rem,9.5vw,4.8rem);margin-bottom:1rem}
  .ritual-copy p:not(.eyebrow){font-size:.92rem;line-height:1.55;margin-bottom:1rem}
  .ritual-copy p.ritual-lead{font-size:1.15rem}
@@ -151,7 +147,7 @@
  .story-link{min-height:44px;gap:.3rem}.story-link span{height:12px}
 }
 @media(min-aspect-ratio:5/6) and (max-height:520px){
- .ritual-copy{padding:3.7rem 1rem 3rem 1.2rem;width:53%}
+ .ritual-copy{padding:3.7rem 1rem 3rem 1.2rem;width:47%}
  .ritual h2{font-size:clamp(2rem,5.5vw,4rem)}
  .ritual-copy p:not(.eyebrow){font-size:.86rem;margin-bottom:.7rem}
  .ritual-caption{bottom:.8rem}
