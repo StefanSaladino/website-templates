@@ -978,3 +978,5 @@ THRESHOLD P08f: P08e all three audits and deployment passed, actual 4x AA confir
 THRESHOLD P08g: P08f passed all audits; actual sequence shows near-black gap and early off-axis framing. Add cobalt-to-charcoal material handoff, gradual earlier aperture emission, late centered optical reframing; preserve endpoints, full quality and layout. Exact review pending.
 
 THRESHOLD P08h: experiment-specific graphic art direction and wider artwork field; retain existing state, accessible controls and full quality. Correct P08g Float32 optical bound test tolerance; P08h exact QA pending. No gallery promotion.
+
+THRESHOLD P08i: closing interaction becomes numbered editorial direction selection; native controls, no text blocks, darker scene, stale brief invalidation and scroll-away recovery. P08g transition/performance passed; P08h exact browser results pending at edit. No gallery promotion.
