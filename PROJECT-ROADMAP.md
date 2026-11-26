@@ -984,3 +984,6 @@ THRESHOLD P08i: closing interaction becomes numbered editorial direction selecti
 THRESHOLD P08j: holistic review of P08f actual sequence, latest exact audits pending in part. Complete semantic no-JS ending; add default-route reduced-motion/no-WebGL/no-JS checks plus five-viewport full journey forward/reverse pixel evidence. No change to restored live composition or full quality; no gallery registration.
 
 THRESHOLD P09a: exact P08j review run 45739615406 completed with all three jobs successful. Registration run 45740278903 failed before preparing the route (git diff fatal: bad object, exit 128), because actions/checkout default depth 1 omitted the approved parent commit. Fetch full history and explicitly verify the approved commit exists before comparing draft source. Preserve all evidence, permanent-route, capture, build and publication gates. No change to approved runtime. Registration retry is required.
+
+## P09 — Approved gallery registration
+Stakeholder authorized gallery-only registration of P08j. Exact draft review run 45739615406 must pass before candidate publication; real-route checks, actual opening capture and complete showroom build required. 41 gallery previews, 35 configurator templates. No runtime design changes; original draft route preserves query/hash. Physical-device FPS and full WCAG conformance not certified.

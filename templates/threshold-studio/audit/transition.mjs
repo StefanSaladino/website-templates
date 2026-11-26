@@ -1,11 +1,11 @@
-// Run from components: node --input-type=module < ../templates/_drafts/threshold-studio/audit/transition.mjs
+// Run from components: node --input-type=module < ../templates/threshold-studio/audit/transition.mjs
 import assert from 'node:assert/strict';
 import {chromium} from 'playwright';
 import sharp from 'sharp';
 import {mkdirSync,writeFileSync,copyFileSync} from 'node:fs';
 const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
-const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
+const base='http://127.0.0.1:4381/templates/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P08j',verification:'P08j',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}

@@ -200,6 +200,13 @@
     "route": "../templates/tattoo-studio/"
   },
   {
+    "slug": "threshold-studio",
+    "title": "THRESHOLD / Beyond the ordinary",
+    "route": "../templates/threshold-studio/",
+    "configuratorStatus": "gallery-only",
+    "configuratorBlocker": "Persistent native-scroll WebGL world and custom interactive experiments require dedicated configurator review"
+  },
+  {
     "slug": "waitlist",
     "title": "Waitlist",
     "route": "../templates/waitlist/"

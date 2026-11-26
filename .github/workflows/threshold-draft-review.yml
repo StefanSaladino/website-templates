@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'templates/_drafts/threshold-studio/**'
+      - 'templates/threshold-studio/**'
       - '.github/workflows/threshold-draft-review.yml'
   workflow_dispatch:
 permissions:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm test
-        working-directory: templates/_drafts/threshold-studio
+        working-directory: templates/threshold-studio
       - run: npm install --no-audit --no-fund
         working-directory: components
       - run: npx playwright install --with-deps chromium
@@ -30,7 +30,7 @@ jobs:
           SERVER=$!
           trap 'kill "$SERVER" 2>/dev/null || true' EXIT
           for i in $(seq 1 30); do
-            if curl -fsS -I http://127.0.0.1:4381/templates/_drafts/threshold-studio/ >/dev/null; then break; fi
+            if curl -fsS -I http://127.0.0.1:4381/templates/threshold-studio/ >/dev/null; then break; fi
             sleep 1
           done
           node --input-type=module <<'JS'
@@ -39,7 +39,7 @@ jobs:
           import sharp from 'sharp';
           import {mkdirSync,writeFileSync} from 'node:fs';
           mkdirSync('/tmp/threshold-evidence',{recursive:true});
-          const baseURL='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
+          const baseURL='http://127.0.0.1:4381/templates/threshold-studio/';
           const url=baseURL+'?ambient=off&journey=off';
           const captureStyle='.masthead,.opening-copy,.display-wordmark,.perspective-editorial,.exploration,footer,.skip-link{visibility:hidden!important} main{outline:none!important}';
           const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
@@ -1263,10 +1263,10 @@ jobs:
           SERVER=$!
           trap 'kill "$SERVER" 2>/dev/null || true' EXIT
           for i in $(seq 1 30); do
-            if curl -fsS -I http://127.0.0.1:4381/templates/_drafts/threshold-studio/ >/dev/null; then break; fi
+            if curl -fsS -I http://127.0.0.1:4381/templates/threshold-studio/ >/dev/null; then break; fi
             sleep 1
           done
-          node --input-type=module < ../templates/_drafts/threshold-studio/audit/transition.mjs
+          node --input-type=module < ../templates/threshold-studio/audit/transition.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -1292,10 +1292,10 @@ jobs:
           SERVER=$!
           trap 'kill "$SERVER" 2>/dev/null || true' EXIT
           for i in $(seq 1 30); do
-            if curl -fsS -I http://127.0.0.1:4381/templates/_drafts/threshold-studio/ >/dev/null; then break; fi
+            if curl -fsS -I http://127.0.0.1:4381/templates/threshold-studio/ >/dev/null; then break; fi
             sleep 1
           done
-          node --input-type=module < ../templates/_drafts/threshold-studio/audit/performance.mjs
+          node --input-type=module < ../templates/threshold-studio/audit/performance.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

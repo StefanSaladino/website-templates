@@ -6,7 +6,7 @@ import {mkdirSync,writeFileSync} from 'node:fs';
 const out='/tmp/threshold-performance';
 mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
+const base='http://127.0.0.1:4381/templates/threshold-studio/';
 const quantile=(a,q)=>{const sorted=a.slice().sort((x,y)=>x-y);return sorted.length?sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*q))]:null};
 const stats=a=>({median:quantile(a,.5),p95:quantile(a,.95),max:a.length?Math.max(...a):null});
 const report={commit:process.env.GITHUB_SHA,method:'Chromium software WebGL (SwiftShader); frame submissions, not physical display FPS. Continuous rAF-driven native scroll for 4 seconds; no screenshot/video in timed section.',profiles:[]};

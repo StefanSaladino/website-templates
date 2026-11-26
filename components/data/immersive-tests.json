@@ -489,5 +489,13 @@
       "test-relay-registration.mjs"
     ],
     "reason": "Five deterministic motion and connector suites plus real-route responsive browser and interaction checks."
+  },
+  "threshold-studio": {
+    "dedicated": true,
+    "workflow": ".github/workflows/register-threshold.yml",
+    "scripts": [
+      "test-threshold-registration.mjs"
+    ],
+    "reason": "Full draft foundation, reversible transition and performance gates plus permanent-route responsive browser checks."
   }
 }
