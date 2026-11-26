@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-release="P04">
+<html lang="en" data-release="P05">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#090909">
   <meta name="description" content="THRESHOLD — an independent digital experience studio concept.">
   <title>THRESHOLD — Beyond the ordinary</title>
-  <link rel="stylesheet" href="styles/base.css?v=P04">
-  <link rel="stylesheet" href="styles/shell.css?v=P04">
-  <script type="module" src="src/main.js?v=P04"></script>
+  <link rel="stylesheet" href="styles/base.css?v=P05">
+  <link rel="stylesheet" href="styles/shell.css?v=P05">
+  <script type="module" src="src/main.js?v=P05"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -109,7 +109,7 @@
         </details>
         <details name="threshold-project">
           <summary><span class="project-number">02</span><span class="project-name">FORM</span><span class="project-toggle" aria-hidden="true"></span></summary>
-          <div class="project-description"><p class="project-category">Interactive brand experiences</p><p>Discover how a modular visual identity can recompose itself into new forms.</p></div>
+          <div class="project-description"><p class="project-category">Interactive brand experiences</p><p>Discover how a modular visual identity can recompose itself into new forms.</p><button class="study-launch" type="button" hidden data-form-launch>Enter experiment</button></div>
         </details>
         <details name="threshold-project">
           <summary><span class="project-number">03</span><span class="project-name">SIGNAL</span><span class="project-toggle" aria-hidden="true"></span></summary>
@@ -138,6 +138,32 @@
             <div class="parallax-status"><label for="parallax-view">Viewpoint / horizontal</label><output for="parallax-view" id="parallax-output">0 · Misaligned</output></div>
             <input type="range" id="parallax-view" min="-100" max="100" step="1" value="0">
             <div class="parallax-status"><span aria-hidden="true">Left / Right</span><button type="button" data-parallax-reset>Reset viewpoint</button></div>
+          </div>
+        </div>
+      </section>
+      <section class="form-study" aria-labelledby="form-heading" hidden>
+        <div class="form-copy">
+          <button type="button" class="study-return" data-form-return>Return to experiments</button>
+          <p class="exploration-index">02 / Interactive brand experiences</p>
+          <h3 id="form-heading">FORM</h3>
+          <p>One alphabet. Multiple identities. Recompose the same four glyphs into three distinct graphic systems.</p>
+        </div>
+        <div class="form-work">
+          <svg class="form-art" viewBox="0 0 480 240" role="img" aria-label="FORM modular wordmark in horizontal composition">
+            <rect width="480" height="240" fill="#eeece5"/>
+            <path d="M20 20h12m-12 0v12m440-12h-12m12 0v12M20 220h12m-12 0v-12m440 12h-12m12 0v-12" stroke="#898780" fill="none"/>
+            <g data-glyph="F" style="transform:translate(44px,70px) scale(1)"><path d="M0 0H70V22H24V42H59V64H24V100H0Z" fill="#15151a"/></g>
+            <g data-glyph="O" style="transform:translate(151px,70px) scale(1)"><path fill-rule="evenodd" d="M0 0H70V100H0Z M24 22V78H46V22Z" fill="#15151a"/></g>
+            <g data-glyph="R" style="transform:translate(258px,70px) scale(1)"><path fill-rule="evenodd" d="M0 0H70V60H46L70 100H42L24 68V100H0Z M24 22V40H46V22Z" fill="#15151a"/></g>
+            <g data-glyph="M" style="transform:translate(365px,70px) scale(1)"><path d="M0 0H24L35 30L46 0H70V100H46V48L35 76L24 48V100H0Z" fill="#ff3823"/></g>
+          </svg>
+          <div class="form-controls">
+            <div class="parallax-status"><span>Composition</span><output id="form-output" aria-live="polite">01 / Wordmark</output></div>
+            <div class="form-options" role="group" aria-label="Choose a composition">
+              <button type="button" data-form-layout="wordmark" aria-pressed="true">01 Wordmark</button>
+              <button type="button" data-form-layout="stack" aria-pressed="false">02 Stack</button>
+              <button type="button" data-form-layout="poster" aria-pressed="false">03 Poster</button>
+            </div>
           </div>
         </div>
       </section>

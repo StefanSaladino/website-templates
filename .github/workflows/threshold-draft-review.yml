@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P04');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P05');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -766,6 +766,56 @@ jobs:
             assert.equal(await staticStudy.locator('.parallax-study').getAttribute('data-aligned'),'true');
             assert(await staticStudy.locator('#scene-canvas').isHidden());await staticStudy.close();
             writeFileSync('/tmp/threshold-evidence/parallax-review.json',JSON.stringify(parallaxEvidence,null,2));
+
+            // P05: real glyph recomposition and persistent selection.
+            const formEvidence=[];
+            for(const [width,height] of [[320,568],[390,844],[768,1024],[1440,900],[844,390]]){
+              const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
+              const errors=[];page.on('pageerror',e=>errors.push(e.message));
+              await page.goto(baseURL+'?ambient=off');
+              await page.waitForFunction(()=>document.documentElement.dataset.journey==='on');
+              await page.evaluate(()=>{const s=document.scrollingElement;s.scrollTop=s.scrollHeight-s.clientHeight});
+              await page.waitForFunction(()=>document.querySelector('.journey-stage').dataset.exploration==='active');
+              const section=page.locator('.exploration'),study=section.locator('.form-study');
+              const launch=section.locator('[data-form-launch]'),back=study.locator('[data-form-return]');
+              await section.locator('summary').nth(1).click();await launch.click();
+              assert(await study.isVisible());assert(await back.evaluate(e=>e===document.activeElement));
+              const glyphs=await study.locator('[data-glyph]').elementHandles();
+              const layouts=['wordmark','stack','poster'];const pictures=[];const record={width,height,states:[]};
+              for(const layout of layouts){
+                const button=study.locator('[data-form-layout="'+layout+'"]');
+                await button.focus();await page.keyboard.press('Enter');
+                assert.equal(await study.getAttribute('data-layout'),layout);
+                assert.equal(await button.getAttribute('aria-pressed'),'true');
+                assert.equal(await study.locator('button[aria-pressed="true"]').count(),1);
+                await page.waitForFunction(()=>document.querySelector('.form-art').getAnimations({subtree:true}).length===0);
+                for(let i=0;i<4;i++)assert(await glyphs[i].evaluate((e,i)=>e===document.querySelectorAll('.form-art [data-glyph]')[i],i),'same four persistent glyphs');
+                const image=await page.screenshot({path:'/tmp/threshold-evidence/form-'+width+'x'+height+'-'+layout+'.png'});
+                pictures.push(image);
+                const state=await study.evaluate(e=>{
+                  const s=document.scrollingElement,header=document.querySelector('.masthead').getBoundingClientRect();
+                  const art=e.querySelector('svg').getBoundingClientRect();
+                  return {header:header.bottom,scroll:s.scrollTop,range:s.scrollHeight-s.clientHeight,overflow:s.scrollWidth>s.clientWidth+1,art:art.toJSON(),glyphs:[...e.querySelectorAll('[data-glyph]')].map(g=>g.getBoundingClientRect().toJSON()),boxes:[...e.querySelectorAll('button,svg,h3')].map(x=>({tag:x.tagName.toLowerCase(),r:x.getBoundingClientRect().toJSON()}))};
+                });
+                assert(!state.overflow&&state.scroll===state.range);
+                for(const {tag,r} of state.boxes){assert(r.top>=state.header-1&&r.bottom<=height+1&&r.left>=0&&r.right<=width+1,'FORM fits stage '+tag);if(tag==='button')assert(r.height>=44);}
+                for(const r of state.glyphs)assert(r.left>=state.art.left-1&&r.right<=state.art.right+1&&r.top>=state.art.top-1&&r.bottom<=state.art.bottom+1);
+                record.states.push({layout,state});
+              }
+              assert(!pictures[0].equals(pictures[1])&&!pictures[1].equals(pictures[2]));
+              await page.keyboard.press('Escape');assert(!(await study.isVisible()));assert(await launch.evaluate(e=>e===document.activeElement));
+              await launch.click();assert.equal(await study.getAttribute('data-layout'),'poster');
+              await back.click();assert(!(await study.isVisible()));assert.equal(await section.locator('details[open]').count(),1);
+              assert.deepEqual(errors,[]);formEvidence.push(record);await page.close();
+            }
+            const staticForm=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+            await staticForm.goto(baseURL);await staticForm.locator('.exploration summary').nth(1).click();
+            await staticForm.locator('[data-form-launch]').click();
+            await staticForm.locator('[data-form-layout="stack"]').click();
+            assert.equal(await staticForm.locator('.form-study').getAttribute('data-layout'),'stack');
+            assert.equal(await staticForm.locator('.form-art [data-glyph]').first().evaluate(e=>getComputedStyle(e).transitionDuration),'0s');
+            assert(await staticForm.locator('#scene-canvas').isHidden());await staticForm.close();
+            writeFileSync('/tmp/threshold-evidence/form-review.json',JSON.stringify(formEvidence,null,2));
             const moving=await browser.newPage({viewport:{width:1024,height:768},deviceScaleFactor:1});
             const movingErrors=[];moving.on('pageerror',e=>movingErrors.push(e.message));
             await moving.goto(baseURL+'?journey=off');
@@ -865,7 +915,7 @@ jobs:
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
             assert(await unavailable.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P04',verification:'P04',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P05',verification:'P05',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
@@ -901,5 +951,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-P04-transition-evidence
+          name: threshold-P05-transition-evidence
           path: /tmp/threshold-transition/

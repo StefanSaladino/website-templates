@@ -950,3 +950,5 @@ THRESHOLD P02a: P01a full browser and P02 foundation/Pages passed. Actual P02 re
 THRESHOLD P03: P02a exact browser/deployment passed; stakeholder continuation authorizes isolated Exploration index. Three native concept disclosures in the existing cobalt room, static fallback, no new assets or geometry. Project interactions P04–P06 remain open. P03 verification pending; no catalogue changes.
 
 THRESHOLD P04: functional PARALLAX optical alignment within Exploration; pinhole projection, keyboard/touch slider, reset/return, no added runtime dependency or world geometry. P03 unit/Pages passed; full P03/P04 browser review pending. FORM and SIGNAL remain upcoming; no catalogue change.
+
+THRESHOLD P05: FORM modular identity study (four persistent glyphs, wordmark/stack/poster), keyboard, reduced motion and return. P03 dense transition and P04 unit/Pages passed; remaining browser verification pending. SIGNAL next; no catalogue change.
