@@ -1,22 +1,94 @@
 'use strict';
-// S07: real photo layers. Limited translation/tilt, never a simulated 360-degree rotation.
-const hero=document.querySelector('.hero'),control=hero.querySelector('.product-control'),hit=hero.querySelector('.product-hit'),slider=hero.querySelector('#product-motion'),resetButton=hero.querySelector('.motion-reset');
-const reduced=matchMedia('(prefers-reduced-motion: reduce)'), fine=matchMedia('(hover: hover) and (pointer: fine)');
-const layers=[...hero.querySelectorAll('.layer img')];
-let ready=false,frame=0,x=0,y=0,v=0,tx=0,ty=0,tv=0,drag=null;
+// S08a: direct manipulation of the intact photo, with a bounded 2D local
+// warp. No defective extraction plates, no fake rotation, no slider.
+const hero=document.querySelector('.hero'),hit=hero.querySelector('.product-hit');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const still=hero.querySelector('.still img'),camera=hero.querySelector('.scene-camera');
+const canvas=document.createElement('canvas');
+canvas.className='product-motion-canvas';canvas.setAttribute('aria-hidden','true');canvas.hidden=true;
+camera.insertBefore(canvas,camera.querySelector('.filter-still'));
+const ctx=canvas.getContext('2d',{alpha:false});
+let ready=false,frame=0,v=0,tv=0,drag=null,pulse=0,moved=false,source='';
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
-function render(){frame=0;const ease=reduced.matches?1:.17;x+=(tx-x)*ease;y+=(ty-y)*ease;v+=(tv-v)*ease;hero.style.setProperty('--x',`${x.toFixed(2)}px`);hero.style.setProperty('--y',`${y.toFixed(2)}px`);hero.style.setProperty('--bag-x',`${(v*10).toFixed(2)}px`);hero.style.setProperty('--bag-y',`${(-Math.abs(v)*3).toFixed(2)}px`);hero.style.setProperty('--bag-angle',`${(v*.75).toFixed(3)}deg`);if(Math.abs(tx-x)+Math.abs(ty-y)+Math.abs(tv-v)>.025&&!document.hidden)frame=requestAnimationFrame(render)}
+// Artwork-specific envelope, normalized to the original image. The bag
+// translates rigidly within each horizontal band; the nearby background
+// absorbs the displacement. Everything outside that envelope stays fixed.
+const contours={
+ wide:[[.713,.062,.747],[.706,.119,.941],[.647,.30,.935],[.610,.50,.918],[.571,.795,.892],[.684,.857,.868],[.841,.918,.856]],
+ portrait:[[.458,.066,.497],[.438,.115,.895],[.357,.30,.877],[.294,.50,.834],[.207,.79,.772],[.319,.857,.751],[.697,.918,.746]]
+};
+function limits(y,profile){
+ if(y<=profile[0][1])return [profile[0][0],profile[0][2]];
+ for(let i=1;i<profile.length;i++){const a=profile[i-1],b=profile[i];if(y<=b[1]){const f=(y-a[1])/(b[1]-a[1]);return [a[0]+(b[0]-a[0])*f,a[2]+(b[2]-a[2])*f]}}
+ return [profile.at(-1)[0],profile.at(-1)[2]];
+}
+function drawMotion(){
+ if(!ready||!ctx||Math.abs(v)<.003||still.currentSrc!==source||!still.complete||!still.naturalWidth){canvas.hidden=true;return}
+ const w=still.naturalWidth,h=still.naturalHeight;
+ if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h}
+ ctx.drawImage(still,0,0,w,h);
+ const profile=w/h<1.2?contours.portrait:contours.wide;
+ const maxShift=Math.min(w*.018,24),base=v*maxShift;
+ const start=Math.max(0,Math.floor(h*.015)),end=Math.min(h,Math.ceil(h*.978));
+ const band=6,margin=Math.max(12,Math.round(w*.012)),buffer=Math.max(60,Math.round(w*.065));
+ for(let y=start;y<end;y+=band){
+  const bh=Math.min(band,end-y),t=(y+bh*.5)/h;
+  const edge=clamp(Math.min((t-.015)/.045,(.978-t)/.055),0,1);
+  const d=base*edge*edge*(3-2*edge);
+  if(Math.abs(d)<.05)continue;
+  const a=limits(y/h,profile),b=limits((y+bh)/h,profile);
+  const l=clamp(Math.floor(Math.min(a[0],b[0])*w)-margin,1,w-2);
+  const r=clamp(Math.ceil(Math.max(a[1],b[1])*w)+margin,l+1,w-1);
+  const lo=Math.max(0,l-buffer),hi=Math.min(w,r+buffer);
+  const shift=clamp(d,-(l-lo)*.45,(hi-r)*.45);
+  // Integer destinations prevent subpixel seams between adjacent strips.
+  const q=Math.round(shift);
+  if(!q)continue;
+  ctx.drawImage(still,lo,y,l-lo,bh,lo,y,l-lo+q,bh);
+  ctx.drawImage(still,l,y,r-l,bh,l+q,y,r-l,bh);
+  ctx.drawImage(still,r,y,hi-r,bh,r+q,y,hi-r-q,bh);
+ }
+ canvas.hidden=false;
+}
+function render(){frame=0;v+=(tv-v)*.25;if(Math.abs(tv-v)<.003)v=tv;drawMotion();if(v!==tv&&!document.hidden)frame=requestAnimationFrame(render)}
 function schedule(){if(!frame&&!document.hidden)frame=requestAnimationFrame(render)}
-function change(value){slider.value=String(clamp(Math.round(value/5)*5,-100,100));tv=Number(slider.value)/100;schedule()}
-function endDrag(e){if(!drag||e.pointerId!==drag.id)return;drag=null;delete hit.dataset.dragging;if(hit.hasPointerCapture(e.pointerId))hit.releasePointerCapture(e.pointerId)}
-function resetCamera(){tx=ty=0;schedule()}
-function resetAll(){drag=null;delete hit.dataset.dragging;tx=ty=tv=x=y=v=0;slider.value='0';cancelAnimationFrame(frame);frame=0;render()}
-function setAvailability(){const enabled=ready&&!reduced.matches;hero.dataset.layers=enabled?'ready':'static';control.hidden=hit.hidden=!enabled;resetAll();configureJourney()}
-async function loadLayers(){try{for(const img of layers){const source=img.parentElement.querySelector('source');source.srcset=source.dataset.srcset;img.src=img.dataset.src}await Promise.all(layers.map(img=>img.decode()));ready=layers.every(img=>img.naturalWidth>0);setAvailability()}catch{ready=false;setAvailability()}}
-slider.addEventListener('input',()=>change(Number(slider.value)));resetButton.addEventListener('click',()=>change(0));
-hit.addEventListener('pointerdown',e=>{if(!ready||reduced.matches||e.button!==0)return;drag={id:e.pointerId,start:e.clientX,value:Number(slider.value)};hit.setPointerCapture(e.pointerId);hit.dataset.dragging='true'});
-hit.addEventListener('pointermove',e=>{if(drag?.id===e.pointerId)change(drag.value+(e.clientX-drag.start)*.8)});for(const event of ['pointerup','pointercancel','lostpointercapture'])hit.addEventListener(event,endDrag);
-hero.addEventListener('pointermove',e=>{if(reduced.matches||!fine.matches||e.pointerType!=='mouse'||drag||hero.dataset.chapter!=='opening')return;const b=hero.getBoundingClientRect();tx=(.5-(e.clientX-b.left)/b.width)*8;ty=(.5-(e.clientY-b.top)/b.height)*6;schedule()},{passive:true});hero.addEventListener('pointerleave',resetCamera);reduced.addEventListener('change',setAvailability);fine.addEventListener('change',resetCamera);document.addEventListener('visibilitychange',()=>{if(document.hidden)resetAll();else schedule()});
+function nudge(){if(!ready||reduced.matches||hit.hidden)return;clearTimeout(pulse);tv=.8;schedule();pulse=setTimeout(()=>{tv=0;schedule()},180)}
+function resetAll(){
+ const id=drag?.id;drag=null;delete hit.dataset.dragging;
+ if(id!==undefined&&hit.hasPointerCapture(id))hit.releasePointerCapture(id);
+ clearTimeout(pulse);cancelAnimationFrame(frame);frame=0;tv=v=0;canvas.hidden=true;
+}
+function endDrag(e){
+ if(!drag||e.pointerId!==drag.id)return;
+ drag=null;delete hit.dataset.dragging;tv=0;schedule();
+ if(hit.hasPointerCapture(e.pointerId))hit.releasePointerCapture(e.pointerId);
+}
+function setAvailability(){
+ hero.dataset.layers='static';
+ hit.hidden=!ready||!ctx||reduced.matches;resetAll();configureJourney();
+}
+let loadId=0;
+async function loadLayers(){
+ const id=++loadId;
+ try{await still.decode();if(id!==loadId)return;source=still.currentSrc;ready=still.naturalWidth>0;}
+ catch{if(id!==loadId)return;ready=false;}
+ setAvailability();
+}
+hit.addEventListener('pointerdown',e=>{
+ if(!ready||reduced.matches||e.button!==0||!e.isPrimary||drag)return;
+ clearTimeout(pulse);moved=false;drag={id:e.pointerId,start:e.clientX};
+ hit.setPointerCapture(e.pointerId);hit.dataset.dragging='true';
+});
+hit.addEventListener('pointermove',e=>{
+ if(drag?.id!==e.pointerId)return;
+ const dx=e.clientX-drag.start;if(Math.abs(dx)>5)moved=true;
+ tv=clamp(dx/65,-1,1);schedule();
+});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])hit.addEventListener(event,endDrag);
+hit.addEventListener('click',e=>{if(e.detail===0||!moved)nudge();moved=false});
+reduced.addEventListener('change',setAvailability);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)resetAll()});
+still.addEventListener('load',loadLayers);
 // The same artwork and copy nodes persist during the native scroll journey.
 const root=document.documentElement,journey=document.querySelector('.journey'),roast=document.querySelector('.espresso'),copy=hero.querySelector('.hero-copy'),header=document.querySelector('.masthead');
 // Two matched campaign plates, not 3D models. The opening retains its
@@ -60,11 +132,11 @@ function renderJourney(){
  const chapter=p<.41?'opening':p>=.70?'roast':'transition';
  if(chapter!==lastChapter){
   const old=lastChapter;lastChapter=chapter;hero.dataset.chapter=chapter;
-  if(old==='opening'){if(copy.contains(document.activeElement))header.querySelector('.brand').focus({preventScroll:true});resetAll()}
+  if(old==='opening'){if(copy.contains(document.activeElement)||document.activeElement===hit)header.querySelector('.brand').focus({preventScroll:true});resetAll()}
   if(old==='roast'&&roast.contains(document.activeElement))header.querySelector('.brand').focus({preventScroll:true});
  }
  storyLink.hidden=chapter!=='roast';
- copy.inert=chapter!=='opening';roast.inert=chapter!=='roast';hit.hidden=chapter!=='opening'||p>=.08;control.inert=chapter!=='opening'||p>=.08;
+ copy.inert=chapter!=='opening';roast.inert=chapter!=='roast';const active=ready&&!!ctx&&!reduced.matches&&chapter==='opening'&&p<.08;if(!active&&!hit.hidden){if(document.activeElement===hit)header.querySelector('.brand').focus({preventScroll:true});resetAll()}hit.hidden=!active;
  hero.style.setProperty('--filter-alpha',String(filterReady&&selected==='filter'?into:0));hero.dataset.roast=chapter==='roast'&&filterReady?selected:'espresso';productMeta.textContent=hero.dataset.roast==='filter'?filterMeta:espressoMeta;hero.dataset.progress=p.toFixed(5);header.dataset.end=String(top<-travel-4);
  if(pendingFocus==='roast'&&p>=.999){pendingFocus='';roast.querySelector('h2').focus({preventScroll:true})}
  if(pendingFocus==='opening'&&p<=.001){pendingFocus='';copy.querySelector('h1').focus({preventScroll:true})}
@@ -74,9 +146,9 @@ function configureJourney(){
  // Do not pin a stage whose opening content is taller than the viewport.
  // Return to document flow before measuring the unenhanced layout.
  const prior=journeyActive,oldProgress=prior?clamp(-journey.getBoundingClientRect().top/travel,0,1):0;
- if(prior){root.removeAttribute('data-journey');journey.append(roast);copy.inert=roast.inert=control.inert=false;lastChapter='opening';hero.dataset.chapter='opening';header.removeAttribute('data-end');hero.removeAttribute('data-progress');}
- journeyActive=false;control.inert=false;storyLink.hidden=true;cancelAnimationFrame(journeyFrame);journeyFrame=0;
- if(!ready||reduced.matches||hero.getBoundingClientRect().height>window.innerHeight+2){hero.style.removeProperty('--photo-layer-alpha');hit.hidden=!ready||reduced.matches;updateRoastAvailability();return}
+ if(prior){root.removeAttribute('data-journey');journey.append(roast);copy.inert=roast.inert=false;lastChapter='opening';hero.dataset.chapter='opening';header.removeAttribute('data-end');hero.removeAttribute('data-progress');}
+ journeyActive=false;storyLink.hidden=true;cancelAnimationFrame(journeyFrame);journeyFrame=0;
+ if(!ready||reduced.matches||hero.getBoundingClientRect().height>window.innerHeight+2){hero.style.removeProperty('--photo-layer-alpha');hit.hidden=!ready||!ctx||reduced.matches;updateRoastAvailability();return}
  travel=Math.round(window.innerHeight*.92);journey.style.setProperty('--travel',travel+'px');hero.append(roast);root.dataset.journey='on';journeyActive=true;
  if(prior&&oldProgress>0&&oldProgress<1)window.scrollTo({top:journey.offsetTop+travel*oldProgress,behavior:'instant'});
  if(!prior&&location.hash==='#espresso')window.scrollTo({top:journey.offsetTop+travel,behavior:'instant'});
@@ -84,9 +156,9 @@ function configureJourney(){
 }
 for(const h of [copy.querySelector('h1'),roast.querySelector('h2')])h.tabIndex=-1;
 document.addEventListener('click',e=>{const a=e.target.closest('a');if(!journeyActive||!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;const href=a.getAttribute('href');if(href!=='#espresso'&&href!=='#main')return;e.preventDefault();pendingFocus=href==='#espresso'?'roast':'opening';window.scrollTo({top:journey.offsetTop+(href==='#espresso'?travel:0),behavior:'smooth'});queueJourney()});
-window.addEventListener('scroll',queueJourney,{passive:true});window.addEventListener('resize',configureJourney,{passive:true});
+window.addEventListener('scroll',queueJourney,{passive:true});window.addEventListener('resize',()=>{resetAll();configureJourney()},{passive:true});
 // Do not replace the initial photograph until both independent layers decode.
-if(!reduced.matches)loadLayers();else reduced.addEventListener('change',()=>{if(!reduced.matches&&!ready)loadLayers()},{once:true});
+loadLayers();
 
 // Decode the alternate artwork only after the initial opening has loaded.
 if(document.readyState==='complete')loadFilter();else window.addEventListener('load',loadFilter,{once:true});

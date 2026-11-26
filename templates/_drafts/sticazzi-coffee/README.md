@@ -1,4 +1,4 @@
-# STICAZZI COFFEE / S07
+# STICAZZI COFFEE / S08a
 Bilingual EN/IT photographic website prototype. Open index.html or it.html, or serve the directory with a static HTTP server. No 3D geometry, WebGL, external libraries, analytics, checkout, or network assets. The campaign is fictional; the Ritual cup uses the actual user-supplied espresso photograph over a generated studio background.
 
 ## Implemented
@@ -30,3 +30,7 @@ The updated sequence is packaged with a self-contained interactive HTML preview 
 
 ## Hosted draft S07
 The approved draft is published at `templates/_drafts/sticazzi-coffee/` for browser review. This is an unlisted, noindex public preview, not a gallery entry or commercial launch. The source ZIP retains the local audit scripts and reports. The 12 original WebP assets were recovered from the self-contained preview and their Git blob hashes matched the local originals. Photograph reuse rights and physical-device verification remain open before gallery approval.
+
+## S08a — direct product interaction, review candidate
+Stakeholder mobile review identified slider UI, retained bag fragments, an isolated Ritual cup and an empty closing plate. Inspection of both clean WebPs confirmed leftover bag edge fragments; the separate bag assets also have extraction defects. Removed the slider and retired both defective extraction layers from live markup. The bag is a directly operable native button over the photo: mouse/touch horizontal drag, click/tap or keyboard activation nudge, spring-like eased return, vertical touch scroll remains native. The original intact photo is rendered in a bounded local 2D canvas warp during interaction; nearby background is gently stretched to avoid exposing a hole, not an independent cutout or true 3D rotation. At rest, during scroll handoff, reduced motion, or canvas/image failure the intact photo is used. This is a conservative candidate, not a claim that the warp is visually approved. The original assets remain in Git for provenance. Both languages use cache suffix S08a. Ritual and closing remain unchanged.
+Next S08b: inspect actual drag frames (both crops, touch and pointer, fast reversal, release, scroll/resize); refine or replace the warp if any surrounding texture deformation is visible. S08c: integrated Ritual photo composition. S08d: closing still life. S08e–h: continuity, mobile, exact closing regression, hosted review. No gallery or configurator registration without explicit approval. Physical Safari and photo rights remain open.
