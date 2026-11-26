@@ -1,18 +1,18 @@
-import {graphicAmount} from './graphic.js?v=P07';
-import {RELEASE} from './config.js?v=P07';
-import {createRenderer} from './renderer.js?v=P07';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P07';
-import {createScheduler} from './lifecycle.js?v=P07';
-import {wordmarkOcclusion} from './wordmark.js?v=P07';
-import {createAmbientClock} from './ambient.js?v=P07';
-import {readProgress} from './scroll.js?v=P07';
-import {typographyPose} from './typography.js?v=P07';
-import {FOLDS,foldAmount} from './sculptures.js?v=P07';
-import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P07';
-import {mountParallax} from './parallax.js?v=P07';
-import {mountForm} from './form.js?v=P07';
-import {mountSignal} from './signal.js?v=P07';
-import {mountPossibility} from './possibility.js?v=P07';
+import {graphicAmount} from './graphic.js?v=P07a';
+import {RELEASE} from './config.js?v=P07a';
+import {createRenderer} from './renderer.js?v=P07a';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P07a';
+import {createScheduler} from './lifecycle.js?v=P07a';
+import {wordmarkOcclusion} from './wordmark.js?v=P07a';
+import {createAmbientClock} from './ambient.js?v=P07a';
+import {readProgress} from './scroll.js?v=P07a';
+import {typographyPose} from './typography.js?v=P07a';
+import {FOLDS,foldAmount} from './sculptures.js?v=P07a';
+import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P07a';
+import {mountParallax} from './parallax.js?v=P07a';
+import {mountForm} from './form.js?v=P07a';
+import {mountSignal} from './signal.js?v=P07a';
+import {mountPossibility} from './possibility.js?v=P07a';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -72,6 +72,18 @@ function start(){
   const closingTrack=graphic&&fullTrack&&flags.get('track')==='possibility';
   if(closingTrack)root.dataset.closing='on';
   possibility.enable(closingTrack);
+  const nextChapter=stage.querySelector('[data-journey-next]'),backChapter=stage.querySelector('[data-journey-back]');
+  let pendingChapter='';
+  function jumpChapter(which){
+    const s=document.scrollingElement;
+    if(!closingTrack||!journeyActive)return;
+    pendingChapter=which;
+    s.scrollTop=Math.round((s.scrollHeight-s.clientHeight)*(which==='closing'?1:.70));
+    invalidate();
+  }
+  const goClosing=()=>jumpChapter('closing'),goExploration=()=>jumpChapter('exploration');
+  nextChapter.addEventListener('click',goClosing);
+  backChapter.addEventListener('click',goExploration);
   const smooth=t=>{const v=Math.max(0,Math.min(1,t));return v*v*(3-2*v)};
   const foldsEnabled=flags.get('fold')!=='off';
   let journeyActive=false;
@@ -83,7 +95,7 @@ function start(){
   setJourney(false);
   const clock=createAmbientClock();let forceDraw=true;
   let renderer=null,visible=false,lost=false,failed=false,disposed=false,suspended=false,frames=0;
-  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);applyExploration(0,false,!journeyActive);possibility.show(0,!journeyActive&&closingTrack);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
+  function staticView(reason){clock.pause();stage.dataset.room='arrival';applyTypography(0,1,1);applyEditorial(0);if(reason!=='context-lost')setJourney(false);applyExploration(0,false,!journeyActive);pendingChapter='';nextChapter.hidden=true;backChapter.hidden=true;possibility.show(0,!journeyActive&&closingTrack);canvas.hidden=true;study.dataset.renderer='static';study.dataset.reason=reason;occluder.setAttribute('points','');mark.dataset.depth='flat'}
   // A preference change can become visible to the frame scheduler before the
   // MediaQueryList change callback is delivered. Never silently stop on a live canvas.
   function eligible(){
@@ -121,7 +133,17 @@ function start(){
       applyEditorial(!approachOnly&&!crossingOnly&&journeyActive?perspectiveProgress:0,presence);
       const explorationExit=closingTrack?1-smooth((progress-.75)/(CLOSING_DEPART-.75)):1;
       applyExploration(localProgress,graphic&&fullTrack&&journeyActive&&stage.dataset.room==='exploration',false,explorationExit);
-      possibility.show(closingTrack&&journeyActive&&stage.dataset.room==='possibility'?smooth((progress-.96)/.03):0);
+      const closingAmount=closingTrack&&journeyActive&&stage.dataset.room==='possibility'?smooth((progress-.96)/.03):0;
+      possibility.show(closingAmount);
+      const indexReady=closingTrack&&journeyActive&&stage.dataset.exploration==='active';
+      nextChapter.hidden=!indexReady;
+      backChapter.hidden=!(closingTrack&&journeyActive&&closingAmount===1);
+      if(pendingChapter==='closing'&&closingAmount===1){
+        pendingChapter='';stage.querySelector('.possibility:not([hidden]) [data-journey-back]').focus({preventScroll:true});
+        if(stage.querySelector('.possibility-contact:not([hidden])'))stage.querySelector('[data-possibility-return]').focus({preventScroll:true});
+      }else if(pendingChapter==='exploration'&&indexReady){
+        pendingChapter='';const target=exploration.dataset.study?exploration.querySelector('section:not([hidden]) .study-return'):nextChapter;target?.focus({preventScroll:true});
+      }
       study.dataset.graphic=graphic?'on':'off';study.dataset.graphicAmount=(graphic?graphicAmount(perspectiveProgress):0).toFixed(6);
       study.dataset.folds=FOLDS.map(f=>foldAmount(f,foldProgress).toFixed(6)).join(',');
       study.dataset.sculptureUploads=String(result.sculptureUploads);
@@ -159,7 +181,7 @@ function start(){
   const resize=new ResizeObserver(invalidate);
   const intersection=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)invalidate();else suspend()});
   function dispose(){
-    if(disposed)return;disposed=true;parallax.dispose();form.dispose();signal.dispose();possibility.dispose();scheduler.dispose();resize.disconnect();intersection.disconnect();
+    if(disposed)return;disposed=true;parallax.dispose();form.dispose();signal.dispose();possibility.dispose();nextChapter.removeEventListener('click',goClosing);backChapter.removeEventListener('click',goExploration);scheduler.dispose();resize.disconnect();intersection.disconnect();
     reduced.removeEventListener('change',preference);desktopComposition.removeEventListener('change',invalidate);document.removeEventListener('visibilitychange',visibility);
     window.removeEventListener('scroll',scrollChanged);window.visualViewport?.removeEventListener('resize',invalidate);
     window.removeEventListener('resize',invalidate);window.removeEventListener('pagehide',pageHide);window.removeEventListener('pageshow',pageShow);

@@ -330,7 +330,7 @@ footer { opacity: var(--footer-opacity, 1); }
   font-size: .67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .11em; margin: 0;
 }
 .exploration-intro h2 { font-size: clamp(2.5rem,8vw,7rem); font-weight: 800; line-height: .87; letter-spacing: -.075em; margin: .6rem 0 .75rem; }
-.exploration-intro > p:last-child { max-width: 32ch; margin: 0; font-size: .9rem; line-height: 1.45; }
+.exploration-intro > p:not(.exploration-index) { max-width: 32ch; margin: 0; font-size: .9rem; line-height: 1.45; }
 .exploration-list-label { margin-bottom: .6rem; }
 .exploration-projects { min-width: 0; }
 .exploration-projects details { border-top: 1px solid #eeece580; }
@@ -368,7 +368,7 @@ details[open] .project-toggle::after { transform: none; }
 @media (max-height:640px) {
   :root[data-journey="on"] .exploration { gap: .7rem; }
   :root[data-journey="on"] .exploration-intro h2 { font-size: clamp(2rem,min(10vw,9vh),3.4rem); margin: .35rem 0 .45rem; }
-  :root[data-journey="on"] .exploration-intro > p:last-child { font-size: .78rem; }
+  :root[data-journey="on"] .exploration-intro > p:not(.exploration-index) { font-size: .78rem; }
   :root[data-journey="on"] .exploration-list-label { margin-bottom: .3rem; }
   :root[data-journey="on"] .project-name { font-size: clamp(1.25rem,3.5vw,2rem); }
   :root[data-journey="on"] .project-description { padding-bottom: .4rem; }
@@ -519,3 +519,34 @@ details[open] .project-toggle::after { transform: none; }
  :root[data-journey="on"] .possibility-contact:not([hidden]) { gap:.25rem; padding:.5rem; }
  :root[data-journey="on"] .possibility-contact label { min-height:30px; }
 }
+
+/* P07a: give the center doorway its own negative space. Keep the entire
+   project list and controls on the right rather than straddling its edge. */
+@media (min-aspect-ratio:6/5) {
+  :root[data-journey="on"] .exploration:not([data-study]) {
+    grid-template-columns:minmax(0,1fr) minmax(0,1.03fr); gap:24vw;
+  }
+  :root[data-journey="on"] :is(.parallax-study,.form-study,.signal-study):not([hidden]) {
+    grid-template-columns:minmax(0,.9fr) minmax(0,1.12fr); gap:16vw;
+  }
+}
+:root[data-journey="on"] .exploration :is(.exploration-intro,.exploration-projects,.parallax-copy,.form-copy,.signal-copy) {
+  text-shadow:0 1px 3px #11183e;
+}
+.journey-next,.possibility .journey-back {
+  min-height:44px; display:inline-flex; align-items:center; font:inherit; font-size:.78rem; font-weight:700;
+  background:none; color:#eeece5; border:0; padding:.25rem 0; margin-top:.35rem;
+  text-decoration:underline; text-underline-offset:.25em; cursor:pointer;
+}
+.journey-next[hidden],.possibility .journey-back[hidden] {display:none;}
+.possibility .journey-back {display:flex;}
+.journey-next:focus-visible,.possibility .journey-back:focus-visible {outline:2px solid #eeece5;outline-offset:2px;}
+@media (max-height:640px) {
+  :root[data-journey="on"][data-closing="on"] .exploration:not([data-study]) {gap:.45rem;}
+  :root[data-journey="on"][data-closing="on"] .journey-next {margin-top:0;}
+}
+@media (min-aspect-ratio:6/5) and (max-height:640px) {
+  :root[data-journey="on"][data-closing="on"] .exploration:not([data-study]) {gap:24vw;}
+}
+
+@media (min-aspect-ratio:6/5) { :root[data-journey="on"] :is(.parallax-copy,.form-copy,.signal-copy) h3 { font-size:clamp(1.8rem,5.7vw,5.2rem); } }
