@@ -301,3 +301,21 @@ footer { opacity: var(--footer-opacity, 1); }
     font-size:clamp(1.2rem,4.7vh,1.65rem);
   }
 }
+
+/* P02a: the moving cobalt aperture can cross the wordmark in compact
+   landscape. Give the two existing navigation labels a restrained matte
+   registration tab during graphic Perspective only. No header bar,
+   changed hit areas, layout movement or changes to Arrival. */
+:root[data-journey="on"] .journey-stage[data-direction="graphic"][data-room="perspective"] .masthead a {
+  position: relative;
+  isolation: isolate;
+  color: #242321;
+}
+:root[data-journey="on"] .journey-stage[data-direction="graphic"][data-room="perspective"] .masthead a::before {
+  content: "";
+  position: absolute;
+  inset: 3px -5px;
+  background: #eeece5;
+  z-index: -1;
+  pointer-events: none;
+}

@@ -1,14 +1,14 @@
-import {graphicAmount} from './graphic.js?v=P02';
-import {RELEASE} from './config.js?v=P02';
-import {createRenderer} from './renderer.js?v=P02';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition} from './camera.js?v=P02';
-import {createScheduler} from './lifecycle.js?v=P02';
-import {wordmarkOcclusion} from './wordmark.js?v=P02';
-import {createAmbientClock} from './ambient.js?v=P02';
-import {readProgress} from './scroll.js?v=P02';
-import {typographyPose} from './typography.js?v=P02';
-import {FOLDS,foldAmount} from './sculptures.js?v=P02';
-import {perspectivePose,perspectivePresence} from './editorial.js?v=P02';
+import {graphicAmount} from './graphic.js?v=P02a';
+import {RELEASE} from './config.js?v=P02a';
+import {createRenderer} from './renderer.js?v=P02a';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition} from './camera.js?v=P02a';
+import {createScheduler} from './lifecycle.js?v=P02a';
+import {wordmarkOcclusion} from './wordmark.js?v=P02a';
+import {createAmbientClock} from './ambient.js?v=P02a';
+import {readProgress} from './scroll.js?v=P02a';
+import {typographyPose} from './typography.js?v=P02a';
+import {FOLDS,foldAmount} from './sculptures.js?v=P02a';
+import {perspectivePose,perspectivePresence} from './editorial.js?v=P02a';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){

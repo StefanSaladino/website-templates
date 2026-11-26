@@ -7,7 +7,7 @@ const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
 const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P02',verification:'P02',viewports:[]};
+const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P02a',verification:'P02a',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}
 async function sample(page,offset){
   await page.evaluate(y=>{document.scrollingElement.scrollTop=y},offset);
@@ -81,6 +81,6 @@ try{
       if(video)copyFileSync(await video.path(),out+'/native-scroll-'+width+'.webm');
     }
     entry.status='passed';save();
-    console.log('P02 viewport passed',width,height,offsets.length,maxReverseDelta,entry.trace.length);
+    console.log('P02a viewport passed',width,height,offsets.length,maxReverseDelta,entry.trace.length);
   }
 }finally{save();await browser.close()}
