@@ -1,0 +1,71 @@
+name: Register THRESHOLD approved gallery preview
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/register-threshold.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: register-threshold
+  cancel-in-progress: false
+jobs:
+  candidate:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require exact approved draft evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$(gh run view 45739615406 --json headSha --jq .headSha)" = "bf8e38cdd0205b3e7d03300fc4f4450f4153e441"
+          timeout 600 gh run watch 45739615406 --exit-status --interval 15
+          test "$(gh run view 45739615406 --json conclusion --jq .conclusion)" = success
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+        working-directory: components
+      - run: npx playwright install chromium
+        working-directory: components
+      - name: Prepare approved gallery route
+        run: |
+          if [ ! -d templates/threshold-studio ]; then
+            git diff --exit-code bf8e38cdd0205b3e7d03300fc4f4450f4153e441 HEAD -- templates/_drafts/threshold-studio
+            node components/scripts/prepare-threshold-registration.mjs
+          fi
+      - run: node scripts/test-threshold-registration.mjs
+        working-directory: components
+      - name: Capture genuine opening
+        if: hashFiles('templates/threshold-studio/gallery-opening.webp') == ''
+        run: node scripts/capture-gallery-openings.mjs --only=threshold-studio --apply
+        working-directory: components
+      - run: npm run build
+        working-directory: components
+      - name: Verify gallery-only membership
+        working-directory: components
+        run: |
+          node --input-type=module -e "import {readFileSync} from 'node:fs';import assert from 'node:assert/strict';import {catalogue} from './builder-model.js';const data=JSON.parse(readFileSync('data/builder-templates.json'));assert.equal(data.length,41);assert.equal(data.find(x=>x.slug==='threshold-studio').configuratorStatus,'gallery-only');assert.equal(catalogue([],[],data,[]).templates.size,35);"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: threshold-registration-evidence
+          path: |
+            components/threshold-registration-evidence/
+            components/gallery-opening-evidence/
+      - name: Push verified registration candidate
+        run: |
+          set -euo pipefail
+          if git cat-file -e HEAD:templates/threshold-studio/index.html 2>/dev/null; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- templates index.html components/data components/scripts PROJECT-ROADMAP.md docs/THRESHOLD-STUDIO-ROADMAP.md .github/workflows/threshold-draft-review.yml
+          git commit -m "feat(gallery): register THRESHOLD immersive studio preview"
+          git push origin HEAD:refs/heads/threshold-registration/${GITHUB_SHA}
+          # Promote only if main is still the exact prepared base; no force.
+          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$GITHUB_SHA"
+          git push origin HEAD:refs/heads/main
