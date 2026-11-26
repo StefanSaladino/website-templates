@@ -51,7 +51,7 @@ jobs:
               page.on('pageerror',e=>errors.push(e.message));
               page.on('response',r=>{if(r.status()>=400)failures.push(r.url())});
               assert((await page.goto(url)).ok());
-              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P08i');
+              await page.waitForFunction(()=>document.documentElement.dataset.shell==='ready'&&document.documentElement.dataset.release==='P08j');
               assert(await page.locator('h1').isVisible());
               assert(await page.locator('.display-wordmark').isVisible());
               assert.equal(await page.locator('h1').count(),1);
@@ -1007,7 +1007,7 @@ jobs:
               contrastEvidence.push(record);await page.close();
             }
             writeFileSync('/tmp/threshold-evidence/contrast-review.json',JSON.stringify(contrastEvidence,null,2));
-            // P08i: inspect artwork-specific state and persistent SVG identity.
+            // P08j: inspect artwork-specific state and persistent SVG identity.
             for(const [width,height] of [[390,844],[1440,900],[844,390]]){
               const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
               await page.goto(baseURL+'?ambient=off');
@@ -1041,7 +1041,7 @@ jobs:
               await page.close();
             }
 
-            // P08i: inspect actual default-framebuffer AA and native-density
+            // P08j: inspect actual default-framebuffer AA and native-density
             // doorway captures. No screenshot resize or postprocessing.
             const edgeEvidence=[];
             for(const [width,height,dpr] of [[390,844,3],[430,740,3],[1440,900,2]]){
@@ -1065,7 +1065,7 @@ jobs:
               edgeEvidence.push({width,height,dpr,states});await page.close();
             }
             writeFileSync('/tmp/threshold-evidence/doorway-edge-review.json',JSON.stringify(edgeEvidence,null,2));
-            // P08i: full-quality evidence of the architectural rhythm and
+            // P08j: full-quality evidence of the architectural rhythm and
             // anticipation interval. Retain matching forward/reverse poses.
             for(const [width,height] of [[390,844],[1440,900]]){
               const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
@@ -1184,7 +1184,7 @@ jobs:
               assert.equal(await staticDesktop.locator('#wordmark-occluder').getAttribute('points'),'');
               assert(await staticDesktop.locator('.scene-fallback').isVisible());
               assert(await staticDesktop.locator('#scene-canvas').isHidden());
-              assert(await staticDesktop.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}));
+              assert(await staticDesktop.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs((document.querySelector('.possibility').hidden?document.querySelector('.exploration'):document.querySelector('.possibility')).getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}));
               await staticDesktop.screenshot({path:'/tmp/threshold-evidence/desktop-static-'+(opts.javaScriptEnabled===false?'nojs':'reduced')+'.png'});
               await staticDesktop.locator('.perspective-editorial').scrollIntoViewIfNeeded();
               await staticDesktop.screenshot({path:'/tmp/threshold-evidence/desktop-static-editorial-'+(opts.javaScriptEnabled===false?'nojs':'reduced')+'.png'});
@@ -1197,9 +1197,34 @@ jobs:
               assert(await page.locator('#scene-canvas').isHidden());
               assert(await page.locator('.scene-fallback').isVisible());
               assert(await page.locator('.fallback-portrait').isVisible());
-              assert(await page.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}));
+              assert(await page.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs((document.querySelector('.possibility').hidden?document.querySelector('.exploration'):document.querySelector('.possibility')).getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}));
               assert(await page.locator('#perspective-heading').isVisible());
               await page.screenshot({path:'/tmp/threshold-evidence/portrait-static-'+(opts.javaScriptEnabled===false?'nojs':'reduced')+'.png'});
+              await page.close();
+            }
+            // Complete default-route fallback, including the final chapter.
+            for(const opts of [{javaScriptEnabled:false},{reducedMotion:'reduce'},{disableGraphics:true}]){
+              const {disableGraphics,...browserOptions}=opts;
+              const page=await browser.newPage({viewport:{width:390,height:844},...browserOptions});
+              if(disableGraphics)await page.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl2'?null:original.call(this,type,...args)}});
+              await page.goto(baseURL);
+              if(opts.javaScriptEnabled!==false)await page.waitForFunction(()=>document.querySelector('#scene-study').dataset.renderer==='static');
+              assert(await page.locator('#scene-canvas').isHidden());
+              assert(await page.locator('.possibility').isVisible());
+              const contiguous=await page.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.exploration').getBoundingClientRect(),p=document.querySelector('.possibility').getBoundingClientRect();return Math.abs(e.bottom-p.top)<3&&p.bottom+s.scrollTop<=s.scrollHeight+3&&s.scrollWidth<=s.clientWidth+1});
+              assert(contiguous,'complete fallback has contiguous ending and no horizontal overflow');
+              const cta=page.locator('.possibility-cta');
+              if(opts.javaScriptEnabled===false)assert(await cta.isHidden(),'no inert action without JS');
+              else {
+                await cta.click();
+                assert(await page.locator('.possibility-contact').isVisible());
+                await page.locator('[data-possibility-create]').click();
+                assert.match(await page.locator('#possibility-output').textContent(),/Nothing has been submitted/);
+                await page.keyboard.press('Escape');
+                assert(await cta.evaluate(e=>document.activeElement===e));
+              }
+              await page.locator('.possibility').scrollIntoViewIfNeeded();
+              await page.screenshot({path:'/tmp/threshold-evidence/complete-fallback-'+(disableGraphics?'no-webgl':opts.javaScriptEnabled===false?'nojs':'reduced')+'.png'});
               await page.close();
             }
             const unavailable=await browser.newPage({viewport:{width:390,height:844}});
@@ -1208,8 +1233,8 @@ jobs:
             await unavailable.locator('#scene-study').scrollIntoViewIfNeeded();
             await unavailable.waitForFunction(()=>document.querySelector('#scene-study').dataset.reason==='graphics-unavailable');
             assert(await unavailable.locator('.scene-fallback').isVisible());
-            assert(await unavailable.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs(document.querySelector('.exploration').getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}),'graphics fallback has no empty travel');await unavailable.close();
-            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P08i',verification:'P08i',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
+            assert(await unavailable.evaluate(()=>{const s=document.scrollingElement,e=document.querySelector('.perspective-editorial'),a=document.querySelector('.opening').getBoundingClientRect(),b=e.getBoundingClientRect();return s.scrollWidth<=s.clientWidth+1&&b.height>80&&Math.abs(a.bottom-b.top)<2&&Math.abs(b.bottom-document.querySelector('.exploration').getBoundingClientRect().top)<3&&Math.abs((document.querySelector('.possibility').hidden?document.querySelector('.exploration'):document.querySelector('.possibility')).getBoundingClientRect().bottom+s.scrollTop-s.scrollHeight)<3&&document.querySelectorAll('.exploration details').length===3&&getComputedStyle(e).opacity==='1'&&e.querySelectorAll('li').length===3}),'graphics fallback has no empty travel');await unavailable.close();
+            writeFileSync('/tmp/threshold-evidence/report.json',JSON.stringify({release:'P08j',verification:'P08j',commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,viewports:7,pixelChecks:true,architecture:true,reflection:true,lighting:true,desktopComposition:true,identity:true,ambient:true,mobileComposition:true,openingReview:true,nativeScroll:true,cameraApproach:true,typographyExit:true,physicalCrossing:true,ivoryReveal:true,perspectiveArchitecture:true,sculptures:true,foldMotion:true,perspectiveEditorial:true,galleryFraming:true,exhibitionTransition:true,resize:true,idle:true,offscreen:true,contextRecovery:true,staticFallbacks:true},null,2));
             console.log('PASS: seven viewport pixel/lifecycle checks and static fallbacks');
           } finally {await browser.close()}
           JS
@@ -1245,7 +1270,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-P08i-transition-evidence
+          name: threshold-P08j-transition-evidence
           path: /tmp/threshold-transition/
 
   performance:
@@ -1274,5 +1299,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: threshold-P08i-performance-evidence
+          name: threshold-P08j-performance-evidence
           path: /tmp/threshold-performance

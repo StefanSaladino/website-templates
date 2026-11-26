@@ -980,3 +980,5 @@ THRESHOLD P08g: P08f passed all audits; actual sequence shows near-black gap and
 THRESHOLD P08h: experiment-specific graphic art direction and wider artwork field; retain existing state, accessible controls and full quality. Correct P08g Float32 optical bound test tolerance; P08h exact QA pending. No gallery promotion.
 
 THRESHOLD P08i: closing interaction becomes numbered editorial direction selection; native controls, no text blocks, darker scene, stale brief invalidation and scroll-away recovery. P08g transition/performance passed; P08h exact browser results pending at edit. No gallery promotion.
+
+THRESHOLD P08j: holistic review of P08f actual sequence, latest exact audits pending in part. Complete semantic no-JS ending; add default-route reduced-motion/no-WebGL/no-JS checks plus five-viewport full journey forward/reverse pixel evidence. No change to restored live composition or full quality; no gallery registration.

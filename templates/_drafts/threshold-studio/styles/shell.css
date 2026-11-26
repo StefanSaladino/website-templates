@@ -677,3 +677,6 @@ details[open] .project-toggle::after { transform: none; }
   :root[data-journey="on"] .possibility-contact:not([hidden]) {gap:.3rem;}
   .possibility-contact label {font-size:.8rem;}
 }
+
+/* P08j — complete readable ending when enhancement is unavailable. */
+.possibility-cta[hidden] {display:none;}

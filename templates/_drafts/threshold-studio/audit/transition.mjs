@@ -7,7 +7,7 @@ const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
 const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P08i',verification:'P08i',viewports:[]};
+const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P08j',verification:'P08j',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}
 async function sample(page,offset){
   await page.evaluate(y=>{document.scrollingElement.scrollTop=y},offset);
@@ -81,6 +81,43 @@ try{
       if(video)copyFileSync(await video.path(),out+'/native-scroll-'+width+'.webm');
     }
     entry.status='passed';save();
-    console.log('P08i viewport passed',width,height,offsets.length,maxReverseDelta,entry.trace.length);
+    console.log('P08j viewport passed',width,height,offsets.length,maxReverseDelta,entry.trace.length);
+  }
+  // Full default-route late chapters: compare actual pixels and semantic
+  // visibility on both directions, not just the shorter legacy route.
+  report.completeJourney=[];
+  for(const [width,height] of [[320,568],[390,844],[768,1024],[1440,900],[844,390]]){
+    const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
+    const errors=[];page.on('pageerror',e=>errors.push(e.message));
+    await page.goto(base+'?ambient=off');
+    await page.waitForFunction(()=>document.documentElement.dataset.closing==='on'&&document.documentElement.dataset.journey==='on'&&document.querySelector('#scene-study').dataset.renderer==='webgl');
+    const range=await page.evaluate(()=>document.scrollingElement.scrollHeight-document.scrollingElement.clientHeight);
+    const offsets=[.58,.60,.62,.64,.70,.75,.77,.79,.82,.85,.88,.90,.92,.94,.96,.98,1].map(p=>Math.round(p*range));
+    const canvas=await page.locator('#scene-canvas').elementHandle(),forward=new Map();
+    const result={width,height,range,states:[],maxReverseDelta:0,status:'sampling'};
+    report.completeJourney.push(result);save();
+    async function stateAt(offset){
+      const state=await sample(page,offset);
+      const extra=await page.evaluate(()=>{const el=document.querySelector('.possibility'),e=document.querySelector('.exploration'),d=document.querySelector('#scene-study').dataset;return {closingHidden:el.hidden,closingInert:el.inert,closingOpacity:el.style.getPropertyValue('--possibility-opacity'),explorationInert:e.inert,quality:d.quality,samples:+d.samples};});
+      assert.equal(state.triangles,592);assert.equal(extra.quality,'full');assert(extra.samples>=2);assert(state.width<=state.clientWidth+1);assert(Math.abs(state.stageTop)<2);
+      assert(await canvas.evaluate(e=>e===document.querySelector('#scene-canvas')));
+      return {...state,...extra};
+    }
+    for(const offset of offsets){
+      const state=await stateAt(offset),image=await page.screenshot();
+      forward.set(offset,{state,image});result.states.push(state);
+      writeFileSync(out+'/complete-'+width+'x'+height+'-'+Math.round(state.p*100)+'.png',image);
+    }
+    assert.equal(result.states.at(-1).room,'possibility');assert.equal(result.states.at(-1).closingOpacity,'1');assert.equal(result.states.at(-1).closingInert,false);
+    for(const offset of offsets.slice().reverse()){
+      const state=await stateAt(offset),prior=forward.get(offset);
+      for(const key of ['p','eye','fov','shiftX','room','exploration','explorationInert','closingHidden','closingInert','closingOpacity','quality','samples'])assert.equal(state[key],prior.state[key],'full reverse '+key+' at '+offset);
+      const current=await sharp(await page.screenshot()).removeAlpha().raw().toBuffer(),before=await sharp(prior.image).removeAlpha().raw().toBuffer();
+      assert.equal(current.length,before.length);let delta=0;
+      for(let i=0;i<current.length;i++)if(Math.abs(current[i]-before[i])>3)delta++;
+      result.maxReverseDelta=Math.max(result.maxReverseDelta,delta/current.length);save();
+      assert(delta/current.length<.001,'full journey reverse pixels '+width+' '+offset);
+    }
+    assert.deepEqual(errors,[]);result.status='passed';save();await canvas.dispose();await page.close();
   }
 }finally{save();await browser.close()}
