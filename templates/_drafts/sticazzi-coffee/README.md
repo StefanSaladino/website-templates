@@ -1,4 +1,4 @@
-# STICAZZI COFFEE / S08c2
+# STICAZZI COFFEE / S08d
 Bilingual EN/IT photographic website prototype. Open index.html or it.html, or serve the directory with a static HTTP server. No 3D geometry, WebGL, external libraries, analytics, checkout, or network assets. The campaign is fictional; the Ritual cup uses the actual user-supplied espresso photograph over a generated studio background.
 
 ## Implemented
@@ -51,3 +51,6 @@ Stakeholder chose to continue rather than revisit bag motion. S08b4 Pages run 45
 S08c interaction and Pages workflows 45824696336 and 45824695375 completed successfully. Stakeholder approved a new generated photorealistic recreation of the white cup, 1448 × 1086. Replace both extracted cup/background layers with the single intact `assets/ritual-espresso.webp` photograph. Desktop composition places the image on the right with edge blends; mobile preserves the entire 4:3 frame with natural document flow. No movement, image stretching, filters, or new JS. The optimized 101,994-byte WebP was uploaded to sticazzi-ritual-photo and its base64 bytes verified against the locally prepared asset. Standalone English chapter renders inspected at 1440×900 and 390×844, preserving the exact 4:3 photograph. The unlisted Pages draft is updated for stakeholder visual review; full integrated bilingual regression and physical Safari remain required before gallery approval. S08d closing chapter unchanged.
 
 S08c2 branch workflow 45825706230 at publication: in_progress; no integrated test success claimed until confirmed.
+
+## S08d — closing campaign reprise
+S08c2 exact main Pages run 45825849879 and full browser run 45825851208 succeeded. Replace the empty stone plate with the intact Espresso campaign image already used in the opening, intentionally framed as a closing still-life callback (bag, cup, beans). A 5:4 right-aligned crop preserves all three subjects; desktop pairs copy and artwork, mobile places copy first and photograph directly below. No new generated asset, cutout, 3D or photo transformation. Remove remaining closing scroll zoom. Add optional one-shot staggered text entrance with opacity/7px translation; no hidden initial content and reduced-motion respects static copy. Approved EN/IT wording and return anchors unchanged. New browser suite checks loaded asset, crop proportions, unit transform, text and link visibility, reverse navigation, no-JS and reduced-motion, and saves actual closing renders. Integrated review and Safari physical check pending. S08e continuity next. Gallery stays unregistered.

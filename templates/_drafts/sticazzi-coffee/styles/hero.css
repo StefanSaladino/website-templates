@@ -153,33 +153,49 @@
  .ritual-caption{bottom:.8rem}
 }
 
-/* S06 — a last word, not a storefront. Reuse the same clean stone plate;
-   no new fake product, no overlay panels and no new network assets. */
+/* S08d — campaign reprise. Fixed photography, editorial type, no image zoom. */
 .ritual-next{display:inline-flex;min-height:48px;align-items:center;gap:.7rem;margin-left:0;font-size:.83rem;color:var(--muted);text-decoration:underline;text-underline-offset:.3em}
-.last-word{position:relative;isolation:isolate;display:grid;align-items:center;min-height:100svh;overflow:hidden;background:#1b0c07;color:var(--paper);scroll-margin-top:0}
-.last-word-art{position:absolute;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
-.last-word-art picture,.last-word-art img{display:block;width:100%;height:100%}
-.last-word-art img{object-fit:cover;object-position:50% 66%;transform:scale(var(--last-word-scale,1));transform-origin:50% 80%}
-.last-word::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,#1b0c07 0%,rgba(27,12,7,.90) 17%,rgba(27,12,7,.84) 65%,rgba(27,12,7,.52) 86%,#1c0c07 100%)}
-.last-word-copy{width:min(100%,85rem);padding:clamp(6rem,12vh,10rem) clamp(1.2rem,7vw,7rem) 6rem;margin-inline:auto}
-.last-word-brand{font-weight:900;font-size:clamp(.84rem,1.2vw,1.05rem);letter-spacing:.20em;color:#dca36b;margin:0 0 1.5rem}
-.last-word h2{margin:0;letter-spacing:-.065em;font-weight:900;line-height:.96;text-wrap:balance;max-width:19ch}
-.last-word-setup{display:block;font-size:clamp(1.6rem,3.5vw,3.4rem);letter-spacing:-.045em;color:var(--paper);font-weight:700;margin-bottom:.3em;line-height:1.12}
-.last-word-punch{display:block;font-size:clamp(3.4rem,7.5vw,8.3rem);color:var(--paper);overflow-wrap:break-word}
-.last-word-note{font-size:clamp(1rem,1.5vw,1.3rem);color:var(--muted);margin:1.5rem 0 1.6rem}
-.last-word-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.8rem 1.6rem}
+.last-word{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,42fr) minmax(0,58fr);align-items:center;min-height:100svh;overflow:hidden;background:#1b0c07;color:var(--paper);scroll-margin-top:0;padding-block:clamp(3rem,7svh,6rem) 5rem}
+.last-word-copy{grid-column:1;grid-row:1;position:relative;z-index:1;min-width:0;padding:clamp(1rem,3vw,3rem) 0 clamp(1rem,3vw,3rem) clamp(1.2rem,5vw,6rem)}
+.last-word-art{grid-column:2;grid-row:1;position:relative;isolation:isolate;overflow:hidden;pointer-events:none;align-self:center}
+.last-word-art picture{display:block;position:relative;width:100%;aspect-ratio:5/4}
+.last-word-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:100% 50%;transform:none}
+.last-word-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#1b0c07 0%,transparent 8%,transparent 97%,#1b0c0755 100%),linear-gradient(180deg,#1b0c07 0%,transparent 8%,transparent 88%,#1b0c07 100%)}
+.last-word-brand{font-weight:900;font-size:clamp(.8rem,1.2vw,1.05rem);letter-spacing:.18em;color:#dca36b;margin:0 0 1.35rem}
+.last-word h2{margin:0;font-weight:900;line-height:.96;letter-spacing:-.065em}
+.last-word-setup{display:block;font-size:clamp(1.75rem,3.3vw,3.8rem);letter-spacing:-.045em;color:#dca36b;font-weight:700;margin-bottom:.3em;line-height:1.12}
+.last-word-punch{display:block;max-width:12ch;font-size:clamp(2.8rem,5.8vw,6.8rem);color:var(--paper);overflow-wrap:break-word;text-wrap:balance}
+.last-word-note{font-size:clamp(1rem,1.4vw,1.2rem);color:var(--muted);margin:1.35rem 0 1.5rem}
+.last-word-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem 1.2rem}
 .last-word-top{display:inline-flex;align-items:center;min-height:48px;font-size:.85rem;text-decoration:underline;text-underline-offset:.3em}
-.last-word-caption{position:absolute;bottom:1.5rem;left:clamp(1.2rem,4.8vw,5rem);right:clamp(1.2rem,4.8vw,5rem);display:flex;justify-content:space-between;font-size:.6rem;letter-spacing:.15em;color:var(--muted)}
-@media(max-aspect-ratio:5/6){.last-word-copy{padding:7rem 1.2rem 5.5rem}.last-word-punch{font-size:clamp(2.8rem,11.8vw,5.6rem)}.last-word-setup{font-size:clamp(1.45rem,5.5vw,2.5rem)}.last-word-caption{font-size:.5rem}.last-word-brand{letter-spacing:.15em}.last-word-art img{object-position:50% 80%}}
-@media(min-aspect-ratio:5/6) and (max-height:520px){.last-word-copy{padding:5rem 1.2rem 3.4rem}.last-word-punch{font-size:clamp(2.6rem,6vw,5rem)}.last-word-brand{margin-bottom:.7rem}.last-word-note{margin:.8rem 0}.last-word-caption{bottom:.7rem}}
-@media(prefers-reduced-motion:reduce){.last-word-art img{transform:none}}
-/* S06 — approved client-facing final line, with the visible stone plate. */
-.last-word h2{max-width:100%;text-wrap:initial}
-.last-word-setup{color:#dca36b;font-size:clamp(2.1rem,4.3vw,4.5rem);margin-bottom:.25em}
-.last-word-punch{max-width:13ch;font-size:clamp(3.4rem,7.5vw,8.3rem);text-wrap:balance}
-.last-word::after{background:linear-gradient(180deg,#1b0c07 0%,rgba(27,12,7,.76) 17%,rgba(27,12,7,.65) 65%,rgba(27,12,7,.25) 86%,#1c0c07 100%)}
-@media(max-aspect-ratio:5/6){.last-word-setup{font-size:clamp(1.7rem,7vw,3rem)}.last-word-punch{font-size:clamp(2.6rem,10.7vw,5.3rem)}}
-@media(min-aspect-ratio:5/6) and (max-height:520px){.last-word-setup{font-size:clamp(1.4rem,3vw,3rem)}.last-word-punch{font-size:clamp(2.5rem,5.5vw,4.8rem)}}
+.last-word-caption{position:absolute;bottom:max(1.5rem,env(safe-area-inset-bottom));left:clamp(1.2rem,4.8vw,5rem);right:clamp(1.2rem,4.8vw,5rem);display:flex;justify-content:space-between;font-size:.6rem;letter-spacing:.15em;color:var(--muted)}
+/* Reveal only the typography: the product still life never resizes or moves. */
+@media(prefers-reduced-motion:no-preference){
+ .last-word[data-revealed=true] .last-word-setup{animation:closing-line .55s ease-out both}
+ .last-word[data-revealed=true] .last-word-punch{animation:closing-line .65s .12s ease-out both}
+}
+@keyframes closing-line{from{opacity:.65;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media(max-aspect-ratio:5/6){
+ .last-word{display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:0;padding:clamp(2.7rem,6svh,4.5rem) 0 max(4rem,calc(env(safe-area-inset-bottom) + 3rem));min-height:100svh}
+ .last-word-copy{order:0;padding:0 1.2rem .5rem;width:100%;max-width:40rem}
+ .last-word-art{order:1;width:100%;align-self:stretch}
+ .last-word-art picture{aspect-ratio:5/4}
+ .last-word-art::after{background:linear-gradient(180deg,#1b0c07 0%,transparent 8%,transparent 89%,#1b0c07 100%)}
+ .last-word-punch{font-size:clamp(2.6rem,10.4vw,5.2rem);max-width:15ch}
+ .last-word-setup{font-size:clamp(1.65rem,6.4vw,3rem)}
+ .last-word-caption{font-size:.5rem;bottom:max(1.1rem,env(safe-area-inset-bottom))}
+ .last-word-brand{letter-spacing:.15em;margin-bottom:1rem}
+ .last-word-note{margin:1rem 0}
+}
+@media(min-aspect-ratio:5/6) and (max-height:520px){
+ .last-word{padding-block:2rem 3rem}
+ .last-word-copy{padding:1.2rem 0 1.2rem 1.2rem}
+ .last-word-punch{font-size:clamp(2rem,5vw,4rem)}
+ .last-word-setup{font-size:clamp(1.35rem,3vw,2.5rem)}
+ .last-word-brand{margin-bottom:.7rem}
+ .last-word-note{margin:.7rem 0}
+ .last-word-caption{bottom:.7rem}
+}
 
 /* S07: one composited layer group fades into the original photographic
    plate. Never fade the isolated bag and the clean plate separately. */

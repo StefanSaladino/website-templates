@@ -113,18 +113,13 @@ loadLayers();
 // Decode the alternate artwork only after the initial opening has loaded.
 if(document.readyState==='complete')loadFilter();else window.addEventListener('load',loadFilter,{once:true});
 
-// Closing chapter motion only. The Ritual photo now remains fixed.
+// S08d: one-shot editorial text entrance, never a photo transform.
 const lastWord=document.querySelector('.last-word');
-let ritualFrame=0;
-function drawRitual(){
- ritualFrame=0;
- if(reduced.matches){lastWord.style.removeProperty('--last-word-scale');return;}
- const h=innerHeight;
- const c=lastWord.getBoundingClientRect();
- if(c.top<h&&c.bottom>0){const t=clamp((h-c.top)/(h+c.height),0,1);lastWord.style.setProperty('--last-word-scale',(1+.035*smooth(t)).toFixed(5));}
+if('IntersectionObserver' in window&&!reduced.matches){
+ const closingObserver=new IntersectionObserver(entries=>{
+  if(entries.some(entry=>entry.isIntersecting)){
+   lastWord.dataset.revealed='true';closingObserver.disconnect();
+  }
+ },{threshold:.18});
+ closingObserver.observe(lastWord);
 }
-function queueRitual(){if(!ritualFrame&&!document.hidden)ritualFrame=requestAnimationFrame(drawRitual)}
-window.addEventListener('scroll',queueRitual,{passive:true});
-window.addEventListener('resize',queueRitual,{passive:true});
-reduced.addEventListener('change',queueRitual);
-queueRitual();
