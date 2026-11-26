@@ -1,18 +1,18 @@
-import {graphicAmount} from './graphic.js?v=P08a';
-import {RELEASE} from './config.js?v=P08a';
-import {createRenderer} from './renderer.js?v=P08a';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P08a';
-import {createScheduler} from './lifecycle.js?v=P08a';
-import {wordmarkOcclusion} from './wordmark.js?v=P08a';
-import {createAmbientClock} from './ambient.js?v=P08a';
-import {readProgress} from './scroll.js?v=P08a';
-import {typographyPose} from './typography.js?v=P08a';
-import {FOLDS,foldAmount} from './sculptures.js?v=P08a';
-import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P08a';
-import {mountParallax} from './parallax.js?v=P08a';
-import {mountForm} from './form.js?v=P08a';
-import {mountSignal} from './signal.js?v=P08a';
-import {mountPossibility} from './possibility.js?v=P08a';
+import {graphicAmount} from './graphic.js?v=P08b';
+import {RELEASE} from './config.js?v=P08b';
+import {createRenderer} from './renderer.js?v=P08b';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition,closingPose,CLOSING_ARRIVE,CLOSING_DEPART} from './camera.js?v=P08b';
+import {createScheduler} from './lifecycle.js?v=P08b';
+import {wordmarkOcclusion} from './wordmark.js?v=P08b';
+import {createAmbientClock} from './ambient.js?v=P08b';
+import {readProgress} from './scroll.js?v=P08b';
+import {typographyPose} from './typography.js?v=P08b';
+import {FOLDS,foldAmount} from './sculptures.js?v=P08b';
+import {perspectivePose,perspectivePresence,explorationPose} from './editorial.js?v=P08b';
+import {mountParallax} from './parallax.js?v=P08b';
+import {mountForm} from './form.js?v=P08b';
+import {mountSignal} from './signal.js?v=P08b';
+import {mountPossibility} from './possibility.js?v=P08b';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -100,7 +100,7 @@ function start(){
   const journeyRequested=flags.get('journey')!=='off'&&!floorMask;
   const approachOnly=flags.get('track')==='approach',crossingOnly=flags.get('track')==='crossing',perspectiveOnly=flags.get('track')==='perspective';
   const fullTrack=!approachOnly&&!crossingOnly&&!perspectiveOnly;
-  const closingTrack=graphic&&fullTrack&&flags.get('track')==='possibility';
+  const closingTrack=graphic&&fullTrack&&flags.get('track')!=='exhibition';
   if(closingTrack)root.dataset.closing='on';
   possibility.enable(closingTrack);
   const nextChapter=stage.querySelector('[data-journey-next]'),backChapter=stage.querySelector('[data-journey-back]');
@@ -143,7 +143,7 @@ function start(){
     const localProgress=closingTrack?Math.min(1,progress/CLOSING_ARRIVE):progress;
     // The ambient source is the red entrance. Stop invisible idle GPU work
     // once the camera clears it, but never throttle input-triggered frames.
-    const ambientVisible=ambientEnabled&&(quality==='full'||!journeyActive||localProgress<.44);
+    const ambientVisible=ambientEnabled&&(!journeyActive||localProgress<.44);
     const sample=ambientVisible?clock.sample(started,forceDraw):{render:true,phase:-1,elapsed:clock.elapsed};
     if(!ambientVisible)clock.pause();
     forceDraw=false;
