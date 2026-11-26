@@ -966,3 +966,5 @@ THRESHOLD P07c: stakeholder rejected text backing blocks. Remove later-room edit
 THRESHOLD P08a: stakeholder-reported scroll lag; optimize high-DPR pixel/reflection budget, idle draws and layout work; instrument actual submitted-frame cadence and separate comparative benchmark; correct contact touch-target specificity. P07c dense passed, foundation failed contact label. Physical device FPS not established; exact P08a evidence pending. No catalogue change.
 
 THRESHOLD P08b: closeout candidate defaults to complete five-chapter route, retain track=exhibition diagnostic. P08a software benchmark 1.76–2.05x submission throughput and dense review passed. Foundation and exact candidate QA gate gallery-only registration; physical FPS not certified. No catalogue change yet.
+
+THRESHOLD P08c: stakeholder withdrew closeout, supplied iOS recording. Mobile editorial scale/spacing, no Perspective tabs, intact scroll-linked text reveals, extra short-browser-height evidence. P08a all three jobs passed; P08b foundation pending at edit. No gallery registration until renewed approval and exact QA.

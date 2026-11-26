@@ -611,3 +611,86 @@ details[open] .project-toggle::after { transform: none; }
 
 /* P08a: the earlier short-height rule was more specific than P07c. */
 @media(max-height:640px){ :root[data-journey="on"] .possibility-contact label{min-height:44px;} }
+
+/* P08c — screen-recording-led mobile editorial pass.
+   Typography enters as intact lines. The camera is still driven exclusively
+   by the same native scroll sample; no CSS time-based catch-up. */
+:root[data-journey="on"] .exploration {
+  clip-path:none;
+  opacity:var(--exploration-opacity,0);
+  transform:translate3d(0,calc(10px * (1 - var(--exploration-opacity,0))),0);
+  will-change:opacity,transform;
+}
+:root[data-journey="on"] .possibility:not([hidden]) {
+  clip-path:none;
+  opacity:var(--possibility-opacity,0);
+  transform:translate3d(0,calc(8px * (1 - var(--possibility-opacity,0))),0);
+  will-change:opacity,transform;
+}
+:root[data-journey="on"] .journey-stage[data-direction="graphic"][data-room="perspective"] .masthead a::before {
+  content:none;
+}
+:root[data-journey="on"] .journey-stage[data-direction="graphic"][data-room="perspective"] .masthead a {
+  color:#242321; isolation:auto; text-shadow:0 0 2px #eeece5,0 0 5px #eeece5;
+}
+:root[data-journey="on"] .journey-stage[data-direction="graphic"][data-room="perspective"] .masthead a:focus-visible {
+  outline:2px solid #242321; outline-offset:3px; filter:drop-shadow(0 0 1px #eeece5);
+}
+/* Descriptions have a launch button after them, so last-child was no longer
+   an appropriate paragraph selector. Keep copy distinct from metadata. */
+.project-description p:not(.project-category) {
+  font-size:.88rem;line-height:1.45;max-width:40ch;margin:.35rem 0 .15rem;
+}
+@media (max-aspect-ratio:1199/1000) {
+  :root[data-closing="on"] .masthead {padding-inline:max(5vw,1rem,env(safe-area-inset-left)) max(5vw,1rem,env(safe-area-inset-right));}
+  :root[data-closing="on"] .gallery-link {font-size:.75rem;letter-spacing:.06em;}
+  :root[data-closing="on"] .opening-copy {inset-inline:max(5vw,1rem);}
+  :root[data-closing="on"] .opening-copy .studio {font-size:.7rem;line-height:1.4;}
+  :root[data-closing="on"] .opening-copy h1 {font-size:clamp(1.7rem,7vw,2.8rem);letter-spacing:-.055em;line-height:1.02;}
+  :root[data-closing="on"] .studio-description {font-size:.88rem;line-height:1.5;}
+  :root[data-closing="on"][data-journey="on"] .exploration {
+    inset-inline:max(5vw,1rem,env(safe-area-inset-left)) max(5vw,1rem,env(safe-area-inset-right));
+  }
+  :root[data-closing="on"] .exploration-index,
+  :root[data-closing="on"] .exploration-list-label,
+  :root[data-closing="on"] .perspective-index {font-size:.72rem;letter-spacing:.09em;}
+  :root[data-closing="on"] .exploration-intro h2 {font-size:clamp(2.45rem,11.5vw,5.5rem);line-height:.94;}
+  :root[data-closing="on"] .exploration-intro > p:not(.exploration-index) {font-size:.94rem;line-height:1.5;}
+  :root[data-closing="on"] .project-name {font-size:clamp(1.3rem,5.2vw,2.4rem);letter-spacing:-.045em;}
+  :root[data-closing="on"] .project-number {font-size:.72rem;}
+  :root[data-closing="on"] .journey-next,
+  :root[data-closing="on"] .possibility .journey-back {font-size:.85rem;}
+  :root[data-closing="on"][data-journey="on"] .possibility:not([hidden]):not([data-contact="on"]) {
+    inset-inline:max(5vw,1rem,env(safe-area-inset-left)) max(5vw,1rem,env(safe-area-inset-right));
+  }
+  :root[data-closing="on"] .possibility h2 {font-size:clamp(2rem,9vw,4.3rem);line-height:.98;}
+  :root[data-closing="on"] .possibility-copy > p:not(.exploration-index) {font-size:.94rem;line-height:1.5;}
+  :root[data-closing="on"] .possibility-cta {font-size:.88rem;}
+}
+/* Taller phones gain more generous editorial scale, without stealing space
+   from the installation on compact devices or introducing nested scrolling. */
+@media (max-aspect-ratio:1199/1000) and (min-height:641px) {
+  :root[data-closing="on"][data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial {
+    inset-inline:max(5vw,1rem,env(safe-area-inset-left)) max(5vw,1rem,env(safe-area-inset-right));
+    inline-size:auto;max-inline-size:none;inset-block-end:max(3vh,.8rem,env(safe-area-inset-bottom));
+  }
+  :root[data-closing="on"][data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial h2 {
+    font-size:clamp(1.8rem,7.5vw,3.1rem);line-height:1;
+  }
+  :root[data-closing="on"][data-journey="on"] .perspective-statement {font-size:.92rem;line-height:1.45;}
+  :root[data-closing="on"][data-journey="on"] .perspective-capabilities {font-size:.76rem;gap:.35rem .9rem;}
+  :root[data-closing="on"] .exploration-projects summary {min-height:48px;}
+  :root[data-closing="on"] .exploration-intro h2 {font-size:clamp(2.7rem,12vw,5.5rem);}
+  :root[data-closing="on"] .project-description p:not(.project-category) {font-size:.94rem;}
+}
+@media (max-aspect-ratio:1199/1000) and (max-height:640px) {
+  :root[data-closing="on"][data-journey="on"] .exploration:not([data-study]) {gap:.4rem;}
+  :root[data-closing="on"] .exploration-intro h2 {font-size:clamp(2rem,9vw,2.7rem);margin:.3rem 0 .4rem;}
+  :root[data-closing="on"] .exploration-intro > p:not(.exploration-index),
+  :root[data-closing="on"] .project-description p:not(.project-category) {font-size:.82rem;line-height:1.35;}
+  :root[data-closing="on"] .project-description {padding-bottom:.25rem;}
+  :root[data-closing="on"] .possibility h2 {font-size:clamp(1.85rem,8vw,2.8rem);}
+}
+@media (prefers-reduced-motion:reduce) {
+  :root[data-journey="on"] .exploration,:root[data-journey="on"] .possibility:not([hidden]) {transform:none;will-change:auto;}
+}
