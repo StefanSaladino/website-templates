@@ -16,7 +16,8 @@ test('release and local assets agree', () => {
     assert.ok(existsSync(new URL(path, root)));
   }
   assert.equal([...html.matchAll(/(?:href|src)="(?:styles|src)\//g)].length, 3);
-  assert.match(read('src/main.js'), /config\.js\?v=P07aa/);
+  assert.ok(read('src/main.js').includes("'./config.js?v="+RELEASE+"'"),'entry config release matches');
+  for(const [,path,version] of read('src/main.js').matchAll(/from '\.\/([^'?]+)\?v=([^']+)'/g)){assert.equal(version,RELEASE);assert.ok(existsSync(new URL('src/'+path,root)));}
   assert.match(html, /<canvas[^>]+hidden/);
   assert.doesNotMatch(html, /(?:src|href)="https?:\/\//i);
 });

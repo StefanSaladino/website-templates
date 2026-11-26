@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=P07a';
+import { worldPoint } from './config.js?v=P07b';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -173,5 +173,7 @@ export function closingPose(aspect,desktopComposition=false,progress=0){
  let target=wide?54:65;if(!wide&&aspect<.46)target=2*Math.atan(Math.tan(target*Math.PI/360)*.46/aspect)*180/Math.PI;
  const fov=mix(prior.fov,target,e);
  const lens=perspective(fov,aspect);lens[8]=wide?.33*e:0;
- return {eye,aim,fov,shiftX:lens[8],shiftY:0,vp:multiply(lens,lookAt(eye,aim))};
+ // In portrait the white aperture belongs above the lower editorial field.
+ lens[9]=wide?0:-.30*e;
+ return {eye,aim,fov,shiftX:lens[8],shiftY:lens[9],vp:multiply(lens,lookAt(eye,aim))};
 }

@@ -3,8 +3,8 @@ export function mountPossibility(section){
  const cta=section.querySelector('.possibility-cta'),contact=section.querySelector('.possibility-contact');
  const create=section.querySelector('[data-possibility-create]'),back=section.querySelector('[data-possibility-return]'),out=section.querySelector('output');
  let enabled=false,previous='';
- function open(){section.dataset.contact='on';contact.hidden=false;cta.setAttribute('aria-expanded','true');contact.querySelector('input:checked').focus({preventScroll:true})}
- function close(){delete section.dataset.contact;contact.hidden=true;cta.setAttribute('aria-expanded','false');cta.focus({preventScroll:true})}
+ function open(){section.dataset.contact='on';section.setAttribute('aria-labelledby','possibility-contact-heading');contact.hidden=false;cta.setAttribute('aria-expanded','true');contact.querySelector('input:checked').focus({preventScroll:true})}
+ function close(){delete section.dataset.contact;section.setAttribute('aria-labelledby','possibility-heading');contact.hidden=true;cta.setAttribute('aria-expanded','false');cta.focus({preventScroll:true})}
  function prepare(){out.value='Local brief: '+contact.querySelector('input:checked').value+'. Nothing has been submitted.'}
  function key(e){if(e.key==='Escape'&&!contact.hidden){e.preventDefault();close()}}
  cta.addEventListener('click',open);back.addEventListener('click',close);create.addEventListener('click',prepare);section.addEventListener('keydown',key);

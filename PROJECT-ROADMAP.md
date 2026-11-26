@@ -958,3 +958,5 @@ THRESHOLD P06: SIGNAL functional network routing study with shortest-path comput
 THRESHOLD P07 closing preview: opt-in ?track=possibility adds continuous dark room/white aperture, local-only project brief interaction and dwell without changing default route. P04 full review passed; P05/P06 remaining checks and P07 actual preview verification pending. Promote only after review. No catalogue change.
 
 THRESHOLD P07a: actual P05 captures reviewed; improved wide Exploration spacing and explicit preview-only chapter navigation/focus. P05 full review passed, P06 dense and P07 unit/Pages passed; closing review and exact P07a verification pending. Default journey not promoted, no catalogue change.
+
+THRESHOLD P07b: stakeholder identified white-on-white text; actual P07 closing frames confirm overlap. Correct portrait aperture framing, matte contrast surfaces, nav backing, clip reveal, accessible contact name and release test typo. Add actual-pixel contrast regression. Exact browser validation pending; no catalogue change.
