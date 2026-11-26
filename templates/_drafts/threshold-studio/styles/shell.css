@@ -278,3 +278,26 @@ footer { opacity: var(--footer-opacity, 1); }
 @media (max-height:640px) {
   :root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial h2 {font-size:clamp(1.35rem,4.6vw,2rem)}
 }
+
+/* P02: a typographic diptych with a separate right editorial column.
+   Portrait keeps the lower editorial zone. No caption panel or scroll layer. */
+@media (min-aspect-ratio:6/5) {
+  :root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial {
+    inset-inline-start:auto;
+    inset-inline-end:max(4vw,1rem,env(safe-area-inset-right));
+    inline-size:min(26vw,24rem);
+    max-inline-size:26vw;
+    inset-block-end:max(5vh,1rem,env(safe-area-inset-bottom));
+  }
+  :root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial h2 {
+    font-size:clamp(1.55rem,min(3.7vw,5.6vh),3.6rem);
+  }
+}
+@media (min-aspect-ratio:6/5) and (max-height:479px) {
+  :root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial {
+    inset-block-end:max(3vh,.65rem,env(safe-area-inset-bottom));
+  }
+  :root[data-journey="on"] .journey-stage[data-direction="graphic"] .perspective-editorial h2 {
+    font-size:clamp(1.2rem,4.7vh,1.65rem);
+  }
+}

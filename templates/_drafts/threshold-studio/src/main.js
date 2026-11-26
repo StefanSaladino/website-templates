@@ -1,14 +1,14 @@
-import {graphicAmount} from './graphic.js?v=P01';
-import {RELEASE} from './config.js?v=P01';
-import {createRenderer} from './renderer.js?v=P01';
-import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition} from './camera.js?v=P01';
-import {createScheduler} from './lifecycle.js?v=P01';
-import {wordmarkOcclusion} from './wordmark.js?v=P01';
-import {createAmbientClock} from './ambient.js?v=P01';
-import {readProgress} from './scroll.js?v=P01';
-import {typographyPose} from './typography.js?v=P01';
-import {FOLDS,foldAmount} from './sculptures.js?v=P01';
-import {perspectivePose,perspectivePresence} from './editorial.js?v=P01';
+import {graphicAmount} from './graphic.js?v=P02';
+import {RELEASE} from './config.js?v=P02';
+import {createRenderer} from './renderer.js?v=P02';
+import {DESKTOP_COMPOSITION_QUERY,approachPose,crossingPose,revealPose,exhibitionPose,EXHIBITION_JOIN,REVEAL_JOIN,approachProgress,openingComposition,graphicComposition} from './camera.js?v=P02';
+import {createScheduler} from './lifecycle.js?v=P02';
+import {wordmarkOcclusion} from './wordmark.js?v=P02';
+import {createAmbientClock} from './ambient.js?v=P02';
+import {readProgress} from './scroll.js?v=P02';
+import {typographyPose} from './typography.js?v=P02';
+import {FOLDS,foldAmount} from './sculptures.js?v=P02';
+import {perspectivePose,perspectivePresence} from './editorial.js?v=P02';
 const root=document.documentElement;
 if(root.dataset.release===RELEASE){root.dataset.shell='ready';start()}
 function start(){
@@ -78,8 +78,10 @@ function start(){
       if(!renderer){failed=true;staticView('graphics-unavailable');return}
       const r=surface.getBoundingClientRect();
       const progress=journeyActive?readProgress(document.scrollingElement):0;
-      const pose=(approachOnly?approachPose:crossingOnly?crossingPose:perspectiveOnly?revealPose:exhibitionPose)(r.width/r.height,desktopComposition.matches,progress);
+      const physicalPose=(approachOnly?approachPose:crossingOnly?crossingPose:perspectiveOnly?revealPose:exhibitionPose)(r.width/r.height,desktopComposition.matches,progress);
       const perspectiveProgress=fullTrack?Math.min(1,progress/EXHIBITION_JOIN):progress;
+      const presence=fullTrack?perspectivePresence(progress):1;
+      const pose=graphic?graphicComposition(physicalPose,r.width/r.height,perspectiveProgress,presence):physicalPose;
       const foldProgress=!graphic&&foldsEnabled&&!approachOnly&&!crossingOnly?perspectiveProgress:0;
       const result=renderer.draw(r.width,r.height,devicePixelRatio,reflectionEnabled,lightingEnabled,floorMask,desktopComposition.matches,sample.phase,pose,foldProgress,graphic?perspectiveProgress:0);
       if(!result){staticView('not-ready');return}
@@ -90,12 +92,12 @@ function start(){
       study.dataset.progress=progress.toFixed(6);
       // The navigation adopts ink only after the camera has cleared the red throat.
       stage.dataset.room=pose.eye[2]<=-20.4?'exploration':pose.eye[2]<=-7.2?'perspective':'arrival';
-      applyEditorial(!approachOnly&&!crossingOnly&&journeyActive?perspectiveProgress:0,fullTrack?perspectivePresence(progress):1);
+      applyEditorial(!approachOnly&&!crossingOnly&&journeyActive?perspectiveProgress:0,presence);
       study.dataset.graphic=graphic?'on':'off';study.dataset.graphicAmount=(graphic?graphicAmount(perspectiveProgress):0).toFixed(6);
       study.dataset.folds=FOLDS.map(f=>foldAmount(f,foldProgress).toFixed(6)).join(',');
       study.dataset.sculptureUploads=String(result.sculptureUploads);
       study.dataset.eye=pose.eye.map(v=>v.toFixed(6)).join(',');
-      study.dataset.fov=pose.fov.toFixed(6);
+      study.dataset.fov=pose.fov.toFixed(6);study.dataset.shiftX=pose.shiftX.toFixed(6);
       study.dataset.frames=String(++frames);
       study.dataset.ambient=ambientEnabled?'on':'off';study.dataset.ambientElapsed=sample.elapsed.toFixed(2);
       study.dataset.buffer=result.width+'x'+result.height;

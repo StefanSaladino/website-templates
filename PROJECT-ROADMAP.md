@@ -942,3 +942,5 @@ T24b exact revision 990e40326ce6c48d7225e3c091f8c847caa1cb99: both foundation an
 
 ## THRESHOLD — creative pivot (P01/P01a)
 The museum/David direction and former T19–T24 creative roadmap are superseded. P01 replaces the scan with an original spatial SEE typographic installation, preserves the accepted Arrival/Crossing and native scroll, and reduces the normal scene to 472 triangles. P01a fixes the legacy diagnostic route and adds targeted graphic verification. Runtime stays P01. See [the authoritative THRESHOLD roadmap](docs/THRESHOLD-STUDIO-ROADMAP.md) for P02–P09. Pending exact-revision browser evidence, visual/mobile refinement and stakeholder approval. No catalogue registration.
+
+THRESHOLD P02 review candidate: graphic-only optical composition, dedicated wide editorial column, centered portrait and inverted central letterform. P01 dense transition passed; P01a Node/Pages passed, full browser evidence pending at edit. See dedicated roadmap; no catalogue change.

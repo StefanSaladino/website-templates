@@ -1,5 +1,5 @@
 // Column-major matrices; right-handed world, +Y up, -Z forward.
-import { worldPoint } from './config.js?v=P01';
+import { worldPoint } from './config.js?v=P02';
 const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 const sub=(a,b)=>a.map((v,i)=>v-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -146,4 +146,15 @@ export function exhibitionPose(aspect,desktopComposition=false,progress=0){
   let fovTarget=wide?54:65;if(!wide&&aspect<.46)fovTarget=2*Math.atan(Math.tan(fovTarget*Math.PI/360)*.46/aspect)*180/Math.PI;
   const fov=mix(start.fov,fovTarget,e);
   return {eye,aim,fov,shiftX:0,shiftY:0,vp:multiply(perspective(fov,aspect),lookAt(eye,aim))};
+}
+
+// P02: moving editorial spread; optical shift only, physical path unchanged.
+export function graphicComposition(pose,aspect,localProgress,presence=1){
+  const t=clamp01((localProgress-.72)/.14);
+  const amount=t*t*(3-2*t)*clamp01(presence);
+  if(amount===0)return pose;
+  const shift=aspect>=1.2?.36:.10;
+  const lens=perspective(pose.fov,aspect);
+  lens[8]=pose.shiftX+shift*amount;lens[9]=pose.shiftY;
+  return {...pose,shiftX:lens[8],vp:multiply(lens,lookAt(pose.eye,pose.aim))};
 }

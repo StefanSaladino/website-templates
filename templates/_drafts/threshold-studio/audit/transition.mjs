@@ -7,12 +7,12 @@ const out='/tmp/threshold-transition';
 mkdirSync(out,{recursive:true});
 const base='http://127.0.0.1:4381/templates/_drafts/threshold-studio/';
 const browser=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P01',verification:'P01a',viewports:[]};
+const report={commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,release:'P02',verification:'P02',viewports:[]};
 function save(){writeFileSync(out+'/report.json',JSON.stringify(report,null,2))}
 async function sample(page,offset){
   await page.evaluate(y=>{document.scrollingElement.scrollTop=y},offset);
   await page.waitForFunction(y=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return Math.abs(s.scrollTop-y)<=.5&&Math.abs(+d.progress-s.scrollTop/(s.scrollHeight-s.clientHeight))<.000002},offset);
-  return page.evaluate(()=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,p:+d.progress,eye:d.eye,fov:d.fov,folds:d.folds,graphic:d.graphic,graphicAmount:d.graphicAmount,triangles:+d.triangles,editorial:d.editorial,editorialTransform:getComputedStyle(document.querySelector('.perspective-editorial')).transform,editorialOpacity:getComputedStyle(document.querySelector('.perspective-editorial')).opacity,editorialBounds:JSON.stringify(document.querySelector('.perspective-editorial').getBoundingClientRect().toJSON()),room:document.querySelector('.journey-stage').dataset.room,frames:+d.frames,renderer:d.renderer,mark:getComputedStyle(document.querySelector('.display-wordmark')).opacity,copy:getComputedStyle(document.querySelector('.opening-copy')).opacity,mask:document.querySelector('#wordmark-occluder').getAttribute('points'),width:s.scrollWidth,clientWidth:s.clientWidth,stageTop:document.querySelector('.journey-stage').getBoundingClientRect().top}});
+  return page.evaluate(()=>{const s=document.scrollingElement,d=document.querySelector('#scene-study').dataset;return {offset:s.scrollTop,range:s.scrollHeight-s.clientHeight,p:+d.progress,eye:d.eye,fov:d.fov,shiftX:d.shiftX,folds:d.folds,graphic:d.graphic,graphicAmount:d.graphicAmount,triangles:+d.triangles,editorial:d.editorial,editorialTransform:getComputedStyle(document.querySelector('.perspective-editorial')).transform,editorialOpacity:getComputedStyle(document.querySelector('.perspective-editorial')).opacity,editorialBounds:JSON.stringify(document.querySelector('.perspective-editorial').getBoundingClientRect().toJSON()),room:document.querySelector('.journey-stage').dataset.room,frames:+d.frames,renderer:d.renderer,mark:getComputedStyle(document.querySelector('.display-wordmark')).opacity,copy:getComputedStyle(document.querySelector('.opening-copy')).opacity,mask:document.querySelector('#wordmark-occluder').getAttribute('points'),width:s.scrollWidth,clientWidth:s.clientWidth,stageTop:document.querySelector('.journey-stage').getBoundingClientRect().top}});
 }
 try{
   for(const [width,height] of [[320,568],[390,844],[1440,900],[844,390]]){
@@ -37,7 +37,7 @@ try{
     entry.status='reverse';save();
     for(const offset of offsets.slice().reverse()){
       const state=await sample(page,offset),prior=forward.get(offset);
-      for(const key of ['p','eye','fov','folds','graphic','graphicAmount','triangles','editorial','editorialTransform','editorialOpacity','editorialBounds','room','mark','copy','mask','range'])assert.equal(state[key],prior.state[key],'reverse '+key+' at '+offset);
+      for(const key of ['p','eye','fov','shiftX','folds','graphic','graphicAmount','triangles','editorial','editorialTransform','editorialOpacity','editorialBounds','room','mark','copy','mask','range'])assert.equal(state[key],prior.state[key],'reverse '+key+' at '+offset);
       const screenshot=await page.screenshot();
       const pixels=await sharp(screenshot).removeAlpha().raw().toBuffer(),priorPixels=await sharp(prior.image).removeAlpha().raw().toBuffer();
       assert.equal(pixels.length,priorPixels.length);
@@ -81,6 +81,6 @@ try{
       if(video)copyFileSync(await video.path(),out+'/native-scroll-'+width+'.webm');
     }
     entry.status='passed';save();
-    console.log('P01a viewport passed',width,height,offsets.length,maxReverseDelta,entry.trace.length);
+    console.log('P02 viewport passed',width,height,offsets.length,maxReverseDelta,entry.trace.length);
   }
 }finally{save();await browser.close()}

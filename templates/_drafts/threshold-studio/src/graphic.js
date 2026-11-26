@@ -1,4 +1,4 @@
-// P01: original, intentionally graphic modular letterforms, not a sculpture scan.
+// P02: original, intentionally graphic modular letterforms, not a sculpture scan.
 // Three floor-to-ceiling visual planes use one consistent spatial axis.
 // S and E are bespoke rectilinear stencil forms: the voids are real negative space.
 const clamp=v=>Math.max(0,Math.min(1,v));
@@ -22,7 +22,7 @@ export function graphicMesh(progress=0){
   const point=(u,y,n)=>[4.12+.64*u-.768*(n+offset),y,-14.98+.768*u+.64*(n+offset)];
   const l=center-.595,r=center+.595,b=0,t=5.2,front=.10,back=-.10;
   const q=(a,b,c,d,col)=>quad(point(...a),point(...b),point(...c),point(...d),col);
-  q([l,b,front],[r,b,front],[r,t,front],[l,t,front],bone);
+  q([l,b,front],[r,b,front],[r,t,front],[l,t,front],i===1?ink:bone);
   q([r,b,back],[l,b,back],[l,t,back],[r,t,back],edge);
   q([l,b,back],[l,b,front],[l,t,front],[l,t,back],red);
   q([r,b,front],[r,b,back],[r,t,back],[r,t,front],red);
@@ -31,7 +31,7 @@ export function graphicMesh(progress=0){
   // Ink shares the slab transform and sits on its surface, not in screen space.
   for(const [x0,y0,x1,y1] of letters[i]){
     const a=center-.49+x0*.98,c=center-.49+x1*.98,d=1.05+y0*3.55,g=1.05+y1*3.55;
-    q([a,d,front+.003],[c,d,front+.003],[c,g,front+.003],[a,g,front+.003],ink);
+    q([a,d,front+.003],[c,d,front+.003],[c,g,front+.003],[a,g,front+.003],i===1?bone:ink);
   }
  }
  return new Float32Array(out);
